@@ -126,12 +126,50 @@ public class Unit : UnitStats
         Initiative = Random.Range(0, 10);
     }
 
+    public virtual void StartMoving(List<BoardTile> path)
+    {
+        StartCoroutine(Move(path));
+    } 
+
+    IEnumerator Move(List<BoardTile> path)
+    {
+        Vector3 startPosition = transform.position + Vector3.up;
+        Vector3 endPosition = new Vector3();
+
+        for (int i = 0; i < path.Count; i++)
+        {
+            endPosition = path[i].transform.position + Vector3.up;
+            float distanceLeft = 0;
+
+            while (distanceLeft <= 1)
+            {
+                distanceLeft += Time.deltaTime * (1f + MoveSpeed*0.1f);
+                transform.position = Vector3.Lerp(startPosition, endPosition, distanceLeft);
+
+                yield return new WaitForEndOfFrame();
+            }
+
+            CombatData.CurrentActiveUnit.currentTile = path[i];
+            MoveSpeedLeft--;
+            startPosition = endPosition;
+        }
+        var endTile = path[path.Count-1];
+        boardManager.ClearMovement();
+        boardManager.SetMovementLeft(MoveSpeedLeft, endTile);
+    }
+
+    void SetStartOfTurnStats()
+    {
+        MoveSpeedLeft = MoveSpeed;
+    }
+
     public virtual void StartTurn()
     {
         if (OnTurnStart != null)
             OnTurnStart.Invoke();
 
         boardManager.ClearMovement();
+        SetStartOfTurnStats();
         boardManager.SetMovementLeft(MoveSpeed, currentTile);
     }
 

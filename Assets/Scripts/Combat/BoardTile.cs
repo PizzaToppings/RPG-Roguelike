@@ -24,21 +24,27 @@ public class BoardTile : MonoBehaviour
         StartCoroutine(SlideIn());
     }
 
+    void OnMouseDown()
+    {
+        // start moving
+        boardManager.Path.Reverse();
+        CombatData.CurrentActiveUnit.StartMoving(boardManager.Path);
+    }
+
     void OnMouseEnter()
     {
         if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1)
         {
+            boardManager.Path = new List<BoardTile>();
             boardManager.ShowMovementLine(this, movementLeft);
-        }   
+        }
     }
 
-    // void OnMouseExit()
-    // {
-    //     if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1)
-    //     {
-    //         Debug.Log("mouseExit: " + this.name);
-    //     }   
-    // }
+    void OnMouseExit()
+    {
+        if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1)
+            boardManager.StopShowingMovement();
+    }
 
     IEnumerator SlideIn()
     {

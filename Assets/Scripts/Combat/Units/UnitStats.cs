@@ -12,6 +12,7 @@ public class UnitStats : MonoBehaviour
     public int ShieldPoints;
 
     public int MoveSpeed;
+    public int MoveSpeedLeft;
     public int Initiative;
 
     public int PhysicalPower;

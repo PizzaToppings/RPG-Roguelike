@@ -19,6 +19,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] Color activeColor;
 
     LineRenderer movementIndicator;
+    public List<BoardTile> Path = new List<BoardTile>();
+    
 
     void Start()
     {
@@ -68,6 +70,7 @@ public class BoardManager : MonoBehaviour
             tile.movementLeft = -1;
             tile.gameObject.GetComponent<Renderer>().materials[1].color = originalColor;
         }
+        StopShowingMovement();
     }
 
     public void SetMovementLeft(int movementLeft, BoardTile startingTile)
@@ -95,19 +98,17 @@ public class BoardManager : MonoBehaviour
 
         foreach (var tile in usedTiles)
             SetMovementLeft(movementLeft, tile);
-
-        // StartCoroutine(foo(usedTiles, movementLeft));
     }
 
     public void ShowMovementLine(BoardTile finaltile, int movementAmount)
     {
-        int movementUsed = CombatData.CurrentActiveUnit.MoveSpeed - movementAmount;
-        Debug.Log( movementUsed);
+        int movementUsed = CombatData.CurrentActiveUnit.MoveSpeedLeft - movementAmount;
         movementIndicator.positionCount = movementUsed + 1;
         movementIndicator.SetPosition(0, finaltile.transform.position + Vector3.up);
         movementIndicator.SetPosition(movementUsed, CombatData.CurrentActiveUnit.currentTile.transform.position + Vector3.up);
 
         BoardTile currentTile = finaltile;
+        Path.Add(currentTile);
 
         for (int i = 0; i < movementUsed; i++)
         {
@@ -120,18 +121,16 @@ public class BoardManager : MonoBehaviour
                 {
                     movementIndicator.SetPosition(i+1, tile.transform.position + Vector3.up);
                     currentTile = tile;
+                    Path.Add(tile);
                     continue;
                 }
             }
         }
     }
 
-    IEnumerator foo(List<BoardTile> tiles, int moveLeft)
+    public void StopShowingMovement()
     {
-        foreach (var tile in tiles)
-        {
-            yield return new WaitForSeconds(1);
-            SetMovementLeft(moveLeft, tile);
-        }
+        Debug.Log("stop showing movement");
+        movementIndicator.positionCount = 0;
     }
 }
