@@ -26,6 +26,9 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (movementLeft < 0 || !BoardData.canMove)
+            return;
+
         // start moving
         boardManager.Path.Reverse();
         CombatData.CurrentActiveUnit.StartMoving(boardManager.Path);
@@ -33,7 +36,7 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1)
+        if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1 && BoardData.canMove)
         {
             boardManager.Path = new List<BoardTile>();
             boardManager.ShowMovementLine(this, movementLeft);

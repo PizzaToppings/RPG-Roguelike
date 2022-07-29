@@ -10,6 +10,14 @@ public class Enemy : Unit
         base.Awake();
     }
 
+    public override void Update()
+    {
+        if (CombatData.CurrentActiveUnit == this)
+        {
+            base.Update();
+        }
+    }
+
     public override void StartTurn()
     {
         Debug.Log("starting enemy turn");

@@ -130,7 +130,6 @@ public class BoardManager : MonoBehaviour
 
     public void StopShowingMovement()
     {
-        Debug.Log("stop showing movement");
         movementIndicator.positionCount = 0;
     }
 }

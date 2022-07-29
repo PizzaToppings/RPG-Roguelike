@@ -19,7 +19,7 @@ public class Unit : UnitStats
         RollInitiative();
     }
 
-    void Update()
+    public virtual void Update()
     {
         
     }
@@ -175,6 +175,8 @@ public class Unit : UnitStats
 
     public virtual void EndTurn()
     {
+        BoardData.canMove = false;
+
         Debug.Log("ending turn");
         if (OnTurnEnd != null)
             OnTurnEnd.Invoke();

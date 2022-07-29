@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
-    [SerializeField] BoardManager boardManager;
+    [SerializeField] BoardManager boardManager; 
 
     // List<Unit> units = new List<Unit>(); 
     // List<Character> characters = new List<Character>(); 
@@ -12,8 +12,14 @@ public class UnitManager : MonoBehaviour
 
     //---------------------------
 
+    public bool canMove;
+
     [SerializeField] GameObject playerPlaceholder;
     [SerializeField] GameObject enemyPlaceholder;
+    void Update()
+    {
+        canMove = BoardData.canMove;
+    }
 
     public void PlaceUnits()
     {
