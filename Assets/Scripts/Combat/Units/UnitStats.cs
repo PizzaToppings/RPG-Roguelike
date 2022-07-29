@@ -44,4 +44,8 @@ public class UnitStats : MonoBehaviour
     public bool Invisible;
     public int LifeSteal;
     public int Unstoppable;
+
+    public BoardManager boardManager;
+    public BoardTile currentTile = null;
+
 }

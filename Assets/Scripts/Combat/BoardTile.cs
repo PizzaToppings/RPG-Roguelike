@@ -9,11 +9,10 @@ public class BoardTile : MonoBehaviour
     public int xPosition = 0;
     public int yPosition = 0;
 
-    public bool activated;
+    public int movementLeft = -1;
 
     // temp
     int index = 0;
-    LineRenderer lineRenderer;
 
 
     void Start()
@@ -53,16 +52,6 @@ public class BoardTile : MonoBehaviour
 
     public void SetConnectedTiles()
     {
-        activated = true;
-
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
-        lineRenderer.positionCount = 0;
-        var randomColor = Random.ColorHSV();
-        lineRenderer.startColor = randomColor;
-        lineRenderer.endColor = randomColor;
-
         int unevenColumnOffset = -1;
         if (yPosition % 2 != 0)
         {
@@ -80,11 +69,6 @@ public class BoardTile : MonoBehaviour
                     if (tile != this)
                     {
                         connectedTiles[index] = tile;
-
-                        lineRenderer.positionCount += 2;
-
-                        lineRenderer.SetPosition(index * 2, tile.transform.position + Vector3.up);
-                        lineRenderer.SetPosition(index * 2 + 1, transform.position + Vector3.up);
                         index++;
                     }
                 }

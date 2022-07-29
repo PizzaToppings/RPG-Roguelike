@@ -2261,11 +2261,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5fcbb128ff08844ae285f81465a8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rowAmount: 20
-  columnAmount: 15
   tilePrefab: {fileID: 8538225242230933587, guid: e73f6b398f1a25246a9929b9e96ec09d,
     type: 3}
   BoardParent: {fileID: 387685902}
+  originalColor: {r: 0.19607843, g: 0.5137255, b: 0.18431373, a: 1}
+  activeColor: {r: 0, g: 0.76727796, b: 1, a: 1}
 --- !u!1 &2080984640
 GameObject:
   m_ObjectHideFlags: 0

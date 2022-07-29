@@ -108,6 +108,7 @@ MonoBehaviour:
   - {fileID: 0}
   xPosition: 0
   yPosition: 0
+  movementLeft: -1
   activated: 0
 --- !u!120 &9116348381370623383
 LineRenderer:

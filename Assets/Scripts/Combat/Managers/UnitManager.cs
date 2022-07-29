@@ -30,14 +30,15 @@ public class UnitManager : MonoBehaviour
             var randomY = Random.Range(0, BoardData.columnAmount);
             var randomPlace = BoardData.BoardTiles[randomX, randomY];
             var allyUnit = Instantiate(playerPlaceholder, randomPlace.transform.position + Vector3.up, Quaternion.identity);
+            var ally = allyUnit.GetComponent<Character>();
+            ally.currentTile = randomPlace;
 
             var ErandomX = Random.Range(0, BoardData.rowAmount);
             var ErandomY = Random.Range(0, BoardData.columnAmount);
             var ErandomPlace = BoardData.BoardTiles[ErandomX, ErandomY];
             var enemyUnit = Instantiate(enemyPlaceholder, ErandomPlace.transform.position + Vector3.up, Quaternion.identity);
-
-            var ally = allyUnit.GetComponent<Character>();
             var enemy = enemyUnit.GetComponent<Enemy>();
+            enemy.currentTile = ErandomPlace;
 
             UnitData.Units.Add(ally);
             UnitData.Units.Add(enemy);

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    public static BoardManager boardManager; 
+
     const float rowIncrease = 1.8f;
     const float columnIncrease = 1.55f;
     Quaternion rotation = Quaternion.Euler(90, 0, 0); 
@@ -12,9 +14,13 @@ public class BoardManager : MonoBehaviour
     [SerializeField] GameObject tilePrefab;
     [SerializeField] Transform BoardParent;
 
+    // temp
+    [SerializeField] Color originalColor;
+    [SerializeField] Color activeColor;
+
     void Start()
     {
-
+        boardManager = this;
     }
 
     void Update()
@@ -48,23 +54,54 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        Debug.LogWarning(BoardData.BoardTiles);
-        Debug.LogWarning(BoardData.BoardTiles.Length);
-
         foreach (BoardTile tile in BoardData.BoardTiles)
-        {
             tile.SetConnectedTiles();
-        }
-
-        // StartCoroutine(connect());
     }
 
-    IEnumerator connect()
+    public void ClearMovement()
     {
-        foreach (BoardTile tile in BoardData.BoardTiles)
+        foreach (var tile in BoardData.BoardTiles)
         {
-            tile.SetConnectedTiles();
-            yield return new WaitForSeconds(0.05f);
+            tile.movementLeft = -1;
+            tile.gameObject.GetComponent<Renderer>().materials[1].color = originalColor;
+        }
+    }
+
+    public void SetMovementLeft(int movementLeft, BoardTile startingTile)
+    {
+        if (movementLeft == 0)
+            return;
+
+        if (startingTile.movementLeft == -1)
+            startingTile.movementLeft = 0;
+
+        List<BoardTile> usedTiles = new List<BoardTile>();
+        movementLeft--;
+        foreach(var tile in startingTile.connectedTiles)
+        {
+            if (tile == null)
+                continue;
+            
+            if (tile.movementLeft <= movementLeft)
+            {
+                tile.gameObject.GetComponent<Renderer>().materials[1].color = activeColor;
+                tile.movementLeft = movementLeft;
+                usedTiles.Add(tile);
+            }
+        }
+
+        foreach (var tile in usedTiles)
+            SetMovementLeft(movementLeft, tile);
+
+        // StartCoroutine(foo(usedTiles, movementLeft));
+    }
+
+    IEnumerator foo(List<BoardTile> tiles, int moveLeft)
+    {
+        foreach (var tile in tiles)
+        {
+            yield return new WaitForSeconds(1);
+            SetMovementLeft(moveLeft, tile);
         }
     }
 }

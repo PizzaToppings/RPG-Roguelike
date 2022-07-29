@@ -13,6 +13,8 @@ public class Unit : UnitStats
     public virtual void Awake()
     {
         OnTurnEnd += CombatData.onTurnEnd;
+        boardManager = BoardManager.boardManager;
+
         SetStats();
         RollInitiative();
     }
@@ -129,7 +131,8 @@ public class Unit : UnitStats
         if (OnTurnStart != null)
             OnTurnStart.Invoke();
 
-        
+        boardManager.ClearMovement();
+        boardManager.SetMovementLeft(MoveSpeed, currentTile);
     }
 
     public virtual void EndTurn()

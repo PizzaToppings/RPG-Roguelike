@@ -19,7 +19,6 @@ public class CombatManager : MonoBehaviour
         PlaceUnits();
         CreateTurnOrder();
         SetInitiative();
-        TriggerStartOfRoundEffects();
         RoundStart();
         TurnStart();
     }
@@ -44,11 +43,6 @@ public class CombatManager : MonoBehaviour
     void SetInitiative()
     {
         initiativeTracker.SetInitiative();
-    }
-
-    void TriggerStartOfRoundEffects() 
-    {
-
     }
 
     public void RoundStart()
