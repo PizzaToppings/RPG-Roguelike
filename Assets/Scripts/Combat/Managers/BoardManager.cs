@@ -8,11 +8,6 @@ public class BoardManager : MonoBehaviour
     const float columnIncrease = 1.55f;
     Quaternion rotation = Quaternion.Euler(90, 0, 0); 
 
-    
-    // x +1.8
-    // y +1.55
-
-
     [Space]
     [SerializeField] GameObject tilePrefab;
     [SerializeField] Transform BoardParent;
@@ -52,6 +47,9 @@ public class BoardManager : MonoBehaviour
                 tile.yPosition = y;
             }
         }
+
+        Debug.LogWarning(BoardData.BoardTiles);
+        Debug.LogWarning(BoardData.BoardTiles.Length);
 
         foreach (BoardTile tile in BoardData.BoardTiles)
         {

@@ -58,10 +58,46 @@ public class BoardTile : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.startWidth = 0.1f;
         lineRenderer.endWidth = 0.1f;
-        lineRenderer.positionCount = 12;
+        lineRenderer.positionCount = 0;
         var randomColor = Random.ColorHSV();
         lineRenderer.startColor = randomColor;
         lineRenderer.endColor = randomColor;
+
+        int unevenColumnOffset = -1;
+        if (yPosition % 2 != 0)
+        {
+            unevenColumnOffset = 1;
+        }
+
+        for (int x = xPosition - 1; x <= xPosition + 1; x++)
+        {
+            for (int y = yPosition - 1; y <= yPosition + 1; y++)
+            {
+                if (AdjacentTile(x, y, unevenColumnOffset))
+                {
+                    BoardTile tile = BoardData.BoardTiles[x, y];
+                    
+                    if (tile != this)
+                    {
+                        connectedTiles[index] = tile;
+
+                        lineRenderer.positionCount += 2;
+
+                        lineRenderer.SetPosition(index * 2, tile.transform.position + Vector3.up);
+                        lineRenderer.SetPosition(index * 2 + 1, transform.position + Vector3.up);
+                        index++;
+                    }
+                }
+            }    
+        }
+    }
+
+    bool AdjacentTile(int x, int y, int offset)
+    {
+        return (x >= 0 && x < BoardData.rowAmount &&
+                    y >= 0 && y < BoardData.columnAmount &&
+                    !(x == xPosition + offset && y != yPosition) &&
+                    !(x == xPosition && y == yPosition));
 
         // x1 (4, 12)
         // 
@@ -89,56 +125,5 @@ public class BoardTile : MonoBehaviour
         // +1, 0
         //  -1, -1
         //  0, -1
-
-        int unevenColumnOffset = 0;
-        if (xPosition % 2 == 0)
-        {
-            unevenColumnOffset = -1;
-        }
-
-        
-
-        
-        BoardTile tile = BoardData.BoardTiles[xPosition + unevenColumnOffset, yPosition + 1];
-        Debug.Log(tile);
-        connectedTiles[index] = tile;
-
-        lineRenderer.SetPosition(index * 2, new Vector3(tile.xPosition, 1, tile.yPosition));
-        lineRenderer.SetPosition(index * 2 + 1, new Vector3(xPosition, 1, yPosition));
-        index++;
-
-        BoardTile tile2 = BoardData.BoardTiles[xPosition + unevenColumnOffset + 1, yPosition + 1];
-        connectedTiles[index] = tile2;
-
-        lineRenderer.SetPosition(index * 2, new Vector3(tile2.xPosition, 1, tile2.yPosition));
-        lineRenderer.SetPosition(index * 2 + 1, new Vector3(xPosition, 1, yPosition));
-        index++;
-
-        BoardTile tile3 = BoardData.BoardTiles[xPosition + unevenColumnOffset - 1, yPosition];
-        connectedTiles[index] = tile3;
-
-        lineRenderer.SetPosition(index * 2, new Vector3(tile3.xPosition, 1, tile3.yPosition));
-        lineRenderer.SetPosition(index * 2 + 1, new Vector3(xPosition, 1, yPosition));
-        index++;
-
-        BoardTile tile4 = BoardData.BoardTiles[xPosition + unevenColumnOffset + 1, yPosition];
-        connectedTiles[index] = tile4;
-
-        lineRenderer.SetPosition(index * 2, new Vector3(tile4.xPosition, 1, tile4.yPosition));
-        lineRenderer.SetPosition(index * 2 + 1, new Vector3(xPosition, 1, yPosition));
-        index++;
-
-        BoardTile tile5 = BoardData.BoardTiles[xPosition + unevenColumnOffset, yPosition - 1];
-        connectedTiles[index] = tile5;
-
-        lineRenderer.SetPosition(index * 2, new Vector3(tile5.xPosition, 1, tile5.yPosition));
-        lineRenderer.SetPosition(index * 2 + 1, new Vector3(xPosition, 1, yPosition));
-        index++;
-
-        BoardTile tile6 = BoardData.BoardTiles[xPosition + unevenColumnOffset + 1, yPosition - 1];
-        connectedTiles[index] = tile6;
-
-        lineRenderer.SetPosition(index * 2, new Vector3(tile6.xPosition, 1, tile6.yPosition));
-        lineRenderer.SetPosition(index * 2 + 1, new Vector3(xPosition, 1, yPosition));
     }
 }
