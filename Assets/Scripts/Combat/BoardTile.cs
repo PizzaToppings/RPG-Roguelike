@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoardTile : MonoBehaviour
 {
+    BoardManager boardManager;
     public BoardTile[] connectedTiles = new BoardTile[6];
 
     public int xPosition = 0;
@@ -17,10 +18,27 @@ public class BoardTile : MonoBehaviour
 
     void Start()
     {
+        boardManager = BoardManager.boardManager;
         gameObject.name = xPosition + ", " + yPosition;
 
         StartCoroutine(SlideIn());
     }
+
+    void OnMouseEnter()
+    {
+        if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1)
+        {
+            boardManager.ShowMovementLine(this, movementLeft);
+        }   
+    }
+
+    // void OnMouseExit()
+    // {
+    //     if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1)
+    //     {
+    //         Debug.Log("mouseExit: " + this.name);
+    //     }   
+    // }
 
     IEnumerator SlideIn()
     {

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7889500532012575110}
   - component: {fileID: 1526753321}
   - component: {fileID: 9116348381370623383}
+  - component: {fileID: -3870523491326757899}
   m_Layer: 0
   m_Name: board_default
   m_TagString: Untagged
@@ -109,7 +110,6 @@ MonoBehaviour:
   xPosition: 0
   yPosition: 0
   movementLeft: -1
-  activated: 0
 --- !u!120 &9116348381370623383
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -209,3 +209,17 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!64 &-3870523491326757899
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8538225242230933587}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3613567641014311022, guid: 883e7ff5f922fa242bc56a836e661649, type: 3}

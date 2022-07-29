@@ -18,9 +18,12 @@ public class BoardManager : MonoBehaviour
     [SerializeField] Color originalColor;
     [SerializeField] Color activeColor;
 
+    LineRenderer movementIndicator;
+
     void Start()
     {
         boardManager = this;
+        movementIndicator = GetComponent<LineRenderer>();
     }
 
     void Update()
@@ -94,6 +97,33 @@ public class BoardManager : MonoBehaviour
             SetMovementLeft(movementLeft, tile);
 
         // StartCoroutine(foo(usedTiles, movementLeft));
+    }
+
+    public void ShowMovementLine(BoardTile finaltile, int movementAmount)
+    {
+        int movementUsed = CombatData.CurrentActiveUnit.MoveSpeed - movementAmount;
+        Debug.Log( movementUsed);
+        movementIndicator.positionCount = movementUsed + 1;
+        movementIndicator.SetPosition(0, finaltile.transform.position + Vector3.up);
+        movementIndicator.SetPosition(movementUsed, CombatData.CurrentActiveUnit.currentTile.transform.position + Vector3.up);
+
+        BoardTile currentTile = finaltile;
+
+        for (int i = 0; i < movementUsed; i++)
+        {
+            foreach (var tile in currentTile.connectedTiles)
+            {
+                if (tile == null)
+                    continue;
+
+                if (tile.movementLeft == currentTile.movementLeft + 1)
+                {
+                    movementIndicator.SetPosition(i+1, tile.transform.position + Vector3.up);
+                    currentTile = tile;
+                    continue;
+                }
+            }
+        }
     }
 
     IEnumerator foo(List<BoardTile> tiles, int moveLeft)
