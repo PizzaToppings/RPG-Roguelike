@@ -92,38 +92,11 @@ public class BoardTile : MonoBehaviour
         }
     }
 
-    bool AdjacentTile(int x, int y, int offset)
+    bool AdjacentTile(int x, int y, int yOffset)
     {
         return (x >= 0 && x < BoardData.rowAmount &&
                     y >= 0 && y < BoardData.columnAmount &&
-                    !(x == xPosition + offset && y != yPosition) &&
+                    !(x == xPosition + yOffset && y != yPosition) &&
                     !(x == xPosition && y == yPosition));
-
-        // x1 (4, 12)
-        // 
-        // 0, +1
-        // +1, +1
-        // -1, 0
-        // +1, 0
-        //  0, -1
-        //  1, -1
-
-        // x2  (5, 12)
-        // 
-        // 0, +1
-        // 1, +1
-        // -1, 0
-        // +1, 0
-        //  0, -1
-        //  1, -1
-
-        // x3  (5, 11)
-        // 
-        // -1, +1
-        // 0, +1
-        // -1, 0
-        // +1, 0
-        //  -1, -1
-        //  0, -1
     }
 }
