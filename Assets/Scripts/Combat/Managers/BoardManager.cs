@@ -113,40 +113,24 @@ public class BoardManager : MonoBehaviour
             SetMovementLeft(movementLeft, tile);
     }
 
-    public void PreviewLineCast(BoardTile originalTile, int direction, int range)
+    public void PreviewLineCast(BoardTile originalTile, int[] directions, int range)
     {
         BoardTile nextTile = originalTile;
 
-        for (int i = 0; i < range; i++)
+        foreach (var dir in directions)
         {
-            direction = direction % 6;
+            for (int i = 0; i < range; i++)
+            {
+                var direction = dir % 6;
 
-            nextTile.gameObject.GetComponent<Renderer>().materials[1].color = activeColor;
-            nextTile = nextTile.connectedTiles[direction];
+                nextTile.gameObject.GetComponent<Renderer>().materials[1].color = activeColor;
+                nextTile = nextTile.connectedTiles[direction];
 
-            if (nextTile == null)
-                return;
+                if (nextTile == null)
+                    continue;
+            }
+            nextTile = originalTile;
         }
-
-
-
-        // for (int i = 0; i < range; i++)
-        // {
-        //     if (nextTile.yPosition % 2 != 0)
-        //         unevenColumnOffset = 1;
-        //     else
-        //         unevenColumnOffset = -1;
-
-        //     direction += unevenColumnOffset;
-
-        //     direction = direction % 6;
-
-        //     nextTile.gameObject.GetComponent<Renderer>().materials[1].color = activeColor;
-        //     nextTile = nextTile.connectedTiles[direction];
-
-        //     if (nextTile == null)
-        //         return;
-        // }
     }
 
     public void PreviewMovementLine(BoardTile finaltile, int movementAmount)

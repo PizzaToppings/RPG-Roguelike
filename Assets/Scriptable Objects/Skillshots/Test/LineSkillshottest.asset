@@ -17,4 +17,4 @@ MonoBehaviour:
   startTileTile: {fileID: 0}
   Damage: 10
   Range: 4
-  Direction: 0
+  Directions: 000000000100000005000000

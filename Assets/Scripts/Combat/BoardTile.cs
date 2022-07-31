@@ -13,10 +13,6 @@ public class BoardTile : MonoBehaviour
 
     public int movementLeft = -1;
 
-    // temp
-    int index = 0;
-
-
     public void Init(int xPosition, int yPosition)
     {
         this.xPosition = xPosition;
@@ -96,9 +92,7 @@ public class BoardTile : MonoBehaviour
     {
         int unevenColumnOffset = 1;
         if (yPosition % 2 != 0)
-        {
             unevenColumnOffset = 0;
-        }
 
         connectedTiles[0] = boardManager.GetBoardTile(xPosition + 1, yPosition);
         connectedTiles[1] = boardManager.GetBoardTile(xPosition + unevenColumnOffset, yPosition - 1);

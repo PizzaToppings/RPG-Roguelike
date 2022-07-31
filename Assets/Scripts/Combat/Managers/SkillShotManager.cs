@@ -18,10 +18,17 @@ public class SkillShotManager : MonoBehaviour
     {
         BoardTile originTile = GetOriginalTile(data);
 
-        var direction = data.Direction;
-        direction += GetDirection(originTile, mouseOverTile);
+        List<int> directions = new List<int>();
+        Debug.Log(data.Directions);
 
-        boardManager.PreviewLineCast(originTile, direction, data.Range);
+        foreach (var direction in data.Directions)
+        {
+            var dir = direction;
+            dir += GetDirection(originTile, mouseOverTile);
+            directions.Add(dir);
+        }
+
+        boardManager.PreviewLineCast(originTile, directions.ToArray(), data.Range);
     } 
 
     int GetDirection(BoardTile originTile, BoardTile mouseOverTile)
