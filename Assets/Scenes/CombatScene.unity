@@ -561,7 +561,7 @@ PrefabInstance:
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: skillshots.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -574,6 +574,12 @@ PrefabInstance:
       propertyPath: skillshots.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: ca72ea864decac24d9ca3f7dd5fbc01e,
+        type: 2}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: skillshots.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 60482822383c89d4bbbefc965344a6b4,
         type: 2}
     - target: {fileID: 8519817777296322567, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -2550,8 +2556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7566a8cad38a3a4881cca69cc6f0a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CastingSkillshot: 
-  castingAnySkillshot: 0
 --- !u!1001 &1987000468
 PrefabInstance:
   m_ObjectHideFlags: 0

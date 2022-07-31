@@ -19,24 +19,29 @@ public class SkillShotManager : MonoBehaviour
         BoardTile originTile = GetOriginalTile(data);
 
         List<int> directions = new List<int>();
-        Debug.Log(data.Directions);
 
         foreach (var direction in data.Directions)
         {
             var dir = direction;
-            dir += GetDirection(originTile, mouseOverTile);
+            dir += GetNextInLine(originTile, mouseOverTile);
             directions.Add(dir);
         }
 
         boardManager.PreviewLineCast(originTile, directions.ToArray(), data.Range);
     } 
 
-    int GetDirection(BoardTile originTile, BoardTile mouseOverTile)
+    int GetNextInLine(BoardTile originTile, BoardTile mouseOverTile)
     {
         int[] diffs = new int[6];
 
         for (int i = 0; i < originTile.connectedTiles.Length; i++)
         {
+            if (originTile.connectedTiles[i] == null)
+            {
+                diffs[i] = int.MaxValue;
+                continue;
+            }
+
             var connectedTile = originTile.connectedTiles[i];
             int xDif = Mathf.Abs(connectedTile.xPosition - mouseOverTile.xPosition);
             int yDif = Mathf.Abs(connectedTile.yPosition - mouseOverTile.yPosition);
@@ -46,12 +51,9 @@ public class SkillShotManager : MonoBehaviour
 
         var lowestDiff = diffs[0];
         var lowestDiffIndex = 0;
-        Debug.LogWarning(diffs[0]);
-
 
         for (int i = 1; i < diffs.Length; i++)
         {
-            Debug.Log(diffs[i]);
             if (diffs[i] < lowestDiff)
             {
                 lowestDiff = diffs[i];
@@ -62,7 +64,13 @@ public class SkillShotManager : MonoBehaviour
         return lowestDiffIndex;
     }
 
-    BoardTile GetOriginalTile(SO_LineSkillshot lineSkillshot)
+    public void GetAOE(SO_AOE_Skillshot data)
+    {
+        BoardTile originTile = GetOriginalTile(data);
+        boardManager.SetMovementLeft(data.Range, originTile);
+    }
+
+    BoardTile GetOriginalTile(SO_Skillshot lineSkillshot)
     {
         if (lineSkillshot.OriginTile == SO_Skillshot.OriginTileEnum.Caster)
             return lineSkillshot.Caster.currentTile;

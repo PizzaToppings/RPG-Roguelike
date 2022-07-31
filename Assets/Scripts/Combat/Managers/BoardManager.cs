@@ -119,6 +119,7 @@ public class BoardManager : MonoBehaviour
 
         foreach (var dir in directions)
         {
+            nextTile = originalTile;
             for (int i = 0; i < range; i++)
             {
                 var direction = dir % 6;
@@ -127,9 +128,8 @@ public class BoardManager : MonoBehaviour
                 nextTile = nextTile.connectedTiles[direction];
 
                 if (nextTile == null)
-                    continue;
+                    break;
             }
-            nextTile = originalTile;
         }
     }
 

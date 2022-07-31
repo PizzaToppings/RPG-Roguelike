@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
-  m_Name: LineSkillshottest
+  m_Script: {fileID: 11500000, guid: 119341ac486b48d449da6531450173d9, type: 3}
+  m_Name: AOE_Test
   m_EditorClassIdentifier: 
-  Caster: {fileID: 0}
-  OriginTile: 0
-  startTingTile: {fileID: 0}
-  Damage: 10
-  Range: 4
-  Directions: 000000000100000002000000030000000400000005000000
+  Skillshots:
+  - {fileID: 11400000, guid: 7138e1991fdf2664083732efc51f74cd, type: 2}

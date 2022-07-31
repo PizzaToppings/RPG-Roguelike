@@ -30,6 +30,9 @@ public class Character : Unit
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
             ToggleSkills(1);
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            ToggleSkills(2);
     }
 
     void ToggleSkills(int skillIndex)
@@ -55,6 +58,11 @@ public class Character : Unit
         if (UnitData.CurrentSkillshot == 1 && SkillshotsEquipped[0])
         {
             skillshots[0].Preview(mouseOverTile);
+        }
+
+        if (UnitData.CurrentSkillshot == 2 && SkillshotsEquipped[1])
+        {
+            skillshots[1].Preview(mouseOverTile);
         }
     }
 

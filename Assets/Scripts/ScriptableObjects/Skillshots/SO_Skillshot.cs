@@ -9,7 +9,7 @@ public class SO_Skillshot : ScriptableObject
 
     [HideInInspector] public Unit Caster;
     public OriginTileEnum OriginTile;
-    [HideInInspector] public BoardTile startTileTile;
+    [HideInInspector] public BoardTile startTingTile;
     public int Damage;
     public int Range;
 
