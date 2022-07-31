@@ -21,6 +21,7 @@ public class InitiativeTracker : MonoBehaviour
     {
         for (int i = 0; i < UnitData.Units.Count; i++)
         {
+            Debug.Log(initiativeNames.Count + ", " + i);
             var name = UnitData.Units[i].Name == "" ? UnitData.Units[i].name : UnitData.Units[i].Name;
             initiativeNames[i].text = name;
         }

@@ -22,7 +22,7 @@ public class BoardManager : MonoBehaviour
     public List<BoardTile> Path = new List<BoardTile>();
     
 
-    void Start()
+    public void Init()
     {
         boardManager = this;
         movementIndicator = GetComponent<LineRenderer>();

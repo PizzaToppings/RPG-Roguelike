@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
-    [SerializeField] BoardManager boardManager; 
+    public static UnitManager unitManager;
 
     // List<Unit> units = new List<Unit>(); 
     // List<Character> characters = new List<Character>(); 
@@ -12,13 +12,16 @@ public class UnitManager : MonoBehaviour
 
     //---------------------------
 
-    public bool canMove;
+    [SerializeField] Transform characterParent;
+    [SerializeField] Transform enemyParent;
 
-    [SerializeField] GameObject playerPlaceholder;
-    [SerializeField] GameObject enemyPlaceholder;
+    public void Init()
+    {
+        unitManager = this;
+    }
+
     void Update()
     {
-        canMove = BoardData.canMove;
     }
 
     public void PlaceUnits()
@@ -30,26 +33,51 @@ public class UnitManager : MonoBehaviour
 
         // placeholder
 
-        for (int x = 0; x < 3; x++)
+        foreach (Transform child in characterParent)
         {
-            var randomX = Random.Range(0, BoardData.rowAmount);
-            var randomY = Random.Range(0, BoardData.columnAmount);
-            var randomPlace = BoardData.BoardTiles[randomX, randomY];
-            var allyUnit = Instantiate(playerPlaceholder, randomPlace.transform.position + Vector3.up, Quaternion.identity);
-            var ally = allyUnit.GetComponent<Character>();
-            ally.currentTile = randomPlace;
+            PlaceUnit(child);
+        }
 
-            var ErandomX = Random.Range(0, BoardData.rowAmount);
-            var ErandomY = Random.Range(0, BoardData.columnAmount);
-            var ErandomPlace = BoardData.BoardTiles[ErandomX, ErandomY];
-            var enemyUnit = Instantiate(enemyPlaceholder, ErandomPlace.transform.position + Vector3.up, Quaternion.identity);
-            var enemy = enemyUnit.GetComponent<Enemy>();
-            enemy.currentTile = ErandomPlace;
+        foreach (Transform child in enemyParent)
+        {
+            PlaceUnit(child);
+        }
 
-            UnitData.Units.Add(ally);
-            UnitData.Units.Add(enemy);
-            UnitData.Characters.Add(ally);
-            UnitData.Enemies.Add(enemy);
-        } 
+        // foreach (var unit in UnitData.Units)
+        // {
+        //     var randomX = Random.Range(0, BoardData.rowAmount);
+        //     var randomY = Random.Range(0, BoardData.columnAmount);
+        //     var randomPlace = BoardData.BoardTiles[randomX, randomY];
+        //     // var allyUnit = Instantiate(playerPlaceholder, randomPlace.transform.position + Vector3.up, Quaternion.identity);
+        //     // var ally = allyUnit.GetComponent<Character>();
+        //     unit.currentTile = randomPlace;
+        //     unit.transform.position =randomPlace.transform.position + Vector3.up;
+        //     unit.Init();
+
+        //     // var ErandomX = Random.Range(0, BoardData.rowAmount);
+        //     // var ErandomY = Random.Range(0, BoardData.columnAmount);
+        //     // var ErandomPlace = BoardData.BoardTiles[ErandomX, ErandomY];
+        //     // var enemyUnit = Instantiate(enemyPlaceholder, ErandomPlace.transform.position + Vector3.up, Quaternion.identity);
+        //     // var enemy = enemyUnit.GetComponent<Enemy>();
+        //     // enemy.currentTile = ErandomPlace;
+        // } 
+    }
+
+    void PlaceUnit(Transform child)
+    {
+        var unit = child.GetComponent<Unit>();
+        UnitData.Units.Add(unit);
+
+        if (unit.Friendly)
+            UnitData.Characters.Add(unit as Character);
+        else
+            UnitData.Enemies.Add(unit as Enemy);
+
+        var randomX = Random.Range(0, BoardData.rowAmount);
+        var randomY = Random.Range(0, BoardData.columnAmount);
+        var randomPlace = BoardData.BoardTiles[randomX, randomY];
+        unit.currentTile = randomPlace;
+        unit.transform.position =randomPlace.transform.position + Vector3.up;
+        unit.Init();
     }
 }

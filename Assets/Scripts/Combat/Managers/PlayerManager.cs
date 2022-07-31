@@ -4,17 +4,4 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] BoardManager boardManager;
-
-
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }

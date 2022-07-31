@@ -10,7 +10,7 @@ public class Unit : UnitStats
     public UnityAction OnDealDamage;
     public UnityAction OnTakeDamage;
 
-    public virtual void Awake()
+    public virtual void Init()
     {
         OnTurnEnd += CombatData.onTurnEnd;
         boardManager = BoardManager.boardManager;
@@ -29,8 +29,21 @@ public class Unit : UnitStats
         // where do I get stats?
         Name = nameGenerator();
         gameObject.name = Name;
-        Debug.Log(Name);
         MoveSpeed = Random.Range(5, 15);
+
+        for (int i = 0; i < MaxSkillShotAmount; i++)
+        {
+            if (i >= skillshots.Count)
+            {
+                SkillshotsEquipped.Add(false);
+                continue;
+            }
+
+            if (skillshots[i] != null)
+                SkillshotsEquipped.Add(true);
+            else
+                SkillshotsEquipped.Add(true);
+        }
     }
 
     /// temp
@@ -163,6 +176,8 @@ public class Unit : UnitStats
         MoveSpeedLeft = MoveSpeed;
     }
 
+    public virtual void PreviewSkills() {}
+
     public virtual void StartTurn()
     {
         if (OnTurnStart != null)
@@ -175,8 +190,6 @@ public class Unit : UnitStats
 
     public virtual void EndTurn()
     {
-        BoardData.canMove = false;
-
         Debug.Log("ending turn");
         if (OnTurnEnd != null)
             OnTurnEnd.Invoke();

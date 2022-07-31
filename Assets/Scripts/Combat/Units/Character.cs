@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Character : Unit
 {
-    public override void Awake()
+    public override void Init()
     {
         Friendly = true;
-        base.Awake();
+        base.Init();
     }
 
     public override void Update()
@@ -26,22 +26,41 @@ public class Character : Unit
         }
     }
 
-        void UseSkills()
+    void UseSkills()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            BoardData.canMove = !BoardData.canMove;
+            ToggleSkills(1);
+    }
 
-            if (BoardData.canMove)
-                boardManager.SetMovementLeft(MoveSpeedLeft, currentTile);
-            else
-                boardManager.ClearMovement();
+    void ToggleSkills(int skillIndex)
+    {
+        if (UnitData.CurrentSkillshot == skillIndex)
+        {
+            UnitData.CurrentAction = UnitData.CurrentActionKind.Moving; 
+            UnitData.CurrentSkillshot = null;
+            boardManager.SetMovementLeft(MoveSpeedLeft, currentTile);
+        }
+        else
+        {
+            UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
+            UnitData.CurrentSkillshot = skillIndex;
+            boardManager.ClearMovement();
+        }
+    }
+
+    public override void PreviewSkills()
+    {   
+        /// use forloop
+        base.PreviewSkills();
+        if (UnitData.CurrentSkillshot == 1 && SkillshotsEquipped[0])
+        {
+            skillshots[0].Preview();
         }
     }
 
     public override void StartTurn()
     {
         base.StartTurn();
-        BoardData.canMove = true;
+        UnitData.CurrentAction = UnitData.CurrentActionKind.Moving;
     }
 }

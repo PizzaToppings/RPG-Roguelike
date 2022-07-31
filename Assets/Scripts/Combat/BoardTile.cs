@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoardTile : MonoBehaviour
 {
     BoardManager boardManager;
+    SkillShotManager skillShotManager;
     public BoardTile[] connectedTiles = new BoardTile[6];
 
     public int xPosition = 0;
@@ -19,6 +20,7 @@ public class BoardTile : MonoBehaviour
     void Start()
     {
         boardManager = BoardManager.boardManager;
+        skillShotManager = SkillShotManager.skillShotManager;
         gameObject.name = xPosition + ", " + yPosition;
 
         StartCoroutine(SlideIn());
@@ -26,21 +28,32 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (movementLeft < 0 || !BoardData.canMove)
+        if (CombatData.CurrentActiveUnit.Friendly == false)
             return;
-
-        // start moving
-        boardManager.Path.Reverse();
-        CombatData.CurrentActiveUnit.StartMoving(boardManager.Path);
+            
+        if (movementLeft > -1 && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
+        {
+            // start moving
+            boardManager.Path.Reverse();
+            CombatData.CurrentActiveUnit.StartMoving(boardManager.Path);
+        }
     }
 
     void OnMouseEnter()
     {
-        if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1 && BoardData.canMove)
+        if (CombatData.CurrentActiveUnit.Friendly == false)
+            return;
+        
+        // Start moving
+        if (movementLeft > -1 
+            && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
         {
             boardManager.Path = new List<BoardTile>();
             boardManager.ShowMovementLine(this, movementLeft);
         }
+
+        if (UnitData.CurrentAction == UnitData.CurrentActionKind.CastingSkillshot)
+            CombatData.CurrentActiveUnit.PreviewSkills();
     }
 
     void OnMouseExit()

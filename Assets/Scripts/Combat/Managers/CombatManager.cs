@@ -7,6 +7,9 @@ public class CombatManager : MonoBehaviour
     [SerializeField] BoardManager boardManager;
     [SerializeField] PlayerManager playerManager;
     [SerializeField] UnitManager unitManager;
+    [SerializeField] SkillShotManager skillShotManager;
+
+    [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
 
 
@@ -15,12 +18,20 @@ public class CombatManager : MonoBehaviour
         CombatData.onTurnStart += TurnStart;
         CombatData.onTurnEnd += TurnEnd;
 
+        InitManagers();
         CreateBattlefield();
         PlaceUnits();
         CreateTurnOrder();
         SetInitiative();
         RoundStart();
         TurnStart();
+    }
+
+    void InitManagers()
+    {
+        boardManager.Init();
+        unitManager.Init();
+        skillShotManager.Init();
     }
 
     void CreateBattlefield()

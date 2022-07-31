@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    public override void Awake()
+    public override void Init()
     {
         Friendly = false;
-        base.Awake();
+        base.Init();
     }
 
     public override void Update()
@@ -36,5 +36,6 @@ public class Enemy : Unit
     {
         Debug.Log("ending enemy turn");
         base.EndTurn();
+        UnitData.CurrentAction = UnitData.CurrentActionKind.EnemyTurn;
     }
 }

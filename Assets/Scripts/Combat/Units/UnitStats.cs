@@ -15,6 +15,10 @@ public class UnitStats : MonoBehaviour
     public int MoveSpeedLeft;
     public int Initiative;
 
+    public int MaxSkillShotAmount = 4;
+    public List<bool> SkillshotsEquipped;
+    public List<SO_MainSkillshot> skillshots = new List<SO_MainSkillshot>();
+
     public int PhysicalPower;
     public int MagicalPower;
     public int PhysicalDefense;
