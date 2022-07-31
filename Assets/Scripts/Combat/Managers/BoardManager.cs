@@ -54,8 +54,7 @@ public class BoardManager : MonoBehaviour
                 var newTile = Instantiate(tilePrefab, position, rotation, BoardParent);
                 BoardTile tile = newTile.GetComponent<BoardTile>();
                 BoardData.BoardTiles[x,y] = tile;
-                tile.xPosition = x;
-                tile.yPosition = y;
+                tile.Init(x, y);
             }
         }
 
@@ -63,7 +62,21 @@ public class BoardManager : MonoBehaviour
             tile.SetConnectedTiles();
     }
 
-    public void ClearMovement()
+    public BoardTile GetBoardTile(int xPosition, int yPosition)
+    {
+        if (Existingtile(xPosition, yPosition) == false)
+            return null;
+
+        return BoardData.BoardTiles[xPosition, yPosition];
+    }
+    
+    bool Existingtile(int x, int y)
+    {
+        return (x >= 0 && x < BoardData.rowAmount &&
+                    y >= 0 && y < BoardData.columnAmount);
+    }
+
+    public void Clear()
     {
         foreach (var tile in BoardData.BoardTiles)
         {
@@ -100,7 +113,43 @@ public class BoardManager : MonoBehaviour
             SetMovementLeft(movementLeft, tile);
     }
 
-    public void ShowMovementLine(BoardTile finaltile, int movementAmount)
+    public void PreviewLineCast(BoardTile originalTile, int direction, int range)
+    {
+        BoardTile nextTile = originalTile;
+
+        for (int i = 0; i < range; i++)
+        {
+            direction = direction % 6;
+
+            nextTile.gameObject.GetComponent<Renderer>().materials[1].color = activeColor;
+            nextTile = nextTile.connectedTiles[direction];
+
+            if (nextTile == null)
+                return;
+        }
+
+
+
+        // for (int i = 0; i < range; i++)
+        // {
+        //     if (nextTile.yPosition % 2 != 0)
+        //         unevenColumnOffset = 1;
+        //     else
+        //         unevenColumnOffset = -1;
+
+        //     direction += unevenColumnOffset;
+
+        //     direction = direction % 6;
+
+        //     nextTile.gameObject.GetComponent<Renderer>().materials[1].color = activeColor;
+        //     nextTile = nextTile.connectedTiles[direction];
+
+        //     if (nextTile == null)
+        //         return;
+        // }
+    }
+
+    public void PreviewMovementLine(BoardTile finaltile, int movementAmount)
     {
         int movementUsed = CombatData.CurrentActiveUnit.MoveSpeedLeft - movementAmount;
         movementIndicator.positionCount = movementUsed + 1;

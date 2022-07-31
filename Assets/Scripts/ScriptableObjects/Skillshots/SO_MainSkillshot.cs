@@ -8,9 +8,9 @@ public class SO_MainSkillshot : ScriptableObject
 {
     public List<SO_Skillshot> Skillshots;
 
-    public void Preview() 
+    public void Preview(BoardTile mouseOverTile) 
     {
         foreach (var skillshot in Skillshots)
-            skillshot.Preview();
+            skillshot.Preview(mouseOverTile);
     }
 }

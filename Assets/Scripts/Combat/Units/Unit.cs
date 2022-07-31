@@ -31,6 +31,13 @@ public class Unit : UnitStats
         gameObject.name = Name;
         MoveSpeed = Random.Range(5, 15);
 
+        SetSkillShots();
+    }
+
+    void SetSkillShots()
+    {
+        skillshots.ForEach(x => x.Skillshots.ForEach(y => y.Caster = this));
+
         for (int i = 0; i < MaxSkillShotAmount; i++)
         {
             if (i >= skillshots.Count)
@@ -167,7 +174,7 @@ public class Unit : UnitStats
             startPosition = endPosition;
         }
         var endTile = path[path.Count-1];
-        boardManager.ClearMovement();
+        boardManager.Clear();
         boardManager.SetMovementLeft(MoveSpeedLeft, endTile);
     }
 
@@ -176,14 +183,17 @@ public class Unit : UnitStats
         MoveSpeedLeft = MoveSpeed;
     }
 
-    public virtual void PreviewSkills() {}
+    public virtual void PreviewSkills(BoardTile mouseOverTile) 
+    {
+        boardManager.Clear();
+    }
 
     public virtual void StartTurn()
     {
         if (OnTurnStart != null)
             OnTurnStart.Invoke();
 
-        boardManager.ClearMovement();
+        boardManager.Clear();
         SetStartOfTurnStats();
         boardManager.SetMovementLeft(MoveSpeed, currentTile);
     }

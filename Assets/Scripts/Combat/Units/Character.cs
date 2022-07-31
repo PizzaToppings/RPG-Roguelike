@@ -44,17 +44,17 @@ public class Character : Unit
         {
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
             UnitData.CurrentSkillshot = skillIndex;
-            boardManager.ClearMovement();
+            boardManager.Clear();
         }
     }
 
-    public override void PreviewSkills()
+    public override void PreviewSkills(BoardTile mouseOverTile)
     {   
         /// use forloop
-        base.PreviewSkills();
+        base.PreviewSkills(mouseOverTile);
         if (UnitData.CurrentSkillshot == 1 && SkillshotsEquipped[0])
         {
-            skillshots[0].Preview();
+            skillshots[0].Preview(mouseOverTile);
         }
     }
 

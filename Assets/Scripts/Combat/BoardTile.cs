@@ -17,8 +17,10 @@ public class BoardTile : MonoBehaviour
     int index = 0;
 
 
-    void Start()
+    public void Init(int xPosition, int yPosition)
     {
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
         boardManager = BoardManager.boardManager;
         skillShotManager = SkillShotManager.skillShotManager;
         gameObject.name = xPosition + ", " + yPosition;
@@ -30,7 +32,7 @@ public class BoardTile : MonoBehaviour
     {
         if (CombatData.CurrentActiveUnit.Friendly == false)
             return;
-            
+
         if (movementLeft > -1 && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
         {
             // start moving
@@ -49,11 +51,11 @@ public class BoardTile : MonoBehaviour
             && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
         {
             boardManager.Path = new List<BoardTile>();
-            boardManager.ShowMovementLine(this, movementLeft);
+            boardManager.PreviewMovementLine(this, movementLeft);
         }
 
         if (UnitData.CurrentAction == UnitData.CurrentActionKind.CastingSkillshot)
-            CombatData.CurrentActiveUnit.PreviewSkills();
+            CombatData.CurrentActiveUnit.PreviewSkills(this);
     }
 
     void OnMouseExit()
@@ -92,35 +94,26 @@ public class BoardTile : MonoBehaviour
 
     public void SetConnectedTiles()
     {
-        int unevenColumnOffset = -1;
+        int unevenColumnOffset = 1;
         if (yPosition % 2 != 0)
         {
-            unevenColumnOffset = 1;
+            unevenColumnOffset = 0;
         }
 
-        for (int x = xPosition - 1; x <= xPosition + 1; x++)
-        {
-            for (int y = yPosition - 1; y <= yPosition + 1; y++)
-            {
-                if (AdjacentTile(x, y, unevenColumnOffset))
-                {
-                    BoardTile tile = BoardData.BoardTiles[x, y];
-                    
-                    if (tile != this)
-                    {
-                        connectedTiles[index] = tile;
-                        index++;
-                    }
-                }
-            }    
-        }
+        connectedTiles[0] = boardManager.GetBoardTile(xPosition + 1, yPosition);
+        connectedTiles[1] = boardManager.GetBoardTile(xPosition + unevenColumnOffset, yPosition - 1);
+        connectedTiles[2] = boardManager.GetBoardTile(xPosition - 1 + unevenColumnOffset, yPosition - 1);
+        connectedTiles[3] = boardManager.GetBoardTile(xPosition - 1, yPosition);
+        connectedTiles[4] = boardManager.GetBoardTile(xPosition - 1 + unevenColumnOffset, yPosition + 1);
+        connectedTiles[5] = boardManager.GetBoardTile(xPosition + unevenColumnOffset, yPosition + 1);
     }
 
-    bool AdjacentTile(int x, int y, int yOffset)
+    int IncreaseIndex(int x, int y, int yOffset)
     {
-        return (x >= 0 && x < BoardData.rowAmount &&
-                    y >= 0 && y < BoardData.columnAmount &&
-                    !(x == xPosition + yOffset && y != yPosition) &&
-                    !(x == xPosition && y == yPosition));
+        if (!(x == xPosition + yOffset && y != yPosition) &&
+                    !(x == xPosition && y == yPosition))
+                    return 1;
+
+        return 0;
     }
 }

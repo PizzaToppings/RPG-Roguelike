@@ -16,8 +16,5 @@ public class SO_Skillshot : ScriptableObject
     // public DamageType DamageType;
     // debuffs
 
-    public void Preview() 
-    {
-        Debug.Log("HEY");
-    }
+    public virtual void Preview(BoardTile mouseOverTile) {}
 }
