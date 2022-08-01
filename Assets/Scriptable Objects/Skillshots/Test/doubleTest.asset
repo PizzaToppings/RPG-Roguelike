@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: doubleTest
   m_EditorClassIdentifier: 
   Skillshots:
-  - {fileID: 11400000, guid: 4df3e89680ac1c94c8d98a96f289c7fe, type: 2}
+  - {fileID: 11400000, guid: 304492ffb6da7c543a5120a0ff568304, type: 2}
   - {fileID: 11400000, guid: eaeaa0c623b4c46428887174425338c8, type: 2}

@@ -41,7 +41,7 @@ public class Character : Unit
         {
             UnitData.CurrentAction = UnitData.CurrentActionKind.Moving; 
             UnitData.CurrentSkillshot = null;
-            boardManager.SetMovementLeft(MoveSpeedLeft, currentTile, unitManager.movementColor);
+            boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
         }
         else
         {

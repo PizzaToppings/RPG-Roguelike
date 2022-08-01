@@ -11,7 +11,11 @@ public class SO_MainSkillshot : ScriptableObject
 
     public void Preview(BoardTile mouseOverTile) 
     {
+        BoardManager boardManager = BoardManager.boardManager;
         for (int i = 0; i < Skillshots.Count; i++)
+        {
+            boardManager.ClearMovementLeftPerTile();
             Skillshots[i] = Skillshots[i].Preview(mouseOverTile, Skillshots);
+        }
     }
 }

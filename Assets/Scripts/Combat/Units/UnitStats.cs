@@ -50,8 +50,8 @@ public class UnitStats : MonoBehaviour
     public int LifeSteal;
     public int Unstoppable;
 
-    public BoardManager boardManager;
-    public UnitManager unitManager;
+    [HideInInspector] public BoardManager boardManager;
+    [HideInInspector] public UnitManager unitManager;
     public BoardTile currentTile = null;
 
 }

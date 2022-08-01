@@ -67,6 +67,6 @@ public class SkillShotManager : MonoBehaviour
 
     public void GetAOE(SO_AOE_Skillshot data)
     {
-         boardManager.SetMovementLeft(data.Range, data.OriginTiles, data.tileColor);
+         boardManager.SetAOE(data.Range, data.OriginTiles, data.tileColor, data);
     }
 }

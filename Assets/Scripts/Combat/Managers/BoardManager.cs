@@ -19,6 +19,8 @@ public class BoardManager : MonoBehaviour
 
     LineRenderer movementIndicator;
     public List<BoardTile> Path = new List<BoardTile>();
+
+    public Color MovementColor;
     
 
     public void Init()
@@ -85,15 +87,36 @@ public class BoardManager : MonoBehaviour
         StopShowingMovement();
     }
 
-    public void SetMovementLeft(int movementLeft, List<BoardTile> startingTiles,  Color color)
+    public void ClearMovementLeftPerTile()
     {
-        foreach (var tile in startingTiles)
+        foreach (var tile in BoardData.BoardTiles)
         {
-            SetMovementLeft(movementLeft, tile, color);
+            tile.movementLeft = -1;
         }
     }
 
-    public void SetMovementLeft(int movementLeft, BoardTile startingTile, Color color)
+     public void SetAOE(int movementLeft, List<BoardTile> startingTiles, SO_Skillshot data)
+     {
+        foreach (var tile in startingTiles)
+        {
+            SetAOE(movementLeft, tile, MovementColor, data);
+        }
+     }
+
+    public void SetAOE(int movementLeft, List<BoardTile> startingTiles,  Color color, SO_Skillshot data)
+    {
+        foreach (var tile in startingTiles)
+        {
+            SetAOE(movementLeft, tile, color, data);
+        }
+    }
+
+    public void SetAOE(int movementLeft, BoardTile startingTile, SO_Skillshot data)
+    {
+        SetAOE(movementLeft, startingTile, MovementColor, data);
+    }
+
+    public void SetAOE(int movementLeft, BoardTile startingTile, Color color, SO_Skillshot data)
     {
         if (movementLeft == 0)
             return;
@@ -113,7 +136,12 @@ public class BoardManager : MonoBehaviour
                 tile.gameObject.GetComponent<Renderer>().materials[1].color = color;
                 tile.movementLeft = movementLeft;
                 usedTiles.Add(tile);
-                SetMovementLeft(movementLeft, tile, color);
+                
+                var target = FindTarget(tile);
+                    if (target != null && data != null)
+                        data.TargetsHit.Add(target);
+
+                SetAOE(movementLeft, tile, color, data);
             }
         }
     }
@@ -125,7 +153,6 @@ public class BoardManager : MonoBehaviour
         foreach (var originTile in data.OriginTiles)
         {
             var target = FindTarget(nextTile);
-
             foreach (var dir in directions)
             {
                 nextTile = originTile;

@@ -176,7 +176,7 @@ public class Unit : UnitStats
         }
         var endTile = path[path.Count-1];
         boardManager.Clear();
-        boardManager.SetMovementLeft(MoveSpeedLeft, endTile, unitManager.movementColor);
+        boardManager.SetAOE(MoveSpeedLeft, endTile, null);
     }
 
     void SetStartOfTurnStats()
@@ -196,7 +196,7 @@ public class Unit : UnitStats
 
         boardManager.Clear();
         SetStartOfTurnStats();
-        boardManager.SetMovementLeft(MoveSpeed, currentTile, unitManager.movementColor);
+        boardManager.SetAOE(MoveSpeed, currentTile, null);
     }
 
     public virtual void EndTurn()

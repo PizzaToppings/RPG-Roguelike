@@ -644,7 +644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422fe232db8be714088aa569c0c8811c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementColor: {r: 0.4481132, g: 1, b: 0.50824225, a: 1}
   characterParent: {fileID: 523840572}
   enemyParent: {fileID: 492562960}
 --- !u!1 &387685901
@@ -2453,6 +2452,7 @@ MonoBehaviour:
   BoardParent: {fileID: 387685902}
   originalColor: {r: 0.19607843, g: 0.5137255, b: 0.18431373, a: 1}
   Path: []
+  MovementColor: {r: 0, g: 0.7058824, b: 0.3703818, a: 1}
 --- !u!120 &1882644907
 LineRenderer:
   m_ObjectHideFlags: 0

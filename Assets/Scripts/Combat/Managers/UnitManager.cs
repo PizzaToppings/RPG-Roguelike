@@ -6,7 +6,6 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager unitManager;
 
-    public Color movementColor;
 
     //---------------------------
 

@@ -10,13 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
-  m_Name: AOE_Skillshot_TEst
+  m_Name: FirstAOE
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
   OriginTileKind: 0
   OriginTiles:
   - {fileID: 0}
   Damage: 0
-  Range: 12
-  tileColor: {r: 0.30949628, g: 0.6132076, b: 0.39512384, a: 1}
-  TargetsHit: []
+  Range: 15
+  tileColor: {r: 0.08690815, g: 0.5943396, b: 0.31617397, a: 1}
+  TargetsHit:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
