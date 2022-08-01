@@ -561,7 +561,7 @@ PrefabInstance:
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: skillshots.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -579,7 +579,13 @@ PrefabInstance:
         type: 3}
       propertyPath: skillshots.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 60482822383c89d4bbbefc965344a6b4,
+      objectReference: {fileID: 11400000, guid: 70b5e3a34388ddd428238ac423859e53,
+        type: 2}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: skillshots.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 70b5e3a34388ddd428238ac423859e53,
         type: 2}
     - target: {fileID: 8519817777296322567, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -638,6 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422fe232db8be714088aa569c0c8811c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementColor: {r: 0.4481132, g: 1, b: 0.50824225, a: 1}
   characterParent: {fileID: 523840572}
   enemyParent: {fileID: 492562960}
 --- !u!1 &387685901
@@ -2445,7 +2452,6 @@ MonoBehaviour:
     type: 3}
   BoardParent: {fileID: 387685902}
   originalColor: {r: 0.19607843, g: 0.5137255, b: 0.18431373, a: 1}
-  activeColor: {r: 0, g: 0.76727796, b: 1, a: 1}
   Path: []
 --- !u!120 &1882644907
 LineRenderer:

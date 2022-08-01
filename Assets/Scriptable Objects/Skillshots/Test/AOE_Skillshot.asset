@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
-  m_Name: AOE_Skillshot_TEst
+  m_Name: AOE_Skillshot
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
-  OriginTileKind: 0
-  OriginTiles:
-  - {fileID: 0}
-  Damage: 0
-  Range: 12
-  tileColor: {r: 0.9339623, g: 0.80945367, b: 0, a: 1}
+  OriginTileKind: 1
+  OriginTiles: []
+  Damage: 3
+  Range: 2
+  tileColor: {r: 0.7830189, g: 0, b: 0, a: 1}
   TargetsHit: []

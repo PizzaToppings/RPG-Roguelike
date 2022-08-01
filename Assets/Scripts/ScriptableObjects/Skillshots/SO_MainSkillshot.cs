@@ -8,9 +8,10 @@ public class SO_MainSkillshot : ScriptableObject
 {
     public List<SO_Skillshot> Skillshots;
 
+
     public void Preview(BoardTile mouseOverTile) 
     {
-        foreach (var skillshot in Skillshots)
-            skillshot.Preview(mouseOverTile);
+        for (int i = 0; i < Skillshots.Count; i++)
+            Skillshots[i] = Skillshots[i].Preview(mouseOverTile, Skillshots);
     }
 }

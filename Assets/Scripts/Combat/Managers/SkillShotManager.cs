@@ -16,18 +16,19 @@ public class SkillShotManager : MonoBehaviour
 
     public void PreviewLine(SO_LineSkillshot data, BoardTile mouseOverTile)
     {
-        BoardTile originTile = GetOriginalTile(data);
-
         List<int> directions = new List<int>();
 
-        foreach (var direction in data.Directions)
+        foreach (var originTile in data.OriginTiles)
         {
-            var dir = direction;
-            dir += GetNextInLine(originTile, mouseOverTile);
-            directions.Add(dir);
-        }
+            foreach (var direction in data.Directions)
+            {
+                var dir = direction;
+                dir += GetNextInLine(originTile, mouseOverTile);
+                directions.Add(dir);
+            }
 
-        boardManager.PreviewLineCast(originTile, directions.ToArray(), data.Range);
+            boardManager.PreviewLineCast(directions.ToArray(), data);
+        }
     } 
 
     int GetNextInLine(BoardTile originTile, BoardTile mouseOverTile)
@@ -66,15 +67,6 @@ public class SkillShotManager : MonoBehaviour
 
     public void GetAOE(SO_AOE_Skillshot data)
     {
-        BoardTile originTile = GetOriginalTile(data);
-        boardManager.SetMovementLeft(data.Range, originTile);
-    }
-
-    BoardTile GetOriginalTile(SO_Skillshot lineSkillshot)
-    {
-        if (lineSkillshot.OriginTile == SO_Skillshot.OriginTileEnum.Caster)
-            return lineSkillshot.Caster.currentTile;
-
-        return null;
+         boardManager.SetMovementLeft(data.Range, data.OriginTiles, data.tileColor);
     }
 }

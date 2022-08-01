@@ -13,8 +13,11 @@ public class BoardTile : MonoBehaviour
 
     public int movementLeft = -1;
 
+    [HideInInspector] public Vector3 position = new Vector3();
+
     public void Init(int xPosition, int yPosition)
     {
+        position = transform.position;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         boardManager = BoardManager.boardManager;

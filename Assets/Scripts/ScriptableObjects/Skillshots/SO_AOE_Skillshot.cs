@@ -5,10 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AOE_Skillshot", menuName = "ScriptableObjects/Skillshots/AOE_Skillshot")]
 public class SO_AOE_Skillshot : SO_Skillshot
 {
-    public override void Preview(BoardTile mouseOverTile) 
+    public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
     {
-        base.Preview(mouseOverTile);
+        base.Preview(mouseOverTile, skillshots);
         SkillShotManager skillShotManager = SkillShotManager.skillShotManager;
         skillShotManager.GetAOE(this);
+        return this;
     }
 }

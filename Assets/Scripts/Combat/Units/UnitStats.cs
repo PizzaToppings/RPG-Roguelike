@@ -51,6 +51,7 @@ public class UnitStats : MonoBehaviour
     public int Unstoppable;
 
     public BoardManager boardManager;
+    public UnitManager unitManager;
     public BoardTile currentTile = null;
 
 }

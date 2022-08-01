@@ -14,6 +14,7 @@ public class Unit : UnitStats
     {
         OnTurnEnd += CombatData.onTurnEnd;
         boardManager = BoardManager.boardManager;
+        unitManager = UnitManager.unitManager;
 
         SetStats();
         RollInitiative();
@@ -175,7 +176,7 @@ public class Unit : UnitStats
         }
         var endTile = path[path.Count-1];
         boardManager.Clear();
-        boardManager.SetMovementLeft(MoveSpeedLeft, endTile);
+        boardManager.SetMovementLeft(MoveSpeedLeft, endTile, unitManager.movementColor);
     }
 
     void SetStartOfTurnStats()
@@ -195,7 +196,7 @@ public class Unit : UnitStats
 
         boardManager.Clear();
         SetStartOfTurnStats();
-        boardManager.SetMovementLeft(MoveSpeed, currentTile);
+        boardManager.SetMovementLeft(MoveSpeed, currentTile, unitManager.movementColor);
     }
 
     public virtual void EndTurn()

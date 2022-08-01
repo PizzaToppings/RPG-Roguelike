@@ -16,7 +16,6 @@ public class BoardManager : MonoBehaviour
 
     // temp
     [SerializeField] Color originalColor;
-    [SerializeField] Color activeColor;
 
     LineRenderer movementIndicator;
     public List<BoardTile> Path = new List<BoardTile>();
@@ -86,7 +85,15 @@ public class BoardManager : MonoBehaviour
         StopShowingMovement();
     }
 
-    public void SetMovementLeft(int movementLeft, BoardTile startingTile)
+    public void SetMovementLeft(int movementLeft, List<BoardTile> startingTiles,  Color color)
+    {
+        foreach (var tile in startingTiles)
+        {
+            SetMovementLeft(movementLeft, tile, color);
+        }
+    }
+
+    public void SetMovementLeft(int movementLeft, BoardTile startingTile, Color color)
     {
         if (movementLeft == 0)
             return;
@@ -101,44 +108,63 @@ public class BoardManager : MonoBehaviour
             if (tile == null)
                 continue;
             
-            if (tile.movementLeft <= movementLeft)
+            if (tile.movementLeft < movementLeft)
             {
-                tile.gameObject.GetComponent<Renderer>().materials[1].color = activeColor;
+                tile.gameObject.GetComponent<Renderer>().materials[1].color = color;
                 tile.movementLeft = movementLeft;
                 usedTiles.Add(tile);
+                SetMovementLeft(movementLeft, tile, color);
             }
         }
-
-        foreach (var tile in usedTiles)
-            SetMovementLeft(movementLeft, tile);
     }
 
-    public void PreviewLineCast(BoardTile originalTile, int[] directions, int range)
+    public void PreviewLineCast(int[] directions, SO_Skillshot data)
     {
-        BoardTile nextTile = originalTile;
+        BoardTile nextTile = data.OriginTiles[0];
 
-        foreach (var dir in directions)
+        foreach (var originTile in data.OriginTiles)
         {
-            nextTile = originalTile;
-            for (int i = 0; i < range; i++)
+            var target = FindTarget(nextTile);
+
+            foreach (var dir in directions)
             {
-                var direction = dir % 6;
+                nextTile = originTile;
+                for (int i = 0; i < data.Range; i++)
+                {
+                    var direction = dir % 6;
 
-                nextTile.gameObject.GetComponent<Renderer>().materials[1].color = activeColor;
-                nextTile = nextTile.connectedTiles[direction];
+                    nextTile.gameObject.GetComponent<Renderer>().materials[1].color = data.tileColor;
+                    nextTile = nextTile.connectedTiles[direction];
 
-                if (nextTile == null)
-                    break;
+                    if (nextTile == null)
+                        break;
+
+                    target = FindTarget(nextTile);
+                    if (target != null)
+                        data.TargetsHit.Add(target);
+                }
             }
         }
+    }
+
+    Unit FindTarget(BoardTile tile)
+    {
+        foreach (var target in UnitData.Enemies)
+        {
+            if (target.currentTile == tile)
+            {
+                return target;
+            }
+        }
+        return null;
     }
 
     public void PreviewMovementLine(BoardTile finaltile, int movementAmount)
     {
         int movementUsed = CombatData.CurrentActiveUnit.MoveSpeedLeft - movementAmount;
         movementIndicator.positionCount = movementUsed + 1;
-        movementIndicator.SetPosition(0, finaltile.transform.position + Vector3.up);
-        movementIndicator.SetPosition(movementUsed, CombatData.CurrentActiveUnit.currentTile.transform.position + Vector3.up);
+        movementIndicator.SetPosition(0, finaltile.position + Vector3.up);
+        movementIndicator.SetPosition(movementUsed, CombatData.CurrentActiveUnit.currentTile.position + Vector3.up);
 
         BoardTile currentTile = finaltile;
         Path.Add(currentTile);
@@ -152,7 +178,7 @@ public class BoardManager : MonoBehaviour
 
                 if (tile.movementLeft == currentTile.movementLeft + 1)
                 {
-                    movementIndicator.SetPosition(i+1, tile.transform.position + Vector3.up);
+                    movementIndicator.SetPosition(i+1, tile.position + Vector3.up);
                     currentTile = tile;
                     Path.Add(tile);
                     continue;
