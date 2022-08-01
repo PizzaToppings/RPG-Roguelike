@@ -146,9 +146,11 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void PreviewLineCast(int[] directions, SO_Skillshot data)
+    public void PreviewLineCast(int[] directions, SO_LineSkillshot data)
     {
         BoardTile nextTile = data.OriginTiles[0];
+
+        int pierceAmount = data.PierceAmount;
 
         foreach (var originTile in data.OriginTiles)
         {
@@ -167,8 +169,16 @@ public class BoardManager : MonoBehaviour
                         break;
 
                     target = FindTarget(nextTile);
-                    if (target != null)
+                    if (target != null) 
+                    {
                         data.TargetsHit.Add(target);
+                        if (pierceAmount != -1)
+                        {
+                            if (pierceAmount == 0)
+                                break;
+                            pierceAmount--;
+                        }
+                    }
                 }
             }
         }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class SO_LineSkillshot : SO_Skillshot
 {
     public int[] Directions;
+    public int PierceAmount;
 
     public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
     {
