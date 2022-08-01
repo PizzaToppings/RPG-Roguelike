@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
-  m_Name: FirstAOE
+  m_Script: {fileID: 11500000, guid: 9b7fdbd1c2e4e824b9aca47d7c74b93f, type: 3}
+  m_Name: ConeTest 1
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
   OriginTileKind: 0
-  OriginTiles:
-  - {fileID: 0}
+  OriginTiles: []
   Damage: 0
-  Range: 5
-  tileColor: {r: 0.08690815, g: 0.5943396, b: 0.31617397, a: 1}
-  TargetsHit:
-  - {fileID: 0}
-  - {fileID: 0}
+  Range: 4
+  tileColor: {r: 0, g: 0.274302, b: 1, a: 1}
+  TargetsHit: []
+  isWide: 0

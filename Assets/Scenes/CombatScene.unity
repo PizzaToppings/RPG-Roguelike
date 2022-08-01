@@ -561,7 +561,7 @@ PrefabInstance:
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: skillshots.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -573,7 +573,7 @@ PrefabInstance:
         type: 3}
       propertyPath: skillshots.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: ca72ea864decac24d9ca3f7dd5fbc01e,
+      objectReference: {fileID: 11400000, guid: 92bf6569a80ecec4bbd500737dfc1879,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}

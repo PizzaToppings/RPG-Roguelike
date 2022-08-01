@@ -184,6 +184,64 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void PreviewConeCast(int direction, SO_ConeSkillshot data)
+    {
+        BoardTile nextTile = data.OriginTiles[0];
+
+        foreach (var originTile in data.OriginTiles)
+        {
+            nextTile = originTile;
+            for (int i = 0; i < data.Range; i++)
+            {
+                int nextRange = i+2;
+                var dir = direction % 6;
+
+                if (!nextTile.connectedTiles[dir])
+                {
+                    if (nextTile.connectedTiles[(dir+1)%6])
+                    {
+                        nextTile = nextTile.connectedTiles[(dir+1)%6];
+                        nextRange--;
+                    }
+                    break;
+                }
+
+                nextTile = nextTile.connectedTiles[dir];
+
+                nextTile.gameObject.GetComponent<Renderer>().materials[1].color = data.tileColor;
+                ContinueConeCast(nextTile, dir+2, data, nextRange);
+
+                var target = FindTarget(nextTile);
+                if (target != null) 
+                {
+                    data.TargetsHit.Add(target);
+                }
+            }
+        }
+    }
+
+    void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkillshot data, int range)
+    {
+        BoardTile nextTile = tile;
+        for (int i = 0; i < range; i++)
+        {
+            var dir = direction % 6;
+
+            nextTile.gameObject.GetComponent<Renderer>().materials[1].color = data.tileColor;
+            nextTile = nextTile.connectedTiles[dir];
+
+            if (nextTile == null)
+                break;
+
+            var target = FindTarget(nextTile);
+            if (target != null) 
+            {
+                data.TargetsHit.Add(target);
+            }
+        }
+    }
+
+
     Unit FindTarget(BoardTile tile)
     {
         foreach (var target in UnitData.Enemies)

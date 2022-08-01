@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 119341ac486b48d449da6531450173d9, type: 3}
-  m_Name: doubleTest
+  m_Name: ConeTest
   m_EditorClassIdentifier: 
   Skillshots:
-  - {fileID: 11400000, guid: 4df3e89680ac1c94c8d98a96f289c7fe, type: 2}
-  - {fileID: 11400000, guid: eaeaa0c623b4c46428887174425338c8, type: 2}
+  - {fileID: 11400000, guid: 583febe8324038045bc3bc44106e6254, type: 2}

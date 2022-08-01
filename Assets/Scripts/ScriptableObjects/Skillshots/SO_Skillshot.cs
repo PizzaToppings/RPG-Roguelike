@@ -17,7 +17,7 @@ public class SO_Skillshot : ScriptableObject
 
     public Color tileColor;
 
-    public List<Unit> TargetsHit;
+    [HideInInspector] public List<Unit> TargetsHit;
 
     // public DamageType DamageType;
     // debuffs

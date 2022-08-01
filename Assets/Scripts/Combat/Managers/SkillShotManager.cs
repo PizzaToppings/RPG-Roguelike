@@ -23,7 +23,7 @@ public class SkillShotManager : MonoBehaviour
             foreach (var direction in data.Directions)
             {
                 var dir = direction;
-                dir += GetNextInLine(originTile, mouseOverTile);
+                dir += GetDirection(originTile, mouseOverTile);
                 directions.Add(dir);
             }
 
@@ -31,7 +31,16 @@ public class SkillShotManager : MonoBehaviour
         }
     } 
 
-    int GetNextInLine(BoardTile originTile, BoardTile mouseOverTile)
+    public void PreviewCone(SO_ConeSkillshot data, BoardTile mouseOverTile)
+    {
+        foreach (var originTile in data.OriginTiles)
+        {
+            var direction = GetDirection(originTile, mouseOverTile);
+            boardManager.PreviewConeCast(direction, data);
+        }
+    }
+
+    int GetDirection(BoardTile originTile, BoardTile mouseOverTile)
     {
         int[] diffs = new int[6];
 
