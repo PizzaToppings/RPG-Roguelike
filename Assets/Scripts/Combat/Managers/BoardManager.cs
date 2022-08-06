@@ -171,7 +171,7 @@ public class BoardManager : MonoBehaviour
                     target = FindTarget(nextTile);
                     if (target != null) 
                     {
-                        data.TargetsHit.Add(target);
+                        AddTarget(target, data);
                         if (pierceAmount != -1)
                         {
                             if (pierceAmount == 0)
@@ -214,7 +214,7 @@ public class BoardManager : MonoBehaviour
                 var target = FindTarget(nextTile);
                 if (target != null) 
                 {
-                    data.TargetsHit.Add(target);
+                    AddTarget(target, data);
                 }
             }
         }
@@ -236,7 +236,7 @@ public class BoardManager : MonoBehaviour
             var target = FindTarget(nextTile);
             if (target != null) 
             {
-                data.TargetsHit.Add(target);
+                AddTarget(target, data);
             }
         }
     }
@@ -254,12 +254,18 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
+    void AddTarget(Unit target, SO_Skillshot data)
+    {
+        data.TargetsHit.Add(target);
+        target.IsTargeted = true;
+    }
+
     public void PreviewMovementLine(BoardTile finaltile, int movementAmount)
     {
-        int movementUsed = CombatData.CurrentActiveUnit.MoveSpeedLeft - movementAmount;
+        int movementUsed = UnitData.CurrentActiveUnit.MoveSpeedLeft - movementAmount;
         movementIndicator.positionCount = movementUsed + 1;
         movementIndicator.SetPosition(0, finaltile.position + Vector3.up);
-        movementIndicator.SetPosition(movementUsed, CombatData.CurrentActiveUnit.currentTile.position + Vector3.up);
+        movementIndicator.SetPosition(movementUsed, UnitData.CurrentActiveUnit.currentTile.position + Vector3.up);
 
         BoardTile currentTile = finaltile;
         Path.Add(currentTile);

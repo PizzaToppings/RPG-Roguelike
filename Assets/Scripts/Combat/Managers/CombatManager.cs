@@ -81,7 +81,7 @@ public class CombatManager : MonoBehaviour
 
         var CurrentActiveUnit = UnitData.Units[CombatData.currentCharacterTurn];
         CurrentActiveUnit.StartTurn();
-        CombatData.CurrentActiveUnit = CurrentActiveUnit;
+        UnitData.CurrentActiveUnit = CurrentActiveUnit;
         CombatData.currentCharacterTurn++;
     }
 

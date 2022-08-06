@@ -12,7 +12,7 @@ public class Enemy : Unit
 
     public override void Update()
     {
-        if (CombatData.CurrentActiveUnit == this)
+        if (UnitData.CurrentActiveUnit == this)
         {
             base.Update();
         }

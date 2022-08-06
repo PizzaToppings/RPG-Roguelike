@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Skillshot", menuName = "ScriptableObjects/Skillshot", order = 1)]
 public class SO_Skillshot : ScriptableObject
 {
-    public enum OriginTileEnum {Caster, LastTarget, Click};
+    public enum OriginTileEnum {Caster, LastTarget, Click, MouseOverTarget, custom};
 
     List<SO_Skillshot> skillshotList;
 
     [HideInInspector] public Unit Caster;
-    public OriginTileEnum OriginTileKind;
+    public OriginTileEnum OriginTileKind = OriginTileEnum.Caster;
     [HideInInspector] public List<BoardTile> OriginTiles;
     public int Damage;
     public int Range;

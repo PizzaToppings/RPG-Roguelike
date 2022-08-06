@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
-  m_Name: AOE_Skillshot
+  m_Script: {fileID: 11500000, guid: 6afc1fc21dec23e408cb1355a592087a, type: 3}
+  m_Name: FireBall
   m_EditorClassIdentifier: 
-  Caster: {fileID: 0}
-  OriginTileKind: 1
-  OriginTiles: []
-  Damage: 3
-  Range: 2
-  tileColor: {r: 0.7830189, g: 0, b: 0, a: 1}
-  TargetsHit: []
+  SkillshotParts:
+  - {fileID: 11400000, guid: 3bf70e454f361fb4fae01b0a0bcdaaec, type: 2}
+  - {fileID: 11400000, guid: 3556423f420c7334f8dc350b9d7143b0, type: 2}

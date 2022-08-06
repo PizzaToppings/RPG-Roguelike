@@ -12,7 +12,7 @@ public class Character : Unit
 
     public override void Update()
     {
-        if (CombatData.CurrentActiveUnit == this)
+        if (UnitData.CurrentActiveUnit == this)
         {
             base.Update();
 
@@ -37,30 +37,31 @@ public class Character : Unit
 
     void ToggleSkills(int skillIndex)
     {
-        if (UnitData.CurrentSkillshot == skillIndex)
+        if (SkillshotData.CurrentSkillshotIndex == skillIndex)
         {
             UnitData.CurrentAction = UnitData.CurrentActionKind.Moving; 
-            UnitData.CurrentSkillshot = null;
+            SkillshotData.CurrentSkillshotIndex = null;
             boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
         }
         else
         {
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
-            UnitData.CurrentSkillshot = skillIndex;
+            SkillshotData.CurrentSkillshotIndex = skillIndex;
             boardManager.Clear();
         }
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)
     {   
+        unitManager.ClearTargets();
         /// use forloop
         base.PreviewSkills(mouseOverTile);
-        if (UnitData.CurrentSkillshot == 1 && SkillshotsEquipped[0])
+        if (SkillshotData.CurrentSkillshotIndex == 1 && SkillshotsEquipped[0])
         {
             skillshots[0].Preview(mouseOverTile);
         }
 
-        if (UnitData.CurrentSkillshot == 2 && SkillshotsEquipped[1])
+        if (SkillshotData.CurrentSkillshotIndex == 2 && SkillshotsEquipped[1])
         {
             skillshots[1].Preview(mouseOverTile);
         }

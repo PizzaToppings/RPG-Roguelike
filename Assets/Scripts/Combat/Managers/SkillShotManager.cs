@@ -74,8 +74,13 @@ public class SkillShotManager : MonoBehaviour
         return lowestDiffIndex;
     }
 
-    public void GetAOE(SO_AOE_Skillshot data)
+    public void GetAOE(SO_Skillshot data)
     {
          boardManager.SetAOE(data.Range, data.OriginTiles, data.tileColor, data);
+    }
+
+    public void GetTargetWithinRange(SO_TargetSkillshot data)
+    {
+        
     }
 }

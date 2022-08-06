@@ -17,10 +17,13 @@ public class BoardTile : MonoBehaviour
 
     public void Init(int xPosition, int yPosition)
     {
+        boardManager = BoardManager.boardManager;
+        boardManager = BoardManager.boardManager;
+
         position = transform.position;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        boardManager = BoardManager.boardManager;
+
         skillShotManager = SkillShotManager.skillShotManager;
         gameObject.name = xPosition + ", " + yPosition;
 
@@ -29,20 +32,20 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (CombatData.CurrentActiveUnit.Friendly == false)
+        if (UnitData.CurrentActiveUnit.Friendly == false)
             return;
 
         if (movementLeft > -1 && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
         {
             // start moving
             boardManager.Path.Reverse();
-            CombatData.CurrentActiveUnit.StartMoving(boardManager.Path);
+            UnitData.CurrentActiveUnit.StartMoving(boardManager.Path);
         }
     }
 
     void OnMouseEnter()
     {
-        if (CombatData.CurrentActiveUnit.Friendly == false)
+        if (UnitData.CurrentActiveUnit.Friendly == false)
             return;
         
         // Start moving
@@ -54,12 +57,12 @@ public class BoardTile : MonoBehaviour
         }
 
         if (UnitData.CurrentAction == UnitData.CurrentActionKind.CastingSkillshot)
-            CombatData.CurrentActiveUnit.PreviewSkills(this);
+            UnitData.CurrentActiveUnit.PreviewSkills(this);
     }
 
     void OnMouseExit()
     {
-        if (CombatData.CurrentActiveUnit.Friendly && movementLeft > -1)
+        if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)
             boardManager.StopShowingMovement();
     }
 

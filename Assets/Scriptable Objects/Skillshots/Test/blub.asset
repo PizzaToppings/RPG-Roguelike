@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
-  m_Name: doubleLine
+  m_Name: blub
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
   OriginTileKind: 0
   OriginTiles:
   - {fileID: 0}
-  Damage: 10
-  Range: 12
-  tileColor: {r: 0.010012442, g: 0.1771823, b: 0.7075472, a: 1}
-  TargetsHit:
-  - {fileID: 0}
-  Directions: 000000000100000005000000
+  Damage: 9
+  Range: 6
+  tileColor: {r: 0.94509804, g: 0.70578474, b: 0, a: 1}
+  TargetsHit: []
+  Directions: 00000000
+  PierceAmount: 1

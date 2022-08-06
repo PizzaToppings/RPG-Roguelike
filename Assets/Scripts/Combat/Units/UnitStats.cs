@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitStats : MonoBehaviour
 {
-    public string Name;
+    public string UnitName;
 
     public bool Friendly;
     public int MaxHitpoints;
@@ -18,6 +18,7 @@ public class UnitStats : MonoBehaviour
     public int MaxSkillShotAmount = 4;
     public List<bool> SkillshotsEquipped;
     public List<SO_MainSkillshot> skillshots = new List<SO_MainSkillshot>();
+    public bool IsTargeted;
 
     public int PhysicalPower;
     public int MagicalPower;

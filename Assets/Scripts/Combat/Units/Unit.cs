@@ -5,8 +5,12 @@ using UnityEngine.Events;
 
 public class Unit : UnitStats
 {
+    public bool MouseOver;
     public UnityAction OnTurnStart;
     public UnityAction OnTurnEnd;
+
+    public UnityAction<Unit> OnClick;
+
     public UnityAction OnDealDamage;
     public UnityAction OnTakeDamage;
 
@@ -25,19 +29,40 @@ public class Unit : UnitStats
         
     }
 
+    void OnMouseOver()
+    {
+        MouseOver = true;
+    }
+
+    void OnMouseDown()
+    {
+        if (OnClick != null)
+            OnClick.Invoke(this);
+    }
+
+    void OnMouseExit()
+    {
+        MouseOver = false;
+    }
+
     void SetStats()
     {
         // where do I get stats?
-        Name = nameGenerator();
-        gameObject.name = Name;
+        UnitName = nameGenerator();
+        gameObject.name = UnitName;
         MoveSpeed = Random.Range(5, 15);
+
+        Debug.Log(skillshots);
+        Debug.Log(skillshots?.Count);
+        if (skillshots?.Count == 0)
+            return;
 
         SetSkillShots();
     }
 
     void SetSkillShots()
     {
-        skillshots.ForEach(x => x.Skillshots.ForEach(y => y.Caster = this));
+        skillshots.ForEach(x => x.SkillshotParts.ForEach(y => y.Caster = this));
 
         for (int i = 0; i < MaxSkillShotAmount; i++)
         {
@@ -170,7 +195,7 @@ public class Unit : UnitStats
                 yield return new WaitForEndOfFrame();
             }
 
-            CombatData.CurrentActiveUnit.currentTile = path[i];
+            UnitData.CurrentActiveUnit.currentTile = path[i];
             MoveSpeedLeft--;
             startPosition = endPosition;
         }

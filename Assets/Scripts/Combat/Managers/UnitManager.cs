@@ -12,13 +12,10 @@ public class UnitManager : MonoBehaviour
     [SerializeField] Transform characterParent;
     [SerializeField] Transform enemyParent;
 
+
     public void Init()
     {
         unitManager = this;
-    }
-
-    void Update()
-    {
     }
 
     public void PlaceUnits()
@@ -57,5 +54,21 @@ public class UnitManager : MonoBehaviour
             UnitData.Characters.Add(unit as Character);
         else
             UnitData.Enemies.Add(unit as Enemy);
+    }
+
+    public void ClearTargets()
+    {
+        foreach (var unit in UnitData.Units)
+        {
+            unit.IsTargeted = false;
+        }
+    }
+
+    public void TargetUnit(Unit target)
+    {
+        if (target.IsTargeted)
+        {
+            Debug.Log("HEY");
+        }
     }
 }
