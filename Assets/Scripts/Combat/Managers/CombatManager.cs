@@ -59,7 +59,6 @@ public class CombatManager : MonoBehaviour
     public void RoundStart()
     {
         CombatData.currentRound++;
-        Debug.Log("starting new round: " + CombatData.currentRound);
 
         initiativeTracker.NextRound();
 
@@ -69,8 +68,6 @@ public class CombatManager : MonoBehaviour
 
     public void TurnStart()
     {
-        Debug.Log("starting new turn: " + CombatData.currentCharacterTurn);
-
         if (CombatData.currentCharacterTurn == UnitData.Units.Count)
         {
             CombatData.currentCharacterTurn = 0;

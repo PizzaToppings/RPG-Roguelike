@@ -13,6 +13,8 @@ public class BoardTile : MonoBehaviour
 
     public int movementLeft = -1;
 
+    public Unit currentCharacter = null;
+
     [HideInInspector] public Vector3 position = new Vector3();
 
     public void Init(int xPosition, int yPosition)
@@ -45,8 +47,16 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseEnter()
     {
+        Target();   
+    }
+
+    public void Target()
+    {
         if (UnitData.CurrentActiveUnit.Friendly == false)
             return;
+
+        if (currentCharacter != null)
+            currentCharacter.IsTargeted = true;
         
         // Start moving
         if (movementLeft > -1 
@@ -62,8 +72,18 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseExit()
     {
+        UnTarget();
+    }
+
+    public void UnTarget()
+    {
         if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)
+        {
+            if (currentCharacter != null)
+                currentCharacter.IsTargeted = false;
+                
             boardManager.StopShowingMovement();
+        }
     }
 
     IEnumerator SlideIn()

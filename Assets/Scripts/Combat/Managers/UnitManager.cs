@@ -47,6 +47,7 @@ public class UnitManager : MonoBehaviour
         var randomY = Random.Range(0, BoardData.columnAmount);
         var randomPlace = BoardData.BoardTiles[randomX, randomY];
         unit.currentTile = randomPlace;
+        randomPlace.currentCharacter = unit;
         unit.transform.position = randomPlace.position + Vector3.up;
         unit.Init();
 
@@ -68,7 +69,6 @@ public class UnitManager : MonoBehaviour
     {
         if (target.IsTargeted)
         {
-            Debug.Log("HEY");
         }
     }
 }

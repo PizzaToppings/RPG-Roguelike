@@ -32,19 +32,36 @@ public class SO_Skillshot : ScriptableObject
     List<BoardTile> GetOriginalTiles()
     {
         var tiles = new List<BoardTile>();
+        var thisIndex = skillshotList.FindIndex(x => x == this);
 
         if (OriginTileKind == SO_Skillshot.OriginTileEnum.Caster)
             tiles.Add(Caster.currentTile);
 
         if (OriginTileKind == SO_Skillshot.OriginTileEnum.LastTarget)
         {
-            var thisIndex = skillshotList.FindIndex(x => x == this);
             var previousSkillshot = skillshotList[thisIndex - 1];
 
             if (previousSkillshot?.TargetsHit?.Count == 0)
                 return new List<BoardTile>();
             
             previousSkillshot.TargetsHit.ForEach(x => tiles.Add(x.currentTile));
+        }
+
+        if (OriginTileKind == SO_Skillshot.OriginTileEnum.MouseOverTarget)
+        {
+            var previousSkillshot = skillshotList[thisIndex - 1];
+
+            if (previousSkillshot?.TargetsHit?.Count == 0)
+                return new List<BoardTile>();
+
+            Debug.Log("previousSkillshot" + previousSkillshot.name);
+
+            var target = previousSkillshot.TargetsHit.Find(x => x.IsTargeted);
+            if (target != null)
+            {
+                Debug.Log(this.name + ", target tile: " + target.currentTile.name);
+                tiles.Add(target.currentTile);
+            }
         }
 
         return tiles;

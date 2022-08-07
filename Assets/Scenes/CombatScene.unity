@@ -578,7 +578,7 @@ PrefabInstance:
         type: 3}
       propertyPath: skillshots.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 13a294e7cd0c2dc4c889e6cc322c9ba5,
+      objectReference: {fileID: 11400000, guid: ddc6a2275d443e34eaf0fe785406432c,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -2467,7 +2467,7 @@ MonoBehaviour:
   BoardParent: {fileID: 387685902}
   originalColor: {r: 0.19607843, g: 0.5137255, b: 0.18431373, a: 1}
   Path: []
-  MovementColor: {r: 0, g: 0.7058824, b: 0.3703818, a: 1}
+  MovementColor: {r: 0.35292807, g: 0.9716981, b: 0.67606354, a: 1}
 --- !u!120 &1882644907
 LineRenderer:
   m_ObjectHideFlags: 0

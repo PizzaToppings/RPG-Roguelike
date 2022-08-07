@@ -30,8 +30,6 @@ public class InitiativeTracker : MonoBehaviour
 
     public void NextTurn()
     {
-        Debug.Log("Setting Init: " + CombatData.currentCharacterTurn);
-
         foreach (var initiativeName in initiativeNames)
             initiativeName.color = inactiveColor;
 

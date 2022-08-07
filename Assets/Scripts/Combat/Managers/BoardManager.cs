@@ -138,7 +138,7 @@ public class BoardManager : MonoBehaviour
                 usedTiles.Add(tile);
                 
                 var target = FindTarget(tile);
-                    if (target != null && data != null)
+                    if (target != null && data != null && !data.TargetsHit.Contains(target))
                         data.TargetsHit.Add(target);
 
                 SetAOE(movementLeft, tile, color, data);
@@ -256,8 +256,11 @@ public class BoardManager : MonoBehaviour
 
     void AddTarget(Unit target, SO_Skillshot data)
     {
+        if (data.TargetsHit.Contains(target))
+            return;
+
         data.TargetsHit.Add(target);
-        target.IsTargeted = true;
+        // target.IsTargeted = true;
     }
 
     public void PreviewMovementLine(BoardTile finaltile, int movementAmount)

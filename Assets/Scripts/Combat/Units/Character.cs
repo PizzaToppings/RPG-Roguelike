@@ -17,10 +17,7 @@ public class Character : Unit
             base.Update();
 
             if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("ending turn: " + this);
                 EndTurn();
-            }
 
             UseSkills();
         }
@@ -53,7 +50,7 @@ public class Character : Unit
 
     public override void PreviewSkills(BoardTile mouseOverTile)
     {   
-        unitManager.ClearTargets();
+        // unitManager.ClearTargets();
         /// use forloop
         base.PreviewSkills(mouseOverTile);
         if (SkillshotData.CurrentSkillshotIndex == 1 && SkillshotsEquipped[0])

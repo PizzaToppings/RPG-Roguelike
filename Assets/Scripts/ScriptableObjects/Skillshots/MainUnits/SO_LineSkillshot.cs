@@ -14,7 +14,6 @@ public class SO_LineSkillshot : SO_Skillshot
 
         SkillShotManager skillShotManager = SkillShotManager.skillShotManager;
         skillShotManager.PreviewLine(this, mouseOverTile);
-        Debug.Log("HEYHEHEY");
         return this;
     }
 }

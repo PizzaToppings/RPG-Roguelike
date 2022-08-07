@@ -12,7 +12,7 @@ public class SO_MainSkillshot : ScriptableObject
         BoardManager boardManager = BoardManager.boardManager;
         UnitManager unitManager = UnitManager.unitManager;
 
-        unitManager.ClearTargets();
+        // unitManager.ClearTargets();
 
         // for (int i = 0; i < Skillshots.Count; i++)
         // {

@@ -29,9 +29,9 @@ public class Unit : UnitStats
         
     }
 
-    void OnMouseOver()
+    void OnMouseEnter()
     {
-        MouseOver = true;
+        currentTile.Target();
     }
 
     void OnMouseDown()
@@ -42,7 +42,7 @@ public class Unit : UnitStats
 
     void OnMouseExit()
     {
-        MouseOver = false;
+       currentTile.UnTarget();
     }
 
     void SetStats()
@@ -52,8 +52,6 @@ public class Unit : UnitStats
         gameObject.name = UnitName;
         MoveSpeed = Random.Range(5, 15);
 
-        Debug.Log(skillshots);
-        Debug.Log(skillshots?.Count);
         if (skillshots?.Count == 0)
             return;
 
@@ -195,7 +193,9 @@ public class Unit : UnitStats
                 yield return new WaitForEndOfFrame();
             }
 
+            path[i].currentCharacter = null;
             UnitData.CurrentActiveUnit.currentTile = path[i];
+            path[i].currentCharacter = UnitData.CurrentActiveUnit;
             MoveSpeedLeft--;
             startPosition = endPosition;
         }
@@ -226,7 +226,6 @@ public class Unit : UnitStats
 
     public virtual void EndTurn()
     {
-        Debug.Log("ending turn");
         if (OnTurnEnd != null)
             OnTurnEnd.Invoke();
     }
