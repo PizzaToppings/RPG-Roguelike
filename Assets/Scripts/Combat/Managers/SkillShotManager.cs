@@ -79,7 +79,7 @@ public class SkillShotManager : MonoBehaviour
          boardManager.SetAOE(data.Range, data.OriginTiles, data.tileColor, data);
     }
 
-    public void GetTargetWithinRange(SO_TargetSkillshot data)
+    public void GetTargetWithinRange(SO_TargetUnitSkillshot data)
     {
         
     }

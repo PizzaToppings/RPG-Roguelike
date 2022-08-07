@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TargetSkillshot", menuName = "ScriptableObjects/SkillshotParts/TargetSkillshot")]
-public class SO_TargetSkillshot : SO_Skillshot
+[CreateAssetMenu(fileName = "TargetUnitSkillshot", menuName = "ScriptableObjects/SkillshotParts/TargetUnitSkillshot")]
+public class SO_TargetUnitSkillshot : SO_Skillshot
 {
     public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
     {

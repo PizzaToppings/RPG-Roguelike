@@ -144,6 +144,8 @@ public class BoardManager : MonoBehaviour
                 SetAOE(movementLeft, tile, color, data);
             }
         }
+        if (data != null)
+            data.TilesHit.AddRange(usedTiles);
     }
 
     public void PreviewLineCast(int[] directions, SO_LineSkillshot data)
@@ -158,6 +160,7 @@ public class BoardManager : MonoBehaviour
             foreach (var dir in directions)
             {
                 nextTile = originTile;
+                data.TilesHit.Add(nextTile);
                 for (int i = 0; i < data.Range; i++)
                 {
                     var direction = dir % 6;
@@ -168,6 +171,7 @@ public class BoardManager : MonoBehaviour
                     if (nextTile == null)
                         break;
 
+                    data.TilesHit.Add(nextTile);
                     target = FindTarget(nextTile);
                     if (target != null) 
                     {
@@ -191,6 +195,7 @@ public class BoardManager : MonoBehaviour
         foreach (var originTile in data.OriginTiles)
         {
             nextTile = originTile;
+            data.TilesHit.Add(nextTile);
             for (int i = 0; i < data.Range; i++)
             {
                 int nextRange = i+2;
@@ -201,12 +206,14 @@ public class BoardManager : MonoBehaviour
                     if (nextTile.connectedTiles[(dir+1)%6])
                     {
                         nextTile = nextTile.connectedTiles[(dir+1)%6];
+                        data.TilesHit.Add(nextTile);
                         nextRange--;
                     }
                     break;
                 }
 
                 nextTile = nextTile.connectedTiles[dir];
+                data.TilesHit.Add(nextTile);
 
                 nextTile.gameObject.GetComponent<Renderer>().materials[1].color = data.tileColor;
                 ContinueConeCast(nextTile, dir+2, data, nextRange);
@@ -232,6 +239,8 @@ public class BoardManager : MonoBehaviour
 
             if (nextTile == null)
                 break;
+
+            data.TilesHit.Add(nextTile);
 
             var target = FindTarget(nextTile);
             if (target != null) 

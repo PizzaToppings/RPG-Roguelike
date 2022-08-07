@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead2c6bd82ddc804f970ab98b2083104, type: 3}
-  m_Name: TargetTest
+  m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
+  m_Name: TargetTileSkillshot
   m_EditorClassIdentifier: 
-  SkillshotParts:
-  - {fileID: 11400000, guid: ca7bf8603adb5ca42af17bf3c5bbc35c, type: 2}
-  - {fileID: 11400000, guid: 31dd2029af68402468b2dbf7b5c09364, type: 2}
+  Caster: {fileID: 0}
+  OriginTileKind: 0
+  OriginTiles: []
+  Damage: 0
+  Range: 5
+  tileColor: {r: 0.53374577, g: 0, b: 1, a: 1}
+  TargetsHit: []
