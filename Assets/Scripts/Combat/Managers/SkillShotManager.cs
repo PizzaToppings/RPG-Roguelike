@@ -14,16 +14,16 @@ public class SkillShotManager : MonoBehaviour
         boardManager = GetComponent<BoardManager>();
     }
 
-    public void PreviewLine(SO_LineSkillshot data, BoardTile mouseOverTile)
+    public void PreviewLine(SO_LineSkillshot data, BoardTile targetTile)
     {
         List<int> directions = new List<int>();
 
         foreach (var originTile in data.OriginTiles)
         {
-            foreach (var direction in data.Directions)
+            foreach (var direction in data.Angles)
             {
                 var dir = direction;
-                dir += GetDirection(originTile, mouseOverTile);
+                dir += GetDirection(originTile, targetTile, data);
                 directions.Add(dir);
             }
 
@@ -31,17 +31,23 @@ public class SkillShotManager : MonoBehaviour
         }
     } 
 
-    public void PreviewCone(SO_ConeSkillshot data, BoardTile mouseOverTile)
+    public void PreviewCone(SO_ConeSkillshot data, BoardTile targetTile)
     {
         foreach (var originTile in data.OriginTiles)
         {
-            var direction = GetDirection(originTile, mouseOverTile);
+            var direction = GetDirection(originTile, targetTile, data);
             boardManager.PreviewConeCast(direction, data);
         }
     }
 
-    int GetDirection(BoardTile originTile, BoardTile mouseOverTile)
+    int GetDirection(BoardTile originTile, BoardTile targetTile, SO_Skillshot data)
     {
+        if (data.TargetTileKind == SO_Skillshot.TargetTileEnum.PreviousDirection)
+        {
+            data.FinalDirection = data.GetPreviousSkillshot().FinalDirection;
+            return data.FinalDirection;
+        }
+
         int[] diffs = new int[6];
 
         for (int i = 0; i < originTile.connectedTiles.Length; i++)
@@ -53,8 +59,8 @@ public class SkillShotManager : MonoBehaviour
             }
 
             var connectedTile = originTile.connectedTiles[i];
-            int xDif = Mathf.Abs(connectedTile.xPosition - mouseOverTile.xPosition);
-            int yDif = Mathf.Abs(connectedTile.yPosition - mouseOverTile.yPosition);
+            int xDif = Mathf.Abs(connectedTile.xPosition - targetTile.xPosition);
+            int yDif = Mathf.Abs(connectedTile.yPosition - targetTile.yPosition);
 
             diffs[i] = xDif + yDif;
         }
@@ -71,16 +77,12 @@ public class SkillShotManager : MonoBehaviour
             }
         }
 
+        data.FinalDirection = lowestDiffIndex;
         return lowestDiffIndex;
     }
 
     public void GetAOE(SO_Skillshot data)
     {
          boardManager.SetAOE(data.Range, data.OriginTiles, data.tileColor, data);
-    }
-
-    public void GetTargetWithinRange(SO_TargetUnitSkillshot data)
-    {
-        
     }
 }

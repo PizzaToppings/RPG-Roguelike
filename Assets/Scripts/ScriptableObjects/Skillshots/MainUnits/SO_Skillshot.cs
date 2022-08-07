@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class SO_Skillshot : ScriptableObject
 {
-    public enum OriginTileEnum {Caster, LastTarget, LastTile, MouseOverTarget, custom};
+    public enum OriginTileEnum {Caster, LastTarget, LastTile, MouseOverTarget, Custom};
+    public enum TargetTileEnum {MouseOverTile, Caster, AwayFromCaster, LastTarget, LastTile, PreviousDirection, MouseOverTarget, Custom};
 
     List<SO_Skillshot> skillshotList;
 
+    public OriginTileEnum OriginTileKind = OriginTileEnum.Caster; 
+    public TargetTileEnum TargetTileKind = TargetTileEnum.MouseOverTile;
+
     [HideInInspector] public Unit Caster;
-    public OriginTileEnum OriginTileKind = OriginTileEnum.Caster;
     [HideInInspector] public List<BoardTile> OriginTiles;
+    [HideInInspector] public BoardTile targetTile;
+    [HideInInspector] public int FinalDirection;
+
+
     public int Damage;
     public int Range;
 
@@ -28,16 +35,14 @@ public class SO_Skillshot : ScriptableObject
         TargetsHit = new List<Unit>();
         TilesHit = new List<BoardTile>();
         OriginTiles = GetOriginalTiles();
+        targetTile = GetTargetTile(mouseOverTile);
         return this;
     }
 
     List<BoardTile> GetOriginalTiles()
     {
         var tiles = new List<BoardTile>();
-        var thisIndex = skillshotList.FindIndex(x => x == this);
-        SO_Skillshot previousSkillshot = null;
-        if (thisIndex != 0)
-            previousSkillshot = skillshotList[thisIndex - 1];
+        SO_Skillshot previousSkillshot = GetPreviousSkillshot();
 
         if (OriginTileKind == SO_Skillshot.OriginTileEnum.Caster)
             tiles.Add(Caster.currentTile);
@@ -68,5 +73,28 @@ public class SO_Skillshot : ScriptableObject
         }
 
         return tiles;
+    }
+
+    BoardTile GetTargetTile(BoardTile mouseOverTile)
+    {
+        SO_Skillshot previousSkillshot = GetPreviousSkillshot();
+
+        if (TargetTileKind== TargetTileEnum.MouseOverTile)
+            return mouseOverTile;
+
+        if (TargetTileKind == TargetTileEnum.Caster)
+            return Caster.currentTile;
+
+        return null;
+    }
+
+    public SO_Skillshot GetPreviousSkillshot()
+    {
+        var tiles = new List<BoardTile>();
+        var thisIndex = skillshotList.FindIndex(x => x == this);
+        if (thisIndex != 0)
+            return skillshotList[thisIndex - 1];
+
+        return null;
     }
 }

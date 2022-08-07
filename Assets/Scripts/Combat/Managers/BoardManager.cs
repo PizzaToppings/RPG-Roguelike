@@ -217,6 +217,9 @@ public class BoardManager : MonoBehaviour
 
                 nextTile.gameObject.GetComponent<Renderer>().materials[1].color = data.tileColor;
                 ContinueConeCast(nextTile, dir+2, data, nextRange);
+                if (data.isWide)
+                    ContinueConeCast(nextTile, dir+4, data, nextRange);
+
 
                 var target = FindTarget(nextTile);
                 if (target != null) 

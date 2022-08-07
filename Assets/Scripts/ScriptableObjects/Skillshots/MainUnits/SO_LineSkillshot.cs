@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LineSkillshot", menuName = "ScriptableObjects/SkillshotParts/LineSkillshot")]
 public class SO_LineSkillshot : SO_Skillshot
 {
-    public int[] Directions;
+    public int[] Angles;
     public int PierceAmount;
 
     public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
@@ -13,7 +13,7 @@ public class SO_LineSkillshot : SO_Skillshot
         base.Preview(mouseOverTile, skillshots);
 
         SkillShotManager skillShotManager = SkillShotManager.skillShotManager;
-        skillShotManager.PreviewLine(this, mouseOverTile);
+        skillShotManager.PreviewLine(this, targetTile);
         return this;
     }
 }

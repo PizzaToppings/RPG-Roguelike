@@ -11,11 +11,7 @@ public class TargetTest : SO_MainSkillshot
 
         SkillshotParts[0].Preview(mouseOverTile, SkillshotParts);
 
-        SkillshotParts[1].Preview(mouseOverTile, SkillshotParts);
-
-        // Debug.Log(SkillshotParts[1].name + " " + SkillshotParts[1]?.TargetsHit.Count);
-
-        // if (SkillshotParts[1]?.TargetsHit.Count != 0)
-        //     SkillshotParts[2].Preview(mouseOverTile, SkillshotParts);
+        if (SkillshotParts[0].TargetsHit.Count != 0)
+            SkillshotParts[1].Preview(mouseOverTile, SkillshotParts);
     }
 }
