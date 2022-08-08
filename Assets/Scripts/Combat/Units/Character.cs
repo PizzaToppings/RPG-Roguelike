@@ -46,6 +46,9 @@ public class Character : Unit
         }
         else
         {
+            if (skillshots[skillIndex-1].MagicalDamage)
+                return;
+
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
             SkillshotData.CurrentSkillshotIndex = skillIndex;
             boardManager.Clear();

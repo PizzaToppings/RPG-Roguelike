@@ -17,10 +17,10 @@ public class SO_Skillshot : ScriptableObject
     [HideInInspector] public List<BoardTile> OriginTiles;
     [HideInInspector] public BoardTile targetTile;
     [HideInInspector] public int FinalDirection;
+    [HideInInspector] public bool MagicalDamage;
 
     [Space]
     public DamageTypeEnum DamageType;
-    public bool MagicalDamage;
     public int Damage;
     public int Range;
     

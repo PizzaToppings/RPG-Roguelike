@@ -26,6 +26,8 @@ public class SO_StatusEffect : ScriptableObject
         {
             status.duration += duration;
         }
+
+        Debug.LogWarning(target.statusEffects[0].statusEfectType);
     }
 
     public void Remove()

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SO_MainSkillshot : ScriptableObject
 {
+    public bool MagicalDamage;
     public List<SO_Skillshot> SkillshotParts;
 
     public virtual void Preview(BoardTile mouseOverTile) 
