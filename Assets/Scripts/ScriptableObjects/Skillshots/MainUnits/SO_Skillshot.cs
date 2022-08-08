@@ -8,6 +8,19 @@ public enum TargetTileEnum {MouseOverTile, Caster, AwayFromCaster, LastTarget, L
 
 public class SO_Skillshot : ScriptableObject
 {
+    [System.Serializable]
+    public class DefaultStatusEffect 
+    {
+        public StatusEfectEnum Type;
+        public int Duration;
+
+        public DefaultStatusEffect(StatusEfectEnum Type, int Duration)
+        {
+            this.Type = Type;
+            this.Duration = Duration;
+        }
+    }
+
     List<SO_Skillshot> skillshotList;
 
     public OriginTileEnum OriginTileKind = OriginTileEnum.Caster; 
@@ -17,7 +30,7 @@ public class SO_Skillshot : ScriptableObject
     [HideInInspector] public List<BoardTile> OriginTiles;
     [HideInInspector] public BoardTile targetTile;
     [HideInInspector] public int FinalDirection;
-    [HideInInspector] public bool MagicalDamage;
+    // [HideInInspector] public bool MagicalDamage;
 
     [Space]
     public DamageTypeEnum DamageType;
@@ -26,6 +39,9 @@ public class SO_Skillshot : ScriptableObject
     
     [Space]
     public List<SO_StatusEffect> StatusEfects;
+    public List<DefaultStatusEffect> defaultStatusEffects;
+    
+    [Space]
     public Color tileColor;
 
     [HideInInspector] public List<Unit> TargetsHit;
@@ -49,7 +65,10 @@ public class SO_Skillshot : ScriptableObject
         SO_Skillshot previousSkillshot = GetPreviousSkillshot();
 
         if (OriginTileKind == OriginTileEnum.Caster)
+        {
+            Caster = UnitData.CurrentActiveUnit;
             tiles.Add(Caster.currentTile);
+        }
 
         if (OriginTileKind == OriginTileEnum.LastTarget)
         {

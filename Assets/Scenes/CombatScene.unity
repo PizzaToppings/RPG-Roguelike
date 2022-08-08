@@ -594,6 +594,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
+      propertyPath: statusEffects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
       propertyPath: SkillshotsEquipped.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -601,6 +606,21 @@ PrefabInstance:
         type: 3}
       propertyPath: SkillshotsEquipped.Array.data[0]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: OnTurnStart.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: OnTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: OnTurnStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322567, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}

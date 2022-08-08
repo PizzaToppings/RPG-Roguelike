@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead2c6bd82ddc804f970ab98b2083104, type: 3}
-  m_Name: TargetTest
+  m_Script: {fileID: 11500000, guid: 5f0dbf551fb3c7146a4d5bb926065435, type: 3}
+  m_Name: CharmedStatus
   m_EditorClassIdentifier: 
-  MagicalDamage: 1
-  SkillshotParts:
-  - {fileID: 11400000, guid: 31dd2029af68402468b2dbf7b5c09364, type: 2}
+  target: {fileID: 0}
+  statusEfectType: 0
+  duration: 0

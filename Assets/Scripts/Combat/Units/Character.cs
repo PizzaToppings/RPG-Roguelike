@@ -8,10 +8,6 @@ public class Character : Unit
     {
         Friendly = true;
         base.Init();
-
-
-        // remove
-        skillshots[0].SkillshotParts[0].StatusEfects[0].Apply(this,this);
     }
 
     public override void Update()
@@ -29,6 +25,9 @@ public class Character : Unit
 
     void UseSkills()
     {
+        if (UnitData.CurrentActiveUnit != this)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
             ToggleSkills(1);
 
@@ -46,7 +45,8 @@ public class Character : Unit
         }
         else
         {
-            if (skillshots[skillIndex-1].MagicalDamage)
+
+            if (skillshots[skillIndex-1].MagicalDamage && statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Silenced) != null)
                 return;
 
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 

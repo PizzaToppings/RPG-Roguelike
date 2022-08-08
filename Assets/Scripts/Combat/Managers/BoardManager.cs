@@ -137,7 +137,7 @@ public class BoardManager : MonoBehaviour
                 tile.movementLeft = movementLeft;
                 usedTiles.Add(tile);
                 
-                var target = FindTarget(tile);
+                var target = FindTarget(tile, data);
                     if (target != null && data != null && !data.TargetsHit.Contains(target))
                         data.TargetsHit.Add(target);
 
@@ -156,7 +156,7 @@ public class BoardManager : MonoBehaviour
 
         foreach (var originTile in data.OriginTiles)
         {
-            var target = FindTarget(nextTile);
+            var target = FindTarget(nextTile, data);
             foreach (var dir in directions)
             {
                 nextTile = originTile;
@@ -172,7 +172,7 @@ public class BoardManager : MonoBehaviour
                         break;
 
                     data.TilesHit.Add(nextTile);
-                    target = FindTarget(nextTile);
+                    target = FindTarget(nextTile, data);
                     if (target != null) 
                     {
                         AddTarget(target, data);
@@ -221,7 +221,7 @@ public class BoardManager : MonoBehaviour
                     ContinueConeCast(nextTile, dir+4, data, nextRange);
 
 
-                var target = FindTarget(nextTile);
+                var target = FindTarget(nextTile, data);
                 if (target != null) 
                 {
                     AddTarget(target, data);
@@ -245,7 +245,7 @@ public class BoardManager : MonoBehaviour
 
             data.TilesHit.Add(nextTile);
 
-            var target = FindTarget(nextTile);
+            var target = FindTarget(nextTile, data);
             if (target != null) 
             {
                 AddTarget(target, data);
@@ -254,16 +254,33 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    Unit FindTarget(BoardTile tile)
+    Unit FindTarget(BoardTile tile, SO_Skillshot data)
     {
-        foreach (var target in UnitData.Enemies)
+        if (UnitData.CurrentActiveUnit == null)
+            return null;
+
+        foreach (var target in UnitData.Units)
         {
-            if (target.currentTile == tile)
-            {
+            if (IsCorrectTarget(target, data))
                 return target;
-            }
         }
         return null;
+    }
+
+    bool IsCorrectTarget(Unit target, SO_Skillshot data)
+    {
+        var friendly = UnitData.CurrentActiveUnit.Friendly;
+
+        if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkillshot.TargetKindEnum.Allies)
+        {
+            if (target.Friendly == friendly)
+                return true;
+        }
+
+        if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkillshot.TargetKindEnum.All)
+            return true;
+
+        return (target.Friendly != friendly);
     }
 
     void AddTarget(Unit target, SO_Skillshot data)

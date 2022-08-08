@@ -16,21 +16,40 @@ public class DamageManager : MonoBehaviour
         var caster = skillshot.Caster;
 
         var roll = Random.Range(1, skillshot.Damage);
-        var addition = skillshot.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+        var addition = SkillshotData.CurrentMainSkillshot.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
         var damage = roll + addition;
 
-        DamageData data = new DamageData();
-        data.DamageType = skillshot.DamageType;
-        data.Caster = caster;
-        data.MagicalDamage = skillshot.MagicalDamage;
-        data.Target = target;
-        data.Damage = damage;
-        data.statusEffects = skillshot.StatusEfects;
+        DamageData data = new DamageData()
+        {
+            DamageType = skillshot.DamageType,
+            Caster = caster,
+            MagicalDamage = SkillshotData.CurrentMainSkillshot.MagicalDamage,
+            Target = target,
+            Damage = damage,
+            statusEffects = AddDefaultStatusEffects(skillshot)
+        };
+
+        data.statusEffects.AddRange(skillshot.StatusEfects);
 
         if (caster.OnDealDamage != null)
             caster.OnDealDamage.Invoke(data);
 
         return data;
+    }
+
+    List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillshot skillshot)
+    {
+        var statusEffects = new List<SO_StatusEffect>();
+
+        foreach (var dse in skillshot.defaultStatusEffects)
+        {
+            var statusEffect = ScriptableObject.CreateInstance<SO_StatusEffect>();
+            statusEffect.statusEfectType = dse.Type;
+            statusEffect.duration = dse.Duration;
+
+            statusEffects.Add(statusEffect);
+        }
+        return statusEffects;
     }
 
     public void TakeDamage(DamageData data)
