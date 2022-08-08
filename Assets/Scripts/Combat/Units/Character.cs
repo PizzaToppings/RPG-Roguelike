@@ -50,17 +50,14 @@ public class Character : Unit
 
     public override void PreviewSkills(BoardTile mouseOverTile)
     {   
-        // unitManager.ClearTargets();
-        /// use forloop
         base.PreviewSkills(mouseOverTile);
-        if (SkillshotData.CurrentSkillshotIndex == 1 && SkillshotsEquipped[0])
-        {
-            skillshots[0].Preview(mouseOverTile);
-        }
 
-        if (SkillshotData.CurrentSkillshotIndex == 2 && SkillshotsEquipped[1])
+        for (int i = 0; i < SkillshotsEquipped.Count; i++)
         {
-            skillshots[1].Preview(mouseOverTile);
+            if (SkillshotData.CurrentSkillshotIndex == i + 1 && SkillshotsEquipped[i])
+            {
+                skillshots[i].Preview(mouseOverTile);
+            }
         }
     }
 

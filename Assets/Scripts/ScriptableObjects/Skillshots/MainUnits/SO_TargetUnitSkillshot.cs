@@ -18,9 +18,4 @@ public class SO_TargetUnitSkillshot : SO_Skillshot
 
         return this;
     }
-
-    void ClickTarget(Unit target)
-    {
-        Debug.Log("Dealt " + Damage + " to " + target.UnitName);
-    }
 }
