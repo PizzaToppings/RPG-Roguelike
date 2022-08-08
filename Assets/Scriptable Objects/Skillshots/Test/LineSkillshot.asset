@@ -12,16 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
   m_Name: LineSkillshot
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
-  TargetTileKind: 0
+  OriginTileKind: 1
+  TargetTileKind: 1
   Caster: {fileID: 0}
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
   targetTile: {fileID: 0}
-  FinalDirection: 0
+  FinalDirection: 1
+  DamageType: 0
   Damage: 0
-  Range: 0
-  tileColor: {r: 0, g: 0, b: 0, a: 0}
+  Range: 8
+  tileColor: {r: 0, g: 0.56861687, b: 1, a: 1}
   TargetsHit: []
-  TilesHit: []
-  Angles: 
+  TilesHit:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Angles: 00000000
   PierceAmount: 0

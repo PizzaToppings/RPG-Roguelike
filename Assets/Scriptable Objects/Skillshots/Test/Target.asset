@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: Target
   m_EditorClassIdentifier: 
-  Caster: {fileID: 0}
   OriginTileKind: 0
+  TargetTileKind: 0
+  Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
+  targetTile: {fileID: 0}
+  FinalDirection: 0
+  DamageType: 0
   Damage: 0
   Range: 5
   tileColor: {r: 0, g: 0.94509804, b: 0.94509804, a: 1}
   TargetsHit: []
-  mouseOverTarget: {fileID: 0}
+  TilesHit: []

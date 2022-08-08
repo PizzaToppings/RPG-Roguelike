@@ -12,12 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7fdbd1c2e4e824b9aca47d7c74b93f, type: 3}
   m_Name: ConeSkillshot
   m_EditorClassIdentifier: 
+  OriginTileKind: 1
+  TargetTileKind: 5
   Caster: {fileID: 0}
-  OriginTileKind: 0
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
+  targetTile: {fileID: 0}
+  FinalDirection: 0
+  DamageType: 0
   Damage: 0
-  Range: 0
-  tileColor: {r: 0, g: 0, b: 0, a: 0}
+  Range: 4
+  tileColor: {r: 0.8018868, g: 0.08699717, b: 0.08699717, a: 1}
   TargetsHit: []
-  TilesHit: []
-  isWide: 0
+  TilesHit:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isWide: 1

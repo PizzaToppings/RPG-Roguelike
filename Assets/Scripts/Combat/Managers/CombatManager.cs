@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
+    public static CombatManager combatManager;
     [SerializeField] BoardManager boardManager;
     [SerializeField] PlayerManager playerManager;
     [SerializeField] UnitManager unitManager;
@@ -15,8 +16,7 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
-        CombatData.onTurnStart += TurnStart;
-        CombatData.onTurnEnd += TurnEnd;
+        combatManager = this;
 
         InitManagers();
         CreateBattlefield();
@@ -82,8 +82,11 @@ public class CombatManager : MonoBehaviour
         CombatData.currentCharacterTurn++;
     }
 
-    public void TurnEnd()
+    public IEnumerator EndTurn()
     {
+        if (CombatData.onTurnEnd != null)
+            CombatData.onTurnEnd.Invoke();
+        yield return new WaitForSeconds(1);
         TurnStart();
     }
 }

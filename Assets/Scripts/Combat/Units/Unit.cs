@@ -6,17 +6,17 @@ using UnityEngine.Events;
 public class Unit : UnitStats
 {
     public bool MouseOver;
-    public UnityAction OnTurnStart;
-    public UnityAction OnTurnEnd;
+    public UnityEvent OnTurnStart;
+    public UnityEvent OnTurnEnd;
 
-    public UnityAction<Unit> OnClick;
+    public UnityEvent<Unit> OnClick;
 
-    public UnityAction OnDealDamage;
-    public UnityAction OnTakeDamage;
+    public UnityEvent OnDealDamage;
+    public UnityEvent OnTakeDamage;
 
     public virtual void Init()
     {
-        OnTurnEnd += CombatData.onTurnEnd;
+        combatManager = CombatManager.combatManager;
         boardManager = BoardManager.boardManager;
         unitManager = UnitManager.unitManager;
 
@@ -51,6 +51,8 @@ public class Unit : UnitStats
         UnitName = nameGenerator();
         gameObject.name = UnitName;
         MoveSpeed = Random.Range(5, 15);
+        PhysicalPower = Random.Range(0, 5);
+        MagicalPower = Random.Range(0, 5);
 
         if (skillshots?.Count == 0)
             return;
@@ -214,6 +216,43 @@ public class Unit : UnitStats
         boardManager.Clear();
     }
 
+    public void CastSkill()
+    {
+        for (int i = 0; i < SkillshotsEquipped.Count; i++)
+        {
+            if (SkillshotData.CurrentSkillshotIndex == i + 1 && SkillshotsEquipped[i])
+            {
+                skillshots[i].Cast();
+            }
+        }
+    }
+
+    public DamageData DealDamage(SO_Skillshot skillshot, Unit target)
+    {
+        var roll = Random.Range(1, skillshot.Damage);
+        var addition = skillshot.MagicalDamage ? MagicalPower : PhysicalPower;
+        var damage = roll + addition;
+
+        DamageData data = new DamageData();
+        data.DamageType = skillshot.DamageType;
+        data.Caster = this;
+        data.Target = target;
+        data.Damage = damage;
+
+        if (OnDealDamage != null)
+            OnDealDamage.Invoke();
+
+        return data;
+    }
+
+    public void TakeDamage(DamageData data)
+    {
+        if (Resistances.Contains(data.DamageType))
+        {
+            data.Damage = data.Damage / 2;
+        }
+    }
+
     public virtual void StartTurn()
     {
         if (OnTurnStart != null)
@@ -228,5 +267,7 @@ public class Unit : UnitStats
     {
         if (OnTurnEnd != null)
             OnTurnEnd.Invoke();
+
+        StartCoroutine(combatManager.EndTurn());
     }
 }

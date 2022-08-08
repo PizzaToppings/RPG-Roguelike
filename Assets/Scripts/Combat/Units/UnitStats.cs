@@ -22,21 +22,10 @@ public class UnitStats : MonoBehaviour
 
     public int PhysicalPower;
     public int MagicalPower;
-    public int PhysicalDefense;
-    public int MagicalDefense;
+    // public int PhysicalDefense;
+    // public int MagicalDefense;
 
-    public bool PhysicalResistance;
-    public bool ArcaneResistance;
-    public bool FireResistance;
-    public bool WaterResistance;
-    public bool EarthResistance;
-    public bool AirResistance;
-    public bool IceResistance;
-    public bool ElectricResistance;
-    public bool PhysicResistance;
-    public bool LightResistance;
-    public bool DarkResistance;
-    public bool PoisonResistance;
+    public List<DamageTypeEnum> Resistances;
 
     public bool Blinded; 
     public bool Silenced; 
@@ -51,6 +40,7 @@ public class UnitStats : MonoBehaviour
     public int LifeSteal;
     public int Unstoppable;
 
+    [HideInInspector] public CombatManager combatManager;
     [HideInInspector] public BoardManager boardManager;
     [HideInInspector] public UnitManager unitManager;
     public BoardTile currentTile = null;

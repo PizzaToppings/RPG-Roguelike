@@ -14,6 +14,14 @@ public class SkillShotManager : MonoBehaviour
         boardManager = GetComponent<BoardManager>();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            UnitData.CurrentActiveUnit.CastSkill();
+        }
+    }
+
     public void PreviewLine(SO_LineSkillshot data, BoardTile targetTile)
     {
         List<int> directions = new List<int>();
@@ -42,7 +50,7 @@ public class SkillShotManager : MonoBehaviour
 
     int GetDirection(BoardTile originTile, BoardTile targetTile, SO_Skillshot data)
     {
-        if (data.TargetTileKind == SO_Skillshot.TargetTileEnum.PreviousDirection)
+        if (data.TargetTileKind == TargetTileEnum.PreviousDirection)
         {
             data.FinalDirection = data.GetPreviousSkillshot().FinalDirection;
             return data.FinalDirection;

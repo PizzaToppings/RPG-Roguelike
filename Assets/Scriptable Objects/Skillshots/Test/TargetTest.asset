@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: TargetTest
   m_EditorClassIdentifier: 
   SkillshotParts:
-  - {fileID: 11400000, guid: ca7bf8603adb5ca42af17bf3c5bbc35c, type: 2}
   - {fileID: 11400000, guid: 31dd2029af68402468b2dbf7b5c09364, type: 2}

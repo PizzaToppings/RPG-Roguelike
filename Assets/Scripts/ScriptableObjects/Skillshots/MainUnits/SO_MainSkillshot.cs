@@ -11,13 +11,11 @@ public class SO_MainSkillshot : ScriptableObject
     {
         BoardManager boardManager = BoardManager.boardManager;
         UnitManager unitManager = UnitManager.unitManager;
+    }
 
-        // unitManager.ClearTargets();
-
-        // for (int i = 0; i < Skillshots.Count; i++)
-        // {
-        //     boardManager.ClearMovementLeftPerTile();
-        //     Skillshots[i] = Skillshots[i].Preview(mouseOverTile, Skillshots);
-        // }
+    public virtual void Cast()
+    {
+        foreach (var sp in SkillshotParts)
+            sp.Cast();
     }
 }

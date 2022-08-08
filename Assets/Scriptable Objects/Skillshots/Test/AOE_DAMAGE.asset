@@ -12,10 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: AOE_DAMAGE
   m_EditorClassIdentifier: 
+  OriginTileKind: 0
+  TargetTileKind: 1
   Caster: {fileID: 0}
-  OriginTileKind: 3
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
+  targetTile: {fileID: 0}
+  FinalDirection: 0
+  DamageType: 2
   Damage: 0
   Range: 2
   tileColor: {r: 1, g: 0.050882287, b: 0, a: 1}
   TargetsHit: []
+  TilesHit:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

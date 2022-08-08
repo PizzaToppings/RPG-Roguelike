@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum OriginTileEnum {Caster, LastTarget, LastTile, MouseOverTarget, Custom};
+public enum TargetTileEnum {MouseOverTile, Caster, AwayFromCaster, LastTarget, LastTile, PreviousDirection, MouseOverTarget, Custom};
+
 public class SO_Skillshot : ScriptableObject
 {
-    public enum OriginTileEnum {Caster, LastTarget, LastTile, MouseOverTarget, Custom};
-    public enum TargetTileEnum {MouseOverTile, Caster, AwayFromCaster, LastTarget, LastTile, PreviousDirection, MouseOverTarget, Custom};
-
     List<SO_Skillshot> skillshotList;
 
     public OriginTileEnum OriginTileKind = OriginTileEnum.Caster; 
@@ -17,7 +18,9 @@ public class SO_Skillshot : ScriptableObject
     [HideInInspector] public BoardTile targetTile;
     [HideInInspector] public int FinalDirection;
 
-
+    [Space]
+    public DamageTypeEnum DamageType;
+    public bool MagicalDamage;
     public int Damage;
     public int Range;
 
@@ -26,7 +29,6 @@ public class SO_Skillshot : ScriptableObject
     [HideInInspector] public List<Unit> TargetsHit;
     [HideInInspector] public List<BoardTile> TilesHit;
 
-    // public DamageType DamageType;
     // debuffs
 
     public virtual SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots)
@@ -44,10 +46,10 @@ public class SO_Skillshot : ScriptableObject
         var tiles = new List<BoardTile>();
         SO_Skillshot previousSkillshot = GetPreviousSkillshot();
 
-        if (OriginTileKind == SO_Skillshot.OriginTileEnum.Caster)
+        if (OriginTileKind == OriginTileEnum.Caster)
             tiles.Add(Caster.currentTile);
 
-        if (OriginTileKind == SO_Skillshot.OriginTileEnum.LastTarget)
+        if (OriginTileKind == OriginTileEnum.LastTarget)
         {
             if (previousSkillshot?.TargetsHit?.Count == 0)
                 return new List<BoardTile>();
@@ -55,12 +57,12 @@ public class SO_Skillshot : ScriptableObject
             previousSkillshot.TargetsHit.ForEach(x => tiles.Add(x.currentTile));
         }
 
-        if (OriginTileKind == SO_Skillshot.OriginTileEnum.LastTile)
+        if (OriginTileKind == OriginTileEnum.LastTile)
         {
             tiles.AddRange(previousSkillshot.TilesHit);
         }
 
-        if (OriginTileKind == SO_Skillshot.OriginTileEnum.MouseOverTarget)
+        if (OriginTileKind == OriginTileEnum.MouseOverTarget)
         {
             if (previousSkillshot?.TargetsHit?.Count == 0)
                 return new List<BoardTile>();
@@ -96,5 +98,14 @@ public class SO_Skillshot : ScriptableObject
             return skillshotList[thisIndex - 1];
 
         return null;
+    }
+
+    public virtual void Cast()
+    {
+        foreach (var target in TargetsHit)
+        {
+            var data = Caster.DealDamage(this, target);
+            target.TakeDamage(data);
+        }
     }
 }
