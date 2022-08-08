@@ -23,7 +23,9 @@ public class SO_Skillshot : ScriptableObject
     public bool MagicalDamage;
     public int Damage;
     public int Range;
-
+    
+    [Space]
+    public List<SO_StatusEffect> StatusEfects;
     public Color tileColor;
 
     [HideInInspector] public List<Unit> TargetsHit;
@@ -102,10 +104,12 @@ public class SO_Skillshot : ScriptableObject
 
     public virtual void Cast()
     {
+        var damageManager = DamageManager.damageManager;
+
         foreach (var target in TargetsHit)
         {
-            var data = Caster.DealDamage(this, target);
-            target.TakeDamage(data);
+            var data = damageManager.DealDamage(this, target);
+            damageManager.TakeDamage(data);
         }
     }
 }

@@ -8,6 +8,10 @@ public class Character : Unit
     {
         Friendly = true;
         base.Init();
+
+
+        // remove
+        skillshots[0].SkillshotParts[0].StatusEfects[0].Apply(this,this);
     }
 
     public override void Update()

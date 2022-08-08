@@ -27,18 +27,7 @@ public class UnitStats : MonoBehaviour
 
     public List<DamageTypeEnum> Resistances;
 
-    public bool Blinded; 
-    public bool Silenced; 
-    public bool Charmed; 
-    public bool Frightened; 
-    public bool Incapacitated; 
-    public bool Stunned; 
-    public bool Poisoned; 
-    public bool Rooted; 
-
-    public bool Invisible;
-    public int LifeSteal;
-    public int Unstoppable;
+    public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     [HideInInspector] public CombatManager combatManager;
     [HideInInspector] public BoardManager boardManager;

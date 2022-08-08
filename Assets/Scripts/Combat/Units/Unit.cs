@@ -11,8 +11,8 @@ public class Unit : UnitStats
 
     public UnityEvent<Unit> OnClick;
 
-    public UnityEvent OnDealDamage;
-    public UnityEvent OnTakeDamage;
+    public UnityEvent<DamageData> OnDealDamage;
+    public UnityEvent<DamageData> OnTakeDamage;
 
     public virtual void Init()
     {
@@ -23,6 +23,7 @@ public class Unit : UnitStats
         SetStats();
         RollInitiative();
     }
+
 
     public virtual void Update()
     {
@@ -189,7 +190,7 @@ public class Unit : UnitStats
 
             while (distanceLeft <= 1)
             {
-                distanceLeft += Time.deltaTime * (1f + MoveSpeed*0.1f);
+                distanceLeft += Time.deltaTime * (1f + MoveSpeed * 0.1f);
                 transform.position = Vector3.Lerp(startPosition, endPosition, distanceLeft);
 
                 yield return new WaitForEndOfFrame();
@@ -209,6 +210,15 @@ public class Unit : UnitStats
     void SetStartOfTurnStats()
     {
         MoveSpeedLeft = MoveSpeed;
+
+        foreach (var statusEffect in statusEffects)
+        {
+            statusEffect.duration--;
+            if (statusEffect.duration == 0)
+            {
+                statusEffects.Remove(statusEffect);
+            }
+        }
     }
 
     public virtual void PreviewSkills(BoardTile mouseOverTile) 
@@ -224,32 +234,6 @@ public class Unit : UnitStats
             {
                 skillshots[i].Cast();
             }
-        }
-    }
-
-    public DamageData DealDamage(SO_Skillshot skillshot, Unit target)
-    {
-        var roll = Random.Range(1, skillshot.Damage);
-        var addition = skillshot.MagicalDamage ? MagicalPower : PhysicalPower;
-        var damage = roll + addition;
-
-        DamageData data = new DamageData();
-        data.DamageType = skillshot.DamageType;
-        data.Caster = this;
-        data.Target = target;
-        data.Damage = damage;
-
-        if (OnDealDamage != null)
-            OnDealDamage.Invoke();
-
-        return data;
-    }
-
-    public void TakeDamage(DamageData data)
-    {
-        if (Resistances.Contains(data.DamageType))
-        {
-            data.Damage = data.Damage / 2;
         }
     }
 

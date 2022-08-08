@@ -9,6 +9,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] PlayerManager playerManager;
     [SerializeField] UnitManager unitManager;
     [SerializeField] SkillShotManager skillShotManager;
+    [SerializeField] DamageManager damageManager;
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
@@ -32,6 +33,7 @@ public class CombatManager : MonoBehaviour
         boardManager.Init();
         unitManager.Init();
         skillShotManager.Init();
+        damageManager.Init();
     }
 
     void CreateBattlefield()
