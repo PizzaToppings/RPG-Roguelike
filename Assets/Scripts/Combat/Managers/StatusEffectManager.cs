@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StatusEffectManager : MonoBehaviour
@@ -36,5 +37,10 @@ public class StatusEffectManager : MonoBehaviour
         var stunned = UnitHasStatuseffect(unit, StatusEfectEnum.Blinded);
 
         return incapacitated || stunned;
+    }
+
+    public List<DoTStatusEffect> GetDoTEffects(Unit unit)
+    {
+        return unit.statusEffects.OfType<DoTStatusEffect>().ToList();
     }
 }

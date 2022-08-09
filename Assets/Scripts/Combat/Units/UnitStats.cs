@@ -27,12 +27,13 @@ public class UnitStats : MonoBehaviour
 
     public List<DamageTypeEnum> Resistances;
 
-    public List<StatusEffect> statusEffects = new List<StatusEffect>();
+    public List<DefaultStatusEffect> statusEffects = new List<DefaultStatusEffect>();
 
     [HideInInspector] public CombatManager combatManager;
     [HideInInspector] public BoardManager boardManager;
     [HideInInspector] public UnitManager unitManager;
     [HideInInspector] public StatusEffectManager statusEffectManager;
+    [HideInInspector] public DamageManager damageManager;
     public BoardTile currentTile = null;
 
 }

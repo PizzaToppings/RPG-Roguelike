@@ -64,7 +64,6 @@ public class DamageManager : MonoBehaviour
 
         statusEffectManager.Blinded(target, data);
 
-
         Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " damage.");
 
         if (data.Damage == 0)
@@ -76,5 +75,19 @@ public class DamageManager : MonoBehaviour
 
         foreach (var statusEffect in data.statusEffects)
             statusEffect.Apply(caster, target);
+    }
+
+    public void TakeDotDamage(Unit target)
+    {
+        var DoTs = statusEffectManager.GetDoTEffects(target);
+
+        foreach (var DoT in DoTs)
+        {
+            var damage = DoT.Damage;
+            if (target.Resistances.Contains(DoT.DamageType))
+                damage = Mathf.CeilToInt(damage / 2f);
+
+             Debug.Log(DoT.Caster.UnitName + " dotted " + target.UnitName + " for " + damage + " damage.");
+        }
     }
 }

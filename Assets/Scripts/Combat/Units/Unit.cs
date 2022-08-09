@@ -20,6 +20,7 @@ public class Unit : UnitStats
         boardManager = BoardManager.Instance;
         unitManager = UnitManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;
+        damageManager = DamageManager.Instance;
 
         SetStats();
         RollInitiative();
@@ -217,7 +218,7 @@ public class Unit : UnitStats
 
     void ReduceStatusEffects()
     {
-        var statusEffectToRemove = new  List<StatusEffect>();
+        var statusEffectToRemove = new  List<DefaultStatusEffect>();
 
         foreach (var statusEffect in statusEffects)
         {
@@ -266,6 +267,8 @@ public class Unit : UnitStats
     {
         if (OnTurnEnd != null)
             OnTurnEnd.Invoke();
+
+        damageManager.TakeDotDamage(this);
 
         StartCoroutine(combatManager.EndTurn());
     }
