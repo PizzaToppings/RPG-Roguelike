@@ -211,8 +211,8 @@ public class Unit : UnitStats
 
     void SetStartOfTurnStats()
     {
-        MoveSpeedLeft = MoveSpeed;
-
+        MoveSpeedLeft = statusEffectManager.UnitHasStatuseffect(this, StatusEfectEnum.Rooted) == false ? MoveSpeed : 0;
+        Debug.Log(MoveSpeedLeft);
         ReduceStatusEffects();
     }
 
@@ -260,7 +260,7 @@ public class Unit : UnitStats
             return;
         }
 
-        boardManager.SetAOE(MoveSpeed, currentTile, null);
+        boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
     }
 
     public virtual void EndTurn()

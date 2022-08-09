@@ -10,9 +10,9 @@ public class Character : Unit
         base.Init();
 
         /// remove
-        // var SE = new StatusEffect
+        // var SE = new DefaultStatusEffect
         // {
-        //     statusEfectType = StatusEfectEnum.Incapacitated,
+        //     statusEfectType = StatusEfectEnum.Rooted,
         //     duration = 2
         // };
         // statusEffects.Add(SE);
@@ -37,10 +37,10 @@ public class Character : Unit
             return;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            ToggleSkills(1);
+            ToggleSkills(0);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            ToggleSkills(2);
+            ToggleSkills(0);
     }
 
     void ToggleSkills(int skillIndex)
@@ -53,8 +53,7 @@ public class Character : Unit
         }
         else
         {
-
-            if (skillshots[skillIndex-1].MagicalDamage && statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Silenced) != null)
+            if (skillshots[skillIndex].MagicalDamage && statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Silenced) != null)
                 return;
 
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
