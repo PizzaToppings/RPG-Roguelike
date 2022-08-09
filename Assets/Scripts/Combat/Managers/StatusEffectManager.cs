@@ -43,4 +43,15 @@ public class StatusEffectManager : MonoBehaviour
     {
         return unit.statusEffects.OfType<DoTStatusEffect>().ToList();
     }
+
+    public void CleanseAll(Unit target)
+    {
+        target.statusEffects.Clear();
+    }
+
+    public void CleanseType(Unit target, StatusEfectEnum type)
+    {
+        var cleanses = target.statusEffects.FindAll(x => x.statusEfectType == type);
+        cleanses.ForEach(x =>target.statusEffects.Remove(x));
+    }
 }
