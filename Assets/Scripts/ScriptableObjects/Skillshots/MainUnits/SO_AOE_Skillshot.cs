@@ -9,7 +9,7 @@ public class SO_AOE_Skillshot : SO_Skillshot
     {
         base.Preview(mouseOverTile, skillshots);
         
-        SkillShotManager skillShotManager = SkillShotManager.skillShotManager;
+        SkillShotManager skillShotManager = SkillShotManager.Instance;
         skillShotManager.GetAOE(this);
         return this;
     }

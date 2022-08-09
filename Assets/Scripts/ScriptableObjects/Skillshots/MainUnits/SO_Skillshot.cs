@@ -123,7 +123,7 @@ public class SO_Skillshot : ScriptableObject
 
     public virtual void Cast()
     {
-        var damageManager = DamageManager.damageManager;
+        var damageManager = DamageManager.Instance;
 
         foreach (var target in TargetsHit)
         {

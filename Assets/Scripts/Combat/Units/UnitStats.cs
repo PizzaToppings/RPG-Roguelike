@@ -32,6 +32,7 @@ public class UnitStats : MonoBehaviour
     [HideInInspector] public CombatManager combatManager;
     [HideInInspector] public BoardManager boardManager;
     [HideInInspector] public UnitManager unitManager;
+    [HideInInspector] public StatusEffectManager statusEffectManager;
     public BoardTile currentTile = null;
 
 }

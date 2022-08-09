@@ -8,7 +8,7 @@ public class SO_TargetBoardtileSkillshot : SO_Skillshot
     public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillShotManager skillShotManager = SkillShotManager.skillShotManager;
+        SkillShotManager skillShotManager = SkillShotManager.Instance;
         skillShotManager.GetAOE(this);
 
         if (TilesHit.Contains(mouseOverTile))

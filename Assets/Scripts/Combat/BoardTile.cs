@@ -19,14 +19,14 @@ public class BoardTile : MonoBehaviour
 
     public void Init(int xPosition, int yPosition)
     {
-        boardManager = BoardManager.boardManager;
-        boardManager = BoardManager.boardManager;
+        boardManager = BoardManager.Instance;
+        boardManager = BoardManager.Instance;
 
         position = transform.position;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
 
-        skillShotManager = SkillShotManager.skillShotManager;
+        skillShotManager = SkillShotManager.Instance;
         gameObject.name = xPosition + ", " + yPosition;
 
         StartCoroutine(SlideIn());

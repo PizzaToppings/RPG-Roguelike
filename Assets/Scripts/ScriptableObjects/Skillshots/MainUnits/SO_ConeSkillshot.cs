@@ -10,7 +10,7 @@ public class SO_ConeSkillshot : SO_Skillshot
     public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillShotManager skillShotManager = SkillShotManager.skillShotManager;
+        SkillShotManager skillShotManager = SkillShotManager.Instance;
         skillShotManager.PreviewCone(this, targetTile);
         return this;
     }

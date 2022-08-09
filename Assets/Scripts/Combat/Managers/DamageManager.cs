@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DamageManager : MonoBehaviour
 {
-    public static DamageManager damageManager;
+    StatusEffectManager statusEffectManager;
+    public static DamageManager Instance;
 
     public void Init()
     {
-        damageManager = this;
+        Instance = this;
+        statusEffectManager = StatusEffectManager.Instance;
     }
 
     public DamageData DealDamage(SO_Skillshot skillshot, Unit target)
@@ -60,25 +62,19 @@ public class DamageManager : MonoBehaviour
         if (target.Resistances.Contains(data.DamageType))
             data.Damage = Mathf.CeilToInt(data.Damage / 2f);
 
-        foreach (var statusEffect in data.statusEffects)
-            statusEffect.Apply(caster, target);
+        statusEffectManager.Blinded(target, data);
 
-        var blinded = caster.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Blinded);
-        if (blinded != null)
-            Blinded(data);
 
         Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " damage.");
-    }
 
-    public void Blinded(DamageData data)
-    {
-        if (data.MagicalDamage)
+        if (data.Damage == 0)
             return;
+        
+        var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
+        if (statusEffectManager.UnitHasStatuseffect(target, StatusEfectEnum.Incapacitated))
+            caster.statusEffects.Remove(incapacitated);
 
-        var succes = Random.Range(0f, 1f) > 0.5f;
-        if (succes)
-        {
-            data.Damage = 0;
-        }
+        foreach (var statusEffect in data.statusEffects)
+            statusEffect.Apply(caster, target);
     }
 }

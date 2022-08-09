@@ -15,8 +15,8 @@ public class SO_MainSkillshot : ScriptableObject
     public virtual void Preview(BoardTile mouseOverTile) 
     {
         SkillshotData.CurrentMainSkillshot = this;
-        BoardManager boardManager = BoardManager.boardManager;
-        UnitManager unitManager = UnitManager.unitManager;
+        BoardManager boardManager = BoardManager.Instance;
+        UnitManager unitManager = UnitManager.Instance;
     }
 
     public virtual void Cast()

@@ -6,10 +6,10 @@ public class CombatManager : MonoBehaviour
 {
     public static CombatManager combatManager;
     [SerializeField] BoardManager boardManager;
-    [SerializeField] PlayerManager playerManager;
     [SerializeField] UnitManager unitManager;
     [SerializeField] SkillShotManager skillShotManager;
     [SerializeField] DamageManager damageManager;
+    [SerializeField] StatusEffectManager statusEffectManager;
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
@@ -33,6 +33,7 @@ public class CombatManager : MonoBehaviour
         boardManager.Init();
         unitManager.Init();
         skillShotManager.Init();
+        statusEffectManager.Init();
         damageManager.Init();
     }
 

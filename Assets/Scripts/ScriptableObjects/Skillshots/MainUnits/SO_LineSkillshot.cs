@@ -11,7 +11,7 @@ public class SO_LineSkillshot : SO_Skillshot
     public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillShotManager skillShotManager = SkillShotManager.skillShotManager;
+        SkillShotManager skillShotManager = SkillShotManager.Instance;
         skillShotManager.PreviewLine(this, targetTile);
         return this;
     }

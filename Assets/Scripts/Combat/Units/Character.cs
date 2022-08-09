@@ -8,6 +8,14 @@ public class Character : Unit
     {
         Friendly = true;
         base.Init();
+
+        /// remove
+        // var SE = new StatusEffect
+        // {
+        //     statusEfectType = StatusEfectEnum.Incapacitated,
+        //     duration = 2
+        // };
+        // statusEffects.Add(SE);
     }
 
     public override void Update()

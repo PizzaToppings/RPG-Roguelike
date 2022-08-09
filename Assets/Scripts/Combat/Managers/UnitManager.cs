@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
-    public static UnitManager unitManager;
+    public static UnitManager Instance;
 
 
     //---------------------------
@@ -15,7 +15,7 @@ public class UnitManager : MonoBehaviour
 
     public void Init()
     {
-        unitManager = this;
+        Instance = this;
     }
 
     public void PlaceUnits()

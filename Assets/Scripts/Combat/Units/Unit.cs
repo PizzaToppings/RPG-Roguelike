@@ -17,8 +17,9 @@ public class Unit : UnitStats
     public virtual void Init()
     {
         combatManager = CombatManager.combatManager;
-        boardManager = BoardManager.boardManager;
-        unitManager = UnitManager.unitManager;
+        boardManager = BoardManager.Instance;
+        unitManager = UnitManager.Instance;
+        statusEffectManager = StatusEffectManager.Instance;
 
         SetStats();
         RollInitiative();
@@ -211,14 +212,21 @@ public class Unit : UnitStats
     {
         MoveSpeedLeft = MoveSpeed;
 
+        ReduceStatusEffects();
+    }
+
+    void ReduceStatusEffects()
+    {
+        var statusEffectToRemove = new  List<StatusEffect>();
+
         foreach (var statusEffect in statusEffects)
         {
             statusEffect.duration--;
             if (statusEffect.duration == 0)
-            {
-                statusEffects.Remove(statusEffect);
-            }
+                statusEffectToRemove.Add(statusEffect);
         }
+
+        statusEffectToRemove.ForEach(x => statusEffects.Remove(x));
     }
 
     public virtual void PreviewSkills(BoardTile mouseOverTile) 
@@ -244,6 +252,13 @@ public class Unit : UnitStats
 
         boardManager.Clear();
         SetStartOfTurnStats();
+
+        if (statusEffectManager.CantTakeTurn(this))
+        {
+            EndTurn();
+            return;
+        }
+
         boardManager.SetAOE(MoveSpeed, currentTile, null);
     }
 

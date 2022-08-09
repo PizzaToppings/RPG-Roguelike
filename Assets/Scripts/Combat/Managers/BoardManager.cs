@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    public static BoardManager boardManager; 
+    public static BoardManager Instance; 
 
     const float rowIncrease = 1.8f;
     const float columnIncrease = 1.55f;
@@ -25,7 +25,7 @@ public class BoardManager : MonoBehaviour
 
     public void Init()
     {
-        boardManager = this;
+        Instance = this;
         movementIndicator = GetComponent<LineRenderer>();
     }
 

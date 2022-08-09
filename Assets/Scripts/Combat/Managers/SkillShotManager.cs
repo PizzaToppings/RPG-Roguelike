@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(BoardManager))]
 public class SkillShotManager : MonoBehaviour
 {
-    public static SkillShotManager skillShotManager;
+    public static SkillShotManager Instance;
     BoardManager boardManager;
 
     public void Init()
     {
-        skillShotManager = this;
+        Instance = this;
         boardManager = GetComponent<BoardManager>();
     }
 

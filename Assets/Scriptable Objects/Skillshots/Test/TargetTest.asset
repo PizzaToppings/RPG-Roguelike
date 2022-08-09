@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MagicalDamage: 1
   SkillshotParts:
-  - {fileID: 11400000, guid: 31dd2029af68402468b2dbf7b5c09364, type: 2}
+  - {fileID: 11400000, guid: 941c63bd85e288e47b9ca2e4eefd4355, type: 2}
+  TargetKind: 0
