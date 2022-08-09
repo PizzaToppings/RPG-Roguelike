@@ -269,6 +269,9 @@ public class BoardManager : MonoBehaviour
 
     bool IsCorrectTarget(Unit target, SO_Skillshot data)
     {
+        if (data == null)
+            return false;
+
         var friendly = UnitData.CurrentActiveUnit.Friendly;
 
         if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkillshot.TargetKindEnum.Allies)

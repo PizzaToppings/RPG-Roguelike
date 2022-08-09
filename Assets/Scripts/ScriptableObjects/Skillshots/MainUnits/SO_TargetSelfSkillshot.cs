@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LineSkillshot", menuName = "ScriptableObjects/SkillshotParts/LineSkillshot")]
-public class SO_LineSkillshot : SO_Skillshot
+[CreateAssetMenu(fileName = "TagretSelfSkillshot", menuName = "ScriptableObjects/SkillshotParts/TagretSelfSkillshot")]
+public class SO_TargetSelfSkillshot : SO_Skillshot
 {
-    public int[] Angles;
-    public int PierceAmount;
-
     public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
     {
         base.Preview(mouseOverTile, skillshots);
         SkillShotManager skillShotManager = SkillShotManager.skillShotManager;
-        skillShotManager.PreviewLine(this, targetTile);
+        TargetsHit.Add(this.Caster);
         return this;
     }
 }
