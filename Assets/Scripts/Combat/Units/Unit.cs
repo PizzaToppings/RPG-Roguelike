@@ -6,13 +6,13 @@ using UnityEngine.Events;
 public class Unit : UnitStats
 {
     public bool MouseOver;
-    public UnityEvent OnTurnStart;
-    public UnityEvent OnTurnEnd;
+    [HideInInspector] public UnityEvent OnTurnStart;
+    [HideInInspector] public UnityEvent OnTurnEnd;
 
-    public UnityEvent<Unit> OnClick;
+    [HideInInspector] public UnityEvent<Unit> OnClick;
 
-    public UnityEvent<DamageData> OnDealDamage;
-    public UnityEvent<DamageData> OnTakeDamage;
+    [HideInInspector] public UnityEvent<DamageData> OnDealDamage;
+    [HideInInspector] public UnityEvent<DamageData> OnTakeDamage;
 
     public virtual void Init()
     {
@@ -212,7 +212,6 @@ public class Unit : UnitStats
     void SetStartOfTurnStats()
     {
         MoveSpeedLeft = statusEffectManager.UnitHasStatuseffect(this, StatusEfectEnum.Rooted) == false ? MoveSpeed : 0;
-        Debug.Log(MoveSpeedLeft);
         ReduceStatusEffects();
     }
 

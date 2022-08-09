@@ -292,7 +292,6 @@ public class BoardManager : MonoBehaviour
             return;
 
         data.TargetsHit.Add(target);
-        // target.IsTargeted = true;
     }
 
     public void PreviewMovementLine(BoardTile finaltile, int movementAmount)

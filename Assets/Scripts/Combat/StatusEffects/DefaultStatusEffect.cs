@@ -7,4 +7,5 @@ public class DefaultStatusEffect
     public StatusEfectEnum statusEfectType;
     public int duration;
     public bool isDefault;
+    public bool Buff;
 }

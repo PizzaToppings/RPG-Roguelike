@@ -46,12 +46,24 @@ public class StatusEffectManager : MonoBehaviour
 
     public void CleanseAll(Unit target)
     {
-        target.statusEffects.Clear();
+        var cleanses = target.statusEffects.FindAll(x => !x.Buff);
+        cleanses.ForEach(x =>target.statusEffects.Remove(x));
+
+        ResetCleanseStatusEffects(target);
     }
 
     public void CleanseType(Unit target, StatusEfectEnum type)
     {
-        var cleanses = target.statusEffects.FindAll(x => x.statusEfectType == type);
+        var cleanses = target.statusEffects.FindAll(x => x.statusEfectType == type && !x.Buff);
         cleanses.ForEach(x =>target.statusEffects.Remove(x));
+
+        ResetCleanseStatusEffects(target);
+    }
+
+    public void ResetCleanseStatusEffects(Unit unit /**, List<StatusEfectEnum> types**/)
+    {
+        // use coroutine waituntil statuseffect = false for visuals? 
+
+        unit.StartTurn();
     }
 }
