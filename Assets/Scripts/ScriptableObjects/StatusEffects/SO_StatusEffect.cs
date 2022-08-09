@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BlindedStatus", menuName = "ScriptableObjects/DefaultStatuses/DefaultStatusEffect")]
+[CreateAssetMenu(fileName = "DefaultStatusEffect", menuName = "ScriptableObjects/DefaultStatuses/DefaultStatusEffect")]
 public class SO_StatusEffect : ScriptableObject
 {
     [HideInInspector] public Unit target;
@@ -10,9 +10,14 @@ public class SO_StatusEffect : ScriptableObject
     public StatusEfectEnum statusEfectType;
     public int duration;
     public bool isDefault;
+    public bool Buff;
 
     public virtual void Apply(Unit caster, Unit target)
     {
+        StatusEffectManager statusEffectManager = StatusEffectManager.Instance;
+        if (statusEffectManager.UnitHasStatuseffect(target, StatusEfectEnum.Unstoppable) && !Buff)
+            return;
+
         var status = target.statusEffects.Find(x => x.statusEfectType == statusEfectType);
 
         if (status == null)
@@ -20,6 +25,8 @@ public class SO_StatusEffect : ScriptableObject
             status = new DefaultStatusEffect();
             status.statusEfectType = statusEfectType;
             status.duration = duration;
+            status.isDefault = isDefault;
+            status.Buff = Buff;
             
             target.statusEffects.Add(status);
         }
