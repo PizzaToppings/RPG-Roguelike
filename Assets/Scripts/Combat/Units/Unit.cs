@@ -13,6 +13,7 @@ public class Unit : UnitStats
 
     [HideInInspector] public UnityEvent<DamageData> OnDealDamage;
     [HideInInspector] public UnityEvent<DamageData> OnTakeDamage;
+    [HideInInspector] public Animator modelAnimator;
 
     public virtual void Init()
     {
@@ -21,6 +22,9 @@ public class Unit : UnitStats
         unitManager = UnitManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;
         damageManager = DamageManager.Instance;
+
+        if (transform.childCount > 0) 
+            modelAnimator = transform.GetChild(0).GetComponent<Animator>();
 
         SetStats();
         RollInitiative();
@@ -177,6 +181,7 @@ public class Unit : UnitStats
 
     public virtual void StartMoving(List<BoardTile> path)
     {
+        modelAnimator.SetBool("Run", true);
         StartCoroutine(Move(path));
     } 
 
@@ -189,6 +194,8 @@ public class Unit : UnitStats
         {
             endPosition = path[i].transform.position + Vector3.up;
             float distanceLeft = 0;
+
+            Rotate(startPosition, endPosition);
 
             while (distanceLeft <= 1)
             {
@@ -207,6 +214,12 @@ public class Unit : UnitStats
         var endTile = path[path.Count-1];
         boardManager.Clear();
         boardManager.SetAOE(MoveSpeedLeft, endTile, null);
+        modelAnimator.SetBool("Run", false);
+    }
+
+    void Rotate(Vector3 startPosition, Vector3 endPosition) 
+    {
+        transform.LookAt(new Vector3(endPosition.x, transform.position.y, endPosition.z));
     }
 
     void SetStartOfTurnStats()
