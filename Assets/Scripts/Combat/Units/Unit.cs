@@ -23,8 +23,7 @@ public class Unit : UnitStats
         statusEffectManager = StatusEffectManager.Instance;
         damageManager = DamageManager.Instance;
 
-        if (transform.childCount > 0) 
-            modelAnimator = transform.GetChild(0).GetComponent<Animator>();
+        modelAnimator = transform.GetChild(0).GetComponent<Animator>();
 
         SetStats();
         RollInitiative();
