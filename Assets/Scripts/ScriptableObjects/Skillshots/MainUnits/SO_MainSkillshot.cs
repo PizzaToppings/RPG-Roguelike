@@ -2,9 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SO_MainSkillshot : ScriptableObject
 {
+    public Sprite Image;
+
+    [TextArea(15,20)]    
+    public string Description;
+
     public enum TargetKindEnum {Enemies, Allies, All};
 
     public bool MagicalDamage;

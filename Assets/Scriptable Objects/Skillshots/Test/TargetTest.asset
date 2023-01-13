@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead2c6bd82ddc804f970ab98b2083104, type: 3}
   m_Name: TargetTest
   m_EditorClassIdentifier: 
+  Image: {fileID: 21300000, guid: c46d83f2b73aaa141bd5015819342d81, type: 3}
+  Description: 
   MagicalDamage: 1
   SkillshotParts:
   - {fileID: 11400000, guid: 941c63bd85e288e47b9ca2e4eefd4355, type: 2}

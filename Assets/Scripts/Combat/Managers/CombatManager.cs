@@ -10,6 +10,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] SkillShotManager skillShotManager;
     [SerializeField] DamageManager damageManager;
     [SerializeField] StatusEffectManager statusEffectManager;
+    [SerializeField] UIManager uiManager;
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
@@ -35,6 +36,7 @@ public class CombatManager : MonoBehaviour
         skillShotManager.Init();
         statusEffectManager.Init();
         damageManager.Init();
+        uiManager.Init();
     }
 
     void CreateBattlefield()
@@ -83,6 +85,8 @@ public class CombatManager : MonoBehaviour
         CurrentActiveUnit.StartTurn();
         UnitData.CurrentActiveUnit = CurrentActiveUnit;
         CombatData.currentCharacterTurn++;
+
+        uiManager.StartTurn(CurrentActiveUnit);
     }
 
     public IEnumerator EndTurn()

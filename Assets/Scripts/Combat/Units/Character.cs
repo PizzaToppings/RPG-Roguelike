@@ -37,13 +37,13 @@ public class Character : Unit
             return;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            ToggleSkills(0);
+            ToggleSkill(0);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            ToggleSkills(0);
+            ToggleSkill(1);
     }
 
-    void ToggleSkills(int skillIndex)
+    public void ToggleSkill(int skillIndex)
     {
         if (SkillshotData.CurrentSkillshotIndex == skillIndex)
         {
