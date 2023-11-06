@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    public static CombatManager combatManager;
+    public static CombatManager Instance;
     [SerializeField] BoardManager boardManager;
     [SerializeField] UnitManager unitManager;
     [SerializeField] SkillShotManager skillShotManager;
@@ -18,7 +18,7 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
-        combatManager = this;
+        Instance = this;
 
         InitManagers();
         CreateBattlefield();

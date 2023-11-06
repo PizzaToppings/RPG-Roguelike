@@ -17,7 +17,7 @@ public class Unit : UnitStats
 
     public virtual void Init()
     {
-        combatManager = CombatManager.combatManager;
+        combatManager = CombatManager.Instance;
         boardManager = BoardManager.Instance;
         unitManager = UnitManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;

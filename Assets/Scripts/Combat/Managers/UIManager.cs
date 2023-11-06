@@ -37,4 +37,9 @@ public class UIManager : MonoBehaviour
             skillIcons[i].Set(CurrentActiveUnit.skillshots[i]);
         }
     }
+
+    public void ReadySkill(int skillIndex, bool active)
+    {
+        skillIcons[skillIndex].SetActiveColor(active);
+    }
 }
