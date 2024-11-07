@@ -236,10 +236,6 @@ public class BoardManager : MonoBehaviour
                 {
                     var direction = dir % nextTile.connectedTiles.Length;
 
-                    Debug.Log("--------");
-                    Debug.Log("direction: " + direction);
-                    Debug.Log("dir: " + dir);
-
                     nextTile.gameObject.GetComponent<Renderer>().materials[0].color = data.tileColor;
                     nextTile = nextTile.connectedTiles[direction];
 

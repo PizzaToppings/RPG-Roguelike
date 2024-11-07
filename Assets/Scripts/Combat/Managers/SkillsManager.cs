@@ -56,37 +56,41 @@ public class SkillsManager : MonoBehaviour
             return data.FinalDirection;
         }
 
-        int[] diffs = new int[originTile.connectedTiles.Length];
+        var direction = 0;
+        var minDistance = Vector2.Distance(originTile.connectedTiles[0].position, targetTile.position);
 
-        for (int i = 0; i < originTile.connectedTiles.Length; i++)
+        Debug.Log("-------------");
+        Debug.Log("-------------");
+        Debug.Log("-------------");
+        Debug.Log($"target: {targetTile.xPosition}, {targetTile.yPosition}");
+        Debug.Log("-------------");
+        Debug.Log($"Tile 0: {originTile.connectedTiles[0].xPosition}, {originTile.connectedTiles[0].yPosition}");
+        Debug.Log($"Distance: {minDistance}");
+
+        for (int i = 1; i < originTile.connectedTiles.Length; i++)
         {
             if (originTile.connectedTiles[i] == null)
             {
-                diffs[i] = int.MaxValue;
                 continue;
             }
+            Debug.Log("-------------");
 
             var connectedTile = originTile.connectedTiles[i];
-            int xDif = Mathf.Abs(connectedTile.xPosition - targetTile.xPosition);
-            int yDif = Mathf.Abs(connectedTile.yPosition - targetTile.yPosition);
 
-            diffs[i] = xDif + yDif;
-        }
-
-        var lowestDiff = diffs[0];
-        var lowestDiffIndex = 0;
-
-        for (int i = 1; i < diffs.Length; i++)
-        {
-            if (diffs[i] < lowestDiff)
+            float distance = Vector2.Distance(connectedTile.position, targetTile.position);
+            Debug.Log($"Tile {i}: {originTile.connectedTiles[0].xPosition}, {originTile.connectedTiles[0].yPosition}");
+            Debug.Log($"Distance: {distance}");
+            if (distance < minDistance)
             {
-                lowestDiff = diffs[i];
-                lowestDiffIndex = i;
+                minDistance = distance;
+                direction = i;
             }
         }
+        Debug.Log($"Mininmal Distance: {minDistance} for direction: {direction}");
 
-        data.FinalDirection = lowestDiffIndex;
-        return lowestDiffIndex;
+
+        data.FinalDirection = direction;
+        return direction;
     }
 
     public void GetAOE(SO_Skillpart data)
