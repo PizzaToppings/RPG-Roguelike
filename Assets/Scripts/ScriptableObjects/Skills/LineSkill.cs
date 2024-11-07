@@ -1,12 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TargetTest", menuName = "ScriptableObjects/Skillshots/TargetTest")]
-public class TargetTest : SO_MainSkillshot
+[CreateAssetMenu(fileName = "TEST", menuName = "ScriptableObjects/Skillshots/TEST")]
+public class LineSkillshots : SO_MainSkill
 {
     public override void Preview(BoardTile mouseOverTile)
     {
         base.Preview(mouseOverTile);
-
+    
         SkillshotParts[0].Preview(mouseOverTile, SkillshotParts);
     }
 }

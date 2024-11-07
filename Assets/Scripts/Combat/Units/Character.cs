@@ -63,21 +63,23 @@ public class Character : Unit
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)
-    {   
+    {
         base.PreviewSkills(mouseOverTile);
 
         for (int i = 0; i < SkillshotsEquipped.Count; i++)
         {
-            if (SkillshotData.CurrentSkillshotIndex == i + 1 && SkillshotsEquipped[i])
+            if (SkillshotData.CurrentSkillshotIndex == i && SkillshotsEquipped[i])
             {
                 skillshots[i].Preview(mouseOverTile);
             }
         }
     }
 
-    public override void StartTurn()
+    public override IEnumerator StartTurn()
     {
-        base.StartTurn();
-        UnitData.CurrentAction = UnitData.CurrentActionKind.Moving;
-    }
+        yield return null;
+        StartCoroutine(base.StartTurn());
+
+		UnitData.CurrentAction = UnitData.CurrentActionKind.Moving;
+	}
 }

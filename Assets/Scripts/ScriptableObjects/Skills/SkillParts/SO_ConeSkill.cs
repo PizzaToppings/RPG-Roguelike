@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ConeSkillshot", menuName = "ScriptableObjects/SkillshotParts/ConeSkillshot")]
-public class SO_ConeSkillshot : SO_Skillshot
+public class SO_ConeSkill : SO_Skillpart
 {
     public bool isWide;
 
-    public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots) 
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillShotManager skillShotManager = SkillShotManager.Instance;
+        SkillsManager skillShotManager = SkillsManager.Instance;
         skillShotManager.PreviewCone(this, targetTile);
         return this;
     }

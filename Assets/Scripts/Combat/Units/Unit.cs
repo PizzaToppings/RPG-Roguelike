@@ -53,7 +53,7 @@ public class Unit : UnitStats
 
     void SetStats()
     {
-        // where do I get stats?
+        // TODO: Get stats, not randomize
         UnitName = nameGenerator();
         gameObject.name = UnitName;
         MoveSpeed = Random.Range(5, 15);
@@ -186,8 +186,9 @@ public class Unit : UnitStats
 
     IEnumerator Move(List<BoardTile> path)
     {
+        CurrentUnitAction = currentUnitAction.Moving;
         Vector3 startPosition = transform.position + Vector3.up;
-        Vector3 endPosition = new Vector3();
+        Vector3 endPosition;
 
         for (int i = 0; i < path.Count; i++)
         {
@@ -214,6 +215,7 @@ public class Unit : UnitStats
         boardManager.Clear();
         boardManager.SetAOE(MoveSpeedLeft, endTile, null);
         modelAnimator.SetBool("Run", false);
+        CurrentUnitAction = currentUnitAction.Nothing;
     }
 
     void Rotate(Vector3 startPosition, Vector3 endPosition) 
@@ -257,8 +259,9 @@ public class Unit : UnitStats
         }
     }
 
-    public virtual void StartTurn()
+    public virtual IEnumerator StartTurn()
     {
+        yield return null;
         if (OnTurnStart != null)
             OnTurnStart.Invoke();
 
@@ -268,9 +271,8 @@ public class Unit : UnitStats
         if (statusEffectManager.CantTakeTurn(this))
         {
             EndTurn();
-            return;
+            yield break;
         }
-
         boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
     }
 

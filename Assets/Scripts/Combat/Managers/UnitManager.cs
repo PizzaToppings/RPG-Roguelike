@@ -12,6 +12,9 @@ public class UnitManager : MonoBehaviour
     [SerializeField] Transform characterParent;
     [SerializeField] Transform enemyParent;
 
+    //[HideInInspector] public List<Character> Characters;
+    //[HideInInspector] public List<Enemy> Enemies;
+
 
     public void Init()
     {
@@ -48,7 +51,7 @@ public class UnitManager : MonoBehaviour
         var randomPlace = BoardData.BoardTiles[randomX, randomY];
         unit.currentTile = randomPlace;
         randomPlace.currentCharacter = unit;
-        unit.transform.position = randomPlace.position + Vector3.up;
+        unit.transform.position = randomPlace.position;
         unit.Init();
 
         if (unit.Friendly)

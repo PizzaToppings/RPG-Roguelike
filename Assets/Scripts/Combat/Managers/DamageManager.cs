@@ -13,7 +13,7 @@ public class DamageManager : MonoBehaviour
         statusEffectManager = StatusEffectManager.Instance;
     }
 
-    public DamageData DealDamage(SO_Skillshot skillshot, Unit target)
+    public DamageData DealDamage(SO_Skillpart skillshot, Unit target)
     {
         var caster = skillshot.Caster;
 
@@ -39,7 +39,7 @@ public class DamageManager : MonoBehaviour
         return data;
     }
 
-    List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillshot skillshot)
+    List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillpart skillshot)
     {
         var statusEffects = new List<SO_StatusEffect>();
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoardManager))]
-public class SkillShotManager : MonoBehaviour
+public class SkillsManager : MonoBehaviour
 {
-    public static SkillShotManager Instance;
+    public static SkillsManager Instance;
     BoardManager boardManager;
 
     public void Init()
@@ -22,7 +22,7 @@ public class SkillShotManager : MonoBehaviour
         }
     }
 
-    public void PreviewLine(SO_LineSkillshot data, BoardTile targetTile)
+    public void PreviewLine(SO_LineSkill data, BoardTile targetTile)
     {
         List<int> directions = new List<int>();
 
@@ -39,7 +39,7 @@ public class SkillShotManager : MonoBehaviour
         }
     } 
 
-    public void PreviewCone(SO_ConeSkillshot data, BoardTile targetTile)
+    public void PreviewCone(SO_ConeSkill data, BoardTile targetTile)
     {
         foreach (var originTile in data.OriginTiles)
         {
@@ -48,15 +48,15 @@ public class SkillShotManager : MonoBehaviour
         }
     }
 
-    int GetDirection(BoardTile originTile, BoardTile targetTile, SO_Skillshot data)
+    int GetDirection(BoardTile originTile, BoardTile targetTile, SO_Skillpart data)
     {
         if (data.TargetTileKind == TargetTileEnum.PreviousDirection)
         {
-            data.FinalDirection = data.GetPreviousSkillshot().FinalDirection;
+            data.FinalDirection = data.GetPreviousSkillPart().FinalDirection;
             return data.FinalDirection;
         }
 
-        int[] diffs = new int[6];
+        int[] diffs = new int[originTile.connectedTiles.Length];
 
         for (int i = 0; i < originTile.connectedTiles.Length; i++)
         {
@@ -89,7 +89,7 @@ public class SkillShotManager : MonoBehaviour
         return lowestDiffIndex;
     }
 
-    public void GetAOE(SO_Skillshot data)
+    public void GetAOE(SO_Skillpart data)
     {
          boardManager.SetAOE(data.Range, data.OriginTiles, data.tileColor, data);
     }

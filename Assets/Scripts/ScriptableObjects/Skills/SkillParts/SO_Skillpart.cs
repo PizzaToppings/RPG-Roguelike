@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ using UnityEngine;
 public enum OriginTileEnum {Caster, LastTarget, LastTile, MouseOverTarget, Custom};
 public enum TargetTileEnum {MouseOverTile, Caster, AwayFromCaster, LastTarget, LastTile, PreviousDirection, MouseOverTarget, Custom};
 
-public class SO_Skillshot : ScriptableObject
+public class SO_Skillpart : ScriptableObject
 {
     [System.Serializable]
     public class DefaultStatusEffect 
@@ -21,7 +20,7 @@ public class SO_Skillshot : ScriptableObject
         }
     }
 
-    List<SO_Skillshot> skillshotList;
+    List<SO_Skillpart> skillPartsList;
 
     public OriginTileEnum OriginTileKind = OriginTileEnum.Caster; 
     public TargetTileEnum TargetTileKind = TargetTileEnum.MouseOverTile;
@@ -49,9 +48,9 @@ public class SO_Skillshot : ScriptableObject
 
     // debuffs
 
-    public virtual SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots)
+    public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts)
     {
-        skillshotList = skillshots;
+        skillPartsList = skillParts;
         TargetsHit = new List<Unit>();
         TilesHit = new List<BoardTile>();
         OriginTiles = GetOriginalTiles();
@@ -62,9 +61,9 @@ public class SO_Skillshot : ScriptableObject
     List<BoardTile> GetOriginalTiles()
     {
         var tiles = new List<BoardTile>();
-        SO_Skillshot previousSkillshot = GetPreviousSkillshot();
+        SO_Skillpart previousSkillPart = GetPreviousSkillPart();
 
-        if (OriginTileKind == OriginTileEnum.Caster)
+        if (OriginTileKind == OriginTileEnum.Caster) // is actually caster?
         {
             Caster = UnitData.CurrentActiveUnit;
             tiles.Add(Caster.currentTile);
@@ -72,23 +71,23 @@ public class SO_Skillshot : ScriptableObject
 
         if (OriginTileKind == OriginTileEnum.LastTarget)
         {
-            if (previousSkillshot?.TargetsHit?.Count == 0)
+            if (previousSkillPart?.TargetsHit?.Count == 0)
                 return new List<BoardTile>();
             
-            previousSkillshot.TargetsHit.ForEach(x => tiles.Add(x.currentTile));
+            previousSkillPart.TargetsHit.ForEach(x => tiles.Add(x.currentTile));
         }
 
         if (OriginTileKind == OriginTileEnum.LastTile)
         {
-            tiles.AddRange(previousSkillshot.TilesHit);
+            tiles.AddRange(previousSkillPart.TilesHit);
         }
 
         if (OriginTileKind == OriginTileEnum.MouseOverTarget)
         {
-            if (previousSkillshot?.TargetsHit?.Count == 0)
+            if (previousSkillPart?.TargetsHit?.Count == 0)
                 return new List<BoardTile>();
 
-            var target = previousSkillshot.TargetsHit.Find(x => x.IsTargeted);
+            var target = previousSkillPart.TargetsHit.Find(x => x.IsTargeted);
             if (target != null)
             {
                 tiles.Add(target.currentTile);
@@ -100,7 +99,7 @@ public class SO_Skillshot : ScriptableObject
 
     BoardTile GetTargetTile(BoardTile mouseOverTile)
     {
-        SO_Skillshot previousSkillshot = GetPreviousSkillshot();
+        SO_Skillpart previousSkillshot = GetPreviousSkillPart();
 
         if (TargetTileKind== TargetTileEnum.MouseOverTile)
             return mouseOverTile;
@@ -111,12 +110,12 @@ public class SO_Skillshot : ScriptableObject
         return null;
     }
 
-    public SO_Skillshot GetPreviousSkillshot()
+    public SO_Skillpart GetPreviousSkillPart()
     {
         var tiles = new List<BoardTile>();
-        var thisIndex = skillshotList.FindIndex(x => x == this);
+        var thisIndex = skillPartsList.FindIndex(x => x == this);
         if (thisIndex != 0)
-            return skillshotList[thisIndex - 1];
+            return skillPartsList[thisIndex - 1];
 
         return null;
     }

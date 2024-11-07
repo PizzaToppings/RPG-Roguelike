@@ -1,14 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    public static BoardManager Instance; 
+    public static BoardManager Instance;
 
-    const float rowIncrease = 1.8f;
-    const float columnIncrease = 1.55f;
-    Quaternion rotation = Quaternion.Euler(90, 0, 0); 
+	const float rowIncrease = 1.5f;
+	const float columnIncrease = 1.5f;
+	Quaternion rotation = Quaternion.Euler(90, 0, 0); 
 
     [Space]
     [SerializeField] GameObject tilePrefab;
@@ -17,7 +16,7 @@ public class BoardManager : MonoBehaviour
     // temp
     [SerializeField] Color originalColor;
 
-    LineRenderer movementIndicator;
+    LineRenderer movementLR;
     public List<BoardTile> Path = new List<BoardTile>();
 
     public Color MovementColor;
@@ -26,12 +25,7 @@ public class BoardManager : MonoBehaviour
     public void Init()
     {
         Instance = this;
-        movementIndicator = GetComponent<LineRenderer>();
-    }
-
-    void Update()
-    {
-        
+        movementLR = GetComponent<LineRenderer>();
     }
 
     public void CreateBoard() 
@@ -42,12 +36,8 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < BoardData.columnAmount; y++)
             {
-                float secondRowOffset = 0;
-                if (y % 2 == 0)
-                    secondRowOffset = rowIncrease/2; 
-
                 Vector3 position = new Vector3(
-                    x * rowIncrease + secondRowOffset,
+                    x * rowIncrease,
                     0,
                     y * columnIncrease
                     );
@@ -77,25 +67,81 @@ public class BoardManager : MonoBehaviour
                     y >= 0 && y < BoardData.columnAmount);
     }
 
+    public int GetRangeBetweenTiles(BoardTile startTile, BoardTile endTile)
+    {
+        List<BoardTile> openSet = new List<BoardTile>();
+        HashSet<BoardTile> closedSet = new HashSet<BoardTile>();
+
+        startTile.DistanceToTarget = Vector2Int.Distance(startTile.Coordinates, endTile.Coordinates);
+        startTile.DistanceTraveled = 0;
+
+        openSet.Add(startTile);
+
+        while (openSet.Count > 0)
+        {
+            BoardTile currentTile = openSet[0];
+            for (int i = 1; i < openSet.Count; i++)
+            {
+                if (openSet[i].DistanceToTarget < currentTile.DistanceToTarget ||
+                    (openSet[i].DistanceToTarget == currentTile.DistanceToTarget &&
+                     openSet[i].DistanceToTarget < currentTile.DistanceToTarget))
+                {
+                    currentTile = openSet[i];
+                }
+            }
+
+            openSet.Remove(currentTile);
+            closedSet.Add(currentTile);
+
+            if (currentTile.Coordinates == endTile.Coordinates)
+            {
+                return (int)currentTile.DistanceTraveled;
+            }
+
+            foreach (var neighbor in currentTile.connectedTiles)
+            {
+                if (closedSet.Contains(neighbor) || neighbor == null) 
+                    continue;
+
+                float newDistanceTraveled = currentTile.DistanceTraveled + 1;
+
+                if (newDistanceTraveled < neighbor.DistanceTraveled || !openSet.Contains(neighbor))
+                {
+                    neighbor.DistanceTraveled = newDistanceTraveled;
+                    neighbor.DistanceToTarget = Vector2Int.Distance(neighbor.Coordinates, endTile.Coordinates);
+                    neighbor.PreviousTile = currentTile;
+
+                    if (!openSet.Contains(neighbor))
+                    {
+                        openSet.Add(neighbor);
+                    }
+                }
+            }
+        }
+        return-1;
+    }
+
     public void Clear()
     {
         foreach (var tile in BoardData.BoardTiles)
         {
             tile.movementLeft = -1;
-            tile.gameObject.GetComponent<Renderer>().materials[1].color = originalColor;
+            tile.PreviousTile = null;
+            Path = new List<BoardTile>();
+            tile.gameObject.GetComponent<Renderer>().materials[0].color = originalColor;
         }
         StopShowingMovement();
     }
 
-    public void ClearMovementLeftPerTile()
-    {
-        foreach (var tile in BoardData.BoardTiles)
-        {
-            tile.movementLeft = -1;
-        }
-    }
+    //public void ClearMovementLeftPerTile()
+    //{
+    //    foreach (var tile in BoardData.BoardTiles)
+    //    {
+    //        tile.movementLeft = -1;
+    //    }
+    //}
 
-     public void SetAOE(int movementLeft, List<BoardTile> startingTiles, SO_Skillshot data)
+     public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)
      {
         foreach (var tile in startingTiles)
         {
@@ -103,7 +149,7 @@ public class BoardManager : MonoBehaviour
         }
      }
 
-    public void SetAOE(int movementLeft, List<BoardTile> startingTiles,  Color color, SO_Skillshot data)
+    public void SetAOE(float movementLeft, List<BoardTile> startingTiles,  Color color, SO_Skillpart data)
     {
         foreach (var tile in startingTiles)
         {
@@ -111,44 +157,69 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void SetAOE(int movementLeft, BoardTile startingTile, SO_Skillshot data)
+    public void SetAOE(float movementLeft, BoardTile startingTile, SO_Skillpart data)
     {
         SetAOE(movementLeft, startingTile, MovementColor, data);
     }
 
-    public void SetAOE(int movementLeft, BoardTile startingTile, Color color, SO_Skillshot data)
+    public void SetAOE(float movementLeft, BoardTile currentTile, Color color, SO_Skillpart skillshotData)
     {
-        if (movementLeft == 0)
+        if (movementLeft <= 0)
             return;
 
-        if (startingTile.movementLeft == -1)
-            startingTile.movementLeft = 0;
+        // can't move to current space
+        if (currentTile.movementLeft == -1)
+            currentTile.movementLeft = 0;
+
+        if (UnitData.CurrentActiveUnit.Friendly == false)
+		{
+            var enemy = UnitData.CurrentActiveUnit as Enemy;
+
+            if (!enemy.PossibleMovementTiles.Contains(currentTile))
+                enemy.PossibleMovementTiles.Add(currentTile);
+		}
 
         List<BoardTile> usedTiles = new List<BoardTile>();
-        movementLeft--;
-        foreach(var tile in startingTile.connectedTiles)
+
+        foreach(var tile in currentTile.connectedTiles)
         {
             if (tile == null)
                 continue;
-            
-            if (tile.movementLeft < movementLeft)
+
+            var nextMovementLeft = movementLeft;
+
+            if (tile.xPosition != currentTile.xPosition 
+                && tile.yPosition != currentTile.yPosition)
+			{
+                nextMovementLeft -= 1.5f;
+			}
+            else
+			{
+                nextMovementLeft--;
+			}
+
+            if (tile.movementLeft < nextMovementLeft)
             {
-                tile.gameObject.GetComponent<Renderer>().materials[1].color = color;
-                tile.movementLeft = movementLeft;
+                if (UnitData.CurrentActiveUnit.Friendly)
+                    tile.gameObject.GetComponent<Renderer>().materials[0].color = color;
+
+                tile.movementLeft = nextMovementLeft;
                 usedTiles.Add(tile);
                 
-                var target = FindTarget(tile, data);
-                    if (target != null && data != null && !data.TargetsHit.Contains(target))
-                        data.TargetsHit.Add(target);
+                var target = FindTarget(tile, skillshotData);
+                if (target != null && skillshotData != null && !skillshotData.TargetsHit.Contains(target))
+                    skillshotData.TargetsHit.Add(target);
 
-                SetAOE(movementLeft, tile, color, data);
+                tile.PreviousTile = currentTile;
+
+                SetAOE(nextMovementLeft, tile, color, skillshotData);
             }
         }
-        if (data != null)
-            data.TilesHit.AddRange(usedTiles);
+        if (skillshotData != null)
+            skillshotData.TilesHit.AddRange(usedTiles);
     }
 
-    public void PreviewLineCast(int[] directions, SO_LineSkillshot data)
+    public void PreviewLineCast(int[] directions, SO_LineSkill data)
     {
         BoardTile nextTile = data.OriginTiles[0];
 
@@ -163,9 +234,13 @@ public class BoardManager : MonoBehaviour
                 data.TilesHit.Add(nextTile);
                 for (int i = 0; i < data.Range; i++)
                 {
-                    var direction = dir % 6;
+                    var direction = dir % nextTile.connectedTiles.Length;
 
-                    nextTile.gameObject.GetComponent<Renderer>().materials[1].color = data.tileColor;
+                    Debug.Log("--------");
+                    Debug.Log("direction: " + direction);
+                    Debug.Log("dir: " + dir);
+
+                    nextTile.gameObject.GetComponent<Renderer>().materials[0].color = data.tileColor;
                     nextTile = nextTile.connectedTiles[direction];
 
                     if (nextTile == null)
@@ -188,7 +263,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void PreviewConeCast(int direction, SO_ConeSkillshot data)
+    public void PreviewConeCast(int direction, SO_ConeSkill data)
     {
         BoardTile nextTile = data.OriginTiles[0];
 
@@ -215,7 +290,7 @@ public class BoardManager : MonoBehaviour
                 nextTile = nextTile.connectedTiles[dir];
                 data.TilesHit.Add(nextTile);
 
-                nextTile.gameObject.GetComponent<Renderer>().materials[1].color = data.tileColor;
+                nextTile.gameObject.GetComponent<Renderer>().materials[0].color = data.tileColor;
                 ContinueConeCast(nextTile, dir+2, data, nextRange);
                 if (data.isWide)
                     ContinueConeCast(nextTile, dir+4, data, nextRange);
@@ -230,14 +305,14 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkillshot data, int range)
+    void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkill data, int range)
     {
         BoardTile nextTile = tile;
         for (int i = 0; i < range; i++)
         {
             var dir = direction % 6;
 
-            nextTile.gameObject.GetComponent<Renderer>().materials[1].color = data.tileColor;
+            nextTile.gameObject.GetComponent<Renderer>().materials[0].color = data.tileColor;
             nextTile = nextTile.connectedTiles[dir];
 
             if (nextTile == null)
@@ -254,7 +329,7 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    Unit FindTarget(BoardTile tile, SO_Skillshot data)
+    Unit FindTarget(BoardTile tile, SO_Skillpart data)
     {
         if (UnitData.CurrentActiveUnit == null)
             return null;
@@ -267,26 +342,26 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
-    bool IsCorrectTarget(Unit target, SO_Skillshot data)
+    bool IsCorrectTarget(Unit target, SO_Skillpart data)
     {
         if (data == null)
             return false;
 
         var friendly = UnitData.CurrentActiveUnit.Friendly;
 
-        if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkillshot.TargetKindEnum.Allies)
+        if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkill.TargetKindEnum.Allies)
         {
             if (target.Friendly == friendly)
                 return true;
         }
 
-        if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkillshot.TargetKindEnum.All)
+        if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkill.TargetKindEnum.All)
             return true;
 
         return (target.Friendly != friendly);
     }
 
-    void AddTarget(Unit target, SO_Skillshot data)
+    void AddTarget(Unit target, SO_Skillpart data)
     {
         if (data.TargetsHit.Contains(target))
             return;
@@ -294,17 +369,15 @@ public class BoardManager : MonoBehaviour
         data.TargetsHit.Add(target);
     }
 
-    public void PreviewMovementLine(BoardTile finaltile, int movementAmount)
+    public void PreviewMovementLine(BoardTile finaltile)
     {
-        int movementUsed = UnitData.CurrentActiveUnit.MoveSpeedLeft - movementAmount;
-        movementIndicator.positionCount = movementUsed + 1;
-        movementIndicator.SetPosition(0, finaltile.position + Vector3.up);
-        movementIndicator.SetPosition(movementUsed, UnitData.CurrentActiveUnit.currentTile.position + Vector3.up);
+        movementLR.positionCount++;
+        movementLR.SetPosition(0, finaltile.position);
 
         BoardTile currentTile = finaltile;
-        Path.Add(currentTile);
+		Path.Add(currentTile);
 
-        for (int i = 0; i < movementUsed; i++)
+		for (int i = 0; i < Path.Count; i++)
         {
             foreach (var tile in currentTile.connectedTiles)
             {
@@ -313,17 +386,46 @@ public class BoardManager : MonoBehaviour
 
                 if (tile.movementLeft == currentTile.movementLeft + 1)
                 {
-                    movementIndicator.SetPosition(i+1, tile.position + Vector3.up);
+                    movementLR.positionCount++;
+                    movementLR.SetPosition(i+1, tile.position);
+                    tile.PreviousTile = currentTile;
+                    currentTile = tile;
+					Path.Add(tile);
+
+                    continue;
+                }
+
+                if (tile.movementLeft == currentTile.movementLeft + 1.5f)
+                {
+                    movementLR.positionCount++;
+                    movementLR.SetPosition(i + 1, tile.position);
+                    tile.PreviousTile = currentTile;
                     currentTile = tile;
                     Path.Add(tile);
+
                     continue;
                 }
             }
+        }
+
+        //movementLR.positionCount++;
+        //movementLR.SetPosition(Path.Count + 1, UnitData.CurrentActiveUnit.currentTile.position);
+    }
+
+    public void SetPath(BoardTile endTile)
+	{
+        var currentTile = endTile;
+        while (currentTile != null)
+		{
+            Debug.Log(Path.Count);
+            Debug.Log(currentTile);
+            Path.Add(currentTile);
+            currentTile = currentTile.PreviousTile;
         }
     }
 
     public void StopShowingMovement()
     {
-        movementIndicator.positionCount = 0;
+        movementLR.positionCount = 0;
     }
 }

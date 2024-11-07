@@ -12,12 +12,14 @@ public class UnitStats : MonoBehaviour
     public int ShieldPoints;
 
     public int MoveSpeed;
-    public int MoveSpeedLeft;
+    public float MoveSpeedLeft;
     public int Initiative;
+
+    public currentUnitAction CurrentUnitAction;
 
     public int MaxSkillShotAmount = 4;
     public List<bool> SkillshotsEquipped;
-    public List<SO_MainSkillshot> skillshots = new List<SO_MainSkillshot>();
+    public List<SO_MainSkill> skillshots = new List<SO_MainSkill>();
     public bool IsTargeted;
 
     public int PhysicalPower;

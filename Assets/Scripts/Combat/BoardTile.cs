@@ -5,13 +5,17 @@ using UnityEngine;
 public class BoardTile : MonoBehaviour
 {
     BoardManager boardManager;
-    SkillShotManager skillShotManager;
+    SkillsManager skillShotManager;
     public BoardTile[] connectedTiles = new BoardTile[6];
+    public BoardTile PreviousTile;
 
     public int xPosition = 0;
     public int yPosition = 0;
+    public Vector2Int Coordinates;
 
-    public int movementLeft = -1;
+    public float movementLeft = -1;
+    public float DistanceTraveled;
+    public float DistanceToTarget;
 
     public Unit currentCharacter = null;
 
@@ -25,8 +29,12 @@ public class BoardTile : MonoBehaviour
         position = transform.position;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+        Coordinates = new Vector2Int(xPosition, yPosition);
 
-        skillShotManager = SkillShotManager.Instance;
+        DistanceTraveled = Mathf.Infinity;
+        DistanceToTarget = Mathf.Infinity;
+
+        skillShotManager = SkillsManager.Instance;
         gameObject.name = xPosition + ", " + yPosition;
 
         StartCoroutine(SlideIn());
@@ -40,14 +48,19 @@ public class BoardTile : MonoBehaviour
         if (movementLeft > -1 && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
         {
             // start moving
-            boardManager.Path.Reverse();
-            UnitData.CurrentActiveUnit.StartMoving(boardManager.Path);
+            MoveToTile();
         }
     }
 
     void OnMouseEnter()
     {
-        Target();   
+        Target();
+    }
+
+    public void MoveToTile() 
+    {
+        boardManager.Path.Reverse();
+        UnitData.CurrentActiveUnit.StartMoving(boardManager.Path);
     }
 
     public void Target()
@@ -58,13 +71,13 @@ public class BoardTile : MonoBehaviour
         if (currentCharacter != null)
             currentCharacter.IsTargeted = true;
         
-        // Start moving
+        // Show movement line
         if (movementLeft > -1 
             && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
         {
             boardManager.Path = new List<BoardTile>();
-            boardManager.PreviewMovementLine(this, movementLeft);
-        }
+			boardManager.PreviewMovementLine(this);
+		}
 
         if (UnitData.CurrentAction == UnitData.CurrentActionKind.CastingSkillshot)
             UnitData.CurrentActiveUnit.PreviewSkills(this);
@@ -116,16 +129,15 @@ public class BoardTile : MonoBehaviour
 
     public void SetConnectedTiles()
     {
-        int unevenColumnOffset = 1;
-        if (yPosition % 2 != 0)
-            unevenColumnOffset = 0;
-
-        connectedTiles[0] = boardManager.GetBoardTile(xPosition + 1, yPosition);
-        connectedTiles[1] = boardManager.GetBoardTile(xPosition + unevenColumnOffset, yPosition - 1);
-        connectedTiles[2] = boardManager.GetBoardTile(xPosition - 1 + unevenColumnOffset, yPosition - 1);
+        // goign in a circle
+        connectedTiles[0] = boardManager.GetBoardTile(xPosition + 1, yPosition - 1);
+        connectedTiles[1] = boardManager.GetBoardTile(xPosition, yPosition - 1);
+        connectedTiles[2] = boardManager.GetBoardTile(xPosition - 1, yPosition - 1);
         connectedTiles[3] = boardManager.GetBoardTile(xPosition - 1, yPosition);
-        connectedTiles[4] = boardManager.GetBoardTile(xPosition - 1 + unevenColumnOffset, yPosition + 1);
-        connectedTiles[5] = boardManager.GetBoardTile(xPosition + unevenColumnOffset, yPosition + 1);
+        connectedTiles[4] = boardManager.GetBoardTile(xPosition - 1, yPosition + 1);
+        connectedTiles[5] = boardManager.GetBoardTile(xPosition, yPosition + 1);
+        connectedTiles[6] = boardManager.GetBoardTile(xPosition + 1, yPosition + 1);
+        connectedTiles[7] = boardManager.GetBoardTile(xPosition + 1, yPosition);
     }
 
     int IncreaseIndex(int x, int y, int yOffset)

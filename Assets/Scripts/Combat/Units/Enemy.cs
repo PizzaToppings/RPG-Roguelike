@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+    [HideInInspector] public List<BoardTile> PossibleMovementTiles;
+
     public override void Init()
     {
+        PossibleMovementTiles = new List<BoardTile>();
         Friendly = false;
         base.Init();
     }
@@ -18,15 +21,17 @@ public class Enemy : Unit
         }
     }
 
-    public override void StartTurn()
+    public override IEnumerator StartTurn()
     {
+        yield return null;
         Debug.Log("starting enemy turn");
-        base.StartTurn();
+        PossibleMovementTiles = new List<BoardTile>();
+        StartCoroutine(base.StartTurn());
 
-        StartCoroutine(holdturnforasec());
+        //StartCoroutine(holdturnforasec());
     }
 
-    IEnumerator holdturnforasec() 
+    IEnumerator holdturnforasec() // temp
     {
         yield return new WaitForSeconds(3);
         EndTurn();
@@ -36,6 +41,5 @@ public class Enemy : Unit
     {
         Debug.Log("ending enemy turn");
         base.EndTurn();
-        UnitData.CurrentAction = UnitData.CurrentActionKind.EnemyTurn;
     }
 }

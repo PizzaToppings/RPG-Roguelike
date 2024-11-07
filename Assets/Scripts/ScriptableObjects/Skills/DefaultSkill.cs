@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DefaultSkillshot", menuName = "ScriptableObjects/Skillshots/DefaultSkillshot")]
-public class DefaultSkillshot : SO_MainSkillshot
+public class DefaultSkill : SO_MainSkill
 {
     public override void Preview(BoardTile mouseOverTile)
     {

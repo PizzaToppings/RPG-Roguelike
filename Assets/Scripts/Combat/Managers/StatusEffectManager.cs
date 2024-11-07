@@ -64,6 +64,6 @@ public class StatusEffectManager : MonoBehaviour
     {
         // use coroutine waituntil statuseffect = false for visuals? 
 
-        unit.StartTurn();
+        StartCoroutine(unit.StartTurn());
     }
 }

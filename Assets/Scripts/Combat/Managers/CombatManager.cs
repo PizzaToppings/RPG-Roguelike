@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
@@ -7,7 +6,7 @@ public class CombatManager : MonoBehaviour
     public static CombatManager Instance;
     [SerializeField] BoardManager boardManager;
     [SerializeField] UnitManager unitManager;
-    [SerializeField] SkillShotManager skillShotManager;
+    [SerializeField] SkillsManager skillShotManager;
     [SerializeField] DamageManager damageManager;
     [SerializeField] StatusEffectManager statusEffectManager;
     [SerializeField] UIManager uiManager;
@@ -82,9 +81,9 @@ public class CombatManager : MonoBehaviour
         initiativeTracker.NextTurn();
 
         var CurrentActiveUnit = UnitData.Units[CombatData.currentCharacterTurn];
-        CurrentActiveUnit.StartTurn();
         UnitData.CurrentActiveUnit = CurrentActiveUnit;
-        CombatData.currentCharacterTurn++;
+		StartCoroutine(CurrentActiveUnit.StartTurn());
+		CombatData.currentCharacterTurn++;
 
         uiManager.StartTurn(CurrentActiveUnit);
     }

@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class SO_MainSkillshot : ScriptableObject
+[CreateAssetMenu(fileName = "MainSkillshot", menuName = "ScriptableObjects/Skillshots/MainSkillshot")]
+public class SO_MainSkill : ScriptableObject
 {
     public Sprite Image;
 
@@ -13,8 +11,8 @@ public class SO_MainSkillshot : ScriptableObject
 
     public enum TargetKindEnum {Enemies, Allies, All};
 
-    public bool MagicalDamage;
-    public List<SO_Skillshot> SkillshotParts;
+    public bool MagicalDamage; //change to enum?
+    public List<SO_Skillpart> SkillshotParts;
 
     public TargetKindEnum TargetKind;
 
@@ -23,6 +21,9 @@ public class SO_MainSkillshot : ScriptableObject
         SkillshotData.CurrentMainSkillshot = this;
         BoardManager boardManager = BoardManager.Instance;
         UnitManager unitManager = UnitManager.Instance;
+
+        foreach (var so in SkillshotParts)
+            so.Preview(mouseOverTile, SkillshotParts);
     }
 
     public virtual void Cast()

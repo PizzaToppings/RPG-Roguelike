@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitData
 {
-    public enum CurrentActionKind {EnemyTurn, Moving, CastingSkillshot};
+    public enum CurrentActionKind {None, Moving, CastingSkillshot};
     
     public static List<Unit> Units = new List<Unit>(); 
     public static List<Character> Characters = new List<Character>(); 

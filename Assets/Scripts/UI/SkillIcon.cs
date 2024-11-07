@@ -34,7 +34,7 @@ public class SkillIcon : MonoBehaviour
         ShowInformation();
     }
 
-    public void Set(SO_MainSkillshot skillShot) 
+    public void Set(SO_MainSkill skillShot) 
     {
         icon.sprite = skillShot.Image;
         infoText = skillShot.Description;

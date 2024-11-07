@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TagretSelfSkillshot", menuName = "ScriptableObjects/SkillshotParts/TagretSelfSkillshot")]
-public class SO_TargetSelfSkillshot : SO_Skillshot
+public class SO_TargetSelfSkill : SO_Skillpart
 {
-    public override SO_Skillshot Preview(BoardTile mouseOverTile, List<SO_Skillshot> skillshots) 
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots) 
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillShotManager skillShotManager = SkillShotManager.Instance;
+        SkillsManager skillShotManager = SkillsManager.Instance;
         TargetsHit.Add(this.Caster);
         return this;
     }
