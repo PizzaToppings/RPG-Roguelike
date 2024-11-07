@@ -22,20 +22,20 @@ public class SkillsManager : MonoBehaviour
         }
     }
 
-    public void PreviewLine(SO_LineSkill data, BoardTile targetTile)
+    public void PreviewLine(SO_LineSkill SkillData, BoardTile targetTile)
     {
         List<int> directions = new List<int>();
 
-        foreach (var originTile in data.OriginTiles)
+        foreach (var originTile in SkillData.OriginTiles)
         {
-            foreach (var direction in data.Angles)
+            foreach (var direction in SkillData.Angles)
             {
                 var dir = direction;
-                dir += GetDirection(originTile, targetTile, data);
+                dir += GetDirection(originTile, targetTile, SkillData);
                 directions.Add(dir);
             }
 
-            boardManager.PreviewLineCast(directions.ToArray(), data);
+            boardManager.PreviewLineCast(directions.ToArray(), SkillData);
         }
     } 
 
@@ -56,38 +56,38 @@ public class SkillsManager : MonoBehaviour
             return data.FinalDirection;
         }
 
-        var direction = 0;
-        var minDistance = Vector2.Distance(originTile.connectedTiles[0].position, targetTile.position);
+        Vector2 baseDirection = originTile.position - targetTile.position;
+        float baseAngle = Mathf.Atan2(baseDirection.x, baseDirection.y) * Mathf.Rad2Deg;
+        var angles = new float[originTile.connectedTiles.Length];
+        Debug.Log("-----------");
 
-        Debug.Log("-------------");
-        Debug.Log("-------------");
-        Debug.Log("-------------");
-        Debug.Log($"target: {targetTile.xPosition}, {targetTile.yPosition}");
-        Debug.Log("-------------");
-        Debug.Log($"Tile 0: {originTile.connectedTiles[0].xPosition}, {originTile.connectedTiles[0].yPosition}");
-        Debug.Log($"Distance: {minDistance}");
-
-        for (int i = 1; i < originTile.connectedTiles.Length; i++)
+        for (int i = 0; i < originTile.connectedTiles.Length; i++)
         {
             if (originTile.connectedTiles[i] == null)
             {
+                angles[i] = 500; // or any other high number
                 continue;
             }
-            Debug.Log("-------------");
 
-            var connectedTile = originTile.connectedTiles[i];
-
-            float distance = Vector2.Distance(connectedTile.position, targetTile.position);
-            Debug.Log($"Tile {i}: {originTile.connectedTiles[0].xPosition}, {originTile.connectedTiles[0].yPosition}");
-            Debug.Log($"Distance: {distance}");
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                direction = i;
-            }
+            var currentTile = originTile.connectedTiles[i];
+            Vector2 tileDirection = originTile.position - currentTile.position;
+            float angle = Mathf.Atan2(tileDirection.x, tileDirection.y) * Mathf.Rad2Deg;
+            angles[i] = angle;
+            Debug.Log(angle);
         }
-        Debug.Log($"Mininmal Distance: {minDistance} for direction: {direction}");
 
+        var direction = 0;
+        var closestAngleDif = Mathf.Abs(baseAngle - angles[0]);
+        for (int i = 1; i < angles.Length; i++)
+        {
+            float angleDif = Mathf.Abs(baseAngle - angles[i]);
+
+            if (angleDif < closestAngleDif)
+            {
+                closestAngleDif = angleDif;
+            }
+            direction = i;
+        }
 
         data.FinalDirection = direction;
         return direction;

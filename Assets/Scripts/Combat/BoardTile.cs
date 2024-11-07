@@ -130,14 +130,14 @@ public class BoardTile : MonoBehaviour
     public void SetConnectedTiles()
     {
         // goign in a circle
-        connectedTiles[0] = boardManager.GetBoardTile(xPosition + 1, yPosition - 1);
-        connectedTiles[1] = boardManager.GetBoardTile(xPosition, yPosition - 1);
-        connectedTiles[2] = boardManager.GetBoardTile(xPosition - 1, yPosition - 1);
-        connectedTiles[3] = boardManager.GetBoardTile(xPosition - 1, yPosition);
-        connectedTiles[4] = boardManager.GetBoardTile(xPosition - 1, yPosition + 1);
-        connectedTiles[5] = boardManager.GetBoardTile(xPosition, yPosition + 1);
-        connectedTiles[6] = boardManager.GetBoardTile(xPosition + 1, yPosition + 1);
-        connectedTiles[7] = boardManager.GetBoardTile(xPosition + 1, yPosition);
+        connectedTiles[0] = boardManager.GetBoardTile(xPosition, yPosition + 1);
+        connectedTiles[1] = boardManager.GetBoardTile(xPosition + 1, yPosition + 1);
+        connectedTiles[2] = boardManager.GetBoardTile(xPosition + 1, yPosition);
+        connectedTiles[3] = boardManager.GetBoardTile(xPosition + 1, yPosition - 1);
+        connectedTiles[4] = boardManager.GetBoardTile(xPosition, yPosition - 1);
+        connectedTiles[5] = boardManager.GetBoardTile(xPosition - 1, yPosition - 1);
+        connectedTiles[6] = boardManager.GetBoardTile(xPosition - 1, yPosition);
+        connectedTiles[7] = boardManager.GetBoardTile(xPosition - 1, yPosition + 1);
     }
 
     int IncreaseIndex(int x, int y, int yOffset)
