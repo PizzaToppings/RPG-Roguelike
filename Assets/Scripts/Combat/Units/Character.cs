@@ -45,6 +45,7 @@ public class Character : Unit
 
     public void ToggleSkill(int skillIndex)
     {
+        boardManager.Clear();
         if (SkillshotData.CurrentSkillshotIndex == skillIndex)
         {
             UnitData.CurrentAction = UnitData.CurrentActionKind.Moving; 
@@ -58,7 +59,6 @@ public class Character : Unit
 
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
             SkillshotData.CurrentSkillshotIndex = skillIndex;
-            boardManager.Clear();
         }
     }
 

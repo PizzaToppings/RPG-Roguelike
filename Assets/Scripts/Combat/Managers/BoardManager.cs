@@ -188,15 +188,7 @@ public class BoardManager : MonoBehaviour
 
             var nextMovementLeft = movementLeft;
 
-            if (tile.xPosition != currentTile.xPosition 
-                && tile.yPosition != currentTile.yPosition)
-			{
-                nextMovementLeft -= 1.5f;
-			}
-            else
-			{
-                nextMovementLeft--;
-			}
+            nextMovementLeft -= GetRangeReduction(currentTile, tile);
 
             if (tile.movementLeft < nextMovementLeft)
             {
@@ -219,6 +211,19 @@ public class BoardManager : MonoBehaviour
             skillshotData.TilesHit.AddRange(usedTiles);
     }
 
+    public float GetRangeReduction(BoardTile currentTile, BoardTile nextTile)
+	{
+        if (nextTile.xPosition != currentTile.xPosition
+                && nextTile.yPosition != currentTile.yPosition)
+        {
+            return 1.5f;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
     public void PreviewLineCast(int[] directions, SO_LineSkill skillData)
     {
         BoardTile nextTile = skillData.OriginTiles[0];
@@ -232,11 +237,12 @@ public class BoardManager : MonoBehaviour
             {
                 nextTile = originTile;
                 skillData.TilesHit.Add(nextTile);
-                for (int i = 0; i < skillData.Range; i++)
+                for (float i = 0; i < skillData.Range; i += 0)
                 {
                     var direction = dir % nextTile.connectedTiles.Length;
 
                     nextTile.gameObject.GetComponent<Renderer>().materials[0].color = skillData.tileColor;
+                    var previousTile = nextTile;
                     nextTile = nextTile.connectedTiles[direction];
 
                     if (nextTile == null)
@@ -254,6 +260,8 @@ public class BoardManager : MonoBehaviour
                             pierceAmount--;
                         }
                     }
+
+                    i += GetRangeReduction(previousTile, nextTile);
                 }
             }
         }
@@ -403,9 +411,6 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
-
-        //movementLR.positionCount++;
-        //movementLR.SetPosition(Path.Count + 1, UnitData.CurrentActiveUnit.currentTile.position);
     }
 
     public void SetPath(BoardTile endTile)

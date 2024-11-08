@@ -92,17 +92,6 @@ public class SkillsManager : MonoBehaviour
             }
         }
 
-        //for (int i = 1; i < originTile.connectedTiles.Length; i++)
-        //{
-        //    if (i == tileDirectionIndex)
-        //    {
-        //        continue;
-        //    }
-
-        //    //Debug.DrawLine(targetTile.position, originTile.connectedTiles[i].position, Color.white, 2.5f);
-        //}
-        //Debug.DrawLine(targetTile.position, originTile.connectedTiles[tileDirectionIndex].position, Color.red, 2.5f);
-
         data.FinalDirection = tileDirectionIndex;
         return tileDirectionIndex;
     }
