@@ -30,8 +30,7 @@ public class SkillsManager : MonoBehaviour
         {
             foreach (var direction in SkillData.Angles)
             {
-                var dir = direction;
-                dir += GetDirection(originTile, targetTile, SkillData);
+                var dir = GetDirection(originTile, targetTile, SkillData);
                 directions.Add(dir);
             }
 
@@ -56,41 +55,56 @@ public class SkillsManager : MonoBehaviour
             return data.FinalDirection;
         }
 
-        Vector2 baseDirection = originTile.position - targetTile.position;
-        float baseAngle = Mathf.Atan2(baseDirection.x, baseDirection.y) * Mathf.Rad2Deg;
-        var angles = new float[originTile.connectedTiles.Length];
-        Debug.Log("-----------");
+        var tileDirectionIndex = 0;
+        Vector3 dir = targetTile.Coordinates - originTile.Coordinates;
+        float targetDirection = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        float?[] directions = new float?[originTile.connectedTiles.Length];
 
         for (int i = 0; i < originTile.connectedTiles.Length; i++)
         {
             if (originTile.connectedTiles[i] == null)
-            {
-                angles[i] = 500; // or any other high number
+			{
+                directions[i] = null;
                 continue;
-            }
+			}
 
-            var currentTile = originTile.connectedTiles[i];
-            Vector2 tileDirection = originTile.position - currentTile.position;
-            float angle = Mathf.Atan2(tileDirection.x, tileDirection.y) * Mathf.Rad2Deg;
-            angles[i] = angle;
-            Debug.Log(angle);
+            dir = originTile.connectedTiles[i].Coordinates - originTile.Coordinates;
+			float? direction = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            directions[i] = direction;
         }
 
-        var direction = 0;
-        var closestAngleDif = Mathf.Abs(baseAngle - angles[0]);
-        for (int i = 1; i < angles.Length; i++)
+        float dif = float.MaxValue;
+
+        for (int i = 0; i < directions.Length; i++)
         {
-            float angleDif = Mathf.Abs(baseAngle - angles[i]);
+            if (directions[i] == null)
+			{
+                continue;
+			}
 
-            if (angleDif < closestAngleDif)
-            {
-                closestAngleDif = angleDif;
+            float difference = Mathf.Abs(targetDirection - (float)directions[i]);
+
+            if (difference < dif)
+			{
+                dif = difference;
+                tileDirectionIndex = i;
             }
-            direction = i;
         }
 
-        data.FinalDirection = direction;
-        return direction;
+        //for (int i = 1; i < originTile.connectedTiles.Length; i++)
+        //{
+        //    if (i == tileDirectionIndex)
+        //    {
+        //        continue;
+        //    }
+
+        //    //Debug.DrawLine(targetTile.position, originTile.connectedTiles[i].position, Color.white, 2.5f);
+        //}
+        //Debug.DrawLine(targetTile.position, originTile.connectedTiles[tileDirectionIndex].position, Color.red, 2.5f);
+
+        data.FinalDirection = tileDirectionIndex;
+        return tileDirectionIndex;
     }
 
     public void GetAOE(SO_Skillpart data)

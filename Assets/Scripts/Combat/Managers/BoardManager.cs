@@ -72,7 +72,7 @@ public class BoardManager : MonoBehaviour
         List<BoardTile> openSet = new List<BoardTile>();
         HashSet<BoardTile> closedSet = new HashSet<BoardTile>();
 
-        startTile.DistanceToTarget = Vector2Int.Distance(startTile.Coordinates, endTile.Coordinates);
+        startTile.DistanceToTarget = Vector2.Distance(startTile.Coordinates, endTile.Coordinates);
         startTile.DistanceTraveled = 0;
 
         openSet.Add(startTile);
@@ -108,7 +108,7 @@ public class BoardManager : MonoBehaviour
                 if (newDistanceTraveled < neighbor.DistanceTraveled || !openSet.Contains(neighbor))
                 {
                     neighbor.DistanceTraveled = newDistanceTraveled;
-                    neighbor.DistanceToTarget = Vector2Int.Distance(neighbor.Coordinates, endTile.Coordinates);
+                    neighbor.DistanceToTarget = Vector2.Distance(neighbor.Coordinates, endTile.Coordinates);
                     neighbor.PreviousTile = currentTile;
 
                     if (!openSet.Contains(neighbor))
@@ -219,34 +219,34 @@ public class BoardManager : MonoBehaviour
             skillshotData.TilesHit.AddRange(usedTiles);
     }
 
-    public void PreviewLineCast(int[] directions, SO_LineSkill data)
+    public void PreviewLineCast(int[] directions, SO_LineSkill skillData)
     {
-        BoardTile nextTile = data.OriginTiles[0];
+        BoardTile nextTile = skillData.OriginTiles[0];
 
-        int pierceAmount = data.PierceAmount;
+        int pierceAmount = skillData.PierceAmount;
 
-        foreach (var originTile in data.OriginTiles)
+        foreach (var originTile in skillData.OriginTiles)
         {
-            var target = FindTarget(nextTile, data);
+            var target = FindTarget(nextTile, skillData);
             foreach (var dir in directions)
             {
                 nextTile = originTile;
-                data.TilesHit.Add(nextTile);
-                for (int i = 0; i < data.Range; i++)
+                skillData.TilesHit.Add(nextTile);
+                for (int i = 0; i < skillData.Range; i++)
                 {
                     var direction = dir % nextTile.connectedTiles.Length;
 
-                    nextTile.gameObject.GetComponent<Renderer>().materials[0].color = data.tileColor;
+                    nextTile.gameObject.GetComponent<Renderer>().materials[0].color = skillData.tileColor;
                     nextTile = nextTile.connectedTiles[direction];
 
                     if (nextTile == null)
                         break;
 
-                    data.TilesHit.Add(nextTile);
-                    target = FindTarget(nextTile, data);
+                    skillData.TilesHit.Add(nextTile);
+                    target = FindTarget(nextTile, skillData);
                     if (target != null) 
                     {
-                        AddTarget(target, data);
+                        AddTarget(target, skillData);
                         if (pierceAmount != -1)
                         {
                             if (pierceAmount == 0)
@@ -411,10 +411,12 @@ public class BoardManager : MonoBehaviour
     public void SetPath(BoardTile endTile)
 	{
         var currentTile = endTile;
+
+        if (currentTile == null)
+            return;
+
         while (currentTile != null)
 		{
-            Debug.Log(Path.Count);
-            Debug.Log(currentTile);
             Path.Add(currentTile);
             currentTile = currentTile.PreviousTile;
         }

@@ -11,7 +11,7 @@ public class BoardTile : MonoBehaviour
 
     public int xPosition = 0;
     public int yPosition = 0;
-    public Vector2Int Coordinates;
+    public Vector2 Coordinates;
 
     public float movementLeft = -1;
     public float DistanceTraveled;
@@ -29,7 +29,7 @@ public class BoardTile : MonoBehaviour
         position = transform.position;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        Coordinates = new Vector2Int(xPosition, yPosition);
+        Coordinates = new Vector2(xPosition, yPosition);
 
         DistanceTraveled = Mathf.Infinity;
         DistanceToTarget = Mathf.Infinity;
@@ -129,14 +129,22 @@ public class BoardTile : MonoBehaviour
 
     public void SetConnectedTiles()
     {
-        // goign in a circle
+        // going in a circle:
+        // Top
         connectedTiles[0] = boardManager.GetBoardTile(xPosition, yPosition + 1);
+        // Top right
         connectedTiles[1] = boardManager.GetBoardTile(xPosition + 1, yPosition + 1);
+        // Right
         connectedTiles[2] = boardManager.GetBoardTile(xPosition + 1, yPosition);
+        // Bottom Right
         connectedTiles[3] = boardManager.GetBoardTile(xPosition + 1, yPosition - 1);
+        // Bottom
         connectedTiles[4] = boardManager.GetBoardTile(xPosition, yPosition - 1);
+        // Bottom left
         connectedTiles[5] = boardManager.GetBoardTile(xPosition - 1, yPosition - 1);
+        // Left
         connectedTiles[6] = boardManager.GetBoardTile(xPosition - 1, yPosition);
+        // Top Left
         connectedTiles[7] = boardManager.GetBoardTile(xPosition - 1, yPosition + 1);
     }
 
