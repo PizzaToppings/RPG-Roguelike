@@ -18,17 +18,18 @@ MonoBehaviour:
   OriginTiles:
   - {fileID: 0}
   targetTile: {fileID: 0}
-  FinalDirection: 0
+  FinalDirection: 2
   DamageType: 2
   Damage: 10
-  Range: 10
+  Range: 8
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor: {r: 1, g: 0, b: 0, a: 1}
+  tileColor:
+    color: {r: 0.8962264, g: 0.029592399, b: 0.029592399, a: 1}
+    priority: 1
   TargetsHit:
   - {fileID: 0}
   TilesHit:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

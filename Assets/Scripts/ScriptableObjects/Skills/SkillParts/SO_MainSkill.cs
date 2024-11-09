@@ -22,8 +22,11 @@ public class SO_MainSkill : ScriptableObject
         BoardManager boardManager = BoardManager.Instance;
         UnitManager unitManager = UnitManager.Instance;
 
-        foreach (var so in SkillshotParts)
-            so.Preview(mouseOverTile, SkillshotParts);
+        for (int i = 0; i < SkillshotParts.Count; i++)
+		{
+            SkillshotParts[i].skillPartIndex = i;
+            SkillshotParts[i].Preview(mouseOverTile, SkillshotParts);
+		}
     }
 
     public virtual void Cast()

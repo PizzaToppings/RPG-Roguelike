@@ -273,7 +273,7 @@ public class Unit : UnitStats
             EndTurn();
             yield break;
         }
-        boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
+        boardManager.SetMovementAOE(MoveSpeedLeft, currentTile);
     }
 
     public virtual void EndTurn()

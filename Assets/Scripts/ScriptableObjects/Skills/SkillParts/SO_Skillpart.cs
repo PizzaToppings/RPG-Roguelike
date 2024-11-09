@@ -29,6 +29,7 @@ public class SO_Skillpart : ScriptableObject
     [HideInInspector] public List<BoardTile> OriginTiles;
     [HideInInspector] public BoardTile targetTile;
     [HideInInspector] public int FinalDirection;
+    [HideInInspector] public int skillPartIndex;
     // [HideInInspector] public bool MagicalDamage;
 
     [Space]
@@ -41,7 +42,7 @@ public class SO_Skillpart : ScriptableObject
     public List<DefaultStatusEffect> defaultStatusEffects;
     
     [Space]
-    public Color tileColor;
+    public TileColor tileColor;
 
     [HideInInspector] public List<Unit> TargetsHit;
     [HideInInspector] public List<BoardTile> TilesHit;
@@ -53,12 +54,12 @@ public class SO_Skillpart : ScriptableObject
         skillPartsList = skillParts;
         TargetsHit = new List<Unit>();
         TilesHit = new List<BoardTile>();
-        OriginTiles = GetOriginalTiles();
+        OriginTiles = GetOriginTiles();
         targetTile = GetTargetTile(mouseOverTile);
         return this;
     }
 
-    List<BoardTile> GetOriginalTiles()
+    List<BoardTile> GetOriginTiles()
     {
         var tiles = new List<BoardTile>();
         SO_Skillpart previousSkillPart = GetPreviousSkillPart();

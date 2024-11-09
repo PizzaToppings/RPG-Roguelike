@@ -98,6 +98,6 @@ public class SkillsManager : MonoBehaviour
 
     public void GetAOE(SO_Skillpart data)
     {
-         boardManager.SetAOE(data.Range, data.OriginTiles, data.tileColor, data);
+         boardManager.SetAOE(data.Range, data.OriginTiles, data);
     }
 }

@@ -684,7 +684,7 @@ PrefabInstance:
         type: 3}
       propertyPath: skillshots.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: d48c406a9874ca748a20134a4b9b1355,
+      objectReference: {fileID: 11400000, guid: eb649e45825f3224b8711606d1c893fa,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -3970,9 +3970,13 @@ MonoBehaviour:
   tilePrefab: {fileID: 6675735082612203201, guid: 74b1df6d499c10a41b1d5202ae148394,
     type: 3}
   BoardParent: {fileID: 387685902}
-  originalColor: {r: 0.19607843, g: 0.5137255, b: 0.18431373, a: 1}
+  originalColor:
+    color: {r: 0, g: 0.8509804, b: 0, a: 0.90588236}
+    priority: 10
   Path: []
-  MovementColor: {r: 0.3529412, g: 0.972549, b: 0.6745098, a: 1}
+  MovementColor:
+    color: {r: 0.107600555, g: 0.735849, b: 0.59607714, a: 1}
+    priority: 5
 --- !u!120 &1882644907
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -4169,7 +4173,7 @@ PrefabInstance:
         type: 3}
       propertyPath: skillshots.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: d48c406a9874ca748a20134a4b9b1355,
+      objectReference: {fileID: 11400000, guid: eb649e45825f3224b8711606d1c893fa,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}

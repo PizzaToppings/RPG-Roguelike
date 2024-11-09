@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TargetTileSkillshot", menuName = "ScriptableObjects/SkillshotParts/TargetTileSkillshot")]
 public class SO_TargetBoardtileSkill : SO_Skillpart
 {
+    public TileColor SelectedTileColor;
+
     public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots) 
     {
         base.Preview(mouseOverTile, skillshots);
@@ -14,6 +16,7 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
         if (TilesHit.Contains(mouseOverTile))
         {
             TilesHit.Clear();
+            mouseOverTile.SetColor(SelectedTileColor);
             TilesHit.Add(mouseOverTile);
 
             return this;

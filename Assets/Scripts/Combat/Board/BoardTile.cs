@@ -9,15 +9,23 @@ public class BoardTile : MonoBehaviour
     public BoardTile[] connectedTiles = new BoardTile[6];
     public BoardTile PreviousTile;
 
+    // position
     public int xPosition = 0;
     public int yPosition = 0;
     public Vector2 Coordinates;
 
+    // movement
     public float movementLeft = -1;
     public float DistanceTraveled;
     public float DistanceToTarget;
 
+    // sillshot Info
+    public List<float> skillshotsRangeLeft = new List<float>();
+
+
     public Unit currentCharacter = null;
+
+    public TileColor currentColor;
 
     [HideInInspector] public Vector3 position = new Vector3();
 
@@ -148,12 +156,18 @@ public class BoardTile : MonoBehaviour
         connectedTiles[7] = boardManager.GetBoardTile(xPosition - 1, yPosition + 1);
     }
 
-    int IncreaseIndex(int x, int y, int yOffset)
-    {
-        if (!(x == xPosition + yOffset && y != yPosition) &&
-                    !(x == xPosition && y == yPosition))
-                    return 1;
+    public void SetColor(TileColor color)
+	{
+        if (color.priority < currentColor.priority)
+		{
+            gameObject.GetComponent<Renderer>().materials[0].color = color.color;
+            currentColor = color;
+		}
+    }
 
-        return 0;
+    public void OverrideColor(TileColor color)
+	{
+        gameObject.GetComponent<Renderer>().materials[0].color = color.color;
+        currentColor = color;
     }
 }

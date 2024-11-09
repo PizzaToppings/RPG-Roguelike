@@ -14,12 +14,12 @@ public class BoardManager : MonoBehaviour
     [SerializeField] Transform BoardParent;
 
     // temp
-    [SerializeField] Color originalColor;
+    [SerializeField] TileColor originalColor;
 
     LineRenderer movementLR;
     public List<BoardTile> Path = new List<BoardTile>();
 
-    public Color MovementColor;
+    public TileColor MovementColor;
     
 
     public void Init()
@@ -128,7 +128,8 @@ public class BoardManager : MonoBehaviour
             tile.movementLeft = -1;
             tile.PreviousTile = null;
             Path = new List<BoardTile>();
-            tile.gameObject.GetComponent<Renderer>().materials[0].color = originalColor;
+            tile.OverrideColor(originalColor);
+            tile.skillshotsRangeLeft = new List<float>();
         }
         StopShowingMovement();
     }
@@ -141,28 +142,35 @@ public class BoardManager : MonoBehaviour
     //    }
     //}
 
-     public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)
-     {
-        foreach (var tile in startingTiles)
-        {
-            SetAOE(movementLeft, tile, MovementColor, data);
-        }
-     }
+     //public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)
+     //{
+     //   foreach (var tile in startingTiles)
+     //   {
+     //       SetAOE(movementLeft, tile, data);
+     //   }
+     //}
 
-    public void SetAOE(float movementLeft, List<BoardTile> startingTiles,  Color color, SO_Skillpart data)
+    public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)
     {
         foreach (var tile in startingTiles)
         {
-            SetAOE(movementLeft, tile, color, data);
+            SetAOE(movementLeft, tile, data);
         }
     }
 
     public void SetAOE(float movementLeft, BoardTile startingTile, SO_Skillpart data)
     {
-        SetAOE(movementLeft, startingTile, MovementColor, data);
+        if (data == null)
+		{
+            SetMovementAOE(movementLeft, startingTile);
+        }
+        else
+		{
+            SetSkillAOE(data.Range, startingTile, data);
+		}
     }
 
-    public void SetAOE(float movementLeft, BoardTile currentTile, Color color, SO_Skillpart skillshotData)
+    public void SetMovementAOE(float movementLeft, BoardTile currentTile)
     {
         if (movementLeft <= 0)
             return;
@@ -179,36 +187,69 @@ public class BoardManager : MonoBehaviour
                 enemy.PossibleMovementTiles.Add(currentTile);
 		}
 
-        List<BoardTile> usedTiles = new List<BoardTile>();
-
         foreach(var tile in currentTile.connectedTiles)
         {
             if (tile == null)
                 continue;
 
-            var nextMovementLeft = movementLeft;
-
+			var nextMovementLeft = movementLeft;
             nextMovementLeft -= GetRangeReduction(currentTile, tile);
 
             if (tile.movementLeft < nextMovementLeft)
             {
                 if (UnitData.CurrentActiveUnit.Friendly)
-                    tile.gameObject.GetComponent<Renderer>().materials[0].color = color;
+                    tile.SetColor(MovementColor);
 
                 tile.movementLeft = nextMovementLeft;
+
+                tile.PreviousTile = currentTile;
+
+                SetMovementAOE(nextMovementLeft, tile);
+            }
+        }
+    }
+
+    public void SetSkillAOE(float skillRangeLeft, BoardTile currentTile, SO_Skillpart skillshotData)
+    {
+        if (skillRangeLeft <= 0)
+            return;
+
+        // can't move to current space
+        if (currentTile.movementLeft == -1)
+            currentTile.movementLeft = 0;
+
+        List<BoardTile> usedTiles = new List<BoardTile>();
+
+        foreach (var tile in currentTile.connectedTiles)
+        {
+            if (tile == null)
+                continue;
+
+			var nextSkillRange = skillRangeLeft;
+            nextSkillRange -= GetRangeReduction(currentTile, tile);
+
+            var index = skillshotData.skillPartIndex;
+            while (tile.skillshotsRangeLeft.Count <= index)
+                tile.skillshotsRangeLeft.Add(0); 
+
+            if (tile.skillshotsRangeLeft[index] < nextSkillRange)
+            {
+                if (UnitData.CurrentActiveUnit.Friendly)
+                    tile.SetColor(skillshotData.tileColor);
+
+                tile.skillshotsRangeLeft[index] = nextSkillRange;
                 usedTiles.Add(tile);
-                
+
                 var target = FindTarget(tile, skillshotData);
-                if (target != null && skillshotData != null && !skillshotData.TargetsHit.Contains(target))
+                if (target != null && !skillshotData.TargetsHit.Contains(target))
                     skillshotData.TargetsHit.Add(target);
 
                 tile.PreviousTile = currentTile;
 
-                SetAOE(nextMovementLeft, tile, color, skillshotData);
+                SetSkillAOE(nextSkillRange, tile, skillshotData);
             }
         }
-        if (skillshotData != null)
-            skillshotData.TilesHit.AddRange(usedTiles);
+        skillshotData.TilesHit.AddRange(usedTiles);
     }
 
     public float GetRangeReduction(BoardTile currentTile, BoardTile nextTile)
@@ -237,11 +278,11 @@ public class BoardManager : MonoBehaviour
             {
                 nextTile = originTile;
                 skillData.TilesHit.Add(nextTile);
-                for (float i = 0; i < skillData.Range; i += 0)
+                for (float i = 0; i < skillData.Range;)
                 {
                     var direction = dir % nextTile.connectedTiles.Length;
 
-                    nextTile.gameObject.GetComponent<Renderer>().materials[0].color = skillData.tileColor;
+                    nextTile.SetColor(skillData.tileColor);
                     var previousTile = nextTile;
                     nextTile = nextTile.connectedTiles[direction];
 
@@ -275,9 +316,9 @@ public class BoardManager : MonoBehaviour
         {
             nextTile = originTile;
             data.TilesHit.Add(nextTile);
-            for (int i = 0; i < data.Range; i++)
+            for (float i = 0; i < data.Range;)
             {
-                int nextRange = i+2;
+                float nextRange = i+2;
                 var dir = direction % 6;
 
                 if (!nextTile.connectedTiles[dir])
@@ -294,7 +335,7 @@ public class BoardManager : MonoBehaviour
                 nextTile = nextTile.connectedTiles[dir];
                 data.TilesHit.Add(nextTile);
 
-                nextTile.gameObject.GetComponent<Renderer>().materials[0].color = data.tileColor;
+                nextTile.SetColor(data.tileColor);
                 ContinueConeCast(nextTile, dir+2, data, nextRange);
                 if (data.isWide)
                     ContinueConeCast(nextTile, dir+4, data, nextRange);
@@ -305,18 +346,20 @@ public class BoardManager : MonoBehaviour
                 {
                     AddTarget(target, data);
                 }
+                i += GetRangeReduction(originTile, nextTile);
             }
         }
     }
 
-    void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkill data, int range)
+    void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkill data, float range)
     {
         BoardTile nextTile = tile;
-        for (int i = 0; i < range; i++)
+        for (float i = 0; i < range;)
         {
             var dir = direction % 6;
 
-            nextTile.gameObject.GetComponent<Renderer>().materials[0].color = data.tileColor;
+            nextTile.SetColor(data.tileColor);
+            var currentTile = nextTile;
             nextTile = nextTile.connectedTiles[dir];
 
             if (nextTile == null)
@@ -329,6 +372,7 @@ public class BoardManager : MonoBehaviour
             {
                 AddTarget(target, data);
             }
+            i += GetRangeReduction(currentTile, nextTile);
         }
     }
 
