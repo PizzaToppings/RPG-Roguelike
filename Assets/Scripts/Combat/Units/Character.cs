@@ -46,20 +46,34 @@ public class Character : Unit
     public void ToggleSkill(int skillIndex)
     {
         boardManager.Clear();
+        // turn off
         if (SkillshotData.CurrentSkillshotIndex == skillIndex)
         {
             UnitData.CurrentAction = UnitData.CurrentActionKind.Moving; 
             SkillshotData.CurrentSkillshotIndex = null;
             boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
         }
+        // turn on
         else
         {
             if (skillshots[skillIndex].MagicalDamage && statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Silenced) != null)
                 return;
 
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
+            SkillshotData.CurrentMainSkillshot = skillshots[skillIndex];
             SkillshotData.CurrentSkillshotIndex = skillIndex;
-        }
+
+            foreach (var skillPart in skillshots[skillIndex].SkillParts)
+			{
+                if (skillPart.OriginTileKind == OriginTileEnum.Caster)
+				{
+                    skillPart.Preview(currentTile, skillshots[skillIndex].SkillParts);
+				}
+            }
+
+			skillshots[skillIndex].SkillParts.ForEach(x =>
+				x.Preview(null, skillshots[skillIndex].SkillParts));
+		}
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)

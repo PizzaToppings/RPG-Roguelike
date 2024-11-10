@@ -12,26 +12,25 @@ public class SO_MainSkill : ScriptableObject
     public enum TargetKindEnum {Enemies, Allies, All};
 
     public bool MagicalDamage; //change to enum?
-    public List<SO_Skillpart> SkillshotParts;
+    public List<SO_Skillpart> SkillParts;
 
     public TargetKindEnum TargetKind;
 
     public virtual void Preview(BoardTile mouseOverTile) 
     {
-        SkillshotData.CurrentMainSkillshot = this;
         BoardManager boardManager = BoardManager.Instance;
         UnitManager unitManager = UnitManager.Instance;
 
-        for (int i = 0; i < SkillshotParts.Count; i++)
+        for (int i = 0; i < SkillParts.Count; i++)
 		{
-            SkillshotParts[i].skillPartIndex = i;
-            SkillshotParts[i].Preview(mouseOverTile, SkillshotParts);
+            SkillParts[i].skillPartIndex = i;
+            SkillParts[i].Preview(mouseOverTile, SkillParts);
 		}
     }
 
     public virtual void Cast()
     {
-        foreach (var sp in SkillshotParts)
+        foreach (var sp in SkillParts)
             sp.Cast();
     }
 }

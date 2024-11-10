@@ -9,8 +9,8 @@ public class FireBall : SO_MainSkill
     {
         base.Preview(mouseOverTile);
 
-        SkillshotParts[0].Preview(mouseOverTile, SkillshotParts);
+        SkillParts[0].Preview(mouseOverTile, SkillParts);
 
-        SkillshotParts[1].Preview(mouseOverTile, SkillshotParts);
+        SkillParts[1].Preview(mouseOverTile, SkillParts);
     }
 }

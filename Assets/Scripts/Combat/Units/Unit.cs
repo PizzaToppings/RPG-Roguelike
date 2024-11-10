@@ -68,7 +68,7 @@ public class Unit : UnitStats
 
     void SetSkillShots()
     {
-        skillshots.ForEach(x => x.SkillshotParts.ForEach(y => y.Caster = this));
+        skillshots.ForEach(x => x.SkillParts.ForEach(y => y.Caster = this));
 
         for (int i = 0; i < MaxSkillShotAmount; i++)
         {

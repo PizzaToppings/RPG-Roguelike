@@ -12,9 +12,10 @@ public class MeleeEnemyAI : Enemy
         StartCoroutine(base.StartTurn());
         yield return null;
 
-        //FindOptimalTile();
-        yield return new WaitUntil(() => CurrentUnitAction == currentUnitAction.Nothing);
-        Attack();
+		//FindOptimalTile();
+		//yield return new WaitUntil(() => CurrentUnitAction == currentUnitAction.Nothing);
+		yield return new WaitForSeconds(1);
+		Attack();
     }
 
     void FindOptimalTile()

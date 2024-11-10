@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum OriginTileEnum {Caster, LastTarget, LastTile, MouseOverTarget, Custom};
-public enum TargetTileEnum {MouseOverTile, Caster, AwayFromCaster, LastTarget, LastTile, PreviousDirection, MouseOverTarget, Custom};
+public enum OriginTileEnum {Caster, LastTarget, LastTile, MouseOverTarget};
+public enum TargetTileEnum {MouseOverTile, CasterTile, Caster, PreviousDirection, MouseOverTarget};
 
 public class SO_Skillpart : ScriptableObject
 {
@@ -64,7 +64,7 @@ public class SO_Skillpart : ScriptableObject
         var tiles = new List<BoardTile>();
         SO_Skillpart previousSkillPart = GetPreviousSkillPart();
 
-        if (OriginTileKind == OriginTileEnum.Caster) // is actually caster?
+        if (OriginTileKind == OriginTileEnum.Caster)
         {
             Caster = UnitData.CurrentActiveUnit;
             tiles.Add(Caster.currentTile);
@@ -105,7 +105,7 @@ public class SO_Skillpart : ScriptableObject
         if (TargetTileKind== TargetTileEnum.MouseOverTile)
             return mouseOverTile;
 
-        if (TargetTileKind == TargetTileEnum.Caster)
+        if (TargetTileKind == TargetTileEnum.CasterTile)
             return Caster.currentTile;
 
         return null;

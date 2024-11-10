@@ -22,7 +22,6 @@ public class BoardTile : MonoBehaviour
     // sillshot Info
     public List<float> skillshotsRangeLeft = new List<float>();
 
-
     public Unit currentCharacter = null;
 
     public TileColor currentColor;

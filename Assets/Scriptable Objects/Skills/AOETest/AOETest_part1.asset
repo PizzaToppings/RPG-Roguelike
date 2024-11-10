@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AOETest_part1
   m_EditorClassIdentifier: 
   OriginTileKind: 0
-  TargetTileKind: 2
+  TargetTileKind: 0
   Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
@@ -26,7 +26,7 @@ MonoBehaviour:
   StatusEfects: []
   defaultStatusEffects: []
   tileColor:
-    color: {r: 0, g: 0, b: 0, a: 0}
-    priority: 10
+    color: {r: 0.6226415, g: 0.6205099, b: 0.026432883, a: 1}
+    priority: 1
   TargetsHit: []
   TilesHit: []

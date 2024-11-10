@@ -9,6 +9,6 @@ public class LineSkillshots : SO_MainSkill
     {
         base.Preview(mouseOverTile);
     
-        SkillshotParts[0].Preview(mouseOverTile, SkillshotParts);
+        SkillParts[0].Preview(mouseOverTile, SkillParts);
     }
 }

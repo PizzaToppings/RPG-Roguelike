@@ -9,7 +9,7 @@ public class DefaultSkill : SO_MainSkill
     {
         base.Preview(mouseOverTile);
 
-        foreach (var so in SkillshotParts)
-            so.Preview(mouseOverTile, SkillshotParts);
+        foreach (var so in SkillParts)
+            so.Preview(mouseOverTile, SkillParts);
     }
 }

@@ -134,22 +134,6 @@ public class BoardManager : MonoBehaviour
         StopShowingMovement();
     }
 
-    //public void ClearMovementLeftPerTile()
-    //{
-    //    foreach (var tile in BoardData.BoardTiles)
-    //    {
-    //        tile.movementLeft = -1;
-    //    }
-    //}
-
-     //public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)
-     //{
-     //   foreach (var tile in startingTiles)
-     //   {
-     //       SetAOE(movementLeft, tile, data);
-     //   }
-     //}
-
     public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)
     {
         foreach (var tile in startingTiles)
@@ -161,7 +145,7 @@ public class BoardManager : MonoBehaviour
     public void SetAOE(float movementLeft, BoardTile startingTile, SO_Skillpart data)
     {
         if (data == null)
-		{
+        {
             SetMovementAOE(movementLeft, startingTile);
         }
         else
@@ -225,12 +209,12 @@ public class BoardManager : MonoBehaviour
             if (tile == null)
                 continue;
 
-			var nextSkillRange = skillRangeLeft;
+            var nextSkillRange = skillRangeLeft;
             nextSkillRange -= GetRangeReduction(currentTile, tile);
 
             var index = skillshotData.skillPartIndex;
             while (tile.skillshotsRangeLeft.Count <= index)
-                tile.skillshotsRangeLeft.Add(0); 
+                tile.skillshotsRangeLeft.Add(0);
 
             if (tile.skillshotsRangeLeft[index] < nextSkillRange)
             {
@@ -375,7 +359,6 @@ public class BoardManager : MonoBehaviour
             i += GetRangeReduction(currentTile, nextTile);
         }
     }
-
 
     Unit FindTarget(BoardTile tile, SO_Skillpart data)
     {

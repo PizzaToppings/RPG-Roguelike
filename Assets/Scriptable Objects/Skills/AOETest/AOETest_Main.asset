@@ -15,6 +15,6 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
   Description: Ha
   MagicalDamage: 0
-  SkillshotParts:
+  SkillParts:
   - {fileID: 11400000, guid: afcf2d98c67ad494793cd1454b533955, type: 2}
   TargetKind: 0
