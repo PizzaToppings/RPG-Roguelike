@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : Unit
@@ -41,6 +40,13 @@ public class Character : Unit
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
             ToggleSkill(1);
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            ToggleSkill(2);
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            ToggleSkill(3);
+
     }
 
     public void ToggleSkill(int skillIndex)
@@ -63,16 +69,22 @@ public class Character : Unit
             SkillshotData.CurrentMainSkillshot = skillshots[skillIndex];
             SkillshotData.CurrentSkillshotIndex = skillIndex;
 
+            // preview skill
             foreach (var skillPart in skillshots[skillIndex].SkillParts)
 			{
                 if (skillPart.OriginTileKind == OriginTileEnum.Caster)
 				{
+                    foreach (var tile in currentTile.connectedTiles)
+					{
+                        if (tile == null)
+                            continue;
+
+                        skillPart.TargetTile = tile;
+                        break;
+					}
                     skillPart.Preview(currentTile, skillshots[skillIndex].SkillParts);
 				}
             }
-
-			skillshots[skillIndex].SkillParts.ForEach(x =>
-				x.Preview(null, skillshots[skillIndex].SkillParts));
 		}
     }
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -264,7 +265,7 @@ public class BoardManager : MonoBehaviour
                 skillData.TilesHit.Add(nextTile);
                 for (float i = 0; i < skillData.Range;)
                 {
-                    var direction = dir % nextTile.connectedTiles.Length;
+                    var direction = GetCorrectedDirection(dir, nextTile.connectedTiles.Length);
 
                     nextTile.SetColor(skillData.tileColor);
                     var previousTile = nextTile;
@@ -340,24 +341,39 @@ public class BoardManager : MonoBehaviour
         BoardTile nextTile = tile;
         for (float i = 0; i < range;)
         {
-            var dir = direction % 6;
+            var dir = GetCorrectedDirection(direction, nextTile.connectedTiles.Length);
 
-            nextTile.SetColor(data.tileColor);
+            TileColor color = new TileColor
+            {
+                color = Color.black,
+                priority = 6
+            };
+
+            nextTile.SetColor(color);
             var currentTile = nextTile;
             nextTile = nextTile.connectedTiles[dir];
 
             if (nextTile == null)
                 break;
 
-            data.TilesHit.Add(nextTile);
+            skillData.TilesHit.Add(nextTile);
 
-            var target = FindTarget(nextTile, data);
+            var target = FindTarget(nextTile, skillData);
             if (target != null) 
             {
-                AddTarget(target, data);
+                AddTarget(target, skillData);
             }
             i += GetRangeReduction(currentTile, nextTile);
         }
+    }
+
+    int GetCorrectedDirection(int dir, int connectedTilesAmount)
+	{
+        var direction = dir % connectedTilesAmount;
+        while (direction < 0)
+            direction += connectedTilesAmount;
+
+        return direction;
     }
 
     Unit FindTarget(BoardTile tile, SO_Skillpart data)

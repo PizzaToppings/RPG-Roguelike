@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 119341ac486b48d449da6531450173d9, type: 3}
-  m_Name: Link_Skill_main
+  m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
+  m_Name: ConeSkill_Main
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
-  Description: This is a skill
-  MagicalDamage: 1
+  Image: {fileID: 21300000, guid: 03e6f50b7a998ed46a4c3f9f8cb0855e, type: 3}
+  Description: yjyt yjytj j yj t
+  MagicalDamage: 0
   SkillParts:
-  - {fileID: 11400000, guid: 107ddc82c517a3f4a952856a4dd190f1, type: 2}
+  - {fileID: 11400000, guid: 1cb9e2cf3102c8245b32aa449cfbb701, type: 2}
   TargetKind: 0

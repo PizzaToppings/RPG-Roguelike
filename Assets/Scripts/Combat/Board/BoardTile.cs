@@ -12,7 +12,7 @@ public class BoardTile : MonoBehaviour
     // position
     public int xPosition = 0;
     public int yPosition = 0;
-    public Vector2 Coordinates;
+    public Vector2Int Coordinates;
 
     // movement
     public float movementLeft = -1;
@@ -36,7 +36,7 @@ public class BoardTile : MonoBehaviour
         position = transform.position;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        Coordinates = new Vector2(xPosition, yPosition);
+        Coordinates = new Vector2Int(xPosition, yPosition);
 
         DistanceTraveled = Mathf.Infinity;
         DistanceToTarget = Mathf.Infinity;

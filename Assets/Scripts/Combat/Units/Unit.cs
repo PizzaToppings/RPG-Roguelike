@@ -175,7 +175,11 @@ public class Unit : UnitStats
 
     public virtual void RollInitiative()
     {
-        Initiative = Random.Range(0, 10);
+        if (Friendly)
+            Initiative = Random.Range(0, 4);
+        else
+            Initiative = Random.Range(5, 10);
+
     }
 
     public virtual void StartMoving(List<BoardTile> path)

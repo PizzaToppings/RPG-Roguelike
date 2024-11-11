@@ -27,7 +27,7 @@ public class SO_Skillpart : ScriptableObject
 
     [HideInInspector] public Unit Caster;
     [HideInInspector] public List<BoardTile> OriginTiles;
-    [HideInInspector] public BoardTile targetTile;
+    [HideInInspector] public BoardTile TargetTile;
     [HideInInspector] public int FinalDirection;
     [HideInInspector] public int skillPartIndex;
     // [HideInInspector] public bool MagicalDamage;
@@ -55,7 +55,7 @@ public class SO_Skillpart : ScriptableObject
         TargetsHit = new List<Unit>();
         TilesHit = new List<BoardTile>();
         OriginTiles = GetOriginTiles();
-        targetTile = GetTargetTile(mouseOverTile);
+        TargetTile = GetTargetTile(mouseOverTile);
         return this;
     }
 

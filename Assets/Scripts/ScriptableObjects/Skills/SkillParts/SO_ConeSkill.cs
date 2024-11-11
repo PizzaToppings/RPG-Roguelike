@@ -11,7 +11,7 @@ public class SO_ConeSkill : SO_Skillpart
     {
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillShotManager = SkillsManager.Instance;
-        skillShotManager.PreviewCone(this, targetTile);
+        skillShotManager.PreviewCone(this, TargetTile);
         return this;
     }
 }

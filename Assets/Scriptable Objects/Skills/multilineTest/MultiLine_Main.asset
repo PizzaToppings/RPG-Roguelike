@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead2c6bd82ddc804f970ab98b2083104, type: 3}
-  m_Name: TargetTest
+  m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
+  m_Name: MultiLine_Main
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: c46d83f2b73aaa141bd5015819342d81, type: 3}
+  Image: {fileID: 21300000, guid: 4029a9cfeb86f134c9c5af05993eaac8, type: 3}
   Description: 
-  MagicalDamage: 1
-  SkillshotParts:
-  - {fileID: 11400000, guid: 941c63bd85e288e47b9ca2e4eefd4355, type: 2}
+  MagicalDamage: 0
+  SkillParts:
+  - {fileID: 11400000, guid: cdf84d20477225c4a8f2769e95363483, type: 2}
   TargetKind: 0

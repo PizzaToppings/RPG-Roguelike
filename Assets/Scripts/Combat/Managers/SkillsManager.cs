@@ -22,28 +22,28 @@ public class SkillsManager : MonoBehaviour
         }
     }
 
-    public void PreviewLine(SO_LineSkill SkillData, BoardTile targetTile)
+    public void PreviewLine(SO_LineSkill skillData, BoardTile targetTile)
     {
         List<int> directions = new List<int>();
 
-        foreach (var originTile in SkillData.OriginTiles)
+        foreach (var originTile in skillData.OriginTiles)
         {
-            foreach (var direction in SkillData.Angles)
+            foreach (var direction in skillData.Angles)
             {
-                var dir = GetDirection(originTile, targetTile, SkillData);
+                var dir = direction + GetDirection(originTile, targetTile, skillData);
                 directions.Add(dir);
             }
 
-            boardManager.PreviewLineCast(directions.ToArray(), SkillData);
+            boardManager.PreviewLineCast(directions.ToArray(), skillData);
         }
     } 
 
-    public void PreviewCone(SO_ConeSkill data, BoardTile targetTile)
+    public void PreviewCone(SO_ConeSkill skillData, BoardTile targetTile)
     {
-        foreach (var originTile in data.OriginTiles)
+        foreach (var originTile in skillData.OriginTiles)
         {
-            var direction = GetDirection(originTile, targetTile, data);
-            boardManager.PreviewConeCast(direction, data);
+            var direction = GetDirection(originTile, targetTile, skillData);
+            boardManager.PreviewConeCast(direction, skillData);
         }
     }
 
@@ -56,7 +56,7 @@ public class SkillsManager : MonoBehaviour
         }
 
         var tileDirectionIndex = 0;
-        Vector3 dir = targetTile.Coordinates - originTile.Coordinates;
+        Vector2 dir = targetTile.Coordinates - originTile.Coordinates;
         float targetDirection = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         float?[] directions = new float?[originTile.connectedTiles.Length];

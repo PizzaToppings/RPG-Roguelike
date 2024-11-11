@@ -12,7 +12,7 @@ public class SO_LineSkill : SO_Skillpart
     {
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.PreviewLine(this, targetTile);
+        skillsManager.PreviewLine(this, TargetTile);
         return this;
     }
 }

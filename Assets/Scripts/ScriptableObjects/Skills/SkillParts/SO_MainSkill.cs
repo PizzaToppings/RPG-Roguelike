@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MainSkillshot", menuName = "ScriptableObjects/Skillshots/MainSkillshot")]
 public class SO_MainSkill : ScriptableObject
 {
     public Sprite Image;
