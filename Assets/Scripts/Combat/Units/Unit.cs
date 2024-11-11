@@ -191,12 +191,12 @@ public class Unit : UnitStats
     IEnumerator Move(List<BoardTile> path)
     {
         CurrentUnitAction = currentUnitAction.Moving;
-        Vector3 startPosition = transform.position + Vector3.up;
+        Vector3 startPosition = transform.position; 
         Vector3 endPosition;
 
         for (int i = 0; i < path.Count; i++)
         {
-            endPosition = path[i].transform.position + Vector3.up;
+            endPosition = path[i].transform.position;
             float distanceLeft = 0;
 
             Rotate(startPosition, endPosition);
