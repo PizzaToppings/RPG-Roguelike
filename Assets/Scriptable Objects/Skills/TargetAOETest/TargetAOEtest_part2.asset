@@ -16,7 +16,7 @@ MonoBehaviour:
   TargetTileKind: 0
   Caster: {fileID: 0}
   OriginTiles: []
-  targetTile: {fileID: 0}
+  TargetTile: {fileID: 0}
   FinalDirection: 0
   skillPartIndex: 1
   DamageType: 0
@@ -27,5 +27,6 @@ MonoBehaviour:
   tileColor:
     color: {r: 0.6603774, g: 0.14017446, b: 0.5534002, a: 1}
     priority: 2
+    IsCenter: 1
   TargetsHit: []
   TilesHit: []

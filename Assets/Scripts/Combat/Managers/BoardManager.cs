@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class BoardManager : MonoBehaviour
 
 	const float rowIncrease = 1.5f;
 	const float columnIncrease = 1.5f;
-	Quaternion rotation = Quaternion.Euler(90, 0, 0); 
+	Quaternion rotation = Quaternion.Euler(-90, 0, 0); 
 
     [Space]
     [SerializeField] GameObject tilePrefab;
@@ -44,15 +43,15 @@ public class BoardManager : MonoBehaviour
                     );
 
                 var newTile = Instantiate(tilePrefab, position, rotation, BoardParent);
-                BoardTile tile = newTile.GetComponent<BoardTile>();
-                BoardData.BoardTiles[x,y] = tile;
-                tile.Init(x, y);
-            }
+				BoardTile tile = newTile.GetComponent<BoardTile>();
+				BoardData.BoardTiles[x, y] = tile;
+				tile.Init(x, y);
+			}
         }
 
-        foreach (BoardTile tile in BoardData.BoardTiles)
-            tile.SetConnectedTiles();
-    }
+		foreach (BoardTile tile in BoardData.BoardTiles)
+			tile.SetConnectedTiles();
+	}
 
     public BoardTile GetBoardTile(int xPosition, int yPosition)
     {
@@ -293,15 +292,15 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void PreviewConeCast(int direction, SO_ConeSkill data)
+    public void PreviewConeCast(int direction, SO_ConeSkill skillData)
     {
-        BoardTile nextTile = data.OriginTiles[0];
+        BoardTile nextTile = skillData.OriginTiles[0];
 
-        foreach (var originTile in data.OriginTiles)
+        foreach (var originTile in skillData.OriginTiles)
         {
             nextTile = originTile;
-            data.TilesHit.Add(nextTile);
-            for (float i = 0; i < data.Range;)
+            skillData.TilesHit.Add(nextTile);
+            for (float i = 0; i < skillData.Range;)
             {
                 float nextRange = i+2;
                 var dir = direction % 6;
@@ -311,45 +310,45 @@ public class BoardManager : MonoBehaviour
                     if (nextTile.connectedTiles[(dir+1)%6])
                     {
                         nextTile = nextTile.connectedTiles[(dir+1)%6];
-                        data.TilesHit.Add(nextTile);
+                        skillData.TilesHit.Add(nextTile);
                         nextRange--;
                     }
                     break;
                 }
 
                 nextTile = nextTile.connectedTiles[dir];
-                data.TilesHit.Add(nextTile);
+                skillData.TilesHit.Add(nextTile);
 
-                nextTile.SetColor(data.tileColor);
-                ContinueConeCast(nextTile, dir+2, data, nextRange);
-                if (data.isWide)
-                    ContinueConeCast(nextTile, dir+4, data, nextRange);
+                nextTile.SetColor(skillData.tileColor);
+                ContinueConeCast(nextTile, dir+2, skillData, nextRange);
+                if (skillData.isWide)
+                    ContinueConeCast(nextTile, dir+4, skillData, nextRange);
 
 
-                var target = FindTarget(nextTile, data);
+                var target = FindTarget(nextTile, skillData);
                 if (target != null) 
                 {
-                    AddTarget(target, data);
+                    AddTarget(target, skillData);
                 }
                 i += GetRangeReduction(originTile, nextTile);
             }
         }
     }
 
-    void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkill data, float range)
+    void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkill skillData, float range)
     {
         BoardTile nextTile = tile;
         for (float i = 0; i < range;)
         {
             var dir = GetCorrectedDirection(direction, nextTile.connectedTiles.Length);
 
-            TileColor color = new TileColor
-            {
-                color = Color.black,
-                priority = 6
-            };
+			TileColor color = new TileColor
+			{
+				edgeColor = Color.black,
+				priority = 6
+			};
 
-            nextTile.SetColor(color);
+			nextTile.SetColor(color);
             var currentTile = nextTile;
             nextTile = nextTile.connectedTiles[dir];
 

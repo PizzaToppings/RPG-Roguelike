@@ -6,13 +6,17 @@ public class BoardTile : MonoBehaviour
 {
     BoardManager boardManager;
     SkillsManager skillShotManager;
-    public BoardTile[] connectedTiles = new BoardTile[6];
+    public BoardTile[] connectedTiles = new BoardTile[8];
     public BoardTile PreviousTile;
 
     // position
     public int xPosition = 0;
     public int yPosition = 0;
     public Vector2Int Coordinates;
+
+    // materials
+    Material centerMaterial;
+    Material edgeMaterial;
 
     // movement
     public float movementLeft = -1;
@@ -25,11 +29,15 @@ public class BoardTile : MonoBehaviour
     public Unit currentCharacter = null;
 
     public TileColor currentColor;
+    
 
     [HideInInspector] public Vector3 position = new Vector3();
 
     public void Init(int xPosition, int yPosition)
     {
+        centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[1];
+        edgeMaterial = gameObject.GetComponent<MeshRenderer>().materials[0];
+
         boardManager = BoardManager.Instance;
         boardManager = BoardManager.Instance;
 
@@ -44,7 +52,7 @@ public class BoardTile : MonoBehaviour
         skillShotManager = SkillsManager.Instance;
         gameObject.name = xPosition + ", " + yPosition;
 
-        StartCoroutine(SlideIn());
+        //StartCoroutine(SlideIn());
     }
 
     void OnMouseDown()
@@ -136,7 +144,6 @@ public class BoardTile : MonoBehaviour
 
     public void SetConnectedTiles()
     {
-        // going in a circle:
         // Top
         connectedTiles[0] = boardManager.GetBoardTile(xPosition, yPosition + 1);
         // Top right
@@ -157,16 +164,18 @@ public class BoardTile : MonoBehaviour
 
     public void SetColor(TileColor color)
 	{
-        if (color.priority < currentColor.priority)
+		if (color.priority < currentColor.priority)
 		{
-            gameObject.GetComponent<Renderer>().materials[0].color = color.color;
+            edgeMaterial.color = color.edgeColor;
+            centerMaterial.color = color.centerColor;
             currentColor = color;
 		}
-    }
+	}
 
     public void OverrideColor(TileColor color)
 	{
-        gameObject.GetComponent<Renderer>().materials[0].color = color.color;
+        edgeMaterial.color = color.edgeColor;
+        centerMaterial.color = color.centerColor;
         currentColor = color;
-    }
+	}
 }

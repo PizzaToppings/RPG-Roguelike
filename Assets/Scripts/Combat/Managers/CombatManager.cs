@@ -21,22 +21,22 @@ public class CombatManager : MonoBehaviour
 
         InitManagers();
         CreateBattlefield();
-        PlaceUnits();
-        CreateTurnOrder();
-        SetInitiative();
-        RoundStart();
-        TurnStart();
-    }
+		PlaceUnits();
+		CreateTurnOrder();
+		SetInitiative();
+		RoundStart();
+		TurnStart();
+	}
 
     void InitManagers()
     {
         boardManager.Init();
-        unitManager.Init();
-        skillShotManager.Init();
-        statusEffectManager.Init();
-        damageManager.Init();
-        uiManager.Init();
-    }
+		unitManager.Init();
+		skillShotManager.Init();
+		statusEffectManager.Init();
+		damageManager.Init();
+		uiManager.Init();
+	}
 
     void CreateBattlefield()
     {
