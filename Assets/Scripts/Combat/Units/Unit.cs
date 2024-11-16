@@ -20,6 +20,7 @@ public class Unit : UnitStats
         combatManager = CombatManager.Instance;
         boardManager = BoardManager.Instance;
         unitManager = UnitManager.Instance;
+        skillsManager = SkillsManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;
         damageManager = DamageManager.Instance;
 

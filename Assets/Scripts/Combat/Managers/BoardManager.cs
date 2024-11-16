@@ -18,14 +18,17 @@ public class BoardManager : MonoBehaviour
 
     LineRenderer movementLR;
     public List<BoardTile> Path = new List<BoardTile>();
+    public BoardTile currentMouseTile;
 
     public TileColor MovementColor;
-    
+
+    public Vector2Int[] Directions;
 
     public void Init()
     {
         Instance = this;
         movementLR = GetComponent<LineRenderer>();
+        Directions = GetDirections();
     }
 
     public void CreateBoard() 
@@ -60,7 +63,15 @@ public class BoardManager : MonoBehaviour
 
         return BoardData.BoardTiles[xPosition, yPosition];
     }
-    
+
+    public BoardTile GetBoardTile(Vector2Int position)
+    {
+        if (Existingtile(position.x, position.y) == false)
+            return null;
+
+        return BoardData.BoardTiles[position.x, position.y];
+    }
+
     bool Existingtile(int x, int y)
     {
         return (x >= 0 && x < BoardData.rowAmount &&
@@ -249,33 +260,58 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public float GetRangeReduction(Vector2 currentCoordinates, Vector2 nextCoordinates)
+    {
+        if (currentCoordinates.x != nextCoordinates.x
+                && currentCoordinates.y != nextCoordinates.y)
+        {
+            return 1.5f;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
     public void PreviewLineCast(int[] directions, SO_LineSkill skillData)
     {
-        BoardTile nextTile = skillData.OriginTiles[0];
+        Vector2Int startCoordinates = skillData.Caster.currentTile.Coordinates;
+        Vector2Int curentCoordinates = new Vector2Int();
+        Vector2Int nextCoordinates = new Vector2Int();
+        List<Vector2Int> line = new List<Vector2Int>();
 
         int pierceAmount = skillData.PierceAmount;
 
         foreach (var originTile in skillData.OriginTiles)
         {
-            var target = FindTarget(nextTile, skillData);
             foreach (var dir in directions)
             {
-                nextTile = originTile;
-                skillData.TilesHit.Add(nextTile);
-                for (float i = 0; i < skillData.Range;)
-                {
-                    var direction = GetCorrectedDirection(dir, nextTile.connectedTiles.Length);
+                curentCoordinates = nextCoordinates = startCoordinates;
+                var direction = GetCorrectedDirection(dir);
+                
+                for (float r = 0; r < skillData.Range;)
+				{
+                    curentCoordinates = nextCoordinates;
+                    nextCoordinates = curentCoordinates + Directions[direction];
+                    line.Add(nextCoordinates);
 
-                    nextTile.SetColor(skillData.tileColor);
-                    var previousTile = nextTile;
-                    nextTile = nextTile.connectedTiles[direction];
+                    r += GetRangeReduction(curentCoordinates, nextCoordinates);
+                    curentCoordinates = nextCoordinates;
+                }
 
-                    if (nextTile == null)
-                        break;
+                foreach (var coordinate in line)
+				{
+                    var tile = GetBoardTile(coordinate);
 
-                    skillData.TilesHit.Add(nextTile);
-                    target = FindTarget(nextTile, skillData);
-                    if (target != null) 
+                    if (tile == null)
+                        continue;
+
+                    tile.SetColor(skillData.tileColor);
+
+                    skillData.TilesHit.Add(tile);
+                    var target = FindTarget(tile, skillData);
+                    target = FindTarget(tile, skillData);
+                    if (target != null)
                     {
                         AddTarget(target, skillData);
                         if (pierceAmount != -1)
@@ -285,9 +321,8 @@ public class BoardManager : MonoBehaviour
                             pierceAmount--;
                         }
                     }
-
-                    i += GetRangeReduction(previousTile, nextTile);
                 }
+                line.Clear();
             }
         }
     }
@@ -303,7 +338,7 @@ public class BoardManager : MonoBehaviour
             for (float i = 0; i < skillData.Range;)
             {
                 float nextRange = i+2;
-                var dir = direction % 6;
+                var dir = GetCorrectedDirection(direction);
 
                 if (!nextTile.connectedTiles[dir])
                 {
@@ -324,7 +359,6 @@ public class BoardManager : MonoBehaviour
                 if (skillData.isWide)
                     ContinueConeCast(nextTile, dir+4, skillData, nextRange);
 
-
                 var target = FindTarget(nextTile, skillData);
                 if (target != null) 
                 {
@@ -340,7 +374,7 @@ public class BoardManager : MonoBehaviour
         BoardTile nextTile = tile;
         for (float i = 0; i < range;)
         {
-            var dir = GetCorrectedDirection(direction, nextTile.connectedTiles.Length);
+            var dir = GetCorrectedDirection(direction);
 
 			TileColor color = new TileColor
 			{
@@ -366,11 +400,11 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    int GetCorrectedDirection(int dir, int connectedTilesAmount)
+    int GetCorrectedDirection(int dir)
 	{
-        var direction = dir % connectedTilesAmount;
+        var direction = dir % 8;
         while (direction < 0)
-            direction += connectedTilesAmount;
+            direction += 8;
 
         return direction;
     }
@@ -453,6 +487,8 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+        movementLR.positionCount++;
+        movementLR.SetPosition(Path.Count, UnitData.CurrentActiveUnit.currentTile.position);
     }
 
     public void SetPath(BoardTile endTile)
@@ -472,5 +508,21 @@ public class BoardManager : MonoBehaviour
     public void StopShowingMovement()
     {
         movementLR.positionCount = 0;
+    }
+
+    Vector2Int[] GetDirections()
+	{
+        // going in a circle
+        Vector2Int[] directions = new Vector2Int[8];
+        directions[0] = new Vector2Int(0, 1);
+        directions[1] = new Vector2Int(1, 1);
+        directions[2] = new Vector2Int(1, 0);
+        directions[3] = new Vector2Int(1, -1);
+        directions[4] = new Vector2Int(0, -1);
+        directions[5] = new Vector2Int(-1, -1);
+        directions[6] = new Vector2Int(-1, 0);
+        directions[7] = new Vector2Int(-1, 1);
+
+        return directions;
     }
 }

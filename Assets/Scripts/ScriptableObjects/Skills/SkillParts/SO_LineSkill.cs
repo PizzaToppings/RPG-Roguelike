@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,8 @@ public class SO_LineSkill : SO_Skillpart
     {
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.PreviewLine(this, TargetTile);
-        return this;
+		skillsManager.PreviewLine(this, TargetTile);
+
+		return this;
     }
 }

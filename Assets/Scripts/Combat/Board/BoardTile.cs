@@ -83,6 +83,8 @@ public class BoardTile : MonoBehaviour
         if (UnitData.CurrentActiveUnit.Friendly == false)
             return;
 
+        boardManager.currentMouseTile = this;
+
         if (currentCharacter != null)
             currentCharacter.IsTargeted = true;
         
@@ -94,8 +96,6 @@ public class BoardTile : MonoBehaviour
 			boardManager.PreviewMovementLine(this);
 		}
 
-        if (UnitData.CurrentAction == UnitData.CurrentActionKind.CastingSkillshot)
-            UnitData.CurrentActiveUnit.PreviewSkills(this);
     }
 
     void OnMouseExit()
@@ -105,6 +105,8 @@ public class BoardTile : MonoBehaviour
 
     public void UnTarget()
     {
+        boardManager.currentMouseTile = null;
+
         if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)
         {
             if (currentCharacter != null)
@@ -145,21 +147,11 @@ public class BoardTile : MonoBehaviour
     public void SetConnectedTiles()
     {
         // Top
-        connectedTiles[0] = boardManager.GetBoardTile(xPosition, yPosition + 1);
-        // Top right
-        connectedTiles[1] = boardManager.GetBoardTile(xPosition + 1, yPosition + 1);
-        // Right
-        connectedTiles[2] = boardManager.GetBoardTile(xPosition + 1, yPosition);
-        // Bottom Right
-        connectedTiles[3] = boardManager.GetBoardTile(xPosition + 1, yPosition - 1);
-        // Bottom
-        connectedTiles[4] = boardManager.GetBoardTile(xPosition, yPosition - 1);
-        // Bottom left
-        connectedTiles[5] = boardManager.GetBoardTile(xPosition - 1, yPosition - 1);
-        // Left
-        connectedTiles[6] = boardManager.GetBoardTile(xPosition - 1, yPosition);
-        // Top Left
-        connectedTiles[7] = boardManager.GetBoardTile(xPosition - 1, yPosition + 1);
+        for (int i =0; i < connectedTiles.Length; i++)
+		{
+            var direction = boardManager.Directions[i];
+            connectedTiles[i] = boardManager.GetBoardTile(Coordinates + direction);
+        }
     }
 
     public void SetColor(TileColor color)

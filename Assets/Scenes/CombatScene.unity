@@ -4077,10 +4077,12 @@ MonoBehaviour:
     edgeColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.5803922}
     priority: 10
   Path: []
+  currentMouseTile: {fileID: 0}
   MovementColor:
     centerColor: {r: 0, g: 0, b: 0, a: 0}
     edgeColor: {r: 1, g: 1, b: 1, a: 1}
     priority: 5
+  Directions: []
 --- !u!120 &1882644907
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -4327,6 +4329,7 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   boardManager: {fileID: 0}
   unitManager: {fileID: 0}
+  skillsManager: {fileID: 0}
   statusEffectManager: {fileID: 0}
   damageManager: {fileID: 0}
   currentTile: {fileID: 0}
@@ -4385,6 +4388,7 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   boardManager: {fileID: 0}
   unitManager: {fileID: 0}
+  skillsManager: {fileID: 0}
   statusEffectManager: {fileID: 0}
   damageManager: {fileID: 0}
   currentTile: {fileID: 0}
