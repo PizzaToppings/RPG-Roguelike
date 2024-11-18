@@ -54,6 +54,15 @@ public class SkillsManager : MonoBehaviour
         }
     }
 
+    public void PreviewHalfCircle(SO_HalfCircleSkill skillData, BoardTile targetTile)
+    {
+        foreach (var originTile in skillData.OriginTiles)
+        {
+            var direction = GetDirection(originTile, skillData);
+            boardManager.PreviewHalfCircleCast(direction, skillData);
+        }
+    }
+
     int GetDirection(BoardTile originTile, BoardTile targetTile, SO_Skillpart skillData)
     {
         if (skillData.TargetTileKind == TargetTileEnum.PreviousDirection)

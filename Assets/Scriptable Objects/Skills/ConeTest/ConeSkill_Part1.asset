@@ -18,7 +18,7 @@ MonoBehaviour:
   OriginTiles:
   - {fileID: 0}
   TargetTile: {fileID: 0}
-  FinalDirection: 1
+  FinalDirection: 2
   skillPartIndex: 0
   DamageType: 0
   Damage: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   tileColor:
     centerColor: {r: 0, g: 0.08434446, b: 0.8867924, a: 1}
     edgeColor: {r: 1, g: 1, b: 1, a: 1}
-    priority: 5
+    priority: 2
   TargetsHit:
   - {fileID: 0}
   TilesHit:
@@ -51,4 +51,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  isWide: 0
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isWide: 1

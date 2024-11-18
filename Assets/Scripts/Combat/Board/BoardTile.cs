@@ -51,8 +51,6 @@ public class BoardTile : MonoBehaviour
 
         skillShotManager = SkillsManager.Instance;
         gameObject.name = xPosition + ", " + yPosition;
-
-        //StartCoroutine(SlideIn());
     }
 
     void OnMouseDown()
@@ -116,37 +114,8 @@ public class BoardTile : MonoBehaviour
         }
     }
 
-    IEnumerator SlideIn()
-    {
-        bool up = Random.value > 0.5f;
-        var upOrDown = 1;
-        if (up)
-            upOrDown = -1;
-        
-        var randomHeight = Random.Range(40 * upOrDown, 60 * upOrDown);
-        var endPosition = transform.position;
-        var startPosition = transform.position + Vector3.up * randomHeight;
-
-        transform.position = startPosition;
-
-        var randomTime = Random.Range(0.1f, 1.2f);
-        yield return new WaitForSeconds(randomTime);
-
-        var distanceLeft = 0f;
-        var randomSpeed = Mathf.PerlinNoise(xPosition, yPosition);
-
-        while (transform.position != endPosition)
-        {
-            distanceLeft += Time.deltaTime * randomSpeed;
-            transform.position = Vector3.Lerp(startPosition, endPosition, distanceLeft);
-
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
     public void SetConnectedTiles()
     {
-        // Top
         for (int i =0; i < connectedTiles.Length; i++)
 		{
             var direction = boardManager.Directions[i];

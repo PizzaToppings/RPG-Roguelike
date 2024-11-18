@@ -335,9 +335,11 @@ public class BoardManager : MonoBehaviour
         List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
         List<Vector2Int> line = new List<Vector2Int>();
 
+        var width = skillData.isWide ? 2 : 1;
+
         foreach (var originTile in skillData.OriginTiles)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = -1; i < width; i++)
             {
                 var dir = GetCorrectedDirection(direction + i);
 
@@ -373,12 +375,24 @@ public class BoardManager : MonoBehaviour
                 }
                 lines.Add(line);
             }
-            FillConeCast(lines, skillData);
-			lines.Clear();
+            
+            if (skillData.isWide == false)
+			{
+                FillConeCast(lines, skillData);
+			}
+            if (skillData.isWide)
+			{
+                var firstList = new List<List<Vector2Int>> { lines[0], lines[1] };
+                FillConeCast(firstList, skillData);
+                var secondList = new List<List<Vector2Int>> { lines[1], lines[2] };
+                FillConeCast(secondList, skillData);
+            }
+
+            lines.Clear();
         }
     }
 
-    void FillConeCast(List<List<Vector2Int>> lines, SO_ConeSkill skillData)
+    void FillConeCast(List<List<Vector2Int>> lines, SO_Skillpart skillData)
     {
 		List<BoardTile> tileList = new List<BoardTile>();
 
@@ -421,14 +435,7 @@ public class BoardManager : MonoBehaviour
 		{
 			var tile = tileList[t];
 
-			TileColor volor = new TileColor
-			{
-				centerColor = Color.black,
-				edgeColor = Color.blue,
-				priority = 1
-			};
-
-			tile.SetColor(volor);
+			tile.SetColor(skillData.tileColor);
 
 			skillData.TilesHit.Add(tile);
 			var target = FindTarget(tile, skillData);
@@ -440,34 +447,60 @@ public class BoardManager : MonoBehaviour
 		}
 	}
 
-    void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkill skillData, float range)
+    public void PreviewHalfCircleCast(int direction, SO_HalfCircleSkill skillData)
     {
-        BoardTile nextTile = tile;
-        for (float i = 0; i < range;)
+        Vector2Int startCoordinates = skillData.Caster.currentTile.Coordinates;
+        Vector2Int curentCoordinates = new Vector2Int();
+        Vector2Int nextCoordinates = new Vector2Int();
+        List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
+        List<Vector2Int> line = new List<Vector2Int>();
+
+        foreach (var originTile in skillData.OriginTiles)
         {
-            var dir = GetCorrectedDirection(direction);
-
-			TileColor color = new TileColor
-			{
-				edgeColor = Color.black,
-				priority = 6
-			};
-
-			nextTile.SetColor(color);
-            var currentTile = nextTile;
-            nextTile = nextTile.connectedTiles[dir];
-
-            if (nextTile == null)
-                break;
-
-            skillData.TilesHit.Add(nextTile);
-
-            var target = FindTarget(nextTile, skillData);
-            if (target != null) 
+            for (int i = -2; i < 3; i++)
             {
-                AddTarget(target, skillData);
+                var dir = GetCorrectedDirection(direction + i);
+
+                line = new List<Vector2Int>();
+                curentCoordinates = nextCoordinates = startCoordinates;
+
+                for (float r = 0; r < skillData.Range;)
+                {
+                    curentCoordinates = nextCoordinates;
+                    nextCoordinates = curentCoordinates + Directions[dir];
+                    line.Add(nextCoordinates);
+
+                    r += GetRangeReduction(curentCoordinates, nextCoordinates);
+                    curentCoordinates = nextCoordinates;
+                }
+
+                foreach (var coordinate in line)
+                {
+                    var tile = GetBoardTile(coordinate);
+
+                    if (tile == null)
+                        continue;
+
+                    tile.SetColor(skillData.tileColor);
+
+                    skillData.TilesHit.Add(tile);
+                    var target = FindTarget(tile, skillData);
+                    target = FindTarget(tile, skillData);
+                    if (target != null)
+                    {
+                        AddTarget(target, skillData);
+                    }
+                }
+                lines.Add(line);
             }
-            i += GetRangeReduction(currentTile, nextTile);
+
+            for (int i = 1; i < 5; i++)
+			{
+                var fillLines = new List<List<Vector2Int>> { lines[i-1], lines[i] };
+                FillConeCast(fillLines, skillData);
+			}
+
+            lines.Clear();
         }
     }
 
