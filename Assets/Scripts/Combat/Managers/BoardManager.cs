@@ -329,45 +329,116 @@ public class BoardManager : MonoBehaviour
 
     public void PreviewConeCast(int direction, SO_ConeSkill skillData)
     {
-        BoardTile nextTile = skillData.OriginTiles[0];
+        Vector2Int startCoordinates = skillData.Caster.currentTile.Coordinates;
+        Vector2Int curentCoordinates = new Vector2Int();
+        Vector2Int nextCoordinates = new Vector2Int();
+        List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
+        List<Vector2Int> line = new List<Vector2Int>();
 
         foreach (var originTile in skillData.OriginTiles)
         {
-            nextTile = originTile;
-            skillData.TilesHit.Add(nextTile);
-            for (float i = 0; i < skillData.Range;)
+            for (int i = 0; i < 2; i++)
             {
-                float nextRange = i+2;
-                var dir = GetCorrectedDirection(direction);
+                var dir = GetCorrectedDirection(direction + i);
 
-                if (!nextTile.connectedTiles[dir])
+                line = new List<Vector2Int>();
+                curentCoordinates = nextCoordinates = startCoordinates;
+
+                for (float r = 0; r < skillData.Range;)
                 {
-                    if (nextTile.connectedTiles[(dir+1)%6])
+                    curentCoordinates = nextCoordinates;
+                    nextCoordinates = curentCoordinates + Directions[dir];
+                    line.Add(nextCoordinates);
+
+                    r += GetRangeReduction(curentCoordinates, nextCoordinates);
+                    curentCoordinates = nextCoordinates;
+                }
+
+                foreach (var coordinate in line)
+                {
+                    var tile = GetBoardTile(coordinate);
+
+                    if (tile == null)
+                        continue;
+
+                    tile.SetColor(skillData.tileColor);
+
+                    skillData.TilesHit.Add(tile);
+                    var target = FindTarget(tile, skillData);
+                    target = FindTarget(tile, skillData);
+                    if (target != null)
                     {
-                        nextTile = nextTile.connectedTiles[(dir+1)%6];
-                        skillData.TilesHit.Add(nextTile);
-                        nextRange--;
+                        AddTarget(target, skillData);
                     }
-                    break;
                 }
-
-                nextTile = nextTile.connectedTiles[dir];
-                skillData.TilesHit.Add(nextTile);
-
-                nextTile.SetColor(skillData.tileColor);
-                ContinueConeCast(nextTile, dir+2, skillData, nextRange);
-                if (skillData.isWide)
-                    ContinueConeCast(nextTile, dir+4, skillData, nextRange);
-
-                var target = FindTarget(nextTile, skillData);
-                if (target != null) 
-                {
-                    AddTarget(target, skillData);
-                }
-                i += GetRangeReduction(originTile, nextTile);
+                lines.Add(line);
             }
+            FillConeCast(lines, skillData);
+			lines.Clear();
         }
     }
+
+    void FillConeCast(List<List<Vector2Int>> lines, SO_ConeSkill skillData)
+    {
+		List<BoardTile> tileList = new List<BoardTile>();
+
+		lines.Sort((x, y) => x.Count.CompareTo(y.Count));
+		var shortLine = lines[0];
+		var longLine = lines[1];
+
+        var direction = shortLine[0] - longLine[0];
+        var range = 0;
+
+        for (int i = 1; i < shortLine.Count; i++)
+		{
+            range = i + 1;
+            for (int r = 1; r < range; r++)
+			{
+                var coordinates = longLine[i] + direction * r;
+                var tile = GetBoardTile(coordinates);
+
+                if (tile != null)
+                    tileList.Add(tile);
+            }
+		}
+
+        var rangeReductor = 1;
+        for (int i = shortLine.Count; i < longLine.Count; i++)
+        {
+            range = Mathf.RoundToInt(range / rangeReductor);
+            for (int r = 1; r < range; r++)
+            {
+                var coordinates = longLine[i] + direction * r;
+                var tile = GetBoardTile(coordinates);
+
+                if (tile != null)
+                    tileList.Add(tile);
+            }
+            rangeReductor++;
+        }
+
+        for (int t = 0; t < tileList.Count; t++)
+		{
+			var tile = tileList[t];
+
+			TileColor volor = new TileColor
+			{
+				centerColor = Color.black,
+				edgeColor = Color.blue,
+				priority = 1
+			};
+
+			tile.SetColor(volor);
+
+			skillData.TilesHit.Add(tile);
+			var target = FindTarget(tile, skillData);
+			target = FindTarget(tile, skillData);
+			if (target != null)
+			{
+				AddTarget(target, skillData);
+			}
+		}
+	}
 
     void ContinueConeCast(BoardTile tile, int direction, SO_ConeSkill skillData, float range)
     {
