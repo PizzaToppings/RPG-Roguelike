@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public enum OriginTileEnum {Caster, LastTarget, LastTile, MouseOverTarget};
 public enum TargetTileEnum {MouseOverTile, CasterTile, Caster, PreviousDirection, MouseOverTarget};
 
@@ -25,14 +24,14 @@ public class SO_Skillpart : ScriptableObject
     public OriginTileEnum OriginTileKind = OriginTileEnum.Caster; 
     public TargetTileEnum TargetTileKind = TargetTileEnum.MouseOverTile;
 
-    [HideInInspector] public Unit Caster;
+    //[HideInInspector] public Unit Caster;
     [HideInInspector] public List<BoardTile> OriginTiles;
     [HideInInspector] public BoardTile TargetTile;
     [HideInInspector] public int FinalDirection;
     [HideInInspector] public int skillPartIndex;
-    // [HideInInspector] public bool MagicalDamage;
+	[HideInInspector] public bool MagicalDamage;
 
-    [Space]
+	[Space]
     public DamageTypeEnum DamageType;
     public int Damage;
     public int Range;
@@ -43,17 +42,15 @@ public class SO_Skillpart : ScriptableObject
     
     [Space]
     public TileColor tileColor;
-
-    [HideInInspector] public List<Unit> TargetsHit;
-    [HideInInspector] public List<BoardTile> TilesHit;
-
+    
     // debuffs
 
     public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts)
     {
         skillPartsList = skillParts;
-        TargetsHit = new List<Unit>();
-        TilesHit = new List<BoardTile>();
+
+        SkillData.SkillPartDatas[SkillData.SkillPartIndex].TilesHit = new List<BoardTile>();
+        SkillData.SkillPartDatas[SkillData.SkillPartIndex].TargetsHit = new List<Unit>();
         OriginTiles = GetOriginTiles();
         TargetTile = GetTargetTile(mouseOverTile);
         return this;
@@ -63,32 +60,40 @@ public class SO_Skillpart : ScriptableObject
     {
         var tiles = new List<BoardTile>();
         SO_Skillpart previousSkillPart = GetPreviousSkillPart();
+        var previousTargetsHit = new List<Unit>();
+        var previousTilesHit = new List<BoardTile>();
+
+        if (SkillData.SkillPartIndex > 0)
+		{
+            previousTargetsHit = SkillData.SkillPartDatas[SkillData.SkillPartIndex - 1].TargetsHit;
+            previousTilesHit = SkillData.SkillPartDatas[SkillData.SkillPartIndex - 1].TilesHit;
+		}
 
         if (OriginTileKind == OriginTileEnum.Caster)
         {
-            Caster = UnitData.CurrentActiveUnit;
-            tiles.Add(Caster.currentTile);
+            SkillData.Caster = UnitData.CurrentActiveUnit;
+            tiles.Add(SkillData.Caster.currentTile);
         }
 
         if (OriginTileKind == OriginTileEnum.LastTarget)
         {
-            if (previousSkillPart?.TargetsHit?.Count == 0)
+            if (previousTargetsHit.Count == 0)
                 return new List<BoardTile>();
-            
-            previousSkillPart.TargetsHit.ForEach(x => tiles.Add(x.currentTile));
+
+            previousTargetsHit.ForEach(x => tiles.Add(x.currentTile));
         }
 
         if (OriginTileKind == OriginTileEnum.LastTile)
         {
-            tiles.AddRange(previousSkillPart.TilesHit);
+            tiles.AddRange(previousTilesHit);
         }
 
         if (OriginTileKind == OriginTileEnum.MouseOverTarget)
         {
-            if (previousSkillPart?.TargetsHit?.Count == 0)
+            if (previousTargetsHit.Count == 0)
                 return new List<BoardTile>();
 
-            var target = previousSkillPart.TargetsHit.Find(x => x.IsTargeted);
+            var target = previousTargetsHit.Find(x => x.IsTargeted);
             if (target != null)
             {
                 tiles.Add(target.currentTile);
@@ -106,7 +111,7 @@ public class SO_Skillpart : ScriptableObject
             return mouseOverTile;
 
         if (TargetTileKind == TargetTileEnum.CasterTile)
-            return Caster.currentTile;
+            return SkillData.Caster.currentTile;
 
         return null;
     }
@@ -125,7 +130,14 @@ public class SO_Skillpart : ScriptableObject
     {
         var damageManager = DamageManager.Instance;
 
-        foreach (var target in TargetsHit)
+        Debug.Log("casting...");
+        
+        foreach (var tile in SkillData.CurrentTilesHit)
+		{
+            Debug.Log(tile.Coordinates);
+		}
+
+        foreach (var target in SkillData.CurrentTargetsHit)
         {
             var data = damageManager.DealDamage(this, target);
             damageManager.TakeDamage(data);

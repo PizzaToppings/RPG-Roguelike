@@ -61,7 +61,7 @@ public class Unit : UnitStats
         PhysicalPower = Random.Range(0, 5);
         MagicalPower = Random.Range(0, 5);
 
-        if (skillshots?.Count == 0)
+        if (skills?.Count == 0)
             return;
 
         SetSkillShots();
@@ -69,17 +69,17 @@ public class Unit : UnitStats
 
     void SetSkillShots()
     {
-        skillshots.ForEach(x => x.SkillParts.ForEach(y => y.Caster = this));
+        SkillData.Caster = this;
 
-        for (int i = 0; i < MaxSkillShotAmount; i++)
+		for (int i = 0; i < MaxSkillShotAmount; i++)
         {
-            if (i >= skillshots.Count)
+            if (i >= skills.Count)
             {
                 SkillshotsEquipped.Add(false);
                 continue;
             }
 
-            if (skillshots[i] != null)
+            if (skills[i] != null)
                 SkillshotsEquipped.Add(true);
             else
                 SkillshotsEquipped.Add(true);
@@ -200,7 +200,7 @@ public class Unit : UnitStats
             endPosition = path[i].transform.position;
             float distanceLeft = 0;
 
-            Rotate(startPosition, endPosition);
+            Rotate(endPosition);
 
             while (distanceLeft <= 1)
             {
@@ -223,7 +223,7 @@ public class Unit : UnitStats
         CurrentUnitAction = currentUnitAction.Nothing;
     }
 
-    void Rotate(Vector3 startPosition, Vector3 endPosition) 
+    void Rotate(Vector3 endPosition) 
     {
         transform.LookAt(new Vector3(endPosition.x, transform.position.y, endPosition.z));
     }
@@ -257,9 +257,9 @@ public class Unit : UnitStats
     {
         for (int i = 0; i < SkillshotsEquipped.Count; i++)
         {
-            if (SkillshotData.CurrentSkillshotIndex == i + 1 && SkillshotsEquipped[i])
+            if (SkillData.CurrentSkillshotIndex == i + 1 && SkillshotsEquipped[i])
             {
-                skillshots[i].Cast();
+                skills[i].Cast();
             }
         }
     }

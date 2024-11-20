@@ -53,39 +53,57 @@ public class Character : Unit
     {
         boardManager.Clear();
         // turn off
-        if (SkillshotData.CurrentSkillshotIndex == skillIndex)
+        if (SkillData.CurrentSkillshotIndex == skillIndex)
         {
-            UnitData.CurrentAction = UnitData.CurrentActionKind.Moving; 
-            SkillshotData.CurrentSkillshotIndex = null;
-            boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
+            StopCasting();
         }
         // turn on
         else
         {
-            if (skillshots[skillIndex].MagicalDamage && statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Silenced) != null)
+            if (skills[skillIndex].MagicalDamage && statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Silenced) != null)
                 return;
 
+            SkillData.Reset();
+
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
-            SkillshotData.CurrentMainSkillshot = skillshots[skillIndex];
-            SkillshotData.CurrentSkillshotIndex = skillIndex;
+            SkillData.CurrentMainSkillshot = skills[skillIndex];
+            SkillData.CurrentSkillshotIndex = skillIndex;
 
-            // preview skill
-            foreach (var skillPart in skillshots[skillIndex].SkillParts)
+            for (var i = 0; i < skills[skillIndex].SkillPartGroups.Count; i++)
 			{
-                if (skillPart.OriginTileKind == OriginTileEnum.Caster)
-				{
-                    foreach (var tile in currentTile.connectedTiles)
-					{
-                        if (tile == null)
-                            continue;
+                SkillData.SkillPartDatas.Add(new SkillPartData());
+			}
 
-                        skillPart.TargetTile = tile;
-                        break;
-					}
-                    skillPart.Preview(currentTile, skillshots[skillIndex].SkillParts);
+            //preview skill
+            skills[skillIndex].Reset();
+            foreach (var skillPartGroup in skills[skillIndex].SkillPartGroups)
+			{
+                foreach (var skillPart in skillPartGroup.skillParts)
+				{
+				    if (skillPart.OriginTileKind == OriginTileEnum.Caster)
+				    {
+					    foreach (var tile in currentTile.connectedTiles)
+					    {
+						    if (tile == null)
+							    continue;
+
+						    skillPart.TargetTile = tile;
+						    break;
+					    }
+					    skillPart.Preview(currentTile, skillPartGroup.skillParts);
+				    }
 				}
-            }
+			}
 		}
+    }
+
+    public void StopCasting()
+    {
+        Debug.LogWarning("STOPPING");
+        boardManager.Clear();
+        UnitData.CurrentAction = UnitData.CurrentActionKind.Moving;
+        SkillData.Reset();
+        boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)
@@ -94,9 +112,9 @@ public class Character : Unit
 
         for (int i = 0; i < SkillshotsEquipped.Count; i++)
         {
-            if (SkillshotData.CurrentSkillshotIndex == i && SkillshotsEquipped[i])
+            if (SkillData.CurrentSkillshotIndex == i && SkillshotsEquipped[i])
             {
-                skillshots[i].Preview(mouseOverTile);
+                skills[i].Preview(mouseOverTile);
             }
         }
     }

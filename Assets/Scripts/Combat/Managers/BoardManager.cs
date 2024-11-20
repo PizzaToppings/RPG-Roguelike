@@ -13,14 +13,14 @@ public class BoardManager : MonoBehaviour
     [SerializeField] GameObject tilePrefab;
     [SerializeField] Transform BoardParent;
 
-    // temp
     [SerializeField] TileColor originalColor;
+    public TileColor MovementColor;
+    public TileColor MouseOverColor;
 
     LineRenderer movementLR;
     public List<BoardTile> Path = new List<BoardTile>();
     public BoardTile currentMouseTile;
 
-    public TileColor MovementColor;
 
     public Vector2Int[] Directions;
 
@@ -139,8 +139,8 @@ public class BoardManager : MonoBehaviour
             tile.movementLeft = -1;
             tile.PreviousTile = null;
             Path = new List<BoardTile>();
-            tile.OverrideColor(originalColor);
-            tile.skillshotsRangeLeft = new List<float>();
+			tile.OverrideColor(originalColor);
+			tile.skillshotsRangeLeft = new List<float>();
         }
         StopShowingMovement();
     }
@@ -233,18 +233,18 @@ public class BoardManager : MonoBehaviour
                     tile.SetColor(skillshotData.tileColor);
 
                 tile.skillshotsRangeLeft[index] = nextSkillRange;
-                usedTiles.Add(tile);
+
+                SkillData.AddTileToCurrentList(tile);
 
                 var target = FindTarget(tile, skillshotData);
-                if (target != null && !skillshotData.TargetsHit.Contains(target))
-                    skillshotData.TargetsHit.Add(target);
+                SkillData.AddTargetToCurrentList(target);
 
                 tile.PreviousTile = currentTile;
 
                 SetSkillAOE(nextSkillRange, tile, skillshotData);
             }
         }
-        skillshotData.TilesHit.AddRange(usedTiles);
+        SkillData.AddTileRangeToCurrentList(usedTiles);
     }
 
     public float GetRangeReduction(BoardTile currentTile, BoardTile nextTile)
@@ -275,7 +275,7 @@ public class BoardManager : MonoBehaviour
 
     public void PreviewLineCast(int[] directions, SO_LineSkill skillData)
     {
-        Vector2Int startCoordinates = skillData.Caster.currentTile.Coordinates;
+        Vector2Int startCoordinates = SkillData.Caster.currentTile.Coordinates;
         Vector2Int curentCoordinates = new Vector2Int();
         Vector2Int nextCoordinates = new Vector2Int();
         List<Vector2Int> line = new List<Vector2Int>();
@@ -308,12 +308,13 @@ public class BoardManager : MonoBehaviour
 
                     tile.SetColor(skillData.tileColor);
 
-                    skillData.TilesHit.Add(tile);
+                    SkillData.AddTileToCurrentList(tile);
+
                     var target = FindTarget(tile, skillData);
                     target = FindTarget(tile, skillData);
                     if (target != null)
                     {
-                        AddTarget(target, skillData);
+                        SkillData.AddTargetToCurrentList(target);
                         if (pierceAmount != -1)
                         {
                             if (pierceAmount == 0)
@@ -329,7 +330,7 @@ public class BoardManager : MonoBehaviour
 
     public void PreviewConeCast(int direction, SO_ConeSkill skillData)
     {
-        Vector2Int startCoordinates = skillData.Caster.currentTile.Coordinates;
+        Vector2Int startCoordinates = SkillData.Caster.currentTile.Coordinates;
         Vector2Int curentCoordinates = new Vector2Int();
         Vector2Int nextCoordinates = new Vector2Int();
         List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
@@ -365,13 +366,10 @@ public class BoardManager : MonoBehaviour
 
                     tile.SetColor(skillData.tileColor);
 
-                    skillData.TilesHit.Add(tile);
+                    SkillData.AddTileToCurrentList(tile);
+
                     var target = FindTarget(tile, skillData);
-                    target = FindTarget(tile, skillData);
-                    if (target != null)
-                    {
-                        AddTarget(target, skillData);
-                    }
+                    SkillData.AddTargetToCurrentList(target);
                 }
                 lines.Add(line);
             }
@@ -411,7 +409,7 @@ public class BoardManager : MonoBehaviour
                 var coordinates = longLine[i] + direction * r;
                 var tile = GetBoardTile(coordinates);
 
-                if (tile != null)
+                if (tile != null && tileList.Contains(tile) == false)
                     tileList.Add(tile);
             }
 		}
@@ -437,19 +435,16 @@ public class BoardManager : MonoBehaviour
 
 			tile.SetColor(skillData.tileColor);
 
-			skillData.TilesHit.Add(tile);
+            SkillData.AddTileToCurrentList(tile);
+
 			var target = FindTarget(tile, skillData);
-			target = FindTarget(tile, skillData);
-			if (target != null)
-			{
-				AddTarget(target, skillData);
-			}
-		}
+            SkillData.AddTargetToCurrentList(target);
+        }
 	}
 
     public void PreviewHalfCircleCast(int direction, SO_HalfCircleSkill skillData)
     {
-        Vector2Int startCoordinates = skillData.Caster.currentTile.Coordinates;
+        Vector2Int startCoordinates = SkillData.Caster.currentTile.Coordinates;
         Vector2Int curentCoordinates = new Vector2Int();
         Vector2Int nextCoordinates = new Vector2Int();
         List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
@@ -483,13 +478,11 @@ public class BoardManager : MonoBehaviour
 
                     tile.SetColor(skillData.tileColor);
 
-                    skillData.TilesHit.Add(tile);
+                    if (SkillData.CurrentTilesHit.Contains(tile) == false)
+                        SkillData.CurrentTilesHit.Add(tile);
+
                     var target = FindTarget(tile, skillData);
-                    target = FindTarget(tile, skillData);
-                    if (target != null)
-                    {
-                        AddTarget(target, skillData);
-                    }
+                    SkillData.AddTargetToCurrentList(target);
                 }
                 lines.Add(line);
             }
@@ -533,25 +526,25 @@ public class BoardManager : MonoBehaviour
 
         var friendly = UnitData.CurrentActiveUnit.Friendly;
 
-        if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkill.TargetKindEnum.Allies)
+        if (SkillData.CurrentMainSkillshot.TargetKind == SO_MainSkill.TargetKindEnum.Allies)
         {
             if (target.Friendly == friendly)
                 return true;
         }
 
-        if (SkillshotData.CurrentMainSkillshot.TargetKind == SO_MainSkill.TargetKindEnum.All)
+        if (SkillData.CurrentMainSkillshot.TargetKind == SO_MainSkill.TargetKindEnum.All)
             return true;
 
         return (target.Friendly != friendly);
     }
 
-    void AddTarget(Unit target, SO_Skillpart data)
-    {
-        if (data.TargetsHit.Contains(target))
-            return;
+    //void AddTarget(Unit target)
+    //{
+    //    if (SkillData.ActiveSkillPartData.TargetsHit.Contains(target))
+    //        return;
 
-        data.TargetsHit.Add(target);
-    }
+    //    SkillData.ActiveSkillPartData.TargetsHit.Add(target);
+    //}
 
     public void PreviewMovementLine(BoardTile finaltile)
     {

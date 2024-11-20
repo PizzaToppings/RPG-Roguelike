@@ -32,9 +32,9 @@ public class UIManager : MonoBehaviour
 
     public void SetSkillIcons(Unit CurrentActiveUnit)
     {
-        for (int i = 0; i < CurrentActiveUnit.skillshots.Count; i++)
+        for (int i = 0; i < CurrentActiveUnit.skills.Count; i++)
         {
-            skillIcons[i].Set(CurrentActiveUnit.skillshots[i]);
+            skillIcons[i].Set(CurrentActiveUnit.skills[i]);
         }
     }
 

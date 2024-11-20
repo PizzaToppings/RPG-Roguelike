@@ -28,7 +28,8 @@ public class BoardTile : MonoBehaviour
 
     public Unit currentCharacter = null;
 
-    public TileColor currentColor;
+    public TileColor currentCenterColor = new TileColor();
+    public TileColor currentEdgeColor = new TileColor();
     
 
     [HideInInspector] public Vector3 position = new Vector3();
@@ -92,8 +93,8 @@ public class BoardTile : MonoBehaviour
         {
             boardManager.Path = new List<BoardTile>();
 			boardManager.PreviewMovementLine(this);
+            SetColor(boardManager.MouseOverColor);
 		}
-
     }
 
     void OnMouseExit()
@@ -105,12 +106,13 @@ public class BoardTile : MonoBehaviour
     {
         boardManager.currentMouseTile = null;
 
-        if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)
+		if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)
         {
             if (currentCharacter != null)
                 currentCharacter.IsTargeted = false;
                 
             boardManager.StopShowingMovement();
+            OverrideColor(boardManager.MovementColor);
         }
     }
 
@@ -125,18 +127,39 @@ public class BoardTile : MonoBehaviour
 
     public void SetColor(TileColor color)
 	{
-		if (color.priority < currentColor.priority)
+        if (currentCenterColor == null)
+            currentCenterColor = new TileColor();
+
+        if (currentEdgeColor == null)
+            currentEdgeColor = new TileColor();
+
+        if (color.UseCenterColor &&
+                color.CenterPriority < currentCenterColor.CenterPriority)
 		{
-            edgeMaterial.color = color.edgeColor;
-            centerMaterial.color = color.centerColor;
-            currentColor = color;
+            centerMaterial.color = color.CenterColor;
+            currentCenterColor = color;
 		}
-	}
+
+        if (color.UseEdgeColor &&
+                color.EdgePriority < currentEdgeColor.EdgePriority)
+        {
+            edgeMaterial.color = color.EdgeColor;
+            currentEdgeColor = color;
+        }
+    }
 
     public void OverrideColor(TileColor color)
 	{
-        edgeMaterial.color = color.edgeColor;
-        centerMaterial.color = color.centerColor;
-        currentColor = color;
-	}
+        if (color.UseCenterColor)
+        {
+            centerMaterial.color = color.CenterColor;
+            currentCenterColor = color;
+        }
+
+        if (color.UseEdgeColor)
+        {
+            edgeMaterial.color = color.EdgeColor;
+            currentEdgeColor = color;
+        }
+    }
 }

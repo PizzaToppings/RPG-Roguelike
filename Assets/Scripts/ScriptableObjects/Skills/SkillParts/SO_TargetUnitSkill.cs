@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,10 +10,10 @@ public class SO_TargetUnitSkill : SO_Skillpart
         SkillsManager skillShotManager = SkillsManager.Instance;
         skillShotManager.GetAOE(this);
 
-        var target = TargetsHit.Find(x => x.IsTargeted);
+        var target = SkillData.CurrentTargetsHit.Find(x => x.IsTargeted);
 
-        TargetsHit.Clear();
-        TargetsHit.Add(target);
+        SkillData.CurrentTargetsHit.Clear();
+        SkillData.CurrentTargetsHit.Add(target);
 
         return this;
     }

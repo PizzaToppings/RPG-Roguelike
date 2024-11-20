@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbbc954076eb9c44bd1cbae407eb541, type: 3}
-  m_Name: halfCircleSkillshot
+  m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
+  m_Name: LineSkill_Part3
   m_EditorClassIdentifier: 
   OriginTileKind: 0
   TargetTileKind: 0
@@ -18,23 +18,20 @@ MonoBehaviour:
   OriginTiles:
   - {fileID: 0}
   TargetTile: {fileID: 0}
-  FinalDirection: 1
+  FinalDirection: 3
   skillPartIndex: 0
   MagicalDamage: 0
   DamageType: 0
   Damage: 0
-  Range: 1
+  Range: 7
   StatusEfects: []
   defaultStatusEffects: []
   tileColor:
-    centerColor: {r: 0.8773585, g: 0.5755482, b: 0.26072446, a: 1}
-    edgeColor: {r: 1, g: 1, b: 1, a: 1}
-    priority: 2
-  TargetsHit:
-  - {fileID: 0}
-  TilesHit:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+    UseCenterColor: 1
+    CenterColor: {r: 0.9254902, g: 0.75824666, b: 0.02352939, a: 1}
+    CenterPriority: 5
+    UseEdgeColor: 0
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    EdgePriority: 10
+  Angles: 00000000
+  PierceAmount: -1

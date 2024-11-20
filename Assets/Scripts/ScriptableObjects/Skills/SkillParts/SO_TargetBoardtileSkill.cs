@@ -13,15 +13,15 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
         SkillsManager skillShotManager = SkillsManager.Instance;
         skillShotManager.GetAOE(this);
 
-        if (TilesHit.Contains(mouseOverTile))
+        if (SkillData.CurrentTilesHit.Contains(mouseOverTile))
         {
-            TilesHit.Clear();
+            SkillData.CurrentTilesHit.Clear();
             mouseOverTile.SetColor(SelectedTileColor);
-            TilesHit.Add(mouseOverTile);
+            SkillData.CurrentTilesHit.Add(mouseOverTile);
 
             return this;
         }
-        TilesHit.Clear();
+        SkillData.CurrentTilesHit.Clear();
 
         return this;
     }

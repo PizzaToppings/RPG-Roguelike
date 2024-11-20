@@ -764,6 +764,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
+      propertyPath: skills.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: skills.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 101e171488d7000438e8fc0d5f21dfec,
+        type: 2}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: skills.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c4c9fc52530f8ce4aaaba52d72049cda,
+        type: 2}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: skills.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb649e45825f3224b8711606d1c893fa,
+        type: 2}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: skills.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 68ab8dbaef48e2e4f98bf182051ef99e,
+        type: 2}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
       propertyPath: skillshot.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -815,12 +844,12 @@ PrefabInstance:
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: SkillshotsEquipped.Array.data[0]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: SkillshotsEquipped.Array.data[1]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -4073,15 +4102,28 @@ MonoBehaviour:
     type: 3}
   BoardParent: {fileID: 387685902}
   originalColor:
-    centerColor: {r: 0, g: 0, b: 0, a: 0}
-    edgeColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.5803922}
-    priority: 10
+    UseCenterColor: 1
+    CenterColor: {r: 0, g: 0, b: 0, a: 0}
+    CenterPriority: 10
+    UseEdgeColor: 1
+    EdgeColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+    EdgePriority: 10
+  MovementColor:
+    UseCenterColor: 1
+    CenterColor: {r: 0, g: 0, b: 0, a: 0}
+    CenterPriority: 9
+    UseEdgeColor: 1
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    EdgePriority: 9
+  MouseOverColor:
+    UseCenterColor: 1
+    CenterColor: {r: 1, g: 1, b: 1, a: 0.49019608}
+    CenterPriority: 8
+    UseEdgeColor: 1
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    EdgePriority: 8
   Path: []
   currentMouseTile: {fileID: 0}
-  MovementColor:
-    centerColor: {r: 0, g: 0, b: 0, a: 0}
-    edgeColor: {r: 1, g: 1, b: 1, a: 1}
-    priority: 5
   Directions: []
 --- !u!120 &1882644907
 LineRenderer:
@@ -4321,7 +4363,7 @@ MonoBehaviour:
   CurrentUnitAction: 0
   MaxSkillShotAmount: 4
   SkillshotsEquipped: 
-  skillshots: []
+  skills: []
   IsTargeted: 0
   PhysicalPower: 0
   MagicalPower: 0
@@ -4380,7 +4422,7 @@ MonoBehaviour:
   CurrentUnitAction: 0
   MaxSkillShotAmount: 4
   SkillshotsEquipped: 
-  skillshots: []
+  skills: []
   IsTargeted: 0
   PhysicalPower: 0
   MagicalPower: 0

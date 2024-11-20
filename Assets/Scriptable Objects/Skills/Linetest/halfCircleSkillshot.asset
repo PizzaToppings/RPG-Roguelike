@@ -18,7 +18,7 @@ MonoBehaviour:
   OriginTiles:
   - {fileID: 0}
   TargetTile: {fileID: 0}
-  FinalDirection: 1
+  FinalDirection: 0
   skillPartIndex: 0
   MagicalDamage: 0
   DamageType: 0
@@ -27,14 +27,9 @@ MonoBehaviour:
   StatusEfects: []
   defaultStatusEffects: []
   tileColor:
-    centerColor: {r: 0.8773585, g: 0.5755482, b: 0.26072446, a: 1}
-    edgeColor: {r: 1, g: 1, b: 1, a: 1}
-    priority: 2
-  TargetsHit:
-  - {fileID: 0}
-  TilesHit:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+    UseCenterColor: 1
+    CenterColor: {r: 0.990566, g: 0.6221249, b: 0, a: 1}
+    CenterPriority: 3
+    UseEdgeColor: 0
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    EdgePriority: 3

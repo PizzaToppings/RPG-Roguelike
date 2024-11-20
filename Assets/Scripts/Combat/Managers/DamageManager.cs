@@ -15,17 +15,17 @@ public class DamageManager : MonoBehaviour
 
     public DamageData DealDamage(SO_Skillpart skillshot, Unit target)
     {
-        var caster = skillshot.Caster;
+        var caster = SkillData.Caster;
 
         var roll = Random.Range(1, skillshot.Damage);
-        var addition = SkillshotData.CurrentMainSkillshot.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+        var addition = SkillData.CurrentMainSkillshot.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
         var damage = roll + addition;
 
         DamageData data = new DamageData()
         {
             DamageType = skillshot.DamageType,
             Caster = caster,
-            MagicalDamage = SkillshotData.CurrentMainSkillshot.MagicalDamage,
+            MagicalDamage = SkillData.CurrentMainSkillshot.MagicalDamage,
             Target = target,
             Damage = damage,
             statusEffects = AddDefaultStatusEffects(skillshot)
@@ -64,7 +64,7 @@ public class DamageManager : MonoBehaviour
 
         statusEffectManager.Blinded(target, data);
 
-        Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " damage.");
+        //Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " damage.");
 
         if (data.Damage == 0)
             return;

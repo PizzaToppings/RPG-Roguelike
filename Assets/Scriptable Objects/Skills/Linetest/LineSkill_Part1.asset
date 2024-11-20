@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
-  m_Name: Line_Skillshot_Part1
+  m_Name: LineSkill_Part1
   m_EditorClassIdentifier: 
   OriginTileKind: 0
   TargetTileKind: 0
@@ -18,25 +18,20 @@ MonoBehaviour:
   OriginTiles:
   - {fileID: 0}
   TargetTile: {fileID: 0}
-  FinalDirection: 2
+  FinalDirection: 3
   skillPartIndex: 0
-  DamageType: 2
-  Damage: 10
+  MagicalDamage: 0
+  DamageType: 0
+  Damage: 0
   Range: 5
   StatusEfects: []
   defaultStatusEffects: []
   tileColor:
-    centerColor: {r: 1, g: 0, b: 0, a: 1}
-    edgeColor: {r: 1, g: 1, b: 1, a: 1}
-    priority: 1
-  TargetsHit:
-  - {fileID: 0}
-  TilesHit:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+    UseCenterColor: 1
+    CenterColor: {r: 0.9245283, g: 0.02180491, b: 0.02180491, a: 1}
+    CenterPriority: 5
+    UseEdgeColor: 0
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    EdgePriority: 10
   Angles: 00000000
   PierceAmount: -1

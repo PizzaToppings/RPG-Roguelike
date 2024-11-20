@@ -3,7 +3,12 @@ using UnityEngine;
 [System.Serializable]
 public class TileColor
 {
-    public Color centerColor;
-    public Color edgeColor = Color.white;
-    public int priority = 10;
+    public bool UseCenterColor = false;
+    public Color CenterColor;
+    public int CenterPriority = 10;
+
+    [Space]
+    public bool UseEdgeColor = true;
+    public Color EdgeColor = Color.white;
+    public int EdgePriority = 10;
 }
