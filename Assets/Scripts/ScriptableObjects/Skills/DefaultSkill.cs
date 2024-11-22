@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DefaultSkillshot", menuName = "ScriptableObjects/Skillshots/DefaultSkillshot")]
+[CreateAssetMenu(fileName = "DefaultSkill", menuName = "ScriptableObjects/Skills/DefaultSkill")]
 public class DefaultSkill : SO_MainSkill
 {
     public override void Preview(BoardTile mouseOverTile)

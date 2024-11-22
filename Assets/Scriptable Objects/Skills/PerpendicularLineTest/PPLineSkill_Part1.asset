@@ -18,8 +18,8 @@ MonoBehaviour:
   - {fileID: 0}
   TargetTile: {fileID: 0}
   FinalDirection: 0
-  skillPartIndex: 0
   MagicalDamage: 0
+  SkillPartIndex: 0
   DamageType: 0
   Damage: 0
   Range: 6
@@ -35,7 +35,7 @@ MonoBehaviour:
   SelectedTileColor:
     UseCenterColor: 1
     CenterColor: {r: 0.9433962, g: 0, b: 0, a: 1}
-    CenterPriority: 10
+    CenterPriority: 7
     UseEdgeColor: 0
     EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     EdgePriority: 10

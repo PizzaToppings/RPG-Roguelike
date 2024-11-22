@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OriginTileKind: 2
   TargetTileKind: 0
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
   TargetTile: {fileID: 0}
   FinalDirection: 0
-  skillPartIndex: 1
   MagicalDamage: 0
+  SkillPartIndex: 1
   DamageType: 0
   Damage: 0
-  Range: 6
+  Range: 3
   StatusEfects: []
   defaultStatusEffects: []
   tileColor:

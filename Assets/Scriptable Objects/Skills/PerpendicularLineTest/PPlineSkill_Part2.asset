@@ -16,9 +16,9 @@ MonoBehaviour:
   TargetTileKind: 0
   OriginTiles: []
   TargetTile: {fileID: 0}
-  FinalDirection: 2
-  skillPartIndex: 1
+  FinalDirection: 1
   MagicalDamage: 0
+  SkillPartIndex: 1
   DamageType: 0
   Damage: 0
   Range: 3
@@ -26,7 +26,7 @@ MonoBehaviour:
   defaultStatusEffects: []
   tileColor:
     UseCenterColor: 1
-    CenterColor: {r: 1, g: 0, b: 0, a: 0}
+    CenterColor: {r: 1, g: 0, b: 0, a: 1}
     CenterPriority: 9
     UseEdgeColor: 0
     EdgeColor: {r: 1, g: 1, b: 1, a: 1}

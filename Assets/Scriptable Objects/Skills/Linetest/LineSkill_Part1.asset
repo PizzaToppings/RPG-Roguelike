@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OriginTileKind: 0
   TargetTileKind: 0
-  Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
   TargetTile: {fileID: 0}
-  FinalDirection: 3
-  skillPartIndex: 0
+  FinalDirection: 6
   MagicalDamage: 0
+  SkillPartIndex: 0
   DamageType: 0
   Damage: 0
   Range: 5
@@ -34,4 +33,4 @@ MonoBehaviour:
     EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     EdgePriority: 10
   Angles: 00000000
-  PierceAmount: -1
+  PierceAmount: 0

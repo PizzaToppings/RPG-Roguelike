@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TargetTileSkillshot", menuName = "ScriptableObjects/SkillshotParts/TargetTileSkillshot")]
+[CreateAssetMenu(fileName = "TargetTileSkill", menuName = "ScriptableObjects/SkillParts/TargetTileSkill")]
 public class SO_TargetBoardtileSkill : SO_Skillpart
 {
     public TileColor SelectedTileColor;
@@ -9,8 +9,8 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
     public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots) 
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillsManager skillShotManager = SkillsManager.Instance;
-        skillShotManager.GetAOE(this);
+        SkillsManager skillsManager = SkillsManager.Instance;
+        skillsManager.GetAOE(this);
 
         if (MatchedSkillPartData.TilesHit.Contains(mouseOverTile))
         {

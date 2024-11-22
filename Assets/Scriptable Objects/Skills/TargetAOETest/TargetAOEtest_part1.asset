@@ -22,7 +22,7 @@ MonoBehaviour:
   SkillPartIndex: 0
   DamageType: 0
   Damage: 0
-  Range: 6
+  Range: 8
   StatusEfects: []
   defaultStatusEffects:
   - Type: 0

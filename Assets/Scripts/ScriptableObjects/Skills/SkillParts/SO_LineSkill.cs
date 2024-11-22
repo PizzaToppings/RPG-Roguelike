@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LineSkillshot", menuName = "ScriptableObjects/SkillshotParts/LineSkillshot")]
+[CreateAssetMenu(fileName = "LineSkill", menuName = "ScriptableObjects/SkillParts/LineSkill")]
 public class SO_LineSkill : SO_Skillpart
 {
     public int[] Angles;

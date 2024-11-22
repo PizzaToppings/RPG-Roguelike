@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ConeSkillshot", menuName = "ScriptableObjects/SkillshotParts/ConeSkillshot")]
+[CreateAssetMenu(fileName = "ConeSkill", menuName = "ScriptableObjects/SkillParts/ConeSkill")]
 public class SO_ConeSkill : SO_Skillpart
 {
     public bool isWide;
