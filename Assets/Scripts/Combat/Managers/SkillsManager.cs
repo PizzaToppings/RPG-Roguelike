@@ -94,12 +94,12 @@ public class SkillsManager : MonoBehaviour
     Vector3 GetMousePosition()
 	{
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, Vector3.zero); // Flat plane at Y=0
+        Plane plane = new Plane(Vector3.up, Vector3.zero); 
 
         float distance;
         if (plane.Raycast(ray, out distance))
         {
-            return ray.GetPoint(distance); // Get the point where the ray intersects the plane
+            return ray.GetPoint(distance); 
         }
 
         return Vector3.zero;

@@ -308,9 +308,10 @@ public class BoardManager : MonoBehaviour
                 SkillData.AddTileToCurrentList(skillPartIndex, tile);
 
                 var target = FindTarget(tile, skillData);
-                target = FindTarget(tile, skillData);
                 if (target != null)
                 {
+                    
+
                     SkillData.AddTargetToCurrentList(skillPartIndex, target);
                     if (pierceAmount != -1)
                     {
@@ -512,11 +513,12 @@ public class BoardManager : MonoBehaviour
         if (UnitData.CurrentActiveUnit == null)
             return null;
 
-        foreach (var target in UnitData.Units)
-        {
-            if (IsCorrectTarget(target, data))
-                return target;
-        }
+        if (tile.currentCharacter == null)
+            return null;
+
+        if (IsCorrectTarget(tile.currentCharacter, data))
+            return tile.currentCharacter;
+
         return null;
     }
 
