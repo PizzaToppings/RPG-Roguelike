@@ -21,7 +21,6 @@ public class BoardManager : MonoBehaviour
     public List<BoardTile> Path = new List<BoardTile>();
     public BoardTile currentMouseTile;
 
-
     public Vector2Int[] Directions;
 
     public void Init()
@@ -204,7 +203,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void SetSkillAOE(float skillRangeLeft, BoardTile currentTile, SO_Skillpart skillshotData)
+    public void SetSkillAOE(float skillRangeLeft, BoardTile currentTile, SO_Skillpart skillData)
     {
         if (skillRangeLeft <= 0)
             return;
@@ -213,9 +212,9 @@ public class BoardManager : MonoBehaviour
         if (currentTile.movementLeft == -1)
             currentTile.movementLeft = 0;
 
-        List<BoardTile> usedTiles = new List<BoardTile>();
+        var skillPartIndex = skillData.SkillPartIndex;
 
-        foreach (var tile in currentTile.connectedTiles)
+		foreach (var tile in currentTile.connectedTiles)
         {
             if (tile == null)
                 continue;
@@ -223,28 +222,27 @@ public class BoardManager : MonoBehaviour
             var nextSkillRange = skillRangeLeft;
             nextSkillRange -= GetRangeReduction(currentTile, tile);
 
-            var index = skillshotData.skillPartIndex;
+            var index = skillData.SkillPartIndex;
             while (tile.skillshotsRangeLeft.Count <= index)
                 tile.skillshotsRangeLeft.Add(0);
 
             if (tile.skillshotsRangeLeft[index] < nextSkillRange)
             {
                 if (UnitData.CurrentActiveUnit.Friendly)
-                    tile.SetColor(skillshotData.tileColor);
+                    tile.SetColor(skillData.tileColor);
 
                 tile.skillshotsRangeLeft[index] = nextSkillRange;
 
-                SkillData.AddTileToCurrentList(tile);
+                SkillData.AddTileToCurrentList(skillPartIndex, tile);
 
-                var target = FindTarget(tile, skillshotData);
-                SkillData.AddTargetToCurrentList(target);
+                var target = FindTarget(tile, skillData);
+                SkillData.AddTargetToCurrentList(skillPartIndex, target);
 
                 tile.PreviousTile = currentTile;
 
-                SetSkillAOE(nextSkillRange, tile, skillshotData);
+                SetSkillAOE(nextSkillRange, tile, skillData);
             }
         }
-        SkillData.AddTileRangeToCurrentList(usedTiles);
     }
 
     public float GetRangeReduction(BoardTile currentTile, BoardTile nextTile)
@@ -273,58 +271,56 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void PreviewLineCast(int[] directions, SO_LineSkill skillData)
+    public void PreviewLineCast(BoardTile originTile, int[] directions, SO_LineSkill skillData)
     {
-        Vector2Int startCoordinates = SkillData.Caster.currentTile.Coordinates;
+        Vector2Int startCoordinates = originTile.Coordinates;
         Vector2Int curentCoordinates = new Vector2Int();
         Vector2Int nextCoordinates = new Vector2Int();
         List<Vector2Int> line = new List<Vector2Int>();
 
+        var skillPartIndex = skillData.SkillPartIndex;
         int pierceAmount = skillData.PierceAmount;
-
-        foreach (var originTile in skillData.OriginTiles)
+        
+        foreach (var dir in directions)
         {
-            foreach (var dir in directions)
-            {
-                curentCoordinates = nextCoordinates = startCoordinates;
-                var direction = GetCorrectedDirection(dir);
+            curentCoordinates = nextCoordinates = startCoordinates;
+            var direction = GetCorrectedDirection(dir);
                 
-                for (float r = 0; r < skillData.Range;)
-				{
-                    curentCoordinates = nextCoordinates;
-                    nextCoordinates = curentCoordinates + Directions[direction];
-                    line.Add(nextCoordinates);
+            for (float r = 0; r < skillData.Range;)
+			{
+                curentCoordinates = nextCoordinates;
+                nextCoordinates = curentCoordinates + Directions[direction];
+                line.Add(nextCoordinates);
 
-                    r += GetRangeReduction(curentCoordinates, nextCoordinates);
-                    curentCoordinates = nextCoordinates;
-                }
+                r += GetRangeReduction(curentCoordinates, nextCoordinates);
+                curentCoordinates = nextCoordinates;
+            }
 
-                foreach (var coordinate in line)
-				{
-                    var tile = GetBoardTile(coordinate);
+            foreach (var coordinate in line)
+			{
+                var tile = GetBoardTile(coordinate);
 
-                    if (tile == null)
-                        continue;
+                if (tile == null)
+                    continue;
 
-                    tile.SetColor(skillData.tileColor);
+                tile.SetColor(skillData.tileColor);
 
-                    SkillData.AddTileToCurrentList(tile);
+                SkillData.AddTileToCurrentList(skillPartIndex, tile);
 
-                    var target = FindTarget(tile, skillData);
-                    target = FindTarget(tile, skillData);
-                    if (target != null)
+                var target = FindTarget(tile, skillData);
+                target = FindTarget(tile, skillData);
+                if (target != null)
+                {
+                    SkillData.AddTargetToCurrentList(skillPartIndex, target);
+                    if (pierceAmount != -1)
                     {
-                        SkillData.AddTargetToCurrentList(target);
-                        if (pierceAmount != -1)
-                        {
-                            if (pierceAmount == 0)
-                                break;
-                            pierceAmount--;
-                        }
+                        if (pierceAmount == 0)
+                            break;
+                        pierceAmount--;
                     }
                 }
-                line.Clear();
             }
+            line.Clear();
         }
     }
 
@@ -335,6 +331,8 @@ public class BoardManager : MonoBehaviour
         Vector2Int nextCoordinates = new Vector2Int();
         List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
         List<Vector2Int> line = new List<Vector2Int>();
+
+        var skillPartIndex = skillData.SkillPartIndex;
 
         var width = skillData.isWide ? 2 : 1;
 
@@ -366,10 +364,10 @@ public class BoardManager : MonoBehaviour
 
                     tile.SetColor(skillData.tileColor);
 
-                    SkillData.AddTileToCurrentList(tile);
+                    SkillData.AddTileToCurrentList(skillPartIndex, tile);
 
                     var target = FindTarget(tile, skillData);
-                    SkillData.AddTargetToCurrentList(target);
+                    SkillData.AddTargetToCurrentList(skillPartIndex, target);
                 }
                 lines.Add(line);
             }
@@ -394,7 +392,9 @@ public class BoardManager : MonoBehaviour
     {
 		List<BoardTile> tileList = new List<BoardTile>();
 
-		lines.Sort((x, y) => x.Count.CompareTo(y.Count));
+        var skillPartIndex = skillData.SkillPartIndex;
+
+        lines.Sort((x, y) => x.Count.CompareTo(y.Count));
 		var shortLine = lines[0];
 		var longLine = lines[1];
 
@@ -435,10 +435,10 @@ public class BoardManager : MonoBehaviour
 
 			tile.SetColor(skillData.tileColor);
 
-            SkillData.AddTileToCurrentList(tile);
+            SkillData.AddTileToCurrentList(skillPartIndex, tile);
 
 			var target = FindTarget(tile, skillData);
-            SkillData.AddTargetToCurrentList(target);
+            SkillData.AddTargetToCurrentList(skillPartIndex, target);
         }
 	}
 
@@ -449,6 +449,8 @@ public class BoardManager : MonoBehaviour
         Vector2Int nextCoordinates = new Vector2Int();
         List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
         List<Vector2Int> line = new List<Vector2Int>();
+
+        var skillPartIndex = skillData.SkillPartIndex;
 
         foreach (var originTile in skillData.OriginTiles)
         {
@@ -478,11 +480,10 @@ public class BoardManager : MonoBehaviour
 
                     tile.SetColor(skillData.tileColor);
 
-                    if (SkillData.CurrentTilesHit.Contains(tile) == false)
-                        SkillData.CurrentTilesHit.Add(tile);
+                    SkillData.AddTileToCurrentList(skillPartIndex, tile);
 
                     var target = FindTarget(tile, skillData);
-                    SkillData.AddTargetToCurrentList(target);
+                    SkillData.AddTargetToCurrentList(skillPartIndex, target);
                 }
                 lines.Add(line);
             }

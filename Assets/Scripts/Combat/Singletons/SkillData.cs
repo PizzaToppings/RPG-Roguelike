@@ -9,49 +9,83 @@ public class SkillData
 
     public static Unit Caster;
     
-    public static int SkillPartIndex = 0;
-    public static List<SkillPartData> SkillPartDatas = new List<SkillPartData>();
+    public static int SkillPartGroupIndex = 0;
+    public static List<SkillPartGroupData> SkillPartGroupDatas = new List<SkillPartGroupData>();
 
-    static SkillPartData CurrentSkillPartData => SkillPartDatas[SkillPartIndex];
-    public static List<Unit> CurrentTargetsHit => CurrentSkillPartData.TargetsHit;
-    public static List<BoardTile> CurrentTilesHit => CurrentSkillPartData.TilesHit;
+    // quick references
+    public static SkillPartGroupData CurrentSkillPartGroupData => SkillPartGroupDatas[SkillPartGroupIndex];
 
-    public static void AddTileToCurrentList(BoardTile tile)
+
+    public static SkillPartData GetCurrentSkillPartData(int skillPartIndex)
+	{
+        return CurrentSkillPartGroupData.SkillPartDatas[skillPartIndex];
+    }
+
+    public static List<Unit> GetCurrentTargetsHit(int skillPartIndex)
+    {
+        return GetCurrentSkillPartData(skillPartIndex).TargetsHit;
+    }
+
+    public static List<BoardTile> GetCurrentTilesHit(int skillPartIndex)
+	{
+        return GetCurrentSkillPartData(skillPartIndex).TilesHit;
+    }
+
+    public static SkillPartData GetPreviousSkillPartData(int skillPartIndex)
+	{
+        return CurrentSkillPartGroupData.SkillPartDatas[skillPartIndex - 1];
+    }
+
+    public static List<Unit> GetPreviousTargetsHit(int skillPartIndex)
+	{
+        return GetPreviousSkillPartData(skillPartIndex).TargetsHit;
+    }
+
+    public static List<BoardTile> GetPreviousTilesHit(int skillPartIndex)
+    {
+        return GetPreviousSkillPartData(skillPartIndex).TilesHit;
+    }
+
+    public static void AddTileToCurrentList(int skillPartIndex, BoardTile tile)
     {
         if (tile == null)
             return;
 
-        if (CurrentTilesHit.Contains(tile) == false)
+        var currentTilesHit = GetCurrentTilesHit(skillPartIndex);
+
+        if (currentTilesHit.Contains(tile) == false)
         {
-            CurrentTilesHit.Add(tile);
+            currentTilesHit.Add(tile);
         }
     }
 
-    public static void AddTileRangeToCurrentList(List<BoardTile> tiles)
+    public static void AddTileRangeToCurrentList(int skillPartIndex, List<BoardTile> tiles)
     {
         foreach (var tile in tiles)
         {
-            AddTileToCurrentList(tile);
+            AddTileToCurrentList(skillPartIndex, tile);
         }
     }
 
-    public static void AddTargetToCurrentList(Unit target)
+    public static void AddTargetToCurrentList(int skillPartIndex, Unit target)
     {
         if (target == null)
         {
             return;
         }
 
-        if (CurrentTargetsHit.Contains(target) == false)
+        var currentTargetsHit = GetCurrentTargetsHit(skillPartIndex);
+
+        if (currentTargetsHit.Contains(target) == false)
         {
-            CurrentTargetsHit.Add(target);
+            currentTargetsHit.Add(target);
         }
     }
 
     public static void Reset()
     {
         CurrentSkillshotIndex = null;
-        SkillPartDatas.Clear();
-        SkillPartIndex = 0;
+        SkillPartGroupDatas.Clear();
+        SkillPartGroupIndex = 0;
     }
 }

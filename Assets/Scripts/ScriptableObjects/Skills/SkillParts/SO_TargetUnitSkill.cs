@@ -10,10 +10,10 @@ public class SO_TargetUnitSkill : SO_Skillpart
         SkillsManager skillShotManager = SkillsManager.Instance;
         skillShotManager.GetAOE(this);
 
-        var target = SkillData.CurrentTargetsHit.Find(x => x.IsTargeted);
+        var target = SkillData.GetCurrentTargetsHit(SkillPartIndex).Find(x => x.IsTargeted);
 
-        SkillData.CurrentTargetsHit.Clear();
-        SkillData.CurrentTargetsHit.Add(target);
+        SkillData.GetCurrentTargetsHit(SkillPartIndex).Clear();
+        SkillData.GetCurrentTargetsHit(SkillPartIndex).Add(target);
 
         return this;
     }

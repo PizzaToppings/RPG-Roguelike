@@ -18,11 +18,10 @@ MonoBehaviour:
     CenterColor: {r: 0, g: 0, b: 0, a: 0}
     CenterPriority: 10
     UseEdgeColor: 1
-    EdgeColor: {r: 1, g: 0, b: 0, a: 1}
+    EdgeColor: {r: 0, g: 0.21875906, b: 1, a: 1}
     EdgePriority: 1
   Description: 
   MagicalDamage: 0
-  SkillPartGroupNumber: 3
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: b16f3757be7ae3842ae2f4d485309275, type: 2}

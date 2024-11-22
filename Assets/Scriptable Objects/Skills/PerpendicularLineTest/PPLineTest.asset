@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: TargetAOEtest_Main
+  m_Name: PPLineTest
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
+  Image: {fileID: 21300000, guid: b11f9c52da2945740b5078d84177a9ab, type: 3}
   castLockColor:
     UseCenterColor: 0
     CenterColor: {r: 0, g: 0, b: 0, a: 0}
@@ -20,10 +20,10 @@ MonoBehaviour:
     UseEdgeColor: 1
     EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     EdgePriority: 10
-  Description: This is a skill
+  Description: 
   MagicalDamage: 0
   SkillPartGroups:
   - skillParts:
-    - {fileID: 11400000, guid: cfed7e4fc7dc3564382e8f04cf6b5e54, type: 2}
-    - {fileID: 11400000, guid: 3d9b45842d69b3443bfd4c1721be1ebd, type: 2}
+    - {fileID: 11400000, guid: 6d1eff0b770aa414aa05563f6e4f1fd7, type: 2}
+    - {fileID: 11400000, guid: d493f73a2b0e1254bac1b3b500eb5a6f, type: 2}
   TargetKind: 0

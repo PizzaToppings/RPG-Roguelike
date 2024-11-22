@@ -15,7 +15,6 @@ public class SO_MainSkill : ScriptableObject
     public bool MagicalDamage; //change to enum?
 
     public List<SkillPartGroup> SkillPartGroups;
-    int SkillPartGroupNumber => SkillPartGroups.Count; 
 
     public TargetKindEnum TargetKind;
 
@@ -28,40 +27,41 @@ public class SO_MainSkill : ScriptableObject
 
     public virtual void Preview(BoardTile mouseOverTile)
     {
-        var skillPartIndex = SkillData.SkillPartIndex;
-        Debug.Log(skillPartIndex);
+        var SkillPartGroupIndex = SkillData.SkillPartGroupIndex;
 
-        for (int i = 0; i < SkillPartGroups[skillPartIndex].skillParts.Count; i++)
+        for (int i = 0; i < SkillPartGroups[SkillPartGroupIndex].skillParts.Count; i++)
 		{
-			var skillPart = SkillPartGroups[skillPartIndex].skillParts;
-			skillPart[i].skillPartIndex = i;
+			var skillPart = SkillPartGroups[SkillPartGroupIndex].skillParts;
 			skillPart[i].Preview(mouseOverTile, skillPart);
 		}
 
-        if (skillPartIndex == 0)
+        if (SkillPartGroupIndex == 0)
             return;
 
-        for (int i = 0; i < skillPartIndex; i++)
+        for (int i = 0; i < SkillPartGroupIndex; i++)
 		{
-			var spd = SkillData.SkillPartDatas[i];
+			var spgd = SkillData.SkillPartGroupDatas[i];
 
-			foreach (var tile in spd.TilesHit)
+            foreach (var spd in spgd.SkillPartDatas)
 			{
-                tile.SetColor(castLockColor);
+			    foreach (var tile in spd.TilesHit)
+			    {
+                    tile.SetColor(castLockColor);
+			    }
 			}
         }
     }
 
     public virtual void Reset()
 	{
-        SkillData.SkillPartIndex = 0;
+        SkillData.SkillPartGroupIndex = 0;
     }
 
     public virtual void Cast()
     {
-        if (SkillData.SkillPartIndex < SkillData.SkillPartDatas.Count - 1)
+        if (SkillData.SkillPartGroupIndex < SkillData.SkillPartGroupDatas.Count - 1)
 		{
-            SkillData.SkillPartIndex++;
+            SkillData.SkillPartGroupIndex++;
 			return;
         }
 

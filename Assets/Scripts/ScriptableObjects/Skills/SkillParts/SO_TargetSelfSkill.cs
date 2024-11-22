@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class SO_TargetSelfSkill : SO_Skillpart
     {
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillShotManager = SkillsManager.Instance;
-        SkillData.CurrentTargetsHit.Add(SkillData.Caster);
+        MatchedSkillPartData.TargetsHit.Add(SkillData.Caster);
         return this;
     }
 }

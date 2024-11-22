@@ -7,14 +7,6 @@ public class Character : Unit
     {
         Friendly = true;
         base.Init();
-
-        /// remove
-        // var SE = new DefaultStatusEffect
-        // {
-        //     statusEfectType = StatusEfectEnum.Rooted,
-        //     duration = 2
-        // };
-        // statusEffects.Add(SE);
     }
 
     public override void Update()
@@ -71,7 +63,23 @@ public class Character : Unit
 
             for (var i = 0; i < skills[skillIndex].SkillPartGroups.Count; i++)
 			{
-                SkillData.SkillPartDatas.Add(new SkillPartData());
+                var spg = skills[skillIndex].SkillPartGroups[i];
+                var skillPartGroupData = new SkillPartGroupData();
+                SkillData.SkillPartGroupDatas.Add(skillPartGroupData);
+
+                for (var s = 0; s < spg.skillParts.Count; s++)
+				{
+                    var skillPartData = new SkillPartData
+                    {
+                        Index = s
+                    };
+
+                    spg.skillParts[s].SkillPartIndex = s;
+                    spg.skillParts[s].MatchedSkillPartData = skillPartData;
+                    spg.skillParts[s].MatchedSkillPartGroupData = skillPartGroupData;
+
+                    skillPartGroupData.SkillPartDatas.Add(skillPartData);
+                }
 			}
 
             //preview skill
@@ -79,6 +87,7 @@ public class Character : Unit
             foreach (var skillPartGroup in skills[skillIndex].SkillPartGroups)
 			{
                 foreach (var skillPart in skillPartGroup.skillParts)
+                    for (int i = 0; i < skillPartGroup.skillParts.Count; i++)
 				{
 				    if (skillPart.OriginTileKind == OriginTileEnum.Caster)
 				    {
@@ -99,7 +108,6 @@ public class Character : Unit
 
     public void StopCasting()
     {
-        Debug.LogWarning("STOPPING");
         boardManager.Clear();
         UnitData.CurrentAction = UnitData.CurrentActionKind.Moving;
         SkillData.Reset();

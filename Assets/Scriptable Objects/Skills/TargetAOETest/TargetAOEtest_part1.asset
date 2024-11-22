@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OriginTileKind: 0
   TargetTileKind: 0
-  Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
   TargetTile: {fileID: 0}
   FinalDirection: 0
-  skillPartIndex: 0
+  MagicalDamage: 0
+  SkillPartIndex: 0
   DamageType: 0
   Damage: 0
   Range: 6
@@ -42,12 +42,16 @@ MonoBehaviour:
   - Type: 0
     Duration: 0
   tileColor:
-    color: {r: 0, g: 1, b: 0.94470406, a: 1}
-    priority: 3
-    IsCenter: 1
-  TargetsHit: []
-  TilesHit: []
+    UseCenterColor: 0
+    CenterColor: {r: 0, g: 0, b: 0, a: 0}
+    CenterPriority: 10
+    UseEdgeColor: 1
+    EdgeColor: {r: 0, g: 0.50561476, b: 1, a: 1}
+    EdgePriority: 9
   SelectedTileColor:
-    color: {r: 1, g: 0.023584902, b: 0.798102, a: 1}
-    priority: 1
-    IsCenter: 1
+    UseCenterColor: 1
+    CenterColor: {r: 0.042452812, g: 0.24013294, b: 1, a: 1}
+    CenterPriority: 8
+    UseEdgeColor: 0
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    EdgePriority: 10

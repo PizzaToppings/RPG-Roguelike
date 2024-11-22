@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,15 +12,15 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
         SkillsManager skillShotManager = SkillsManager.Instance;
         skillShotManager.GetAOE(this);
 
-        if (SkillData.CurrentTilesHit.Contains(mouseOverTile))
+        if (MatchedSkillPartData.TilesHit.Contains(mouseOverTile))
         {
-            SkillData.CurrentTilesHit.Clear();
+            MatchedSkillPartData.TilesHit.Clear();
             mouseOverTile.SetColor(SelectedTileColor);
-            SkillData.CurrentTilesHit.Add(mouseOverTile);
+            MatchedSkillPartData.TilesHit.Add(mouseOverTile);
 
             return this;
         }
-        SkillData.CurrentTilesHit.Clear();
+        MatchedSkillPartData.TilesHit.Clear();
 
         return this;
     }

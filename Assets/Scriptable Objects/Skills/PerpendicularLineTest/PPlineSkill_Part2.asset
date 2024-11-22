@@ -9,25 +9,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
-  m_Name: TargetAOEtest_part2
+  m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
+  m_Name: PPlineSkill_Part2
   m_EditorClassIdentifier: 
   OriginTileKind: 2
   TargetTileKind: 0
   OriginTiles: []
   TargetTile: {fileID: 0}
-  FinalDirection: 0
+  FinalDirection: 2
   skillPartIndex: 1
   MagicalDamage: 0
   DamageType: 0
   Damage: 0
-  Range: 6
+  Range: 3
   StatusEfects: []
   defaultStatusEffects: []
   tileColor:
     UseCenterColor: 1
-    CenterColor: {r: 1, g: 0, b: 0, a: 1}
-    CenterPriority: 1
+    CenterColor: {r: 1, g: 0, b: 0, a: 0}
+    CenterPriority: 9
     UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 0, b: 0, a: 1}
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     EdgePriority: 10
+  Angles: feffffff02000000
+  PierceAmount: -1

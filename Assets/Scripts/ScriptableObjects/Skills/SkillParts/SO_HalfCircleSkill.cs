@@ -8,7 +8,7 @@ public class SO_HalfCircleSkill : SO_Skillpart
     {
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.PreviewHalfCircle(this, TargetTile);
+        skillsManager.PreviewHalfCircle(this);
         return this; 
     }
 }

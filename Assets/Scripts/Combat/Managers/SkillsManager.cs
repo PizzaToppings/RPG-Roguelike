@@ -28,7 +28,7 @@ public class SkillsManager : MonoBehaviour
 		}
     }
 
-    public void PreviewLine(SO_LineSkill skillData, BoardTile targetTile)
+    public void PreviewLine(SO_LineSkill skillData)
     {
         List<int> directions = new List<int>();
 
@@ -36,33 +36,33 @@ public class SkillsManager : MonoBehaviour
         {
             foreach (var direction in skillData.Angles)
             {
-                var dir = direction + GetDirection(originTile, skillData);
+                var dir = direction + GetDirection(skillData);
                 directions.Add(dir);
             }
 
-            boardManager.PreviewLineCast(directions.ToArray(), skillData);
+            boardManager.PreviewLineCast(originTile, directions.ToArray(), skillData);
         }
     } 
 
-    public void PreviewCone(SO_ConeSkill skillData, BoardTile targetTile)
+    public void PreviewCone(SO_ConeSkill skillData)
     {
         foreach (var originTile in skillData.OriginTiles)
         {
-            var direction = GetDirection(originTile, skillData);
+            var direction = GetDirection(skillData);
             boardManager.PreviewConeCast(direction, skillData);
         }
     }
 
-    public void PreviewHalfCircle(SO_HalfCircleSkill skillData, BoardTile targetTile)
+    public void PreviewHalfCircle(SO_HalfCircleSkill skillData)
     {
         foreach (var originTile in skillData.OriginTiles)
         {
-            var direction = GetDirection(originTile, skillData);
+            var direction = GetDirection(skillData);
             boardManager.PreviewHalfCircleCast(direction, skillData);
         }
     }
 
-    int GetDirection(BoardTile originTile, BoardTile targetTile, SO_Skillpart skillData)
+    int GetDirection(SO_Skillpart skillData)
     {
         if (skillData.TargetTileKind == TargetTileEnum.PreviousDirection)
         {
@@ -70,54 +70,7 @@ public class SkillsManager : MonoBehaviour
             return skillData.FinalDirection;
         }
 
-        var tileDirectionIndex = 0;
-        Vector2 dir = targetTile.Coordinates - originTile.Coordinates;
-        float targetDirection = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-        float?[] directions = new float?[originTile.connectedTiles.Length];
-
-        for (int i = 0; i < originTile.connectedTiles.Length; i++)
-        {
-            if (originTile.connectedTiles[i] == null)
-			{
-                directions[i] = null;
-                continue;
-			}
-
-            dir = originTile.connectedTiles[i].Coordinates - originTile.Coordinates;
-			float? direction = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            directions[i] = direction;
-        }
-
-        float dif = float.MaxValue;
-
-        for (int i = 0; i < directions.Length; i++)
-        {
-            if (directions[i] == null)
-			{
-                continue;
-			}
-
-            float difference = Mathf.Abs(targetDirection - (float)directions[i]);
-
-            if (difference < dif)
-			{
-                dif = difference;
-                tileDirectionIndex = i;
-            }
-        }
-
-        skillData.FinalDirection = tileDirectionIndex;
-        return tileDirectionIndex;
-    }
-
-    int GetDirection(BoardTile originTile, SO_Skillpart skillData)
-    {
-        if (skillData.TargetTileKind == TargetTileEnum.PreviousDirection)
-        {
-            skillData.FinalDirection = skillData.GetPreviousSkillPart().FinalDirection;
-            return skillData.FinalDirection;
-        }
+        var originTile = SkillData.Caster.currentTile;
 
         var tileDirectionIndex = 0;
         var mousePosition = GetMousePosition();
