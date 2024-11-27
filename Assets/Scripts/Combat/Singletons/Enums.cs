@@ -10,6 +10,6 @@ public enum OriginTargetEnum { None, Caster, LastTarget, TargetOnLastTiles };
 public enum TargetTileEnum { MouseOverTile, CasterTile, Caster, PreviousDirection, MouseOverTarget };
 
 // Spell FX
-public enum SpellFxType { Projectile, AtLocation }
-public enum SpellFxOriginEnum { None, Caster, Target, Tiles }
-public enum SpellFxDestinationEnum { None, Caster, Target, Tiles }
+public enum SkillFxType { Projectile, Animation }
+public enum SkillFxOriginEnum { None, Caster, Target, Tiles }
+public enum SkillFxDestinationEnum { None, Caster, Target, Tiles }
