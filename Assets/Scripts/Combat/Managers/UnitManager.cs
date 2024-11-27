@@ -50,7 +50,7 @@ public class UnitManager : MonoBehaviour
         var randomY = Random.Range(0, BoardData.columnAmount);
         var randomPlace = BoardData.BoardTiles[randomX, randomY];
         unit.currentTile = randomPlace;
-        randomPlace.currentCharacter = unit;
+        randomPlace.currentUnit = unit;
         unit.transform.position = randomPlace.position;
         unit.Init();
 

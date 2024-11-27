@@ -26,7 +26,7 @@ public class BoardTile : MonoBehaviour
     // sillshot Info
     public List<float> skillshotsRangeLeft = new List<float>();
 
-    public Unit currentCharacter = null;
+    public Unit currentUnit = null;
 
     public TileColor currentCenterColor = new TileColor();
     public TileColor currentEdgeColor = new TileColor();
@@ -84,8 +84,8 @@ public class BoardTile : MonoBehaviour
 
         boardManager.currentMouseTile = this;
 
-        if (currentCharacter != null)
-            currentCharacter.IsTargeted = true;
+        if (currentUnit != null)
+            currentUnit.IsTargeted = true;
         
         // Show movement line
         if (movementLeft > -1 
@@ -108,8 +108,8 @@ public class BoardTile : MonoBehaviour
 
 		if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)
         {
-            if (currentCharacter != null)
-                currentCharacter.IsTargeted = false;
+            if (currentUnit != null)
+                currentUnit.IsTargeted = false;
                 
             boardManager.StopShowingMovement();
             OverrideColor(boardManager.MovementColor);

@@ -210,9 +210,9 @@ public class Unit : UnitStats
                 yield return new WaitForEndOfFrame();
             }
 
-            path[i].currentCharacter = null;
+            path[i].currentUnit = null;
             UnitData.CurrentActiveUnit.currentTile = path[i];
-            path[i].currentCharacter = UnitData.CurrentActiveUnit;
+            path[i].currentUnit = UnitData.CurrentActiveUnit;
             MoveSpeedLeft--;
             startPosition = endPosition;
         }

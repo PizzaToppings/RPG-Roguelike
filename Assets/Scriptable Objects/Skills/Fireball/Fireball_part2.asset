@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
+  m_Name: Fireball_part2
+  m_EditorClassIdentifier: 
+  OriginTileKind: 2
+  TargetTileKind: 0
+  OriginTiles:
+  - {fileID: 0}
+  TargetTile: {fileID: 0}
+  FinalDirection: 0
+  MagicalDamage: 0
+  SkillPartIndex: 1
+  DamageType: 0
+  Damage: 0
+  Range: 3
+  StatusEfects: []
+  defaultStatusEffects: []
+  tileColor:
+    UseCenterColor: 1
+    CenterColor: {r: 1, g: 0.16862746, b: 0, a: 1}
+    CenterPriority: 1
+    UseEdgeColor: 0
+    EdgeColor: {r: 1, g: 0, b: 0, a: 1}
+    EdgePriority: 10

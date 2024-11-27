@@ -513,11 +513,11 @@ public class BoardManager : MonoBehaviour
         if (UnitData.CurrentActiveUnit == null)
             return null;
 
-        if (tile.currentCharacter == null)
+        if (tile.currentUnit == null)
             return null;
 
-        if (IsCorrectTarget(tile.currentCharacter, data))
-            return tile.currentCharacter;
+        if (IsCorrectTarget(tile.currentUnit, data))
+            return tile.currentUnit;
 
         return null;
     }

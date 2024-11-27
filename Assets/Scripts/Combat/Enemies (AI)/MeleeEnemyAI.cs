@@ -63,12 +63,12 @@ public class MeleeEnemyAI : Enemy
             if (tile == null)
                 continue;
 
-            if (tile.currentCharacter)
+            if (tile.currentUnit)
 			{
                 // attack 
 
                 Debug.Log("enemy found");
-                Debug.Log(tile.currentCharacter);
+                Debug.Log(tile.currentUnit);
 			}
 		}
 	}
