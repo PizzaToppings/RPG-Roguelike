@@ -5,7 +5,7 @@ public class SkillFXManager : MonoBehaviour
 {
     public static SkillFXManager Instance;
 
-    // still needs to animate the casting character and affected characters
+    // TODO still needs to animate the casting character and affected characters
 
     public void Init()
     {
@@ -17,25 +17,32 @@ public class SkillFXManager : MonoBehaviour
         StartCoroutine("Cast", skillFx);
     }
 
-    IEnumerator Cast(SO_SKillFX skillFx)
+    public IEnumerator Cast(SO_SKillFX skillFx)
     {
+        var skillObject = Instantiate(skillFx.SkillObject, skillFx.Origin, Quaternion.identity);
+
         if (skillFx.SkillFxKind == SkillFxType.Projectile)
         {
             float distance = Vector3.Distance(skillFx.Origin, skillFx.Destination);
-            var skillObject = Instantiate(skillFx.SkillObject, skillFx.Origin, Quaternion.identity);
 
-            // While the object hasn't reached the destination
             while (distance > 0.1f)
             {
-                // Move the GameObject towards the end position
-                skillObject.transform.position = Vector3.MoveTowards(transform.position, skillFx.Destination, skillFx.ProjectileSpeed * Time.deltaTime);
+                skillObject.transform.position = Vector3.MoveTowards(skillObject.transform.position, skillFx.Destination, skillFx.ProjectileSpeed * Time.deltaTime);
 
-                // Recalculate the distance
                 distance = Vector3.Distance(skillObject.transform.position, skillFx.Destination);
 
-                // Wait until the next frame
                 yield return null;
             }
+
         }
+
+        if (skillFx.SkillFxKind == SkillFxType.Animation)
+        {
+            var particleSystem = skillObject.GetComponent<ParticleSystem>();
+            yield return new WaitUntil(() => particleSystem.isStopped);
+        }
+        
+        Destroy(skillObject);  // TODO cache this
+        yield return new WaitForSeconds(0.1f);
     }
 }

@@ -10,20 +10,15 @@ public class SO_SKillFX : ScriptableObject
 	[Space]
 	public float ProjectileSpeed;
 
-	[HideInInspector] public GameObject SkillObject;
+	public GameObject SkillObject;
 	[HideInInspector] public Vector3 Origin;
 	[HideInInspector] public Vector3 Destination;
 
 	private SkillPartData data;
 
-	public void Trigger(SkillPartData spd)
-	{
-		data = spd;
-		GetValues();
-	}
-
-	public void GetValues()
+	public void SetValues(SkillPartData spd)
     {
+		data = spd;
 		if (SkillFxKind == SkillFxType.Animation)
         {
 			Origin = Destination = GetDestination();
@@ -55,7 +50,7 @@ public class SO_SKillFX : ScriptableObject
 			origin = data.TilesHit[0].transform.position;
 		}
 
-		return origin;
+		return origin + Vector3.up;
 	}
 
 	public Vector3 GetDestination()
@@ -78,6 +73,6 @@ public class SO_SKillFX : ScriptableObject
 			destination = data.TilesHit[0].transform.position;
 		}
 
-		return destination;
+		return destination + Vector3.up;
     }
 }

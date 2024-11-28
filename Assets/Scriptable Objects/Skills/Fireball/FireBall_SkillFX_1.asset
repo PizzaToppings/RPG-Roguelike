@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
+  m_Name: FireBall_SkillFX_1
+  m_EditorClassIdentifier: 
+  SkillFxKind: 0
+  SkillOriginKind: 1
+  SkillDestinationKind: 3
+  ProjectileSpeed: 5
+  SkillObject: {fileID: 1402759525259452502, guid: 799e616a78da34c46a6521c3a29dc33d,
+    type: 3}
+  Origin: {x: 18, y: 1, z: 12}
+  Destination: {x: 22.5, y: 1, z: 18}

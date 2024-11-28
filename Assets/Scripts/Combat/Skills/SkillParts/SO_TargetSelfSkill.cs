@@ -8,7 +8,7 @@ public class SO_TargetSelfSkill : SO_Skillpart
     {
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillShotManager = SkillsManager.Instance;
-        MatchedSkillPartData.TargetsHit.Add(SkillData.Caster);
+        PartData.TargetsHit.Add(SkillData.Caster);
         return this;
     }
 }

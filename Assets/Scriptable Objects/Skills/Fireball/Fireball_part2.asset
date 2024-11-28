@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: Fireball_part2
   m_EditorClassIdentifier: 
-  OriginTileKind: 2
+  OriginTileKind: 3
+  OriginTargetKind: 0
   TargetTileKind: 0
+  SKillFX: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
+  OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
   MagicalDamage: 0

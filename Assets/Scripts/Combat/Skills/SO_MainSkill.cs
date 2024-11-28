@@ -21,8 +21,6 @@ public class SO_MainSkill : ScriptableObject
     private void Awake()
     {
         Reset();
-        BoardManager boardManager = BoardManager.Instance;
-        UnitManager unitManager = UnitManager.Instance;
     }
 
     public virtual void Preview(BoardTile mouseOverTile)
@@ -55,25 +53,5 @@ public class SO_MainSkill : ScriptableObject
     public virtual void Reset()
 	{
         SkillData.SkillPartGroupIndex = 0;
-    }
-
-    public virtual void Cast()
-    {
-        if (SkillData.SkillPartGroupIndex < SkillData.SkillPartGroupDatas.Count - 1)
-		{
-            SkillData.SkillPartGroupIndex++;
-			return;
-        }
-
-        foreach (var spg in SkillPartGroups)
-		{
-            foreach (var sp in spg.skillParts)
-			{
-                sp.Cast();
-			}
-		}
-
-        Character character = SkillData.Caster as Character;
-        character.StopCasting();
     }
 }

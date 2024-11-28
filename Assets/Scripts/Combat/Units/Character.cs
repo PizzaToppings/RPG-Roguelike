@@ -58,7 +58,7 @@ public class Character : Unit
             SkillData.Reset();
 
             UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
-            SkillData.CurrentMainSkillshot = skills[skillIndex];
+            SkillData.CurrentMainSkill = skills[skillIndex];
             SkillData.CurrentSkillshotIndex = skillIndex;
 
             for (var i = 0; i < skills[skillIndex].SkillPartGroups.Count; i++)
@@ -75,7 +75,7 @@ public class Character : Unit
                     };
 
                     spg.skillParts[s].SkillPartIndex = s;
-                    spg.skillParts[s].MatchedSkillPartData = skillPartData;
+                    spg.skillParts[s].PartData = skillPartData;
                     spg.skillParts[s].MatchedSkillPartGroupData = skillPartGroupData;
 
                     skillPartGroupData.SkillPartDatas.Add(skillPartData);
@@ -87,7 +87,6 @@ public class Character : Unit
             foreach (var skillPartGroup in skills[skillIndex].SkillPartGroups)
 			{
                 foreach (var skillPart in skillPartGroup.skillParts)
-                    for (int i = 0; i < skillPartGroup.skillParts.Count; i++)
 				{
 				    if (skillPart.OriginTileKind == OriginTileEnum.Caster)
 				    {

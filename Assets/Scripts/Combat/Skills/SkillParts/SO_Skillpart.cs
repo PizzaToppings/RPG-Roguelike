@@ -28,7 +28,7 @@ public class SO_Skillpart : ScriptableObject
     [HideInInspector] public List<BoardTile> OriginTiles;
     [HideInInspector] public List<Unit> OriginTargets;
     [HideInInspector] public BoardTile TargetTile;
-    [HideInInspector] public SkillPartData MatchedSkillPartData;
+    [HideInInspector] public SkillPartData PartData;
     [HideInInspector] public SkillPartGroupData MatchedSkillPartGroupData;
     [HideInInspector] public int FinalDirection;
 	[HideInInspector] public bool MagicalDamage;
@@ -46,11 +46,14 @@ public class SO_Skillpart : ScriptableObject
     [Space]
     public TileColor tileColor;
 
+    public List<BoardTile> tilesHit;
+
     public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts)
     {
         skillPartsList = skillParts;
 
         SkillData.CurrentSkillPartGroupData.SkillPartDatas[SkillPartIndex].TilesHit = new List<BoardTile>();
+        tilesHit = SkillData.CurrentSkillPartGroupData.SkillPartDatas[SkillPartIndex].TilesHit;
         SkillData.CurrentSkillPartGroupData.SkillPartDatas[SkillPartIndex].TargetsHit = new List<Unit>();
         OriginTiles = GetOriginTiles();
         OriginTargets = GetOriginTargets();
@@ -88,19 +91,6 @@ public class SO_Skillpart : ScriptableObject
         {
             tiles.AddRange(previousTilesHit);
         }
-
-        // never used?
-        //if (OriginTileKind == OriginTileEnum.MouseOverTarget) 
-        //{
-        //    if (previousTargetsHit.Count == 0)
-        //        return new List<BoardTile>();
-
-        //    var target = previousTargetsHit.Find(x => x.IsTargeted);
-        //    if (target != null)
-        //    {
-        //        tiles.Add(target.currentTile);
-        //    }
-        //}
 
         return tiles;
     }
@@ -159,16 +149,5 @@ public class SO_Skillpart : ScriptableObject
             return skillPartsList[thisIndex - 1];
 
         return null;
-    }
-
-    public virtual void Cast()
-    {
-        var damageManager = DamageManager.Instance;
-
-        foreach (var target in SkillData.GetCurrentTargetsHit(SkillPartIndex))
-        {
-            var data = damageManager.DealDamage(this, target);
-            damageManager.TakeDamage(data);
-        }
     }
 }

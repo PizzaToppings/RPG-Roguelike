@@ -253,17 +253,6 @@ public class Unit : UnitStats
         boardManager.Clear();
     }
 
-    public void CastSkill()
-    {
-        for (int i = 0; i < SkillshotsEquipped.Count; i++)
-        {
-            if (SkillData.CurrentSkillshotIndex == i + 1 && SkillshotsEquipped[i])
-            {
-                skills[i].Cast();
-            }
-        }
-    }
-
     public virtual IEnumerator StartTurn()
     {
         yield return null;

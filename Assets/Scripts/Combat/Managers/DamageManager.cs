@@ -18,14 +18,14 @@ public class DamageManager : MonoBehaviour
         var caster = SkillData.Caster;
 
         var roll = Random.Range(1, skillshot.Damage);
-        var addition = SkillData.CurrentMainSkillshot.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+        var addition = SkillData.CurrentMainSkill.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
         var damage = roll + addition;
 
         DamageData data = new DamageData()
         {
             DamageType = skillshot.DamageType,
             Caster = caster,
-            MagicalDamage = SkillData.CurrentMainSkillshot.MagicalDamage,
+            MagicalDamage = SkillData.CurrentMainSkill.MagicalDamage,
             Target = target,
             Damage = damage,
             statusEffects = AddDefaultStatusEffects(skillshot)
