@@ -27,14 +27,7 @@ public class SkillsManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) // TODO requires tile
         {
-            if (SkillData.SkillPartGroupIndex < SkillData.SkillPartGroupDatas.Count - 1)
-            {
-                SkillData.SkillPartGroupIndex++;
-                return;
-            }
-
-            UnitData.CurrentAction = UnitData.CurrentActionKind.Animating;
-            StartCoroutine(CastSkills());
+            StartCasting();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -138,6 +131,19 @@ public class SkillsManager : MonoBehaviour
         boardManager.SetAOE(data.Range, data.OriginTiles, data);
     }
 
+    void StartCasting()
+    {
+        if (SkillData.SkillPartGroupIndex < SkillData.SkillPartGroupDatas.Count - 1)
+        {
+            SkillData.SkillPartGroupIndex++;
+            return;
+        }
+
+        UnitData.CurrentAction = UnitData.CurrentActionKind.Animating;
+        boardManager.Clear();
+        StartCoroutine(CastSkills());
+    }
+
     public IEnumerator CastSkills()
     {
         var skill = SkillData.CurrentMainSkill;
@@ -154,7 +160,7 @@ public class SkillsManager : MonoBehaviour
         character.StopCasting();
     }
 
-    public IEnumerator CastSkillsPart(SO_Skillpart skillPart)
+    IEnumerator CastSkillsPart(SO_Skillpart skillPart)
     {
         var index = skillPart.SkillPartIndex;
         var skillFX = skillPart.SKillFX;
