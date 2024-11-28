@@ -16,6 +16,8 @@ public class InitiativeInformation : MonoBehaviour
     public Color EnemyBackground;
     public Color EnemyNumber;
 
+    public int Initiative = 0;
+
     public void Init(Unit unit, int index)
     {
         if (unit.Friendly)
@@ -29,7 +31,8 @@ public class InitiativeInformation : MonoBehaviour
             number.color = EnemyNumber;
         }
 
-        number.text = index.ToString();
+        number.text = (index + 1).ToString();
+        Initiative = unit.Initiative;
     }
 
     public void ToggleActive(bool active)

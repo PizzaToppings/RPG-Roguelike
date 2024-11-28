@@ -24,7 +24,7 @@ MonoBehaviour:
   MagicalDamage: 0
   SkillPartIndex: 1
   DamageType: 0
-  Damage: 0
+  Damage: 10
   Range: 3
   StatusEfects: []
   defaultStatusEffects: []
@@ -35,25 +35,3 @@ MonoBehaviour:
     UseEdgeColor: 0
     EdgeColor: {r: 1, g: 0, b: 0, a: 1}
     EdgePriority: 10
-  tilesHit:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}

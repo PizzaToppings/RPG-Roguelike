@@ -46,14 +46,11 @@ public class SO_Skillpart : ScriptableObject
     [Space]
     public TileColor tileColor;
 
-    public List<BoardTile> tilesHit;
-
     public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts)
     {
         skillPartsList = skillParts;
 
         SkillData.CurrentSkillPartGroupData.SkillPartDatas[SkillPartIndex].TilesHit = new List<BoardTile>();
-        tilesHit = SkillData.CurrentSkillPartGroupData.SkillPartDatas[SkillPartIndex].TilesHit;
         SkillData.CurrentSkillPartGroupData.SkillPartDatas[SkillPartIndex].TargetsHit = new List<Unit>();
         OriginTiles = GetOriginTiles();
         OriginTargets = GetOriginTargets();

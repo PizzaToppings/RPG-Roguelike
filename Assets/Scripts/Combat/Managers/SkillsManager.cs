@@ -166,16 +166,25 @@ public class SkillsManager : MonoBehaviour
         var skillFX = skillPart.SKillFX;
         var skillPartData = skillPart.PartData;
 
+        foreach (var target in SkillData.GetCurrentTargetsHit(index))
+        {
+            if (skillPart.Damage > 0)
+            {
+                var data = damageManager.GetDamageData(skillPart, target);
+                damageManager.TakeDamage(data);
+            }
+        }
+
         if (skillFX != null)
         {
             skillFX.SetValues(skillPartData);
             yield return StartCoroutine(skillFXManager.Cast(skillFX));
         }
 
-        //foreach (var target in SkillData.GetCurrentTargetsHit(index))
-        //{
-        //    var data = damageManager.DealDamage(skillPart, target);
-        //    damageManager.TakeDamage(data);
-        //}
+        foreach (var target in SkillData.GetCurrentTilesHit(index))
+        {
+            //var data = damageManager.DealDamage(skillPart, target);
+            //damageManager.TakeDamage(data);
+        }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DamageManager : MonoBehaviour
 {
+    [SerializeField] HealthCanvas healthCanvas;
+
     StatusEffectManager statusEffectManager;
     public static DamageManager Instance;
 
@@ -13,7 +15,7 @@ public class DamageManager : MonoBehaviour
         statusEffectManager = StatusEffectManager.Instance;
     }
 
-    public DamageData DealDamage(SO_Skillpart skillshot, Unit target)
+    public DamageData GetDamageData(SO_Skillpart skillshot, Unit target)
     {
         var caster = SkillData.Caster;
 
@@ -64,7 +66,8 @@ public class DamageManager : MonoBehaviour
 
         statusEffectManager.Blinded(target, data);
 
-        //Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " damage.");
+        Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " damage.");
+        healthCanvas.ShowDamageNumber(data);
 
         if (data.Damage == 0)
             return;
@@ -75,6 +78,7 @@ public class DamageManager : MonoBehaviour
 
         foreach (var statusEffect in data.statusEffects)
             statusEffect.Apply(caster, target);
+
     }
 
     public void TakeDotDamage(Unit target)
