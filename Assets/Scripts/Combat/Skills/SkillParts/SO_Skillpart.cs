@@ -36,7 +36,7 @@ public class SO_Skillpart : ScriptableObject
 
     [Space]
     public DamageTypeEnum DamageType;
-    public int Damage;
+    public int Power;
     public int Range;
     
     [Space]

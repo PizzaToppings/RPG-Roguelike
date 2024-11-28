@@ -168,7 +168,7 @@ public class SkillsManager : MonoBehaviour
 
         foreach (var target in SkillData.GetCurrentTargetsHit(index))
         {
-            if (skillPart.Damage > 0)
+            if (skillPart.Power > 0)
             {
                 var data = damageManager.GetDamageData(skillPart, target);
                 damageManager.TakeDamage(data);

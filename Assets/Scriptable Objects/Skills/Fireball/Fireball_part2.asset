@@ -23,8 +23,8 @@ MonoBehaviour:
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 1
-  DamageType: 0
-  Damage: 10
+  DamageType: 3
+  Power: 40
   Range: 3
   StatusEfects: []
   defaultStatusEffects: []

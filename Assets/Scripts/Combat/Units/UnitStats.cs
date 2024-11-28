@@ -24,10 +24,11 @@ public class UnitStats : MonoBehaviour
 
     public int PhysicalPower;
     public int MagicalPower;
-    // public int PhysicalDefense;
-    // public int MagicalDefense;
+	public int PhysicalDefense;
+	public int MagicalDefense;
 
-    public List<DamageTypeEnum> Resistances;
+	public List<DamageTypeEnum> Resistances;
+	public List<DamageTypeEnum> Vulnerabilities;
 
     public List<DefaultStatusEffect> statusEffects = new List<DefaultStatusEffect>();
 

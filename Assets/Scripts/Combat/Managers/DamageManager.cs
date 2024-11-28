@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,30 +14,49 @@ public class DamageManager : MonoBehaviour
         statusEffectManager = StatusEffectManager.Instance;
     }
 
-    public DamageData GetDamageData(SO_Skillpart skillshot, Unit target)
+    public DamageData GetDamageData(SO_Skillpart skill, Unit target)
     {
         var caster = SkillData.Caster;
-
-        var roll = Random.Range(1, skillshot.Damage);
-        var addition = SkillData.CurrentMainSkill.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
-        var damage = roll + addition;
+        var damage = CalculateDamage(skill, caster, target);
 
         DamageData data = new DamageData()
         {
-            DamageType = skillshot.DamageType,
+            DamageType = skill.DamageType,
             Caster = caster,
             MagicalDamage = SkillData.CurrentMainSkill.MagicalDamage,
             Target = target,
             Damage = damage,
-            statusEffects = AddDefaultStatusEffects(skillshot)
+            statusEffects = AddDefaultStatusEffects(skill)
         };
 
-        data.statusEffects.AddRange(skillshot.StatusEfects);
+        data.statusEffects.AddRange(skill.StatusEfects);
 
         if (caster.OnDealDamage != null)
             caster.OnDealDamage.Invoke(data);
 
         return data;
+    }
+
+    int CalculateDamage(SO_Skillpart skill, Unit caster, Unit target)
+	{
+        var skillPower = skill.Power;
+        var power = SkillData.CurrentMainSkill.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+        var defense = SkillData.CurrentMainSkill.MagicalDamage ? target.MagicalDefense : target.PhysicalDefense;
+        var typeModifier = GetTypeModifyer(skill, target);
+
+        var damage = Mathf.CeilToInt(((10 * skillPower * power / defense) / 50) * typeModifier);
+        return damage;
+    }
+
+    float GetTypeModifyer(SO_Skillpart skill, Unit target)
+	{
+        if (target.Resistances.Contains(skill.DamageType))
+            return 0.5f;
+
+        if (target.Vulnerabilities.Contains(skill.DamageType))
+            return 2;
+
+        return 1;
     }
 
     List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillpart skillshot)
