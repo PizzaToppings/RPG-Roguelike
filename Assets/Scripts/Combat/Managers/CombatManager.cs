@@ -79,7 +79,7 @@ public class CombatManager : MonoBehaviour
             CombatData.currentCharacterTurn = 0;
             RoundStart();
         }
-        
+
         initiativeTracker.NextTurn();
 
         var CurrentActiveUnit = UnitData.Units[CombatData.currentCharacterTurn];

@@ -5,24 +5,19 @@ using UnityEngine;
 
 public class InitiativeTracker : MonoBehaviour
 {
-    [SerializeField] Color activeColor;
-    [SerializeField] Color inactiveColor;
+    public GameObject InitiativeImage;
 
-    [SerializeField] TextMeshProUGUI roundNumber;
-    [SerializeField] List<TextMeshProUGUI> initiativeNames = new List<TextMeshProUGUI>();
-
-
-    void Start()
-    {
-
-    }
+    List<InitiativeInformation> InitiativeList = new List<InitiativeInformation>();
 
     public void SetInitiative()
     {
         for (int i = 0; i < UnitData.Units.Count; i++)
         {
-            var name = UnitData.Units[i].UnitName == "" ? UnitData.Units[i].name : UnitData.Units[i].UnitName;
-            initiativeNames[i].text = name;
+            var image = Instantiate(InitiativeImage, transform);
+            var init = image.GetComponent<InitiativeInformation>();
+            init.Init(UnitData.Units[i], i);
+
+            InitiativeList.Add(init);
         }
 
         NextTurn();
@@ -30,14 +25,14 @@ public class InitiativeTracker : MonoBehaviour
 
     public void NextTurn()
     {
-        foreach (var initiativeName in initiativeNames)
-            initiativeName.color = inactiveColor;
+        foreach (var initiative in InitiativeList)
+            initiative.ToggleActive(false);
 
-        initiativeNames[CombatData.currentCharacterTurn].color = activeColor;
+        InitiativeList[CombatData.currentCharacterTurn].ToggleActive(true);
     }
 
     public void NextRound()
     {
-        roundNumber.text = CombatData.currentRound.ToString();
+        //roundNumber.text = CombatData.currentRound.ToString();
     }
 }

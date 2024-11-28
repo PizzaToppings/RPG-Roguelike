@@ -15,7 +15,7 @@ MonoBehaviour:
   OriginTileKind: 3
   OriginTargetKind: 0
   TargetTileKind: 0
-  SKillFX: {fileID: 0}
+  SKillFX: {fileID: 11400000, guid: aa5d222e2defa0e4c9889f515074bb73, type: 2}
   OriginTiles:
   - {fileID: 0}
   OriginTargets: []
@@ -30,8 +30,30 @@ MonoBehaviour:
   defaultStatusEffects: []
   tileColor:
     UseCenterColor: 1
-    CenterColor: {r: 1, g: 0.16862746, b: 0, a: 1}
+    CenterColor: {r: 1, g: 0.84751475, b: 0, a: 1}
     CenterPriority: 1
     UseEdgeColor: 0
     EdgeColor: {r: 1, g: 0, b: 0, a: 1}
     EdgePriority: 10
+  tilesHit:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

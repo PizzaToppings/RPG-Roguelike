@@ -6,9 +6,11 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
 
-
     //---------------------------
 
+    [SerializeField] HealthCanvas healthCanvas;
+
+    [Space]
     [SerializeField] Transform characterParent;
     [SerializeField] Transform enemyParent;
 
@@ -39,6 +41,8 @@ public class UnitManager : MonoBehaviour
         {
             PlaceUnit(child);
         }
+
+        healthCanvas.Init();
     }
 
     void PlaceUnit(Transform child)

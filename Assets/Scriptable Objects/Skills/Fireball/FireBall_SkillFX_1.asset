@@ -15,8 +15,8 @@ MonoBehaviour:
   SkillFxKind: 0
   SkillOriginKind: 1
   SkillDestinationKind: 3
-  ProjectileSpeed: 5
+  ProjectileSpeed: 20
   SkillObject: {fileID: 1402759525259452502, guid: 799e616a78da34c46a6521c3a29dc33d,
     type: 3}
-  Origin: {x: 18, y: 1, z: 12}
-  Destination: {x: 22.5, y: 1, z: 18}
+  Origin: {x: 13.5, y: 1, z: 4.5}
+  Destination: {x: 15, y: 1, z: 13.5}
