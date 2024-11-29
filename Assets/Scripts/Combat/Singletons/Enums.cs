@@ -1,8 +1,10 @@
+// states
+public enum CurrentActionKind { None, Moving, CastingSkillshot, Animating };
+public enum GameState { StartOfGame, StartOfRound, StartOfTurn, EndOfTurn, EndOfRound, EndOfGame}
 
+// Damage
 public enum DamageTypeEnum {Physical, Arcane, Fire, Water, Earth, Ice, Electric, Psychic, Holy, Dark, Poison, Healing}
 public enum StatusEfectEnum {None, Blinded, Silenced, Charmed, Frightened, Incapacitated, Stunned, DoT, Rooted, Invisible, Unstoppable}
-public enum currentUnitAction {Nothing, Moving, Casting }
-public enum GameState { StartOfGame, StartOfRound, StartOfTurn, EndOfTurn, EndOfRound, EndOfGame}
 
 // Spell Targeting
 public enum OriginTileEnum { None, Caster, LastTargetTile, LastTile };

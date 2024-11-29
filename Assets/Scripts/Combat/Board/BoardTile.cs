@@ -59,7 +59,7 @@ public class BoardTile : MonoBehaviour
         if (UnitData.CurrentActiveUnit.Friendly == false)
             return;
 
-        if (movementLeft > -1 && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
+        if (movementLeft > -1 && UnitData.CurrentAction == CurrentActionKind.Moving)
         {
             // start moving
             MoveToTile();
@@ -73,6 +73,7 @@ public class BoardTile : MonoBehaviour
 
     public void MoveToTile() 
     {
+        UnitData.CurrentAction = CurrentActionKind.Animating;
         boardManager.Path.Reverse();
         UnitData.CurrentActiveUnit.StartMoving(boardManager.Path);
     }
@@ -89,7 +90,7 @@ public class BoardTile : MonoBehaviour
         
         // Show movement line
         if (movementLeft > -1 
-            && UnitData.CurrentAction == UnitData.CurrentActionKind.Moving)
+            && UnitData.CurrentAction == CurrentActionKind.Moving)
         {
             boardManager.Path = new List<BoardTile>();
 			boardManager.PreviewMovementLine(this);

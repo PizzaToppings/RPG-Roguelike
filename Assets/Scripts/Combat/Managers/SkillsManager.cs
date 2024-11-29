@@ -22,7 +22,7 @@ public class SkillsManager : MonoBehaviour
 
     void Update()
     {
-        if (UnitData.CurrentAction != UnitData.CurrentActionKind.CastingSkillshot)
+        if (UnitData.CurrentAction != CurrentActionKind.CastingSkillshot)
             return;
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) // TODO requires tile
@@ -43,7 +43,7 @@ public class SkillsManager : MonoBehaviour
             }
         }
 
-        if (UnitData.CurrentAction == UnitData.CurrentActionKind.CastingSkillshot)
+        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
             UnitData.CurrentActiveUnit.PreviewSkills(boardManager.currentMouseTile);
         }
@@ -139,7 +139,7 @@ public class SkillsManager : MonoBehaviour
             return;
         }
 
-        UnitData.CurrentAction = UnitData.CurrentActionKind.Animating;
+        UnitData.CurrentAction = CurrentActionKind.Animating;
         boardManager.Clear();
         StartCoroutine(CastSkills());
     }

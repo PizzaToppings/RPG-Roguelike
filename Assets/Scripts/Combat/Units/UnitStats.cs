@@ -15,9 +15,6 @@ public class UnitStats : MonoBehaviour
     public float MoveSpeedLeft;
     public int Initiative;
 
-    public currentUnitAction CurrentUnitAction;
-
-    
     public bool IsTargeted;
 
     public int PhysicalPower;

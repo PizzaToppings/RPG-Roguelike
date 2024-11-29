@@ -165,7 +165,6 @@ public class Unit : UnitStats
 
     IEnumerator Move(List<BoardTile> path)
     {
-        CurrentUnitAction = currentUnitAction.Moving;
         Vector3 startPosition = transform.position; 
         Vector3 endPosition;
 
@@ -191,10 +190,10 @@ public class Unit : UnitStats
             startPosition = endPosition;
         }
         var endTile = path[path.Count-1];
+        UnitData.CurrentAction = CurrentActionKind.Moving;
         boardManager.Clear();
         boardManager.SetAOE(MoveSpeedLeft, endTile, null);
         modelAnimator.SetBool("Run", false);
-        CurrentUnitAction = currentUnitAction.Nothing;
     }
 
     void Rotate(Vector3 endPosition) 

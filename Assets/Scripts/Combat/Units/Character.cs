@@ -58,7 +58,7 @@ public class Character : Unit
 
     void UseSkills()
     {
-        if (UnitData.CurrentActiveUnit != this)
+        if (UnitData.CurrentActiveUnit != this || UnitData.CurrentAction != CurrentActionKind.Moving)
             return;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -91,7 +91,7 @@ public class Character : Unit
 
             SkillData.Reset();
 
-            UnitData.CurrentAction = UnitData.CurrentActionKind.CastingSkillshot; 
+            UnitData.CurrentAction = CurrentActionKind.CastingSkillshot; 
             SkillData.CurrentMainSkill = skills[skillIndex];
             SkillData.CurrentSkillshotIndex = skillIndex;
 
@@ -142,7 +142,7 @@ public class Character : Unit
     public void StopCasting()
     {
         boardManager.Clear();
-        UnitData.CurrentAction = UnitData.CurrentActionKind.Moving;
+        UnitData.CurrentAction = CurrentActionKind.Moving;
         SkillData.Reset();
         boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
     }
@@ -165,6 +165,6 @@ public class Character : Unit
         yield return null;
         StartCoroutine(base.StartTurn());
 
-		UnitData.CurrentAction = UnitData.CurrentActionKind.Moving;
+		UnitData.CurrentAction = CurrentActionKind.Moving;
 	}
 }
