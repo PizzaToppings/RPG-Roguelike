@@ -23,11 +23,12 @@ public class UIManager : MonoBehaviour
     {
         if (CurrentActiveUnit is Character)
         {
-            SetSkillIcons(CurrentActiveUnit);
+            var character = CurrentActiveUnit as Character;
+            SetSkillIcons(character);
         }
     }
 
-    public void SetSkillIcons(Unit CurrentActiveUnit)
+    public void SetSkillIcons(Character CurrentActiveUnit)
     {
         for (int i = 0; i < CurrentActiveUnit.skills.Count; i++)
         {

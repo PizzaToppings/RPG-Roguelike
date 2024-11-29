@@ -23,7 +23,7 @@ MonoBehaviour:
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 1
-  DamageType: 3
+  DamageType: 5
   Power: 40
   Range: 3
   StatusEfects: []

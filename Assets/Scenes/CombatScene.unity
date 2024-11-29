@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -795,6 +795,36 @@ PrefabInstance:
         type: 3}
       propertyPath: Friendly
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: Hitpoints
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: MagicalPower
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: MaxHitpoints
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: PhysicalPower
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: MagicalDefense
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
+        type: 3}
+      propertyPath: PhysicalDefense
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -5189,20 +5219,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: 
   Friendly: 0
-  MaxHitpoints: 0
-  Hitpoints: 0
+  MaxHitpoints: 30
+  Hitpoints: 30
   ShieldPoints: 0
   MoveSpeed: 0
   MoveSpeedLeft: 0
   Initiative: 0
   CurrentUnitAction: 0
-  MaxSkillShotAmount: 4
-  SkillshotsEquipped: 
-  skills: []
   IsTargeted: 0
-  PhysicalPower: 0
-  MagicalPower: 0
-  Resistances: 
+  PhysicalPower: 56
+  MagicalPower: 25
+  PhysicalDefense: 35
+  MagicalDefense: 35
+  Resistances: 05000000
+  Vulnerabilities: 
   combatManager: {fileID: 0}
   boardManager: {fileID: 0}
   unitManager: {fileID: 0}
@@ -5383,20 +5413,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: 
   Friendly: 0
-  MaxHitpoints: 0
-  Hitpoints: 0
+  MaxHitpoints: 40
+  Hitpoints: 40
   ShieldPoints: 0
   MoveSpeed: 0
   MoveSpeedLeft: 0
   Initiative: 0
   CurrentUnitAction: 0
-  MaxSkillShotAmount: 4
-  SkillshotsEquipped: 
-  skills: []
   IsTargeted: 0
   PhysicalPower: 0
   MagicalPower: 0
-  Resistances: 
+  PhysicalDefense: 40
+  MagicalDefense: 35
+  Resistances: 05000000
+  Vulnerabilities: 
   combatManager: {fileID: 0}
   boardManager: {fileID: 0}
   unitManager: {fileID: 0}

@@ -52,38 +52,12 @@ public class Unit : UnitStats
        currentTile.UnTarget();
     }
 
-    void SetStats()
+    public virtual void SetStats()
     {
         // TODO: Get stats, not randomize
         UnitName = nameGenerator();
         gameObject.name = UnitName;
         MoveSpeed = Random.Range(5, 15);
-        PhysicalPower = Random.Range(0, 5);
-        MagicalPower = Random.Range(0, 5);
-
-        if (skills?.Count == 0)
-            return;
-
-        SetSkillShots();
-    }
-
-    void SetSkillShots()
-    {
-        SkillData.Caster = this;
-
-		for (int i = 0; i < MaxSkillShotAmount; i++)
-        {
-            if (i >= skills.Count)
-            {
-                SkillshotsEquipped.Add(false);
-                continue;
-            }
-
-            if (skills[i] != null)
-                SkillshotsEquipped.Add(true);
-            else
-                SkillshotsEquipped.Add(true);
-        }
     }
 
     /// temp

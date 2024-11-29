@@ -79,11 +79,6 @@ public class DamageManager : MonoBehaviour
         var caster = data.Caster;
         var target = data.Target;
 
-        if (target.Resistances.Contains(data.DamageType))
-            data.Damage = Mathf.CeilToInt(data.Damage / 2f);
-
-        statusEffectManager.Blinded(target, data);
-
         Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " damage.");
         healthCanvas.ShowDamageNumber(data);
 

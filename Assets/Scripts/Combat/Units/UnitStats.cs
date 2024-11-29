@@ -17,9 +17,7 @@ public class UnitStats : MonoBehaviour
 
     public currentUnitAction CurrentUnitAction;
 
-    public int MaxSkillShotAmount = 4;
-    public List<bool> SkillshotsEquipped;
-    public List<SO_MainSkill> skills = new List<SO_MainSkill>();
+    
     public bool IsTargeted;
 
     public int PhysicalPower;

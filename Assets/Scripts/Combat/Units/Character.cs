@@ -1,8 +1,13 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : Unit
 {
+    public int MaxSkillShotAmount = 4;
+    public List<bool> SkillshotsEquipped;
+    public List<SO_MainSkill> skills = new List<SO_MainSkill>();
+
     public override void Init()
     {
         Friendly = true;
@@ -19,6 +24,35 @@ public class Character : Unit
                 EndTurn();
 
             UseSkills();
+        }
+    }
+
+	public override void SetStats()
+	{
+		base.SetStats();
+
+        if (skills?.Count == 0)
+            return;
+
+        SetSkillShots();
+    }
+
+    void SetSkillShots()
+    {
+        SkillData.Caster = this;
+
+        for (int i = 0; i < MaxSkillShotAmount; i++)
+        {
+            if (i >= skills.Count)
+            {
+                SkillshotsEquipped.Add(false);
+                continue;
+            }
+
+            if (skills[i] != null)
+                SkillshotsEquipped.Add(true);
+            else
+                SkillshotsEquipped.Add(true);
         }
     }
 
