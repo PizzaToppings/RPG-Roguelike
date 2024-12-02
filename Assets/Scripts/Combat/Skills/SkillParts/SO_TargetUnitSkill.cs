@@ -28,4 +28,9 @@ public class SO_TargetUnitSkill : SO_Skillpart
         SkillData.GetCurrentTargetsHit(SkillPartIndex).Clear();
         SkillData.GetCurrentTargetsHit(SkillPartIndex).Add(target);
     }
+
+    public override void SetTargetAndTile(Unit target, BoardTile tile)
+    {
+        TargetUnit(target);
+    }
 }

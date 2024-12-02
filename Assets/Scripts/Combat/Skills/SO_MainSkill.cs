@@ -65,6 +65,17 @@ public class SO_MainSkill : ScriptableObject
         return totalRange;
     }
 
+    public void SetTargetAndTile(Unit target, BoardTile tile)
+	{
+        foreach (var spg in SkillPartGroups)
+        {
+            foreach (var sp in spg.skillParts)
+            {
+                sp.SetTargetAndTile(target, tile);
+            }
+        }
+    }
+
     public virtual void Reset()
 	{
         SkillData.SkillPartGroupIndex = 0;

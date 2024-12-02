@@ -68,9 +68,7 @@ public class SkillData
     public static void AddTargetToCurrentList(int skillPartIndex, Unit target)
     {
         if (target == null)
-        {
             return;
-        }
 
         var currentTargetsHit = GetCurrentTargetsHit(skillPartIndex);
 
@@ -83,7 +81,7 @@ public class SkillData
     public static void Reset()
     {
         CurrentActiveSkill = null;
-        SkillPartGroupDatas.Clear();
+        SkillPartGroupDatas.ForEach(x => x.Reset());
         SkillPartGroupIndex = 0;
     }
 }

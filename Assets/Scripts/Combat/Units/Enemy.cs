@@ -42,6 +42,7 @@ public class Enemy : Unit
 
     public override void OnMouseEnter()
 	{
+        IsTargeted = true;
         currentTile.Target();
     }
 
@@ -54,7 +55,12 @@ public class Enemy : Unit
 			{
                 closestTile = TilesInAttackRange().FirstOrDefault();
                 closestTile.Target();
-			}
+
+                if (SkillData.CurrentActiveSkill == null)
+				{
+                    (UnitData.CurrentActiveUnit as Character).basicSkill.SetTargetAndTile(this, currentTile);
+                }
+            }
         }
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
@@ -71,6 +77,7 @@ public class Enemy : Unit
 
     public override void OnMouseExit()
     {
+        IsTargeted = false;
         currentTile.UnTarget();
     }
 
@@ -83,7 +90,9 @@ public class Enemy : Unit
 
 		if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
 			currentTile.UnTarget();
-	}
+
+		SkillData.Reset();
+    }
 
     public override void EndTurn()
     {

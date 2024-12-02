@@ -36,7 +36,7 @@ MonoBehaviour:
     EdgeColor: {r: 0.764151, g: 0.55480915, b: 0, a: 1}
     EdgePriority: 3
   SelectedTargetTileColor:
-    UseCenterColor: 0
+    UseCenterColor: 1
     CenterColor: {r: 0.76470596, g: 0.5529412, b: 0, a: 1}
     CenterPriority: 3
     UseEdgeColor: 1

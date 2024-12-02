@@ -128,8 +128,12 @@ public class BoardTile : MonoBehaviour
 			if (currentUnit is Enemy)
 			{
 				(currentUnit as Enemy).UnTargetEnemy();
-			}
-			return;
+                if (movementLeft >= 0)
+                    OverrideColor(boardManager.MovementColor);
+                else
+                    OverrideColor(boardManager.originalColor);
+            }
+            return;
 		}
 
 		if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)

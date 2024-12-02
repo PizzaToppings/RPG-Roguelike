@@ -13,7 +13,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] GameObject tilePrefab;
     [SerializeField] Transform BoardParent;
 
-    [SerializeField] TileColor originalColor;
+    public TileColor originalColor;
     public TileColor MovementColor;
     public TileColor MouseOverColor;
 
@@ -133,6 +133,7 @@ public class BoardManager : MonoBehaviour
 
     public void Clear()
     {
+        Debug.Log("CLEAR");
         foreach (var tile in BoardData.BoardTiles)
         {
             tile.movementLeft = -1;

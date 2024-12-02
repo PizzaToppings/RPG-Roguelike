@@ -147,4 +147,8 @@ public class SO_Skillpart : ScriptableObject
 
         return null;
     }
+
+    public virtual void SetTargetAndTile(Unit target, BoardTile tile)
+	{
+	}
 }
