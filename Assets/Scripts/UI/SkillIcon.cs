@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +5,14 @@ public class SkillIcon : MonoBehaviour
 {
     [SerializeField] int skillIndex;
 
-    public InfoScreen infoScreen;
+    [HideInInspector] public InfoScreen infoScreen;
+    [HideInInspector] public string infoText;
 
-   public Image icon;
-   public Image backGround;
-   public string infoText;
-   public Button button; 
+    SO_MainSkill skill;
+
+    public Image icon;
+    public Image backGround;
+    public Button button; 
 
     public Color activeColor;
     public Color passiveColor;
@@ -20,8 +20,6 @@ public class SkillIcon : MonoBehaviour
    float infoDelay = 1.5f;
    float infoTimer = 0;
    bool isHovering = false;
-
-
 
     public void Init()
     {
@@ -34,16 +32,17 @@ public class SkillIcon : MonoBehaviour
         ShowInformation();
     }
 
-    public void Set(SO_MainSkill skillShot) 
+    public void Set(SO_MainSkill thisSkill) 
     {
-        icon.sprite = skillShot.Image;
-        infoText = skillShot.Description;
+        skill = thisSkill;
+        icon.sprite = skill.Image;
+        infoText = skill.Description;
     }
 
     public void CastSkill()
     {
         Character caster = UnitData.CurrentActiveUnit as Character;
-        caster.ToggleSkill(skillIndex);
+        caster.ToggleSkill(skill); // move to skillmanager?
     }
 
     public void SetActiveColor(bool active)
@@ -59,6 +58,11 @@ public class SkillIcon : MonoBehaviour
         isHovering = true;
     }
 
+    public void OnPointerClick()
+    {
+        CastSkill();
+    }
+
     public void OnPointerExit() 
     {
         isHovering = false;
@@ -67,14 +71,14 @@ public class SkillIcon : MonoBehaviour
 
     void ShowInformation()
     {
-        if (isHovering && !infoScreen.IsActive)
-        {
-            infoTimer += Time.deltaTime;
+        //if (isHovering && !infoScreen.IsActive)
+        //{
+        //    infoTimer += Time.deltaTime;
             
-            if (infoTimer > infoDelay) 
-            {
-                infoScreen.SetActive(true);
-            }
-        }
+        //    if (infoTimer > infoDelay) 
+        //    {
+        //        infoScreen.SetActive(true);
+        //    }
+        //}
     }
 }

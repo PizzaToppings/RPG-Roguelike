@@ -1,11 +1,19 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Unit : UnitStats
 {
-    public bool MouseOver;
+    [HideInInspector] public CombatManager combatManager;
+    [HideInInspector] public BoardManager boardManager;
+    [HideInInspector] public UnitManager unitManager;
+    [HideInInspector] public SkillsManager skillsManager;
+    [HideInInspector] public StatusEffectManager statusEffectManager;
+    [HideInInspector] public DamageManager damageManager;
+    [HideInInspector] public UIManager uiManager;
+
     [HideInInspector] public UnityEvent OnTurnStart;
     [HideInInspector] public UnityEvent OnTurnEnd;
 
@@ -15,6 +23,8 @@ public class Unit : UnitStats
     [HideInInspector] public UnityEvent<DamageData> OnTakeDamage;
     [HideInInspector] public Animator modelAnimator;
 
+    public bool MouseOver;
+
     public virtual void Init()
     {
         combatManager = CombatManager.Instance;
@@ -23,6 +33,7 @@ public class Unit : UnitStats
         skillsManager = SkillsManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;
         damageManager = DamageManager.Instance;
+        uiManager = UIManager.Instance;
 
         modelAnimator = transform.GetChild(0).GetComponent<Animator>();
 
@@ -33,21 +44,20 @@ public class Unit : UnitStats
 
     public virtual void Update()
     {
-        
     }
 
-    void OnMouseEnter()
+    public virtual void OnMouseEnter()
     {
-        currentTile.Target();
+        //currentTile.Target();
     }
 
-    void OnMouseDown()
+    public virtual void OnMouseDown()
     {
         if (OnClick != null)
             OnClick.Invoke(this);
     }
 
-    void OnMouseExit()
+    public virtual void OnMouseExit()
     {
        currentTile.UnTarget();
     }
@@ -154,7 +164,6 @@ public class Unit : UnitStats
             Initiative = Random.Range(0, 4);
         else
             Initiative = Random.Range(5, 10);
-
     }
 
     public virtual void StartMoving(List<BoardTile> path)
@@ -190,7 +199,7 @@ public class Unit : UnitStats
             startPosition = endPosition;
         }
         var endTile = path[path.Count-1];
-        UnitData.CurrentAction = CurrentActionKind.Moving;
+        UnitData.CurrentAction = CurrentActionKind.Basic;
         boardManager.Clear();
         boardManager.SetAOE(MoveSpeedLeft, endTile, null);
         modelAnimator.SetBool("Run", false);
@@ -221,10 +230,33 @@ public class Unit : UnitStats
         statusEffectToRemove.ForEach(x => statusEffects.Remove(x));
     }
 
-    public virtual void PreviewSkills(BoardTile mouseOverTile) 
+    public virtual void PreviewSkills(BoardTile mouseOverTile)
     {
         boardManager.Clear();
     }
+
+    public List<BoardTile> TilesInAttackRange()
+	{
+        var attacker = UnitData.CurrentActiveUnit;
+        var attackRange = 0;
+
+        if (attacker is Character)
+		{
+            var cAttacker = attacker as Character;
+            var basicSkill = cAttacker.basicSkill;
+			attackRange = basicSkill.GetAttackRange();
+		}
+        var connectedTiles = currentTile.connectedTiles;
+
+		var attackTilesInRange = connectedTiles.Where(x => x != null).
+            Where(x => x.movementLeft + attackRange > 0).
+            OrderBy(x => x.movementLeft).Reverse().ToList();
+
+        if (attackTilesInRange.Count == 0)
+            return null;
+
+		return attackTilesInRange;
+	}
 
     public virtual IEnumerator StartTurn()
     {

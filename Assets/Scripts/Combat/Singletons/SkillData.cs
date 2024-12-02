@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 public class SkillData
 {
-    public static SO_MainSkill CurrentMainSkill = null;
-    public static int? CurrentSkillshotIndex = null;
+    public static SO_MainSkill CurrentActiveSkill = null;
 
     public static Unit Caster;
     
@@ -83,7 +82,7 @@ public class SkillData
 
     public static void Reset()
     {
-        CurrentSkillshotIndex = null;
+        CurrentActiveSkill = null;
         SkillPartGroupDatas.Clear();
         SkillPartGroupIndex = 0;
     }

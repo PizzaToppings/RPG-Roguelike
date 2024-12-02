@@ -27,12 +27,6 @@ public class UnitStats : MonoBehaviour
 
     public List<DefaultStatusEffect> statusEffects = new List<DefaultStatusEffect>();
 
-    [HideInInspector] public CombatManager combatManager;
-    [HideInInspector] public BoardManager boardManager;
-    [HideInInspector] public UnitManager unitManager;
-    [HideInInspector] public SkillsManager skillsManager;
-    [HideInInspector] public StatusEffectManager statusEffectManager;
-    [HideInInspector] public DamageManager damageManager;
     public BoardTile currentTile = null;
 
 }

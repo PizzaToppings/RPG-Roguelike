@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
+  m_Name: BasicSkill
+  m_EditorClassIdentifier: 
+  Image: {fileID: 21300000, guid: 6f7770eab77e2ea4a8d50e19fa02ff6c, type: 3}
+  castLockColor:
+    UseCenterColor: 0
+    CenterColor: {r: 0, g: 0, b: 0, a: 0}
+    CenterPriority: 10
+    UseEdgeColor: 1
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    EdgePriority: 10
+  Description: 
+  MagicalDamage: 0
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 967c385fd7e60b14b899c2506c14bf4b, type: 2}
+  TargetKind: 0

@@ -50,8 +50,8 @@ public class SO_Skillpart : ScriptableObject
     {
         skillPartsList = skillParts;
 
-        SkillData.CurrentSkillPartGroupData.SkillPartDatas[SkillPartIndex].TilesHit = new List<BoardTile>();
-        SkillData.CurrentSkillPartGroupData.SkillPartDatas[SkillPartIndex].TargetsHit = new List<Unit>();
+        PartData.TilesHit = new List<BoardTile>();
+        PartData.TargetsHit = new List<Unit>();
         OriginTiles = GetOriginTiles();
         OriginTargets = GetOriginTargets();
         TargetTile = GetTargetTile(mouseOverTile);
@@ -139,7 +139,7 @@ public class SO_Skillpart : ScriptableObject
         return null;
     }
 
-    public SO_Skillpart GetPreviousSkillPart()
+    public SO_Skillpart GetPreviousSkillPart() // TODO move to skillmanager?
     {
         var thisIndex = skillPartsList.FindIndex(x => x == this);
         if (thisIndex != 0)

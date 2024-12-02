@@ -50,6 +50,21 @@ public class SO_MainSkill : ScriptableObject
         }
     }
 
+    public int GetAttackRange()
+    {
+        var totalRange = 0;
+
+        foreach (var spg in SkillPartGroups)
+        {
+            foreach (var sp in spg.skillParts)
+			{
+                totalRange += sp.Range;
+            }
+        }
+
+        return totalRange;
+    }
+
     public virtual void Reset()
 	{
         SkillData.SkillPartGroupIndex = 0;

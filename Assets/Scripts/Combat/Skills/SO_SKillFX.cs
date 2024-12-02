@@ -60,7 +60,6 @@ public class SO_SKillFX : ScriptableObject
 		if (SkillDestinationKind == SkillFxDestinationEnum.Caster)
 		{
 			destination = SkillData.Caster.transform.position;
-
 		}
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Target)

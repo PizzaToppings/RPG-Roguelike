@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BoardTile : MonoBehaviour
 {
@@ -56,10 +57,10 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (UnitData.CurrentActiveUnit.Friendly == false)
+        if (UnitData.CurrentActiveUnit.Friendly == false || EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (movementLeft > -1 && UnitData.CurrentAction == CurrentActionKind.Moving)
+        if (movementLeft > -1 && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
             // start moving
             MoveToTile();
@@ -68,7 +69,8 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Target();
+        if (!EventSystem.current.IsPointerOverGameObject())
+            Target();
     }
 
     public void MoveToTile() 
@@ -83,20 +85,34 @@ public class BoardTile : MonoBehaviour
         if (UnitData.CurrentActiveUnit.Friendly == false)
             return;
 
-        boardManager.currentMouseTile = this;
+		if (currentUnit != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+		{
+			if (currentUnit is Enemy)
+			{
+				(currentUnit as Enemy).TargetEnemy();
+			}
+			return;
+		}
+
+		boardManager.currentMouseTile = this;
 
         if (currentUnit != null)
             currentUnit.IsTargeted = true;
         
         // Show movement line
         if (movementLeft > -1 
-            && UnitData.CurrentAction == CurrentActionKind.Moving)
+            && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
             boardManager.Path = new List<BoardTile>();
 			boardManager.PreviewMovementLine(this);
             SetColor(boardManager.MouseOverColor);
 		}
     }
+
+    public void TargetSkill()
+	{
+
+	}
 
     void OnMouseExit()
     {
@@ -106,6 +122,15 @@ public class BoardTile : MonoBehaviour
     public void UnTarget()
     {
         boardManager.currentMouseTile = null;
+
+		if (currentUnit != null)
+		{
+			if (currentUnit is Enemy)
+			{
+				(currentUnit as Enemy).UnTargetEnemy();
+			}
+			return;
+		}
 
 		if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)
         {

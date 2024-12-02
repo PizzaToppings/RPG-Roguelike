@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Unit
 {
     [HideInInspector] public List<BoardTile> PossibleMovementTiles;
+
+    BoardTile closestTile;
 
     public override void Init()
     {
@@ -36,6 +39,51 @@ public class Enemy : Unit
         yield return new WaitForSeconds(3);
         EndTurn();
     }
+
+    public override void OnMouseEnter()
+	{
+        currentTile.Target();
+    }
+
+    public void TargetEnemy()
+	{
+        if (TilesInAttackRange() != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+        {
+            uiManager.SetCursor(this, true);
+            if (!currentTile.connectedTiles.Where(x => x != null).Any(x => x.currentUnit == UnitData.CurrentActiveUnit))
+			{
+                closestTile = TilesInAttackRange().FirstOrDefault();
+                closestTile.Target();
+			}
+        }
+
+        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+        {
+            uiManager.SetCursor(this, true);
+
+            if (SkillData.CurrentActiveSkill == null)
+			{
+                //(UnitData.CurrentActiveUnit as Character).basicSkill.
+
+            }
+        }
+    }
+
+    public override void OnMouseExit()
+    {
+        currentTile.UnTarget();
+    }
+
+    public void UnTargetEnemy()
+	{
+        uiManager.SetCursor(this, false);
+
+		if (closestTile != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+			closestTile.UnTarget();
+
+		if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+			currentTile.UnTarget();
+	}
 
     public override void EndTurn()
     {

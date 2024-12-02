@@ -1,5 +1,5 @@
 // states
-public enum CurrentActionKind { None, Moving, CastingSkillshot, Animating };
+public enum CurrentActionKind { None, Basic, CastingSkillshot, Animating };
 public enum GameState { StartOfGame, StartOfRound, StartOfTurn, EndOfTurn, EndOfRound, EndOfGame}
 
 // Damage

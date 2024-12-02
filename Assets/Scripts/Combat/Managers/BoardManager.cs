@@ -160,7 +160,7 @@ public class BoardManager : MonoBehaviour
         }
         else
 		{
-            SetSkillAOE(data.Range, startingTile, data);
+            SetSkillAOE(data.Range + 1, startingTile, data);
 		}
     }
 
@@ -529,13 +529,13 @@ public class BoardManager : MonoBehaviour
 
         var friendly = UnitData.CurrentActiveUnit.Friendly;
 
-        if (SkillData.CurrentMainSkill.TargetKind == SO_MainSkill.TargetKindEnum.Allies)
+        if (SkillData.CurrentActiveSkill.TargetKind == SO_MainSkill.TargetKindEnum.Allies)
         {
             if (target.Friendly == friendly)
                 return true;
         }
 
-        if (SkillData.CurrentMainSkill.TargetKind == SO_MainSkill.TargetKindEnum.All)
+        if (SkillData.CurrentActiveSkill.TargetKind == SO_MainSkill.TargetKindEnum.All)
             return true;
 
         return (target.Friendly != friendly);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(BoardManager))]
 public class SkillsManager : MonoBehaviour
@@ -25,7 +26,7 @@ public class SkillsManager : MonoBehaviour
         if (UnitData.CurrentAction != CurrentActionKind.CastingSkillshot)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) // TODO requires tile
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
         {
             StartCasting();
         }
@@ -146,7 +147,7 @@ public class SkillsManager : MonoBehaviour
 
     public IEnumerator CastSkills()
     {
-        var skill = SkillData.CurrentMainSkill;
+        var skill = SkillData.CurrentActiveSkill;
 
         foreach (var spg in skill.SkillPartGroups)
         {

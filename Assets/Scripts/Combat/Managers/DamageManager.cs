@@ -23,7 +23,7 @@ public class DamageManager : MonoBehaviour
         {
             DamageType = skill.DamageType,
             Caster = caster,
-            MagicalDamage = SkillData.CurrentMainSkill.MagicalDamage,
+            MagicalDamage = SkillData.CurrentActiveSkill.MagicalDamage,
             Target = target,
             Damage = damage,
             statusEffects = AddDefaultStatusEffects(skill)
@@ -40,8 +40,8 @@ public class DamageManager : MonoBehaviour
     int CalculateDamage(SO_Skillpart skill, Unit caster, Unit target)
 	{
         var skillPower = skill.Power;
-        var power = SkillData.CurrentMainSkill.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
-        var defense = SkillData.CurrentMainSkill.MagicalDamage ? target.MagicalDefense : target.PhysicalDefense;
+        var power = SkillData.CurrentActiveSkill.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+        var defense = SkillData.CurrentActiveSkill.MagicalDamage ? target.MagicalDefense : target.PhysicalDefense;
         var typeModifier = GetTypeModifyer(skill, target);
 
         var damage = Mathf.CeilToInt(((10 * skillPower * power / defense) / 50) * typeModifier);
