@@ -42,7 +42,6 @@ public class Enemy : Unit
 
     public override void OnMouseEnter()
 	{
-        IsTargeted = true;
         currentTile.Target();
     }
 
@@ -77,7 +76,6 @@ public class Enemy : Unit
 
     public override void OnMouseExit()
     {
-        IsTargeted = false;
         currentTile.UnTarget();
     }
 
@@ -86,13 +84,11 @@ public class Enemy : Unit
         uiManager.SetCursor(this, false);
 
 		if (closestTile != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+		{
 			closestTile.UnTarget();
-
-		if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-			currentTile.UnTarget();
-
-		SkillData.Reset();
-    }
+		    SkillData.Reset();
+		}
+	}
 
     public override void EndTurn()
     {

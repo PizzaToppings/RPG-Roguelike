@@ -68,8 +68,6 @@ public class UIManager : MonoBehaviour
 		    }
 		}
 
-
-
         if (target is Enemy && enter)
             texture = MeleeAttackCursorTexture;
         else

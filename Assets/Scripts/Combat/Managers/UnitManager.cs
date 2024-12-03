@@ -63,19 +63,4 @@ public class UnitManager : MonoBehaviour
         else
             UnitData.Enemies.Add(unit as Enemy);
     }
-
-    public void ClearTargets()
-    {
-        foreach (var unit in UnitData.Units)
-        {
-            unit.IsTargeted = false;
-        }
-    }
-
-    public void TargetUnit(Unit target)
-    {
-        if (target.IsTargeted)
-        {
-        }
-    }
 }

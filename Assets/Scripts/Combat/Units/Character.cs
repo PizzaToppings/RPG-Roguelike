@@ -93,6 +93,7 @@ public class Character : Unit
         if (SkillData.CurrentActiveSkill == skill)
         {
             StopCasting();
+            SkillData.Reset();
             SetSkillData(basicSkill);
         }
         // turn on
@@ -108,42 +109,46 @@ public class Character : Unit
 
             SetSkillData(skill);
 
-            //preview skill  --> This might be removeable
-            //skill.Reset();
-            //foreach (var skillPartGroup in skill.SkillPartGroups)
-            //{
-            //    foreach (var skillPart in skillPartGroup.skillParts)
-            //    {
-            //        if (skillPart.OriginTileKind == OriginTileEnum.Caster)
-            //        {
-            //            foreach (var tile in currentTile.connectedTiles)
-            //            {
-            //                if (tile == null)
-            //                    continue;
+			//preview skill  --> This might be removeable
+			//skill.Reset();
+			//foreach (var skillPartGroup in skill.SkillPartGroups)
+			//{
+			//	foreach (var skillPart in skillPartGroup.skillParts)
+			//	{
+			//		if (skillPart.OriginTileKind == OriginTileEnum.Caster)
+			//		{
+			//			foreach (var tile in currentTile.connectedTiles)
+			//			{
+			//				if (tile == null)
+			//					continue;
 
-            //                skillPart.TargetTile = tile;
-            //                break;
-            //            }
-            //            skillPart.Preview(currentTile, skillPartGroup.skillParts);
-            //        }
-            //    }
-            //}
-        }
+			//				skillPart.TargetTile = tile;
+			//				break;
+			//			}
+			//			skillPart.Preview(currentTile, skillPartGroup.skillParts);
+			//		}
+			//	}
+			//}
+		}
     }
 
     void SetSkillData(SO_MainSkill skill)
 	{
+        SkillData.SkillPartGroupDatas.Clear();
+
         for (var i = 0; i < skill.SkillPartGroups.Count; i++)
         {
             var spg = skill.SkillPartGroups[i];
             var skillPartGroupData = new SkillPartGroupData();
+            skillPartGroupData.Name = skill.name;
             SkillData.SkillPartGroupDatas.Add(skillPartGroupData);
 
             for (var s = 0; s < spg.skillParts.Count; s++)
             {
                 var skillPartData = new SkillPartData
                 {
-                    Index = s
+                    Index = s,
+                    Name = spg.skillParts[s].name
                 };
 
                 spg.skillParts[s].SkillPartIndex = s;

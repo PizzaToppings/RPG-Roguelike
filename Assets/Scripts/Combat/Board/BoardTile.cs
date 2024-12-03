@@ -85,9 +85,11 @@ public class BoardTile : MonoBehaviour
         if (UnitData.CurrentActiveUnit.Friendly == false)
             return;
 
-		if (currentUnit != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+		if (currentUnit != null)
 		{
-			if (currentUnit is Enemy)
+            currentUnit.IsTargeted = true;
+
+            if (currentUnit is Enemy && UnitData.CurrentAction == CurrentActionKind.Basic)
 			{
 				(currentUnit as Enemy).TargetEnemy();
 			}
@@ -95,9 +97,6 @@ public class BoardTile : MonoBehaviour
 		}
 
 		boardManager.currentMouseTile = this;
-
-        if (currentUnit != null)
-            currentUnit.IsTargeted = true;
         
         // Show movement line
         if (movementLeft > -1 
@@ -108,11 +107,6 @@ public class BoardTile : MonoBehaviour
             SetColor(boardManager.MouseOverColor);
 		}
     }
-
-    public void TargetSkill()
-	{
-
-	}
 
     void OnMouseExit()
     {
@@ -125,9 +119,12 @@ public class BoardTile : MonoBehaviour
 
 		if (currentUnit != null)
 		{
-			if (currentUnit is Enemy)
+            currentUnit.IsTargeted = false;
+
+            if (currentUnit is Enemy)
 			{
 				(currentUnit as Enemy).UnTargetEnemy();
+
                 if (movementLeft >= 0)
                     OverrideColor(boardManager.MovementColor);
                 else
@@ -136,11 +133,9 @@ public class BoardTile : MonoBehaviour
             return;
 		}
 
-		if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1)
+		if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1
+            && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
-            if (currentUnit != null)
-                currentUnit.IsTargeted = false;
-                
             boardManager.StopShowingMovement();
             OverrideColor(boardManager.MovementColor);
         }

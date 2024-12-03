@@ -41,14 +41,12 @@ public class Unit : UnitStats
         RollInitiative();
     }
 
-
     public virtual void Update()
     {
     }
 
     public virtual void OnMouseEnter()
     {
-        //currentTile.Target();
     }
 
     public virtual void OnMouseDown()
@@ -59,7 +57,7 @@ public class Unit : UnitStats
 
     public virtual void OnMouseExit()
     {
-       currentTile.UnTarget();
+        currentTile.UnTarget();
     }
 
     public virtual void SetStats()
