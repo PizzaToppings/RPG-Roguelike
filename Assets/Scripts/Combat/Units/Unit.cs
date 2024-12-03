@@ -164,14 +164,10 @@ public class Unit : UnitStats
             Initiative = Random.Range(5, 10);
     }
 
-    public virtual void StartMoving(List<BoardTile> path)
+    public IEnumerator Move(List<BoardTile> path)
     {
         modelAnimator.SetBool("Run", true);
-        StartCoroutine(Move(path));
-    } 
 
-    IEnumerator Move(List<BoardTile> path)
-    {
         Vector3 startPosition = transform.position; 
         Vector3 endPosition;
 
@@ -192,13 +188,15 @@ public class Unit : UnitStats
                 yield return new WaitForEndOfFrame();
             }
 
-            UnitData.CurrentActiveUnit.currentTile = path[i];
             
             MoveSpeedLeft--;
             startPosition = endPosition;
         }
         var endTile = path[path.Count-1];
+        
+        UnitData.CurrentActiveUnit.currentTile = endTile;
         endTile.currentUnit = UnitData.CurrentActiveUnit;
+
         UnitData.CurrentAction = CurrentActionKind.Basic;
         boardManager.Clear();
         boardManager.SetAOE(MoveSpeedLeft, endTile, null);

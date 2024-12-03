@@ -53,7 +53,7 @@ public class MeleeEnemyAI : Enemy
 			}
         }
         boardManager.SetPath(optimalTile);
-        optimalTile.MoveToTile();
+        StartCoroutine(boardManager.MoveToTile());
     } // EDIT: GetTilesWithinActionRange, based on attack distance. Get a rangeToUnit List for all characters? 
 
     void Attack()

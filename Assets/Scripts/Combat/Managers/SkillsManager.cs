@@ -142,13 +142,11 @@ public class SkillsManager : MonoBehaviour
 
         UnitData.CurrentAction = CurrentActionKind.Animating;
         boardManager.Clear();
-        StartCoroutine(CastSkills());
+        StartCoroutine(CastSkills(SkillData.CurrentActiveSkill));
     }
 
-    public IEnumerator CastSkills()
+    public IEnumerator CastSkills(SO_MainSkill skill)
     {
-        var skill = SkillData.CurrentActiveSkill;
-
         foreach (var spg in skill.SkillPartGroups)
         {
             foreach (var sp in spg.skillParts)

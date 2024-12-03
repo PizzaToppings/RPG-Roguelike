@@ -12,11 +12,6 @@ public class SkillFXManager : MonoBehaviour
         Instance = this;
     }
 
-    public void CastSkill(SO_SKillFX skillFx)
-    {
-        StartCoroutine("Cast", skillFx);
-    }
-
     public IEnumerator Cast(SO_SKillFX skillFx)
     {
         var skillObject = Instantiate(skillFx.SkillObject, skillFx.Origin, Quaternion.identity);

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -541,14 +542,6 @@ public class BoardManager : MonoBehaviour
         return (target.Friendly != friendly);
     }
 
-    //void AddTarget(Unit target)
-    //{
-    //    if (SkillData.ActiveSkillPartData.TargetsHit.Contains(target))
-    //        return;
-
-    //    SkillData.ActiveSkillPartData.TargetsHit.Add(target);
-    //}
-
     public void PreviewMovementLine(BoardTile finaltile)
     {
         movementLR.positionCount++;
@@ -624,5 +617,13 @@ public class BoardManager : MonoBehaviour
         directions[7] = new Vector2Int(-1, 1);
 
         return directions;
+    }
+
+    public IEnumerator MoveToTile()
+    {
+        UnitData.CurrentAction = CurrentActionKind.Animating;
+        Path.Reverse();
+
+        yield return StartCoroutine(UnitData.CurrentActiveUnit.Move(Path));
     }
 }

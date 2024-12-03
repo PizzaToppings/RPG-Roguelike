@@ -80,7 +80,6 @@ public class SkillData
 
     public static void Reset()
     {
-        CurrentActiveSkill = null;
         SkillPartGroupDatas.ForEach(x => x.Reset());
         SkillPartGroupIndex = 0;
     }

@@ -103,9 +103,7 @@ public class Character : Unit
                 return;
 
             SkillData.Reset();
-
             UnitData.CurrentAction = CurrentActionKind.CastingSkillshot;
-            SkillData.CurrentActiveSkill = skill;
 
             SetSkillData(skill);
 		}
@@ -113,6 +111,7 @@ public class Character : Unit
 
     void SetSkillData(SO_MainSkill skill)
 	{
+        SkillData.CurrentActiveSkill = skill;
         SkillData.SkillPartGroupDatas.Clear();
 
         for (var i = 0; i < skill.SkillPartGroups.Count; i++)

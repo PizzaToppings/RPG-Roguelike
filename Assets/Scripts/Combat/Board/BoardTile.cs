@@ -63,7 +63,7 @@ public class BoardTile : MonoBehaviour
         if (movementLeft > -1 && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
             // start moving
-            MoveToTile();
+            StartCoroutine(boardManager.MoveToTile());
         }
     }
 
@@ -71,13 +71,6 @@ public class BoardTile : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
             Target();
-    }
-
-    public void MoveToTile() 
-    {
-        UnitData.CurrentAction = CurrentActionKind.Animating;
-        boardManager.Path.Reverse();
-        UnitData.CurrentActiveUnit.StartMoving(boardManager.Path);
     }
 
     public void Target()
@@ -91,7 +84,7 @@ public class BoardTile : MonoBehaviour
 
             if (currentUnit is Enemy && UnitData.CurrentAction == CurrentActionKind.Basic)
 			{
-				(currentUnit as Enemy).TargetEnemy();
+				(currentUnit as Enemy).TargetEnemyBasicAttack();
 			}
 			return;
 		}

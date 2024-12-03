@@ -40,12 +40,23 @@ public class Enemy : Unit
         EndTurn();
     }
 
+    public override void OnMouseDown()
+	{
+        if (UnitData.CurrentAction == CurrentActionKind.Basic)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                StartCoroutine(AttackEnemyBasicAttack());
+            }
+        }
+    }
+
     public override void OnMouseEnter()
 	{
         currentTile.Target();
     }
 
-    public void TargetEnemy()
+    public void TargetEnemyBasicAttack() // might adapt to work for all direct attacks (target one enemy)
 	{
         if (TilesInAttackRange() != null && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
@@ -65,13 +76,15 @@ public class Enemy : Unit
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
             uiManager.SetCursor(this, true);
-
-            if (SkillData.CurrentActiveSkill == null)
-			{
-                //(UnitData.CurrentActiveUnit as Character).basicSkill.
-
-            }
         }
+    }
+
+    IEnumerator AttackEnemyBasicAttack()
+	{
+        yield return StartCoroutine(boardManager.MoveToTile());
+
+        var basicSkill = (UnitData.CurrentActiveUnit as Character).basicSkill;
+        yield return StartCoroutine(skillsManager.CastSkills(basicSkill));
     }
 
     public override void OnMouseExit()
