@@ -108,27 +108,6 @@ public class Character : Unit
             SkillData.CurrentActiveSkill = skill;
 
             SetSkillData(skill);
-
-			//preview skill  --> This might be removeable
-			//skill.Reset();
-			//foreach (var skillPartGroup in skill.SkillPartGroups)
-			//{
-			//	foreach (var skillPart in skillPartGroup.skillParts)
-			//	{
-			//		if (skillPart.OriginTileKind == OriginTileEnum.Caster)
-			//		{
-			//			foreach (var tile in currentTile.connectedTiles)
-			//			{
-			//				if (tile == null)
-			//					continue;
-
-			//				skillPart.TargetTile = tile;
-			//				break;
-			//			}
-			//			skillPart.Preview(currentTile, skillPartGroup.skillParts);
-			//		}
-			//	}
-			//}
 		}
     }
 

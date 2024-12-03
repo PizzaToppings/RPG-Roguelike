@@ -175,6 +175,8 @@ public class Unit : UnitStats
         Vector3 startPosition = transform.position; 
         Vector3 endPosition;
 
+        currentTile.currentUnit = null;
+
         for (int i = 0; i < path.Count; i++)
         {
             endPosition = path[i].transform.position;
@@ -190,13 +192,13 @@ public class Unit : UnitStats
                 yield return new WaitForEndOfFrame();
             }
 
-            path[i].currentUnit = null;
             UnitData.CurrentActiveUnit.currentTile = path[i];
-            path[i].currentUnit = UnitData.CurrentActiveUnit;
+            
             MoveSpeedLeft--;
             startPosition = endPosition;
         }
         var endTile = path[path.Count-1];
+        endTile.currentUnit = UnitData.CurrentActiveUnit;
         UnitData.CurrentAction = CurrentActionKind.Basic;
         boardManager.Clear();
         boardManager.SetAOE(MoveSpeedLeft, endTile, null);

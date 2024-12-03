@@ -15,7 +15,7 @@ MonoBehaviour:
   OriginTileKind: 1
   OriginTargetKind: 0
   TargetTileKind: 0
-  SKillFX: {fileID: 0}
+  SKillFX: {fileID: 11400000, guid: 1c3454abdff2ba244b44573237c18680, type: 2}
   OriginTiles:
   - {fileID: 0}
   OriginTargets: []
