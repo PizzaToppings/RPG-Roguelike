@@ -30,7 +30,7 @@ MonoBehaviour:
   defaultStatusEffects: []
   tileColor:
     UseCenterColor: 1
-    CenterColor: {r: 1, g: 0.84751475, b: 0, a: 1}
+    CenterColor: {r: 0.8716521, g: 0, b: 1, a: 1}
     CenterPriority: 1
     UseEdgeColor: 0
     EdgeColor: {r: 1, g: 0, b: 0, a: 1}

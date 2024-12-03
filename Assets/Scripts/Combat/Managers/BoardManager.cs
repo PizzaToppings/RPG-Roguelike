@@ -133,7 +133,6 @@ public class BoardManager : MonoBehaviour
 
     public void Clear()
     {
-        Debug.Log("CLEAR");
         foreach (var tile in BoardData.BoardTiles)
         {
             tile.movementLeft = -1;
@@ -184,7 +183,7 @@ public class BoardManager : MonoBehaviour
 
         foreach(var tile in currentTile.connectedTiles)
         {
-            if (tile == null)
+            if (tile == null || tile.currentUnit != null)
                 continue;
 
 			var nextMovementLeft = movementLeft;
