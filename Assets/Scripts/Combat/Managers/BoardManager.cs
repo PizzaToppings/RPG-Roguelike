@@ -14,6 +14,8 @@ public class BoardManager : MonoBehaviour
     public TileColor MouseOverColor;
 
     LineRenderer movementLR;
+    Vector3 MovementLineOffset = Vector3.up * 0.5f;
+
     public List<BoardTile> Path = new List<BoardTile>();
     public BoardTile currentMouseTile;
 
@@ -527,7 +529,7 @@ public class BoardManager : MonoBehaviour
     public void PreviewMovementLine(BoardTile finaltile)
     {
         movementLR.positionCount++;
-        movementLR.SetPosition(0, finaltile.position);
+        movementLR.SetPosition(0, finaltile.position + MovementLineOffset);
 
         BoardTile currentTile = finaltile;
 		Path.Add(currentTile);
@@ -542,7 +544,7 @@ public class BoardManager : MonoBehaviour
                 if (tile.movementLeft == currentTile.movementLeft + 1)
                 {
                     movementLR.positionCount++;
-                    movementLR.SetPosition(i+1, tile.position);
+                    movementLR.SetPosition(i+1, tile.position + MovementLineOffset);
                     tile.PreviousTile = currentTile;
                     currentTile = tile;
 					Path.Add(tile);
@@ -553,7 +555,7 @@ public class BoardManager : MonoBehaviour
                 if (tile.movementLeft == currentTile.movementLeft + 1.5f)
                 {
                     movementLR.positionCount++;
-                    movementLR.SetPosition(i + 1, tile.position);
+                    movementLR.SetPosition(i + 1, tile.position + MovementLineOffset);
                     tile.PreviousTile = currentTile;
                     currentTile = tile;
                     Path.Add(tile);
@@ -563,7 +565,7 @@ public class BoardManager : MonoBehaviour
             }
         }
         movementLR.positionCount++;
-        movementLR.SetPosition(Path.Count, UnitData.CurrentActiveUnit.currentTile.position);
+        movementLR.SetPosition(Path.Count, UnitData.CurrentActiveUnit.currentTile.position + MovementLineOffset);
     }
 
     public void SetPath(BoardTile endTile)

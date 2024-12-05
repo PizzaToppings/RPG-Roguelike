@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
+  m_Name: TargetUnitSkill
+  m_EditorClassIdentifier: 
+  OriginTileKind: 1
+  OriginTargetKind: 0
+  TargetTileKind: 0
+  SKillFX: {fileID: 11400000, guid: b2a1580cb941bba48a32bc5ebc660d56, type: 2}
+  OriginTiles:
+  - {fileID: 0}
+  OriginTargets: []
+  TargetTile: {fileID: 0}
+  FinalDirection: 0
+  MagicalDamage: 0
+  SkillPartIndex: 0
+  DamageType: 0
+  Power: 10
+  Range: 8
+  StatusEfects: []
+  defaultStatusEffects: []
+  tileColor:
+    UseCenterColor: 0
+    CenterColor: {r: 1, g: 1, b: 1, a: 1}
+    CenterPriority: 3
+    UseEdgeColor: 1
+    EdgeColor: {r: 0.764151, g: 0.55480915, b: 0, a: 1}
+    EdgePriority: 3
+  SelectedTargetTileColor:
+    UseCenterColor: 1
+    CenterColor: {r: 0.76470596, g: 0.5529412, b: 0, a: 1}
+    CenterPriority: 3
+    UseEdgeColor: 1
+    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    EdgePriority: 10
