@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,7 +90,7 @@ public class BoardManager : MonoBehaviour
             if (starttile == tile)
                 continue;
 
-            if (GetRangeBetweenTiles(starttile, tile) < range)
+            if (GetRangeBetweenTiles(starttile.Coordinates, tile.Coordinates) <= range)
                 tileList.Add(tile);
         }
 

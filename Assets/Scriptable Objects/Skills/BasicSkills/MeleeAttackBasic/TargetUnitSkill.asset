@@ -25,7 +25,7 @@ MonoBehaviour:
   SkillPartIndex: 0
   DamageType: 0
   Power: 10
-  Range: 1
+  Range: 1.5
   StatusEfects: []
   defaultStatusEffects: []
   tileColor:

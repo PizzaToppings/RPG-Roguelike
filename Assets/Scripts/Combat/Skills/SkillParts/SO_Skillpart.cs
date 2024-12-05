@@ -37,7 +37,7 @@ public class SO_Skillpart : ScriptableObject
     [Space]
     public DamageTypeEnum DamageType;
     public int Power;
-    public int Range;
+    public float Range;
     
     [Space]
     public List<SO_StatusEffect> StatusEfects;

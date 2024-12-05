@@ -10,6 +10,7 @@ public class Unit : UnitStats
     [HideInInspector] public BoardManager boardManager;
     [HideInInspector] public UnitManager unitManager;
     [HideInInspector] public SkillsManager skillsManager;
+    [HideInInspector] public SkillFXManager skillFXManager;
     [HideInInspector] public StatusEffectManager statusEffectManager;
     [HideInInspector] public DamageManager damageManager;
     [HideInInspector] public UIManager uiManager;
@@ -35,6 +36,7 @@ public class Unit : UnitStats
         boardManager = BoardManager.Instance;
         unitManager = UnitManager.Instance;
         skillsManager = SkillsManager.Instance;
+        skillFXManager = SkillFXManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
@@ -192,7 +194,6 @@ public class Unit : UnitStats
                 yield return new WaitForEndOfFrame();
             }
 
-            
             MoveSpeedLeft--;
             startPosition = endPosition;
         }
@@ -239,16 +240,16 @@ public class Unit : UnitStats
 
     public List<BoardTile> TilesInAttackRange(float attackRange)
 	{
-        var connectedTiles = currentTile.connectedTiles;
+        var attackTilesInRange = boardManager.getTilesWithinRange(currentTile, attackRange);
 
-		var attackTilesInRange = connectedTiles.Where(x => x != null).
-            Where(x => x.movementLeft + attackRange > 0).
-            OrderBy(x => x.movementLeft).Reverse().ToList();
+        var attackerTile = UnitData.CurrentActiveUnit.currentTile;
+        var tilesOrdened = attackTilesInRange.OrderBy(
+            x => boardManager.GetRangeBetweenTiles(attackerTile.Coordinates, x.Coordinates)).ToList();
 
         if (attackTilesInRange.Count == 0)
             return null;
 
-		return attackTilesInRange;
+		return tilesOrdened;
 	}
 
     public virtual IEnumerator StartTurn()

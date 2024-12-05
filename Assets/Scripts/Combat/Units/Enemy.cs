@@ -60,26 +60,28 @@ public class Enemy : Unit
     public void TargetEnemyBasicAttack() // might adapt to work for all direct attacks (target one enemy, including ranged)
 	{
         var attackRange = skillsManager.GetBasicAttackRange();
-        if (TilesInAttackRange(attackRange) != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+        var tilesInAttackRange = TilesInAttackRange(attackRange);
+
+        if (tilesInAttackRange != null && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
-            if (attackRange == 1)
-                TargetEnemyBasicMeleeAttack(attackRange);
-            else
-                TargetEnemyBasicRangedAttack(attackRange);
+            //if (attackRange <= 1.5f)
+            //    TargetEnemyBasicMeleeAttack(tilesInAttackRange);
+            //else
+            TargetEnemyBasicAttack(tilesInAttackRange, attackRange);
         }
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
-            uiManager.SetCursor(this, true);
+            uiManager.SetCursor(this, CursorType.Spell);
         }
     }
     
-    void TargetEnemyBasicMeleeAttack(float attackRange)
+    void TargetEnemyBasicMeleeAttack(List<BoardTile> tilesInAttackRange) //combine with ranged?
     {
-        uiManager.SetCursor(this, true);
+        uiManager.SetCursor(this, CursorType.Melee);
         if (CurrentUnitIsAdjacent() == false)
         {
-            closestTile = TilesInAttackRange(attackRange).FirstOrDefault();
+            closestTile = tilesInAttackRange.FirstOrDefault();
             closestTile.Target();
 
             if (SkillData.CurentSkillIsBasic())
@@ -89,17 +91,27 @@ public class Enemy : Unit
         }
     }
 
-    void TargetEnemyBasicRangedAttack(float attackRange)
+    void TargetEnemyBasicAttack(List<BoardTile> tilesInAttackRange, float attackRange)
     {
-        uiManager.SetCursor(this, true);
         if (CurrentUnitIsAdjacent() == false)
         {
-            closestTile = TilesInAttackRange(attackRange).FirstOrDefault();
+            closestTile = tilesInAttackRange.FirstOrDefault();
             closestTile.Target();
 
             if (SkillData.CurentSkillIsBasic())
             {
-                (UnitData.CurrentActiveUnit as Character).basicSkill.SetTargetAndTile(this, currentTile);
+                var caster = UnitData.CurrentActiveUnit as Character;
+                caster.basicSkill.SetTargetAndTile(this, currentTile);
+
+                if (attackRange > 1.5f)
+				{
+                    skillFXManager.PreviewProjectileLine(caster.transform.position, transform.position);
+                    uiManager.SetCursor(this, CursorType.Ranged);
+                }
+                else
+				{
+                    uiManager.SetCursor(this, CursorType.Melee);
+                }
             }
         }
     }
@@ -120,12 +132,13 @@ public class Enemy : Unit
 
     public void UnTargetEnemy()
 	{
-        uiManager.SetCursor(this, false);
+        uiManager.SetCursor(this, CursorType.Normal);
 
 		if (closestTile != null && UnitData.CurrentAction == CurrentActionKind.Basic)
 		{
 			closestTile.UnTarget();
 		    SkillData.Reset();
+            skillFXManager.EndProjectileLine();
 		}
 	}
 

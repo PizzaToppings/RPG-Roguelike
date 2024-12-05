@@ -50,9 +50,9 @@ public class SO_MainSkill : ScriptableObject
         }
     }
 
-    public int GetAttackRange()
+    public float GetAttackRange()
     {
-        var totalRange = 0;
+        var totalRange = 0f;
 
         foreach (var spg in SkillPartGroups)
         {
