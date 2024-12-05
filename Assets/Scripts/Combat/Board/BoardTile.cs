@@ -35,8 +35,6 @@ public class BoardTile : MonoBehaviour
 
     [HideInInspector] public Vector3 position => transform.position;
 
-    
-
     public void Init()
     {
         centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[1];

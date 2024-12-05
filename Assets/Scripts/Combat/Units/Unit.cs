@@ -237,17 +237,8 @@ public class Unit : UnitStats
         boardManager.Clear();
     }
 
-    public List<BoardTile> TilesInAttackRange()
+    public List<BoardTile> TilesInAttackRange(float attackRange)
 	{
-        var attacker = UnitData.CurrentActiveUnit;
-        var attackRange = 0;
-
-        if (attacker is Character)
-		{
-            var cAttacker = attacker as Character;
-            var basicSkill = cAttacker.basicSkill;
-			attackRange = basicSkill.GetAttackRange();
-		}
         var connectedTiles = currentTile.connectedTiles;
 
 		var attackTilesInRange = connectedTiles.Where(x => x != null).

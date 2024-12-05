@@ -14,7 +14,7 @@ public class BoardManager : MonoBehaviour
     public TileColor MouseOverColor;
 
     LineRenderer movementLR;
-    Vector3 MovementLineOffset = Vector3.up * 0.5f;
+    Vector3 MovementLineOffset = Vector3.up * 0.2f;
 
     public List<BoardTile> Path = new List<BoardTile>();
     public BoardTile currentMouseTile;
@@ -60,6 +60,40 @@ public class BoardManager : MonoBehaviour
     {
         return (x >= 0 && x < BoardData.rowAmount &&
                     y >= 0 && y < BoardData.columnAmount);
+    }
+
+    public float GetRangeBetweenTiles(Vector2 startTile, Vector2 EndTile)
+    {
+        var range = 0f;
+
+        var xDifference = (int)Mathf.Abs(startTile.x - EndTile.x);
+        var yDifference = (int)Mathf.Abs(startTile.y - EndTile.y);
+
+        var lowerValue = xDifference < yDifference ? xDifference : yDifference;
+        var HigherValue = xDifference > yDifference ? xDifference : yDifference;
+
+        var diagonalTiles = lowerValue;
+        var straightTiles = HigherValue - lowerValue;
+
+        range += diagonalTiles * 1.5f;
+        range += straightTiles;
+
+        return range;
+    }
+
+    public List<BoardTile> getTilesWithinRange(BoardTile starttile, float range)
+    {
+        var tileList = new List<BoardTile>();
+        foreach (var tile in BoardData.BoardTiles)
+        {
+            if (starttile == tile)
+                continue;
+
+            if (GetRangeBetweenTiles(starttile, tile) < range)
+                tileList.Add(tile);
+        }
+
+        return tileList;
     }
 
     public int GetRangeBetweenTiles(BoardTile startTile, BoardTile endTile)
@@ -568,6 +602,11 @@ public class BoardManager : MonoBehaviour
         movementLR.SetPosition(Path.Count, UnitData.CurrentActiveUnit.currentTile.position + MovementLineOffset);
     }
 
+    public void StopShowingMovement()
+    {
+        movementLR.positionCount = 0;
+    }
+
     public void SetPath(BoardTile endTile)
 	{
         var currentTile = endTile;
@@ -580,11 +619,6 @@ public class BoardManager : MonoBehaviour
             Path.Add(currentTile);
             currentTile = currentTile.PreviousTile;
         }
-    }
-
-    public void StopShowingMovement()
-    {
-        movementLR.positionCount = 0;
     }
 
     Vector2Int[] GetDirections()

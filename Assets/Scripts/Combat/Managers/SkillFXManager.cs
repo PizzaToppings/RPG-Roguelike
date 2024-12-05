@@ -5,11 +5,14 @@ public class SkillFXManager : MonoBehaviour
 {
     public static SkillFXManager Instance;
 
+    //LineRenderer ProjectileLine;
+    Vector3 projectileLineOffset = Vector3.up;
     // TODO still needs to animate the casting character and affected characters
 
     public void Init()
     {
         Instance = this;
+        //ProjectileLine = GetComponent<LineRenderer>();
     }
 
     public IEnumerator Cast(SO_SKillFX skillFx)
@@ -28,7 +31,6 @@ public class SkillFXManager : MonoBehaviour
 
                 yield return null;
             }
-
         }
 
         if (skillFx.SkillFxKind == SkillFxType.Animation)
@@ -36,8 +38,21 @@ public class SkillFXManager : MonoBehaviour
             var particleSystem = skillObject.GetComponent<ParticleSystem>();
             yield return new WaitUntil(() => particleSystem.isStopped);
         }
-        
+
         Destroy(skillObject);  // TODO cache this
         yield return new WaitForSeconds(0.1f);
     }
+
+    //void PreviewProjectileLine(Vector3 CasterPosition, Vector3 TargetPosition)
+    //{
+    //    ProjectileLine.positionCount = 2;
+
+    //    ProjectileLine.SetPosition(0, CasterPosition + projectileLineOffset);
+    //    ProjectileLine.SetPosition(1, TargetPosition + projectileLineOffset);
+    //}
+
+    //void EndProjectileLine()
+    //{
+    //    ProjectileLine.positionCount = 0;
+    //}
 }

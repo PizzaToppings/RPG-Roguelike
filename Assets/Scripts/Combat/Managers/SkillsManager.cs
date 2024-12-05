@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(BoardManager))]
 public class SkillsManager : MonoBehaviour
 {
     public static SkillsManager Instance;
@@ -15,7 +14,7 @@ public class SkillsManager : MonoBehaviour
     public void Init()
     {
         Instance = this;
-        boardManager = GetComponent<BoardManager>();
+        boardManager = BoardManager.Instance;
         skillFXManager = GetComponent<SkillFXManager>();
         damageManager = DamageManager.Instance;
         camera = Camera.main;
@@ -185,5 +184,12 @@ public class SkillsManager : MonoBehaviour
             //var data = damageManager.DealDamage(skillPart, target);
             //damageManager.TakeDamage(data);
         }
+    }
+
+    public float GetBasicAttackRange()
+    {
+        var attacker = UnitData.CurrentActiveUnit as Character;
+        var basicSkill = attacker.basicSkill;
+        return basicSkill.GetAttackRange();
     }
 }

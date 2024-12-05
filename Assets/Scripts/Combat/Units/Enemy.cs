@@ -56,26 +56,51 @@ public class Enemy : Unit
         currentTile.Target();
     }
 
+    // maybe move to seperate script?
     public void TargetEnemyBasicAttack() // might adapt to work for all direct attacks (target one enemy, including ranged)
 	{
-        if (TilesInAttackRange() != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+        var attackRange = skillsManager.GetBasicAttackRange();
+        if (TilesInAttackRange(attackRange) != null && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
-            uiManager.SetCursor(this, true);
-            if (CurrentUnitIsAdjacent() == false)
-			{
-                closestTile = TilesInAttackRange().FirstOrDefault();
-                closestTile.Target();
-
-                if (SkillData.CurentSkillIsBasic())
-				{
-                    (UnitData.CurrentActiveUnit as Character).basicSkill.SetTargetAndTile(this, currentTile);
-                }
-            }
+            if (attackRange == 1)
+                TargetEnemyBasicMeleeAttack(attackRange);
+            else
+                TargetEnemyBasicRangedAttack(attackRange);
         }
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
             uiManager.SetCursor(this, true);
+        }
+    }
+    
+    void TargetEnemyBasicMeleeAttack(float attackRange)
+    {
+        uiManager.SetCursor(this, true);
+        if (CurrentUnitIsAdjacent() == false)
+        {
+            closestTile = TilesInAttackRange(attackRange).FirstOrDefault();
+            closestTile.Target();
+
+            if (SkillData.CurentSkillIsBasic())
+            {
+                (UnitData.CurrentActiveUnit as Character).basicSkill.SetTargetAndTile(this, currentTile);
+            }
+        }
+    }
+
+    void TargetEnemyBasicRangedAttack(float attackRange)
+    {
+        uiManager.SetCursor(this, true);
+        if (CurrentUnitIsAdjacent() == false)
+        {
+            closestTile = TilesInAttackRange(attackRange).FirstOrDefault();
+            closestTile.Target();
+
+            if (SkillData.CurentSkillIsBasic())
+            {
+                (UnitData.CurrentActiveUnit as Character).basicSkill.SetTargetAndTile(this, currentTile);
+            }
         }
     }
 
