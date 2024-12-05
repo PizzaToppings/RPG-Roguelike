@@ -56,17 +56,17 @@ public class Enemy : Unit
         currentTile.Target();
     }
 
-    public void TargetEnemyBasicAttack() // might adapt to work for all direct attacks (target one enemy)
+    public void TargetEnemyBasicAttack() // might adapt to work for all direct attacks (target one enemy, including ranged)
 	{
         if (TilesInAttackRange() != null && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
             uiManager.SetCursor(this, true);
-            if (!currentTile.connectedTiles.Where(x => x != null).Any(x => x.currentUnit == UnitData.CurrentActiveUnit))
+            if (CurrentUnitIsAdjacent() == false)
 			{
                 closestTile = TilesInAttackRange().FirstOrDefault();
                 closestTile.Target();
 
-                if (SkillData.CurrentActiveSkill == null)
+                if (SkillData.CurentSkillIsBasic())
 				{
                     (UnitData.CurrentActiveUnit as Character).basicSkill.SetTargetAndTile(this, currentTile);
                 }
@@ -81,7 +81,8 @@ public class Enemy : Unit
 
     IEnumerator AttackEnemyBasicAttack()
 	{
-        yield return StartCoroutine(boardManager.MoveToTile());
+        if (CurrentUnitIsAdjacent() == false)
+            yield return StartCoroutine(boardManager.MoveToTile());
 
         var basicSkill = (UnitData.CurrentActiveUnit as Character).basicSkill;
         yield return StartCoroutine(skillsManager.CastSkills(basicSkill));
@@ -102,6 +103,11 @@ public class Enemy : Unit
 		    SkillData.Reset();
 		}
 	}
+
+    bool CurrentUnitIsAdjacent()
+    {
+        return currentTile.connectedTiles.Where(x => x != null).Any(x => x.currentUnit == UnitData.CurrentActiveUnit);
+    }
 
     public override void EndTurn()
     {

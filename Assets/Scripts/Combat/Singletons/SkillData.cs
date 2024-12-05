@@ -78,6 +78,11 @@ public class SkillData
         }
     }
 
+    public static bool CurentSkillIsBasic()
+    {
+        return CurrentActiveSkill == (UnitData.CurrentActiveUnit as Character).basicSkill;
+    }
+
     public static void Reset()
     {
         SkillPartGroupDatas.ForEach(x => x.Reset());
