@@ -46,6 +46,7 @@ public class Enemy : Unit
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
+                skillFXManager.EndProjectileLine();
                 StartCoroutine(AttackEnemyBasicAttack());
             }
         }
@@ -56,8 +57,7 @@ public class Enemy : Unit
         currentTile.Target();
     }
 
-    // maybe move to seperate script?
-    public void TargetEnemyBasicAttack() // might adapt to work for all direct attacks (target one enemy, including ranged)
+    public void TargetEnemy()
 	{
         var attackRange = skillsManager.GetBasicAttackRange();
         var tilesInAttackRange = TilesInAttackRange(attackRange);
@@ -75,32 +75,37 @@ public class Enemy : Unit
     
     void TargetEnemyBasicAttack(List<BoardTile> tilesInAttackRange, float attackRange)
     {
+        closestTile = UnitData.CurrentActiveUnit.currentTile;
+
         if (CurrentUnitIsAdjacent() == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
             closestTile.Target();
+        }
 
-            if (SkillData.CurentSkillIsBasic())
-            {
-                var caster = UnitData.CurrentActiveUnit as Character;
-                caster.basicSkill.SetTargetAndTile(this, currentTile);
+        if (SkillData.CurentSkillIsBasic())
+        {
+            var caster = UnitData.CurrentActiveUnit as Character;
+            caster.basicSkill.SetTargetAndTile(this, currentTile);
 
-                if (attackRange > 1.5f)
-				{
-                    skillFXManager.PreviewProjectileLine(caster.transform.position, transform.position);
-                    uiManager.SetCursor(this, CursorType.Ranged);
-                }
-                else
-				{
-                    uiManager.SetCursor(this, CursorType.Melee);
-                }
+            if (attackRange > 1.5f)
+			{
+                uiManager.SetCursor(this, CursorType.Ranged);
+                
+                if (CurrentUnitIsAdjacent() == false)
+                    skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
+            }
+            else
+			{
+                uiManager.SetCursor(this, CursorType.Melee);
             }
         }
     }
 
     IEnumerator AttackEnemyBasicAttack()
 	{
-        if (CurrentUnitIsAdjacent() == false)
+        var attackRange = skillsManager.GetBasicAttackRange();
+        if (TilesInAttackRange(attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
             yield return StartCoroutine(boardManager.MoveToTile());
 
         var basicSkill = (UnitData.CurrentActiveUnit as Character).basicSkill;
