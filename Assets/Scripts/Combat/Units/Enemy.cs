@@ -64,9 +64,6 @@ public class Enemy : Unit
 
         if (tilesInAttackRange != null && UnitData.CurrentAction == CurrentActionKind.Basic)
         {
-            //if (attackRange <= 1.5f)
-            //    TargetEnemyBasicMeleeAttack(tilesInAttackRange);
-            //else
             TargetEnemyBasicAttack(tilesInAttackRange, attackRange);
         }
 
@@ -76,21 +73,6 @@ public class Enemy : Unit
         }
     }
     
-    void TargetEnemyBasicMeleeAttack(List<BoardTile> tilesInAttackRange) //combine with ranged?
-    {
-        uiManager.SetCursor(this, CursorType.Melee);
-        if (CurrentUnitIsAdjacent() == false)
-        {
-            closestTile = tilesInAttackRange.FirstOrDefault();
-            closestTile.Target();
-
-            if (SkillData.CurentSkillIsBasic())
-            {
-                (UnitData.CurrentActiveUnit as Character).basicSkill.SetTargetAndTile(this, currentTile);
-            }
-        }
-    }
-
     void TargetEnemyBasicAttack(List<BoardTile> tilesInAttackRange, float attackRange)
     {
         if (CurrentUnitIsAdjacent() == false)
