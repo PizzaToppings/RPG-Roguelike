@@ -42,7 +42,7 @@ public class CombatManager : MonoBehaviour
 
     void CreateBattlefield()
     {
-        boardManager.CreateBoard();
+        boardManager.AddBoardTilesToList();
     }
 
     void PlaceUnits()

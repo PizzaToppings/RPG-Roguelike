@@ -33,9 +33,11 @@ public class BoardTile : MonoBehaviour
     public TileColor currentEdgeColor = new TileColor();
     
 
-    [HideInInspector] public Vector3 position = new Vector3();
+    [HideInInspector] public Vector3 position => transform.position;
 
-    public void Init(int xPosition, int yPosition)
+    
+
+    public void Init()
     {
         centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[1];
         edgeMaterial = gameObject.GetComponent<MeshRenderer>().materials[0];
@@ -43,16 +45,10 @@ public class BoardTile : MonoBehaviour
         boardManager = BoardManager.Instance;
         boardManager = BoardManager.Instance;
 
-        position = transform.position;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
-        Coordinates = new Vector2Int(xPosition, yPosition);
-
         DistanceTraveled = Mathf.Infinity;
         DistanceToTarget = Mathf.Infinity;
 
         skillShotManager = SkillsManager.Instance;
-        gameObject.name = xPosition + ", " + yPosition;
     }
 
     void OnMouseDown()
@@ -131,15 +127,6 @@ public class BoardTile : MonoBehaviour
         {
             boardManager.StopShowingMovement();
             OverrideColor(boardManager.MovementColor);
-        }
-    }
-
-    public void SetConnectedTiles()
-    {
-        for (int i =0; i < connectedTiles.Length; i++)
-		{
-            var direction = boardManager.Directions[i];
-            connectedTiles[i] = boardManager.GetBoardTile(Coordinates + direction);
         }
     }
 

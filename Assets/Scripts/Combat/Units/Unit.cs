@@ -23,6 +23,10 @@ public class Unit : UnitStats
     [HideInInspector] public UnityEvent<DamageData> OnTakeDamage;
     [HideInInspector] public Animator modelAnimator;
 
+    // for testing and debugging
+    public int startXPosition = 0;
+    public int startYPosition = 0;
+
     public bool MouseOver;
 
     public virtual void Init()

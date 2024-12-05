@@ -49,13 +49,12 @@ public class UnitManager : MonoBehaviour
     {
         var unit = child.GetComponent<Unit>();
         UnitData.Units.Add(unit);
+        
+        var startingTile = BoardData.BoardTiles[unit.startXPosition, unit.startYPosition];
+        unit.currentTile = startingTile;
+        startingTile.currentUnit = unit;
+        unit.transform.position = startingTile.position;
 
-        var randomX = Random.Range(0, BoardData.rowAmount);
-        var randomY = Random.Range(0, BoardData.columnAmount);
-        var randomPlace = BoardData.BoardTiles[randomX, randomY];
-        unit.currentTile = randomPlace;
-        randomPlace.currentUnit = unit;
-        unit.transform.position = randomPlace.position;
         unit.Init();
 
         if (unit.Friendly)

@@ -6,12 +6,7 @@ public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance;
 
-	const float rowIncrease = 1.5f;
-	const float columnIncrease = 1.5f;
-	Quaternion rotation = Quaternion.Euler(-90, 0, 0); 
-
     [Space]
-    [SerializeField] GameObject tilePrefab;
     [SerializeField] Transform BoardParent;
 
     public TileColor originalColor;
@@ -31,30 +26,17 @@ public class BoardManager : MonoBehaviour
         Directions = GetDirections();
     }
 
-    public void CreateBoard() 
+    public void AddBoardTilesToList()
     {
         BoardData.BoardTiles = new BoardTile[BoardData.rowAmount, BoardData.columnAmount];
 
-        for (int x = 0; x < BoardData.rowAmount; x++)
+        foreach (Transform child in BoardParent.transform)
         {
-            for (int y = 0; y < BoardData.columnAmount; y++)
-            {
-                Vector3 position = new Vector3(
-                    x * rowIncrease,
-                    0,
-                    y * columnIncrease
-                    );
-
-                var newTile = Instantiate(tilePrefab, position, rotation, BoardParent);
-				BoardTile tile = newTile.GetComponent<BoardTile>();
-				BoardData.BoardTiles[x, y] = tile;
-				tile.Init(x, y);
-			}
+            var tile = child.GetComponent<BoardTile>();
+            tile.Init();
+            BoardData.BoardTiles[tile.xPosition, tile.yPosition] = tile;
         }
-
-		foreach (BoardTile tile in BoardData.BoardTiles)
-			tile.SetConnectedTiles();
-	}
+    }
 
     public BoardTile GetBoardTile(int xPosition, int yPosition)
     {
