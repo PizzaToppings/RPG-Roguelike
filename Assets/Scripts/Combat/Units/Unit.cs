@@ -18,8 +18,6 @@ public class Unit : UnitStats
     [HideInInspector] public UnityEvent OnTurnStart;
     [HideInInspector] public UnityEvent OnTurnEnd;
 
-    [HideInInspector] public UnityEvent<Unit> OnClick;
-
     [HideInInspector] public UnityEvent<DamageData> OnDealDamage;
     [HideInInspector] public UnityEvent<DamageData> OnTakeDamage;
     [HideInInspector] public Animator modelAnimator;
@@ -57,14 +55,17 @@ public class Unit : UnitStats
 
     public virtual void OnMouseDown()
     {
-        if (OnClick != null)
-            OnClick.Invoke(this);
+        
     }
 
     public virtual void OnMouseExit()
     {
         currentTile.UnTarget();
     }
+
+    public virtual void OnClick()
+	{
+	}
 
     public virtual void SetStats()
     {

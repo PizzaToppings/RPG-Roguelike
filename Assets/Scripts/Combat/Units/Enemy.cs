@@ -42,14 +42,7 @@ public class Enemy : Unit
 
     public override void OnMouseDown()
 	{
-        if (UnitData.CurrentAction == CurrentActionKind.Basic)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                skillFXManager.EndProjectileLine();
-                StartCoroutine(AttackEnemyBasicAttack());
-            }
-        }
+        currentTile.OnClick();
     }
 
     public override void OnMouseEnter()
@@ -96,8 +89,23 @@ public class Enemy : Unit
                     skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
             }
             else
-			{
+			{ 
                 uiManager.SetCursor(this, CursorType.Melee);
+            }
+        }
+    }
+
+    public override void OnClick()
+	{
+        base.OnClick();
+
+        if (UnitData.CurrentAction == CurrentActionKind.Basic)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                skillFXManager.EndProjectileLine();
+                UnitData.CurrentAction = CurrentActionKind.Animating;
+                StartCoroutine(AttackEnemyBasicAttack());
             }
         }
     }

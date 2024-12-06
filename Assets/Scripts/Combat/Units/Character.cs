@@ -90,7 +90,7 @@ public class Character : Unit
     {
         boardManager.Clear();
         // turn off
-        if (SkillData.CurrentActiveSkill == skill)
+        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CurrentActiveSkill == skill)
         {
             StopCasting();
             SkillData.Reset();
@@ -142,8 +142,8 @@ public class Character : Unit
     {
         boardManager.Clear();
         UnitData.CurrentAction = CurrentActionKind.Basic;
-        SkillData.Reset();
-        boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
+		SkillData.Reset();
+		boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)

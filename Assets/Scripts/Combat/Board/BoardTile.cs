@@ -51,14 +51,7 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (UnitData.CurrentActiveUnit.Friendly == false || EventSystem.current.IsPointerOverGameObject())
-            return;
-
-        if (movementLeft > -1 && UnitData.CurrentAction == CurrentActionKind.Basic)
-        {
-            // start moving
-            StartCoroutine(boardManager.MoveToTile());
-        }
+        OnClick();
     }
 
     void OnMouseEnter()
@@ -99,6 +92,25 @@ public class BoardTile : MonoBehaviour
     {
         UnTarget();
     }
+
+    public void OnClick()
+	{
+        if (currentUnit == null)
+		{
+            if (UnitData.CurrentActiveUnit.Friendly == false || EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            if (movementLeft > -1 && UnitData.CurrentAction == CurrentActionKind.Basic)
+            {
+                // start moving
+                StartCoroutine(boardManager.MoveToTile());
+            }
+        }
+        else
+		{
+            currentUnit.OnClick();
+        }
+	}
 
     public void UnTarget()
     {
