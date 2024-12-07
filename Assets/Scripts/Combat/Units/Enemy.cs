@@ -84,9 +84,7 @@ public class Enemy : Unit
             if (attackRange > 1.5f)
 			{
                 uiManager.SetCursor(this, CursorType.Ranged);
-                
-                if (CurrentUnitIsAdjacent() == false)
-                    skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
+                skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
             }
             else
 			{ 

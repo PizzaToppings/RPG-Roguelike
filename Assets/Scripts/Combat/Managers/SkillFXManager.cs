@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SkillFXManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class SkillFXManager : MonoBehaviour
 
 	LineRenderer ProjectileLine;
 	Vector3 projectileLineOffset = Vector3.up;
+    float projectileLineVertexCount = 12;
     // TODO still needs to animate the casting character and affected characters
 
     public void Init()
@@ -43,12 +45,27 @@ public class SkillFXManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-	public void PreviewProjectileLine(Vector3 CasterPosition, Vector3 TargetPosition)
+	public void PreviewProjectileLine(Vector3 casterPosition, Vector3 targetPosition)
 	{
-		ProjectileLine.positionCount = 2;
+        var pointlist = new List<Vector3>();
 
-		ProjectileLine.SetPosition(0, TargetPosition + projectileLineOffset);
-		ProjectileLine.SetPosition(1, CasterPosition + projectileLineOffset);
+        casterPosition += projectileLineOffset;
+        targetPosition += projectileLineOffset;
+
+        var heightOffset = Vector3.Distance(casterPosition, targetPosition);
+        Vector3 middlePosition = Vector3.Lerp(casterPosition, targetPosition, 0.5f) + (heightOffset * projectileLineOffset * 0.5f);
+
+        for (float ratio = 0; ratio <= 1; ratio += 1/projectileLineVertexCount)
+		{
+            var tangent1 = Vector3.Lerp(targetPosition, middlePosition, ratio);
+            var tangent2 = Vector3.Lerp(middlePosition, casterPosition, ratio);
+            var curve = Vector3.Lerp(tangent1, tangent2, ratio);
+
+            pointlist.Add(curve);
+        }
+
+		ProjectileLine.positionCount = pointlist.Count;
+        ProjectileLine.SetPositions(pointlist.ToArray());
 	}
 
 	public void EndProjectileLine()
