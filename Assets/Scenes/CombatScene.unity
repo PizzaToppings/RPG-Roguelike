@@ -20069,7 +20069,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bfbcb78fdacb4b47b59146cb99bc9d8, type: 2}
+  - {fileID: 2100000, guid: 88df5a5aa1ff3f14fba7d8b98af59340, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -49985,9 +49985,6 @@ MonoBehaviour:
   OnTurnEnd:
     m_PersistentCalls:
       m_Calls: []
-  OnClick:
-    m_PersistentCalls:
-      m_Calls: []
   OnDealDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -50608,9 +50605,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnTurnEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClick:
     m_PersistentCalls:
       m_Calls: []
   OnDealDamage:
