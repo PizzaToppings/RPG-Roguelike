@@ -162,7 +162,7 @@ public class SkillsManager : MonoBehaviour
     IEnumerator CastSkillsPart(SO_Skillpart skillPart)
     {
         var index = skillPart.SkillPartIndex;
-        var skillFX = skillPart.SKillFX;
+        var skillFX = skillPart.SkillFX;
         var skillPartData = skillPart.PartData;
 
         foreach (var target in SkillData.GetCurrentTargetsHit(index))

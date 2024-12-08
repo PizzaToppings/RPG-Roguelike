@@ -17,7 +17,7 @@ public class SO_Skillpart : ScriptableObject
     [HideInInspector] public TargetTileEnum TargetTileMain = TargetTileEnum.None;
 
     [Header(" - Visuals")]
-    public SO_SKillFX[] SKillFX;
+    public SO_SKillFX[] SkillFX;
     public TileColor tileColor;
 
     [Space]
