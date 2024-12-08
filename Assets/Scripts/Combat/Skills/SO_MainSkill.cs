@@ -10,13 +10,14 @@ public class SO_MainSkill : ScriptableObject
     [TextArea(15,20)]    
     public string Description;
 
-    public enum TargetKindEnum {Enemies, Allies, All};
-
     public bool MagicalDamage; //change to enum?
-
     public List<SkillPartGroup> SkillPartGroups;
 
+    public enum TargetKindEnum {Enemies, Allies, All};
     public TargetKindEnum TargetKind;
+
+    public CursorType Cursor;
+
 
     private void Awake()
     {

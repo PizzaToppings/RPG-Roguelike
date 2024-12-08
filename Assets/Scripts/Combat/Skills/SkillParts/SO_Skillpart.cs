@@ -3,48 +3,35 @@ using UnityEngine;
 
 public class SO_Skillpart : ScriptableObject
 {
-    [System.Serializable]
-    public class DefaultStatusEffect 
-    {
-        public StatusEfectEnum Type;
-        public int Duration;
-
-        public DefaultStatusEffect(StatusEfectEnum Type, int Duration)
-        {
-            this.Type = Type;
-            this.Duration = Duration;
-        }
-    }
-
-    List<SO_Skillpart> skillPartsList;
-
-    public OriginTileEnum OriginTileKind = OriginTileEnum.None; 
-    public OriginTargetEnum OriginTargetKind = OriginTargetEnum.None;
-    public TargetTileEnum TargetTileKind = TargetTileEnum.MouseOverTile;
-
-    [Space]
-    public SO_SKillFX SKillFX;
-
     [HideInInspector] public List<BoardTile> OriginTiles;
     [HideInInspector] public List<Unit> OriginTargets;
     [HideInInspector] public BoardTile TargetTile;
     [HideInInspector] public SkillPartData PartData;
     [HideInInspector] public SkillPartGroupData MatchedSkillPartGroupData;
     [HideInInspector] public int FinalDirection;
-	[HideInInspector] public bool MagicalDamage;
+    [HideInInspector] public bool MagicalDamage;
     [HideInInspector] public int SkillPartIndex = 0;
 
+    [HideInInspector] public OriginTileEnum OriginTileMain = OriginTileEnum.None;
+    [HideInInspector] public OriginTargetEnum OriginTargetMain = OriginTargetEnum.None;
+    [HideInInspector] public TargetTileEnum TargetTileMain = TargetTileEnum.None;
+
+    [Header(" - Visuals")]
+    public SO_SKillFX[] SKillFX;
+    public TileColor tileColor;
+
     [Space]
+    [Header(" - Damage and Range")]
     public DamageTypeEnum DamageType;
     public int Power;
     public float Range;
     
     [Space]
+    [Header(" - StatusEffects")]
     public List<SO_StatusEffect> StatusEfects;
     public List<DefaultStatusEffect> defaultStatusEffects;
     
-    [Space]
-    public TileColor tileColor;
+    List<SO_Skillpart> skillPartsList;
 
     public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts)
     {
@@ -70,13 +57,13 @@ public class SO_Skillpart : ScriptableObject
             previousTilesHit = SkillData.GetPreviousTilesHit(SkillPartIndex);
 		}
 
-        if (OriginTileKind == OriginTileEnum.Caster)
+        if (OriginTileMain == OriginTileEnum.Caster)
         {
             SkillData.Caster = UnitData.CurrentActiveUnit;
             tiles.Add(SkillData.Caster.currentTile);
         }
 
-        if (OriginTileKind == OriginTileEnum.LastTargetTile)
+        if (OriginTileMain == OriginTileEnum.LastTargetTile)
         {
             if (previousTargetsHit.Count == 0)
                 return new List<BoardTile>();
@@ -84,7 +71,7 @@ public class SO_Skillpart : ScriptableObject
             previousTargetsHit.ForEach(x => tiles.Add(x.currentTile));
         }
 
-        if (OriginTileKind == OriginTileEnum.LastTile)
+        if (OriginTileMain == OriginTileEnum.LastTile)
         {
             tiles.AddRange(previousTilesHit);
         }
@@ -104,17 +91,17 @@ public class SO_Skillpart : ScriptableObject
             previousTilesHit = SkillData.GetPreviousTilesHit(SkillPartIndex);
         }
 
-        if (OriginTargetKind == OriginTargetEnum.Caster)
+        if (OriginTargetMain == OriginTargetEnum.Caster)
 		{
             units.Add(SkillData.Caster);
 		}
 
-        if (OriginTargetKind == OriginTargetEnum.LastTarget)
+        if (OriginTargetMain == OriginTargetEnum.LastTarget)
 		{
             units.AddRange(previousTargetsHit);
 		}
 
-        if (OriginTargetKind == OriginTargetEnum.TargetOnLastTiles)
+        if (OriginTargetMain == OriginTargetEnum.TargetOnLastTiles)
         {
             foreach (var tile in previousTilesHit)
 			{
@@ -130,10 +117,10 @@ public class SO_Skillpart : ScriptableObject
 
     BoardTile GetTargetTile(BoardTile mouseOverTile)
     {
-        if (TargetTileKind== TargetTileEnum.MouseOverTile)
+        if (TargetTileMain == TargetTileEnum.MouseOverTile)
             return mouseOverTile;
 
-        if (TargetTileKind == TargetTileEnum.CasterTile)
+        if (TargetTileMain == TargetTileEnum.CasterTile)
             return SkillData.Caster.currentTile;
 
         return null;

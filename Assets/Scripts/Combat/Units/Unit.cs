@@ -226,8 +226,8 @@ public class Unit : UnitStats
 
         foreach (var statusEffect in statusEffects)
         {
-            statusEffect.duration--;
-            if (statusEffect.duration == 0)
+            statusEffect.Duration--;
+            if (statusEffect.Duration == 0)
                 statusEffectToRemove.Add(statusEffect);
         }
 

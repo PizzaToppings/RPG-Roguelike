@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,7 +86,7 @@ public class SkillsManager : MonoBehaviour
 
     int GetDirection(SO_Skillpart skillData)
     {
-        if (skillData.TargetTileKind == TargetTileEnum.PreviousDirection)
+        if (skillData.TargetTileMain == TargetTileEnum.PreviousDirection)
         {
             skillData.FinalDirection = skillData.GetPreviousSkillPart().FinalDirection;
             return skillData.FinalDirection;
@@ -175,14 +176,11 @@ public class SkillsManager : MonoBehaviour
 
         if (skillFX != null)
         {
-            skillFX.SetValues(skillPartData);
-            yield return StartCoroutine(skillFXManager.Cast(skillFX));
-        }
-
-        foreach (var target in SkillData.GetCurrentTilesHit(index))
-        {
-            //var data = damageManager.DealDamage(skillPart, target);
-            //damageManager.TakeDamage(data);
+            foreach (var SFX in skillFX)
+			{
+                SFX.SetValues(skillPartData);
+                yield return StartCoroutine(skillFXManager.Cast(SFX));
+			}
         }
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;using System.Collections;
 [CreateAssetMenu(fileName = "SkillFX", menuName = "ScriptableObjects/SkillFX")]
 public class SO_SKillFX : ScriptableObject
 {
+	// TODO change
 	public SkillFxType SkillFxKind;
 	public SkillFxOriginEnum SkillOriginKind;
 	public SkillFxDestinationEnum SkillDestinationKind;

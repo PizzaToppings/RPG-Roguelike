@@ -66,7 +66,7 @@ public class DamageManager : MonoBehaviour
         foreach (var dse in skillshot.defaultStatusEffects)
         {
             var statusEffect = ScriptableObject.CreateInstance<SO_StatusEffect>();
-            statusEffect.statusEfectType = dse.Type;
+            statusEffect.statusEfectType = dse.statusEfectType;
             statusEffect.duration = dse.Duration;
 
             statusEffects.Add(statusEffect);

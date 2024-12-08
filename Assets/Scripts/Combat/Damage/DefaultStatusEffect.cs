@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+[System.Serializable]
 public class DefaultStatusEffect
 {
     public StatusEfectEnum statusEfectType;
-    public int duration;
+    public int Duration;
     public bool isDefault;
     public bool Buff;
 }

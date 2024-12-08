@@ -9,7 +9,7 @@ public enum StatusEfectEnum {None, Blinded, Silenced, Charmed, Frightened, Incap
 // Spell Targeting
 public enum OriginTileEnum { None, Caster, LastTargetTile, LastTile };
 public enum OriginTargetEnum { None, Caster, LastTarget, TargetOnLastTiles };
-public enum TargetTileEnum { MouseOverTile, CasterTile, Caster, PreviousDirection, MouseOverTarget };
+public enum TargetTileEnum { None, MouseOverTile, CasterTile, Caster, PreviousDirection, MouseOverTarget };
 public enum CursorType { Normal, Melee, Ranged, Spell }
 
 // Skill FX

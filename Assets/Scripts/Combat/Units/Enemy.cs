@@ -62,7 +62,7 @@ public class Enemy : Unit
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
-            uiManager.SetCursor(this, CursorType.Spell);
+            uiManager.SetCursor(this, SkillData.CurrentActiveSkill.Cursor);
         }
     }
     
@@ -81,15 +81,10 @@ public class Enemy : Unit
             var caster = UnitData.CurrentActiveUnit as Character;
             caster.basicSkill.SetTargetAndTile(this, currentTile);
 
-            if (attackRange > 1.5f)
-			{
-                uiManager.SetCursor(this, CursorType.Ranged);
+            uiManager.SetCursor(this, SkillData.CurrentActiveSkill.Cursor);
+            
+            if (attackRange > 1.5f) // so more than melee
                 skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
-            }
-            else
-			{ 
-                uiManager.SetCursor(this, CursorType.Melee);
-            }
         }
     }
 

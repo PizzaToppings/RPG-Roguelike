@@ -69,7 +69,7 @@ public class BoardTile : MonoBehaviour
 		{
             currentUnit.IsTargeted = true;
 
-            if (currentUnit is Enemy && UnitData.CurrentAction == CurrentActionKind.Basic)
+            if (currentUnit is Enemy)
 			{
 				(currentUnit as Enemy).TargetEnemy();
 			}

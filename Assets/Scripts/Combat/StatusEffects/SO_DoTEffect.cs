@@ -12,7 +12,7 @@ public class SO_DoTEffect : SO_StatusEffect
     {
         var status = new DoTStatusEffect();
         status.statusEfectType = statusEfectType;
-        status.duration = duration;
+        status.Duration = duration;
         status.Caster = caster;
         status.Damage = Damage;
         status.DamageType = DamageType;

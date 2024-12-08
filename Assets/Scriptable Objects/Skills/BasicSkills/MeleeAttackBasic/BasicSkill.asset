@@ -26,3 +26,4 @@ MonoBehaviour:
   - skillParts:
     - {fileID: 11400000, guid: 967c385fd7e60b14b899c2506c14bf4b, type: 2}
   TargetKind: 0
+  Cursor: 1

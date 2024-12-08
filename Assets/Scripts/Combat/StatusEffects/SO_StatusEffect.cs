@@ -24,7 +24,7 @@ public class SO_StatusEffect : ScriptableObject
         {
             status = new DefaultStatusEffect();
             status.statusEfectType = statusEfectType;
-            status.duration = duration;
+            status.Duration = duration;
             status.isDefault = isDefault;
             status.Buff = Buff;
             
@@ -32,7 +32,7 @@ public class SO_StatusEffect : ScriptableObject
         }
         else if (status.isDefault)
         {
-            status.duration += duration;
+            status.Duration += duration;
         }
     }
 }
