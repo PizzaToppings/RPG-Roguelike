@@ -20,7 +20,7 @@ public class BoardTile : MonoBehaviour
     Material edgeMaterial;
 
     // movement
-    public float movementLeft = -1;
+    public float movementLeft = -0.5f;
     public float DistanceTraveled;
     public float DistanceToTarget;
 
@@ -56,7 +56,9 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject() && 
+            UnitData.CurrentAction == CurrentActionKind.Basic &&
+            movementLeft > -1)
             Target();
     }
 
@@ -79,13 +81,9 @@ public class BoardTile : MonoBehaviour
 		boardManager.currentMouseTile = this;
         
         // Show movement line
-        if (movementLeft > -1 
-            && UnitData.CurrentAction == CurrentActionKind.Basic)
-        {
-            boardManager.Path = new List<BoardTile>();
-			boardManager.PreviewMovementLine(this);
-            SetColor(boardManager.MouseOverColor);
-		}
+        boardManager.Path = new List<BoardTile>();
+		boardManager.PreviewMovementLine(this);
+        SetColor(boardManager.MouseOverColor);
     }
 
     void OnMouseExit()

@@ -4,16 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TargetUnitSkill", menuName = "ScriptableObjects/SkillParts/TargetUnitSkill")]
 public class SO_TargetUnitSkill : SO_Skillpart
 {
-    [Header(" - Targeting")]
-    public OriginTileEnum OriginTileKind = OriginTileEnum.None;
-
     [Header(" - TargetUnit Specific")]
     public TileColor SelectedTargetTileColor;
 
     public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots) 
     {
-        OriginTileMain = OriginTileKind;
-        TargetTileMain = TargetTileEnum.MouseOverTarget;
+        base.OriginTileKind = OriginTileKind;
+        TargetTileKind = TargetTileEnum.MouseOverTarget;
 
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillsManager = SkillsManager.Instance;

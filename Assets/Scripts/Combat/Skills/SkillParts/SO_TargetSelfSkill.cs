@@ -6,7 +6,7 @@ public class SO_TargetSelfSkill : SO_Skillpart
 {
     public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots) 
     {
-        OriginTargetMain = OriginTargetEnum.Caster;
+        OriginTargetKind = OriginTargetEnum.Caster;
 
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillShotManager = SkillsManager.Instance;

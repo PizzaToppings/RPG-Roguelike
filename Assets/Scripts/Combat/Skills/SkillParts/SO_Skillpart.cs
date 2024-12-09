@@ -12,9 +12,15 @@ public class SO_Skillpart : ScriptableObject
     [HideInInspector] public bool MagicalDamage;
     [HideInInspector] public int SkillPartIndex = 0;
 
-    [HideInInspector] public OriginTileEnum OriginTileMain = OriginTileEnum.None;
-    [HideInInspector] public OriginTargetEnum OriginTargetMain = OriginTargetEnum.None;
-    [HideInInspector] public TargetTileEnum TargetTileMain = TargetTileEnum.None;
+    [Header(" - Targeting")]
+    public OriginTileEnum OriginTileKind = OriginTileEnum.None;
+    public List<SO_Skillpart> OriginTileSkillParts;
+
+    public OriginTargetEnum OriginTargetKind = OriginTargetEnum.None;
+    public List<SO_Skillpart> OriginTargetSkillParts;
+
+    public TargetTileEnum TargetTileKind = TargetTileEnum.None;
+    public List<SO_Skillpart> TargetTileSkillParts;
 
     [Header(" - Visuals")]
     public SO_SKillFX[] SkillFX;
@@ -25,6 +31,7 @@ public class SO_Skillpart : ScriptableObject
     public DamageTypeEnum DamageType;
     public int Power;
     public float Range;
+    public bool IncludeInAutoMove;
     
     [Space]
     [Header(" - StatusEffects")]
@@ -57,13 +64,13 @@ public class SO_Skillpart : ScriptableObject
             previousTilesHit = SkillData.GetPreviousTilesHit(SkillPartIndex);
 		}
 
-        if (OriginTileMain == OriginTileEnum.Caster)
+        if (OriginTileKind == OriginTileEnum.Caster)
         {
             SkillData.Caster = UnitData.CurrentActiveUnit;
             tiles.Add(SkillData.Caster.currentTile);
         }
 
-        if (OriginTileMain == OriginTileEnum.LastTargetTile)
+        if (OriginTileKind == OriginTileEnum.LastTargetTile)
         {
             if (previousTargetsHit.Count == 0)
                 return new List<BoardTile>();
@@ -71,7 +78,7 @@ public class SO_Skillpart : ScriptableObject
             previousTargetsHit.ForEach(x => tiles.Add(x.currentTile));
         }
 
-        if (OriginTileMain == OriginTileEnum.LastTile)
+        if (OriginTileKind == OriginTileEnum.LastTile)
         {
             tiles.AddRange(previousTilesHit);
         }
@@ -91,17 +98,17 @@ public class SO_Skillpart : ScriptableObject
             previousTilesHit = SkillData.GetPreviousTilesHit(SkillPartIndex);
         }
 
-        if (OriginTargetMain == OriginTargetEnum.Caster)
+        if (OriginTargetKind == OriginTargetEnum.Caster)
 		{
             units.Add(SkillData.Caster);
 		}
 
-        if (OriginTargetMain == OriginTargetEnum.LastTarget)
+        if (OriginTargetKind == OriginTargetEnum.LastTarget)
 		{
             units.AddRange(previousTargetsHit);
 		}
 
-        if (OriginTargetMain == OriginTargetEnum.TargetOnLastTiles)
+        if (OriginTargetKind == OriginTargetEnum.TargetOnLastTiles)
         {
             foreach (var tile in previousTilesHit)
 			{
@@ -117,10 +124,10 @@ public class SO_Skillpart : ScriptableObject
 
     BoardTile GetTargetTile(BoardTile mouseOverTile)
     {
-        if (TargetTileMain == TargetTileEnum.MouseOverTile)
+        if (TargetTileKind == TargetTileEnum.MouseOverTile)
             return mouseOverTile;
 
-        if (TargetTileMain == TargetTileEnum.CasterTile)
+        if (TargetTileKind == TargetTileEnum.CasterTile)
             return SkillData.Caster.currentTile;
 
         return null;

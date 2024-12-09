@@ -9,39 +9,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
-  m_Name: RangedBasicSkillPart
+  m_Script: {fileID: 11500000, guid: 7bbbc954076eb9c44bd1cbae407eb541, type: 3}
+  m_Name: halfCircleSkill
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
+  OriginTiles: []
   OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
-  OriginTileKind: 1
+  OriginTileKind: 0
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 5
+  TargetTileKind: 0
   TargetTileSkillParts: []
   SkillFX: []
   tileColor:
     UseCenterColor: 0
-    CenterColor: {r: 1, g: 1, b: 1, a: 1}
-    CenterPriority: 3
-    UseEdgeColor: 1
-    EdgeColor: {r: 0.764151, g: 0.55480915, b: 0, a: 1}
-    EdgePriority: 3
-  DamageType: 0
-  Power: 10
-  Range: 10
-  StatusEfects: []
-  defaultStatusEffects: []
-  SelectedTargetTileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 0.76470596, g: 0.5529412, b: 0, a: 1}
-    CenterPriority: 3
+    CenterColor: {r: 0, g: 0, b: 0, a: 0}
+    CenterPriority: 10
     UseEdgeColor: 1
     EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     EdgePriority: 10
+  DamageType: 0
+  Power: 0
+  Range: 0
+  StatusEfects: []
+  defaultStatusEffects: []

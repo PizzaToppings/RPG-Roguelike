@@ -86,7 +86,7 @@ public class SkillsManager : MonoBehaviour
 
     int GetDirection(SO_Skillpart skillData)
     {
-        if (skillData.TargetTileMain == TargetTileEnum.PreviousDirection)
+        if (skillData.TargetTileKind == TargetTileEnum.PreviousDirection)
         {
             skillData.FinalDirection = skillData.GetPreviousSkillPart().FinalDirection;
             return skillData.FinalDirection;
@@ -184,10 +184,9 @@ public class SkillsManager : MonoBehaviour
         }
     }
 
-    public float GetBasicAttackRange()
+    public float GetSkillAttackRange()
     {
-        var attacker = UnitData.CurrentActiveUnit as Character;
-        var basicSkill = attacker.basicSkill;
-        return basicSkill.GetAttackRange();
+        var skill = SkillData.CurrentActiveSkill;
+        return skill.GetAttackRange();
     }
 }

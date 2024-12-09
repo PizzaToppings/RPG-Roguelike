@@ -10,12 +10,14 @@ public class SO_MainSkill : ScriptableObject
     [TextArea(15,20)]    
     public string Description;
 
-    public bool MagicalDamage; //change to enum?
+    [Space]
     public List<SkillPartGroup> SkillPartGroups;
+    
+    [Space]
+    public bool MagicalDamage; //change to enum?
 
-    public enum TargetKindEnum {Enemies, Allies, All};
+    [Space]
     public TargetKindEnum TargetKind;
-
     public CursorType Cursor;
 
 
@@ -59,7 +61,8 @@ public class SO_MainSkill : ScriptableObject
         {
             foreach (var sp in spg.skillParts)
 			{
-                totalRange += sp.Range;
+                if (sp.IncludeInAutoMove)
+                    totalRange += sp.Range;
             }
         }
 

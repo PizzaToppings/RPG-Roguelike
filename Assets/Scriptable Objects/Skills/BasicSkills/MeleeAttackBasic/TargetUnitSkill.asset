@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: TargetUnitSkill
   m_EditorClassIdentifier: 
-  OriginTileKind: 1
-  OriginTargetKind: 0
-  TargetTileKind: 0
-  SKillFX: {fileID: 11400000, guid: 1c3454abdff2ba244b44573237c18680, type: 2}
   OriginTiles:
   - {fileID: 0}
   OriginTargets: []
@@ -23,11 +19,13 @@ MonoBehaviour:
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
-  DamageType: 0
-  Power: 10
-  Range: 1.5
-  StatusEfects: []
-  defaultStatusEffects: []
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 5
+  TargetTileSkillParts: []
+  SkillFX: []
   tileColor:
     UseCenterColor: 0
     CenterColor: {r: 1, g: 1, b: 1, a: 1}
@@ -35,6 +33,11 @@ MonoBehaviour:
     UseEdgeColor: 1
     EdgeColor: {r: 0.764151, g: 0.55480915, b: 0, a: 1}
     EdgePriority: 3
+  DamageType: 0
+  Power: 10
+  Range: 1.5
+  StatusEfects: []
+  defaultStatusEffects: []
   SelectedTargetTileColor:
     UseCenterColor: 1
     CenterColor: {r: 0.76470596, g: 0.5529412, b: 0, a: 1}

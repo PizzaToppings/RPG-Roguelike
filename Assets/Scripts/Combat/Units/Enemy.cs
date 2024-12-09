@@ -52,23 +52,24 @@ public class Enemy : Unit
 
     public void TargetEnemy()
 	{
-        var attackRange = skillsManager.GetBasicAttackRange();
-        var tilesInAttackRange = TilesInAttackRange(attackRange);
+        var attackRange = -1f;
 
-        if (tilesInAttackRange != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+        if (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
-            TargetEnemyBasicAttack(tilesInAttackRange, attackRange);
-        }
+            attackRange = skillsManager.GetSkillAttackRange();
+            if (attackRange == 0)
+                return;
 
-        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-        {
-            uiManager.SetCursor(this, SkillData.CurrentActiveSkill.Cursor);
+            var tilesInAttackRange = TilesInAttackRange(attackRange);
+            if (tilesInAttackRange != null)
+                TargetEnemyBasicAttack(tilesInAttackRange, attackRange);
         }
     }
     
     void TargetEnemyBasicAttack(List<BoardTile> tilesInAttackRange, float attackRange)
     {
         closestTile = UnitData.CurrentActiveUnit.currentTile;
+        var skill = SkillData.CurrentActiveSkill;
 
         if (CurrentUnitIsAdjacent() == false)
         {
@@ -76,16 +77,15 @@ public class Enemy : Unit
             closestTile.Target();
         }
 
-        if (SkillData.CurentSkillIsBasic())
-        {
-            var caster = UnitData.CurrentActiveUnit as Character;
-            caster.basicSkill.SetTargetAndTile(this, currentTile);
+        //if (SkillData.CurentSkillIsBasic())
+        //{
+            skill.SetTargetAndTile(this, currentTile);
 
             uiManager.SetCursor(this, SkillData.CurrentActiveSkill.Cursor);
             
             if (attackRange > 1.5f) // so more than melee
                 skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
-        }
+        //}
     }
 
     public override void OnClick()
@@ -105,7 +105,7 @@ public class Enemy : Unit
 
     IEnumerator AttackEnemyBasicAttack()
 	{
-        var attackRange = skillsManager.GetBasicAttackRange();
+        var attackRange = skillsManager.GetSkillAttackRange();
         if (TilesInAttackRange(attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
             yield return StartCoroutine(boardManager.MoveToTile());
 

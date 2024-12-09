@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -180,7 +179,7 @@ public class BoardManager : MonoBehaviour
         }
         else
 		{
-            SetSkillAOE(data.Range + 1, startingTile, data);
+            SetSkillAOE(data.Range, startingTile, data);
 		}
     }
 
@@ -244,7 +243,7 @@ public class BoardManager : MonoBehaviour
 
             var index = skillData.SkillPartIndex;
             while (tile.skillshotsRangeLeft.Count <= index)
-                tile.skillshotsRangeLeft.Add(0);
+                tile.skillshotsRangeLeft.Add(-0.5f);
 
             if (tile.skillshotsRangeLeft[index] < nextSkillRange)
             {
@@ -549,13 +548,13 @@ public class BoardManager : MonoBehaviour
 
         var friendly = UnitData.CurrentActiveUnit.Friendly;
 
-        if (SkillData.CurrentActiveSkill.TargetKind == SO_MainSkill.TargetKindEnum.Allies)
+        if (SkillData.CurrentActiveSkill.TargetKind == TargetKindEnum.Allies)
         {
             if (target.Friendly == friendly)
                 return true;
         }
 
-        if (SkillData.CurrentActiveSkill.TargetKind == SO_MainSkill.TargetKindEnum.All)
+        if (SkillData.CurrentActiveSkill.TargetKind == TargetKindEnum.All)
             return true;
 
         return (target.Friendly != friendly);
