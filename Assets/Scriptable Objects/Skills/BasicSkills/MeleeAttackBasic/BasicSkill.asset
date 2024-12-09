@@ -21,9 +21,10 @@ MonoBehaviour:
     EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     EdgePriority: 10
   Description: 
-  MagicalDamage: 0
   SkillPartGroups:
-  - skillParts:
+  - CastOnTile: 1
+    skillParts:
     - {fileID: 11400000, guid: 967c385fd7e60b14b899c2506c14bf4b, type: 2}
+  MagicalDamage: 0
   TargetKind: 0
   Cursor: 1

@@ -36,6 +36,7 @@ MonoBehaviour:
   DamageType: 0
   Power: 10
   Range: 1.5
+  IncludeInAutoMove: 1
   StatusEfects: []
   defaultStatusEffects: []
   SelectedTargetTileColor:

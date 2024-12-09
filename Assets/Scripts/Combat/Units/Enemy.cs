@@ -89,7 +89,7 @@ public class Enemy : Unit
 	{
         base.OnClick();
 
-        if (UnitData.CurrentAction == CurrentActionKind.Basic)
+        if (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -119,21 +119,12 @@ public class Enemy : Unit
 	{
         uiManager.SetCursor(this, CursorType.Normal);
 
-		//if (closestTile != null && 
-  //          (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
-		//{
-		//	closestTile.UnTarget();
-		//    SkillData.Reset();
-  //          skillFXManager.EndProjectileLine();
-		//}
-
         if (closestTile != null && 
             (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
         {
             closestTile.UnTarget();
             SkillData.Reset();
             skillFXManager.EndProjectileLine();
-            //boardManager.VisualClear();
         }
     }
 
