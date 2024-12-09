@@ -77,15 +77,12 @@ public class Enemy : Unit
             closestTile.Target();
         }
 
-        //if (SkillData.CurentSkillIsBasic())
-        //{
             skill.SetTargetAndTile(this, currentTile);
 
             uiManager.SetCursor(this, SkillData.CurrentActiveSkill.Cursor);
             
             if (attackRange > 1.5f) // so more than melee
                 skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
-        //}
     }
 
     public override void OnClick()
@@ -122,14 +119,21 @@ public class Enemy : Unit
 	{
         uiManager.SetCursor(this, CursorType.Normal);
 
-		if (closestTile != null && 
-            (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
-		{
-			closestTile.UnTarget();
-		    SkillData.Reset();
+		//if (closestTile != null && 
+  //          (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
+		//{
+		//	closestTile.UnTarget();
+		//    SkillData.Reset();
+  //          skillFXManager.EndProjectileLine();
+		//}
+
+        if (closestTile != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+        {
+            closestTile.UnTarget();
+            SkillData.Reset();
             skillFXManager.EndProjectileLine();
-		}
-	}
+        }
+    }
 
     bool CurrentUnitIsAdjacent()
     {

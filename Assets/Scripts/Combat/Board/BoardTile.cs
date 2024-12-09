@@ -58,9 +58,9 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && 
-            UnitData.CurrentAction == CurrentActionKind.Basic &&
-            movementLeft > -1)
+        boardManager.currentMouseTile = this;
+
+        if (!EventSystem.current.IsPointerOverGameObject() && movementLeft > -1)
             Target();
     }
 
@@ -80,8 +80,6 @@ public class BoardTile : MonoBehaviour
 			return;
 		}
 
-		boardManager.currentMouseTile = this;
-        
         // Show movement line
         boardManager.Path = new List<BoardTile>();
 		boardManager.PreviewMovementLine(this);
@@ -139,7 +137,7 @@ public class BoardTile : MonoBehaviour
 
             if (UnitData.CurrentAction == CurrentActionKind.Basic)
             {
-                if (movementLeft >= 0)
+                if (movementLeft >= -0.5f)
                     OverrideColor(boardManager.MovementColor);
                 else
                     OverrideColor(boardManager.originalColor);
@@ -147,15 +145,17 @@ public class BoardTile : MonoBehaviour
 
             var skill = SkillData.CurrentActiveSkill;
 
-            if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && 
-                boardManager.GetRangeBetweenTiles(UnitData.CurrentActiveUnit.currentTile, this) <= skill.GetAttackRange())
+            if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
 			{
-                OverrideColor(skillCastColor);
-			}
-            else
-			{
-                OverrideColor(boardManager.originalColor);
-            }                
+                if (boardManager.GetRangeBetweenTiles(UnitData.CurrentActiveUnit.currentTile, this) <= skill.GetAttackRange())
+                {
+                    OverrideColor(skillCastColor);
+                }
+                else
+                {
+					OverrideColor(boardManager.originalColor);
+				}
+            }
         }
     }
 
