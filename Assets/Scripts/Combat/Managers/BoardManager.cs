@@ -81,6 +81,29 @@ public class BoardManager : MonoBehaviour
         return range;
     }
 
+    public List<BoardTile> GetPathBetweenTiles(Vector2Int startTile, Vector2Int endTile)
+	{
+        var path = new List<BoardTile>();
+
+        while (startTile != endTile)
+		{
+            if (startTile.x < endTile.x)
+                startTile.x++;
+            else if (startTile.x > endTile.x)
+                startTile.x--;
+
+            // Adjust y component
+            if (startTile.y < endTile.y)
+                startTile.y++;
+            else if (startTile.y > endTile.y)
+                startTile.y--;
+
+            path.Add(GetBoardTile(startTile));
+        }
+
+        return path;
+	}
+
     public List<BoardTile> getTilesWithinRange(BoardTile starttile, float range)
     {
         var tileList = new List<BoardTile>();
@@ -161,6 +184,14 @@ public class BoardManager : MonoBehaviour
 			tile.skillshotsRangeLeft = new List<float>();
         }
         StopShowingMovement();
+    }
+
+    public void VisualClear()
+	{
+        foreach (var tile in BoardData.BoardTiles)
+        {
+            tile.OverrideColor(originalColor);
+        }
     }
 
     public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)

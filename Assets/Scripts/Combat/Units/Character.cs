@@ -88,7 +88,7 @@ public class Character : Unit
 
     public void ToggleSkill(SO_MainSkill skill)
     {
-        boardManager.Clear();
+        boardManager.VisualClear();
         // turn off
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CurrentActiveSkill == skill)
         {
