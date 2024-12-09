@@ -122,7 +122,8 @@ public class Enemy : Unit
 	{
         uiManager.SetCursor(this, CursorType.Normal);
 
-		if (closestTile != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+		if (closestTile != null && 
+            (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
 		{
 			closestTile.UnTarget();
 		    SkillData.Reset();

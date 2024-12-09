@@ -31,7 +31,9 @@ public class BoardTile : MonoBehaviour
 
     public TileColor currentCenterColor = new TileColor();
     public TileColor currentEdgeColor = new TileColor();
-    
+
+    public TileColor skillCastColor = new TileColor();
+
 
     [HideInInspector] public Vector3 position => transform.position;
 
@@ -122,7 +124,7 @@ public class BoardTile : MonoBehaviour
 			{
 				(currentUnit as Enemy).UnTargetEnemy();
 
-                if (movementLeft >= 0)
+                if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft >= 0)
                     OverrideColor(boardManager.MovementColor);
                 else
                     OverrideColor(boardManager.originalColor);
@@ -131,10 +133,29 @@ public class BoardTile : MonoBehaviour
 		}
 
 		if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1
-            && UnitData.CurrentAction == CurrentActionKind.Basic)
+            && (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
         {
             boardManager.StopShowingMovement();
-            OverrideColor(boardManager.MovementColor);
+
+            if (UnitData.CurrentAction == CurrentActionKind.Basic)
+            {
+                if (movementLeft >= 0)
+                    OverrideColor(boardManager.MovementColor);
+                else
+                    OverrideColor(boardManager.originalColor);
+            }
+
+            var skill = SkillData.CurrentActiveSkill;
+
+            if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && 
+                boardManager.GetRangeBetweenTiles(UnitData.CurrentActiveUnit.currentTile, this) <= skill.GetAttackRange())
+			{
+                OverrideColor(skillCastColor);
+			}
+            else
+			{
+                OverrideColor(boardManager.originalColor);
+            }                
         }
     }
 
@@ -159,6 +180,11 @@ public class BoardTile : MonoBehaviour
             edgeMaterial.color = color.EdgeColor;
             currentEdgeColor = color;
         }
+
+        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+		{
+            skillCastColor = color;
+        }
     }
 
     public void OverrideColor(TileColor color)
@@ -173,6 +199,11 @@ public class BoardTile : MonoBehaviour
         {
             edgeMaterial.color = color.EdgeColor;
             currentEdgeColor = color;
+        }
+
+        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+        {
+            skillCastColor = color;
         }
     }
 }

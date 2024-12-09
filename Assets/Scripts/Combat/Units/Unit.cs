@@ -236,7 +236,6 @@ public class Unit : UnitStats
 
     public virtual void PreviewSkills(BoardTile mouseOverTile)
     {
-        boardManager.Clear();
     }
 
     public List<BoardTile> TilesInAttackRange(float attackRange)
