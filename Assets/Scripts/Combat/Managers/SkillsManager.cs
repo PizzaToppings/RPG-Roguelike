@@ -44,7 +44,7 @@ public class SkillsManager : MonoBehaviour
             }
         }
 
-        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTile == false)
         {
             UnitData.CurrentActiveUnit.PreviewSkills(boardManager.currentMouseTile);
         }

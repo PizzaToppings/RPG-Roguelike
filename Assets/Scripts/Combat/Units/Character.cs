@@ -88,9 +88,9 @@ public class Character : Unit
 
     public void ToggleSkill(SO_MainSkill skill)
     {
-        boardManager.Clear();
-        // turn off
-        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CurrentActiveSkill == skill)
+		boardManager.VisualClear();
+		// turn off
+		if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CurrentActiveSkill == skill)
         {
             StopCasting();
             SkillData.Reset();
@@ -106,6 +106,8 @@ public class Character : Unit
             UnitData.CurrentAction = CurrentActionKind.CastingSkillshot;
 
             SetSkillData(skill);
+
+            skill.Preview(boardManager.currentMouseTile);
 		}
     }
 
@@ -118,7 +120,7 @@ public class Character : Unit
         {
             var spg = skill.SkillPartGroups[i];
             var skillPartGroupData = new SkillPartGroupData();
-            skillPartGroupData.Name = skill.name;
+            skillPartGroupData.CastOnTile = spg.CastOnTile;
             SkillData.SkillPartGroupDatas.Add(skillPartGroupData);
 
             for (var s = 0; s < spg.skillParts.Count; s++)
@@ -126,7 +128,6 @@ public class Character : Unit
                 var skillPartData = new SkillPartData
                 {
                     Index = s,
-                    Name = spg.skillParts[s].name
                 };
 
                 spg.skillParts[s].SkillPartIndex = s;

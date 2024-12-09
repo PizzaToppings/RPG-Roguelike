@@ -6,6 +6,7 @@ public class SkillData
     public static SO_MainSkill CurrentActiveSkill = null;
 
     public static Unit Caster;
+    public static bool CastOnTile => CurrentSkillPartGroupData.CastOnTile;
     
     public static int SkillPartGroupIndex = 0;
     public static List<SkillPartGroupData> SkillPartGroupDatas = new List<SkillPartGroupData>();

@@ -77,12 +77,12 @@ public class Enemy : Unit
             closestTile.Target();
         }
 
-            skill.SetTargetAndTile(this, currentTile);
+        skill.SetTargetAndTile(this, currentTile);
 
-            uiManager.SetCursor(this, SkillData.CurrentActiveSkill.Cursor);
+        uiManager.SetCursor(this, SkillData.CurrentActiveSkill.Cursor);
             
-            if (attackRange > 1.5f) // so more than melee
-                skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
+        if (attackRange > 1.5f) // so more than melee
+            skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
     }
 
     public override void OnClick()
@@ -127,11 +127,13 @@ public class Enemy : Unit
   //          skillFXManager.EndProjectileLine();
 		//}
 
-        if (closestTile != null && UnitData.CurrentAction == CurrentActionKind.Basic)
+        if (closestTile != null && 
+            (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
         {
             closestTile.UnTarget();
             SkillData.Reset();
             skillFXManager.EndProjectileLine();
+            //boardManager.VisualClear();
         }
     }
 

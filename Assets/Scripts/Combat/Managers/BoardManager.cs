@@ -190,8 +190,10 @@ public class BoardManager : MonoBehaviour
 	{
         foreach (var tile in BoardData.BoardTiles)
         {
-            tile.OverrideColor(originalColor);
-        }
+			tile.OverrideColor(originalColor);
+			tile.skillshotsRangeLeft = new List<float>();
+		}
+        StopShowingMovement();
     }
 
     public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)

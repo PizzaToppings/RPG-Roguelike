@@ -69,7 +69,7 @@ public class BoardTile : MonoBehaviour
         if (UnitData.CurrentActiveUnit.Friendly == false)
             return;
 
-		if (currentUnit != null)
+        if (currentUnit != null)
 		{
             currentUnit.IsTargeted = true;
 
@@ -84,6 +84,11 @@ public class BoardTile : MonoBehaviour
         boardManager.Path = new List<BoardTile>();
 		boardManager.PreviewMovementLine(this);
         SetColor(boardManager.MouseOverColor);
+
+        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTile)
+		{
+            SkillData.CurrentActiveSkill.Preview(this);
+		}
     }
 
     void OnMouseExit()
