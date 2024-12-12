@@ -37,8 +37,13 @@ public class BoardTile : MonoBehaviour
 
     public void Init()
     {
-        centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[1];
-        edgeMaterials[0] = gameObject.GetComponent<MeshRenderer>().materials[0];
+        edgeMaterials = new Material[4];
+
+        centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[4];
+        edgeMaterials[0] = gameObject.GetComponent<MeshRenderer>().materials[1];
+        edgeMaterials[1] = gameObject.GetComponent<MeshRenderer>().materials[2];
+        edgeMaterials[2] = gameObject.GetComponent<MeshRenderer>().materials[3];
+        edgeMaterials[3] = gameObject.GetComponent<MeshRenderer>().materials[0];
 
         boardManager = BoardManager.Instance;
         boardManager = BoardManager.Instance;
@@ -173,13 +178,14 @@ public class BoardTile : MonoBehaviour
         Color transparentColor = color.Color;
         transparentColor.a = 0.5f;
 
+        currentTileColor = color;
+
         if (color.FillCenter)
-        {
             centerMaterial.color = transparentColor;
-        }
+        else
+            centerMaterial.color = Color.clear;
 
         SetEdgeColors(color, transparentColor);
-        currentTileColor = color;
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
             skillCastColor = color;
@@ -193,19 +199,20 @@ public class BoardTile : MonoBehaviour
         Color transparentColor = color.Color;
         transparentColor.a = 0.5f;
 
+        currentTileColor = color;
+
         if (color.FillCenter)
-        {
             centerMaterial.color = transparentColor;
-        }
+        else
+            centerMaterial.color = Color.clear;
 
         SetEdgeColors(color, transparentColor);
-        currentTileColor = color;
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
             skillCastColor = color;
     }
 
-    public void SetEdgeColors(TileColor color, Color transparentColor)
+    void SetEdgeColors(TileColor color, Color transparentColor)
     {
         var directions = new Vector2Int[]
         { new Vector2Int(0, 1), 
@@ -217,16 +224,42 @@ public class BoardTile : MonoBehaviour
         var edgeIndex = 0;
         for (int i = 0; i < connectedTiles.Length; i += 2)
         {
-            edgeIndex++;
+            if (connectedTiles[i] == null)
+            {
+                edgeIndex++;
+                continue;
+            }
+
+            var reverseEdgeIndex = (edgeIndex + 2) % 4;
+
             if (connectedTiles[i].currentTileColor == currentTileColor)
             {
-                edgeMaterials[edgeIndex].color = transparentColor;
+                SetEdgeColor(transparentColor, edgeIndex);
+                connectedTiles[i].SetEdgeColor(transparentColor, reverseEdgeIndex);
             }
-            else
+            else if (currentTileColor.Priority < connectedTiles[i].currentTileColor.Priority)
             {
-                edgeMaterials[edgeIndex].color = color.Color;
+                SetEdgeColor(color.Color, edgeIndex);
+                connectedTiles[i].SetEdgeColor(color.Color, reverseEdgeIndex);
             }
+            else if (currentTileColor.Priority > connectedTiles[i].currentTileColor.Priority)
+            {
+                SetEdgeColor(connectedTiles[i].currentTileColor.Color, edgeIndex);
+                connectedTiles[i].SetEdgeColor(connectedTiles[i].currentTileColor.Color, reverseEdgeIndex);
+            }
+         
+            edgeIndex++;
         }
+    }
+
+    public void SetEdgeColor(Color color, int index)
+    {
+        edgeMaterials[index].color = color;
+    }
+
+    public void SetCenterColor(Color color)
+    {
+        centerMaterial.color = color;
     }
 
     //   public void SetColor(TileColor color)
