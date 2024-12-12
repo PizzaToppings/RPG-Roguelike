@@ -17,7 +17,7 @@ public class BoardTile : MonoBehaviour
 
     // materials
     Material centerMaterial;
-    Material edgeMaterial;
+    Material[] edgeMaterials;
 
     // movement
     public float movementLeft = -0.5f;
@@ -29,9 +29,7 @@ public class BoardTile : MonoBehaviour
 
     public Unit currentUnit = null;
 
-    public TileColor currentCenterColor = new TileColor();
-    public TileColor currentEdgeColor = new TileColor();
-
+    public TileColor currentTileColor = new TileColor();
     public TileColor skillCastColor = new TileColor();
 
 
@@ -40,7 +38,7 @@ public class BoardTile : MonoBehaviour
     public void Init()
     {
         centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[1];
-        edgeMaterial = gameObject.GetComponent<MeshRenderer>().materials[0];
+        edgeMaterials[0] = gameObject.GetComponent<MeshRenderer>().materials[0];
 
         boardManager = BoardManager.Instance;
         boardManager = BoardManager.Instance;
@@ -165,50 +163,117 @@ public class BoardTile : MonoBehaviour
     }
 
     public void SetColor(TileColor color)
-	{
-        if (currentCenterColor == null)
-            currentCenterColor = new TileColor();
+    {
+        if (currentTileColor == null)
+            currentTileColor = new TileColor();
 
-        if (currentEdgeColor == null)
-            currentEdgeColor = new TileColor();
+        if (currentTileColor.Priority < color.Priority)
+            return;
 
-        if (color.UseCenterColor &&
-                color.CenterPriority < currentCenterColor.CenterPriority)
-		{
-            centerMaterial.color = color.CenterColor;
-            currentCenterColor = color;
-		}
+        Color transparentColor = color.Color;
+        transparentColor.a = 0.5f;
 
-        if (color.UseEdgeColor &&
-                color.EdgePriority < currentEdgeColor.EdgePriority)
+        if (color.FillCenter)
         {
-            edgeMaterial.color = color.EdgeColor;
-            currentEdgeColor = color;
+            centerMaterial.color = transparentColor;
         }
+
+        SetEdgeColors(color, transparentColor);
+        currentTileColor = color;
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-		{
             skillCastColor = color;
-        }
     }
 
     public void OverrideColor(TileColor color)
-	{
-        if (color.UseCenterColor)
+    {
+        if (currentTileColor == null)
+            currentTileColor = new TileColor();
+
+        Color transparentColor = color.Color;
+        transparentColor.a = 0.5f;
+
+        if (color.FillCenter)
         {
-            centerMaterial.color = color.CenterColor;
-            currentCenterColor = color;
+            centerMaterial.color = transparentColor;
         }
 
-        if (color.UseEdgeColor)
-        {
-            edgeMaterial.color = color.EdgeColor;
-            currentEdgeColor = color;
-        }
+        SetEdgeColors(color, transparentColor);
+        currentTileColor = color;
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-        {
             skillCastColor = color;
+    }
+
+    public void SetEdgeColors(TileColor color, Color transparentColor)
+    {
+        var directions = new Vector2Int[]
+        { new Vector2Int(0, 1), 
+            new Vector2Int(1, 0),
+            new Vector2Int(0, -1),
+            new Vector2Int(-1, 0)
+        };
+
+        var edgeIndex = 0;
+        for (int i = 0; i < connectedTiles.Length; i += 2)
+        {
+            edgeIndex++;
+            if (connectedTiles[i].currentTileColor == currentTileColor)
+            {
+                edgeMaterials[edgeIndex].color = transparentColor;
+            }
+            else
+            {
+                edgeMaterials[edgeIndex].color = color.Color;
+            }
         }
     }
+
+    //   public void SetColor(TileColor color)
+    //{
+    //       if (currentCenterColor == null)
+    //           currentCenterColor = new TileColor();
+
+    //       if (currentEdgeColor == null)
+    //           currentEdgeColor = new TileColor();
+
+    //       if (color.UseCenterColor &&
+    //               color.CenterPriority < currentCenterColor.CenterPriority)
+    //	{
+    //           centerMaterial.color = color.CenterColor;
+    //           currentCenterColor = color;
+    //	}
+
+    //       if (color.UseEdgeColor &&
+    //               color.EdgePriority < currentEdgeColor.EdgePriority)
+    //       {
+    //           edgeMaterial.color = color.EdgeColor;
+    //           currentEdgeColor = color;
+    //       }
+
+    //       if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+    //	{
+    //           skillCastColor = color;
+    //       }
+    //   }
+
+    //   public void OverrideColor(TileColor color)
+    //{
+    //       if (color.UseCenterColor)
+    //       {
+    //           centerMaterial.color = color.CenterColor;
+    //           currentCenterColor = color;
+    //       }
+
+    //       if (color.UseEdgeColor)
+    //       {
+    //           edgeMaterial.color = color.EdgeColor;
+    //           currentEdgeColor = color;
+    //       }
+
+    //       if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+    //       {
+    //           skillCastColor = color;
+    //       }
+    //   }
 }
