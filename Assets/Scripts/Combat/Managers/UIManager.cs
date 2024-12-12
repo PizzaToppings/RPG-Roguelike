@@ -57,12 +57,12 @@ public class UIManager : MonoBehaviour
         skillIcons[skillIndex].SetActiveColor(active);
     }
 
-    public void SetCursor(Unit target, CursorType cursorType)
+    public void SetCursor(CursorType cursorType)
 	{
         Texture2D texture = DefaultCursorTexture;
 
-        if (target is Enemy)
-		{
+  //      if (target is Enemy)
+		//{
             if (cursorType == CursorType.Melee)
                 texture = MeleeAttackCursorTexture;
             else if (cursorType == CursorType.Ranged)
@@ -71,6 +71,6 @@ public class UIManager : MonoBehaviour
                 texture = SpellCursorTexture;
 
             Cursor.SetCursor(texture, Vector2.zero, cursorMode);
-		}
+		//}
     }
 }

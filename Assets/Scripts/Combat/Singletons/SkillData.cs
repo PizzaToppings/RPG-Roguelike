@@ -7,7 +7,8 @@ public class SkillData
 
     public static Unit Caster;
     public static bool CastOnTile => CurrentSkillPartGroupData.CastOnTile;
-    
+    public static bool CastOnTarget => CurrentSkillPartGroupData.CastOnTarget;
+
     public static int SkillPartGroupIndex = 0;
     public static List<SkillPartGroupData> SkillPartGroupDatas = new List<SkillPartGroupData>();
 

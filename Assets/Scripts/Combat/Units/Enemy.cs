@@ -60,7 +60,7 @@ public class Enemy : Unit
             if (attackRange == 0)
                 return;
 
-            var tilesInAttackRange = TilesInAttackRange(attackRange);
+            var tilesInAttackRange = boardManager.GetTilesInAttackRange(currentTile, attackRange);
             if (tilesInAttackRange != null)
                 TargetEnemyBasicAttack(tilesInAttackRange, attackRange);
         }
@@ -71,7 +71,7 @@ public class Enemy : Unit
         closestTile = UnitData.CurrentActiveUnit.currentTile;
         var skill = SkillData.CurrentActiveSkill;
 
-        if (TilesInAttackRange(attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (boardManager.GetTilesInAttackRange(currentTile, attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
             closestTile.PreviewAttackWithinRange();
@@ -79,7 +79,7 @@ public class Enemy : Unit
 
         skill.SetTargetAndTile(this, currentTile);
 
-        uiManager.SetCursor(this, SkillData.CurrentActiveSkill.Cursor);
+        uiManager.SetCursor(SkillData.CurrentActiveSkill.Cursor);
             
         if (attackRange > 1.5f) // so more than melee
             skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
@@ -103,7 +103,7 @@ public class Enemy : Unit
     IEnumerator AttackEnemyBasicAttack()
 	{
         var attackRange = skillsManager.GetSkillAttackRange();
-        if (TilesInAttackRange(attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (boardManager.GetTilesInAttackRange(currentTile, attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
             yield return StartCoroutine(boardManager.MoveToTile());
 
         var basicSkill = (UnitData.CurrentActiveUnit as Character).basicSkill;
@@ -117,7 +117,7 @@ public class Enemy : Unit
 
     public void UnTargetEnemy()
 	{
-        uiManager.SetCursor(this, CursorType.Normal);
+        uiManager.SetCursor(CursorType.Normal);
 
         if (closestTile != null && 
             (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))

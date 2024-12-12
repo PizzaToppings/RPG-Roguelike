@@ -35,6 +35,7 @@ public class SO_TargetUnitSkill : SO_Skillpart
 
     public override void SetTargetAndTile(Unit target, BoardTile tile)
     {
-        TargetUnit(target);
+        if (target != null)
+            TargetUnit(target);
     }
 }

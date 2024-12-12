@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,7 +6,9 @@ using UnityEngine.EventSystems;
 public class BoardTile : MonoBehaviour
 {
     BoardManager boardManager;
-    SkillsManager skillShotManager;
+    SkillsManager skillsManager;
+    SkillFXManager skillFXManager;
+    UIManager uiManager;
     public BoardTile[] connectedTiles = new BoardTile[8];
     public BoardTile PreviousTile;
 
@@ -46,12 +48,13 @@ public class BoardTile : MonoBehaviour
         edgeMaterials[3] = gameObject.GetComponent<MeshRenderer>().materials[0];//3, left
 
         boardManager = BoardManager.Instance;
-        boardManager = BoardManager.Instance;
+        uiManager = UIManager.Instance;
 
         DistanceTraveled = Mathf.Infinity;
         DistanceToTarget = Mathf.Infinity;
 
-        skillShotManager = SkillsManager.Instance;
+        skillsManager = SkillsManager.Instance;
+        skillFXManager = SkillFXManager.Instance;
     }
 
     void OnMouseDown()
@@ -72,7 +75,7 @@ public class BoardTile : MonoBehaviour
         if (UnitData.CurrentActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
             return;
 
-        if (currentUnit != null)
+        if (currentUnit != null && SkillData.CastOnTarget)
 		{
             currentUnit.IsTargeted = true;
 
@@ -93,7 +96,34 @@ public class BoardTile : MonoBehaviour
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTile)
 		{
             UnitData.CurrentActiveUnit.PreviewSkills(this);
+
+            var attackRange = skillsManager.GetSkillAttackRange();
+            if (attackRange == 0)
+                return;
+
+            var tilesInAttackRange = boardManager.GetTilesInAttackRange(this, attackRange);
+            if (tilesInAttackRange != null)
+                TargetBasicAttack(tilesInAttackRange, attackRange);
         }
+    }
+
+    void TargetBasicAttack(List<BoardTile> tilesInAttackRange, float attackRange)
+    {
+        var closestTile = this;
+        var skill = SkillData.CurrentActiveSkill;
+
+        if (boardManager.GetTilesInAttackRange(this, attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        {
+            closestTile = tilesInAttackRange.FirstOrDefault();
+            closestTile.PreviewAttackWithinRange();
+        }
+
+        skill.SetTargetAndTile(currentUnit, this);
+
+        uiManager.SetCursor(SkillData.CurrentActiveSkill.Cursor);
+
+        if (attackRange > 1.5f) // so more than melee
+            skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
     }
 
     public void PreviewAttackWithinRange()
@@ -139,49 +169,25 @@ public class BoardTile : MonoBehaviour
             currentUnit.IsTargeted = false;
 
             if (currentUnit is Enemy)
-			{
-				(currentUnit as Enemy).UnTargetEnemy();
-
-                if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft >= 0)
-                    OverrideColor(boardManager.MovementColor);
-                else if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft < 0)
-                    OverrideColor(boardManager.originalColor);
-                else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-                {
-                    boardManager.VisualClear();
-                    SkillData.CurrentActiveSkill.Preview(null);
-                }
-
-            }
-            return;
-		}
-
-		if (UnitData.CurrentActiveUnit.Friendly && movementLeft > -1
-            && (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
-        {
-            boardManager.StopShowingMovement();
-
-            if (UnitData.CurrentAction == CurrentActionKind.Basic)
             {
-                if (movementLeft >= -0.5f)
-                    OverrideColor(boardManager.MovementColor);
-                else
-                    OverrideColor(boardManager.originalColor);
+                (currentUnit as Enemy).UnTargetEnemy();
             }
 
-            var skill = SkillData.CurrentActiveSkill;
+            
+            //return;
+		}
+        boardManager.StopShowingMovement();
 
-            if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-			{
-                if (boardManager.GetRangeBetweenTiles(UnitData.CurrentActiveUnit.currentTile, this) <= skill.GetAttackRange())
-                {
-                    OverrideColor(skillCastColor);
-                }
-                else
-                {
-					OverrideColor(boardManager.originalColor);
-				}
-            }
+        if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
+            OverrideColor(boardManager.MovementColor);
+        else if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft < 0)
+            OverrideColor(boardManager.originalColor);
+        else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+        {
+            SkillData.Reset();
+            boardManager.VisualClear();
+            skillFXManager.EndProjectileLine();
+            SkillData.CurrentActiveSkill.Preview(null);
         }
     }
 

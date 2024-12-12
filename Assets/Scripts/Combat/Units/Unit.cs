@@ -239,20 +239,6 @@ public class Unit : UnitStats
 		boardManager.VisualClear();
 	}
 
-    public List<BoardTile> TilesInAttackRange(float attackRange)
-	{
-        var attackTilesInRange = boardManager.getTilesWithinRange(currentTile, attackRange);
-
-        var attackerTile = UnitData.CurrentActiveUnit.currentTile;
-        var tilesOrdened = attackTilesInRange.OrderBy(
-            x => boardManager.GetRangeBetweenTiles(attackerTile.Coordinates, x.Coordinates)).ToList();
-
-        if (attackTilesInRange.Count == 0)
-            return null;
-
-		return tilesOrdened;
-	}
-
     public virtual IEnumerator StartTurn()
     {
         yield return null;

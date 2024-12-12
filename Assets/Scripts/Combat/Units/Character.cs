@@ -121,6 +121,7 @@ public class Character : Unit
             var spg = skill.SkillPartGroups[i];
             var skillPartGroupData = new SkillPartGroupData();
             skillPartGroupData.CastOnTile = spg.CastOnTile;
+            skillPartGroupData.CastOnTarget = spg.CastOnTarget;
             SkillData.SkillPartGroupDatas.Add(skillPartGroupData);
 
             for (var s = 0; s < spg.skillParts.Count; s++)
@@ -145,6 +146,7 @@ public class Character : Unit
         UnitData.CurrentAction = CurrentActionKind.Basic;
 		SkillData.Reset();
 		boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
+        skillFXManager.EndProjectileLine();
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -117,6 +118,20 @@ public class BoardManager : MonoBehaviour
         }
 
         return tileList;
+    }
+
+    public List<BoardTile> GetTilesInAttackRange(BoardTile tile, float attackRange)
+    {
+        var attackTilesInRange = getTilesWithinRange(tile, attackRange);
+
+        var attackerTile = UnitData.CurrentActiveUnit.currentTile;
+        var tilesOrdened = attackTilesInRange.OrderBy(
+            x => GetRangeBetweenTiles(attackerTile.Coordinates, x.Coordinates)).ToList();
+
+        if (attackTilesInRange.Count == 0)
+            return null;
+
+        return tilesOrdened;
     }
 
     public int GetRangeBetweenTiles(BoardTile startTile, BoardTile endTile)
