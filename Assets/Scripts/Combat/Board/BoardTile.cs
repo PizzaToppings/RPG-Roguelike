@@ -17,7 +17,7 @@ public class BoardTile : MonoBehaviour
 
     // materials
     Material centerMaterial;
-    Material[] edgeMaterials;
+    public Material[] edgeMaterials;
 
     // movement
     public float movementLeft = -0.5f;
@@ -40,10 +40,10 @@ public class BoardTile : MonoBehaviour
         edgeMaterials = new Material[4];
 
         centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[4];
-        edgeMaterials[0] = gameObject.GetComponent<MeshRenderer>().materials[1];
-        edgeMaterials[1] = gameObject.GetComponent<MeshRenderer>().materials[2];
-        edgeMaterials[2] = gameObject.GetComponent<MeshRenderer>().materials[3];
-        edgeMaterials[3] = gameObject.GetComponent<MeshRenderer>().materials[0];
+        edgeMaterials[0] = gameObject.GetComponent<MeshRenderer>().materials[1];//2, up
+        edgeMaterials[1] = gameObject.GetComponent<MeshRenderer>().materials[2];//1, right
+        edgeMaterials[2] = gameObject.GetComponent<MeshRenderer>().materials[3];//4, bottom
+        edgeMaterials[3] = gameObject.GetComponent<MeshRenderer>().materials[0];//3, left
 
         boardManager = BoardManager.Instance;
         boardManager = BoardManager.Instance;
@@ -172,20 +172,20 @@ public class BoardTile : MonoBehaviour
         if (currentTileColor == null)
             currentTileColor = new TileColor();
 
-        if (currentTileColor.Priority < color.Priority)
-            return;
-
         Color transparentColor = color.Color;
         transparentColor.a = 0.5f;
-
-        currentTileColor = color;
 
         if (color.FillCenter)
             centerMaterial.color = transparentColor;
         else
             centerMaterial.color = Color.clear;
 
-        SetEdgeColors(color, transparentColor);
+        if (currentTileColor.Priority < color.Priority)
+            return;
+        
+        currentTileColor = color;
+
+        SetEdgeColors(color);
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
             skillCastColor = color;
@@ -199,33 +199,30 @@ public class BoardTile : MonoBehaviour
         Color transparentColor = color.Color;
         transparentColor.a = 0.5f;
 
-        currentTileColor = color;
-
         if (color.FillCenter)
             centerMaterial.color = transparentColor;
         else
             centerMaterial.color = Color.clear;
 
-        SetEdgeColors(color, transparentColor);
+        currentTileColor = color;
+
+        SetEdgeColors(color);
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
             skillCastColor = color;
     }
 
-    void SetEdgeColors(TileColor color, Color transparentColor)
+    void SetEdgeColors(TileColor color)
     {
-        var directions = new Vector2Int[]
-        { new Vector2Int(0, 1), 
-            new Vector2Int(1, 0),
-            new Vector2Int(0, -1),
-            new Vector2Int(-1, 0)
-        };
+        Color transparentColor = color.Color;
+        transparentColor.a = 0.3f;
 
         var edgeIndex = 0;
         for (int i = 0; i < connectedTiles.Length; i += 2)
         {
             if (connectedTiles[i] == null)
             {
+                SetEdgeColor(color.Color, edgeIndex);
                 edgeIndex++;
                 continue;
             }
@@ -261,52 +258,4 @@ public class BoardTile : MonoBehaviour
     {
         centerMaterial.color = color;
     }
-
-    //   public void SetColor(TileColor color)
-    //{
-    //       if (currentCenterColor == null)
-    //           currentCenterColor = new TileColor();
-
-    //       if (currentEdgeColor == null)
-    //           currentEdgeColor = new TileColor();
-
-    //       if (color.UseCenterColor &&
-    //               color.CenterPriority < currentCenterColor.CenterPriority)
-    //	{
-    //           centerMaterial.color = color.CenterColor;
-    //           currentCenterColor = color;
-    //	}
-
-    //       if (color.UseEdgeColor &&
-    //               color.EdgePriority < currentEdgeColor.EdgePriority)
-    //       {
-    //           edgeMaterial.color = color.EdgeColor;
-    //           currentEdgeColor = color;
-    //       }
-
-    //       if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-    //	{
-    //           skillCastColor = color;
-    //       }
-    //   }
-
-    //   public void OverrideColor(TileColor color)
-    //{
-    //       if (color.UseCenterColor)
-    //       {
-    //           centerMaterial.color = color.CenterColor;
-    //           currentCenterColor = color;
-    //       }
-
-    //       if (color.UseEdgeColor)
-    //       {
-    //           edgeMaterial.color = color.EdgeColor;
-    //           currentEdgeColor = color;
-    //       }
-
-    //       if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-    //       {
-    //           skillCastColor = color;
-    //       }
-    //   }
 }

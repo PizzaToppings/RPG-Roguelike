@@ -1705,7 +1705,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 448840249}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 709650020}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa3673d98524682439bed8d362eecaa2, type: 3}
@@ -10124,7 +10124,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5880335132821024218, guid: 633e76ebe8981104e92c3b4dde93ebb9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 709650024}
   m_SourcePrefab: {fileID: 100100000, guid: 633e76ebe8981104e92c3b4dde93ebb9, type: 3}
 --- !u!1001 &449554564
 PrefabInstance:
@@ -15675,6 +15679,24 @@ MonoBehaviour:
   skillFXManager: {fileID: 799502906}
   uiManager: {fileID: 1398009754}
   initiativeTracker: {fileID: 1916852739}
+--- !u!1 &709650020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5880335132821024218, guid: 633e76ebe8981104e92c3b4dde93ebb9,
+    type: 3}
+  m_PrefabInstance: {fileID: 448840249}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &709650024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709650020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d84741f6a910b44872286c6a77a22f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &711636436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43297,7 +43319,7 @@ MonoBehaviour:
     Priority: 9
   MouseOverColor:
     FillCenter: 1
-    Color: {r: 1, g: 1, b: 1, a: 1}
+    Color: {r: 0, g: 0.8065429, b: 1, a: 1}
     Priority: 8
   Path: []
   currentMouseTile: {fileID: 0}

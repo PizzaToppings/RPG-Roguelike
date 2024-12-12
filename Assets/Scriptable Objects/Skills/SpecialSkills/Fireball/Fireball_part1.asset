@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
   m_Name: Fireball_part1
   m_EditorClassIdentifier: 
-  OriginTileKind: 1
-  OriginTargetKind: 2
-  TargetTileKind: 0
-  SKillFX: {fileID: 11400000, guid: fc3fd5987b4feab4da9292b76b33e037, type: 2}
   OriginTiles:
   - {fileID: 0}
   OriginTargets: []
@@ -23,38 +19,24 @@ MonoBehaviour:
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
-  DamageType: 0
-  Damage: 0
-  Range: 8
-  StatusEfects: []
-  defaultStatusEffects:
-  - Type: 0
-    Duration: 0
-  - Type: 0
-    Duration: 0
-  - Type: 0
-    Duration: 0
-  - Type: 0
-    Duration: 0
-  - Type: 0
-    Duration: 0
-  - Type: 0
-    Duration: 0
-  - Type: 0
-    Duration: 0
-  - Type: 0
-    Duration: 0
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 2
+  OriginTargetSkillParts: []
+  TargetTileKind: 1
+  TargetTileSkillParts: []
+  SkillFX: []
   tileColor:
-    UseCenterColor: 0
-    CenterColor: {r: 0, g: 0, b: 0, a: 0}
-    CenterPriority: 10
-    UseEdgeColor: 1
-    EdgeColor: {r: 1, g: 0.1692376, b: 0, a: 0.62352943}
-    EdgePriority: 9
+    FillCenter: 0
+    Color: {r: 0.9528302, g: 0.16470589, b: 0, a: 1}
+    Priority: 6
+  DamageType: 0
+  Power: 10
+  Range: 8
+  IncludeInAutoMove: 1
+  StatusEfects: []
+  defaultStatusEffects: []
   SelectedTileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 1, g: 0.16862746, b: 0, a: 1}
-    CenterPriority: 8
-    UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    EdgePriority: 10
+    FillCenter: 0
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    Priority: 10

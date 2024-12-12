@@ -169,6 +169,7 @@ MonoBehaviour:
   xPosition: 0
   yPosition: 0
   Coordinates: {x: 0, y: 0}
+  edgeMaterials: []
   movementLeft: -0.5
   DistanceTraveled: 0
   DistanceToTarget: 0

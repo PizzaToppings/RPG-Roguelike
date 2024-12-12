@@ -12,26 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: Fireball_part2
   m_EditorClassIdentifier: 
-  OriginTileKind: 3
-  OriginTargetKind: 0
-  TargetTileKind: 0
-  SKillFX: {fileID: 11400000, guid: aa5d222e2defa0e4c9889f515074bb73, type: 2}
-  OriginTiles:
-  - {fileID: 0}
+  OriginTiles: []
   OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 1
+  OriginTileKind: 3
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  SkillFX: []
+  tileColor:
+    FillCenter: 1
+    Color: {r: 0.78039217, g: 0, b: 0, a: 1}
+    Priority: 7
   DamageType: 5
   Power: 40
   Range: 3
+  IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 0.8716521, g: 0, b: 1, a: 1}
-    CenterPriority: 1
-    UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 0, b: 0, a: 1}
-    EdgePriority: 10
