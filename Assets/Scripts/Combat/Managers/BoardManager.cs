@@ -93,7 +93,6 @@ public class BoardManager : MonoBehaviour
             else if (startTile.x > endTile.x)
                 startTile.x--;
 
-            // Adjust y component
             if (startTile.y < endTile.y)
                 startTile.y++;
             else if (startTile.y > endTile.y)
@@ -114,15 +113,25 @@ public class BoardManager : MonoBehaviour
                 continue;
 
             if (GetRangeBetweenTiles(starttile.Coordinates, tile.Coordinates) <= range)
-                tileList.Add(tile);
+			{
+                if (tile.currentUnit == null || tile.currentUnit == UnitData.CurrentActiveUnit)
+                    tileList.Add(tile);
+			}
         }
 
         return tileList;
     }
 
-    public List<BoardTile> GetTilesInAttackRange(BoardTile tile, float attackRange)
+    public List<BoardTile> GetTilesInAttackRange(BoardTile tile, float attackRange, bool includeInMoveRange)
     {
         var attackTilesInRange = getTilesWithinRange(tile, attackRange);
+
+        if (includeInMoveRange)
+		{
+            attackTilesInRange = attackTilesInRange.Where(x => x.movementLeft >= -0.5f).ToList();
+            if (attackTilesInRange.Count == 0)
+                return null;
+		}
 
         var attackerTile = UnitData.CurrentActiveUnit.currentTile;
         var tilesOrdened = attackTilesInRange.OrderBy(

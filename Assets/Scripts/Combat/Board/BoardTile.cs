@@ -66,7 +66,7 @@ public class BoardTile : MonoBehaviour
     {
         boardManager.currentMouseTile = this;
 
-        if (!EventSystem.current.IsPointerOverGameObject() && movementLeft > -1)
+        if (!EventSystem.current.IsPointerOverGameObject())
             Target();
     }
 
@@ -86,7 +86,7 @@ public class BoardTile : MonoBehaviour
 			return;
 		}
 
-        if (UnitData.CurrentAction == CurrentActionKind.Basic)
+        if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
         {
             boardManager.Path = new List<BoardTile>();
             SetColor(boardManager.MouseOverColor);
@@ -101,18 +101,18 @@ public class BoardTile : MonoBehaviour
             if (attackRange == 0)
                 return;
 
-            var tilesInAttackRange = boardManager.GetTilesInAttackRange(this, attackRange);
+            var tilesInAttackRange = boardManager.GetTilesInAttackRange(this, attackRange, true);
             if (tilesInAttackRange != null)
-                TargetBasicAttack(tilesInAttackRange, attackRange);
+                TargetSkill(tilesInAttackRange, attackRange);
         }
     }
 
-    void TargetBasicAttack(List<BoardTile> tilesInAttackRange, float attackRange)
+    void TargetSkill(List<BoardTile> tilesInAttackRange, float attackRange)
     {
         var closestTile = this;
         var skill = SkillData.CurrentActiveSkill;
 
-        if (boardManager.GetTilesInAttackRange(this, attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (boardManager.GetTilesInAttackRange(this, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
             closestTile.PreviewAttackWithinRange();
