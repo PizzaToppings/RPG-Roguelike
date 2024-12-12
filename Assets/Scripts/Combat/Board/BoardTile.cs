@@ -69,7 +69,7 @@ public class BoardTile : MonoBehaviour
 
     public void Target()
     {
-        if (UnitData.CurrentActiveUnit.Friendly == false)
+        if (UnitData.CurrentActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
             return;
 
         if (currentUnit != null)
@@ -83,16 +83,28 @@ public class BoardTile : MonoBehaviour
 			return;
 		}
 
-        // Show movement line
-        boardManager.Path = new List<BoardTile>();
-		boardManager.PreviewMovementLine(this);
-        SetColor(boardManager.MouseOverColor);
+        if (UnitData.CurrentAction == CurrentActionKind.Basic)
+        {
+            boardManager.Path = new List<BoardTile>();
+            SetColor(boardManager.MouseOverColor);
+            boardManager.PreviewMovementLine(this);
+        }
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTile)
 		{
-            SkillData.CurrentActiveSkill.Preview(this);
-		}
+            UnitData.CurrentActiveUnit.PreviewSkills(this);
+        }
     }
+
+    public void PreviewAttackWithinRange()
+    {
+        boardManager.Path = new List<BoardTile>();
+        OverrideColor(boardManager.MouseOverColor);
+        boardManager.PreviewMovementLine(this);
+
+        // TODO set hologram from attacker
+    }
+
 
     void OnMouseExit()
     {
@@ -132,8 +144,14 @@ public class BoardTile : MonoBehaviour
 
                 if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft >= 0)
                     OverrideColor(boardManager.MovementColor);
-                else
+                else if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft < 0)
                     OverrideColor(boardManager.originalColor);
+                else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+                {
+                    boardManager.VisualClear();
+                    SkillData.CurrentActiveSkill.Preview(null);
+                }
+
             }
             return;
 		}
@@ -215,7 +233,7 @@ public class BoardTile : MonoBehaviour
     void SetEdgeColors(TileColor color)
     {
         Color transparentColor = color.Color;
-        transparentColor.a = 0.3f;
+        transparentColor.a = 0.2f;
 
         var edgeIndex = 0;
         for (int i = 0; i < connectedTiles.Length; i += 2)

@@ -27,12 +27,9 @@ MonoBehaviour:
   TargetTileSkillParts: []
   SkillFX: []
   tileColor:
-    UseCenterColor: 0
-    CenterColor: {r: 1, g: 1, b: 1, a: 1}
-    CenterPriority: 3
-    UseEdgeColor: 1
-    EdgeColor: {r: 0.764151, g: 0.55480915, b: 0, a: 1}
-    EdgePriority: 3
+    FillCenter: 0
+    Color: {r: 1, g: 0.50048995, b: 0, a: 1}
+    Priority: 6
   DamageType: 0
   Power: 10
   Range: 1.5
@@ -40,9 +37,6 @@ MonoBehaviour:
   StatusEfects: []
   defaultStatusEffects: []
   SelectedTargetTileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 0.76470596, g: 0.5529412, b: 0, a: 1}
-    CenterPriority: 3
-    UseEdgeColor: 1
-    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    EdgePriority: 10
+    FillCenter: 1
+    Color: {r: 1, g: 0.5019608, b: 0, a: 1}
+    Priority: 5

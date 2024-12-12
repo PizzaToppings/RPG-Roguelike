@@ -71,10 +71,10 @@ public class Enemy : Unit
         closestTile = UnitData.CurrentActiveUnit.currentTile;
         var skill = SkillData.CurrentActiveSkill;
 
-        if (CurrentUnitIsAdjacent() == false)
+        if (TilesInAttackRange(attackRange).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
-            closestTile.Target();
+            closestTile.PreviewAttackWithinRange();
         }
 
         skill.SetTargetAndTile(this, currentTile);
@@ -126,11 +126,6 @@ public class Enemy : Unit
             SkillData.Reset();
             skillFXManager.EndProjectileLine();
         }
-    }
-
-    bool CurrentUnitIsAdjacent()
-    {
-        return currentTile.connectedTiles.Where(x => x != null).Any(x => x.currentUnit == UnitData.CurrentActiveUnit);
     }
 
     public override void EndTurn()
