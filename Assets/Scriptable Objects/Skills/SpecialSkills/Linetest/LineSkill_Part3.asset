@@ -12,26 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
   m_Name: LineSkill_Part3
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
-  TargetTileKind: 0
-  Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
+  OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 3
-  skillPartIndex: 0
+  FinalDirection: 0
   MagicalDamage: 0
+  SkillPartIndex: 0
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  SkillFX: []
+  tileColor:
+    FillCenter: 0
+    Color: {r: 0.23375754, g: 0.3685523, b: 0.9716981, a: 1}
+    Priority: 5
   DamageType: 0
-  Damage: 0
+  Power: 0
   Range: 7
+  IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 0.9254902, g: 0.75824666, b: 0.02352939, a: 1}
-    CenterPriority: 5
-    UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    EdgePriority: 10
   Angles: 00000000
   PierceAmount: -1

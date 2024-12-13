@@ -93,8 +93,6 @@ public class Character : Unit
 		if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CurrentActiveSkill == skill)
         {
             StopCasting();
-            SkillData.Reset();
-            SetSkillData(basicSkill);
         }
         // turn on
         else
@@ -143,10 +141,12 @@ public class Character : Unit
     public void StopCasting()
     {
         boardManager.Clear();
+        uiManager.SetCursor(CursorType.Normal);
         UnitData.CurrentAction = CurrentActionKind.Basic;
 		SkillData.Reset();
 		boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
         skillFXManager.EndProjectileLine();
+        SetSkillData(basicSkill);
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)

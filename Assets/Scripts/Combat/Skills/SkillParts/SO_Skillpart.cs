@@ -40,7 +40,8 @@ public class SO_Skillpart : ScriptableObject
     
     List<SO_Skillpart> skillPartsList;
 
-    public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts)
+    public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts,
+        BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         skillPartsList = skillParts;
 

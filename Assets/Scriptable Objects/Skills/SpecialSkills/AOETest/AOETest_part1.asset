@@ -12,97 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: AOETest_part1
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
-  TargetTileKind: 0
-  Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
+  OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
-  skillPartIndex: 0
   MagicalDamage: 0
-  DamageType: 0
-  Damage: 5
-  Range: 4
+  SkillPartIndex: 0
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  SkillFX: []
+  tileColor:
+    FillCenter: 1
+    Color: {r: 0.97650623, g: 1, b: 0.5896226, a: 1}
+    Priority: 8
+  DamageType: 8
+  Power: 30
+  Range: 6
+  IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 0.6792453, g: 0.11854753, b: 0.11854753, a: 1}
-    CenterPriority: 2
-    UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    EdgePriority: 10
-  TargetsHit:
-  - {fileID: 0}
-  TilesHit:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}

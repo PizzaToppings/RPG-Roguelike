@@ -12,24 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbbc954076eb9c44bd1cbae407eb541, type: 3}
   m_Name: halfCircleSkillshot
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
-  TargetTileKind: 0
-  Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
+  OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 0
-  skillPartIndex: 0
+  FinalDirection: 7
   MagicalDamage: 0
+  SkillPartIndex: 0
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  SkillFX: []
+  tileColor:
+    FillCenter: 0
+    Color: {r: 0.044544343, g: 0.503282, b: 0.7264151, a: 1}
+    Priority: 8
   DamageType: 0
-  Damage: 0
+  Power: 0
   Range: 1
+  IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 0.990566, g: 0.6221249, b: 0, a: 1}
-    CenterPriority: 3
-    UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    EdgePriority: 3

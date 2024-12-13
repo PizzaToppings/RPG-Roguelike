@@ -7,7 +7,8 @@ public class SO_TeleportSkill : SO_Skillpart
     [Header(" - Teleport Specific")]
     public TileColor SelectedTileColor;
 
-    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots)
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots,
+       BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit Target = null)
     {
         TargetTileKind = TargetTileEnum.MouseOverTile;
 

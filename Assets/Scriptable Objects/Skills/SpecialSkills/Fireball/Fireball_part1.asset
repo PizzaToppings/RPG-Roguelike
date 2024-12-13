@@ -31,7 +31,7 @@ MonoBehaviour:
     Color: {r: 0.9528302, g: 0.16470589, b: 0, a: 1}
     Priority: 6
   DamageType: 0
-  Power: 10
+  Power: 0
   Range: 8
   IncludeInAutoMove: 1
   StatusEfects: []

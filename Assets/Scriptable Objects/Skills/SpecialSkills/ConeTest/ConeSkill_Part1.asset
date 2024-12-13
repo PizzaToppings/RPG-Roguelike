@@ -12,62 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7fdbd1c2e4e824b9aca47d7c74b93f, type: 3}
   m_Name: ConeSkill_Part1
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
-  TargetTileKind: 0
-  Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
+  OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 6
-  skillPartIndex: 0
+  FinalDirection: 2
   MagicalDamage: 0
+  SkillPartIndex: 0
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  SkillFX: []
+  tileColor:
+    FillCenter: 0
+    Color: {r: 0.33490568, g: 0.90658784, b: 1, a: 1}
+    Priority: 5
   DamageType: 0
-  Damage: 0
+  Power: 0
   Range: 6
+  IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 0, g: 0.21957552, b: 0.9150943, a: 1}
-    CenterPriority: 9
-    UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    EdgePriority: 10
-  TargetsHit:
-  - {fileID: 0}
-  TilesHit:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  isWide: 1
+  isWide: 0

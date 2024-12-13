@@ -12,36 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
   m_Name: Multiline_part1
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
-  TargetTileKind: 0
-  Caster: {fileID: 0}
   OriginTiles:
   - {fileID: 0}
+  OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 1
-  skillPartIndex: 0
+  FinalDirection: 0
+  MagicalDamage: 0
+  SkillPartIndex: 0
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  SkillFX: []
+  tileColor:
+    FillCenter: 0
+    Color: {r: 0, g: 1, b: 0.8651767, a: 1}
+    Priority: 4
   DamageType: 0
-  Damage: 0
+  Power: 0
   Range: 5
+  IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor:
-    centerColor: {r: 0, g: 1, b: 0.7597966, a: 1}
-    edgeColor: {r: 1, g: 1, b: 1, a: 1}
-    priority: 3
-  TargetsHit:
-  - {fileID: 0}
-  TilesHit:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Angles: 0100000000000000
+  Angles: 0100000000000000ffffffff
   PierceAmount: -1

@@ -26,14 +26,14 @@ public class SO_MainSkill : ScriptableObject
         Reset();
     }
 
-    public virtual void Preview(BoardTile mouseOverTile)
+    public virtual void Preview(BoardTile mouseOverTile, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         var SkillPartGroupIndex = SkillData.SkillPartGroupIndex;
 
         for (int i = 0; i < SkillPartGroups[SkillPartGroupIndex].skillParts.Count; i++)
 		{
 			var skillPart = SkillPartGroups[SkillPartGroupIndex].skillParts;
-			skillPart[i].Preview(mouseOverTile, skillPart);
+			skillPart[i].Preview(mouseOverTile, skillPart, overwriteOriginTile, overwriteTargetTile, target);
 		}
 
         if (SkillPartGroupIndex == 0)

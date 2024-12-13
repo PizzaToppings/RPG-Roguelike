@@ -4,7 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TargetSelfSkills", menuName = "ScriptableObjects/SkillParts/TargetSelfSkill")]
 public class SO_TargetSelfSkill : SO_Skillpart
 {
-    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots) 
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots,
+       BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit Target = null)
     {
         OriginTargetKind = OriginTargetEnum.Caster;
 

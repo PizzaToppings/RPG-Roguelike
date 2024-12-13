@@ -48,17 +48,17 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
         }
 
         // OriginTargetKind
-        if (target is SO_AOE_Skill)
-        {
-            EditorGUILayout.PropertyField(originTargetKind, new GUIContent("Origin Target Kind"));
-        }
+        //if (target is SO_AOE_Skill)
+        //{
+        //    EditorGUILayout.PropertyField(originTargetKind, new GUIContent("Origin Target Kind"));
+        //}
 
-        switch ((OriginTileEnum)originTileKind.enumValueIndex)
-        {
-            case OriginTileEnum.GetFromSkillPart:
-                EditorGUILayout.PropertyField(originTileSkillParts, new GUIContent("Origin Tile Skillparts"));
-                break;
-        }
+        //switch ((OriginTileEnum)originTileKind.enumValueIndex)
+        //{
+        //    case OriginTileEnum.GetFromSkillPart:
+        //        EditorGUILayout.PropertyField(originTileSkillParts, new GUIContent("Origin Tile Skillparts"));
+        //        break;
+        //}
 
 
         serializedObject.ApplyModifiedProperties();

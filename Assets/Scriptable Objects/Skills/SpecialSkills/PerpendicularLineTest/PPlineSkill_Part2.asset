@@ -12,24 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
   m_Name: PPlineSkill_Part2
   m_EditorClassIdentifier: 
-  OriginTileKind: 2
-  TargetTileKind: 0
   OriginTiles: []
+  OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 1
+  FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 1
+  OriginTileKind: 3
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  SkillFX: []
+  tileColor:
+    FillCenter: 1
+    Color: {r: 0.03933786, g: 0.058825757, b: 0.6415094, a: 1}
+    Priority: 3
   DamageType: 0
-  Damage: 0
+  Power: 0
   Range: 3
+  IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 1, g: 0, b: 0, a: 1}
-    CenterPriority: 9
-    UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    EdgePriority: 10
   Angles: feffffff02000000
   PierceAmount: -1

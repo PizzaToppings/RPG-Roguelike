@@ -14,19 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Image: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
   castLockColor:
-    UseCenterColor: 0
-    CenterColor: {r: 0, g: 0, b: 0, a: 0}
-    CenterPriority: 10
-    UseEdgeColor: 1
-    EdgeColor: {r: 0, g: 0.21875906, b: 1, a: 1}
-    EdgePriority: 1
+    FillCenter: 0
+    Color: {r: 0.9811321, g: 0.743297, b: 0.105882354, a: 1}
+    Priority: 1
   Description: 
-  MagicalDamage: 0
   SkillPartGroups:
-  - skillParts:
+  - CastOnTile: 0
+    CastOnTarget: 0
+    skillParts:
     - {fileID: 11400000, guid: b16f3757be7ae3842ae2f4d485309275, type: 2}
-  - skillParts:
+  - CastOnTile: 0
+    CastOnTarget: 0
+    skillParts:
     - {fileID: 11400000, guid: 305fd34d6c57f794f8a3695cbeccd7d2, type: 2}
-  - skillParts:
+  - CastOnTile: 0
+    CastOnTarget: 0
+    skillParts:
     - {fileID: 11400000, guid: e326e96cd50a7ef4c833dc339dcf349e, type: 2}
+  MagicalDamage: 0
   TargetKind: 0
+  Cursor: 3

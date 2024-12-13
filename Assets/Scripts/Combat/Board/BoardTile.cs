@@ -101,9 +101,9 @@ public class BoardTile : MonoBehaviour
             if (attackRange == 0)
                 return;
 
-            var tilesInAttackRange = boardManager.GetTilesInAttackRange(this, attackRange, true);
-            if (tilesInAttackRange != null)
-                TargetSkill(tilesInAttackRange, attackRange);
+            //var tilesInAttackRange = boardManager.GetTilesInAttackRange(this, attackRange, true);
+            //if (tilesInAttackRange != null)
+            //    TargetSkill(tilesInAttackRange, attackRange);
         }
     }
 
@@ -115,8 +115,11 @@ public class BoardTile : MonoBehaviour
         if (tilesInAttackRange.Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
+
+            boardManager.VisualClear();
+			SkillData.CurrentActiveSkill.Preview(this, closestTile);
             closestTile.PreviewAttackWithinRange();
-        }
+		}
 
         skill.SetTargetAndTile(currentUnit, this);
 
@@ -184,7 +187,7 @@ public class BoardTile : MonoBehaviour
             OverrideColor(boardManager.originalColor);
         else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
-            SkillData.Reset();
+            //SkillData.Reset();
             boardManager.VisualClear();
             skillFXManager.EndProjectileLine();
             SkillData.CurrentActiveSkill.Preview(null);

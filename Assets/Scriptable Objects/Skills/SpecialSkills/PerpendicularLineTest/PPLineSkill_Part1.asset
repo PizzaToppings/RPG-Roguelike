@@ -12,30 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
   m_Name: PPLineSkill_Part1
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
-  TargetTileKind: 0
   OriginTiles:
   - {fileID: 0}
+  OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 1
+  TargetTileSkillParts: []
+  SkillFX: []
+  tileColor:
+    FillCenter: 0
+    Color: {r: 0.94410104, g: 1, b: 0.023584902, a: 1}
+    Priority: 4
   DamageType: 0
-  Damage: 0
+  Power: 0
   Range: 6
+  IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  tileColor:
-    UseCenterColor: 0
-    CenterColor: {r: 0, g: 0, b: 0, a: 0}
-    CenterPriority: 10
-    UseEdgeColor: 1
-    EdgeColor: {r: 1, g: 0, b: 0, a: 1}
-    EdgePriority: 9
   SelectedTileColor:
-    UseCenterColor: 1
-    CenterColor: {r: 0.9433962, g: 0, b: 0, a: 1}
-    CenterPriority: 7
-    UseEdgeColor: 0
-    EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    EdgePriority: 10
+    FillCenter: 0
+    Color: {r: 0.9450981, g: 1, b: 0.023529414, a: 1}
+    Priority: 13
