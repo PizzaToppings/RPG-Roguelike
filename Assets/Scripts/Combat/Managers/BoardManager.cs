@@ -128,7 +128,7 @@ public class BoardManager : MonoBehaviour
 
         if (includeInMoveRange)
 		{
-            attackTilesInRange = attackTilesInRange.Where(x => x.movementLeft >= -0.5f).ToList();
+            attackTilesInRange = attackTilesInRange.Where(x => x.movementLeft > -1f).ToList();
             if (attackTilesInRange.Count == 0)
                 return null;
 		}
@@ -283,10 +283,6 @@ public class BoardManager : MonoBehaviour
     {
         if (skillRangeLeft <= 0)
             return;
-
-        // can't move to current space
-        if (currentTile.movementLeft == -1)
-            currentTile.movementLeft = 0;
 
         var skillPartIndex = skillData.SkillPartIndex;
 

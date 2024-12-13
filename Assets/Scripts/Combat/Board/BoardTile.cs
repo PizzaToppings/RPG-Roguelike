@@ -22,7 +22,7 @@ public class BoardTile : MonoBehaviour
     public Material[] edgeMaterials;
 
     // movement
-    public float movementLeft = -0.5f;
+    public float movementLeft = -1f;
     public float DistanceTraveled;
     public float DistanceToTarget;
 
@@ -112,7 +112,7 @@ public class BoardTile : MonoBehaviour
         var closestTile = this;
         var skill = SkillData.CurrentActiveSkill;
 
-        if (boardManager.GetTilesInAttackRange(this, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (tilesInAttackRange.Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
             closestTile.PreviewAttackWithinRange();
@@ -180,7 +180,7 @@ public class BoardTile : MonoBehaviour
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
             OverrideColor(boardManager.MovementColor);
-        else if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft < 0)
+        else if (UnitData.CurrentAction == CurrentActionKind.Basic)
             OverrideColor(boardManager.originalColor);
         else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
