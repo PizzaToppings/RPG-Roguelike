@@ -6,8 +6,6 @@ public class SkillFXManager : MonoBehaviour
 {
     public static SkillFXManager Instance;
     
-    [HideInInspector] public float projectileLineOffset = 1;
-
 	LineRenderer ProjectileLine;
     float projectileLineVertexCount = 12;
     // TODO still needs to animate the casting character and affected characters
@@ -46,15 +44,15 @@ public class SkillFXManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-	public void PreviewProjectileLine(Vector3 casterPosition, Vector3 targetPosition)
+	public void PreviewProjectileLine(Vector3 casterPosition, Vector3 targetPosition, float offset)
 	{
         var pointlist = new List<Vector3>();
 
-        casterPosition += Vector3.up * projectileLineOffset;
-        targetPosition += Vector3.up * projectileLineOffset;
+        casterPosition += Vector3.up;
+        targetPosition += Vector3.up;
 
         var heightOffset = Vector3.Distance(casterPosition, targetPosition);
-        var middleOffset = Vector3.up * heightOffset * projectileLineOffset * 0.5f;
+        var middleOffset = Vector3.up * heightOffset * offset * 0.5f;
 
         Vector3 middlePosition = Vector3.Lerp(casterPosition, targetPosition, 0.5f) + (middleOffset);
 

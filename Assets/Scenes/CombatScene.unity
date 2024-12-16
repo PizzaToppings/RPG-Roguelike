@@ -17803,7 +17803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5306280e8f395f4499af31e5f0af02f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileLineOffset: 1
 --- !u!114 &799502907
 MonoBehaviour:
   m_ObjectHideFlags: 0

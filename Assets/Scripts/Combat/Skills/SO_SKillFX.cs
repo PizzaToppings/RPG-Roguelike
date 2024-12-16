@@ -1,4 +1,4 @@
-using UnityEngine;using System.Collections;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkillFX", menuName = "ScriptableObjects/SkillFX")]
 public class SO_SKillFX : ScriptableObject

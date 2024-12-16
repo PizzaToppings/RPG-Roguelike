@@ -82,7 +82,7 @@ public class Enemy : Unit
         uiManager.SetCursor(SkillData.CurrentActiveSkill.Cursor);
             
         if (attackRange > 1.5f) // so more than melee
-            skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
+            skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position, 1);
     }
 
     public override void OnClick()
