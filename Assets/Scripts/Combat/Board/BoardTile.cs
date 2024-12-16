@@ -124,9 +124,6 @@ public class BoardTile : MonoBehaviour
         skill.SetTargetAndTile(currentUnit, this);
 
         uiManager.SetCursor(SkillData.CurrentActiveSkill.Cursor);
-
-        if (attackRange > 1.5f) // so more than melee
-            skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position);
     }
 
     public void PreviewAttackWithinRange()
@@ -187,7 +184,6 @@ public class BoardTile : MonoBehaviour
             OverrideColor(boardManager.originalColor);
         else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
-            //SkillData.Reset();
             boardManager.VisualClear();
             skillFXManager.EndProjectileLine();
             SkillData.CurrentActiveSkill.Preview(null);

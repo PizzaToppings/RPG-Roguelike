@@ -26,6 +26,8 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
             mouseOverTile.SetColor(SelectedTileColor);
             PartData.TilesHit.Add(mouseOverTile);
 
+            ShowProjectileLine(SkillData.Caster.position, PartData.TilesHit[0].position);
+
             return this;
         }
         PartData.TilesHit.Clear();

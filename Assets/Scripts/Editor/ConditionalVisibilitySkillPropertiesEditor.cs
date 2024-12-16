@@ -13,9 +13,11 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
     SerializedProperty targetTileKind;
     SerializedProperty targetTileSkillParts;
 
-    SerializedProperty directionCenterTile;
-    SerializedProperty directionCenterTileSkillPart;
+    SerializedProperty directionAnchor;
+    SerializedProperty directionAnchorSkillPart;
 
+    SerializedProperty addProjectileLine;
+    SerializedProperty projectileLineOffset;
 
     private void OnEnable()
     {
@@ -28,8 +30,11 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
         targetTileKind = serializedObject.FindProperty("TargetTileKind");
         targetTileSkillParts = serializedObject.FindProperty("TargetTileSkillParts");
 
-        directionCenterTile = serializedObject.FindProperty("DirectionCenterTile");
-        directionCenterTileSkillPart = serializedObject.FindProperty("DirectionCenterTileSkillPart");
+        directionAnchor = serializedObject.FindProperty("DirectionAnchor");
+        directionAnchorSkillPart = serializedObject.FindProperty("DirectionAnchorSkillPart");
+
+        addProjectileLine = serializedObject.FindProperty("AddProjectileLine");
+        projectileLineOffset = serializedObject.FindProperty("ProjectileLineOffset");
     }
 
     public override void OnInspectorGUI()
@@ -37,7 +42,8 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
         serializedObject.Update();
 
         DrawPropertiesExcluding(serializedObject, "OriginTileKind", "OriginTargetKind", "TargetTileKind", 
-            "OriginTileSkillParts", "OriginTargetSkillParts", "TargetTileSkillParts");
+            "OriginTileSkillParts", "OriginTargetSkillParts", "TargetTileSkillParts", "DirectionAnchor", "DirectionAnchorSkillPart",
+            "AddProjectileLine", "ProjectileLineOffset");
 
         // OriginTileKind
         if (target is SO_AOE_Skill || target is SO_ConeSkill || target is SO_HalfCircleSkill || 
@@ -67,18 +73,31 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
         //}
 
         // DirectionCenterTile
+        // DirectionCenterTile
         if (target is SO_ConeSkill || target is SO_HalfCircleSkill || target is SO_LineSkill)
         {
-            EditorGUILayout.PropertyField(directionCenterTile, new GUIContent("Direction Center Tile"));
+            EditorGUILayout.PropertyField(directionAnchor, new GUIContent("Direction Anchor"));
         }
 
-        switch ((OriginTileEnum)directionCenterTile.enumValueIndex)
+        switch ((OriginTileEnum)directionAnchor.enumValueIndex)
         {
             case OriginTileEnum.GetFromSkillPart:
-                EditorGUILayout.PropertyField(directionCenterTileSkillPart, new GUIContent("Direction Center Skillparts"));
+                EditorGUILayout.PropertyField(directionAnchorSkillPart, new GUIContent("Direction Anchor Skillparts"));
                 break;
         }
 
+        // ProjectileLine
+        if (target is SO_TargetBoardtileSkill || target is SO_TargetUnitSkill)
+        {
+            EditorGUILayout.PropertyField(addProjectileLine, new GUIContent("Add Projectile Line"));
+        }
+
+        switch ((bool)addProjectileLine.boolValue)
+        {
+            case true:
+                EditorGUILayout.PropertyField(projectileLineOffset, new GUIContent("Projectile line Offset"));
+                break;
+        }
 
         serializedObject.ApplyModifiedProperties();
     }

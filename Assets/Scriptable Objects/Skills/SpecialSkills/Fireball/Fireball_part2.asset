@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: Fireball_part2
   m_EditorClassIdentifier: 
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
@@ -24,11 +25,15 @@ MonoBehaviour:
   OriginTargetSkillParts: []
   TargetTileKind: 0
   TargetTileSkillParts: []
+  DirectionAnchor: 0
+  DirectionAnchorSkillPart: {fileID: 0}
   SkillFX: []
   tileColor:
     FillCenter: 1
     Color: {r: 0.78039217, g: 0, b: 0, a: 1}
     Priority: 7
+  AddProjectileLine: 0
+  ProjectileLineOffset: 1
   DamageType: 5
   Power: 40
   Range: 3

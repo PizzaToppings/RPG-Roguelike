@@ -25,11 +25,15 @@ MonoBehaviour:
   OriginTargetSkillParts: []
   TargetTileKind: 1
   TargetTileSkillParts: []
+  DirectionAnchor: 0
+  DirectionAnchorSkillPart: {fileID: 0}
   SkillFX: []
   tileColor:
     FillCenter: 0
     Color: {r: 0.9528302, g: 0.16470589, b: 0, a: 1}
     Priority: 6
+  AddProjectileLine: 1
+  ProjectileLineOffset: 1
   DamageType: 0
   Power: 0
   Range: 8

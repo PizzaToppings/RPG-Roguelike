@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,11 +21,13 @@ public class Unit : UnitStats
     [HideInInspector] public UnityEvent<DamageData> OnTakeDamage;
     [HideInInspector] public Animator modelAnimator;
 
+    [HideInInspector] public Vector3 position => transform.position;
     // for testing and debugging
     public int startXPosition = 0;
     public int startYPosition = 0;
 
     public bool MouseOver;
+
 
     public virtual void Init()
     {

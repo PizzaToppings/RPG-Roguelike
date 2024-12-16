@@ -30,6 +30,8 @@ public class SO_Skillpart : ScriptableObject
     [Header(" - Visuals")]
     public SO_SKillFX[] SkillFX;
     public TileColor tileColor;
+    public bool AddProjectileLine;
+    public float ProjectileLineOffset = 1;
 
     [Space]
     [Header(" - Damage and Range")]
@@ -55,6 +57,7 @@ public class SO_Skillpart : ScriptableObject
         OriginTiles = GetOriginTiles();
         OriginTargets = GetOriginTargets();
         TargetTile = GetTargetTile(mouseOverTile);
+
         return this;
     }
 
@@ -151,6 +154,15 @@ public class SO_Skillpart : ScriptableObject
             return skillPartsList[thisIndex - 1];
 
         return null;
+    }
+
+    public virtual void ShowProjectileLine(Vector3 casterPosition, Vector3 targetPosition)
+	{
+        if (Range > 1.5f) // so more than melee
+        {
+            var skillFXManager = SkillFXManager.Instance;
+            skillFXManager.PreviewProjectileLine(casterPosition, targetPosition);
+        }
     }
 
     public virtual void SetTargetAndTile(Unit target, BoardTile tile)

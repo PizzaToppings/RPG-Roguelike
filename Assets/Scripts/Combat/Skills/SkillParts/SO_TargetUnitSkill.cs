@@ -32,6 +32,8 @@ public class SO_TargetUnitSkill : SO_Skillpart
 
         SkillData.GetCurrentTargetsHit(SkillPartIndex).Clear();
         SkillData.GetCurrentTargetsHit(SkillPartIndex).Add(target);
+
+        ShowProjectileLine(SkillData.Caster.position, PartData.TargetsHit[0].position);
     }
 
     public override void SetTargetAndTile(Unit target, BoardTile tile)
