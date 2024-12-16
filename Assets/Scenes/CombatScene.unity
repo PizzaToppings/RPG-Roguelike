@@ -2749,8 +2749,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1850154507}
   - {fileID: 1422516444}
+  - {fileID: 1850154507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &106682406 stripped
@@ -6685,7 +6685,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: c4c9fc52530f8ce4aaaba52d72049cda,
+      objectReference: {fileID: 11400000, guid: 048b8fab0d672af459f7e56bb6fb56d4,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}

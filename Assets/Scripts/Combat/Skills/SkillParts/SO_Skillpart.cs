@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,10 @@ public class SO_Skillpart : ScriptableObject
 
     public TargetTileEnum TargetTileKind = TargetTileEnum.None;
     public List<SO_Skillpart> TargetTileSkillParts;
+
+    public OriginTileEnum DirectionAnchor = OriginTileEnum.None;
+    public SO_Skillpart DirectionAnchorSkillPart;
+
 
     [Header(" - Visuals")]
     public SO_SKillFX[] SkillFX;
@@ -65,23 +70,28 @@ public class SO_Skillpart : ScriptableObject
             previousTilesHit = SkillData.GetPreviousTilesHit(SkillPartIndex);
 		}
 
-        if (OriginTileKind == OriginTileEnum.Caster)
-        {
-            SkillData.Caster = UnitData.CurrentActiveUnit;
-            tiles.Add(SkillData.Caster.currentTile);
-        }
+        switch (OriginTileKind)
+		{
+            case OriginTileEnum.Caster:
+                SkillData.Caster = UnitData.CurrentActiveUnit;
+                tiles.Add(SkillData.Caster.currentTile);
+                break;
 
-        if (OriginTileKind == OriginTileEnum.LastTargetTile)
-        {
-            if (previousTargetsHit.Count == 0)
-                return new List<BoardTile>();
+            case OriginTileEnum.LastTargetTile:
+                if (previousTargetsHit.Count == 0)
+                    return new List<BoardTile>();
 
-            previousTargetsHit.ForEach(x => tiles.Add(x.currentTile));
-        }
+                previousTargetsHit.ForEach(x => tiles.Add(x.currentTile));
+                break;
 
-        if (OriginTileKind == OriginTileEnum.LastTile)
-        {
-            tiles.AddRange(previousTilesHit);
+            case OriginTileEnum.LastTile:
+                tiles.AddRange(previousTilesHit);
+                break;
+
+            case OriginTileEnum.GetFromSkillPart:
+                var tileList = OriginTileSkillParts.SelectMany(x => x.PartData.TilesHit).ToList();
+                tiles.AddRange(tileList);
+                break;
         }
 
         return tiles;

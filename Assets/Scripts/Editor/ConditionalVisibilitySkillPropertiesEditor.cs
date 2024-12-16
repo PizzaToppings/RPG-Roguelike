@@ -13,6 +13,9 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
     SerializedProperty targetTileKind;
     SerializedProperty targetTileSkillParts;
 
+    SerializedProperty directionCenterTile;
+    SerializedProperty directionCenterTileSkillPart;
+
 
     private void OnEnable()
     {
@@ -24,6 +27,9 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
 
         targetTileKind = serializedObject.FindProperty("TargetTileKind");
         targetTileSkillParts = serializedObject.FindProperty("TargetTileSkillParts");
+
+        directionCenterTile = serializedObject.FindProperty("DirectionCenterTile");
+        directionCenterTileSkillPart = serializedObject.FindProperty("DirectionCenterTileSkillPart");
     }
 
     public override void OnInspectorGUI()
@@ -59,6 +65,19 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
         //        EditorGUILayout.PropertyField(originTileSkillParts, new GUIContent("Origin Tile Skillparts"));
         //        break;
         //}
+
+        // DirectionCenterTile
+        if (target is SO_ConeSkill || target is SO_HalfCircleSkill || target is SO_LineSkill)
+        {
+            EditorGUILayout.PropertyField(directionCenterTile, new GUIContent("Direction Center Tile"));
+        }
+
+        switch ((OriginTileEnum)directionCenterTile.enumValueIndex)
+        {
+            case OriginTileEnum.GetFromSkillPart:
+                EditorGUILayout.PropertyField(directionCenterTileSkillPart, new GUIContent("Direction Center Skillparts"));
+                break;
+        }
 
 
         serializedObject.ApplyModifiedProperties();

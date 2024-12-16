@@ -382,8 +382,6 @@ public class BoardManager : MonoBehaviour
                 var target = FindTarget(tile, skillData);
                 if (target != null)
                 {
-                    
-
                     SkillData.AddTargetToCurrentList(skillPartIndex, target);
                     if (pierceAmount != -1)
                     {

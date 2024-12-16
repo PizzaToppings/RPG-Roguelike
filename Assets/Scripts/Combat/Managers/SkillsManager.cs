@@ -93,11 +93,11 @@ public class SkillsManager : MonoBehaviour
             return skillData.FinalDirection;
         }
 
-        var originTile = SkillData.Caster.currentTile;
+        var directionCenterTile = GetDirectionCenterTile(skillData);
 
         var tileDirectionIndex = 0;
         var mousePosition = GetMousePosition();
-        Vector3 dir = (mousePosition - originTile.position).normalized;
+        Vector3 dir = (mousePosition - directionCenterTile.position).normalized;
         Vector2 mouseDirection = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
 
         var directions = boardManager.Directions;
@@ -112,6 +112,45 @@ public class SkillsManager : MonoBehaviour
 
         skillData.FinalDirection = tileDirectionIndex;
         return tileDirectionIndex;
+    }
+
+    BoardTile GetDirectionCenterTile(SO_Skillpart skillpart)
+	{
+        var tiles = new List<BoardTile>();
+        var previousTargetsHit = new List<Unit>();
+        var previousTilesHit = new List<BoardTile>();
+
+        if (skillpart.SkillPartIndex > 0)
+        {
+            previousTargetsHit = SkillData.GetPreviousTargetsHit(skillpart.SkillPartIndex);
+            previousTilesHit = SkillData.GetPreviousTilesHit(skillpart.SkillPartIndex);
+        }
+
+        switch (skillpart.DirectionAnchor)
+        {
+            case OriginTileEnum.Caster:
+                SkillData.Caster = UnitData.CurrentActiveUnit;
+                tiles.Add(SkillData.Caster.currentTile);
+                break;
+
+            case OriginTileEnum.LastTargetTile:
+                if (previousTargetsHit.Count == 0)
+                    return null;
+
+                previousTargetsHit.ForEach(x => tiles.Add(x.currentTile));
+                break;
+
+            case OriginTileEnum.LastTile:
+                tiles.AddRange(previousTilesHit);
+                break;
+
+            case OriginTileEnum.GetFromSkillPart:
+                var tileList = skillpart.OriginTileSkillParts.SelectMany(x => x.PartData.TilesHit).ToList();
+                tiles.AddRange(tileList);
+                break;
+        }
+
+        return tiles[0];
     }
 
     Vector3 GetMousePosition()

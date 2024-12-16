@@ -9,33 +9,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
-  m_Name: PPlineSkill_Part2
+  m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
+  m_Name: WallSkillTest_Part1
   m_EditorClassIdentifier: 
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 1
+  FinalDirection: 0
   MagicalDamage: 0
-  SkillPartIndex: 1
-  OriginTileKind: 3
+  SkillPartIndex: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 0
+  TargetTileKind: 1
   TargetTileSkillParts: []
-  DirectionCenterTile: 1
-  DirectionCenterTileSkillPart: {fileID: 0}
   SkillFX: []
   tileColor:
-    FillCenter: 1
-    Color: {r: 0.03933786, g: 0.058825757, b: 0.6415094, a: 1}
-    Priority: 3
+    FillCenter: 0
+    Color: {r: 0.47843137, g: 0.3072366, b: 0.02745098, a: 1}
+    Priority: 7
   DamageType: 0
   Power: 0
-  Range: 3
+  Range: 5
   IncludeInAutoMove: 0
   StatusEfects: []
   defaultStatusEffects: []
-  Angles: feffffff02000000
-  PierceAmount: -1
+  SelectedTileColor:
+    FillCenter: 1
+    Color: {r: 0.47843137, g: 0.30588236, b: 0.02745098, a: 1}
+    Priority: 6
