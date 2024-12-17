@@ -26,7 +26,7 @@ public class HealthCanvas : MonoBehaviour
     {
         var color = damageTypeColor.GetDamageTypeColor(data.DamageType);
         var dn = Instantiate(DamageNumber, DamageNumbersCanvas);
-        var damageNumber = dn.GetComponent<DamageNumber>();
+        var damageNumber = dn.GetComponent<FloatingDamageNumber>();
         damageNumber.Init(data, color);
     }
 }

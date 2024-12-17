@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class DamageNumber : MonoBehaviour
+public class FloatingDamageNumber : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] AnimationCurve bounceCurve;

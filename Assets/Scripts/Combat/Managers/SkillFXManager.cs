@@ -18,15 +18,20 @@ public class SkillFXManager : MonoBehaviour
 
     public IEnumerator Cast(SO_SKillFX skillFx)
     {
+        yield return new WaitForSeconds(skillFx.StartDelay);
+        
         var skillObject = Instantiate(skillFx.SkillObject, skillFx.Origin, Quaternion.identity);
 
         if (skillFx.SkillFxKind == SkillFxType.Projectile)
         {
             float distance = Vector3.Distance(skillFx.Origin, skillFx.Destination);
-
+            var time = 0f;
+           
             while (distance > 0.1f)
             {
-                skillObject.transform.position = Vector3.MoveTowards(skillObject.transform.position, skillFx.Destination, skillFx.ProjectileSpeed * Time.deltaTime);
+                time += Time.deltaTime;
+                var projectileSpeed = skillFx.ProjectileSpeedCurve.Evaluate(time) * skillFx.ProjectileSpeed;
+                skillObject.transform.position = Vector3.MoveTowards(skillObject.transform.position, skillFx.Destination, projectileSpeed * Time.deltaTime);
 
                 distance = Vector3.Distance(skillObject.transform.position, skillFx.Destination);
 
@@ -40,8 +45,10 @@ public class SkillFXManager : MonoBehaviour
             yield return new WaitUntil(() => particleSystem.isStopped);
         }
 
-        Destroy(skillObject);  // TODO cache this
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(skillFx.ExtendDelay);
+
+        Destroy(skillObject);
+        yield return new WaitForSeconds(skillFx.EndDelay);
     }
 
 	public void PreviewProjectileLine(Vector3 casterPosition, Vector3 targetPosition, float offset)

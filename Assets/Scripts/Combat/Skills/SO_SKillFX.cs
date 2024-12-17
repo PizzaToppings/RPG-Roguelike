@@ -9,9 +9,21 @@ public class SO_SKillFX : ScriptableObject
 	public SkillFxDestinationEnum SkillDestinationKind;
 
 	[Space]
-	public float ProjectileSpeed;
+	public AnimationCurve ProjectileSpeedCurve = AnimationCurve.Constant(0, 1, 1);
+	public float ProjectileSpeed = 1;
 
+	[Space]
+	public float StartDelay = 0;
+	public float ExtendDelay = 0;
+	public float EndDelay = 0;
+
+	[Space]
+	public bool ShowDamage = true;
+	public float ShowDamageDelay = 0;
+
+	[Space]
 	public GameObject SkillObject;
+
 	[HideInInspector] public Vector3 Origin;
 	[HideInInspector] public Vector3 Destination;
 

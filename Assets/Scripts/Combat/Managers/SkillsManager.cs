@@ -182,6 +182,7 @@ public class SkillsManager : MonoBehaviour
 
         UnitData.CurrentAction = CurrentActionKind.Animating;
         boardManager.Clear();
+        skillFXManager.EndProjectileLine();
         StartCoroutine(CastSkills(SkillData.CurrentActiveSkill));
     }
 
@@ -201,10 +202,33 @@ public class SkillsManager : MonoBehaviour
 
     IEnumerator CastSkillsPart(SO_Skillpart skillPart)
     {
-        var index = skillPart.SkillPartIndex;
         var skillFX = skillPart.SkillFX;
         var skillPartData = skillPart.PartData;
 
+
+        if (skillFX != null)
+        {
+            foreach (var SFX in skillFX)
+			{
+                if (SFX.ShowDamage)
+                    DealDamage(skillPart, SFX.ShowDamageDelay);
+                
+                SFX.SetValues(skillPartData);
+                yield return StartCoroutine(skillFXManager.Cast(SFX));
+			}
+        }
+    }
+
+    void DealDamage(SO_Skillpart skillPart, float delay)
+	{
+        StartCoroutine(DealDamageWithDelay(skillPart, delay));
+	}
+
+    IEnumerator DealDamageWithDelay(SO_Skillpart skillPart, float delay)
+	{
+        var index = skillPart.SkillPartIndex;
+
+        yield return new WaitForSeconds(delay);
         foreach (var target in SkillData.GetCurrentTargetsHit(index))
         {
             if (skillPart.Power > 0)
@@ -212,15 +236,6 @@ public class SkillsManager : MonoBehaviour
                 var data = damageManager.GetDamageData(skillPart, target);
                 damageManager.TakeDamage(data);
             }
-        }
-
-        if (skillFX != null)
-        {
-            foreach (var SFX in skillFX)
-			{
-                SFX.SetValues(skillPartData);
-                yield return StartCoroutine(skillFXManager.Cast(SFX));
-			}
         }
     }
 

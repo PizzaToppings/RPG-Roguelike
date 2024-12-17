@@ -15,8 +15,43 @@ MonoBehaviour:
   SkillFxKind: 0
   SkillOriginKind: 1
   SkillDestinationKind: 3
-  ProjectileSpeed: 20
+  ProjectileSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.20562744
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7995508
+      value: 0.4514928
+      inSlope: 0.93651354
+      outSlope: 0.93651354
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14879832
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ProjectileSpeed: 10
+  StartDelay: 0
+  EndDelay: 0
   SkillObject: {fileID: 1402759525259452502, guid: 799e616a78da34c46a6521c3a29dc33d,
     type: 3}
-  Origin: {x: 13.5, y: 1, z: 4.5}
-  Destination: {x: 15, y: 1, z: 13.5}
+  Origin: {x: 15, y: 1, z: 7.5}
+  Destination: {x: 27, y: 1, z: 7.5}
