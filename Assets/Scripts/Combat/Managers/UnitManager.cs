@@ -21,17 +21,22 @@ public class UnitManager : MonoBehaviour
     public void Init()
     {
         Instance = this;
+
+        foreach (Transform child in characterParent)
+        {
+            var unit = child.GetComponent<Character>();
+            UnitData.Characters.Add(unit);
+        }
+
+        foreach (Transform child in enemyParent)
+        {
+            var unit = child.GetComponent<Enemy>();
+            UnitData.Enemies.Add(unit);
+        }
     }
 
     public void PlaceUnits()
     {
-        // TODO: Get from where?
-        // characters ==> playerprefs
-        // enemies ==> scriptable objects + prefabs
-
-
-        // placeholder
-
         foreach (Transform child in characterParent)
         {
             PlaceUnit(child);
@@ -56,10 +61,5 @@ public class UnitManager : MonoBehaviour
         unit.transform.position = startingTile.position;
 
         unit.Init();
-
-        if (unit.Friendly)
-            UnitData.Characters.Add(unit as Character);
-        else
-            UnitData.Enemies.Add(unit as Enemy);
     }
 }

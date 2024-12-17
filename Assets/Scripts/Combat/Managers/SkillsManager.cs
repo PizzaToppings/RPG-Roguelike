@@ -205,37 +205,16 @@ public class SkillsManager : MonoBehaviour
         var skillFX = skillPart.SkillFX;
         var skillPartData = skillPart.PartData;
 
-
         if (skillFX != null)
         {
             foreach (var SFX in skillFX)
 			{
                 if (SFX.ShowDamage)
-                    DealDamage(skillPart, SFX.ShowDamageDelay);
+                    damageManager.DealDamageSetup(skillPart, SFX.ShowDamageDelay);
                 
                 SFX.SetValues(skillPartData);
                 yield return StartCoroutine(skillFXManager.Cast(SFX));
 			}
-        }
-    }
-
-    void DealDamage(SO_Skillpart skillPart, float delay)
-	{
-        StartCoroutine(DealDamageWithDelay(skillPart, delay));
-	}
-
-    IEnumerator DealDamageWithDelay(SO_Skillpart skillPart, float delay)
-	{
-        var index = skillPart.SkillPartIndex;
-
-        yield return new WaitForSeconds(delay);
-        foreach (var target in SkillData.GetCurrentTargetsHit(index))
-        {
-            if (skillPart.Power > 0)
-            {
-                var data = damageManager.GetDamageData(skillPart, target);
-                damageManager.TakeDamage(data);
-            }
         }
     }
 

@@ -24,19 +24,7 @@ public class SkillFXManager : MonoBehaviour
 
         if (skillFx.SkillFxKind == SkillFxType.Projectile)
         {
-            float distance = Vector3.Distance(skillFx.Origin, skillFx.Destination);
-            var time = 0f;
-           
-            while (distance > 0.1f)
-            {
-                time += Time.deltaTime;
-                var projectileSpeed = skillFx.ProjectileSpeedCurve.Evaluate(time) * skillFx.ProjectileSpeed;
-                skillObject.transform.position = Vector3.MoveTowards(skillObject.transform.position, skillFx.Destination, projectileSpeed * Time.deltaTime);
-
-                distance = Vector3.Distance(skillObject.transform.position, skillFx.Destination);
-
-                yield return null;
-            }
+            yield return StartCoroutine(MoveProjectileAlongCurve(skillObject, skillFx));
         }
 
         if (skillFx.SkillFxKind == SkillFxType.Animation)
@@ -49,6 +37,50 @@ public class SkillFXManager : MonoBehaviour
 
         Destroy(skillObject);
         yield return new WaitForSeconds(skillFx.EndDelay);
+    }
+
+    private IEnumerator MoveProjectileAlongCurve(GameObject skillObject, SO_SKillFX skillFx)
+    {
+        var pointList = new List<Vector3>();
+        Vector3 casterPosition = skillFx.Origin + Vector3.up;
+        Vector3 targetPosition = skillFx.Destination + Vector3.up;
+
+        var heightOffset = Vector3.Distance(casterPosition, targetPosition);
+        var middleOffset = Vector3.up * heightOffset * skillFx.ProjectileOffset * 0.5f;
+
+        Vector3 middlePosition = Vector3.Lerp(casterPosition, targetPosition, 0.5f) + middleOffset;
+
+        for (float ratio = 0; ratio <= 1; ratio += 1f / projectileLineVertexCount)
+        {
+            var tangent1 = Vector3.Lerp(targetPosition, middlePosition, ratio);
+            var tangent2 = Vector3.Lerp(middlePosition, casterPosition, ratio);
+            var curve = Vector3.Lerp(tangent1, tangent2, ratio);
+            pointList.Add(curve);
+        }
+        pointList.Reverse();
+
+        ProjectileLine.positionCount = pointList.Count;
+        ProjectileLine.SetPositions(pointList.ToArray());
+
+        float time = 0f;
+        int currentIndex = 0;
+
+        while (currentIndex < pointList.Count - 1)
+        {
+            time += Time.deltaTime;
+            float projectileSpeed = skillFx.ProjectileSpeedCurve.Evaluate(time) * skillFx.ProjectileSpeed;
+
+            skillObject.transform.position = Vector3.MoveTowards(skillObject.transform.position, pointList[currentIndex + 1], projectileSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(skillObject.transform.position, pointList[currentIndex + 1]) < 0.1f)
+            {
+                currentIndex++;
+            }
+
+            yield return null;
+        }
+
+        EndProjectileLine();
     }
 
 	public void PreviewProjectileLine(Vector3 casterPosition, Vector3 targetPosition, float offset)
@@ -74,10 +106,12 @@ public class SkillFXManager : MonoBehaviour
 
 		ProjectileLine.positionCount = pointlist.Count;
         ProjectileLine.SetPositions(pointlist.ToArray());
-	}
+        ProjectileLine.enabled = true;
+    }
 
-	public void EndProjectileLine()
+    public void EndProjectileLine()
 	{
 		ProjectileLine.positionCount = 0;
-	}
+        ProjectileLine.enabled = false;
+    }
 }

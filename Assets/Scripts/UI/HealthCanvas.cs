@@ -16,10 +16,16 @@ public class HealthCanvas : MonoBehaviour
     {
         foreach (var unit in UnitData.Enemies)
         {
-            var hb = Instantiate(HealthBar, HealthBarCanvas);
-            var healthbar = hb.GetComponent<Healthbar>();
-            healthbar.Init(unit.transform);
+            CreateHealthbar(unit);
         }
+    }
+
+    public void CreateHealthbar(Enemy unit)
+	{
+        var hb = Instantiate(HealthBar, HealthBarCanvas);
+        var healthbar = hb.GetComponent<FloatingHealthbar>();
+        healthbar.Init(unit);
+        unit.ThisHealthbar = healthbar;
     }
 
     public void ShowDamageNumber(DamageData data)

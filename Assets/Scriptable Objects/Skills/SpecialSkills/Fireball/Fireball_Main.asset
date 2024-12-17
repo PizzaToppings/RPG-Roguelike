@@ -25,5 +25,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: cfed7e4fc7dc3564382e8f04cf6b5e54, type: 2}
     - {fileID: 11400000, guid: 3d9b45842d69b3443bfd4c1721be1ebd, type: 2}
   MagicalDamage: 0
-  TargetKind: 0
+  TargetKind: 1
   Cursor: 3

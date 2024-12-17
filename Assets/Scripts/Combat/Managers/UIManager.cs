@@ -1,20 +1,27 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
     [SerializeField] InfoScreen infoScreen;
+
+    [Space]
     [SerializeField] SkillIcon mainSkillIcon;
     [SerializeField] SkillIcon[] skillIcons;
 
+    [Space]
+    [SerializeField] List<CharacterPortrait> CharacterPortraits;
+
+    [Space]
     [SerializeField] Texture2D DefaultCursorTexture;
     [SerializeField] Texture2D MeleeAttackCursorTexture;
     [SerializeField] Texture2D RangedAttackCursorTexture;
     [SerializeField] Texture2D SpellCursorTexture;
 
     CursorMode cursorMode = CursorMode.ForceSoftware;
-
 
     public void Init()
     {
@@ -28,6 +35,12 @@ public class UIManager : MonoBehaviour
     {
         infoScreen.Init();
         mainSkillIcon.Init();
+
+        for(var i = 0; i < UnitData.Characters.Count; i++)
+		{
+            CharacterPortraits[i].thisUnit = UnitData.Characters[i];
+            UnitData.Characters[i].ThisHealthbar = CharacterPortraits[i];
+        }
 
         foreach(var skillIcon in skillIcons)
             skillIcon.Init();

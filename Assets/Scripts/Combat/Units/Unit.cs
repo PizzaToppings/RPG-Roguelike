@@ -21,6 +21,8 @@ public class Unit : UnitStats
     [HideInInspector] public UnityEvent<DamageData> OnTakeDamage;
     [HideInInspector] public Animator modelAnimator;
 
+    [HideInInspector] public Healthbar ThisHealthbar;
+
     [HideInInspector] public Vector3 position => transform.position;
     // for testing and debugging
     public int startXPosition = 0;
@@ -238,6 +240,12 @@ public class Unit : UnitStats
     public virtual void PreviewSkills(BoardTile mouseOverTile)
     {
 		boardManager.VisualClear();
+	}
+
+    public virtual void TakeDamage(int damage)
+	{
+        Hitpoints -= damage;
+        ThisHealthbar.UpdateHealthbar();
 	}
 
     public virtual IEnumerator StartTurn()

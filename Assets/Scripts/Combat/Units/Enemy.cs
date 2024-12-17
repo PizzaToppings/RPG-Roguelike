@@ -128,7 +128,12 @@ public class Enemy : Unit
         }
     }
 
-    public override void EndTurn()
+	public override void TakeDamage(int damage)
+	{
+		base.TakeDamage(damage);
+	}
+
+	public override void EndTurn()
     {
         Debug.Log("ending enemy turn");
         base.EndTurn();

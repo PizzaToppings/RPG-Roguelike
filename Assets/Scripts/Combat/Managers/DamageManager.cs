@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,16 +75,18 @@ public class DamageManager : MonoBehaviour
         return statusEffects;
     }
 
-    public void TakeDamage(DamageData data)
+    public void DealDamage(DamageData data)
     {
         var caster = data.Caster;
         var target = data.Target;
 
-        Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " damage.");
+        Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " " + data.DamageType.ToString() + " damage.");
         healthCanvas.ShowDamageNumber(data);
 
         if (data.Damage == 0)
             return;
+
+        target.TakeDamage(data.Damage);
         
         var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
         if (statusEffectManager.UnitHasStatuseffect(target, StatusEfectEnum.Incapacitated))
@@ -105,6 +108,26 @@ public class DamageManager : MonoBehaviour
                 damage = Mathf.CeilToInt(damage / 2f);
 
              Debug.Log(DoT.Caster.UnitName + " dotted " + target.UnitName + " for " + damage + " damage.");
+        }
+    }
+
+    public void DealDamageSetup(SO_Skillpart skillPart, float delay)
+    {
+        StartCoroutine(DealDamageWithDelay(skillPart, delay));
+    }
+
+    IEnumerator DealDamageWithDelay(SO_Skillpart skillPart, float delay)
+    {
+        var index = skillPart.SkillPartIndex;
+
+        yield return new WaitForSeconds(delay);
+        foreach (var target in SkillData.GetCurrentTargetsHit(index))
+        {
+            if (skillPart.Power > 0)
+            {
+                var data = GetDamageData(skillPart, target);
+                DealDamage(data);
+            }
         }
     }
 }

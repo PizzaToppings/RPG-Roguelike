@@ -11,6 +11,7 @@ public class SO_SKillFX : ScriptableObject
 	[Space]
 	public AnimationCurve ProjectileSpeedCurve = AnimationCurve.Constant(0, 1, 1);
 	public float ProjectileSpeed = 1;
+	public float ProjectileOffset = 0;
 
 	[Space]
 	public float StartDelay = 0;

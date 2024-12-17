@@ -49,9 +49,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   ProjectileSpeed: 10
+  ProjectileOffset: 1
   StartDelay: 0
+  ExtendDelay: 0
   EndDelay: 0
+  ShowDamage: 0
+  ShowDamageDelay: 0
   SkillObject: {fileID: 1402759525259452502, guid: 799e616a78da34c46a6521c3a29dc33d,
     type: 3}
   Origin: {x: 15, y: 1, z: 7.5}
-  Destination: {x: 27, y: 1, z: 7.5}
+  Destination: {x: 15, y: 1, z: 19.5}

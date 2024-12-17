@@ -1,25 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour
 {
-    Transform unit;
-    Vector3 offset = Vector3.up * 2f;
+    [HideInInspector] public Unit thisUnit;
+    [SerializeField] Image healthbar;
+    [SerializeField] Image shieldbar;
 
-    Camera camera;
+    int MaxHitpoints => thisUnit.MaxHitpoints;
+    int Hitpoints => thisUnit.Hitpoints;
+    int ShieldPoints => thisUnit.ShieldPoints;
 
-    public void Init(Transform myUnit)
-    {
-        camera = Camera.main;
-        unit = myUnit.transform;
-    }
-
-    void Update()
-    {
-        if (unit == null || camera == null)
-            return;
-
-        Vector3 screenPosition = camera.WorldToScreenPoint(unit.position + offset);
-
-        transform.position = screenPosition;
+    public void UpdateHealthbar()
+	{
+        healthbar.fillAmount = (float)Hitpoints / MaxHitpoints;
+        shieldbar.fillAmount = (float)ShieldPoints / MaxHitpoints;
     }
 }
