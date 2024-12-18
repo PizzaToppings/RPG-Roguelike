@@ -52,7 +52,10 @@ public class Enemy : Unit
 
     public void TargetEnemy()
 	{
-        if (SkillData.CurrentActiveSkill.Charges == 0)
+        var skill = SkillData.CurrentActiveSkill;
+
+        if (skill.Charges == 0 || 
+            (UnitData.CurrentActiveUnit as Character).Energy < skill.EnergyCost) // a canCastSkill in SkillManager
             return;
 
         var attackRange = 0f;

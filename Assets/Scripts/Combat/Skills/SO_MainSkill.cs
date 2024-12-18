@@ -12,8 +12,9 @@ public class SO_MainSkill : ScriptableObject
 
     [Space]
     public List<SkillPartGroup> SkillPartGroups;
-    
+
     [Space]
+    public int EnergyCost;
     public int DafaultCharges = 1;
     [HideInInspector] public int Charges = 1;
 
