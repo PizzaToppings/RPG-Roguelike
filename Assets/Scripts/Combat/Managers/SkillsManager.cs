@@ -183,6 +183,7 @@ public class SkillsManager : MonoBehaviour
         UnitData.CurrentAction = CurrentActionKind.Animating;
         boardManager.Clear();
         skillFXManager.EndProjectileLine();
+        SkillData.CurrentActiveSkill.Charges--;
         StartCoroutine(CastSkills(SkillData.CurrentActiveSkill));
     }
 

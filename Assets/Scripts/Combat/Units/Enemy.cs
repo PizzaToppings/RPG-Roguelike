@@ -52,7 +52,10 @@ public class Enemy : Unit
 
     public void TargetEnemy()
 	{
-        var attackRange = -1f;
+        if (SkillData.CurrentActiveSkill.Charges == 0)
+            return;
+
+        var attackRange = 0f;
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
@@ -91,7 +94,7 @@ public class Enemy : Unit
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && SkillData.CurrentActiveSkill.Charges != 0)
             {
                 skillFXManager.EndProjectileLine();
                 UnitData.CurrentAction = CurrentActionKind.Animating;

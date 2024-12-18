@@ -88,6 +88,9 @@ public class Character : Unit
 
     public void ToggleSkill(SO_MainSkill skill)
     {
+        if (skill.Charges == 0)
+            return;
+
 		boardManager.VisualClear();
 		// turn off
 		if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CurrentActiveSkill == skill)
@@ -97,9 +100,6 @@ public class Character : Unit
         // turn on
         else
         {
-            if (skill.MagicalDamage && statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Silenced) != null)
-                return;
-
             SkillData.Reset();
             UnitData.CurrentAction = CurrentActionKind.CastingSkillshot;
 

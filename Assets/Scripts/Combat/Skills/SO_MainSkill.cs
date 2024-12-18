@@ -14,7 +14,8 @@ public class SO_MainSkill : ScriptableObject
     public List<SkillPartGroup> SkillPartGroups;
     
     [Space]
-    public bool MagicalDamage; //change to enum?
+    public int DafaultCharges = 1;
+    [HideInInspector] public int Charges = 1;
 
     [Space]
     public TargetKindEnum TargetKind;
@@ -23,7 +24,7 @@ public class SO_MainSkill : ScriptableObject
 
     private void Awake()
     {
-        Reset();
+        Init();
     }
 
     public virtual void Preview(BoardTile mouseOverTile, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
@@ -78,6 +79,12 @@ public class SO_MainSkill : ScriptableObject
                 sp.SetTargetAndTile(target, tile);
             }
         }
+    }
+
+    public void Init()
+    {
+        Charges = DafaultCharges;
+        SkillData.SkillPartGroupIndex = 0;
     }
 
     public virtual void Reset()
