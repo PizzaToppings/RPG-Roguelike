@@ -21,6 +21,14 @@ public class SkillsManager : MonoBehaviour
         camera = Camera.main;
     }
 
+    public void SetSkills(Character character)
+    {
+        foreach (var skill in character.skills)
+        {
+            skill.Init();
+        }
+    }
+
     void Update()
     {
         if (UnitData.CurrentAction != CurrentActionKind.CastingSkillshot)

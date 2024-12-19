@@ -6840,7 +6840,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: 486ca4ffc52aadf468a8d086b87bb9a5,
+      objectReference: {fileID: 11400000, guid: 0d86d369e8903bb4884cd091a57a3919,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -16434,7 +16434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardManager: {fileID: 1882644906}
   unitManager: {fileID: 370423025}
-  skillShotManager: {fileID: 799502907}
+  skillsManager: {fileID: 799502907}
   damageManager: {fileID: 1035959557}
   statusEffectManager: {fileID: 1418248640}
   skillFXManager: {fileID: 799502906}
@@ -16741,7 +16741,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725217753}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -30361,8 +30361,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 449789178}
   - {fileID: 725217754}
+  - {fileID: 449789178}
   m_Father: {fileID: 131053499}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9142857, y: 0.6571428}
@@ -39310,6 +39310,7 @@ MonoBehaviour:
   DarkDamageColor: {r: 0.16862746, g: 0.041073352, b: 0.2901961, a: 1}
   PoisonDamageColor: {r: 0.009076346, g: 0.36078432, b: 0, a: 1}
   HealingColor: {r: 1, g: 0.9532509, b: 0.49019608, a: 1}
+  ShieldColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1734429524
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -27,7 +27,8 @@ MonoBehaviour:
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
-  SkillFX: []
+  SkillFX:
+  - {fileID: 11400000, guid: b2a1580cb941bba48a32bc5ebc660d56, type: 2}
   tileColor:
     FillCenter: 0
     Color: {r: 0.9056604, g: 0, b: 0.5781434, a: 1}

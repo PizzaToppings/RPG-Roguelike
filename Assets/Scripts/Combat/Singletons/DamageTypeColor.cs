@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageTypeColor : MonoBehaviour
@@ -16,39 +14,35 @@ public class DamageTypeColor : MonoBehaviour
     [SerializeField] Color DarkDamageColor;
     [SerializeField] Color PoisonDamageColor;
     [SerializeField] Color HealingColor;
+    [SerializeField] Color ShieldColor;
 
     public Color GetDamageTypeColor(DamageTypeEnum damageType)
     {
-        if (damageType == DamageTypeEnum.Arcane)
-            return ArcaneDamageColor;
-
-        if (damageType == DamageTypeEnum.Fire)
-            return FireDamageColor;
-        
-        if (damageType == DamageTypeEnum.Water)
-            return WaterDamageColor;
-        
-        if (damageType == DamageTypeEnum.Earth)
-            return EarthDamageColor;
-        
-        if (damageType == DamageTypeEnum.Ice)
-            return IceDamageColor;
-        
-        if (damageType == DamageTypeEnum.Electric)
-            return ElectricDamageColor;
-        
-        if (damageType == DamageTypeEnum.Holy)
-            return HolyDamageColor;
-        
-        if (damageType == DamageTypeEnum.Dark)
-            return DarkDamageColor;
-        
-        if (damageType == DamageTypeEnum.Poison)
-            return PoisonDamageColor;
-
-        if (damageType == DamageTypeEnum.Healing)
-            return HealingColor;
-
+        switch (damageType)
+        {
+            case DamageTypeEnum.Arcane:
+                return ArcaneDamageColor;
+            case DamageTypeEnum.Fire:
+                return FireDamageColor;
+            case DamageTypeEnum.Water:
+                return WaterDamageColor;
+            case DamageTypeEnum.Earth:
+                return EarthDamageColor;
+            case DamageTypeEnum.Ice:
+                return IceDamageColor;
+            case DamageTypeEnum.Electric:
+                return ElectricDamageColor;
+            case DamageTypeEnum.Holy:
+                return HolyDamageColor;
+            case DamageTypeEnum.Dark:
+                return DarkDamageColor;
+            case DamageTypeEnum.Poison:
+                return PoisonDamageColor;
+            case DamageTypeEnum.Healing:
+                return HealingColor;
+            case DamageTypeEnum.Shield:
+                return ShieldColor;
+        }
         return PhysicalDamageColor;
     }
 }

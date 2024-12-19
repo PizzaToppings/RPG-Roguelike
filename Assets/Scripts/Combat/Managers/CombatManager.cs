@@ -6,7 +6,7 @@ public class CombatManager : MonoBehaviour
     public static CombatManager Instance;
     [SerializeField] BoardManager boardManager;
     [SerializeField] UnitManager unitManager;
-    [SerializeField] SkillsManager skillShotManager;
+    [SerializeField] SkillsManager skillsManager;
     [SerializeField] DamageManager damageManager;
     [SerializeField] StatusEffectManager statusEffectManager;
     [SerializeField] SkillFXManager skillFXManager;
@@ -35,7 +35,7 @@ public class CombatManager : MonoBehaviour
 		unitManager.Init();
 		statusEffectManager.Init();
 		damageManager.Init();
-		skillShotManager.Init();
+		skillsManager.Init();
         skillFXManager.Init();
 		uiManager.Init();
 	}
@@ -86,6 +86,11 @@ public class CombatManager : MonoBehaviour
         UnitData.CurrentActiveUnit = CurrentActiveUnit;
 		StartCoroutine(CurrentActiveUnit.StartTurn());
 		CombatData.currentCharacterTurn++;
+
+        if (CurrentActiveUnit.Friendly)
+        {
+            skillsManager.SetSkills(CurrentActiveUnit as Character);
+        }
 
         uiManager.StartTurn(CurrentActiveUnit);
     }

@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: AOETest_Main
+  m_Name: ShieldTest_Main
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
+  Image: {fileID: 21300000, guid: f6911c2b9e23b6943be7dd791b0850c9, type: 3}
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}
     Priority: 10
-  Description: Ha
+  Description: 
   SkillPartGroups:
   - CastOnTile: 0
-    CastOnTarget: 0
+    CastOnTarget: 1
     skillParts:
-    - {fileID: 11400000, guid: afcf2d98c67ad494793cd1454b533955, type: 2}
+    - {fileID: 11400000, guid: 994469272561e9f4786fdaf056e8734f, type: 2}
   EnergyCost: 0
   DafaultCharges: 1
   Charges: 1
   TargetKind: 1
-  Cursor: 3
+  Cursor: 0

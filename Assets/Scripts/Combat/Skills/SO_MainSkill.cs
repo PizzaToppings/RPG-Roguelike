@@ -22,12 +22,6 @@ public class SO_MainSkill : ScriptableObject
     public TargetKindEnum TargetKind;
     public CursorType Cursor;
 
-
-    private void Awake()
-    {
-        Init();
-    }
-
     public virtual void Preview(BoardTile mouseOverTile, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         var SkillPartGroupIndex = SkillData.SkillPartGroupIndex;

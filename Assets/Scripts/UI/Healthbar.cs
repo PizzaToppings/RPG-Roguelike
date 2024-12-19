@@ -12,8 +12,12 @@ public class Healthbar : MonoBehaviour
     int ShieldPoints => thisUnit.ShieldPoints;
 
     public void UpdateHealthbar()
-	{
-        healthbar.fillAmount = (float)Hitpoints / MaxHitpoints;
-        shieldbar.fillAmount = (float)ShieldPoints / MaxHitpoints;
+    {
+        var maxHealth = MaxHitpoints;
+        if (Hitpoints + ShieldPoints > maxHealth)
+            maxHealth = Hitpoints + ShieldPoints;
+
+        healthbar.fillAmount = (float)Hitpoints / maxHealth;
+        shieldbar.fillAmount = (float)ShieldPoints + Hitpoints / MaxHitpoints;
     }
 }

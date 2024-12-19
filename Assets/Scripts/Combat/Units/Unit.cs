@@ -244,9 +244,37 @@ public class Unit : UnitStats
 
     public virtual void TakeDamage(int damage)
 	{
-        Hitpoints -= damage;
+        ShieldPoints -= damage;
+        if (ShieldPoints < 0)
+        {
+            Hitpoints += ShieldPoints;
+            ShieldPoints = 0;
+        }
+
         ThisHealthbar.UpdateHealthbar();
 	}
+
+    public virtual int Heal(int healing)
+    {
+        var correctedHealing = healing;
+        Hitpoints += healing;
+        if (Hitpoints > MaxHitpoints)
+        {
+            correctedHealing -= Hitpoints - MaxHitpoints;
+            Hitpoints = MaxHitpoints;
+        }
+
+        ThisHealthbar.UpdateHealthbar();
+
+        return correctedHealing;
+    }
+
+    public virtual void Shield(int shield)
+    {
+        ShieldPoints += shield;
+
+        ThisHealthbar.UpdateHealthbar();
+    }
 
     public virtual IEnumerator StartTurn()
     {
