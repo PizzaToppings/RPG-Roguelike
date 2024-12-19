@@ -34,7 +34,6 @@ public class BoardTile : MonoBehaviour
     public TileColor currentTileColor = new TileColor();
     public TileColor skillCastColor = new TileColor();
 
-
     [HideInInspector] public Vector3 position => transform.position;
 
     public void Init()

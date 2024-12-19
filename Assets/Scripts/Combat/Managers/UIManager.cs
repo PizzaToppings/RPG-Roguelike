@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Texture2D MeleeAttackCursorTexture;
     [SerializeField] Texture2D RangedAttackCursorTexture;
     [SerializeField] Texture2D SpellCursorTexture;
+    [SerializeField] Texture2D CrossCursorTexture;
 
     CursorMode cursorMode = CursorMode.ForceSoftware;
 
@@ -75,16 +76,22 @@ public class UIManager : MonoBehaviour
 	{
         Texture2D texture = DefaultCursorTexture;
 
-  //      if (target is Enemy)
-		//{
-            if (cursorType == CursorType.Melee)
+        switch (cursorType)
+        {
+            case CursorType.Melee:
                 texture = MeleeAttackCursorTexture;
-            else if (cursorType == CursorType.Ranged)
+                break;
+            case CursorType.Ranged:
                 texture = RangedAttackCursorTexture;
-            else if (cursorType == CursorType.Spell)
+                break;
+            case CursorType.Spell:
                 texture = SpellCursorTexture;
+                break;
+            case CursorType.Cross:
+                texture = CrossCursorTexture;
+                break;
+        }
 
-            Cursor.SetCursor(texture, Vector2.zero, cursorMode);
-		//}
+        Cursor.SetCursor(texture, Vector2.zero, cursorMode);
     }
 }

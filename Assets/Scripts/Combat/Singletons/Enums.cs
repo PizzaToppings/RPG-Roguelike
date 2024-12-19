@@ -27,7 +27,7 @@ public enum StatusEfectEnum {None, Blinded, Silenced, Charmed, Frightened, Incap
 public enum OriginTileEnum { None, Caster, LastTargetTile, LastTile, GetFromSkillPart };
 public enum OriginTargetEnum { None, Caster, LastTarget, TargetOnLastTiles, GetFromSkillPart };
 public enum TargetTileEnum { None, MouseOverTile, CasterTile, Caster, PreviousDirection, MouseOverTarget, GetFromSkillPart };
-public enum CursorType { Normal, Melee, Ranged, Spell }
+public enum CursorType { Normal, Melee, Ranged, Spell, Cross }
 public enum TargetKindEnum { Enemies, Allies, All };
 
 
