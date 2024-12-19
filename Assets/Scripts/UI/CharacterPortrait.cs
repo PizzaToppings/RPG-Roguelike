@@ -1,6 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterPortrait : Healthbar
 {
-    // also add energy, portrait, name, etc
+    [SerializeField] Image energybar;
+
+    int maxEnergy => (thisUnit as Character).MaxEnergy;
+    int energy => (thisUnit as Character).Energy;
+
+    public override void UpdateHealthbar()
+    {
+        base.UpdateHealthbar();
+        energybar.fillAmount = (float)energy / maxEnergy;
+    }
 }

@@ -4032,6 +4032,7 @@ MonoBehaviour:
   thisUnit: {fileID: 0}
   healthbar: {fileID: 449789179}
   shieldbar: {fileID: 725217755}
+  energybar: {fileID: 745543198}
 --- !u!1001 &132413844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8925,6 +8926,7 @@ MonoBehaviour:
   thisUnit: {fileID: 0}
   healthbar: {fileID: 911235900}
   shieldbar: {fileID: 1859690545}
+  energybar: {fileID: 1249480964}
 --- !u!114 &353217202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18122,7 +18124,7 @@ GameObject:
   - component: {fileID: 745543199}
   - component: {fileID: 745543198}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24893,7 +24895,7 @@ GameObject:
   - component: {fileID: 1029048800}
   - component: {fileID: 1029048799}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30770,7 +30772,7 @@ GameObject:
   - component: {fileID: 1249480965}
   - component: {fileID: 1249480964}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32964,6 +32966,7 @@ MonoBehaviour:
   thisUnit: {fileID: 0}
   healthbar: {fileID: 726850466}
   shieldbar: {fileID: 275548663}
+  energybar: {fileID: 1029048799}
 --- !u!114 &1353064593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36115,7 +36118,7 @@ GameObject:
   - component: {fileID: 1501392956}
   - component: {fileID: 1501392955}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46157,6 +46160,7 @@ MonoBehaviour:
   thisUnit: {fileID: 0}
   healthbar: {fileID: 1632747690}
   shieldbar: {fileID: 1305138816}
+  energybar: {fileID: 1501392955}
 --- !u!114 &1870767326
 MonoBehaviour:
   m_ObjectHideFlags: 0

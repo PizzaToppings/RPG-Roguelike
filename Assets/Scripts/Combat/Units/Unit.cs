@@ -24,6 +24,7 @@ public class Unit : UnitStats
     [HideInInspector] public Healthbar ThisHealthbar;
 
     [HideInInspector] public Vector3 position => transform.position;
+
     // for testing and debugging
     public int startXPosition = 0;
     public int startYPosition = 0;

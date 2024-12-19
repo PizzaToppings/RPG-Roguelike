@@ -7,17 +7,17 @@ public class Healthbar : MonoBehaviour
     [SerializeField] Image healthbar;
     [SerializeField] Image shieldbar;
 
-    int MaxHitpoints => thisUnit.MaxHitpoints;
-    int Hitpoints => thisUnit.Hitpoints;
-    int ShieldPoints => thisUnit.ShieldPoints;
+    int maxHitpoints => thisUnit.MaxHitpoints;
+    int hitpoints => thisUnit.Hitpoints;
+    int shieldPoints => thisUnit.ShieldPoints;
 
-    public void UpdateHealthbar()
+    public virtual void UpdateHealthbar()
     {
-        var maxHealth = MaxHitpoints;
-        if (Hitpoints + ShieldPoints > maxHealth)
-            maxHealth = Hitpoints + ShieldPoints;
+        var maxHealth = maxHitpoints;
+        if (hitpoints + shieldPoints > maxHealth)
+            maxHealth = hitpoints + shieldPoints;
 
-        healthbar.fillAmount = (float)Hitpoints / maxHealth;
-        shieldbar.fillAmount = (float)ShieldPoints + Hitpoints / MaxHitpoints;
+        healthbar.fillAmount = (float)hitpoints / maxHealth;
+        shieldbar.fillAmount = (float)(shieldPoints + hitpoints) / maxHealth;
     }
 }
