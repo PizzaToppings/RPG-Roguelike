@@ -28,8 +28,8 @@ MonoBehaviour:
     CastOnTarget: 0
     skillParts:
     - {fileID: 11400000, guid: dd51387985aac7c44b7629bea1b4b523, type: 2}
-  EnergyCost: 0
+  EnergyCost: 111
   DafaultCharges: 1
-  Charges: 0
+  Charges: 1
   TargetKind: 0
   Cursor: 3

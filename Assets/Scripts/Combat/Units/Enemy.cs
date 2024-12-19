@@ -111,8 +111,8 @@ public class Enemy : Unit
         if (boardManager.GetTilesInAttackRange(currentTile, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
             yield return StartCoroutine(boardManager.MoveToTile());
 
-        var basicSkill = (UnitData.CurrentActiveUnit as Character).basicSkill;
-        yield return StartCoroutine(skillsManager.CastSkills(basicSkill));
+        var basicAttack = (UnitData.CurrentActiveUnit as Character).basicAttack;
+        yield return StartCoroutine(skillsManager.CastSkills(basicAttack));
     }
 
     public override void OnMouseExit()

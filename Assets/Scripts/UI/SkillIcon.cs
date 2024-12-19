@@ -66,7 +66,7 @@ public class SkillIcon : MonoBehaviour
     public void CastSkill()
     {
         Character caster = UnitData.CurrentActiveUnit as Character;
-        caster.ToggleSkill(skill); // move to skillmanager?
+        caster.ToggleSkill(skill);
     }
 
     public void OnPointerEnter() 

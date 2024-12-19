@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] InfoScreen infoScreen;
 
     [Space]
-    [SerializeField] SkillIcon mainSkillIcon;
+    [SerializeField] SkillIcon basicAttackIcon;
+    [SerializeField] SkillIcon basicSkillIcon;
     [SerializeField] SkillIcon[] skillIcons;
 
     [Space]
@@ -37,9 +38,10 @@ public class UIManager : MonoBehaviour
     void InitUI()
     {
         infoScreen.Init();
-        mainSkillIcon.Init();
+        basicAttackIcon.Init();
+        basicSkillIcon.Init();
 
-        for(var i = 0; i < UnitData.Characters.Count; i++)
+        for (var i = 0; i < UnitData.Characters.Count; i++)
 		{
             CharacterPortraits[i].thisUnit = UnitData.Characters[i];
             UnitData.Characters[i].ThisHealthbar = CharacterPortraits[i];
@@ -60,7 +62,8 @@ public class UIManager : MonoBehaviour
 
     public void SetSkillIcons(Character CurrentActiveUnit)
     {
-        mainSkillIcon.SetOrUpdate(CurrentActiveUnit.basicSkill);
+        basicAttackIcon.SetOrUpdate(CurrentActiveUnit.basicAttack);
+        basicSkillIcon.SetOrUpdate(CurrentActiveUnit.basicSkill);
 
         for (int i = 0; i < CurrentActiveUnit.skills.Count; i++)
         {

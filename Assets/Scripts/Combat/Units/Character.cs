@@ -7,6 +7,7 @@ public class Character : Unit
     [HideInInspector] public int MaxEnergy = 100;
     [HideInInspector] public int Energy;
 
+    public SO_MainSkill basicAttack;
     public SO_MainSkill basicSkill;
 
     [HideInInspector] public int MaxSkillShotAmount = 4;
@@ -20,7 +21,7 @@ public class Character : Unit
 
         Energy = MaxEnergy;
 
-        SetSkillData(basicSkill);
+        SetSkillData(basicAttack);
     }
 
     public override void Update()
@@ -70,6 +71,12 @@ public class Character : Unit
         if (UnitData.CurrentActiveUnit != this || 
             (UnitData.CurrentAction != CurrentActionKind.Basic && UnitData.CurrentAction != CurrentActionKind.CastingSkillshot))
             return;
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            ToggleSkill(basicAttack);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            ToggleSkill(basicSkill);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             ToggleSpecialSkill(0);
@@ -151,7 +158,7 @@ public class Character : Unit
 		SkillData.Reset();
 		boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
         skillFXManager.EndProjectileLine();
-        SetSkillData(basicSkill);
+        SetSkillData(basicAttack);
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)
