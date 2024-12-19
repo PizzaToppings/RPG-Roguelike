@@ -4,6 +4,7 @@ using UnityEngine;
 public class SO_MainSkill : ScriptableObject
 {
     public Sprite Image;
+    public Sprite Image_Inactive;
 
     public TileColor castLockColor;
 

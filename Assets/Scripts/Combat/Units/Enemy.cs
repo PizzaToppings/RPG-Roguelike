@@ -54,8 +54,7 @@ public class Enemy : Unit
 	{
         var skill = SkillData.CurrentActiveSkill;
 
-        if (skill.Charges == 0 || 
-            (UnitData.CurrentActiveUnit as Character).Energy < skill.EnergyCost) // a canCastSkill in SkillManager
+        if (skillsManager.CanCastSkill(skill) == false) 
             return;
 
         var attackRange = 0f;

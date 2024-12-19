@@ -43,10 +43,10 @@ public class Character : Unit
         if (skills?.Count == 0)
             return;
 
-        SetSkillShots();
+        SetSkills();
     }
 
-    void SetSkillShots()
+    void SetSkills()
     {
         SkillData.Caster = this;
 
@@ -93,7 +93,7 @@ public class Character : Unit
 
     public void ToggleSkill(SO_MainSkill skill)
     {
-        if (skill.Charges == 0 || Energy < skill.EnergyCost)
+        if (skillsManager.CanCastSkill(skill) == false)
             return;
 
 		boardManager.VisualClear();

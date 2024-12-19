@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class SkillIcon : MonoBehaviour
 {
+    SkillsManager skillsManager;
+
     [SerializeField] int skillIndex;
 
     [HideInInspector] public InfoScreen infoScreen;
@@ -23,6 +25,7 @@ public class SkillIcon : MonoBehaviour
 
     public void Init()
     {
+        skillsManager = SkillsManager.Instance;
         infoScreen = InfoScreen.Instance;
         backGround = GetComponent<Image>();
     }
@@ -32,11 +35,19 @@ public class SkillIcon : MonoBehaviour
         ShowInformation();
     }
 
-    public void Set(SO_MainSkill thisSkill) 
+    public void SetOrUpdate(SO_MainSkill thisSkill) 
     {
         skill = thisSkill;
-        icon.sprite = skill.Image;
         infoText = skill.Description;
+        SetIcon(thisSkill);
+    }
+
+    void SetIcon(SO_MainSkill thisSkill)
+    {
+        if (skillsManager.CanCastSkill(thisSkill))
+            icon.sprite = skill.Image;
+        else if (skill.Image_Inactive != null)
+            icon.sprite = skill.Image_Inactive;
     }
 
     public void CastSkill()

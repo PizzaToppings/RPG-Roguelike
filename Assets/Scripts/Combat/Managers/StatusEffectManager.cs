@@ -7,7 +7,7 @@ public class StatusEffectManager : MonoBehaviour
 {
     public static StatusEffectManager Instance;
 
-    public void Init()
+    public void CreateInstance()
     {
         Instance = this;
     }

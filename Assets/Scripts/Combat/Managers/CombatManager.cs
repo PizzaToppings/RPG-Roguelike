@@ -20,6 +20,7 @@ public class CombatManager : MonoBehaviour
     {
         Instance = this;
 
+        CreateInstances();
         InitManagers();
         CreateBattlefield();
 		PlaceUnits();
@@ -29,15 +30,25 @@ public class CombatManager : MonoBehaviour
 		TurnStart();
 	}
 
+    void CreateInstances()
+    {
+        uiManager.CreateInstance();
+        boardManager.CreateInstance();
+        unitManager.CreateInstance();
+        statusEffectManager.CreateInstance();
+        damageManager.CreateInstance();
+        skillsManager.CreateInstance();
+        skillFXManager.CreateInstance();
+    }
+
     void InitManagers()
     {
+		uiManager.Init();
         boardManager.Init();
 		unitManager.Init();
-		statusEffectManager.Init();
 		damageManager.Init();
 		skillsManager.Init();
         skillFXManager.Init();
-		uiManager.Init();
 	}
 
     void CreateBattlefield()

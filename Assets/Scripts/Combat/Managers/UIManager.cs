@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,9 +22,13 @@ public class UIManager : MonoBehaviour
 
     CursorMode cursorMode = CursorMode.ForceSoftware;
 
-    public void Init()
+    public void CreateInstance()
     {
         Instance = this;
+    }
+
+    public void Init()
+    {
         InitUI();
 
         Cursor.SetCursor(DefaultCursorTexture, Vector2.zero, cursorMode);
@@ -57,11 +60,11 @@ public class UIManager : MonoBehaviour
 
     public void SetSkillIcons(Character CurrentActiveUnit)
     {
-        mainSkillIcon.Set(CurrentActiveUnit.basicSkill);
+        mainSkillIcon.SetOrUpdate(CurrentActiveUnit.basicSkill);
 
         for (int i = 0; i < CurrentActiveUnit.skills.Count; i++)
         {
-            skillIcons[i].Set(CurrentActiveUnit.skills[i]);
+            skillIcons[i].SetOrUpdate(CurrentActiveUnit.skills[i]);
         }
     }
 

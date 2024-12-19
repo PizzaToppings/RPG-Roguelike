@@ -15,11 +15,13 @@ public class UnitManager : MonoBehaviour
     //[HideInInspector] public List<Character> Characters;
     //[HideInInspector] public List<Enemy> Enemies;
 
+    public void CreateInstance()
+    {
+        Instance = this;
+    }
 
     public void Init()
     {
-        Instance = this;
-
         foreach (Transform child in characterParent)
         {
             var unit = child.GetComponent<Character>();

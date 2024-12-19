@@ -10,9 +10,13 @@ public class SkillFXManager : MonoBehaviour
     float projectileLineVertexCount = 12;
     // TODO still needs to animate the casting character and affected characters
 
-    public void Init()
+    public void CreateInstance()
     {
         Instance = this;
+    }
+
+    public void Init()
+    {
 		ProjectileLine = GetComponent<LineRenderer>();
 	}
 

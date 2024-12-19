@@ -9,9 +9,13 @@ public class DamageManager : MonoBehaviour
     StatusEffectManager statusEffectManager;
     public static DamageManager Instance;
 
-    public void Init()
+    public void CreateInstance()
     {
         Instance = this;
+    }
+
+    public void Init()
+    {
         statusEffectManager = StatusEffectManager.Instance;
     }
 

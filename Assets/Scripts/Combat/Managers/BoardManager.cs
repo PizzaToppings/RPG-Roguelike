@@ -22,9 +22,13 @@ public class BoardManager : MonoBehaviour
 
     public Vector2Int[] Directions;
 
-    public void Init()
+    public void CreateInstance()
     {
         Instance = this;
+    }
+
+    public void Init()
+    {
         movementLR = GetComponent<LineRenderer>();
         Directions = GetDirections();
     }

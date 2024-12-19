@@ -10,14 +10,21 @@ public class SkillsManager : MonoBehaviour
     BoardManager boardManager;
     SkillFXManager skillFXManager;
     DamageManager damageManager;
+    UIManager uiManager;
     Camera camera;
+
+    public void CreateInstance()
+    {
+        Instance = this;
+    }
+
 
     public void Init()
     {
-        Instance = this;
         boardManager = BoardManager.Instance;
         skillFXManager = GetComponent<SkillFXManager>();
         damageManager = DamageManager.Instance;
+        uiManager = UIManager.Instance;
         camera = Camera.main;
     }
 
@@ -198,6 +205,8 @@ public class SkillsManager : MonoBehaviour
         var character = UnitData.CurrentActiveUnit as Character;
         character.Energy -= skill.EnergyCost;
 
+        uiManager.SetSkillIcons(character);
+
         StartCoroutine(CastSkills(skill));
     }
 
@@ -237,5 +246,11 @@ public class SkillsManager : MonoBehaviour
     {
         var skill = SkillData.CurrentActiveSkill;
         return skill.GetAttackRange();
+    }
+
+    public bool CanCastSkill(SO_MainSkill skill)
+    {
+        return skill.Charges != 0 &&
+            (UnitData.CurrentActiveUnit as Character).Energy >= skill.EnergyCost;
     }
 }
