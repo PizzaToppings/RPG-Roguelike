@@ -43,12 +43,12 @@ public class CombatManager : MonoBehaviour
 
     void InitManagers()
     {
-		uiManager.Init();
         boardManager.Init();
 		unitManager.Init();
 		damageManager.Init();
 		skillsManager.Init();
         skillFXManager.Init();
+		uiManager.Init();
 	}
 
     void CreateBattlefield()
