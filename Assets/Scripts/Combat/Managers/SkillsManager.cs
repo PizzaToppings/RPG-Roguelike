@@ -180,10 +180,17 @@ public class SkillsManager : MonoBehaviour
             return;
         }
 
+        var skill = SkillData.CurrentActiveSkill;
+
         UnitData.CurrentAction = CurrentActionKind.Animating;
         boardManager.Clear();
         skillFXManager.EndProjectileLine();
-        StartCoroutine(CastSkills(SkillData.CurrentActiveSkill));
+
+        skill.Charges--;
+        var character = UnitData.CurrentActiveUnit as Character;
+        character.Energy -= skill.EnergyCost;
+
+        StartCoroutine(CastSkills(skill));
     }
 
     public IEnumerator CastSkills(SO_MainSkill skill)

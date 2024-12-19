@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Character : Unit
 {
+    [HideInInspector] public int MaxEnergy = 100;
+    [HideInInspector] public int Energy;
+
     public SO_MainSkill basicSkill;
 
     [HideInInspector] public int MaxSkillShotAmount = 4;
@@ -14,6 +17,8 @@ public class Character : Unit
     {
         Friendly = true;
         base.Init();
+
+        Energy = MaxEnergy;
 
         SetSkillData(basicSkill);
     }
@@ -88,6 +93,9 @@ public class Character : Unit
 
     public void ToggleSkill(SO_MainSkill skill)
     {
+        if (skill.Charges == 0 || Energy < skill.EnergyCost)
+            return;
+
 		boardManager.VisualClear();
 		// turn off
 		if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CurrentActiveSkill == skill)
@@ -97,9 +105,6 @@ public class Character : Unit
         // turn on
         else
         {
-            if (skill.MagicalDamage && statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Silenced) != null)
-                return;
-
             SkillData.Reset();
             UnitData.CurrentAction = CurrentActionKind.CastingSkillshot;
 
@@ -162,5 +167,6 @@ public class Character : Unit
         StartCoroutine(base.StartTurn());
 
 		UnitData.CurrentAction = CurrentActionKind.Basic;
-	}
+        Energy = MaxEnergy;
+    }
 }
