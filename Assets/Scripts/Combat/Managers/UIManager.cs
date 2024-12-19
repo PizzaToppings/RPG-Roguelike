@@ -68,11 +68,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ReadySkill(int skillIndex, bool active)
-    {
-        skillIcons[skillIndex].SetActiveColor(active);
-    }
-
     public void SetCursor(CursorType cursorType)
 	{
         Texture2D texture = DefaultCursorTexture;

@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SkillIcon : MonoBehaviour
 {
     SkillsManager skillsManager;
-
-    [SerializeField] int skillIndex;
 
     [HideInInspector] public InfoScreen infoScreen;
     [HideInInspector] public string infoText;
@@ -13,11 +12,10 @@ public class SkillIcon : MonoBehaviour
     SO_MainSkill skill;
 
     public Image icon;
-    public Image backGround;
-    public Button button; 
 
-    public Color activeColor;
-    public Color passiveColor;
+    [Space]
+    [SerializeField] GameObject chargesImage;
+    [SerializeField] TextMeshProUGUI chargesText;
 
    float infoDelay = 1.5f;
    float infoTimer = 0;
@@ -27,7 +25,6 @@ public class SkillIcon : MonoBehaviour
     {
         skillsManager = SkillsManager.Instance;
         infoScreen = InfoScreen.Instance;
-        backGround = GetComponent<Image>();
     }
 
     public void Update()
@@ -39,29 +36,37 @@ public class SkillIcon : MonoBehaviour
     {
         skill = thisSkill;
         infoText = skill.Description;
-        SetIcon(thisSkill);
+        SetIcon();
+        SetCharges();
     }
 
-    void SetIcon(SO_MainSkill thisSkill)
+    void SetIcon()
     {
-        if (skillsManager.CanCastSkill(thisSkill))
+        if (skillsManager.CanCastSkill(skill))
             icon.sprite = skill.Image;
         else if (skill.Image_Inactive != null)
             icon.sprite = skill.Image_Inactive;
+    }
+
+    void SetCharges()
+    {
+        if (skill.DafaultCharges == 1)
+        {
+            chargesImage.SetActive(false);
+            chargesText.gameObject.SetActive(false);
+        }
+        else
+        {
+            chargesImage.SetActive(true);
+            chargesText.gameObject.SetActive(true);
+            chargesText.text = skill.Charges.ToString();
+        }
     }
 
     public void CastSkill()
     {
         Character caster = UnitData.CurrentActiveUnit as Character;
         caster.ToggleSkill(skill); // move to skillmanager?
-    }
-
-    public void SetActiveColor(bool active)
-    {
-        if (active)
-            backGround.color = activeColor;
-        else
-            backGround.color = passiveColor;
     }
 
     public void OnPointerEnter() 

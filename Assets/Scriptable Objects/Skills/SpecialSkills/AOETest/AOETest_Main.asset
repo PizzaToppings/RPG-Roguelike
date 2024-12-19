@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: AOETest_Main
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
+  Image: {fileID: 21300000, guid: d389d71a1ef11824182e69b7104ffe8b, type: 3}
+  Image_Inactive: {fileID: 0}
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}
