@@ -9,7 +9,6 @@ public class SO_StatusEffect : ScriptableObject
 
     public StatusEfectEnum statusEfectType;
     public int duration;
-    public bool isDefault;
     public bool Buff;
 
     public virtual void Apply(Unit caster, Unit target)
@@ -25,14 +24,9 @@ public class SO_StatusEffect : ScriptableObject
             status = new DefaultStatusEffect();
             status.statusEfectType = statusEfectType;
             status.Duration = duration;
-            status.isDefault = isDefault;
             status.Buff = Buff;
             
             target.statusEffects.Add(status);
-        }
-        else if (status.isDefault)
-        {
-            status.Duration += duration;
         }
     }
 }

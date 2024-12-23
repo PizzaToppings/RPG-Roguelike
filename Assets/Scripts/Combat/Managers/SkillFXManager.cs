@@ -20,7 +20,7 @@ public class SkillFXManager : MonoBehaviour
 		ProjectileLine = GetComponent<LineRenderer>();
 	}
 
-    public IEnumerator Cast(SO_SKillFX skillFx)
+    public IEnumerator Cast(SO_SKillVFX skillFx)
     {
         yield return new WaitForSeconds(skillFx.StartDelay);
         
@@ -43,7 +43,7 @@ public class SkillFXManager : MonoBehaviour
         yield return new WaitForSeconds(skillFx.EndDelay);
     }
 
-    private IEnumerator MoveProjectileAlongCurve(GameObject skillObject, SO_SKillFX skillFx)
+    private IEnumerator MoveProjectileAlongCurve(GameObject skillObject, SO_SKillVFX skillFx)
     {
         var pointList = new List<Vector3>();
         Vector3 casterPosition = skillFx.Origin + Vector3.up;

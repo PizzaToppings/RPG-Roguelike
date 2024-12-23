@@ -210,10 +210,10 @@ public class SkillsManager : MonoBehaviour
 
         uiManager.SetSkillIcons(character);
 
-        StartCoroutine(CastSkills(skill));
+        StartCoroutine(CastSkill(skill));
     }
 
-    public IEnumerator CastSkills(SO_MainSkill skill)
+    public IEnumerator CastSkill(SO_MainSkill skill)
     {
         foreach (var spg in skill.SkillPartGroups)
         {
@@ -229,15 +229,18 @@ public class SkillsManager : MonoBehaviour
 
     IEnumerator CastSkillsPart(SO_Skillpart skillPart)
     {
-        var skillFX = skillPart.SkillFX;
+        var skillVFX = skillPart.SkillVFX;
         var skillPartData = skillPart.PartData;
 
-        if (skillFX != null)
+        if (skillVFX != null)
         {
-            foreach (var SFX in skillFX)
+            foreach (var SFX in skillVFX)
 			{
                 if (SFX.ShowDamage)
                     damageManager.DealDamageSetup(skillPart, SFX.ShowDamageDelay);
+
+                if (SFX.TriggerDisplacement)
+                    DisplaceUnit(skillPart.displacementEffect);
                 
                 SFX.SetValues(skillPartData);
                 yield return StartCoroutine(skillFXManager.Cast(SFX));
@@ -255,5 +258,46 @@ public class SkillsManager : MonoBehaviour
     {
         return skill.Charges != 0 &&
             (UnitData.CurrentActiveUnit as Character).Energy >= skill.EnergyCost;
+    }
+
+    public void DisplaceUnit(SO_DisplacementEffect displacement)
+    {
+        switch (displacement.DisplacementType)
+		{
+            case DisplacementEnum.Teleport:
+                StartCoroutine(TeleportUnit(displacement));
+                return;
+            case DisplacementEnum.Move:
+                StartCoroutine(MoveUnit(displacement));
+                return;
+        }
+    }
+
+    public IEnumerator TeleportUnit(SO_DisplacementEffect displacement)
+	{
+        var unit = displacement.Unit.PartData.TargetsHit.First();
+        var originalPosition = unit.currentTile;
+        var targetPosition = displacement.TargetPosition.PartData.TilesHit.First();
+
+        yield return new WaitForSeconds(displacement.Delay);
+
+        unit.currentTile = targetPosition;
+        originalPosition.currentUnit = null;
+        targetPosition.currentUnit = unit;
+        unit.transform.position = targetPosition.position;
+    }
+
+    public IEnumerator MoveUnit(SO_DisplacementEffect displacement)
+    {
+        var unit = displacement.Unit.PartData.TargetsHit.First();
+        var originalPosition = unit.currentTile;
+        var targetPosition = displacement.TargetPosition.PartData.TilesHit.First();
+
+        yield return new WaitForSeconds(displacement.Delay);
+
+        //unit.currentTile = targetPosition;
+        //originalPosition.currentUnit = null;
+        //targetPosition.currentUnit = unit;
+        //unit.transform.position = targetPosition.position;
     }
 }

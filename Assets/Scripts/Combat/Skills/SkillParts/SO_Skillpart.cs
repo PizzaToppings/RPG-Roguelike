@@ -28,7 +28,6 @@ public class SO_Skillpart : ScriptableObject
 
 
     [Header(" - Visuals")]
-    public SO_SKillFX[] SkillFX;
     public TileColor tileColor;
     public bool AddProjectileLine;
     public float ProjectileLineOffset = 1;
@@ -39,11 +38,15 @@ public class SO_Skillpart : ScriptableObject
     public int Power;
     public float Range;
     public bool IncludeInAutoMove;
-    
+
+    [Space]
+    public SO_SKillVFX[] SkillVFX;
+
     [Space]
     [Header(" - StatusEffects")]
     public List<SO_StatusEffect> StatusEfects;
     public List<DefaultStatusEffect> defaultStatusEffects;
+    public SO_DisplacementEffect displacementEffect;
     
     List<SO_Skillpart> skillPartsList;
 

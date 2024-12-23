@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SkillFX", menuName = "ScriptableObjects/SkillFX")]
-public class SO_SKillFX : ScriptableObject
+[CreateAssetMenu(fileName = "SkillFX", menuName = "ScriptableObjects/SkillEffects/SkillVFX")]
+public class SO_SKillVFX : ScriptableObject
 {
 	// TODO change
 	public SkillFxType SkillFxKind;
@@ -21,6 +21,9 @@ public class SO_SKillFX : ScriptableObject
 	[Space]
 	public bool ShowDamage = true;
 	public float ShowDamageDelay = 0;
+
+	[Space]
+	public bool TriggerDisplacement;
 
 	[Space]
 	public GameObject SkillObject;

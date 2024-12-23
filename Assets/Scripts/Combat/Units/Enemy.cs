@@ -112,7 +112,7 @@ public class Enemy : Unit
             yield return StartCoroutine(boardManager.MoveToTile());
 
         var basicAttack = (UnitData.CurrentActiveUnit as Character).basicAttack;
-        yield return StartCoroutine(skillsManager.CastSkills(basicAttack));
+        yield return StartCoroutine(skillsManager.CastSkill(basicAttack));
     }
 
     public override void OnMouseExit()

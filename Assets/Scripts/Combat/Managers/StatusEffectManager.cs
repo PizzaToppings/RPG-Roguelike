@@ -62,8 +62,6 @@ public class StatusEffectManager : MonoBehaviour
 
     public void ResetCleanseStatusEffects(Unit unit /**, List<StatusEfectEnum> types**/)
     {
-        // use coroutine waituntil statuseffect = false for visuals? 
-
         StartCoroutine(unit.StartTurn());
     }
 }

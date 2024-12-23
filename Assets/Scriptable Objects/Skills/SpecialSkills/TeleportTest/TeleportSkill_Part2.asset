@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b7fdbd1c2e4e824b9aca47d7c74b93f, type: 3}
-  m_Name: ConeSkill_Part1
+  m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
+  m_Name: TeleportSkill_Part2
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
+  OriginTiles: []
   OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 2
+  FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
   OriginTileKind: 1
@@ -27,20 +26,22 @@ MonoBehaviour:
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
-  SkillFX: []
   tileColor:
     FillCenter: 0
-    Color: {r: 0.33490568, g: 0.90658784, b: 1, a: 1}
-    Priority: 5
+    Color: {r: 0.015686275, g: 0.67058825, b: 1, a: 1}
+    Priority: 3
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   DamageType: 0
   Power: 0
   Range: 6
   IncludeInAutoMove: 0
+  SkillVFX:
+  - {fileID: 11400000, guid: 8f0cbc6e7e61dbb45a231df0de98227e, type: 2}
   StatusEfects: []
-  defaultStatusEffects:
-  - statusEfectType: 0
-    Duration: 0
-    Buff: 0
-  isWide: 0
+  defaultStatusEffects: []
+  displacementEffect: {fileID: 11400000, guid: f87d2c99d44e9aa4796bf7b9c0bcf0ea, type: 2}
+  SelectedTileColor:
+    FillCenter: 0
+    Color: {r: 0.015686275, g: 0.67058825, b: 1, a: 1}
+    Priority: 2

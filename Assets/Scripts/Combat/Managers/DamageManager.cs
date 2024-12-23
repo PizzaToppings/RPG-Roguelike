@@ -117,6 +117,7 @@ public class DamageManager : MonoBehaviour
                 else
                     DealDamage(data);
             }
+
         }
     }
 

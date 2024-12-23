@@ -12,7 +12,7 @@ public class SO_MainSkill : ScriptableObject
     public string Description;
 
     [Space]
-    public List<SkillPartGroup> SkillPartGroups;
+    public List<SkillPartGroup> SkillPartGroups = new List<SkillPartGroup>(1);
 
     [Space]
     public int EnergyCost;
