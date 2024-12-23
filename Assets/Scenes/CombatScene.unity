@@ -17327,7 +17327,7 @@ MonoBehaviour:
   skillsManager: {fileID: 799502907}
   damageManager: {fileID: 1035959557}
   statusEffectManager: {fileID: 1418248640}
-  skillFXManager: {fileID: 799502906}
+  skillVFXManager: {fileID: 799502906}
   uiManager: {fileID: 1398009754}
   initiativeTracker: {fileID: 1916852739}
 --- !u!1 &709650020 stripped
@@ -50096,7 +50096,7 @@ MonoBehaviour:
   boardManager: {fileID: 0}
   unitManager: {fileID: 0}
   skillsManager: {fileID: 0}
-  skillFXManager: {fileID: 0}
+  skillVFXManager: {fileID: 0}
   statusEffectManager: {fileID: 0}
   damageManager: {fileID: 0}
   uiManager: {fileID: 0}
@@ -50800,7 +50800,7 @@ MonoBehaviour:
   boardManager: {fileID: 0}
   unitManager: {fileID: 0}
   skillsManager: {fileID: 0}
-  skillFXManager: {fileID: 0}
+  skillVFXManager: {fileID: 0}
   statusEffectManager: {fileID: 0}
   damageManager: {fileID: 0}
   uiManager: {fileID: 0}

@@ -163,8 +163,8 @@ public class SO_Skillpart : ScriptableObject
 	{
         if (Range > 1.5f) // so more than melee
         {
-            var skillFXManager = SkillFXManager.Instance;
-            skillFXManager.PreviewProjectileLine(casterPosition, targetPosition, ProjectileLineOffset);
+            var skillVFXManager = SkillVFXManager.Instance;
+            skillVFXManager.PreviewProjectileLine(casterPosition, targetPosition, ProjectileLineOffset);
         }
     }
 

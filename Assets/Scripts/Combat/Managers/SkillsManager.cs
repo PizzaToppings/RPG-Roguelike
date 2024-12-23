@@ -8,7 +8,7 @@ public class SkillsManager : MonoBehaviour
 {
     public static SkillsManager Instance;
     BoardManager boardManager;
-    SkillFXManager skillFXManager;
+    SkillVFXManager skillVFXManager;
     DamageManager damageManager;
     UIManager uiManager;
     Camera camera;
@@ -22,7 +22,7 @@ public class SkillsManager : MonoBehaviour
     public void Init()
     {
         boardManager = BoardManager.Instance;
-        skillFXManager = GetComponent<SkillFXManager>();
+        skillVFXManager = GetComponent<SkillVFXManager>();
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
         camera = Camera.main;
@@ -199,7 +199,7 @@ public class SkillsManager : MonoBehaviour
 
         UnitData.CurrentAction = CurrentActionKind.Animating;
         boardManager.Clear();
-        skillFXManager.EndProjectileLine();
+        skillVFXManager.EndProjectileLine();
 
         skill.Charges--;
         var character = UnitData.CurrentActiveUnit as Character;
@@ -243,7 +243,7 @@ public class SkillsManager : MonoBehaviour
                     DisplaceUnit(skillPart.displacementEffect);
                 
                 SFX.SetValues(skillPartData);
-                yield return StartCoroutine(skillFXManager.Cast(SFX));
+                yield return StartCoroutine(skillVFXManager.Cast(SFX));
 			}
         }
     }

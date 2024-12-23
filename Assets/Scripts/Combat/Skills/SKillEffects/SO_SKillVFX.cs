@@ -9,6 +9,9 @@ public class SO_SKillVFX : ScriptableObject
 	public SkillFxDestinationEnum SkillDestinationKind;
 
 	[Space]
+	public bool StickToUnit;
+
+	[Space]
 	public AnimationCurve ProjectileSpeedCurve = AnimationCurve.Constant(0, 1, 1);
 	public float ProjectileSpeed = 1;
 	public float ProjectileOffset = 0;

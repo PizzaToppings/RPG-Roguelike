@@ -9,7 +9,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] SkillsManager skillsManager;
     [SerializeField] DamageManager damageManager;
     [SerializeField] StatusEffectManager statusEffectManager;
-    [SerializeField] SkillFXManager skillFXManager;
+    [SerializeField] SkillVFXManager skillVFXManager;
     [SerializeField] UIManager uiManager;
 
     [Space]
@@ -38,7 +38,7 @@ public class CombatManager : MonoBehaviour
         statusEffectManager.CreateInstance();
         damageManager.CreateInstance();
         skillsManager.CreateInstance();
-        skillFXManager.CreateInstance();
+        skillVFXManager.CreateInstance();
     }
 
     void InitManagers()
@@ -47,7 +47,7 @@ public class CombatManager : MonoBehaviour
 		unitManager.Init();
 		damageManager.Init();
 		skillsManager.Init();
-        skillFXManager.Init();
+        skillVFXManager.Init();
 		uiManager.Init();
 	}
 

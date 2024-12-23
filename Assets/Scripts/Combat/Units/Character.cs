@@ -157,7 +157,7 @@ public class Character : Unit
         UnitData.CurrentAction = CurrentActionKind.Basic;
 		SkillData.Reset();
 		boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
-        skillFXManager.EndProjectileLine();
+        skillVFXManager.EndProjectileLine();
         SetSkillData(basicAttack);
     }
 

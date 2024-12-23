@@ -87,7 +87,7 @@ public class Enemy : Unit
         uiManager.SetCursor(SkillData.CurrentActiveSkill.Cursor);
             
         if (attackRange > 1.5f) // so more than melee
-            skillFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position, 1);
+            skillVFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position, 1);
     }
 
     public override void OnClick()
@@ -98,7 +98,7 @@ public class Enemy : Unit
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && SkillData.CurrentActiveSkill.Charges != 0)
             {
-                skillFXManager.EndProjectileLine();
+                skillVFXManager.EndProjectileLine();
                 UnitData.CurrentAction = CurrentActionKind.Animating;
                 StartCoroutine(AttackEnemyBasicAttack());
             }
@@ -129,7 +129,7 @@ public class Enemy : Unit
         {
             closestTile.UnTarget();
             SkillData.Reset();
-            skillFXManager.EndProjectileLine();
+            skillVFXManager.EndProjectileLine();
         }
     }
 

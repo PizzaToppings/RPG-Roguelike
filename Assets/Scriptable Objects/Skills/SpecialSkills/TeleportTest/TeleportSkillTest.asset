@@ -24,12 +24,9 @@ MonoBehaviour:
     CastOnTarget: 0
     skillParts:
     - {fileID: 11400000, guid: 2fc6b93bd586b924ea87fd4923db1095, type: 2}
-  - CastOnTile: 1
-    CastOnTarget: 0
-    skillParts:
     - {fileID: 11400000, guid: 5ac0b9054d0ae7045bb34472238cc860, type: 2}
   EnergyCost: 10
   DafaultCharges: 1
-  Charges: 1
+  Charges: 0
   TargetKind: 2
   Cursor: 0

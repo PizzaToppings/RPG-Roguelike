@@ -7,7 +7,7 @@ public class BoardTile : MonoBehaviour
 {
     BoardManager boardManager;
     SkillsManager skillsManager;
-    SkillFXManager skillFXManager;
+    SkillVFXManager skillVFXManager;
     UIManager uiManager;
     public BoardTile[] connectedTiles = new BoardTile[8];
     public BoardTile PreviousTile;
@@ -53,7 +53,7 @@ public class BoardTile : MonoBehaviour
         DistanceToTarget = Mathf.Infinity;
 
         skillsManager = SkillsManager.Instance;
-        skillFXManager = SkillFXManager.Instance;
+        skillVFXManager = SkillVFXManager.Instance;
     }
 
     void OnMouseDown()
@@ -184,7 +184,7 @@ public class BoardTile : MonoBehaviour
         else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
             boardManager.VisualClear();
-            skillFXManager.EndProjectileLine();
+            skillVFXManager.EndProjectileLine();
             SkillData.CurrentActiveSkill.Preview(null);
         }
     }

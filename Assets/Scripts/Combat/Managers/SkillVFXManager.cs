@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SkillFXManager : MonoBehaviour
+public class SkillVFXManager : MonoBehaviour
 {
-    public static SkillFXManager Instance;
+    public static SkillVFXManager Instance;
     
 	LineRenderer ProjectileLine;
     float projectileLineVertexCount = 12;
