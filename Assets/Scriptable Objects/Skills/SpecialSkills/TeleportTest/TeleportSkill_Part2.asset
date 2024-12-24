@@ -38,8 +38,7 @@ MonoBehaviour:
   Range: 6
   IncludeInAutoMove: 0
   SkillVFX:
-  - {fileID: 11400000, guid: 8f0cbc6e7e61dbb45a231df0de98227e, type: 2}
-  - {fileID: 11400000, guid: 51ed3d3fd5979474cb0cc253e5be8e5d, type: 2}
+  - {fileID: 11400000, guid: 83003a20c77e07047b19cb7f74ab5002, type: 2}
   StatusEfects: []
   defaultStatusEffects: []
   displacementEffect: {fileID: 11400000, guid: f87d2c99d44e9aa4796bf7b9c0bcf0ea, type: 2}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class SkillVFXManager : MonoBehaviour
 {
-    public static SkillVFXManager Instance;
+    public static SkillVFXManager Instance; 
     
 	LineRenderer ProjectileLine;
     float projectileLineVertexCount = 12;
@@ -34,6 +34,20 @@ public class SkillVFXManager : MonoBehaviour
         if (skillFx.SkillFxKind == SkillFxType.Animation)
         {
             var particleSystem = skillObject.GetComponent<ParticleSystem>();
+
+            if (skillFx.StickToUnit)
+            {
+                while (true)
+                {
+                    skillObject.transform.position = skillFx.GetDestination();
+
+                    if (particleSystem.isStopped)
+                        break;
+
+                    yield return null;
+                }
+            }
+
             yield return new WaitUntil(() => particleSystem.isStopped);
         }
 
@@ -63,9 +77,6 @@ public class SkillVFXManager : MonoBehaviour
         }
         pointList.Reverse();
 
-        ProjectileLine.positionCount = pointList.Count;
-        ProjectileLine.SetPositions(pointList.ToArray());
-
         float time = 0f;
         int currentIndex = 0;
 
@@ -83,8 +94,6 @@ public class SkillVFXManager : MonoBehaviour
 
             yield return null;
         }
-
-        EndProjectileLine();
     }
 
 	public void PreviewProjectileLine(Vector3 casterPosition, Vector3 targetPosition, float offset)

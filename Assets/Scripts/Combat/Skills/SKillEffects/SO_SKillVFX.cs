@@ -2,7 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkillFX", menuName = "ScriptableObjects/SkillEffects/SkillVFX")]
 public class SO_SKillVFX : ScriptableObject
-{
+{ 
 	// TODO change
 	public SkillFxType SkillFxKind;
 	public SkillFxOriginEnum SkillOriginKind;

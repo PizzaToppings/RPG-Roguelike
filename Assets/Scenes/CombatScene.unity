@@ -41265,19 +41265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daeb6d77cef1a4f4d901d3d2f42877be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PhysicalDamageColor: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
-  ArcaneDamageColor: {r: 0, g: 0.5716541, b: 1, a: 1}
-  FireDamageColor: {r: 0.8490566, g: 0, b: 0, a: 1}
-  WaterDamageColor: {r: 0, g: 0.010781855, b: 0.9245283, a: 1}
-  EarthDamageColor: {r: 0.5283019, g: 0.18616353, b: 0, a: 1}
-  IceDamageColor: {r: 0, g: 0.6603774, b: 0.6413692, a: 1}
-  ElectricDamageColor: {r: 1, g: 0.7684327, b: 0, a: 1}
-  PsychicDamageColor: {r: 0.3254902, g: 0.03564434, b: 0.8396226, a: 1}
-  HolyDamageColor: {r: 0.8584906, g: 0.5216614, b: 0.14901961, a: 1}
-  DarkDamageColor: {r: 0.16862746, g: 0.041073352, b: 0.2901961, a: 1}
-  PoisonDamageColor: {r: 0.009076346, g: 0.36078432, b: 0, a: 1}
-  HealingColor: {r: 1, g: 0.9532509, b: 0.49019608, a: 1}
-  ShieldColor: {r: 0.5896226, g: 0.94776875, b: 1, a: 1}
 --- !u!1001 &1734429524
 PrefabInstance:
   m_ObjectHideFlags: 0
