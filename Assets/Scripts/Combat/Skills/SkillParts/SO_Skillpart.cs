@@ -40,6 +40,12 @@ public class SO_Skillpart : ScriptableObject
     public bool IncludeInAutoMove;
 
     [Space]
+    [Header(" - Prevent Duplicates")]
+    public List<SO_Skillpart> PreventDuplicateTiles;
+    public List<SO_Skillpart> PreventDuplicateTargets;
+
+    [Space]
+    [Header(" - Visuals")]
     public SO_SKillVFX[] SkillVFX;
 
     [Space]

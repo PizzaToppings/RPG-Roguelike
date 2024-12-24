@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ShieldTest_Main
   m_EditorClassIdentifier: 
   Image: {fileID: 21300000, guid: f6911c2b9e23b6943be7dd791b0850c9, type: 3}
+  Image_Inactive: {fileID: 0}
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}
@@ -25,6 +26,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 994469272561e9f4786fdaf056e8734f, type: 2}
   EnergyCost: 0
   DafaultCharges: 1
-  Charges: 1
+  Charges: 0
   TargetKind: 1
   Cursor: 0

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
-  m_Name: TeleportSkill_Part2
+  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
+  m_Name: DoubleTarget_Part2
   m_EditorClassIdentifier: 
   OriginTiles:
   - {fileID: 0}
@@ -23,28 +23,28 @@ MonoBehaviour:
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 1
+  TargetTileKind: 5
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
   tileColor:
     FillCenter: 0
-    Color: {r: 0.015686275, g: 0.67058825, b: 1, a: 1}
+    Color: {r: 1, g: 0, b: 0, a: 1}
     Priority: 3
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   DamageType: 0
-  Power: 0
-  Range: 6
+  Power: 10
+  Range: 5
   IncludeInAutoMove: 0
-  PreventDuplicateTiles: []
+  PreventDuplicateTiles:
+  - {fileID: 11400000, guid: 17fbe649e56769a458129434a2ec72a4, type: 2}
   PreventDuplicateTargets: []
-  SkillVFX:
-  - {fileID: 11400000, guid: 83003a20c77e07047b19cb7f74ab5002, type: 2}
+  SkillVFX: []
   StatusEfects: []
   defaultStatusEffects: []
-  displacementEffect: {fileID: 11400000, guid: f87d2c99d44e9aa4796bf7b9c0bcf0ea, type: 2}
-  SelectedTileColor:
-    FillCenter: 0
-    Color: {r: 0.015686275, g: 0.67058825, b: 1, a: 1}
+  displacementEffect: {fileID: 0}
+  SelectedTargetTileColor:
+    FillCenter: 1
+    Color: {r: 1, g: 0, b: 0, a: 1}
     Priority: 2

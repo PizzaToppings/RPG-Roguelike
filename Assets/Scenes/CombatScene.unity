@@ -7312,7 +7312,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: eb649e45825f3224b8711606d1c893fa,
+      objectReference: {fileID: 11400000, guid: c7aacb887f9d3db49a39a3363a4f7584,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -41265,6 +41265,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daeb6d77cef1a4f4d901d3d2f42877be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PhysicalDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  ArcaneDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  FireDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  WaterDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  EarthDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  IceDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  ElectricDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  PsychicDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  HolyDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  DarkDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  PoisonDamageColor: {r: 0, g: 0, b: 0, a: 0}
+  HealingColor: {r: 0, g: 0, b: 0, a: 0}
+  ShieldColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1734429524
 PrefabInstance:
   m_ObjectHideFlags: 0

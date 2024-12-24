@@ -6,8 +6,10 @@ public class SO_MainSkill : ScriptableObject
     public Sprite Image;
     public Sprite Image_Inactive;
 
-    public TileColor castLockColor;
+    [Space]
+    public List<ClassEnum> Classes;
 
+    [Space]
     [TextArea(15,20)]    
     public string Description;
 
@@ -22,6 +24,9 @@ public class SO_MainSkill : ScriptableObject
     [Space]
     public TargetKindEnum TargetKind;
     public CursorType Cursor;
+
+    public TileColor castLockColor;
+
 
     public virtual void Preview(BoardTile mouseOverTile, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {

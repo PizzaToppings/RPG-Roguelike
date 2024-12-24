@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,12 +19,20 @@ public class SO_TargetUnitSkill : SO_Skillpart
         skillsManager.GetAOE(this);
 
         var target = SkillData.GetCurrentTargetsHit(SkillPartIndex).Find(x => x.IsTargeted);
-		if (target != null)
+
+        //if (PreventDuplicateTargets?.Any(skillPart => skillPart.PartData.TargetsHit.Contains(target)) == true)
+        //{
+        //    target = null;
+        //}
+
+        if (target != null)
 		{
             TargetUnit(target);
-		}
+            return this;
+        }
 
-		return this;
+        SkillData.GetCurrentTilesHit(SkillPartIndex).Clear();
+        return this;
     }
 
     public void TargetUnit(Unit target)
@@ -31,6 +40,7 @@ public class SO_TargetUnitSkill : SO_Skillpart
         target.currentTile.SetColor(SelectedTargetTileColor);
 
         SkillData.GetCurrentTargetsHit(SkillPartIndex).Clear();
+        SkillData.GetCurrentTilesHit(SkillPartIndex).Clear();
         SkillData.GetCurrentTargetsHit(SkillPartIndex).Add(target);
 
         ShowProjectileLine(SkillData.Caster.position, PartData.TargetsHit[0].position);

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: BasicSkill
+  m_Name: TeleportSkill_Main
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: 6f7770eab77e2ea4a8d50e19fa02ff6c, type: 3}
+  Image: {fileID: 21300000, guid: a5e6f5443d4a5cb4eb55bbe1745734d3, type: 3}
   Image_Inactive: {fileID: 0}
   Classes: 
   Description: 
@@ -20,13 +20,17 @@ MonoBehaviour:
   - CastOnTile: 0
     CastOnTarget: 1
     skillParts:
-    - {fileID: 11400000, guid: 967c385fd7e60b14b899c2506c14bf4b, type: 2}
-  EnergyCost: 0
+    - {fileID: 11400000, guid: 2fc6b93bd586b924ea87fd4923db1095, type: 2}
+  - CastOnTile: 1
+    CastOnTarget: 0
+    skillParts:
+    - {fileID: 11400000, guid: 5ac0b9054d0ae7045bb34472238cc860, type: 2}
+  EnergyCost: 10
   DafaultCharges: 1
   Charges: 1
   TargetKind: 0
-  Cursor: 1
+  Cursor: 0
   castLockColor:
-    FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    Priority: 10
+    FillCenter: 1
+    Color: {r: 0.0141509175, g: 0.66993445, b: 1, a: 1}
+    Priority: 1

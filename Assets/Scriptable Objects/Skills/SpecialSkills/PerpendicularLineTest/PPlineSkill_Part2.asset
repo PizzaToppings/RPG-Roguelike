@@ -24,18 +24,23 @@ MonoBehaviour:
   OriginTargetSkillParts: []
   TargetTileKind: 0
   TargetTileSkillParts: []
-  DirectionCenterTile: 1
-  DirectionCenterTileSkillPart: {fileID: 0}
-  SkillFX: []
+  DirectionAnchor: 0
+  DirectionAnchorSkillPart: {fileID: 0}
   tileColor:
     FillCenter: 1
     Color: {r: 0.03933786, g: 0.058825757, b: 0.6415094, a: 1}
     Priority: 3
+  AddProjectileLine: 0
+  ProjectileLineOffset: 1
   DamageType: 0
   Power: 0
   Range: 3
   IncludeInAutoMove: 0
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets: []
+  SkillVFX: []
   StatusEfects: []
   defaultStatusEffects: []
+  displacementEffect: {fileID: 0}
   Angles: feffffff02000000
   PierceAmount: -1

@@ -13,29 +13,32 @@ MonoBehaviour:
   m_Name: ShieldTest_Part1
   m_EditorClassIdentifier: 
   OriginTiles: []
-  OriginTargets: []
+  OriginTargets:
+  - {fileID: 0}
   TargetTile: {fileID: 0}
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
   OriginTileKind: 0
   OriginTileSkillParts: []
-  OriginTargetKind: 0
+  OriginTargetKind: 1
   OriginTargetSkillParts: []
   TargetTileKind: 0
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
-  SkillFX: []
   tileColor:
-    FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    Priority: 10
+    FillCenter: 1
+    Color: {r: 0.058490515, g: 0.8060348, b: 1, a: 1}
+    Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  DamageType: 0
-  Power: 0
+  DamageType: 12
+  Power: 10
   Range: 0
   IncludeInAutoMove: 0
+  SkillVFX:
+  - {fileID: 11400000, guid: cb1f9a58143b46c48ad88bb07e361b8c, type: 2}
   StatusEfects: []
   defaultStatusEffects: []
+  displacementEffect: {fileID: 0}
