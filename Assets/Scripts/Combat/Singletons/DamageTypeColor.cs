@@ -3,7 +3,7 @@ using UnityEngine;
 public class DamageTypeColor : MonoBehaviour
 {
     [SerializeField] Color PhysicalDamageColor;
-    [SerializeField] Color ArcaneDamageColor;
+    [SerializeField] Color ArcaneDamageColor; 
     [SerializeField] Color FireDamageColor;
     [SerializeField] Color WaterDamageColor;
     [SerializeField] Color EarthDamageColor;
