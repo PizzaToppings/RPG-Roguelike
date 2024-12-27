@@ -455,6 +455,9 @@ public class BoardManager : MonoBehaviour
                     if (tile == null)
                         continue;
 
+                    if (GetRangeBetweenTiles(originTile.Coordinates, coordinate) < skillData.MinRange)
+                        continue;
+
                     tile.SetColor(skillData.tileColor);
 
                     SkillData.AddTileToCurrentList(skillPartIndex, tile);
@@ -467,21 +470,21 @@ public class BoardManager : MonoBehaviour
             
             if (skillData.isWide == false)
 			{
-                FillConeCast(lines, skillData);
+                FillConeCast(lines, skillData, originTile);
 			}
-            if (skillData.isWide)
+            else
 			{
                 var firstList = new List<List<Vector2Int>> { lines[0], lines[1] };
-                FillConeCast(firstList, skillData);
+                FillConeCast(firstList, skillData, originTile);
                 var secondList = new List<List<Vector2Int>> { lines[1], lines[2] };
-                FillConeCast(secondList, skillData);
+                FillConeCast(secondList, skillData, originTile);
             }
 
             lines.Clear();
         }
     }
 
-    void FillConeCast(List<List<Vector2Int>> lines, SO_Skillpart skillData)
+    void FillConeCast(List<List<Vector2Int>> lines, SO_Skillpart skillData, BoardTile originTile)
     {
 		List<BoardTile> tileList = new List<BoardTile>();
 
@@ -524,6 +527,10 @@ public class BoardManager : MonoBehaviour
 
         for (int t = 0; t < tileList.Count; t++)
 		{
+            var rangefoo = GetRangeBetweenTiles(originTile, tileList[t]);
+            if (GetRangeBetweenTiles(originTile, tileList[t]) < skillData.MinRange)
+                continue;
+
 			var tile = tileList[t];
 
 			tile.SetColor(skillData.tileColor);
@@ -571,6 +578,9 @@ public class BoardManager : MonoBehaviour
                     if (tile == null)
                         continue;
 
+                    if (GetRangeBetweenTiles(originTile.Coordinates, coordinate) < skillData.MinRange)
+                        continue;
+
                     tile.SetColor(skillData.tileColor);
 
                     SkillData.AddTileToCurrentList(skillPartIndex, tile);
@@ -584,7 +594,7 @@ public class BoardManager : MonoBehaviour
             for (int i = 1; i < 5; i++)
 			{
                 var fillLines = new List<List<Vector2Int>> { lines[i-1], lines[i] };
-                FillConeCast(fillLines, skillData);
+                FillConeCast(fillLines, skillData, originTile);
 			}
 
             lines.Clear();

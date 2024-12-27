@@ -16,7 +16,7 @@ MonoBehaviour:
   - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 2
+  FinalDirection: 6
   MagicalDamage: 0
   SkillPartIndex: 0
   OriginTileKind: 1
@@ -25,9 +25,8 @@ MonoBehaviour:
   OriginTargetSkillParts: []
   TargetTileKind: 0
   TargetTileSkillParts: []
-  DirectionAnchor: 0
+  DirectionAnchor: 1
   DirectionAnchorSkillPart: {fileID: 0}
-  SkillFX: []
   tileColor:
     FillCenter: 0
     Color: {r: 0.33490568, g: 0.90658784, b: 1, a: 1}
@@ -36,11 +35,16 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   DamageType: 0
   Power: 0
-  Range: 6
+  MinRange: 2
+  MaxRange: 6
   IncludeInAutoMove: 0
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets: []
+  SkillVFX: []
   StatusEfects: []
   defaultStatusEffects:
   - statusEfectType: 0
     Duration: 0
     Buff: 0
+  displacementEffect: {fileID: 0}
   isWide: 0
