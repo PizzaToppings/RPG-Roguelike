@@ -133,6 +133,7 @@ public class Character : Unit
             var skillPartGroupData = new SkillPartGroupData();
             skillPartGroupData.CastOnTile = spg.CastOnTile;
             skillPartGroupData.CastOnTarget = spg.CastOnTarget;
+            skillPartGroupData.GroupIndex = i;
             SkillData.SkillPartGroupDatas.Add(skillPartGroupData);
 
             for (var s = 0; s < spg.skillParts.Count; s++)

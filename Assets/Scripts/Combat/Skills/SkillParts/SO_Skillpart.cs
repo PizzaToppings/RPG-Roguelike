@@ -61,15 +61,20 @@ public class SO_Skillpart : ScriptableObject
     {
         skillPartsList = skillParts;
 
+        SetInitData(mouseOverTile);
+
+        PartData.CanCast = true;
+
+        return this;
+    }
+
+    public void SetInitData(BoardTile mouseOverTile)
+	{
         PartData.TilesHit = new List<BoardTile>();
         PartData.TargetsHit = new List<Unit>();
         OriginTiles = GetOriginTiles();
         OriginTargets = GetOriginTargets();
         TargetTile = GetTargetTile(mouseOverTile);
-
-        PartData.CanCast = true;
-
-        return this;
     }
 
     List<BoardTile> GetOriginTiles()
@@ -180,7 +185,7 @@ public class SO_Skillpart : ScriptableObject
 	{
 	}
 
-    public virtual bool UnableToCast()
+    public virtual bool NoTargetsInRange()
 	{
         return false;
 	}

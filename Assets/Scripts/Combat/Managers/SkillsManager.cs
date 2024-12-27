@@ -198,10 +198,15 @@ public class SkillsManager : MonoBehaviour
         if (SkillData.SkillPartGroupIndex < SkillData.SkillPartGroupDatas.Count - 1)
         {
             SkillData.SkillPartGroupIndex++;
-            boardManager.Clear();
-            skill.Preview(boardManager.GetCurrentMouseTile());
 
-            return;
+            boardManager.Clear();
+            
+            if (NoTargetsInRange(skill) == false)
+			{
+                skill.Preview(boardManager.GetCurrentMouseTile());
+
+                return;
+			}
         }
 
         UnitData.CurrentAction = CurrentActionKind.Animating;
@@ -222,12 +227,17 @@ public class SkillsManager : MonoBehaviour
 
     public IEnumerator CastSkill(SO_MainSkill skill)
     {
+        var index = 0;
         foreach (var spg in skill.SkillPartGroups)
         {
+            if (index >= SkillData.SkillPartGroupIndex)
+                continue;
+
             foreach (var sp in spg.skillParts)
             {
                 yield return StartCoroutine(CastSkillsPart(sp));
             }
+            index++;
         }
 
         Character character = SkillData.Caster as Character;
@@ -265,6 +275,12 @@ public class SkillsManager : MonoBehaviour
     {
         return skill.Charges != 0 &&
             (UnitData.CurrentActiveUnit as Character).Energy >= skill.EnergyCost;
+    }
+
+    public bool NoTargetsInRange(SO_MainSkill skill)
+	{
+        return skill.SkillPartGroups[SkillData.SkillPartGroupIndex].skillParts.Any(x =>
+                x.NoTargetsInRange());
     }
 
     public void DisplaceUnit(SO_DisplacementEffect displacement)

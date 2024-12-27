@@ -39,12 +39,17 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
         return this;
     }
 
-	public override bool UnableToCast()
+	public override bool NoTargetsInRange()
 	{
+        SetInitData(null);
+
         SkillsManager skillsManager = SkillsManager.Instance;
         skillsManager.GetAOE(this);
 
-        if (PartData.TilesHit.Count == 0)
+        var tilesHit = PartData.TilesHit;
+        tilesHit.RemoveAll(x => HasDuplicateTile(x));
+
+        if (tilesHit.Count == 0)
             return true;
 
         return false;

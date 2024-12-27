@@ -61,12 +61,17 @@ public class SO_TargetUnitSkill : SO_Skillpart
             TargetUnit(target);
     }
 
-    public override bool UnableToCast()
+    public override bool NoTargetsInRange()
     {
+        SetInitData(null);
+
         SkillsManager skillsManager = SkillsManager.Instance;
         skillsManager.GetAOE(this);
 
-        if (PartData.TargetsHit.Count == 0)
+        var targetsHit = PartData.TargetsHit;
+        targetsHit.RemoveAll(x => HasDuplicateTarget(x));
+
+        if (targetsHit.Count == 0)
             return true;
 
         return false;

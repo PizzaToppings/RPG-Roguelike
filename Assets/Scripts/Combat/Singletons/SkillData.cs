@@ -12,7 +12,6 @@ public class SkillData
     public static int SkillPartGroupIndex = 0;
     public static List<SkillPartGroupData> SkillPartGroupDatas = new List<SkillPartGroupData>();
 
-    // quick references
     public static SkillPartGroupData CurrentSkillPartGroupData => SkillPartGroupDatas[SkillPartGroupIndex];
 
 

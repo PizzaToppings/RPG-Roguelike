@@ -19,8 +19,10 @@ public class SO_AOE_Skill : SO_Skillpart
         return this;
     }
 
-    public override bool UnableToCast()
+    public override bool NoTargetsInRange()
     {
+        SetInitData(null);
+
         SkillsManager skillsManager = SkillsManager.Instance;
         skillsManager.GetAOE(this);
 
