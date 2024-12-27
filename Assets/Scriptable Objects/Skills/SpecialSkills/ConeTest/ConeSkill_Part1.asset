@@ -35,7 +35,7 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   DamageType: 0
   Power: 0
-  MinRange: 2
+  MinRange: 4
   MaxRange: 6
   IncludeInAutoMove: 0
   PreventDuplicateTiles: []

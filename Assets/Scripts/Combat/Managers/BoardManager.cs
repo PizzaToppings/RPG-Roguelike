@@ -86,7 +86,7 @@ public class BoardManager : MonoBehaviour
         return range;
     }
 
-    public List<BoardTile> GetPathBetweenTiles(Vector2Int startTile, Vector2Int endTile)
+    public List<BoardTile> GetDirectPathBetweenTiles(Vector2Int startTile, Vector2Int endTile)
 	{
         var path = new List<BoardTile>();
 
@@ -108,7 +108,7 @@ public class BoardManager : MonoBehaviour
         return path;
 	}
 
-    public List<BoardTile> getTilesWithinRange(BoardTile starttile, float range)
+    public List<BoardTile> getTilesWithinDirectRange(BoardTile starttile, float range)
     {
         var tileList = new List<BoardTile>();
         foreach (var tile in BoardData.BoardTiles)
@@ -126,9 +126,9 @@ public class BoardManager : MonoBehaviour
         return tileList;
     }
 
-    public List<BoardTile> GetTilesInAttackRange(BoardTile tile, float attackRange, bool includeInMoveRange)
+    public List<BoardTile> GetTilesInDirectAttackRange(BoardTile tile, float attackRange, bool includeInMoveRange)
     {
-        var attackTilesInRange = getTilesWithinRange(tile, attackRange);
+        var attackTilesInRange = getTilesWithinDirectRange(tile, attackRange);
 
         if (includeInMoveRange)
 		{
@@ -250,7 +250,7 @@ public class BoardManager : MonoBehaviour
         if (movementLeft <= 0)
             return;
 
-        // can't move to current space
+        // can't move to current space 
         if (currentTile.movementLeft == -1)
             currentTile.movementLeft = 0;
 
@@ -264,7 +264,7 @@ public class BoardManager : MonoBehaviour
 
         foreach(var tile in currentTile.connectedTiles)
         {
-            if (tile == null || tile.currentUnit != null)
+            if (tile == null || tile.currentUnit != null || tile.NoPassage)
                 continue;
 
 			var nextMovementLeft = movementLeft;

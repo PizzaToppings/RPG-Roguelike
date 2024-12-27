@@ -16,7 +16,7 @@ MonoBehaviour:
   - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 7
+  FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
   OriginTileKind: 1
@@ -35,7 +35,8 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   DamageType: 0
   Power: 0
-  Range: 1
+  MinRange: 3
+  MaxRange: 6
   IncludeInAutoMove: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []

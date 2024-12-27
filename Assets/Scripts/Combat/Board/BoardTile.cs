@@ -9,30 +9,34 @@ public class BoardTile : MonoBehaviour
     SkillsManager skillsManager;
     SkillVFXManager skillVFXManager;
     UIManager uiManager;
-    public BoardTile[] connectedTiles = new BoardTile[8];
-    public BoardTile PreviousTile;
+
+    public bool IsOpen = false;
+    public bool IsBlocked = false;
+    [HideInInspector] public bool NoPassage => IsOpen || IsBlocked;
+
+    [HideInInspector] public BoardTile[] connectedTiles = new BoardTile[8];
+    [HideInInspector] public BoardTile PreviousTile;
 
     // position
-    public int xPosition = 0;
-    public int yPosition = 0;
-    public Vector2Int Coordinates;
+    [HideInInspector] public int xPosition = 0;
+    [HideInInspector] public int yPosition = 0;
+    [HideInInspector] public Vector2Int Coordinates;
 
     // materials
     Material centerMaterial;
-    public Material[] edgeMaterials;
+    Material[] edgeMaterials;
 
     // movement
-    public float movementLeft = -1f;
-    public float DistanceTraveled;
-    public float DistanceToTarget;
+    [HideInInspector] public float movementLeft = -1f;
+    [HideInInspector] public float DistanceTraveled;
+    [HideInInspector] public float DistanceToTarget;
 
     // sillshot Info
-    public List<float> skillshotsRangeLeft = new List<float>();
+    [HideInInspector] public List<float> skillshotsRangeLeft = new List<float>();
 
-    public Unit currentUnit = null;
+    [HideInInspector] public Unit currentUnit = null;
 
-    public TileColor currentTileColor = new TileColor();
-    public TileColor skillCastColor = new TileColor();
+    [HideInInspector] public TileColor currentTileColor = new TileColor();
 
     [HideInInspector] public Vector3 position => transform.position;
 
@@ -218,9 +222,6 @@ public class BoardTile : MonoBehaviour
         currentTileColor = color;
 
         SetEdgeColors(color);
-
-        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-            skillCastColor = color;
     }
 
     public void OverrideColor(TileColor color)
@@ -239,9 +240,6 @@ public class BoardTile : MonoBehaviour
         currentTileColor = color;
 
         SetEdgeColors(color);
-
-        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-            skillCastColor = color;
     }
 
     void SetEdgeColors(TileColor color)

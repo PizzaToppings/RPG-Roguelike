@@ -65,7 +65,7 @@ public class Enemy : Unit
             if (attackRange == 0)
                 return;
 
-            var tilesInAttackRange = boardManager.GetTilesInAttackRange(currentTile, attackRange, true);
+            var tilesInAttackRange = boardManager.GetTilesInDirectAttackRange(currentTile, attackRange, true);
             if (tilesInAttackRange != null)
                 TargetEnemyBasicAttack(tilesInAttackRange, attackRange);
         }
@@ -76,7 +76,7 @@ public class Enemy : Unit
         closestTile = UnitData.CurrentActiveUnit.currentTile;
         var skill = SkillData.CurrentActiveSkill;
 
-        if (boardManager.GetTilesInAttackRange(currentTile, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (boardManager.GetTilesInDirectAttackRange(currentTile, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
             closestTile.PreviewAttackWithinRange();
@@ -108,7 +108,7 @@ public class Enemy : Unit
     IEnumerator AttackEnemyBasicAttack()
 	{
         var attackRange = skillsManager.GetSkillAttackRange();
-        if (boardManager.GetTilesInAttackRange(currentTile, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (boardManager.GetTilesInDirectAttackRange(currentTile, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
             yield return StartCoroutine(boardManager.MoveToTile());
 
         var basicAttack = (UnitData.CurrentActiveUnit as Character).basicAttack;
