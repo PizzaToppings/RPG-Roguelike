@@ -488,6 +488,9 @@ public class BoardManager : MonoBehaviour
                     if (GetRangeBetweenTiles(originTile.Coordinates, coordinate) < skillData.MinRange)
                         continue;
 
+                    if (tile.IsBlocked || (TileIsBehindClosedTile(tile, skillData.OriginTiles[0]) && skillData.AffectedByBlockedTiles))
+                        continue;
+
                     tile.SetColor(skillData.tileColor);
 
                     SkillData.AddTileToCurrentList(skillPartIndex, tile);
@@ -561,7 +564,10 @@ public class BoardManager : MonoBehaviour
             if (GetRangeBetweenTiles(originTile, tileList[t]) < skillData.MinRange)
                 continue;
 
-			var tile = tileList[t];
+            var tile = tileList[t];
+           
+            if (tile.IsBlocked || (TileIsBehindClosedTile(tile, skillData.OriginTiles[0]) && skillData.AffectedByBlockedTiles))
+                continue;
 
 			tile.SetColor(skillData.tileColor);
 

@@ -38,8 +38,7 @@ MonoBehaviour:
   MinRange: 0
   MaxRange: 8
   IncludeInAutoMove: 0
-  AffectedByOpenTiles: 0
-  AffectedByBlockedTiles: 0
+  AffectedByBlockedTiles: 1
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
   SkillVFX: []
