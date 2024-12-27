@@ -8,6 +8,9 @@ public class SO_TargetUnitSkill : SO_Skillpart
     [Header(" - TargetUnit Specific")]
     public TileColor SelectedTargetTileColor;
 
+    [Space]
+    public bool CanTargetSelf;
+
     public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots,
        BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit overwriteTarget = null)
     {
@@ -18,12 +21,13 @@ public class SO_TargetUnitSkill : SO_Skillpart
         SkillsManager skillsManager = SkillsManager.Instance;
         skillsManager.GetAOE(this);
 
-        var target = SkillData.GetCurrentTargetsHit(SkillPartIndex).Find(x => x.IsTargeted);
+		var target = PartData.TargetsHit.Find(x => x.IsTargeted);
 
-        //if (PreventDuplicateTargets?.Any(skillPart => skillPart.PartData.TargetsHit.Contains(target)) == true)
-        //{
-        //    target = null;
-        //}
+		if (HasDuplicateTarget(target))
+			target = null;
+
+        if (CanTargetSelf == false && target == SkillData.Caster)
+            target = null;
 
         if (target != null)
 		{
@@ -31,7 +35,11 @@ public class SO_TargetUnitSkill : SO_Skillpart
             return this;
         }
 
-        SkillData.GetCurrentTilesHit(SkillPartIndex).Clear();
+        PartData.TargetsHit.Clear();
+        PartData.TilesHit.Clear();
+
+        PartData.CanCast = false;
+
         return this;
     }
 
@@ -39,16 +47,28 @@ public class SO_TargetUnitSkill : SO_Skillpart
 	{
         target.currentTile.SetColor(SelectedTargetTileColor);
 
-        SkillData.GetCurrentTargetsHit(SkillPartIndex).Clear();
-        SkillData.GetCurrentTilesHit(SkillPartIndex).Clear();
-        SkillData.GetCurrentTargetsHit(SkillPartIndex).Add(target);
+        PartData.TargetsHit.Clear();
+        PartData.TilesHit.Clear();
+        PartData.TargetsHit.Add(target);
 
-        ShowProjectileLine(SkillData.Caster.position, PartData.TargetsHit[0].position);
+        if (AddProjectileLine)
+            ShowProjectileLine(SkillData.Caster.position, PartData.TargetsHit[0].position);
     }
 
     public override void SetTargetAndTile(Unit target, BoardTile tile)
     {
         if (target != null)
             TargetUnit(target);
+    }
+
+    public override bool UnableToCast()
+    {
+        SkillsManager skillsManager = SkillsManager.Instance;
+        skillsManager.GetAOE(this);
+
+        if (PartData.TargetsHit.Count == 0)
+            return true;
+
+        return false;
     }
 }

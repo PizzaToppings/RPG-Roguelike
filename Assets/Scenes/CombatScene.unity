@@ -7306,7 +7306,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 28ab132f1bdb5b34c850f92dd8264017,
+      objectReference: {fileID: 11400000, guid: 68ab8dbaef48e2e4f98bf182051ef99e,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -46844,7 +46844,6 @@ MonoBehaviour:
     Color: {r: 0, g: 0.8065429, b: 1, a: 1}
     Priority: 8
   Path: []
-  currentMouseTile: {fileID: 0}
   Directions: []
 --- !u!120 &1882644907
 LineRenderer:

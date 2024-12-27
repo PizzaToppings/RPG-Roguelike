@@ -17,8 +17,8 @@ public class BoardManager : MonoBehaviour
     LineRenderer movementLR;
     Vector3 MovementLineOffset = Vector3.up * 0.2f;
 
-    public List<BoardTile> Path = new List<BoardTile>();
-    public BoardTile currentMouseTile;
+    [HideInInspector] public List<BoardTile> Path = new List<BoardTile>();
+    BoardTile currentMouseTile;
 
     public Vector2Int[] Directions;
 
@@ -699,4 +699,22 @@ public class BoardManager : MonoBehaviour
 
         yield return StartCoroutine(UnitData.CurrentActiveUnit.Move(Path));
     }
+
+    public BoardTile GetCurrentMouseTile()
+    {
+        return currentMouseTile;
+    }
+    
+    public void SetCrrentMouseTile(BoardTile tile)
+	{
+        currentMouseTile = tile;
+    }
+
+    public IEnumerator DeselectCurrentMouseTile(BoardTile tile)
+	{
+        yield return new WaitForSeconds(0.1f);
+
+        if (currentMouseTile == tile)
+            currentMouseTile = null;
+	}
 }

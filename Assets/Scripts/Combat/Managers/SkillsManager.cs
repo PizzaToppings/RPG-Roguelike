@@ -62,7 +62,8 @@ public class SkillsManager : MonoBehaviour
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot 
             && SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
         {
-            UnitData.CurrentActiveUnit.PreviewSkills(boardManager.currentMouseTile);
+            var currentMouseTile = boardManager.GetCurrentMouseTile();
+            UnitData.CurrentActiveUnit.PreviewSkills(currentMouseTile);
         }
     }
 
@@ -189,13 +190,19 @@ public class SkillsManager : MonoBehaviour
 
     void StartCasting()
     {
+        if (SkillData.CurrentSkillPartGroupData.SkillPartDatas.TrueForAll(spd => spd.CanCast) == false)
+            return;
+
+        var skill = SkillData.CurrentActiveSkill;
+        
         if (SkillData.SkillPartGroupIndex < SkillData.SkillPartGroupDatas.Count - 1)
         {
             SkillData.SkillPartGroupIndex++;
+            boardManager.Clear();
+            skill.Preview(boardManager.GetCurrentMouseTile());
+
             return;
         }
-
-        var skill = SkillData.CurrentActiveSkill;
 
         UnitData.CurrentAction = CurrentActionKind.Animating;
         boardManager.Clear();

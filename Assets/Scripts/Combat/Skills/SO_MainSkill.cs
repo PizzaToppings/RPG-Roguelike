@@ -51,6 +51,11 @@ public class SO_MainSkill : ScriptableObject
 			    {
                     tile.SetColor(castLockColor);
 			    }
+
+                foreach (var unit in spd.TargetsHit)
+				{
+                    unit.currentTile.SetColor(castLockColor);
+				}
 			}
         }
     }

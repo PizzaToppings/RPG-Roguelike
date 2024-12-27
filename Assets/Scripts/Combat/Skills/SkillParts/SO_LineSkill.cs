@@ -15,6 +15,8 @@ public class SO_LineSkill : SO_Skillpart
         SkillsManager skillsManager = SkillsManager.Instance;
 		skillsManager.PreviewLine(this);
 
-		return this;
+        PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
+        
+        return this;
     }
 }

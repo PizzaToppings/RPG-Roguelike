@@ -117,7 +117,8 @@ public class Character : Unit
 
             SetSkillData(skill);
 
-            skill.Preview(boardManager.currentMouseTile);
+            var currentMouseTile = boardManager.GetCurrentMouseTile();
+            skill.Preview(currentMouseTile);
 		}
     }
 
@@ -138,7 +139,8 @@ public class Character : Unit
             {
                 var skillPartData = new SkillPartData
                 {
-                    Index = s,
+                    PartIndex = s,
+                    GroupIndex = i
                 };
 
                 spg.skillParts[s].SkillPartIndex = s;

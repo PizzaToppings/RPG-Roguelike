@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: LineSkill_Multicast_Test
   m_EditorClassIdentifier: 
   Image: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
-  castLockColor:
-    FillCenter: 0
-    Color: {r: 0.9811321, g: 0.743297, b: 0.105882354, a: 1}
-    Priority: 1
+  Image_Inactive: {fileID: 0}
+  Classes: 
   Description: 
   SkillPartGroups:
   - CastOnTile: 0
@@ -31,6 +29,12 @@ MonoBehaviour:
     CastOnTarget: 0
     skillParts:
     - {fileID: 11400000, guid: e326e96cd50a7ef4c833dc339dcf349e, type: 2}
-  MagicalDamage: 0
+  EnergyCost: 0
+  DafaultCharges: 1
+  Charges: 1
   TargetKind: 0
   Cursor: 3
+  castLockColor:
+    FillCenter: 1
+    Color: {r: 0.9811321, g: 0.743297, b: 0.105882354, a: 1}
+    Priority: 1

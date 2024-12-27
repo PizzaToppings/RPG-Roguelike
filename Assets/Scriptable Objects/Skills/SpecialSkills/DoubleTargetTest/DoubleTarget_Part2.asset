@@ -37,10 +37,11 @@ MonoBehaviour:
   Power: 10
   Range: 5
   IncludeInAutoMove: 0
-  PreventDuplicateTiles:
-  - {fileID: 11400000, guid: 17fbe649e56769a458129434a2ec72a4, type: 2}
-  PreventDuplicateTargets: []
-  SkillVFX: []
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets:
+  - {fileID: 11400000}
+  SkillVFX:
+  - {fileID: 11400000, guid: 243445d27a44e2c46b079920a3052fe6, type: 2}
   StatusEfects: []
   defaultStatusEffects: []
   displacementEffect: {fileID: 0}

@@ -63,7 +63,7 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        boardManager.currentMouseTile = this;
+        boardManager.SetCrrentMouseTile(this);
 
         if (!EventSystem.current.IsPointerOverGameObject())
             Target();
@@ -74,7 +74,7 @@ public class BoardTile : MonoBehaviour
         if (UnitData.CurrentActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
             return;
 
-        if (currentUnit != null && SkillData.CastOnTarget)
+        if (currentUnit != null && SkillData.CastOnTarget && UnitData.CurrentAction == CurrentActionKind.Basic)
 		{
             currentUnit.IsTargeted = true;
 
@@ -92,6 +92,15 @@ public class BoardTile : MonoBehaviour
             boardManager.PreviewMovementLine(this);
         }
 
+        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTarget)
+        {
+            if (currentUnit == null)
+                return;
+
+            currentUnit.IsTargeted = true;
+            UnitData.CurrentActiveUnit.PreviewSkills(this);
+        }
+
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTile)
 		{
             UnitData.CurrentActiveUnit.PreviewSkills(this);
@@ -99,6 +108,7 @@ public class BoardTile : MonoBehaviour
             var attackRange = skillsManager.GetSkillAttackRange();
             if (attackRange == 0)
                 return;
+
 
             //var tilesInAttackRange = boardManager.GetTilesInAttackRange(this, attackRange, true);
             //if (tilesInAttackRange != null)
@@ -161,7 +171,7 @@ public class BoardTile : MonoBehaviour
 
     public void UnTarget()
     {
-        boardManager.currentMouseTile = null;
+        boardManager.DeselectCurrentMouseTile(this);
 
 		if (currentUnit != null)
 		{

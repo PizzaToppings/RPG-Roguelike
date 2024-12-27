@@ -67,6 +67,8 @@ public class SO_Skillpart : ScriptableObject
         OriginTargets = GetOriginTargets();
         TargetTile = GetTargetTile(mouseOverTile);
 
+        PartData.CanCast = true;
+
         return this;
     }
 
@@ -177,4 +179,19 @@ public class SO_Skillpart : ScriptableObject
     public virtual void SetTargetAndTile(Unit target, BoardTile tile)
 	{
 	}
+
+    public virtual bool UnableToCast()
+	{
+        return false;
+	}
+
+    public bool HasDuplicateTarget(Unit target)
+	{
+        return PreventDuplicateTargets.Any(skillPart => skillPart.PartData.TargetsHit.Contains(target));
+    }
+
+    public bool HasDuplicateTile(BoardTile tile)
+    {
+        return PreventDuplicateTiles.Any(skillPart => skillPart.PartData.TilesHit.Contains(tile));
+    }
 }

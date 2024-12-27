@@ -18,16 +18,16 @@ MonoBehaviour:
   Description: 
   SkillPartGroups:
   - CastOnTile: 0
-    CastOnTarget: 0
+    CastOnTarget: 1
     skillParts:
     - {fileID: 11400000, guid: 17fbe649e56769a458129434a2ec72a4, type: 2}
   - CastOnTile: 0
-    CastOnTarget: 0
+    CastOnTarget: 1
     skillParts:
     - {fileID: 11400000, guid: ba19b8eb07c460a4a8229d362c832e74, type: 2}
   EnergyCost: 10
   DafaultCharges: 1
-  Charges: 1
+  Charges: 0
   TargetKind: 0
   Cursor: 0
   castLockColor:

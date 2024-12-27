@@ -20,10 +20,11 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
         SkillsManager skillsManager = SkillsManager.Instance;
         skillsManager.GetAOE(this);
 
-        if (PartData.TilesHit.Contains(mouseOverTile))
+        if (PartData.TilesHit.Contains(mouseOverTile) && HasDuplicateTile(mouseOverTile) == false)
         {
             PartData.TilesHit.Clear();
             mouseOverTile.SetColor(SelectedTileColor);
+
             PartData.TilesHit.Add(mouseOverTile);
 
             if (AddProjectileLine)
@@ -31,8 +32,21 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
 
             return this;
         }
+
         PartData.TilesHit.Clear();
+        PartData.CanCast = false;
 
         return this;
+    }
+
+	public override bool UnableToCast()
+	{
+        SkillsManager skillsManager = SkillsManager.Instance;
+        skillsManager.GetAOE(this);
+
+        if (PartData.TilesHit.Count == 0)
+            return true;
+
+        return false;
     }
 }

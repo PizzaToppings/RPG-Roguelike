@@ -11,6 +11,22 @@ public class SO_AOE_Skill : SO_Skillpart
 
         SkillsManager skillShotManager = SkillsManager.Instance;
         skillShotManager.GetAOE(this);
+
+        var duplicateTiles = new List<BoardTile>();
+
+        PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
+
         return this;
+    }
+
+    public override bool UnableToCast()
+    {
+        SkillsManager skillsManager = SkillsManager.Instance;
+        skillsManager.GetAOE(this);
+
+        if (PartData.TilesHit.Count == 0)
+            return true;
+
+        return false;
     }
 }

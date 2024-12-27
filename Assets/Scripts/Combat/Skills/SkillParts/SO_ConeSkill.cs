@@ -13,6 +13,9 @@ public class SO_ConeSkill : SO_Skillpart
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillsManager = SkillsManager.Instance;
         skillsManager.PreviewCone(this);
+
+        PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
+
         return this;
     }
 }

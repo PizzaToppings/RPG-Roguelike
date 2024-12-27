@@ -104,7 +104,8 @@ public class DamageManager : MonoBehaviour
         var index = skillPart.SkillPartIndex;
 
         yield return new WaitForSeconds(delay);
-        foreach (var target in SkillData.GetCurrentTargetsHit(index))
+
+        foreach (var target in skillPart.PartData.TargetsHit)
         {
             if (skillPart.Power > 0)
             {

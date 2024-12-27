@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: DoubleTarget_Part1
   m_EditorClassIdentifier: 
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
@@ -22,7 +23,7 @@ MonoBehaviour:
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 0
+  TargetTileKind: 5
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
@@ -38,7 +39,8 @@ MonoBehaviour:
   IncludeInAutoMove: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  SkillVFX: []
+  SkillVFX:
+  - {fileID: 11400000, guid: 537ae28e9929bcc479e6b706c2e44b24, type: 2}
   StatusEfects: []
   defaultStatusEffects: []
   displacementEffect: {fileID: 0}

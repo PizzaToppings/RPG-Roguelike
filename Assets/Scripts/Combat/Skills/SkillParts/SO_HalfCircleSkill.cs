@@ -10,6 +10,9 @@ public class SO_HalfCircleSkill : SO_Skillpart
         base.Preview(mouseOverTile, skillshots);
         SkillsManager skillsManager = SkillsManager.Instance;
         skillsManager.PreviewHalfCircle(this);
+
+        PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
+        
         return this; 
     }
 }
