@@ -240,8 +240,9 @@ public class BoardManager : MonoBehaviour
         }
         else
 		{
-            SetSkillAOE(data.Range, startingTile, data);
-		}
+            SetSkillAOE(data.MaxRange, startingTile, data);
+            FilterAOESkillTileList(data.SkillPartIndex, data);
+        }
     }
 
     public void SetMovementAOE(float movementLeft, BoardTile currentTile)
@@ -302,23 +303,38 @@ public class BoardManager : MonoBehaviour
             while (tile.skillshotsRangeLeft.Count <= index)
                 tile.skillshotsRangeLeft.Add(-0.5f);
 
-            if (tile.skillshotsRangeLeft[index] < nextSkillRange)
+            if (nextSkillRange > tile.skillshotsRangeLeft[index])
             {
-                if (UnitData.CurrentActiveUnit.Friendly)
-                    tile.SetColor(skillData.tileColor);
-
                 tile.skillshotsRangeLeft[index] = nextSkillRange;
 
-                SkillData.AddTileToCurrentList(skillPartIndex, tile);
-
-                var target = FindTarget(tile, skillData);
-                SkillData.AddTargetToCurrentList(skillPartIndex, target);
+				SkillData.AddTileToCurrentList(skillPartIndex, tile);
 
                 tile.PreviousTile = currentTile;
 
                 SetSkillAOE(nextSkillRange, tile, skillData);
             }
         }
+    }
+
+    public void FilterAOESkillTileList(int skillPartIndex, SO_Skillpart skillData)
+    {
+        var tiles = new List<BoardTile>();
+
+        foreach (var tile in SkillData.GetCurrentTilesHit(skillPartIndex))
+        {
+            if (skillData.MaxRange - tile.skillshotsRangeLeft[skillPartIndex] < skillData.MinRange)
+                continue;
+
+            if (UnitData.CurrentActiveUnit.Friendly)
+                tile.SetColor(skillData.tileColor);
+
+            var target = FindTarget(tile, skillData);
+            SkillData.AddTargetToCurrentList(skillPartIndex, target);
+
+            tiles.Add(tile);
+        }
+
+        skillData.PartData.TilesHit = tiles;
     }
 
     public float GetRangeReduction(BoardTile currentTile, BoardTile nextTile)
@@ -362,7 +378,7 @@ public class BoardManager : MonoBehaviour
             curentCoordinates = nextCoordinates = startCoordinates;
             var direction = GetCorrectedDirection(dir);
                 
-            for (float r = 0; r < skillData.Range;)
+            for (float r = 0; r < skillData.MaxRange;)
 			{
                 curentCoordinates = nextCoordinates;
                 nextCoordinates = curentCoordinates + Directions[direction];
@@ -420,7 +436,7 @@ public class BoardManager : MonoBehaviour
                 line = new List<Vector2Int>();
                 curentCoordinates = nextCoordinates = startCoordinates;
 
-                for (float r = 0; r < skillData.Range;)
+                for (float r = 0; r < skillData.MaxRange;)
                 {
                     curentCoordinates = nextCoordinates;
                     nextCoordinates = curentCoordinates + Directions[dir];
@@ -536,7 +552,7 @@ public class BoardManager : MonoBehaviour
                 line = new List<Vector2Int>();
                 curentCoordinates = nextCoordinates = startCoordinates;
 
-                for (float r = 0; r < skillData.Range;)
+                for (float r = 0; r < skillData.MaxRange;)
                 {
                     curentCoordinates = nextCoordinates;
                     nextCoordinates = curentCoordinates + Directions[dir];

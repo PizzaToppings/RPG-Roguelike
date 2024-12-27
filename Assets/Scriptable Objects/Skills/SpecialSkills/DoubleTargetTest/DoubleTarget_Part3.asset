@@ -35,13 +35,15 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   DamageType: 0
   Power: 10
-  Range: 5
+  MinRange: 0
+  MaxRange: 0
   IncludeInAutoMove: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets:
   - {fileID: 11400000, guid: 17fbe649e56769a458129434a2ec72a4, type: 2}
+  - {fileID: 11400000, guid: ba19b8eb07c460a4a8229d362c832e74, type: 2}
   SkillVFX:
-  - {fileID: 11400000, guid: 243445d27a44e2c46b079920a3052fe6, type: 2}
+  - {fileID: 11400000, guid: dca48268998cbce418b7f53481eb1aed, type: 2}
   StatusEfects: []
   defaultStatusEffects: []
   displacementEffect: {fileID: 0}

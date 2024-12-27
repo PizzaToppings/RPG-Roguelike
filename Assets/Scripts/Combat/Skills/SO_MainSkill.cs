@@ -69,7 +69,7 @@ public class SO_MainSkill : ScriptableObject
             foreach (var sp in spg.skillParts)
 			{
                 if (sp.IncludeInAutoMove)
-                    totalRange += sp.Range;
+                    totalRange += sp.MaxRange;
             }
         }
 

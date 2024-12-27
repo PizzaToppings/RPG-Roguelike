@@ -109,11 +109,11 @@ public class SkillsManager : MonoBehaviour
             return skillData.FinalDirection;
         }
 
-        var directionCenterTile = GetDirectionCenterTile(skillData);
+        var directionAnchorTile = GetDirectionAnchorTile(skillData);
 
         var tileDirectionIndex = 0;
         var mousePosition = GetMousePosition();
-        Vector3 dir = (mousePosition - directionCenterTile.position).normalized;
+        Vector3 dir = (mousePosition - directionAnchorTile.position).normalized;
         Vector2 mouseDirection = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
 
         var directions = boardManager.Directions;
@@ -130,7 +130,7 @@ public class SkillsManager : MonoBehaviour
         return tileDirectionIndex;
     }
 
-    BoardTile GetDirectionCenterTile(SO_Skillpart skillpart)
+    BoardTile GetDirectionAnchorTile(SO_Skillpart skillpart)
 	{
         var tiles = new List<BoardTile>();
         var previousTargetsHit = new List<Unit>();
@@ -185,7 +185,7 @@ public class SkillsManager : MonoBehaviour
 
     public void GetAOE(SO_Skillpart data)
     {
-        boardManager.SetAOE(data.Range, data.OriginTiles, data);
+        boardManager.SetAOE(data.MaxRange, data.OriginTiles, data);
     }
 
     void StartCasting()

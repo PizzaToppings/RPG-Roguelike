@@ -36,7 +36,8 @@ public class SO_Skillpart : ScriptableObject
     [Header(" - Damage and Range")]
     public DamageTypeEnum DamageType;
     public int Power;
-    public float Range;
+    public float MinRange;
+    public float MaxRange;
     public bool IncludeInAutoMove;
 
     [Space]
@@ -174,7 +175,7 @@ public class SO_Skillpart : ScriptableObject
 
     public virtual void ShowProjectileLine(Vector3 casterPosition, Vector3 targetPosition)
 	{
-        if (Range > 1.5f) // so more than melee
+        if (MaxRange > 1.5f) // so more than melee
         {
             var skillVFXManager = SkillVFXManager.Instance;
             skillVFXManager.PreviewProjectileLine(casterPosition, targetPosition, ProjectileLineOffset);
