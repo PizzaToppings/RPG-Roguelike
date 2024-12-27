@@ -64,7 +64,7 @@ public class Unit : UnitStats
 
     public virtual void OnMouseExit()
     {
-        currentTile.UnTarget();
+        Tile.UnTarget();
     }
 
     public virtual void OnClick()
@@ -93,7 +93,7 @@ public class Unit : UnitStats
         Vector3 startPosition = transform.position; 
         Vector3 endPosition;
 
-        currentTile.currentUnit = null;
+        Tile.currentUnit = null;
 
         for (int i = 0; i < path.Count; i++)
         {
@@ -115,8 +115,8 @@ public class Unit : UnitStats
         }
         var endTile = path[path.Count-1];
         
-        UnitData.CurrentActiveUnit.currentTile = endTile;
-        endTile.currentUnit = UnitData.CurrentActiveUnit;
+        UnitData.ActiveUnit.Tile = endTile;
+        endTile.currentUnit = UnitData.ActiveUnit;
 
         UnitData.CurrentAction = CurrentActionKind.Basic;
         boardManager.Clear();
@@ -202,7 +202,7 @@ public class Unit : UnitStats
             EndTurn();
             yield break;
         }
-        boardManager.SetMovementAOE(MoveSpeedLeft, currentTile);
+        boardManager.SetMovementAOE(MoveSpeedLeft, Tile);
     }
 
     public virtual void EndTurn()

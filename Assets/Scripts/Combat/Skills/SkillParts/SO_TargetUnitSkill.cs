@@ -45,7 +45,7 @@ public class SO_TargetUnitSkill : SO_Skillpart
 
     public void TargetUnit(Unit target)
 	{
-        target.currentTile.SetColor(SelectedTargetTileColor);
+        target.Tile.SetColor(SelectedTargetTileColor);
 
         PartData.TargetsHit.Clear();
         PartData.TilesHit.Clear();

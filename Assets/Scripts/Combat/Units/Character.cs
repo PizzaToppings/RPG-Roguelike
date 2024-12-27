@@ -26,7 +26,7 @@ public class Character : Unit
 
     public override void Update()
     {
-        if (UnitData.CurrentActiveUnit == this)
+        if (UnitData.ActiveUnit == this)
         {
             base.Update();
 
@@ -68,7 +68,7 @@ public class Character : Unit
 
     void UseSkills()
     {
-        if (UnitData.CurrentActiveUnit != this || 
+        if (UnitData.ActiveUnit != this || 
             (UnitData.CurrentAction != CurrentActionKind.Basic && UnitData.CurrentAction != CurrentActionKind.CastingSkillshot))
             return;
 
@@ -159,7 +159,7 @@ public class Character : Unit
         uiManager.SetCursor(CursorType.Normal);
         UnitData.CurrentAction = CurrentActionKind.Basic;
 		SkillData.Reset();
-		boardManager.SetAOE(MoveSpeedLeft, currentTile, null);
+		boardManager.SetAOE(MoveSpeedLeft, Tile, null);
         skillVFXManager.EndProjectileLine();
         SetSkillData(basicAttack);
     }

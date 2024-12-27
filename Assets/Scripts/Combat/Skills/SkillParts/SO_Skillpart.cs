@@ -38,7 +38,10 @@ public class SO_Skillpart : ScriptableObject
     public int Power;
     public float MinRange;
     public float MaxRange;
+    [Space]
     public bool IncludeInAutoMove;
+    public bool AffectedByOpenTiles;
+    public bool AffectedByBlockedTiles;
 
     [Space]
     [Header(" - Prevent Duplicates")]
@@ -93,15 +96,15 @@ public class SO_Skillpart : ScriptableObject
         switch (OriginTileKind)
 		{
             case OriginTileEnum.Caster:
-                SkillData.Caster = UnitData.CurrentActiveUnit;
-                tiles.Add(SkillData.Caster.currentTile);
+                SkillData.Caster = UnitData.ActiveUnit;
+                tiles.Add(SkillData.Caster.Tile);
                 break;
 
             case OriginTileEnum.LastTargetTile:
                 if (previousTargetsHit.Count == 0)
                     return new List<BoardTile>();
 
-                previousTargetsHit.ForEach(x => tiles.Add(x.currentTile));
+                previousTargetsHit.ForEach(x => tiles.Add(x.Tile));
                 break;
 
             case OriginTileEnum.LastTile:
@@ -159,7 +162,7 @@ public class SO_Skillpart : ScriptableObject
             return mouseOverTile;
 
         if (TargetTileKind == TargetTileEnum.CasterTile)
-            return SkillData.Caster.currentTile;
+            return SkillData.Caster.Tile;
 
         return null;
     }

@@ -27,6 +27,6 @@ public class UnitStats : MonoBehaviour
 
     public List<DefaultStatusEffect> statusEffects = new List<DefaultStatusEffect>();
 
-    public BoardTile currentTile = null;
+    public BoardTile Tile = null;
 
 }

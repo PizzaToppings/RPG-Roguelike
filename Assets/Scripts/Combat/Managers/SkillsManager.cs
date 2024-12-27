@@ -11,7 +11,7 @@ public class SkillsManager : MonoBehaviour
     SkillVFXManager skillVFXManager;
     DamageManager damageManager;
     UIManager uiManager;
-    Camera camera;
+    InputManager inputManager;
 
     public void CreateInstance()
     {
@@ -25,7 +25,7 @@ public class SkillsManager : MonoBehaviour
         skillVFXManager = GetComponent<SkillVFXManager>();
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
-        camera = Camera.main;
+        inputManager = InputManager.Instance;
     }
 
     public void SetSkills(Character character)
@@ -46,24 +46,11 @@ public class SkillsManager : MonoBehaviour
             StartCasting();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            if (SkillData.SkillPartGroupIndex > 0)
-            {
-                SkillData.SkillPartGroupIndex--;
-            }
-            else
-            {
-                var character = UnitData.CurrentActiveUnit as Character;
-                character.StopCasting();
-            }
-        }
-
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot 
             && SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
         {
             var currentMouseTile = boardManager.GetCurrentMouseTile();
-            UnitData.CurrentActiveUnit.PreviewSkills(currentMouseTile);
+            UnitData.ActiveUnit.PreviewSkills(currentMouseTile);
         }
     }
 
@@ -112,7 +99,7 @@ public class SkillsManager : MonoBehaviour
         var directionAnchorTile = GetDirectionAnchorTile(skillData);
 
         var tileDirectionIndex = 0;
-        var mousePosition = GetMousePosition();
+        var mousePosition = inputManager.GetMousePosition();
         Vector3 dir = (mousePosition - directionAnchorTile.position).normalized;
         Vector2 mouseDirection = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
 
@@ -130,7 +117,7 @@ public class SkillsManager : MonoBehaviour
         return tileDirectionIndex;
     }
 
-    BoardTile GetDirectionAnchorTile(SO_Skillpart skillpart)
+    public BoardTile GetDirectionAnchorTile(SO_Skillpart skillpart)
 	{
         var tiles = new List<BoardTile>();
         var previousTargetsHit = new List<Unit>();
@@ -145,15 +132,15 @@ public class SkillsManager : MonoBehaviour
         switch (skillpart.DirectionAnchor)
         {
             case OriginTileEnum.Caster:
-                SkillData.Caster = UnitData.CurrentActiveUnit;
-                tiles.Add(SkillData.Caster.currentTile);
+                SkillData.Caster = UnitData.ActiveUnit;
+                tiles.Add(SkillData.Caster.Tile);
                 break;
 
             case OriginTileEnum.LastTargetTile:
                 if (previousTargetsHit.Count == 0)
                     return null;
 
-                previousTargetsHit.ForEach(x => tiles.Add(x.currentTile));
+                previousTargetsHit.ForEach(x => tiles.Add(x.Tile));
                 break;
 
             case OriginTileEnum.LastTile:
@@ -169,26 +156,12 @@ public class SkillsManager : MonoBehaviour
         return tiles[0];
     }
 
-    Vector3 GetMousePosition()
-    {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, Vector3.zero);
-
-        float distance;
-        if (plane.Raycast(ray, out distance))
-        {
-            return ray.GetPoint(distance);
-        }
-
-        return Vector3.zero;
-    }
-
     public void GetAOE(SO_Skillpart data)
     {
         boardManager.SetAOE(data.MaxRange, data.OriginTiles, data);
     }
 
-    void StartCasting()
+    public void StartCasting()
     {
         if (SkillData.CurrentSkillPartGroupData.SkillPartDatas.TrueForAll(spd => spd.CanCast) == false)
             return;
@@ -213,7 +186,7 @@ public class SkillsManager : MonoBehaviour
         skillVFXManager.EndProjectileLine();
 
         skill.Charges--;
-        var character = UnitData.CurrentActiveUnit as Character;
+        var character = UnitData.ActiveUnit as Character;
         character.Energy -= skill.EnergyCost;
 
         var portrait = character.ThisHealthbar as CharacterPortrait;
@@ -274,7 +247,7 @@ public class SkillsManager : MonoBehaviour
     public bool CanCastSkill(SO_MainSkill skill)
     {
         return skill.Charges != 0 &&
-            (UnitData.CurrentActiveUnit as Character).Energy >= skill.EnergyCost;
+            (UnitData.ActiveUnit as Character).Energy >= skill.EnergyCost;
     }
 
     public bool NoTargetsInRange(SO_MainSkill skill)
@@ -299,12 +272,12 @@ public class SkillsManager : MonoBehaviour
     public IEnumerator TeleportUnit(SO_DisplacementEffect displacement)
 	{
         var unit = displacement.Unit.PartData.TargetsHit.First();
-        var originalPosition = unit.currentTile;
+        var originalPosition = unit.Tile;
         var targetPosition = displacement.TargetPosition.PartData.TilesHit.First();
 
         yield return new WaitForSeconds(displacement.Delay);
 
-        unit.currentTile = targetPosition;
+        unit.Tile = targetPosition;
         originalPosition.currentUnit = null;
         targetPosition.currentUnit = unit;
         unit.transform.position = targetPosition.position;
@@ -313,7 +286,7 @@ public class SkillsManager : MonoBehaviour
     public IEnumerator MoveUnit(SO_DisplacementEffect displacement)
     {
         var unit = displacement.Unit.PartData.TargetsHit.First();
-        var originalPosition = unit.currentTile;
+        var originalPosition = unit.Tile;
         var targetPosition = displacement.TargetPosition.PartData.TilesHit.First();
 
         yield return new WaitForSeconds(displacement.Delay);

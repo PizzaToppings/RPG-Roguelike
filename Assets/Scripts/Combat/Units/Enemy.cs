@@ -18,7 +18,7 @@ public class Enemy : Unit
 
     public override void Update()
     {
-        if (UnitData.CurrentActiveUnit == this)
+        if (UnitData.ActiveUnit == this)
         {
             base.Update();
         }
@@ -42,12 +42,12 @@ public class Enemy : Unit
 
     public override void OnMouseDown()
 	{
-        currentTile.OnClick();
+        Tile.OnClick();
     }
 
     public override void OnMouseEnter()
 	{
-        currentTile.Target();
+        Tile.Target();
     }
 
     public void TargetEnemy()
@@ -65,7 +65,7 @@ public class Enemy : Unit
             if (attackRange == 0)
                 return;
 
-            var tilesInAttackRange = boardManager.GetTilesInDirectAttackRange(currentTile, attackRange, true);
+            var tilesInAttackRange = boardManager.GetTilesInDirectAttackRange(Tile, attackRange, true);
             if (tilesInAttackRange != null)
                 TargetEnemyBasicAttack(tilesInAttackRange, attackRange);
         }
@@ -73,16 +73,16 @@ public class Enemy : Unit
     
     void TargetEnemyBasicAttack(List<BoardTile> tilesInAttackRange, float attackRange)
     {
-        closestTile = UnitData.CurrentActiveUnit.currentTile;
+        closestTile = UnitData.ActiveUnit.Tile;
         var skill = SkillData.CurrentActiveSkill;
 
-        if (boardManager.GetTilesInDirectAttackRange(currentTile, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (boardManager.GetTilesInDirectAttackRange(Tile, attackRange, true).Any(x => x.currentUnit == UnitData.ActiveUnit) == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
             closestTile.PreviewAttackWithinRange();
         }
 
-        skill.SetTargetAndTile(this, currentTile);
+        skill.SetTargetAndTile(this, Tile);
 
         uiManager.SetCursor(SkillData.CurrentActiveSkill.Cursor);
             
@@ -108,16 +108,16 @@ public class Enemy : Unit
     IEnumerator AttackEnemyBasicAttack()
 	{
         var attackRange = skillsManager.GetSkillAttackRange();
-        if (boardManager.GetTilesInDirectAttackRange(currentTile, attackRange, true).Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (boardManager.GetTilesInDirectAttackRange(Tile, attackRange, true).Any(x => x.currentUnit == UnitData.ActiveUnit) == false)
             yield return StartCoroutine(boardManager.MoveToTile());
 
-        var basicAttack = (UnitData.CurrentActiveUnit as Character).basicAttack;
+        var basicAttack = (UnitData.ActiveUnit as Character).basicAttack;
         yield return StartCoroutine(skillsManager.CastSkill(basicAttack));
     }
 
     public override void OnMouseExit()
     {
-        currentTile.UnTarget();
+        Tile.UnTarget();
     }
 
     public void UnTargetEnemy()

@@ -25,7 +25,7 @@ public class MeleeEnemyAI : Enemy
 
         foreach (var character in characters)
 		{
-            var tile = character.currentTile;
+            var tile = character.Tile;
 
             var tiles = tile.connectedTiles;
 
@@ -43,7 +43,7 @@ public class MeleeEnemyAI : Enemy
             var totaldistance = 0;
             foreach (var character in characters)
 			{
-                totaldistance += boardManager.GetRangeBetweenTiles(character.currentTile, tile);
+                totaldistance += boardManager.GetRangeBetweenTiles(character.Tile, tile);
 			}
 
             if (totaldistance > lowestThreat)
@@ -58,7 +58,7 @@ public class MeleeEnemyAI : Enemy
 
     void Attack()
 	{
-        foreach( BoardTile tile in currentTile.connectedTiles)
+        foreach( BoardTile tile in Tile.connectedTiles)
 		{
             if (tile == null)
                 continue;

@@ -56,7 +56,7 @@ public class UnitManager : MonoBehaviour
         UnitData.Units.Add(unit);
         
         var startingTile = BoardData.BoardTiles[unit.startXPosition, unit.startYPosition];
-        unit.currentTile = startingTile;
+        unit.Tile = startingTile;
         startingTile.currentUnit = unit;
         unit.transform.position = startingTile.position;
 

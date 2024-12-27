@@ -11,6 +11,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] StatusEffectManager statusEffectManager;
     [SerializeField] SkillVFXManager skillVFXManager;
     [SerializeField] UIManager uiManager;
+    [SerializeField] InputManager inputManager;
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
@@ -39,6 +40,7 @@ public class CombatManager : MonoBehaviour
         damageManager.CreateInstance();
         skillsManager.CreateInstance();
         skillVFXManager.CreateInstance();
+        inputManager.CreateInstance();
     }
 
     void InitManagers()
@@ -49,7 +51,9 @@ public class CombatManager : MonoBehaviour
 		skillsManager.Init();
         skillVFXManager.Init();
 		uiManager.Init();
-	}
+        inputManager.Init();
+
+    }
 
     void CreateBattlefield()
     {
@@ -94,7 +98,7 @@ public class CombatManager : MonoBehaviour
         initiativeTracker.NextTurn();
 
         var CurrentActiveUnit = UnitData.Units[CombatData.currentCharacterTurn];
-        UnitData.CurrentActiveUnit = CurrentActiveUnit;
+        UnitData.ActiveUnit = CurrentActiveUnit;
 		StartCoroutine(CurrentActiveUnit.StartTurn());
 		CombatData.currentCharacterTurn++;
 

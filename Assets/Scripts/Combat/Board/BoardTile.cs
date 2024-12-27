@@ -11,8 +11,9 @@ public class BoardTile : MonoBehaviour
     UIManager uiManager;
 
     public bool IsOpen = false;
-    public bool IsBlocked = false;
-    [HideInInspector] public bool NoPassage => IsOpen || IsBlocked;
+    public bool IsClosed = false;
+    [HideInInspector] public bool IsBehindClosedTile = false;
+    [HideInInspector] public bool IsBlocked => IsOpen || IsClosed;
 
     [HideInInspector] public BoardTile[] connectedTiles = new BoardTile[8];
     [HideInInspector] public BoardTile PreviousTile;
@@ -67,7 +68,7 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        boardManager.SetCrrentMouseTile(this);
+        boardManager.SetCurrentMouseTile(this);
 
         if (!EventSystem.current.IsPointerOverGameObject())
             Target();
@@ -75,7 +76,7 @@ public class BoardTile : MonoBehaviour
 
     public void Target()
     {
-        if (UnitData.CurrentActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
+        if (UnitData.ActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
             return;
 
         if (currentUnit != null && SkillData.CastOnTarget && UnitData.CurrentAction == CurrentActionKind.Basic)
@@ -102,12 +103,12 @@ public class BoardTile : MonoBehaviour
                 return;
 
             currentUnit.IsTargeted = true;
-            UnitData.CurrentActiveUnit.PreviewSkills(this);
+            UnitData.ActiveUnit.PreviewSkills(this);
         }
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTile)
 		{
-            UnitData.CurrentActiveUnit.PreviewSkills(this);
+            UnitData.ActiveUnit.PreviewSkills(this);
 
             var attackRange = skillsManager.GetSkillAttackRange();
             if (attackRange == 0)
@@ -125,7 +126,7 @@ public class BoardTile : MonoBehaviour
         var closestTile = this;
         var skill = SkillData.CurrentActiveSkill;
 
-        if (tilesInAttackRange.Any(x => x.currentUnit == UnitData.CurrentActiveUnit) == false)
+        if (tilesInAttackRange.Any(x => x.currentUnit == UnitData.ActiveUnit) == false)
         {
             closestTile = tilesInAttackRange.FirstOrDefault();
 
@@ -158,7 +159,7 @@ public class BoardTile : MonoBehaviour
 	{
         if (currentUnit == null)
 		{
-            if (UnitData.CurrentActiveUnit.Friendly == false || EventSystem.current.IsPointerOverGameObject())
+            if (UnitData.ActiveUnit.Friendly == false || EventSystem.current.IsPointerOverGameObject())
                 return;
 
             if (movementLeft > -1 && UnitData.CurrentAction == CurrentActionKind.Basic)

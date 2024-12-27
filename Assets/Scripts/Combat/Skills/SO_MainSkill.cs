@@ -54,7 +54,7 @@ public class SO_MainSkill : ScriptableObject
 
                 foreach (var unit in spd.TargetsHit)
 				{
-                    unit.currentTile.SetColor(castLockColor);
+                    unit.Tile.SetColor(castLockColor);
 				}
 			}
         }

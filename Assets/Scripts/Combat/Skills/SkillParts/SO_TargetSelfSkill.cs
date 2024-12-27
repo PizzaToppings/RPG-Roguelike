@@ -9,7 +9,7 @@ public class SO_TargetSelfSkill : SO_Skillpart
     {
         base.Preview(mouseOverTile, skillshots);
 
-        SkillData.Caster.currentTile.SetColor(tileColor);
+        SkillData.Caster.Tile.SetColor(tileColor);
 
         PartData.TargetsHit.Add(SkillData.Caster);
         return this;

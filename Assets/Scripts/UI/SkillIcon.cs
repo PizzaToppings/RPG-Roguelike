@@ -65,7 +65,7 @@ public class SkillIcon : MonoBehaviour
 
     public void CastSkill()
     {
-        Character caster = UnitData.CurrentActiveUnit as Character;
+        Character caster = UnitData.ActiveUnit as Character;
         caster.ToggleSkill(skill);
     }
 

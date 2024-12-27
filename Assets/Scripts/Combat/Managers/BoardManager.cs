@@ -7,6 +7,8 @@ public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance;
 
+    SkillsManager skillsManager;
+
     [Space]
     [SerializeField] Transform BoardParent;
 
@@ -31,6 +33,7 @@ public class BoardManager : MonoBehaviour
     {
         movementLR = GetComponent<LineRenderer>();
         Directions = GetDirections();
+        skillsManager = SkillsManager.Instance;
     }
 
     public void AddBoardTilesToList()
@@ -86,26 +89,40 @@ public class BoardManager : MonoBehaviour
         return range;
     }
 
-    public List<BoardTile> GetDirectPathBetweenTiles(Vector2Int startTile, Vector2Int endTile)
+    public List<BoardTile> GetDirectPathBetweenTiles(BoardTile startTile, BoardTile endTile)
 	{
         var path = new List<BoardTile>();
 
         while (startTile != endTile)
 		{
-            if (startTile.x < endTile.x)
-                startTile.x++;
-            else if (startTile.x > endTile.x)
-                startTile.x--;
+            var d = GetDirectionBetweenTiles(startTile, endTile);
+            var direction = Directions[d];
 
-            if (startTile.y < endTile.y)
-                startTile.y++;
-            else if (startTile.y > endTile.y)
-                startTile.y--;
+            var newCoordinates = startTile.Coordinates + direction;
+            startTile = GetBoardTile(newCoordinates);
 
-            path.Add(GetBoardTile(startTile));
+            path.Add(startTile);
         }
 
         return path;
+	}
+
+	int GetDirectionBetweenTiles(BoardTile startTile, BoardTile endTile)
+	{
+		var tileDirectionIndex = 0;
+		Vector3 dir = (endTile.position - startTile.position).normalized;
+		Vector2 direction = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
+
+		for (int i = 0; i < Directions.Length; i++)
+		{
+			if (direction == Directions[i])
+			{
+				tileDirectionIndex = i;
+				break;
+			}
+		}
+
+		return tileDirectionIndex;
 	}
 
     public List<BoardTile> getTilesWithinDirectRange(BoardTile starttile, float range)
@@ -118,7 +135,7 @@ public class BoardManager : MonoBehaviour
 
             if (GetRangeBetweenTiles(starttile.Coordinates, tile.Coordinates) <= range)
 			{
-                if (tile.currentUnit == null || tile.currentUnit == UnitData.CurrentActiveUnit)
+                if (tile.currentUnit == null || tile.currentUnit == UnitData.ActiveUnit)
                     tileList.Add(tile);
 			}
         }
@@ -137,7 +154,7 @@ public class BoardManager : MonoBehaviour
                 return null;
 		}
 
-        var attackerTile = UnitData.CurrentActiveUnit.currentTile;
+        var attackerTile = UnitData.ActiveUnit.Tile;
         var tilesOrdened = attackTilesInRange.OrderBy(
             x => GetRangeBetweenTiles(attackerTile.Coordinates, x.Coordinates)).ToList();
 
@@ -254,9 +271,9 @@ public class BoardManager : MonoBehaviour
         if (currentTile.movementLeft == -1)
             currentTile.movementLeft = 0;
 
-        if (UnitData.CurrentActiveUnit.Friendly == false)
+        if (UnitData.ActiveUnit.Friendly == false)
 		{
-            var enemy = UnitData.CurrentActiveUnit as Enemy;
+            var enemy = UnitData.ActiveUnit as Enemy;
 
             if (!enemy.PossibleMovementTiles.Contains(currentTile))
                 enemy.PossibleMovementTiles.Add(currentTile);
@@ -264,7 +281,7 @@ public class BoardManager : MonoBehaviour
 
         foreach(var tile in currentTile.connectedTiles)
         {
-            if (tile == null || tile.currentUnit != null || tile.NoPassage)
+            if (tile == null || tile.currentUnit != null || tile.IsBlocked)
                 continue;
 
 			var nextMovementLeft = movementLeft;
@@ -272,7 +289,7 @@ public class BoardManager : MonoBehaviour
 
             if (tile.movementLeft < nextMovementLeft)
             {
-                if (UnitData.CurrentActiveUnit.Friendly)
+                if (UnitData.ActiveUnit.Friendly)
                     tile.SetColor(MovementColor);
 
                 tile.movementLeft = nextMovementLeft;
@@ -325,7 +342,10 @@ public class BoardManager : MonoBehaviour
             if (skillData.MaxRange - tile.skillshotsRangeLeft[skillPartIndex] < skillData.MinRange)
                 continue;
 
-            if (UnitData.CurrentActiveUnit.Friendly)
+            if (tile.IsBlocked || (TileIsBehindClosedTile(tile, skillData.OriginTiles[0]) && skillData.AffectedByBlockedTiles))
+                continue;
+
+            if (UnitData.ActiveUnit.Friendly)
                 tile.SetColor(skillData.tileColor);
 
             var target = FindTarget(tile, skillData);
@@ -337,7 +357,14 @@ public class BoardManager : MonoBehaviour
         skillData.PartData.TilesHit = tiles;
     }
 
-    public float GetRangeReduction(BoardTile currentTile, BoardTile nextTile)
+    public bool TileIsBehindClosedTile(BoardTile startTile, BoardTile endTile)
+	{
+        var path = GetDirectPathBetweenTiles(startTile, endTile);
+        return path.Any(x => x.IsClosed);
+            
+	}
+
+	public float GetRangeReduction(BoardTile currentTile, BoardTile nextTile)
 	{
         if (nextTile.xPosition != currentTile.xPosition
                 && nextTile.yPosition != currentTile.yPosition)
@@ -419,7 +446,7 @@ public class BoardManager : MonoBehaviour
 
     public void PreviewConeCast(int direction, SO_ConeSkill skillData)
     {
-        Vector2Int startCoordinates = SkillData.Caster.currentTile.Coordinates;
+        Vector2Int startCoordinates = SkillData.Caster.Tile.Coordinates;
         Vector2Int curentCoordinates = new Vector2Int();
         Vector2Int nextCoordinates = new Vector2Int();
         List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
@@ -544,7 +571,7 @@ public class BoardManager : MonoBehaviour
 
     public void PreviewHalfCircleCast(int direction, SO_HalfCircleSkill skillData)
     {
-        Vector2Int startCoordinates = SkillData.Caster.currentTile.Coordinates;
+        Vector2Int startCoordinates = SkillData.Caster.Tile.Coordinates;
         Vector2Int curentCoordinates = new Vector2Int();
         Vector2Int nextCoordinates = new Vector2Int();
         List<List<Vector2Int>> lines = new List<List<Vector2Int>>();
@@ -612,7 +639,7 @@ public class BoardManager : MonoBehaviour
 
     Unit FindTarget(BoardTile tile, SO_Skillpart data)
     {
-        if (UnitData.CurrentActiveUnit == null)
+        if (UnitData.ActiveUnit == null)
             return null;
 
         if (tile.currentUnit == null)
@@ -629,7 +656,7 @@ public class BoardManager : MonoBehaviour
         if (data == null)
             return false;
 
-        var friendly = UnitData.CurrentActiveUnit.Friendly;
+        var friendly = UnitData.ActiveUnit.Friendly;
 
         if (SkillData.CurrentActiveSkill.TargetKind == TargetKindEnum.Allies)
         {
@@ -682,7 +709,7 @@ public class BoardManager : MonoBehaviour
             }
         }
         movementLR.positionCount++;
-        movementLR.SetPosition(Path.Count, UnitData.CurrentActiveUnit.currentTile.position + MovementLineOffset);
+        movementLR.SetPosition(Path.Count, UnitData.ActiveUnit.Tile.position + MovementLineOffset);
     }
 
     public void StopShowingMovement()
@@ -697,11 +724,13 @@ public class BoardManager : MonoBehaviour
         if (currentTile == null)
             return;
 
-        while (currentTile != null)
-		{
-            Path.Add(currentTile);
-            currentTile = currentTile.PreviousTile;
-        }
+        //      while (currentTile != null)
+        //{
+        //          Path.Add(currentTile);
+        //          currentTile = currentTile.PreviousTile;
+        //      }
+
+        Path = GetDirectPathBetweenTiles(UnitData.ActiveUnit.Tile, endTile);
     }
 
     Vector2Int[] GetDirections()
@@ -725,7 +754,7 @@ public class BoardManager : MonoBehaviour
         UnitData.CurrentAction = CurrentActionKind.Animating;
         Path.Reverse();
 
-        yield return StartCoroutine(UnitData.CurrentActiveUnit.Move(Path));
+        yield return StartCoroutine(UnitData.ActiveUnit.Move(Path));
     }
 
     public BoardTile GetCurrentMouseTile()
@@ -733,7 +762,7 @@ public class BoardManager : MonoBehaviour
         return currentMouseTile;
     }
     
-    public void SetCrrentMouseTile(BoardTile tile)
+    public void SetCurrentMouseTile(BoardTile tile)
 	{
         currentMouseTile = tile;
     }

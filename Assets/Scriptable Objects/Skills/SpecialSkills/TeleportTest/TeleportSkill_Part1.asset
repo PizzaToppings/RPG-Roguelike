@@ -35,8 +35,11 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   DamageType: 0
   Power: 0
-  Range: 6
+  MinRange: 0
+  MaxRange: 8
   IncludeInAutoMove: 0
+  AffectedByOpenTiles: 0
+  AffectedByBlockedTiles: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
   SkillVFX: []
@@ -47,3 +50,4 @@ MonoBehaviour:
     FillCenter: 1
     Color: {r: 0.015686275, g: 0.67058825, b: 1, a: 1}
     Priority: 3
+  CanTargetSelf: 0
