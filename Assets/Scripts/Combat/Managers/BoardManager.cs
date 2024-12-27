@@ -421,6 +421,9 @@ public class BoardManager : MonoBehaviour
 			{
                 var tile = GetBoardTile(coordinate);
 
+                if (tile.IsBlocked && skillData.AffectedByBlockedTiles)
+                    break;
+
                 if (tile == null)
                     continue;
 

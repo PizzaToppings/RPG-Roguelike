@@ -40,7 +40,6 @@ public class SO_Skillpart : ScriptableObject
     public float MaxRange;
     [Space]
     public bool IncludeInAutoMove;
-    public bool AffectedByOpenTiles;
     public bool AffectedByBlockedTiles;
 
     [Space]
