@@ -382,7 +382,9 @@ public class BoardManager : MonoBehaviour
 			{
                 curentCoordinates = nextCoordinates;
                 nextCoordinates = curentCoordinates + Directions[direction];
-                line.Add(nextCoordinates);
+
+                if (r >= skillData.MinRange)
+                    line.Add(nextCoordinates);
 
                 r += GetRangeReduction(curentCoordinates, nextCoordinates);
                 curentCoordinates = nextCoordinates;
