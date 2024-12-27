@@ -194,11 +194,10 @@ public class SkillsManager : MonoBehaviour
             return;
 
         var skill = SkillData.CurrentActiveSkill;
+        SkillData.SkillPartGroupIndex++;
         
-        if (SkillData.SkillPartGroupIndex < SkillData.SkillPartGroupDatas.Count - 1)
+        if (SkillData.SkillPartGroupIndex < SkillData.SkillPartGroupDatas.Count)
         {
-            SkillData.SkillPartGroupIndex++;
-
             boardManager.Clear();
             
             if (NoTargetsInRange(skill) == false)
@@ -228,6 +227,7 @@ public class SkillsManager : MonoBehaviour
     public IEnumerator CastSkill(SO_MainSkill skill)
     {
         var index = 0;
+
         foreach (var spg in skill.SkillPartGroups)
         {
             if (index >= SkillData.SkillPartGroupIndex)
