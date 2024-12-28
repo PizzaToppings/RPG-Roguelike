@@ -18,8 +18,8 @@ public class SO_TargetUnitSkill : SO_Skillpart
         TargetTileKind = TargetTileEnum.MouseOverTarget;
 
         base.Preview(mouseOverTile, skillshots);
-        SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.GetAOE(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.GetAOE(this);
 
 		var target = PartData.TargetsHit.Find(x => x.IsTargeted);
 
@@ -65,8 +65,8 @@ public class SO_TargetUnitSkill : SO_Skillpart
     {
         SetInitData(null);
 
-        SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.GetAOE(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.GetAOE(this);
 
         var targetsHit = PartData.TargetsHit;
         targetsHit.RemoveAll(x => HasDuplicateTarget(x));

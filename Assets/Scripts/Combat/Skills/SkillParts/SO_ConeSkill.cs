@@ -11,8 +11,8 @@ public class SO_ConeSkill : SO_Skillpart
        BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit Target = null)
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.PreviewCone(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.PreviewCone(this);
 
         PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
 

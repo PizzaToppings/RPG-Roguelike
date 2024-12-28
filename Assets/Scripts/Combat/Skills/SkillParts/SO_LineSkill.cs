@@ -12,8 +12,8 @@ public class SO_LineSkill : SO_Skillpart
        BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit Target = null)
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillsManager skillsManager = SkillsManager.Instance;
-		skillsManager.PreviewLine(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.PreviewLine(this);
 
         PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
         

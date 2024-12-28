@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: hey
+  m_Name: DashSkill_Main
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: 2f2b66c8ba35c5d4180fe09ea49c90c4, type: 3}
+  Image: {fileID: 21300000, guid: b86abef06a255594fb3a2d34a9ad953a, type: 3}
   Image_Inactive: {fileID: 0}
   Classes: 
   Description: 
@@ -20,11 +20,12 @@ MonoBehaviour:
   - CastOnTile: 0
     CastOnTarget: 0
     skillParts:
-    - {fileID: 11400000, guid: c27a5ccab985d1e43a89d397583b6a49, type: 2}
-    - {fileID: 11400000, guid: cc554dc7ac868a840a731c4f88fa6381, type: 2}
-  EnergyCost: 0
-  DafaultCharges: 1
-  Charges: 1
+    - {fileID: 11400000, guid: 2bcd5ab76537ed64ea7cacd7eeb7e648, type: 2}
+    - {fileID: 11400000, guid: 810a174ab2b4ce847a62914b97e907c1, type: 2}
+    - {fileID: 11400000, guid: e183a17bc190ec341bea40398fc6cd77, type: 2}
+  EnergyCost: 10
+  DafaultCharges: 3
+  Charges: 2
   TargetKind: 0
   Cursor: 0
   castLockColor:

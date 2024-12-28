@@ -8,8 +8,8 @@ public class SO_HalfCircleSkill : SO_Skillpart
         BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit Target = null)
     {
         base.Preview(mouseOverTile, skillshots);
-        SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.PreviewHalfCircle(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.PreviewHalfCircle(this);
 
         PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
         

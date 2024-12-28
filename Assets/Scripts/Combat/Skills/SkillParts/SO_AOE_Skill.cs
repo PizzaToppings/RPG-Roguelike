@@ -9,8 +9,8 @@ public class SO_AOE_Skill : SO_Skillpart
     {
         base.Preview(mouseOverTile, skillshots);
 
-        SkillsManager skillShotManager = SkillsManager.Instance;
-        skillShotManager.GetAOE(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.GetAOE(this);
 
         var duplicateTiles = new List<BoardTile>();
 
@@ -23,8 +23,8 @@ public class SO_AOE_Skill : SO_Skillpart
     {
         SetInitData(null);
 
-        SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.GetAOE(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.GetAOE(this);
 
         if (PartData.TilesHit.Count == 0)
             return true;

@@ -1,8 +1,7 @@
 using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class SkillsManager : MonoBehaviour
 {
@@ -12,6 +11,9 @@ public class SkillsManager : MonoBehaviour
     DamageManager damageManager;
     UIManager uiManager;
     InputManager inputManager;
+
+    float displacementVertexCount = 12;
+
 
     public void CreateInstance()
     {
@@ -41,10 +43,10 @@ public class SkillsManager : MonoBehaviour
         if (UnitData.CurrentAction != CurrentActionKind.CastingSkillshot)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            StartCasting();
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+        //{
+        //    StartCasting();
+        //}
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot 
             && SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
@@ -52,115 +54,6 @@ public class SkillsManager : MonoBehaviour
             var currentMouseTile = boardManager.GetCurrentMouseTile();
             UnitData.ActiveUnit.PreviewSkills(currentMouseTile);
         }
-    }
-
-    public void PreviewLine(SO_LineSkill skillData)
-    {
-        List<int> directions = new List<int>();
-
-        foreach (var originTile in skillData.OriginTiles)
-        {
-            foreach (var direction in skillData.Angles)
-            {
-                var dir = direction + GetDirection(skillData);
-                directions.Add(dir);
-            }
-
-            boardManager.PreviewLineCast(originTile, directions.ToArray(), skillData);
-        }
-    }
-
-    public void PreviewCone(SO_ConeSkill skillData)
-    {
-        foreach (var originTile in skillData.OriginTiles)
-        {
-            var direction = GetDirection(skillData); 
-            boardManager.PreviewConeCast(direction, skillData);
-            boardManager.CorrectConeCast(originTile, skillData);
-        }
-    }
-
-    public void PreviewHalfCircle(SO_HalfCircleSkill skillData)
-    {
-        foreach (var originTile in skillData.OriginTiles)
-        {
-            var direction = GetDirection(skillData);
-            boardManager.PreviewHalfCircleCast(direction, skillData);
-            boardManager.CorrectConeCast(originTile, skillData);
-        }
-    }
-
-    int GetDirection(SO_Skillpart skillData)
-    {
-        if (skillData.TargetTileKind == TargetTileEnum.PreviousDirection)
-        {
-            skillData.FinalDirection = skillData.GetPreviousSkillPart().FinalDirection;
-            return skillData.FinalDirection;
-        }
-
-        var directionAnchorTile = GetDirectionAnchorTile(skillData);
-
-        var tileDirectionIndex = 0;
-        var mousePosition = inputManager.GetMousePosition();
-        Vector3 dir = (mousePosition - directionAnchorTile.position).normalized;
-        Vector2 mouseDirection = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
-
-        var directions = boardManager.Directions;
-        for (int i = 0; i < directions.Length; i++)
-        {
-            if (mouseDirection == directions[i])
-            {
-                tileDirectionIndex = i;
-                break;
-            }
-        }
-
-        skillData.FinalDirection = tileDirectionIndex;
-        return tileDirectionIndex;
-    }
-
-    public BoardTile GetDirectionAnchorTile(SO_Skillpart skillpart)
-	{
-        var tiles = new List<BoardTile>();
-        var previousTargetsHit = new List<Unit>();
-        var previousTilesHit = new List<BoardTile>();
-
-        if (skillpart.SkillPartIndex > 0)
-        {
-            previousTargetsHit = SkillData.GetPreviousTargetsHit(skillpart.SkillPartIndex);
-            previousTilesHit = SkillData.GetPreviousTilesHit(skillpart.SkillPartIndex);
-        }
-
-        switch (skillpart.DirectionAnchor)
-        {
-            case OriginTileEnum.Caster:
-                SkillData.Caster = UnitData.ActiveUnit;
-                tiles.Add(SkillData.Caster.Tile);
-                break;
-
-            case OriginTileEnum.LastTargetTile:
-                if (previousTargetsHit.Count == 0)
-                    return null;
-
-                previousTargetsHit.ForEach(x => tiles.Add(x.Tile));
-                break;
-
-            case OriginTileEnum.LastTile:
-                tiles.AddRange(previousTilesHit);
-                break;
-
-            case OriginTileEnum.GetFromSkillPart:
-                var tileList = skillpart.OriginTileSkillParts.SelectMany(x => x.PartData.TilesHit).ToList();
-                tiles.AddRange(tileList);
-                break;
-        }
-
-        return tiles[0];
-    }
-
-    public void GetAOE(SO_Skillpart data)
-    {
-        boardManager.SetAOE(data.MaxRange, data.OriginTiles, data);
     }
 
     public void StartCasting()
@@ -240,6 +133,81 @@ public class SkillsManager : MonoBehaviour
         }
     }
 
+    public void DisplaceUnit(SO_DisplacementEffect displacement)
+    {
+        switch (displacement.DisplacementType)
+        {
+            case DisplacementEnum.Teleport:
+                StartCoroutine(TeleportUnit(displacement));
+                return;
+            case DisplacementEnum.Move:
+                StartCoroutine(MoveUnit(displacement));
+                return;
+        }
+    }
+
+    public IEnumerator TeleportUnit(SO_DisplacementEffect displacement)
+    {
+        var unit = displacement.Unit.PartData.TargetsHit.First();
+        var originalPosition = unit.Tile;
+        var targetPosition = displacement.TargetPosition.PartData.TilesHit.First();
+
+        yield return new WaitForSeconds(displacement.Delay);
+
+        unit.Tile = targetPosition;
+        originalPosition.currentUnit = null;
+        targetPosition.currentUnit = unit;
+        unit.transform.position = targetPosition.position;
+    }
+
+    public IEnumerator MoveUnit(SO_DisplacementEffect displacement)
+    {
+        var pointList = new List<Vector3>();
+        var unit = displacement.Unit.PartData.TargetsHit.First();
+        var originalTile = unit.Tile;
+        var targetTile = displacement.TargetPosition.PartData.TilesHit.First();
+        var originalPosition = originalTile.position;
+        var targetPosition = targetTile.position;
+
+        unit.Tile = targetTile;
+        originalTile.currentUnit = null;
+        targetTile.currentUnit = unit;
+
+        yield return new WaitForSeconds(displacement.Delay);
+
+        var heightOffset = Vector3.Distance(originalPosition, targetPosition);
+        var middleOffset = Vector3.up * heightOffset * displacement.Offset * 0.5f;
+
+        Vector3 middlePosition = Vector3.Lerp(originalPosition, targetPosition, 0.5f) + middleOffset;
+
+        for (float ratio = 0; ratio <= 1; ratio += 1f / displacementVertexCount)
+        {
+            var tangent1 = Vector3.Lerp(targetPosition, middlePosition, ratio);
+            var tangent2 = Vector3.Lerp(middlePosition, originalPosition, ratio);
+            var curve = Vector3.Lerp(tangent1, tangent2, ratio);
+            pointList.Add(curve);
+        }
+        pointList.Reverse();
+
+        float time = 0f;
+        int currentIndex = 0;
+
+        while (currentIndex < pointList.Count - 1)
+        {
+            time += Time.deltaTime;
+            float projectileSpeed = displacement.SpeedCurve.Evaluate(time) * displacement.Speed;
+
+            unit.transform.position = Vector3.MoveTowards(unit.transform.position, pointList[currentIndex + 1], projectileSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(unit.transform.position, pointList[currentIndex + 1]) < 0.1f)
+            {
+                currentIndex++;
+            }
+
+            yield return null;
+        }
+    }
+
     public float GetSkillAttackRange()
     {
         var skill = SkillData.CurrentActiveSkill;
@@ -256,47 +224,6 @@ public class SkillsManager : MonoBehaviour
 	{
         return skill.SkillPartGroups[SkillData.SkillPartGroupIndex].skillParts.Any(x =>
                 x.NoTargetsInRange());
-    }
-
-    public void DisplaceUnit(SO_DisplacementEffect displacement)
-    {
-        switch (displacement.DisplacementType)
-		{
-            case DisplacementEnum.Teleport:
-                StartCoroutine(TeleportUnit(displacement));
-                return;
-            case DisplacementEnum.Move:
-                StartCoroutine(MoveUnit(displacement));
-                return;
-        }
-    }
-
-    public IEnumerator TeleportUnit(SO_DisplacementEffect displacement)
-	{
-        var unit = displacement.Unit.PartData.TargetsHit.First();
-        var originalPosition = unit.Tile;
-        var targetPosition = displacement.TargetPosition.PartData.TilesHit.First();
-
-        yield return new WaitForSeconds(displacement.Delay);
-
-        unit.Tile = targetPosition;
-        originalPosition.currentUnit = null;
-        targetPosition.currentUnit = unit;
-        unit.transform.position = targetPosition.position;
-    }
-
-    public IEnumerator MoveUnit(SO_DisplacementEffect displacement)
-    {
-        var unit = displacement.Unit.PartData.TargetsHit.First();
-        var originalPosition = unit.Tile;
-        var targetPosition = displacement.TargetPosition.PartData.TilesHit.First();
-
-        yield return new WaitForSeconds(displacement.Delay);
-
-        //unit.currentTile = targetPosition;
-        //originalPosition.currentUnit = null;
-        //targetPosition.currentUnit = unit;
-        //unit.transform.position = targetPosition.position;
     }
 
     public void TargetTileWithSkill(BoardTile tile, SO_Skillpart skillpart)

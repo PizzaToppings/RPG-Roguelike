@@ -17,8 +17,8 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
         if (overwriteOriginTile != null)
             OriginTiles[0] = overwriteOriginTile;
 
-        SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.GetAOE(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.GetAOE(this);
 
         if (PartData.TilesHit.Contains(mouseOverTile) && HasDuplicateTile(mouseOverTile) == false)
         {
@@ -43,8 +43,8 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
 	{
         SetInitData(null);
 
-        SkillsManager skillsManager = SkillsManager.Instance;
-        skillsManager.GetAOE(this);
+        TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
+        targetSkillsManager.GetAOE(this);
 
         var tilesHit = PartData.TilesHit;
         tilesHit.RemoveAll(x => HasDuplicateTile(x));

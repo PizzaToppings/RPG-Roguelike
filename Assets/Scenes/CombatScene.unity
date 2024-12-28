@@ -7085,7 +7085,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: f790ecd13d0faa44bb73dadef107d3bd,
+      objectReference: {fileID: 11400000, guid: 1d54775625b72464a8bdc219f3d0098e,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -19555,6 +19555,7 @@ MonoBehaviour:
   boardManager: {fileID: 1882644906}
   unitManager: {fileID: 370423025}
   skillsManager: {fileID: 799502907}
+  targetSkillsManager: {fileID: 1882644911}
   damageManager: {fileID: 1035959557}
   statusEffectManager: {fileID: 1418248640}
   skillVFXManager: {fileID: 799502906}
@@ -46980,6 +46981,7 @@ GameObject:
   - component: {fileID: 1882644906}
   - component: {fileID: 1882644907}
   - component: {fileID: 1882644910}
+  - component: {fileID: 1882644911}
   m_Layer: 0
   m_Name: BoardManager
   m_TagString: Untagged
@@ -47156,6 +47158,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1882644911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882644904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c809f8e4e73ce4b89dc34985dd3f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1884696581 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4473422043703298615, guid: 633e76ebe8981104e92c3b4dde93ebb9,
