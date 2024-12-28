@@ -491,7 +491,6 @@ public class BoardManager : MonoBehaviour
                     if (tile.IsBlocked || (TileIsBehindClosedTile(tile, skillpart.OriginTiles[0]) && skillpart.AffectedByBlockedTiles))
                         continue;
 
-                    //skillsManager.TargetTileWithSkill(tile, skillpart);
                     SkillData.AddTileToCurrentList(skillpart.SkillPartIndex, tile);
                 }
                 lines.Add(line);
@@ -564,7 +563,6 @@ public class BoardManager : MonoBehaviour
             if (tile.IsBlocked || (TileIsBehindClosedTile(tile, skillpart.OriginTiles[0]) && skillpart.AffectedByBlockedTiles))
                 continue;
 
-            //skillsManager.TargetTileWithSkill(tile, skillpart);
             SkillData.AddTileToCurrentList(skillpart.SkillPartIndex, tile);
         }
 	}
@@ -608,7 +606,6 @@ public class BoardManager : MonoBehaviour
                     if (GetRangeBetweenTiles(originTile.Coordinates, coordinate) < skillpart.MinRange)
                         continue;
 
-                    //skillsManager.TargetTileWithSkill(tile, skillpart);
                     SkillData.AddTileToCurrentList(skillpart.SkillPartIndex, tile);
                 }
                 lines.Add(line);
