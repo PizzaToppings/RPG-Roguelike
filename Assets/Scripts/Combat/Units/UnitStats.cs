@@ -7,6 +7,7 @@ public class UnitStats : MonoBehaviour
     public string UnitName;
 
     public bool Friendly;
+    public bool Summon;
     public int MaxHitpoints;
     public int Hitpoints;
     public int ShieldPoints;

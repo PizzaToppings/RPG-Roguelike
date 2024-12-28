@@ -27,6 +27,7 @@ public class SO_SKillVFX : ScriptableObject
 
 	[Space]
 	public bool TriggerDisplacement;
+	public bool TriggerSummon;
 
 	[Space]
 	public GameObject SkillObject;

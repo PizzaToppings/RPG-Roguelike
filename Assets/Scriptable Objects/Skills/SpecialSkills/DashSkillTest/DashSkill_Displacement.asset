@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplacementType: 1
   Unit: {fileID: 11400000, guid: 2bcd5ab76537ed64ea7cacd7eeb7e648, type: 2}
-  TargetPosition: {fileID: 11400000, guid: e183a17bc190ec341bea40398fc6cd77, type: 2}
+  TargetPosition: {fileID: 11400000, guid: 810a174ab2b4ce847a62914b97e907c1, type: 2}
   Delay: 0
   SpeedCurve:
     serializedVersion: 2
@@ -41,4 +41,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Speed: 10
-  Offset: 0
+  Offset: 3

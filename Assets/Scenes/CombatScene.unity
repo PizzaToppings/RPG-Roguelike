@@ -7067,7 +7067,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 7fc63168693950e498c44e37b25ebf99,
+      objectReference: {fileID: 11400000, guid: 48cab265cb30f9c4488f5a1fe81e81c2,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -10022,6 +10022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422fe232db8be714088aa569c0c8811c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initiativeTracker: {fileID: 1916852739}
   healthCanvas: {fileID: 424956461}
   characterParent: {fileID: 523840572}
   enemyParent: {fileID: 492562960}
@@ -49483,6 +49484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: 
   Friendly: 0
+  Summon: 0
   MaxHitpoints: 30
   Hitpoints: 30
   ShieldPoints: 0
@@ -50966,6 +50968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: 
   Friendly: 0
+  Summon: 0
   MaxHitpoints: 40
   Hitpoints: 40
   ShieldPoints: 0

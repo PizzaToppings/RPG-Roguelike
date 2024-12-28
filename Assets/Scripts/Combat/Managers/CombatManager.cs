@@ -26,7 +26,6 @@ public class CombatManager : MonoBehaviour
         InitManagers();
         CreateBattlefield();
 		PlaceUnits();
-		CreateTurnOrder();
 		SetInitiative();
 		RoundStart();
 		TurnStart();
@@ -68,15 +67,11 @@ public class CombatManager : MonoBehaviour
         unitManager.PlaceUnits();
     }
 
-    void CreateTurnOrder()
+    public void SetInitiative()
     {
         UnitData.Units.Sort((x1, x2) =>
-            x1.Initiative.CompareTo(x2.Initiative)
-        );
-    }
+            x1.Initiative.CompareTo(x2.Initiative));
 
-    void SetInitiative()
-    {
         initiativeTracker.SetInitiative();
     }
 

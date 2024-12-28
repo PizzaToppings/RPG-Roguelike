@@ -11,6 +11,7 @@ public class SkillsManager : MonoBehaviour
     DamageManager damageManager;
     UIManager uiManager;
     InputManager inputManager;
+    UnitManager unitManager;
 
     float displacementVertexCount = 12;
 
@@ -28,6 +29,7 @@ public class SkillsManager : MonoBehaviour
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
         inputManager = InputManager.Instance;
+        unitManager = UnitManager.Instance;
     }
 
     public void SetSkills(Character character)
@@ -126,7 +128,10 @@ public class SkillsManager : MonoBehaviour
 
                 if (SFX.TriggerDisplacement)
                     DisplaceUnit(skillPart.displacementEffect);
-                
+
+                if (SFX.TriggerSummon)
+                    unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);
+
                 SFX.SetValues(skillPartData);
                 yield return StartCoroutine(skillVFXManager.Cast(SFX));
 			}

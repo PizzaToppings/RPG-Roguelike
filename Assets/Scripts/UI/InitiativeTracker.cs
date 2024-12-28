@@ -11,30 +11,33 @@ public class InitiativeTracker : MonoBehaviour
 
     public void SetInitiative()
     {
+        InitiativeList.Clear();
+
         for (int i = 0; i < UnitData.Characters.Count; i++)
         {
             var character = UnitData.Characters[i];
-
-            var image = Instantiate(InitiativeImage, transform);
-            var init = image.GetComponent<InitiativeInformation>();
-            init.Init(character, i);
-
-            InitiativeList.Add(init);
+            AddToInitiative(character);
         }
         for (int i = 0; i < UnitData.Enemies.Count; i++)
         {
             var enemy = UnitData.Enemies[i];
-
-            var image = Instantiate(InitiativeImage, transform);
-            var init = image.GetComponent<InitiativeInformation>();
-            init.Init(enemy, i);
-
-            InitiativeList.Add(init);
+            AddToInitiative(enemy);
         }
 
         InitiativeList.Sort((x, y) => x.Initiative);
 
         NextTurn();
+    }
+
+    public void AddToInitiative(Unit unit)
+	{
+        var image = Instantiate(InitiativeImage, transform);
+        var init = image.GetComponent<InitiativeInformation>();
+        init.Init(unit, InitiativeList.Count);
+
+        InitiativeList.Add(init);
+
+        InitiativeList.Sort((x, y) => x.Initiative);
     }
 
     public void NextTurn()

@@ -26,11 +26,11 @@ public class SO_Skillpart : ScriptableObject
     public OriginTileEnum DirectionAnchor = OriginTileEnum.None;
     public SO_Skillpart DirectionAnchorSkillPart;
 
-
     [Header(" - Visuals")]
     public TileColor tileColor;
     public bool AddProjectileLine;
     public float ProjectileLineOffset = 1;
+    public SO_SKillVFX[] SkillVFX;
 
     [Space]
     [Header(" - Damage and Range")]
@@ -46,16 +46,13 @@ public class SO_Skillpart : ScriptableObject
     [Header(" - Prevent Duplicates")]
     public List<SO_Skillpart> PreventDuplicateTiles;
     public List<SO_Skillpart> PreventDuplicateTargets;
-
+    
     [Space]
-    [Header(" - Visuals")]
-    public SO_SKillVFX[] SkillVFX;
-
-    [Space]
-    [Header(" - StatusEffects")]
+    [Header(" - StatusEffects and other Effects")]
     public List<SO_StatusEffect> StatusEfects;
     public List<DefaultStatusEffect> defaultStatusEffects;
     public SO_DisplacementEffect displacementEffect;
+    public GameObject SummonObject;
     
     List<SO_Skillpart> skillPartsList;
 

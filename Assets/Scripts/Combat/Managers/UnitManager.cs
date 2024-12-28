@@ -4,16 +4,15 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
 
-    //---------------------------
+    [SerializeField] InitiativeTracker initiativeTracker;
+
+    CombatManager combatManager;
 
     [SerializeField] HealthCanvas healthCanvas;
 
     [Space]
     [SerializeField] Transform characterParent;
     [SerializeField] Transform enemyParent;
-
-    //[HideInInspector] public List<Character> Characters;
-    //[HideInInspector] public List<Enemy> Enemies;
 
     public void CreateInstance()
     {
@@ -22,6 +21,8 @@ public class UnitManager : MonoBehaviour
 
     public void Init()
     {
+        combatManager = CombatManager.Instance;
+
         foreach (Transform child in characterParent)
         {
             var unit = child.GetComponent<Character>();
@@ -61,5 +62,26 @@ public class UnitManager : MonoBehaviour
         unit.transform.position = startingTile.position;
 
         unit.Init();
+    }
+
+    public void SummonUnit(GameObject unitPrefab, BoardTile tile, bool friendly)
+	{
+        var parent = friendly ? characterParent : enemyParent;
+        var summonedUnit = Instantiate(unitPrefab, tile.position, Quaternion.identity, parent);
+        
+        var unit = summonedUnit.GetComponent<Unit>();
+        UnitData.Units.Add(unit);
+
+        if (friendly)
+            UnitData.Characters.Add(unit as Character);
+        else
+            UnitData.Enemies.Add(unit as Enemy);
+
+        unit.Tile = tile;
+        tile.currentUnit = unit;
+
+        unit.Init();
+
+        initiativeTracker.AddToInitiative(unit);
     }
 }

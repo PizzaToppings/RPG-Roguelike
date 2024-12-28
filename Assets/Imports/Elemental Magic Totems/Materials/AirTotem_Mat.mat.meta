@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c04e750d4822eed4c98acc9c326b6933
+timeCreated: 1459324999
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 59522
+  packageName: Elemental Magic Totems
+  packageVersion: 1.0
+  assetPath: Assets/Elemental Magic Totems/Materials/AirTotem_Mat.mat
+  uploadId: 110332

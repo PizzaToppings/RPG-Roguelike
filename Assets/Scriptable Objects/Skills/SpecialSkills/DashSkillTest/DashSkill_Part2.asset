@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
   m_Name: DashSkill_Part2
   m_EditorClassIdentifier: 
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 0
+  FinalDirection: 6
   MagicalDamage: 0
-  SkillPartIndex: 0
+  SkillPartIndex: 1
   OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -40,9 +41,15 @@ MonoBehaviour:
   AffectedByBlockedTiles: 1
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  SkillVFX: []
+  SkillVFX:
+  - {fileID: 11400000, guid: 17304104d693fdc4b95d9c54533e32a1, type: 2}
   StatusEfects: []
   defaultStatusEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect: {fileID: 11400000, guid: aecc3c02810771340bcb912c53604758, type: 2}
   Angles: 00000000
   PierceAmount: -1
+  GetLastTileOnly: 1
+  endColor:
+    FillCenter: 1
+    Color: {r: 0.3254902, g: 0.9803922, b: 1, a: 1}
+    Priority: 5

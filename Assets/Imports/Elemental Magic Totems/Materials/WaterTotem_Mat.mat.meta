@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 89b8ea9acedf2344c807750cbd6c5ae2
+timeCreated: 1458639192
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 59522
+  packageName: Elemental Magic Totems
+  packageVersion: 1.0
+  assetPath: Assets/Elemental Magic Totems/Materials/WaterTotem_Mat.mat
+  uploadId: 110332
