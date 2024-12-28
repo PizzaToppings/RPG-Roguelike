@@ -74,8 +74,9 @@ public class SkillsManager : MonoBehaviour
     {
         foreach (var originTile in skillData.OriginTiles)
         {
-            var direction = GetDirection(skillData);
+            var direction = GetDirection(skillData); 
             boardManager.PreviewConeCast(direction, skillData);
+            boardManager.CorrectConeCast(originTile, skillData);
         }
     }
 
@@ -85,6 +86,7 @@ public class SkillsManager : MonoBehaviour
         {
             var direction = GetDirection(skillData);
             boardManager.PreviewHalfCircleCast(direction, skillData);
+            boardManager.CorrectConeCast(originTile, skillData);
         }
     }
 
@@ -295,5 +297,15 @@ public class SkillsManager : MonoBehaviour
         //originalPosition.currentUnit = null;
         //targetPosition.currentUnit = unit;
         //unit.transform.position = targetPosition.position;
+    }
+
+    public void TargetTileWithSkill(BoardTile tile, SO_Skillpart skillpart)
+	{
+        tile.SetColor(skillpart.tileColor);
+
+        SkillData.AddTileToCurrentList(skillpart.SkillPartIndex, tile);
+
+        var target = boardManager.FindTarget(tile, skillpart);
+        SkillData.AddTargetToCurrentList(skillpart.SkillPartIndex, target);
     }
 }
