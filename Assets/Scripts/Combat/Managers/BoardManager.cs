@@ -336,10 +336,11 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    
-
     public Unit FindTarget(BoardTile tile, SO_Skillpart data)
     {
+        if (tile == null)
+            return null;
+
         if (UnitData.ActiveUnit == null)
             return null;
 

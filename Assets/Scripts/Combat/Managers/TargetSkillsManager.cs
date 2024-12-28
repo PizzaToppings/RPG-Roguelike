@@ -189,27 +189,27 @@ public class TargetSkillsManager : MonoBehaviour
         skillData.PartData.TilesHit = tiles;
     }
 
-    public void PreviewLineCast(BoardTile originTile, int[] directions, SO_LineSkill skillData)
+    public void PreviewLineCast(BoardTile originTile, int[] directions, SO_LineSkill skillpart)
     {
         Vector2Int startCoordinates = originTile.Coordinates;
         Vector2Int curentCoordinates = new Vector2Int();
         Vector2Int nextCoordinates = new Vector2Int();
         List<Vector2Int> line = new List<Vector2Int>();
 
-        var skillPartIndex = skillData.SkillPartIndex;
-        int pierceAmount = skillData.PierceAmount;
+        var skillPartIndex = skillpart.SkillPartIndex;
+        int pierceAmount = skillpart.PierceAmount;
 
         foreach (var dir in directions)
         {
             curentCoordinates = nextCoordinates = startCoordinates;
             var direction = GetCorrectedDirection(dir);
 
-            for (float r = 0; r < skillData.MaxRange;)
+            for (float r = 0; r < skillpart.MaxRange;)
             {
                 curentCoordinates = nextCoordinates;
                 nextCoordinates = curentCoordinates + boardManager.Directions[direction];
 
-                if (r >= skillData.MinRange)
+                if (r >= skillpart.MinRange)
                     line.Add(nextCoordinates);
 
                 r += boardManager.GetRangeReduction(curentCoordinates, nextCoordinates);
@@ -220,17 +220,17 @@ public class TargetSkillsManager : MonoBehaviour
             {
                 var tile = boardManager.GetBoardTile(coordinate);
 
-                if (tile.IsBlocked && skillData.AffectedByBlockedTiles)
-                    break;
-
                 if (tile == null)
                     continue;
 
-                tile.SetColor(skillData.tileColor);
+                if (tile.IsBlocked && skillpart.AffectedByBlockedTiles)
+                    break;
+
+                tile.SetColor(skillpart.tileColor);
 
                 SkillData.AddTileToCurrentList(skillPartIndex, tile);
 
-                var target = boardManager.FindTarget(tile, skillData);
+                var target = boardManager.FindTarget(tile, skillpart);
                 if (target != null)
                 {
                     SkillData.AddTargetToCurrentList(skillPartIndex, target);
@@ -242,6 +242,21 @@ public class TargetSkillsManager : MonoBehaviour
                     }
                 }
             }
+
+            if (skillpart.GetLastTileOnly)
+			{
+                var lastTile = skillpart.PartData.TilesHit[^1];
+
+                skillpart.PartData.TilesHit.Clear();
+                SkillData.AddTileToCurrentList(skillPartIndex, lastTile);
+
+                skillpart.PartData.TargetsHit.Clear();
+                var target = boardManager.FindTarget(lastTile, skillpart);
+                SkillData.AddTargetToCurrentList(skillpart.SkillPartIndex, target);
+
+                lastTile.SetColor(skillpart.endColor);
+            }
+
             line.Clear();
         }
     }
