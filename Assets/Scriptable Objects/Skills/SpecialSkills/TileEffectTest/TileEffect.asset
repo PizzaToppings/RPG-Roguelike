@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bfba9c923ff8b4b9b92bd64a0b1b1d, type: 3}
   m_Name: TileEffect
   m_EditorClassIdentifier: 
+  TileEffectName: Testeroni
   TriggerMoment: 0
   TriggerEffect: 0
-  Duration: 0
+  MaxDuration: 1

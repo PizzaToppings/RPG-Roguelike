@@ -14,6 +14,9 @@ public class Character : Unit
     [HideInInspector] public List<bool> SkillshotsEquipped;
     public List<SO_MainSkill> skills = new List<SO_MainSkill>();
 
+    [Space]
+    public List<SO_MainSkill> consumables;
+
     public override void Init()
     {
         Friendly = true;

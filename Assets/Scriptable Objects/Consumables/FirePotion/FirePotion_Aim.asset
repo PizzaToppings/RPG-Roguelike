@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
-  m_Name: TileEffectTest_Part1
+  m_Name: FirePotion_Aim
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
+  OriginTiles: []
   OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
@@ -23,15 +22,15 @@ MonoBehaviour:
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 1
+  TargetTileKind: 0
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
   tileColor:
     FillCenter: 0
-    Color: {r: 0.4764151, g: 1, b: 0.57129216, a: 1}
+    Color: {r: 0.9528302, g: 0.50980395, b: 0, a: 1}
     Priority: 8
-  AddProjectileLine: 0
+  AddProjectileLine: 1
   ProjectileLineOffset: 1
   SkillVFX: []
   DamageType: 0
@@ -44,11 +43,10 @@ MonoBehaviour:
   PreventDuplicateTargets: []
   StatusEfects: []
   defaultStatusEffects: []
-  tileEffects:
-  - {fileID: 11400000, guid: dc476f8f2c471bf45b1a5583ef6a383a, type: 2}
+  tileEffects: []
   displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
   SelectedTileColor:
-    FillCenter: 1
-    Color: {r: 0.47450984, g: 1, b: 0.57254905, a: 1}
-    Priority: 7
+    FillCenter: 0
+    Color: {r: 1, g: 0.13679248, b: 0.13679248, a: 1}
+    Priority: 6

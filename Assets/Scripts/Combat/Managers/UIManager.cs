@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] SkillIcon basicAttackIcon;
     [SerializeField] SkillIcon basicSkillIcon;
     [SerializeField] SkillIcon[] skillIcons;
+    [SerializeField] SkillIcon[] consumableIcons;
 
     [Space]
     [SerializeField] List<CharacterPortrait> CharacterPortraits;
@@ -50,6 +51,9 @@ public class UIManager : MonoBehaviour
 
         foreach(var skillIcon in skillIcons)
             skillIcon.Init();
+
+        foreach (var consumableIcon in consumableIcons)
+            consumableIcon.Init();
     }
 
     public void StartTurn(Unit CurrentActiveUnit)
@@ -58,6 +62,7 @@ public class UIManager : MonoBehaviour
         {
             var character = CurrentActiveUnit as Character;
             SetSkillIcons(character);
+            SetConsumableIcons(character);
         }
     }
 
@@ -68,7 +73,25 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < CurrentActiveUnit.skills.Count; i++)
         {
-            skillIcons[i].SetOrUpdate(CurrentActiveUnit.skills[i]);
+            var skill = CurrentActiveUnit.skills[i];
+
+            if (skill != null)
+                skillIcons[i].SetOrUpdate(skill);
+            else
+                skillIcons[i].Clear();
+        }
+    }
+
+    public void SetConsumableIcons(Character CurrentActiveUnit)
+    {
+        for (int i = 0; i < CurrentActiveUnit.consumables.Count; i++)
+        {
+            var consumable = CurrentActiveUnit.consumables[i];
+
+            if (consumable != null)
+                consumableIcons[i].SetOrUpdate(consumable);
+            else
+                consumableIcons[i].Clear();
         }
     }
 

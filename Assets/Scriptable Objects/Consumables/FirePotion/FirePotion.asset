@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: TileEffectTest_Main
+  m_Name: FirePotion
   m_EditorClassIdentifier: 
-  SkillName: TileEffect
-  Image: {fileID: 21300000, guid: b2db0c0e45d66e940ae5c3d8269ec7b0, type: 3}
+  SkillName: Fire Potion
+  Image: {fileID: 21300000, guid: b268173d54cde0746a9a0198a947c219, type: 3}
   Image_Inactive: {fileID: 0}
+  IsConsumable: 1
   Classes: 
   Description: 
   SkillPartGroups:
   - CastOnTile: 1
     CastOnTarget: 0
     skillParts:
-    - {fileID: 11400000, guid: 400823ee1b114c7488d8f0ed4b2c87ad, type: 2}
-  EnergyCost: 30
-  DafaultCharges: 2
+    - {fileID: 11400000, guid: 80d58d3bb0b759546903737dbb9b62aa, type: 2}
+    - {fileID: 11400000, guid: 61476821176a1644e915efef1f0941fe, type: 2}
+  EnergyCost: 10
+  DefaultCharges: 1
   Charges: 0
   TargetKind: 0
   Cursor: 0

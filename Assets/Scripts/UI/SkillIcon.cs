@@ -42,6 +42,8 @@ public class SkillIcon : MonoBehaviour
 
     void SetIcon()
     {
+        icon.gameObject.SetActive(true);
+
         if (skillsManager.CanCastSkill(skill))
             icon.sprite = skill.Image;
         else if (skill.Image_Inactive != null)
@@ -50,7 +52,10 @@ public class SkillIcon : MonoBehaviour
 
     void SetCharges()
     {
-        if (skill.DafaultCharges == 1)
+        if (chargesImage == null)
+            return;
+
+        if (skill.DefaultCharges == 1)
         {
             chargesImage.SetActive(false);
             chargesText.gameObject.SetActive(false);
@@ -61,6 +66,11 @@ public class SkillIcon : MonoBehaviour
             chargesText.gameObject.SetActive(true);
             chargesText.text = skill.Charges.ToString();
         }
+    }
+
+    public void Clear()
+	{
+        icon.gameObject.SetActive(false);
     }
 
     public void CastSkill()

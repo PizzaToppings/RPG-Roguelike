@@ -12,6 +12,7 @@ public class SkillsManager : MonoBehaviour
     UIManager uiManager;
     InputManager inputManager;
     UnitManager unitManager;
+    ConsumableManager consumableManager;
 
     float displacementVertexCount = 12;
 
@@ -30,13 +31,15 @@ public class SkillsManager : MonoBehaviour
         uiManager = UIManager.Instance;
         inputManager = InputManager.Instance;
         unitManager = UnitManager.Instance;
+        consumableManager = ConsumableManager.Instance;
     }
 
     public void SetSkills(Character character)
     {
         foreach (var skill in character.skills)
         {
-            skill.Init();
+            if (skill != null)
+                skill.Init();
         }
     }
 
@@ -44,11 +47,6 @@ public class SkillsManager : MonoBehaviour
     {
         if (UnitData.CurrentAction != CurrentActionKind.CastingSkillshot)
             return;
-
-        //if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
-        //{
-        //    StartCasting();
-        //}
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot 
             && SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
@@ -89,9 +87,13 @@ public class SkillsManager : MonoBehaviour
         var portrait = character.ThisHealthbar as CharacterPortrait;
         portrait.UpdateHealthbar(); // includes energybar
 
-        uiManager.SetSkillIcons(character);
-
         StartCoroutine(CastSkill(skill));
+
+        if (skill.IsConsumable)
+            consumableManager.DeleteConsumable(skill);
+
+        uiManager.SetSkillIcons(character);
+        uiManager.SetConsumableIcons(character);
     }
 
     public IEnumerator CastSkill(SO_MainSkill skill)

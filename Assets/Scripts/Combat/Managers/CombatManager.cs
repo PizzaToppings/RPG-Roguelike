@@ -13,6 +13,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] SkillVFXManager skillVFXManager;
     [SerializeField] UIManager uiManager;
     [SerializeField] InputManager inputManager;
+    [SerializeField] ConsumableManager consumableManager;
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
@@ -42,6 +43,7 @@ public class CombatManager : MonoBehaviour
         targetSkillsManager.CreateInstance();
         skillVFXManager.CreateInstance();
         inputManager.CreateInstance();
+        consumableManager.CreateInstance();
     }
 
     void InitManagers()
@@ -54,7 +56,7 @@ public class CombatManager : MonoBehaviour
         skillVFXManager.Init();
 		uiManager.Init();
         inputManager.Init();
-
+        consumableManager.Init();
     }
 
     void CreateBattlefield()
@@ -103,6 +105,7 @@ public class CombatManager : MonoBehaviour
         if (CurrentActiveUnit.Friendly)
         {
             skillsManager.SetSkills(CurrentActiveUnit as Character);
+            consumableManager.SetConsumables(CurrentActiveUnit as Character);
         }
 
         uiManager.StartTurn(CurrentActiveUnit);

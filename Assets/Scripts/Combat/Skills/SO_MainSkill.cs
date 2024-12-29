@@ -8,6 +8,9 @@ public class SO_MainSkill : ScriptableObject
     public Sprite Image_Inactive;
 
     [Space]
+    public bool IsConsumable;
+
+    [Space]
     public List<ClassEnum> Classes;
 
     [Space]
@@ -18,8 +21,8 @@ public class SO_MainSkill : ScriptableObject
     public List<SkillPartGroup> SkillPartGroups = new List<SkillPartGroup>(1);
 
     [Space]
-    public int EnergyCost;
-    public int DafaultCharges = 1;
+    public int EnergyCost = 10;
+    public int DefaultCharges = 1;
     [HideInInspector] public int Charges = 1;
 
     [Space]
@@ -35,8 +38,8 @@ public class SO_MainSkill : ScriptableObject
 
         for (int i = 0; i < SkillPartGroups[SkillPartGroupIndex].skillParts.Count; i++)
 		{
-			var skillPart = SkillPartGroups[SkillPartGroupIndex].skillParts;
-			skillPart[i].Preview(mouseOverTile, skillPart, overwriteOriginTile, overwriteTargetTile, target);
+			var skillPartList = SkillPartGroups[SkillPartGroupIndex].skillParts;
+			skillPartList[i].Preview(mouseOverTile, skillPartList, overwriteOriginTile, overwriteTargetTile, target);
 		}
 
         if (SkillPartGroupIndex == 0)
@@ -90,7 +93,7 @@ public class SO_MainSkill : ScriptableObject
 
     public void Init()
     {
-        Charges = DafaultCharges;
+        Charges = DefaultCharges;
         SkillData.SkillPartGroupIndex = 0;
     }
 
