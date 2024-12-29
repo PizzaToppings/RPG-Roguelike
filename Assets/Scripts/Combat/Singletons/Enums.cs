@@ -30,3 +30,5 @@ public enum SkillFxDestinationEnum { None, Caster, Target, Tiles }
 // Triggers. Need improvement
 public enum TriggerMomentEnum { StartOfGame, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnHeal }
 public enum TriggerEffectEnum { DealDamage, TakeDamage } 
+public enum TileTriggerMomentEnum { OnEnterTile, EndOfTurn, Aura }
+public enum TileTriggerEffectEnum { DealDamage, TakeDamage }

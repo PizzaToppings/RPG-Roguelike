@@ -51,6 +51,7 @@ public class SO_Skillpart : ScriptableObject
     [Header(" - StatusEffects and other Effects")]
     public List<SO_StatusEffect> StatusEfects;
     public List<DefaultStatusEffect> defaultStatusEffects;
+    public List<SO_TileEffect> tileEffects;
     public SO_DisplacementEffect displacementEffect;
     public GameObject SummonObject;
     

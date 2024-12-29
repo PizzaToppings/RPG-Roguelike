@@ -53,7 +53,7 @@ public class SkillVFXManager : MonoBehaviour
 
         yield return new WaitForSeconds(skillFx.ExtendDelay);
 
-        Destroy(skillObject);
+        Destroy(skillObject); // TODO change
         yield return new WaitForSeconds(skillFx.EndDelay);
     }
 

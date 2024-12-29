@@ -12,6 +12,9 @@ public class BoardTile : MonoBehaviour
 
     public bool IsOpen = false;
     public bool IsClosed = false;
+
+    [HideInInspector] public List<TileEffect> tileEffects = new List<TileEffect>();
+
     [HideInInspector] public bool IsBehindClosedTile = false;
     [HideInInspector] public bool IsBlocked => IsOpen || IsClosed;
 

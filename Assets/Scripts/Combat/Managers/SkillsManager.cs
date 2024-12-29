@@ -121,22 +121,43 @@ public class SkillsManager : MonoBehaviour
 
         if (skillVFX != null)
         {
+            if (skillPart.displacementEffect != null) 
+                DisplaceUnit(skillPart.displacementEffect);
+
+            if (skillPart.SummonObject != null)
+                unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);
+
+            if (skillPart.tileEffects.Count > 0)
+                AddTileEffects(skillPart);
+
             foreach (var SFX in skillVFX)
 			{
                 if (SFX.ShowDamage)
                     damageManager.DealDamageSetup(skillPart, SFX.ShowDamageDelay);
-
-                if (SFX.TriggerDisplacement)
-                    DisplaceUnit(skillPart.displacementEffect);
-
-                if (SFX.TriggerSummon)
-                    unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);
 
                 SFX.SetValues(skillPartData);
                 yield return StartCoroutine(skillVFXManager.Cast(SFX));
 			}
         }
     }
+
+    public void AddTileEffects(SO_Skillpart skillPart)
+	{
+        var tileEffects = new List<TileEffect>();
+
+        foreach (var te in skillPart.tileEffects)
+		{
+            var TE = new TileEffect();
+            TE.Init(te);
+
+            tileEffects.Add(TE);
+		}
+
+        foreach (var tile in skillPart.PartData.TilesHit)
+		{
+            tile.tileEffects.AddRange(tileEffects);
+		}
+	}
 
     public void DisplaceUnit(SO_DisplacementEffect displacement)
     {
