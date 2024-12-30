@@ -1,11 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
     [SerializeField] InfoScreen infoScreen;
+    [SerializeField] GameObject ActivityBar;
 
     [Space]
     [SerializeField] SkillIcon basicAttackIcon;
@@ -116,5 +120,42 @@ public class UIManager : MonoBehaviour
         }
 
         Cursor.SetCursor(texture, Vector2.zero, cursorMode);
+    }
+
+    public void TriggerActivityText(string activityName)
+	{
+        StartCoroutine(ShowActivityText(activityName));
+	}
+
+    public IEnumerator ShowActivityText(string activityName)
+	{
+        ActivityBar.SetActive(true);
+        
+        var image = ActivityBar.GetComponent<Image>();
+        var text = ActivityBar.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        text.text = activityName;
+
+        float alpha = 0;
+        float fadespeed = 3;
+
+        while (alpha < 1)
+		{
+            alpha += Time.deltaTime * fadespeed;
+            image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
+            text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1.8f);
+
+        while (alpha > 0)
+        {
+            alpha -= Time.deltaTime * fadespeed;
+            image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
+            text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
+            yield return null;
+        }
+
+        ActivityBar.SetActive(true);
     }
 }

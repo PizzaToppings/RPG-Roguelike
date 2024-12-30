@@ -94,6 +94,9 @@ public class SkillsManager : MonoBehaviour
 
         uiManager.SetSkillIcons(character);
         uiManager.SetConsumableIcons(character);
+
+        if (skill.IsBasic == false)
+            uiManager.TriggerActivityText(skill.SkillName);
     }
 
     public IEnumerator CastSkill(SO_MainSkill skill)

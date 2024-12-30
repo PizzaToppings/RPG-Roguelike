@@ -8,6 +8,7 @@ public class SO_MainSkill : ScriptableObject
     public Sprite Image_Inactive;
 
     [Space]
+    public bool IsBasic;
     public bool IsConsumable;
 
     [Space]
