@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 15764
+  controlID: 16103
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 15629
+  controlID: 15973
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -941,7 +941,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 15688
+  controlID: 16027
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -1009,9 +1009,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 08f8feff
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 22c7feff7accfeff26fbffff4e620000726200009263000070640000d0640000ec6400000066000068660000f26600007e690000a0690000207b02003c7b0200f07f02008c810200
+      m_ExpandedIDs: 22c7feff7accfeff26fbffff4e620000726200009263000070640000d0640000ec6400000066000068660000f26600007e690000a0690000207b02003c7b0200ca7f0200f07f0200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1110,7 +1110,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Combat/Units
+    - Assets/Scriptable Objects/Skills/SpecialSkills/SummonTest
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1120,16 +1120,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Combat/Units
+  - Assets/Scriptable Objects/Skills/SpecialSkills/SummonTest
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Gebruiker\Documents\Git Repos\Unity Projects\RPG-Roguelike
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 76}
-    m_SelectedIDs: 5c770000
-    m_LastClickedID: 30556
-    m_ExpandedIDs: 0000000002750000087500000a7500000c7500000e75000010750000127500001475000016750000187500001a7500001c7500001e750000227500002475000026750000287500002a7500002c7500002e75000030750000327500003475000036750000387500003a7500003c7500003e75000040750000427500004475000046750000487500004a7500004c750000527500005675000058750000367600004076000046760000487600004a7600004c7600004e760000507600005276000066760000707600007a760000c8760000dc760000e476000036c200003ec4000000ca9a3b
+    m_SelectedIDs: 3a770000
+    m_LastClickedID: 30522
+    m_ExpandedIDs: 000000000275000004750000087500000a7500000c7500000e75000010750000127500001475000016750000187500001a7500001c7500001e750000227500002475000026750000287500002a7500002c7500002e75000030750000327500003475000036750000387500003a7500003c7500003e75000040750000427500004475000046750000487500004a7500004c7500005075000052750000547500005675000058750000367600004076000046760000487600004a7600004c7600004e760000507600005276000066760000707600007a760000c8760000dc760000e476000036c200003ec4000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1184,24 +1184,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: c87c0200
-    m_LastClickedInstanceID: 163016
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 6c600000
+    m_LastClickedInstanceID: 24684
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 584e0000000000006ab801002e2000002e5d00006c6c00005c1d0200
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Fireball
+      m_OriginalName: Fireball
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 30510
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 13}
@@ -1285,7 +1285,7 @@ MonoBehaviour:
     m_CachedPref: 151
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 163016
+  m_LastInspectedObjectInstanceID: 24684
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

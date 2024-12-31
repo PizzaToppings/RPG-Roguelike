@@ -41,6 +41,7 @@ public class SO_Skillpart : ScriptableObject
     [Space]
     public bool IncludeInAutoMove;
     public bool AffectedByBlockedTiles;
+    public bool FreeSpacesOnly;
 
     [Space]
     [Header(" - Prevent Duplicates")]

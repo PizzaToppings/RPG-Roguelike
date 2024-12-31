@@ -171,6 +171,9 @@ public class TargetSkillsManager : MonoBehaviour
 
         foreach (var tile in SkillData.GetCurrentTilesHit(skillPartIndex))
         {
+            if (skillData.FreeSpacesOnly && tile.currentUnit != null)
+                continue;
+
             if (skillData.MaxRange - tile.skillshotsRangeLeft[skillPartIndex] < skillData.MinRange)
                 continue;
 
