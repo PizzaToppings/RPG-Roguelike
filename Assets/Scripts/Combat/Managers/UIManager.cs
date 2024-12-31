@@ -20,14 +20,7 @@ public class UIManager : MonoBehaviour
     [Space]
     [SerializeField] List<CharacterPortrait> CharacterPortraits;
 
-    [Space]
-    [SerializeField] Texture2D DefaultCursorTexture;
-    [SerializeField] Texture2D MeleeAttackCursorTexture;
-    [SerializeField] Texture2D RangedAttackCursorTexture;
-    [SerializeField] Texture2D SpellCursorTexture;
-    [SerializeField] Texture2D CrossCursorTexture;
-
-    CursorMode cursorMode = CursorMode.ForceSoftware;
+    Coroutine showSkillCoroutine;
 
     public void CreateInstance()
     {
@@ -37,13 +30,10 @@ public class UIManager : MonoBehaviour
     public void Init()
     {
         InitUI();
-
-        Cursor.SetCursor(DefaultCursorTexture, Vector2.zero, cursorMode);
     }
 
     void InitUI()
     {
-        infoScreen.Init();
         basicAttackIcon.Init();
         basicSkillIcon.Init();
 
@@ -99,29 +89,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetCursor(CursorType cursorType)
-	{
-        Texture2D texture = DefaultCursorTexture;
-
-        switch (cursorType)
-        {
-            case CursorType.Melee:
-                texture = MeleeAttackCursorTexture;
-                break;
-            case CursorType.Ranged:
-                texture = RangedAttackCursorTexture;
-                break;
-            case CursorType.Spell:
-                texture = SpellCursorTexture;
-                break;
-            case CursorType.Cross:
-                texture = CrossCursorTexture;
-                break;
-        }
-
-        Cursor.SetCursor(texture, Vector2.zero, cursorMode);
-    }
-
     public void TriggerActivityText(string activityName)
 	{
         StartCoroutine(ShowActivityText(activityName));
@@ -157,5 +124,23 @@ public class UIManager : MonoBehaviour
         }
 
         ActivityBar.SetActive(true);
+    }
+
+    public void StartShowSkillInformation(SO_MainSkill skill)
+	{
+        showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
+	}
+
+    public void EndShowSkillInformation(SO_MainSkill skill)
+    {
+        StopCoroutine(showSkillCoroutine);
+
+        infoScreen.Deactivate();
+    }
+
+    public IEnumerator ShowSkillInformation(SO_MainSkill skill)
+	{
+        yield return new WaitForSeconds(1);
+        infoScreen.Activate(skill);
     }
 }

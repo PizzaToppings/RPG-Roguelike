@@ -13,6 +13,7 @@ public class Unit : UnitStats
     [HideInInspector] public StatusEffectManager statusEffectManager;
     [HideInInspector] public DamageManager damageManager;
     [HideInInspector] public UIManager uiManager;
+    [HideInInspector] public UI_Singletons ui_Singletons;
 
     [HideInInspector] public UnityEvent OnTurnStart;
     [HideInInspector] public UnityEvent OnTurnEnd;
@@ -42,6 +43,7 @@ public class Unit : UnitStats
         statusEffectManager = StatusEffectManager.Instance;
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
+        ui_Singletons = UI_Singletons.Instance;
 
         modelAnimator = transform.GetChild(0).GetComponent<Animator>();
 

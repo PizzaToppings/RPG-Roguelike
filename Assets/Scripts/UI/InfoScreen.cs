@@ -1,26 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class InfoScreen : MonoBehaviour
 {
-    public static InfoScreen Instance;
+    UI_Singletons ui_Singletons;
 
-    public bool IsActive = false;
+    [SerializeField] TextMeshProUGUI skillName;
+    [SerializeField] TextMeshProUGUI energyAmount;
+    [SerializeField] TextMeshProUGUI chargeAmount;
+    [SerializeField] TextMeshProUGUI skillType;
+    [SerializeField] List<Image> classIcons;
+    [SerializeField] TextMeshProUGUI skillDescription;
 
-    public void Init()
+    public void Activate(SO_MainSkill skill)
     {
-        Instance = this;
+        if (ui_Singletons == null)
+            ui_Singletons = UI_Singletons.Instance;
+
+        skillName.text = skill.SkillName;
+        energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
+        chargeAmount.text = "Charges: " + skill.DefaultCharges.ToString();
+
+        foreach (var skillIcon in classIcons)
+            skillIcon.gameObject.SetActive(false);
+
+        if (skill.IsBasic)
+		{
+            skillType.text = "Basic skill";
+		}
+        else if (skill.IsConsumable)
+        {
+            skillType.text = "Consumable";
+        }
+        else
+		{
+            skillType.text = string.Empty;
+
+            for (var i = 0; i < skill.Classes.Count; i++)
+			{
+                classIcons[i].gameObject.SetActive(true);
+                classIcons[i].sprite = ui_Singletons.GetClassIcon(skill.Classes[i]);
+            }
+        }
+
+
+
+        skillDescription.text = skill.Description;
+
+
+        gameObject.SetActive(true);
     }
 
-    void Update()
-    {
-        
-    }
-
-    public void SetActive(bool active)
-    {
-        IsActive = active;
-        gameObject.SetActive(IsActive);
+    public void Deactivate()
+	{
+        gameObject.SetActive(false);
     }
 }

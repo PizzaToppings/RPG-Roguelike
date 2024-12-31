@@ -9,6 +9,7 @@ public class BoardTile : MonoBehaviour
     SkillsManager skillsManager;
     SkillVFXManager skillVFXManager;
     UIManager uiManager;
+    UI_Singletons ui_Singletons;
 
     public bool IsOpen = false;
     public bool IsClosed = false;
@@ -56,6 +57,7 @@ public class BoardTile : MonoBehaviour
 
         boardManager = BoardManager.Instance;
         uiManager = UIManager.Instance;
+        ui_Singletons = UI_Singletons.Instance;
 
         DistanceTraveled = Mathf.Infinity;
         DistanceToTarget = Mathf.Infinity;
@@ -140,7 +142,7 @@ public class BoardTile : MonoBehaviour
 
         skill.SetTargetAndTile(currentUnit, this);
 
-        uiManager.SetCursor(SkillData.CurrentActiveSkill.Cursor);
+        ui_Singletons.SetCursor(SkillData.CurrentActiveSkill.Cursor);
     }
 
     public void PreviewAttackWithinRange()

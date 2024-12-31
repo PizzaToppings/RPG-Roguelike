@@ -159,7 +159,7 @@ public class Character : Unit
     public void StopCasting()
     {
         boardManager.Clear();
-        uiManager.SetCursor(CursorType.Normal);
+        ui_Singletons.SetCursor(CursorType.Normal);
         UnitData.CurrentAction = CurrentActionKind.Basic;
 		SkillData.Reset();
 		boardManager.SetAOE(MoveSpeedLeft, Tile, null);

@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: TileEffectTest_Main
   m_EditorClassIdentifier: 
-  SkillName: TileEffect
+  SkillName: TileEffect skillTest
   Image: {fileID: 21300000, guid: b2db0c0e45d66e940ae5c3d8269ec7b0, type: 3}
   Image_Inactive: {fileID: 0}
-  Classes: 
+  IsBasic: 0
+  IsConsumable: 0
+  Classes: 0500000002000000
   Description: 
   SkillPartGroups:
   - CastOnTile: 1
@@ -23,8 +25,8 @@ MonoBehaviour:
     skillParts:
     - {fileID: 11400000, guid: 400823ee1b114c7488d8f0ed4b2c87ad, type: 2}
   EnergyCost: 30
-  DafaultCharges: 2
-  Charges: 0
+  DefaultCharges: 1
+  Charges: 1
   TargetKind: 0
   Cursor: 0
   castLockColor:

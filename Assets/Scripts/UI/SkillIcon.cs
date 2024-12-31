@@ -5,9 +5,7 @@ using TMPro;
 public class SkillIcon : MonoBehaviour
 {
     SkillsManager skillsManager;
-
-    [HideInInspector] public InfoScreen infoScreen;
-    [HideInInspector] public string infoText;
+    UIManager uiManager;
 
     SO_MainSkill skill;
 
@@ -24,18 +22,12 @@ public class SkillIcon : MonoBehaviour
     public void Init()
     {
         skillsManager = SkillsManager.Instance;
-        infoScreen = InfoScreen.Instance;
-    }
-
-    public void Update()
-    {
-        ShowInformation();
+        uiManager = UIManager.Instance;
     }
 
     public void SetOrUpdate(SO_MainSkill thisSkill) 
     {
         skill = thisSkill;
-        infoText = skill.Description;
         SetIcon();
         SetCharges();
     }
@@ -81,30 +73,25 @@ public class SkillIcon : MonoBehaviour
 
     public void OnPointerEnter() 
     {
-        isHovering = true;
+        if (skill == null)
+            return;
+
+        uiManager.StartShowSkillInformation(skill);
     }
 
     public void OnPointerClick()
     {
+        if (skill == null)
+            return; 
+        
         CastSkill();
     }
 
     public void OnPointerExit() 
     {
-        isHovering = false;
-        infoScreen.SetActive(false);
-    }
-
-    void ShowInformation()
-    {
-        //if (isHovering && !infoScreen.IsActive)
-        //{
-        //    infoTimer += Time.deltaTime;
-            
-        //    if (infoTimer > infoDelay) 
-        //    {
-        //        infoScreen.SetActive(true);
-        //    }
-        //}
+        if (skill == null)
+            return; 
+        
+        uiManager.EndShowSkillInformation(skill);
     }
 }

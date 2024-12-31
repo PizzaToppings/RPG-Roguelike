@@ -12,6 +12,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] StatusEffectManager statusEffectManager;
     [SerializeField] SkillVFXManager skillVFXManager;
     [SerializeField] UIManager uiManager;
+    [SerializeField] UI_Singletons ui_Singletons;
     [SerializeField] InputManager inputManager;
     [SerializeField] ConsumableManager consumableManager;
 
@@ -35,6 +36,7 @@ public class CombatManager : MonoBehaviour
     void CreateInstances()
     {
         uiManager.CreateInstance();
+        ui_Singletons.CreateInstance();
         boardManager.CreateInstance();
         unitManager.CreateInstance();
         statusEffectManager.CreateInstance();

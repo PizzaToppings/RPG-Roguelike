@@ -84,7 +84,7 @@ public class Enemy : Unit
 
         skill.SetTargetAndTile(this, Tile);
 
-        uiManager.SetCursor(SkillData.CurrentActiveSkill.Cursor);
+        ui_Singletons.SetCursor(SkillData.CurrentActiveSkill.Cursor);
             
         if (attackRange > 1.5f) // so more than melee
             skillVFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position, 1);
@@ -122,7 +122,7 @@ public class Enemy : Unit
 
     public void UnTargetEnemy()
 	{
-        uiManager.SetCursor(CursorType.Normal);
+        ui_Singletons.SetCursor(CursorType.Normal);
 
         if (closestTile != null && 
             (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))

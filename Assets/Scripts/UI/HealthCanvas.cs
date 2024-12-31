@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HealthCanvas : MonoBehaviour
 {
-    [SerializeField] DamageTypeColor damageTypeColor;
+    UI_Singletons ui_Singletons;
 
     public GameObject HealthBar;
     public Transform HealthBarCanvas;
@@ -30,7 +30,7 @@ public class HealthCanvas : MonoBehaviour
 
     public void ShowDamageNumber(DamageData data)
     {
-        var color = damageTypeColor.GetDamageTypeColor(data.DamageType);
+        var color = ui_Singletons.GetDamageTypeColor(data.DamageType);
         var dn = Instantiate(DamageNumber, DamageNumbersCanvas);
         var damageNumber = dn.GetComponent<FloatingDamageNumber>();
         damageNumber.Init(data, color);

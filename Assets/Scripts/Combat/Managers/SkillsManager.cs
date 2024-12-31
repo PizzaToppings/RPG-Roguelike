@@ -16,12 +16,10 @@ public class SkillsManager : MonoBehaviour
 
     float displacementVertexCount = 12;
 
-
     public void CreateInstance()
     {
         Instance = this;
     }
-
 
     public void Init()
     {

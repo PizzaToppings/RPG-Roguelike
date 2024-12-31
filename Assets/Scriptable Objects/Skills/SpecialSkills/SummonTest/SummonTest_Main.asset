@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: SummonTest_Main
   m_EditorClassIdentifier: 
+  SkillName: Summon
   Image: {fileID: 21300000, guid: db9729d4e1fac2e45b3c826e2eea47b7, type: 3}
   Image_Inactive: {fileID: 0}
-  Classes: 
+  IsBasic: 0
+  IsConsumable: 0
+  Classes: 0600000007000000
   Description: 
   SkillPartGroups:
   - CastOnTile: 1
@@ -22,8 +25,8 @@ MonoBehaviour:
     skillParts:
     - {fileID: 11400000, guid: 21e93e3995a03264781246f308a5c61f, type: 2}
   EnergyCost: 50
-  DafaultCharges: 1
-  Charges: 0
+  DefaultCharges: 1
+  Charges: 1
   TargetKind: 0
   Cursor: 0
   castLockColor:
