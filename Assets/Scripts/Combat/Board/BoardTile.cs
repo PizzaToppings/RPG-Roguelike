@@ -8,7 +8,6 @@ public class BoardTile : MonoBehaviour
     BoardManager boardManager;
     SkillsManager skillsManager;
     SkillVFXManager skillVFXManager;
-    UIManager uiManager;
     UI_Singletons ui_Singletons;
 
     public bool IsOpen = false;
@@ -50,13 +49,12 @@ public class BoardTile : MonoBehaviour
         edgeMaterials = new Material[4];
 
         centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[4];
-        edgeMaterials[0] = gameObject.GetComponent<MeshRenderer>().materials[1];//2, up
-        edgeMaterials[1] = gameObject.GetComponent<MeshRenderer>().materials[2];//1, right
-        edgeMaterials[2] = gameObject.GetComponent<MeshRenderer>().materials[3];//4, bottom
-        edgeMaterials[3] = gameObject.GetComponent<MeshRenderer>().materials[0];//3, left
+        edgeMaterials[0] = gameObject.GetComponent<MeshRenderer>().materials[1];// up
+        edgeMaterials[1] = gameObject.GetComponent<MeshRenderer>().materials[2];// right
+        edgeMaterials[2] = gameObject.GetComponent<MeshRenderer>().materials[3];// bottom
+        edgeMaterials[3] = gameObject.GetComponent<MeshRenderer>().materials[0];// left
 
         boardManager = BoardManager.Instance;
-        uiManager = UIManager.Instance;
         ui_Singletons = UI_Singletons.Instance;
 
         DistanceTraveled = Mathf.Infinity;

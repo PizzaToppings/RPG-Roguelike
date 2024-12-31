@@ -177,9 +177,10 @@ public class Character : Unit
     public override IEnumerator StartTurn()
     {
         yield return null;
+		UnitData.CurrentAction = CurrentActionKind.Basic;
+
         StartCoroutine(base.StartTurn());
 
-		UnitData.CurrentAction = CurrentActionKind.Basic;
         Energy = MaxEnergy;
     }
 }
