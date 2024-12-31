@@ -75,8 +75,6 @@ public class Unit : UnitStats
 
     public virtual void SetStats()
     {
-        // TODO: Get stats, not randomize
-        UnitName = gameObject.name;
         MoveSpeed = Random.Range(5, 15);
     }
 

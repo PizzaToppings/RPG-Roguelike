@@ -29460,7 +29460,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1096990947188657894, guid: 189e60a80a4e114438289d8f75065699,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2038508505}
+      addedObject: {fileID: 2038508507}
   m_SourcePrefab: {fileID: 100100000, guid: 189e60a80a4e114438289d8f75065699, type: 3}
 --- !u!4 &1101461968 stripped
 Transform:
@@ -52677,6 +52677,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Placeholder
       objectReference: {fileID: 0}
+    - target: {fileID: 2543615310278023571, guid: 189e60a80a4e114438289d8f75065699,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7147191967936844735, guid: 189e60a80a4e114438289d8f75065699,
         type: 3}
       propertyPath: m_RootOrder
@@ -52762,8 +52767,7 @@ PrefabInstance:
       propertyPath: 'Resistances.Array.data[4]'
       value: 7
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8613615852237628898, guid: 189e60a80a4e114438289d8f75065699, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -52774,7 +52778,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1096990947188657894, guid: 189e60a80a4e114438289d8f75065699,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1987000471}
+      addedObject: {fileID: 1987000473}
   m_SourcePrefab: {fileID: 100100000, guid: 189e60a80a4e114438289d8f75065699, type: 3}
 --- !u!4 &1987000469 stripped
 Transform:
@@ -52782,7 +52786,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1987000468}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1987000471
+--- !u!136 &1987000472
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403673639}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.32
+  m_Height: 1.93
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.91, z: 0}
+--- !u!114 &1987000473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52791,10 +52818,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1403673639}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6bf860c6cf636c448b07cb1363a6a1d, type: 3}
+  m_Script: {fileID: 11500000, guid: b3656261ab7bc5f4396aab09cd9f1a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitName: 
+  UnitName: Test Dummy 1
   Friendly: 0
   Summon: 0
   MaxHitpoints: 30
@@ -52804,11 +52831,11 @@ MonoBehaviour:
   MoveSpeedLeft: 0
   Initiative: 0
   IsTargeted: 0
-  PhysicalPower: 56
-  MagicalPower: 25
-  PhysicalDefense: 35
-  MagicalDefense: 35
-  Resistances: 05000000
+  PhysicalPower: 50
+  MagicalPower: 50
+  PhysicalDefense: 50
+  MagicalDefense: 50
+  Resistances: 
   Vulnerabilities: 
   statusEffects: []
   Tile: {fileID: 0}
@@ -52839,29 +52866,6 @@ MonoBehaviour:
   startYPosition: 8
   MouseOver: 0
   PossibleMovementTiles: []
---- !u!136 &1987000472
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403673639}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.32
-  m_Height: 1.93
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.91, z: 0}
 --- !u!114 &1987272036 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4473422043703298615, guid: 633e76ebe8981104e92c3b4dde93ebb9,
@@ -54267,7 +54271,30 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1101461967}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2038508505
+--- !u!136 &2038508506
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038508503}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.32
+  m_Height: 1.93
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.91, z: 0}
+--- !u!114 &2038508507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54276,24 +54303,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2038508503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6bf860c6cf636c448b07cb1363a6a1d, type: 3}
+  m_Script: {fileID: 11500000, guid: b3656261ab7bc5f4396aab09cd9f1a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitName: 
+  UnitName: Test Dummy 1
   Friendly: 0
   Summon: 0
-  MaxHitpoints: 40
-  Hitpoints: 40
+  MaxHitpoints: 30
+  Hitpoints: 30
   ShieldPoints: 0
   MoveSpeed: 0
   MoveSpeedLeft: 0
   Initiative: 0
   IsTargeted: 0
-  PhysicalPower: 0
-  MagicalPower: 0
-  PhysicalDefense: 40
-  MagicalDefense: 35
-  Resistances: 05000000
+  PhysicalPower: 50
+  MagicalPower: 50
+  PhysicalDefense: 50
+  MagicalDefense: 50
+  Resistances: 
   Vulnerabilities: 
   statusEffects: []
   Tile: {fileID: 0}
@@ -54324,29 +54351,6 @@ MonoBehaviour:
   startYPosition: 8
   MouseOver: 0
   PossibleMovementTiles: []
---- !u!136 &2038508506
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038508503}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.32
-  m_Height: 1.93
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.91, z: 0}
 --- !u!114 &2053176777 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4473422043703298615, guid: 633e76ebe8981104e92c3b4dde93ebb9,
