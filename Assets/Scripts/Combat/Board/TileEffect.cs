@@ -15,6 +15,9 @@ public class TileEffect
         _damageEffect.Caster = UnitData.ActiveUnit;
         _duration = originalTileEffect.MaxDuration;
 
+        _tile.hasTileEffect = true;
+        _tile.tileEffectColor = originalTileEffect.tileColor;
+
         SetTriggerMoment();
 
         CombatData.onTurnStart.AddListener(ReduceDuration);
@@ -73,6 +76,12 @@ public class TileEffect
 
     void RemoveEffect()
     {
+        if (_tile.tileEffectColor == _originalTileEffect.tileColor)
+		{
+            _tile.hasTileEffect = false;
+            _tile.tileEffectColor = null;
+		}
+
         switch (_originalTileEffect.TriggerMoment)
         {
             case TileTriggerMomentEnum.OnEnterTile:

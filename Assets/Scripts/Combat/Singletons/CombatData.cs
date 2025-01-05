@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
-public class CombatData : MonoBehaviour
+public class CombatData
 {
     public static int currentRound = 0;
 

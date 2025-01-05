@@ -43,6 +43,8 @@ public class BoardTile : MonoBehaviour
     [HideInInspector] public Unit currentUnit = null;
 
     [HideInInspector] public TileColor currentTileColor = new TileColor();
+    public bool hasTileEffect = false;
+    public TileColor tileEffectColor = null;
 
     [HideInInspector] public Vector3 position => transform.position;
 
@@ -198,9 +200,19 @@ public class BoardTile : MonoBehaviour
         boardManager.StopShowingMovement();
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
-            OverrideColor(boardManager.MovementColor);
+		{
+            if (hasTileEffect)
+                OverrideColor(tileEffectColor);
+            else
+                OverrideColor(boardManager.MovementColor);
+		}
         else if (UnitData.CurrentAction == CurrentActionKind.Basic)
-            OverrideColor(boardManager.originalColor);
+		{
+            if (hasTileEffect)
+                OverrideColor(tileEffectColor);
+            else
+                OverrideColor(boardManager.originalColor);
+		}
         else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
             boardManager.VisualClear();

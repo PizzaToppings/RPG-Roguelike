@@ -7,8 +7,10 @@ public class SO_TileEffect : ScriptableObject
 	public TileTriggerMomentEnum TriggerMoment;
 	public TileTriggerEffectEnum TriggerEffect;
 
-	public DamageEffect damageEffect;
+	[Space]
+	public TileColor tileColor = new TileColor();
 
 	[Space]
+	public DamageEffect damageEffect;
 	public int MaxDuration = 1;
 }
