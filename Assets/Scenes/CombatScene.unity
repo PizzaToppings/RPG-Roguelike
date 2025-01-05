@@ -7811,7 +7811,8 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[3]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 28ab132f1bdb5b34c850f92dd8264017,
+        type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: skillshot.Array.size

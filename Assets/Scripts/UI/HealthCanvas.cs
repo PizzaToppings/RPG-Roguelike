@@ -14,6 +14,8 @@ public class HealthCanvas : MonoBehaviour
 
     public void Init()
     {
+        ui_Singletons = UI_Singletons.Instance;
+
         foreach (var unit in UnitData.Enemies)
         {
             CreateHealthbar(unit);

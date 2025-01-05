@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class BoardTile : MonoBehaviour
@@ -13,7 +14,8 @@ public class BoardTile : MonoBehaviour
     public bool IsOpen = false;
     public bool IsClosed = false;
 
-    [HideInInspector] public List<TileEffect> tileEffects = new List<TileEffect>();
+    public UnityEvent OnEnterTileEvent = new UnityEvent();
+    public UnityEvent OnExitTileEvent = new UnityEvent();
 
     [HideInInspector] public bool IsBehindClosedTile = false;
     [HideInInspector] public bool IsBlocked => IsOpen || IsClosed;
@@ -205,6 +207,23 @@ public class BoardTile : MonoBehaviour
             skillVFXManager.EndProjectileLine();
             SkillData.CurrentActiveSkill.Preview(null);
         }
+    }
+
+    public void OnEnterTile(Unit unit)
+	{
+        currentUnit = unit;
+        unit.Tile = this;
+
+        if (OnEnterTileEvent != null)
+            OnEnterTileEvent.Invoke();
+	}
+
+    public void OnExitTile()
+    {
+        currentUnit = null;
+
+        if (OnEnterTileEvent != null)
+            OnExitTileEvent.Invoke();
     }
 
     public void SetColor(TileColor color)

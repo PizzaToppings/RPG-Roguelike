@@ -9,8 +9,8 @@ public class CombatData : MonoBehaviour
 
     public static int currentCharacterTurn = 0;
 
-    public static UnityEvent onTurnStart;
-    public static UnityEvent onTurnEnd;
-    public static UnityEvent onRoundStart;
-    public static UnityEvent onRoundEnd;
+    public static UnityEvent onTurnStart = new UnityEvent();
+    public static UnityEvent onTurnEnd = new UnityEvent();
+    public static UnityEvent onRoundStart = new UnityEvent();
+    public static UnityEvent onRoundEnd = new UnityEvent();
 }

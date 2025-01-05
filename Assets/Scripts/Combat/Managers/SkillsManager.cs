@@ -121,6 +121,7 @@ public class SkillsManager : MonoBehaviour
     {
         var skillVFX = skillPart.SkillVFX;
         var skillPartData = skillPart.PartData;
+        skillPart.DamageEffect.Caster = UnitData.ActiveUnit;
 
         if (skillVFX != null)
         {
@@ -146,19 +147,13 @@ public class SkillsManager : MonoBehaviour
 
     public void AddTileEffects(SO_Skillpart skillPart)
 	{
-        var tileEffects = new List<TileEffect>();
-
-        foreach (var te in skillPart.tileEffects)
-		{
-            var TE = new TileEffect();
-            TE.Init(te);
-
-            tileEffects.Add(TE);
-		}
-
         foreach (var tile in skillPart.PartData.TilesHit)
 		{
-            tile.tileEffects.AddRange(tileEffects);
+            foreach (var te in skillPart.tileEffects)
+            {
+                var TE = new TileEffect();
+                TE.Init(te, tile);
+            }
 		}
 	}
 
@@ -169,6 +164,7 @@ public class SkillsManager : MonoBehaviour
             case DisplacementEnum.Teleport:
                 StartCoroutine(TeleportUnit(displacement));
                 return;
+
             case DisplacementEnum.Move:
                 StartCoroutine(MoveUnit(displacement));
                 return;

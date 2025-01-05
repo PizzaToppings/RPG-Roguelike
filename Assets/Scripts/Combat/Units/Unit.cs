@@ -61,7 +61,6 @@ public class Unit : UnitStats
 
     public virtual void OnMouseDown()
     {
-        
     }
 
     public virtual void OnMouseExit()
@@ -93,7 +92,7 @@ public class Unit : UnitStats
         Vector3 startPosition = transform.position; 
         Vector3 endPosition;
 
-        Tile.currentUnit = null;
+        Tile.OnExitTile();
 
         for (int i = 0; i < path.Count; i++)
         {
@@ -104,19 +103,22 @@ public class Unit : UnitStats
 
             while (distanceLeft <= 1)
             {
+                // move to next tile
                 distanceLeft += Time.deltaTime * (1f + MoveSpeed * 0.1f);
                 transform.position = Vector3.Lerp(startPosition, endPosition, distanceLeft);
 
                 yield return new WaitForEndOfFrame();
             }
 
+            path[i].OnEnterTile(this);
+
             MoveSpeedLeft--;
             startPosition = endPosition;
+
+            if (i != path.Count - 1)
+                path[i].OnExitTile();
         }
         var endTile = path[path.Count-1];
-        
-        UnitData.ActiveUnit.Tile = endTile;
-        endTile.currentUnit = UnitData.ActiveUnit;
 
         UnitData.CurrentAction = CurrentActionKind.Basic;
         boardManager.Clear();

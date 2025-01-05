@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: Fireball_Main
   m_EditorClassIdentifier: 
+  SkillName: Fireball
   Image: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
   Image_Inactive: {fileID: 0}
+  IsBasic: 0
+  IsConsumable: 0
   Classes: 
   Description: This is a skill
   SkillPartGroups:
@@ -23,8 +26,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: cfed7e4fc7dc3564382e8f04cf6b5e54, type: 2}
     - {fileID: 11400000, guid: 3d9b45842d69b3443bfd4c1721be1ebd, type: 2}
   EnergyCost: 10
-  DafaultCharges: 2
-  Charges: 2
+  DefaultCharges: 1
+  Charges: 0
   TargetKind: 1
   Cursor: 3
   castLockColor:

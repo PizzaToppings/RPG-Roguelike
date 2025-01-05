@@ -34,8 +34,7 @@ public class SO_Skillpart : ScriptableObject
 
     [Space]
     [Header(" - Damage and Range")]
-    public DamageTypeEnum DamageType;
-    public int Power;
+    public DamageEffect DamageEffect;
     public float MinRange;
     public float MaxRange;
     [Space]

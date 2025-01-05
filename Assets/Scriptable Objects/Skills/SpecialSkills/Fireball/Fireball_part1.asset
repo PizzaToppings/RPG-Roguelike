@@ -33,15 +33,25 @@ MonoBehaviour:
     Priority: 6
   AddProjectileLine: 1
   ProjectileLineOffset: 1
-  DamageType: 0
-  Power: 0
-  Range: 8
-  IncludeInAutoMove: 1
   SkillVFX:
   - {fileID: 11400000, guid: fc3fd5987b4feab4da9292b76b33e037, type: 2}
+  DamageEffect:
+    Caster: {fileID: 0}
+    DamageType: 2
+    Power: 0
+    IsMagical: 0
+  MinRange: 0
+  MaxRange: 6
+  IncludeInAutoMove: 1
+  AffectedByBlockedTiles: 0
+  FreeSpacesOnly: 0
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets: []
   StatusEfects: []
   defaultStatusEffects: []
+  tileEffects: []
   displacementEffect: {fileID: 0}
+  SummonObject: {fileID: 0}
   SelectedTileColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}

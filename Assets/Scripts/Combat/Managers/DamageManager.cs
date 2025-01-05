@@ -19,70 +19,55 @@ public class DamageManager : MonoBehaviour
         statusEffectManager = StatusEffectManager.Instance;
     }
 
-    public DamageData GetDamageData(SO_Skillpart skill, Unit target)
+    public DamageData GetDamageData(DamageEffect damageEffect, Unit target)
     {
-        var caster = SkillData.Caster;
-        var damage = 0;
-
-        if (skill.DamageType == DamageTypeEnum.Healing || skill.DamageType == DamageTypeEnum.Shield)
-            damage = CalculateShieldOrHeals(skill, caster);
-        else
-            damage = CalculateDamage(skill, caster, target);
+        var caster = damageEffect.Caster;
+        
+        var damage = CalculateDamage(damageEffect, caster, target);
 
         DamageData data = new DamageData()
         {
-            DamageType = skill.DamageType,
+            DamageType = damageEffect.DamageType,
             Caster = caster,
-            MagicalDamage = skill.MagicalDamage,
+            MagicalDamage = damageEffect.IsMagical,
             Target = target,
             Damage = damage,
-            statusEffects = AddDefaultStatusEffects(skill)
+            //statusEffects = AddDefaultStatusEffects(skill)
         };
 
-        data.statusEffects.AddRange(skill.StatusEfects);
-
-        if (caster.OnDealDamage != null)
-            caster.OnDealDamage.Invoke(data);
+        //data.statusEffects.AddRange(skill.StatusEfects);
 
         return data;
     }
 
-    int CalculateDamage(SO_Skillpart skill, Unit caster, Unit target)
+    int CalculateDamage(DamageEffect damageEffect, Unit caster, Unit target)
 	{
-        var skillPower = skill.Power;
-        var power = skill.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
-        var defense = skill.MagicalDamage ? target.MagicalDefense : target.PhysicalDefense;
-        var typeModifier = GetTypeModifyer(skill, target);
+        var skillPower = damageEffect.Power;
+        var casterPower = damageEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
+        var targetDefense = damageEffect.IsMagical ? target.MagicalDefense : target.PhysicalDefense;
+        var typeModifier = GetTypeModifyer(damageEffect, target);
 
-        var damage = Mathf.CeilToInt(((10 * skillPower * power / defense) / 50) * typeModifier);
+        var damage = Mathf.CeilToInt((skillPower + casterPower - targetDefense) * typeModifier);
+
         return damage;
     }
 
-    int CalculateShieldOrHeals(SO_Skillpart skill, Unit caster)
-    {
-        var skillPower = skill.Power;
-        var power = skill.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
-
-        var healOrShieldAmount = Mathf.CeilToInt(10 * skillPower * power / 50);
-        return healOrShieldAmount;
-    }
-
-    float GetTypeModifyer(SO_Skillpart skill, Unit target)
+    float GetTypeModifyer(DamageEffect damageEffect, Unit target)
 	{
-        if (target.Resistances.Contains(skill.DamageType))
+        if (target.Resistances.Contains(damageEffect.DamageType))
             return 0.5f;
 
-        if (target.Vulnerabilities.Contains(skill.DamageType))
+        if (target.Vulnerabilities.Contains(damageEffect.DamageType))
             return 2;
 
         return 1;
     }
 
-    List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillpart skillshot)
+    List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillpart skill)
     {
         var statusEffects = new List<SO_StatusEffect>();
 
-        foreach (var dse in skillshot.defaultStatusEffects)
+        foreach (var dse in skill.defaultStatusEffects)
         {
             var statusEffect = ScriptableObject.CreateInstance<SO_StatusEffect>();
             statusEffect.statusEfectType = dse.statusEfectType;
@@ -101,24 +86,23 @@ public class DamageManager : MonoBehaviour
 
     IEnumerator DealDamageWithDelay(SO_Skillpart skillPart, float delay)
     {
-        var index = skillPart.SkillPartIndex;
-
         yield return new WaitForSeconds(delay);
+
+        DamageEffect damageEffect = skillPart.DamageEffect;
 
         foreach (var target in skillPart.PartData.TargetsHit)
         {
-            if (skillPart.Power > 0)
+            if (damageEffect.Power > 0)
             {
-                var data = GetDamageData(skillPart, target);
+                var data = GetDamageData(damageEffect, target);
 
-                if (skillPart.DamageType == DamageTypeEnum.Healing)
+                if (damageEffect.DamageType == DamageTypeEnum.Healing)
                     Heal(data);
-                else if (skillPart.DamageType == DamageTypeEnum.Shield)
+                else if (damageEffect.DamageType == DamageTypeEnum.Shield)
                     Shield(data);
                 else
                     DealDamage(data);
             }
-
         }
     }
 
@@ -139,8 +123,8 @@ public class DamageManager : MonoBehaviour
         if (statusEffectManager.UnitHasStatuseffect(target, StatusEfectEnum.Incapacitated))
             caster.statusEffects.Remove(incapacitated);
 
-        foreach (var statusEffect in data.statusEffects)
-            statusEffect.Apply(caster, target);
+        //foreach (var statusEffect in data.statusEffects)
+        //    statusEffect.Apply(caster, target);
     }
 
     public void TakeDotDamage(Unit target)
