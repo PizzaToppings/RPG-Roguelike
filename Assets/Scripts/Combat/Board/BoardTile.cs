@@ -201,18 +201,18 @@ public class BoardTile : MonoBehaviour
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
 		{
+            OverrideColor(boardManager.MovementColor);
+            
             if (hasTileEffect)
-                OverrideColor(tileEffectColor);
-            else
-                OverrideColor(boardManager.MovementColor);
-		}
+                SetColor(tileEffectColor);
+        }
         else if (UnitData.CurrentAction == CurrentActionKind.Basic)
 		{
+            OverrideColor(boardManager.originalColor);
+            
             if (hasTileEffect)
-                OverrideColor(tileEffectColor);
-            else
-                OverrideColor(boardManager.originalColor);
-		}
+                SetColor(tileEffectColor);
+        }
         else if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
             boardManager.VisualClear();

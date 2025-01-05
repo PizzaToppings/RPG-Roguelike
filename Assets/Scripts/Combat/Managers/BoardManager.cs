@@ -229,10 +229,10 @@ public class BoardManager : MonoBehaviour
 			tile.skillshotsRangeLeft = new List<float>();
             Path = new List<BoardTile>();
 
+            tile.OverrideColor(originalColor);
+            
             if (tile.hasTileEffect)
-                tile.OverrideColor(tile.tileEffectColor);
-            else
-                tile.OverrideColor(originalColor);
+                tile.SetColor(tile.tileEffectColor);
         }
         StopShowingMovement();
     }
@@ -243,10 +243,10 @@ public class BoardManager : MonoBehaviour
         {
 			tile.skillshotsRangeLeft = new List<float>();
 
+            tile.OverrideColor(originalColor);
+
             if (tile.hasTileEffect)
-                tile.OverrideColor(tile.tileEffectColor);
-            else
-                tile.OverrideColor(originalColor);
+                tile.SetColor(tile.tileEffectColor);
         }
         StopShowingMovement();
     }
