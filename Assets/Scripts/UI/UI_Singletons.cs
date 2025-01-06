@@ -6,7 +6,7 @@ public class UI_Singletons : MonoBehaviour
 
     CursorMode cursorMode = CursorMode.ForceSoftware;
 
-    [Space]
+    [Header(" - Cursors")]
     [SerializeField] Texture2D DefaultCursorTexture;
     [SerializeField] Texture2D MeleeAttackCursorTexture;
     [SerializeField] Texture2D RangedAttackCursorTexture;
@@ -14,6 +14,7 @@ public class UI_Singletons : MonoBehaviour
     [SerializeField] Texture2D CrossCursorTexture;
 
     [Space]
+    [Header(" - Class Icons")]
     [SerializeField] Sprite AthleticsIcon;
     [SerializeField] Sprite AcrobaticsIcon;
     [SerializeField] Sprite MarksmanshipIcon;
@@ -26,6 +27,7 @@ public class UI_Singletons : MonoBehaviour
     [SerializeField] Sprite UnholyIcon;
 
     [Space]
+    [Header(" - Damage Colors")]
     [SerializeField] Color PhysicalDamageColor;
     [SerializeField] Color ArcaneDamageColor;
     [SerializeField] Color FireDamageColor;
@@ -39,6 +41,21 @@ public class UI_Singletons : MonoBehaviour
     [SerializeField] Color PoisonDamageColor;
     [SerializeField] Color HealingColor;
     [SerializeField] Color ShieldColor;
+
+    [Space]
+    [Header(" - Status Icons")]
+    [SerializeField] Sprite BleedIcon;
+    [SerializeField] Sprite PoisonIcon;
+    [SerializeField] Sprite BurnedIcon;
+    [SerializeField] Sprite HiddenIcon;
+    [SerializeField] Sprite BlindedIcon;
+    [SerializeField] Sprite SilencedIcon;
+    [SerializeField] Sprite FrightenedIcon;
+    [SerializeField] Sprite IncapacitatedIcon;
+    [SerializeField] Sprite StunnedIcon;
+    [SerializeField] Sprite RootedIcon;
+    [SerializeField] Sprite TauntIcon;
+    [SerializeField] Sprite ThornsIcon;
 
 
 
@@ -106,7 +123,7 @@ public class UI_Singletons : MonoBehaviour
         return UnholyIcon;
 }
 
-public void SetCursor(CursorType cursorType)
+    public void SetCursor(CursorType cursorType)
     {
         Texture2D texture = DefaultCursorTexture;
 
@@ -127,5 +144,38 @@ public void SetCursor(CursorType cursorType)
         }
 
         Cursor.SetCursor(texture, Vector2.zero, cursorMode);
+    }
+
+    public Sprite GetStatusIcon(StatusEfectEnum statusEfect)
+	{
+		switch (statusEfect)
+		{
+            case StatusEfectEnum.Bleed:
+                return BleedIcon;
+            case StatusEfectEnum.Poison:
+                return PoisonIcon;
+            case StatusEfectEnum.Burn:
+                return BurnedIcon;
+            case StatusEfectEnum.Hidden:
+                return HiddenIcon;
+            case StatusEfectEnum.Blinded:
+                return BlindedIcon;
+            case StatusEfectEnum.Silenced:
+                return SilencedIcon;
+            case StatusEfectEnum.Frightened:
+                return FrightenedIcon;
+            case StatusEfectEnum.Incapacitated:
+                return IncapacitatedIcon;
+            case StatusEfectEnum.Stunned:
+                return StunnedIcon;
+            case StatusEfectEnum.Rooted:
+                return RootedIcon;
+            case StatusEfectEnum.Taunt:
+                return TauntIcon;
+            case StatusEfectEnum.Thorns:
+                return ThornsIcon;
+
+        }
+        return null;
     }
 }

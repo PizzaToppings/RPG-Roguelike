@@ -19,13 +19,13 @@ public class DamageManager : MonoBehaviour
         statusEffectManager = StatusEffectManager.Instance;
     }
 
-    public DamageData GetDamageData(DamageEffect damageEffect, Unit target)
+    public DamageDataCalculated GetDamageData(DamageData damageEffect, Unit target)
     {
         var caster = damageEffect.Caster;
         
         var damage = CalculateDamage(damageEffect, caster, target);
 
-        DamageData data = new DamageData()
+        DamageDataCalculated data = new DamageDataCalculated()
         {
             DamageType = damageEffect.DamageType,
             Caster = caster,
@@ -40,7 +40,7 @@ public class DamageManager : MonoBehaviour
         return data;
     }
 
-    int CalculateDamage(DamageEffect damageEffect, Unit caster, Unit target)
+    int CalculateDamage(DamageData damageEffect, Unit caster, Unit target)
 	{
         var skillPower = damageEffect.Power;
         var casterPower = damageEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
@@ -52,7 +52,7 @@ public class DamageManager : MonoBehaviour
         return damage;
     }
 
-    float GetTypeModifyer(DamageEffect damageEffect, Unit target)
+    float GetTypeModifyer(DamageData damageEffect, Unit target)
 	{
         if (target.Resistances.Contains(damageEffect.DamageType))
             return 0.5f;
@@ -63,20 +63,20 @@ public class DamageManager : MonoBehaviour
         return 1;
     }
 
-    List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillpart skill)
-    {
-        var statusEffects = new List<SO_StatusEffect>();
+    //List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillpart skill)
+    //{
+    //    var statusEffects = new List<SO_StatusEffect>();
 
-        foreach (var dse in skill.defaultStatusEffects)
-        {
-            var statusEffect = ScriptableObject.CreateInstance<SO_StatusEffect>();
-            statusEffect.statusEfectType = dse.statusEfectType;
-            statusEffect.duration = dse.Duration;
+    //    foreach (var dse in skill.defaultStatusEffects)
+    //    {
+    //        var statusEffect = ScriptableObject.CreateInstance<SO_StatusEffect>();
+    //        statusEffect.statusEfectType = dse.statusEfectType;
+    //        statusEffect.duration = dse.Duration;
 
-            statusEffects.Add(statusEffect);
-        }
-        return statusEffects;
-    }
+    //        statusEffects.Add(statusEffect);
+    //    }
+    //    return statusEffects;
+    //}
 
 
     public void DealDamageSetup(SO_Skillpart skillPart, float delay)
@@ -88,7 +88,7 @@ public class DamageManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        DamageEffect damageEffect = skillPart.DamageEffect;
+        DamageData damageEffect = skillPart.DamageEffect;
 
         foreach (var target in skillPart.PartData.TargetsHit)
         {
@@ -106,7 +106,7 @@ public class DamageManager : MonoBehaviour
         }
     }
 
-    public void DealDamage(DamageData data)
+    public void DealDamage(DamageDataCalculated data)
     {
         var caster = data.Caster;
         var target = data.Target;
@@ -122,26 +122,9 @@ public class DamageManager : MonoBehaviour
         var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
         if (statusEffectManager.UnitHasStatuseffect(target, StatusEfectEnum.Incapacitated))
             caster.statusEffects.Remove(incapacitated);
-
-        //foreach (var statusEffect in data.statusEffects)
-        //    statusEffect.Apply(caster, target);
     }
 
-    public void TakeDotDamage(Unit target)
-    {
-        var DoTs = statusEffectManager.GetDoTEffects(target);
-
-        foreach (var DoT in DoTs)
-        {
-            var damage = DoT.Damage;
-            if (target.Resistances.Contains(DoT.DamageType))
-                damage = Mathf.CeilToInt(damage / 2f);
-
-            Debug.Log(DoT.Caster.UnitName + " dotted " + target.UnitName + " for " + damage + " damage.");
-        }
-    }
-
-    void Heal(DamageData data)
+    void Heal(DamageDataCalculated data)
     {
         var caster = data.Caster;
         var target = data.Target;
@@ -155,12 +138,9 @@ public class DamageManager : MonoBehaviour
 
         if (data.Damage == 0)
             return;
-
-        foreach (var statusEffect in data.statusEffects)
-            statusEffect.Apply(caster, target);
     }
 
-    void Shield(DamageData data)
+    void Shield(DamageDataCalculated data)
     {
         var caster = data.Caster;
         var target = data.Target;
@@ -172,8 +152,5 @@ public class DamageManager : MonoBehaviour
 
         if (data.Damage == 0)
             return;
-
-        foreach (var statusEffect in data.statusEffects)
-            statusEffect.Apply(caster, target);
     }
 }

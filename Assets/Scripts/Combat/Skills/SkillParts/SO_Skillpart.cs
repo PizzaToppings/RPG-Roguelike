@@ -34,7 +34,7 @@ public class SO_Skillpart : ScriptableObject
 
     [Space]
     [Header(" - Damage and Range")]
-    public DamageEffect DamageEffect;
+    public DamageData DamageEffect;
     public float MinRange;
     public float MaxRange;
     [Space]
@@ -50,7 +50,6 @@ public class SO_Skillpart : ScriptableObject
     [Space]
     [Header(" - StatusEffects and other Effects")]
     public List<SO_StatusEffect> StatusEfects;
-    public List<DefaultStatusEffect> defaultStatusEffects;
     public List<SO_TileEffect> tileEffects;
     public SO_DisplacementEffect displacementEffect;
     public GameObject SummonObject;

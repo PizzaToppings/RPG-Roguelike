@@ -4,7 +4,7 @@ public class TileEffect
 {
     SO_TileEffect _originalTileEffect;
     BoardTile _tile;
-    DamageEffect _damageEffect;
+    DamageData _damageEffect;
     int _duration;
 
     public void Init(SO_TileEffect originalTileEffect, BoardTile tile)
@@ -20,14 +20,11 @@ public class TileEffect
 
         SetTriggerMoment();
 
-        CombatData.onTurnStart.AddListener(ReduceDuration);
+        UnitData.ActiveUnit.OnUnitTurnStartEvent.AddListener(ReduceDuration);
     }
 
     void ReduceDuration()
 	{
-        if (UnitData.ActiveUnit != _damageEffect.Caster)
-            return;
-
         _duration--;
 
         if (_duration == 0)

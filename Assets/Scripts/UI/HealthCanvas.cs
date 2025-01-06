@@ -30,7 +30,7 @@ public class HealthCanvas : MonoBehaviour
         unit.ThisHealthbar = healthbar;
     }
 
-    public void ShowDamageNumber(DamageData data)
+    public void ShowDamageNumber(DamageDataCalculated data)
     {
         var color = ui_Singletons.GetDamageTypeColor(data.DamageType);
         var dn = Instantiate(DamageNumber, DamageNumbersCanvas);

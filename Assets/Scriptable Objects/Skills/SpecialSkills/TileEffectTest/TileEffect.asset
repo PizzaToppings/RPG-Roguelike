@@ -15,4 +15,13 @@ MonoBehaviour:
   TileEffectName: Testeroni
   TriggerMoment: 0
   TriggerEffect: 0
-  MaxDuration: 1
+  tileColor:
+    FillCenter: 1
+    Color: {r: 0.6392157, g: 0.05406728, b: 0.05406728, a: 1}
+    Priority: 11
+  damageEffect:
+    Caster: {fileID: 0}
+    DamageType: 2
+    Power: 5
+    IsMagical: 1
+  MaxDuration: 2

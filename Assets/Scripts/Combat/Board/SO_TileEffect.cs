@@ -11,6 +11,6 @@ public class SO_TileEffect : ScriptableObject
 	public TileColor tileColor = new TileColor();
 
 	[Space]
-	public DamageEffect damageEffect;
+	public DamageData damageEffect;
 	public int MaxDuration = 1;
 }

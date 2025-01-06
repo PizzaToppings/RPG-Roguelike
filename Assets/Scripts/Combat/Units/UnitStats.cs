@@ -26,7 +26,7 @@ public class UnitStats : MonoBehaviour
 	public List<DamageTypeEnum> Resistances;
 	public List<DamageTypeEnum> Vulnerabilities;
 
-    public List<DefaultStatusEffect> statusEffects = new List<DefaultStatusEffect>();
+    public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     public BoardTile Tile = null;
 

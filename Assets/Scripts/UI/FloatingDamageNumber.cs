@@ -6,7 +6,7 @@ public class FloatingDamageNumber : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] AnimationCurve bounceCurve;
 
-    DamageData damageData;
+    DamageDataCalculated damageData;
 
     float duration = 0.8f;
     float fadeDuration = 0.3f;
@@ -17,7 +17,7 @@ public class FloatingDamageNumber : MonoBehaviour
     float sideMovementValue = 0;
     float bounceValue = 0;
 
-    public void Init(DamageData data, Color textColor)
+    public void Init(DamageDataCalculated data, Color textColor)
     {
         damageData = data;
 

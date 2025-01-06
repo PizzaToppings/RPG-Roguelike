@@ -13,6 +13,7 @@ public class SkillsManager : MonoBehaviour
     InputManager inputManager;
     UnitManager unitManager;
     ConsumableManager consumableManager;
+    StatusEffectManager statusEffectManager;
 
     float displacementVertexCount = 12;
 
@@ -30,6 +31,7 @@ public class SkillsManager : MonoBehaviour
         inputManager = InputManager.Instance;
         unitManager = UnitManager.Instance;
         consumableManager = ConsumableManager.Instance;
+        statusEffectManager = StatusEffectManager.Instance;
     }
 
     public void SetSkills(Character character)
@@ -123,18 +125,21 @@ public class SkillsManager : MonoBehaviour
         var skillPartData = skillPart.PartData;
         skillPart.DamageEffect.Caster = UnitData.ActiveUnit;
 
+        if (skillPart.displacementEffect != null)
+            DisplaceUnit(skillPart.displacementEffect);
+
+        if (skillPart.SummonObject != null)
+            unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);
+
+        if (skillPart.tileEffects.Count > 0)
+            AddTileEffects(skillPart);
+
+        if (skillPart.StatusEfects.Count > 0)
+            skillPart.StatusEfects.ForEach(x => statusEffectManager.ApplyStatusEffect(x, skillPartData.TargetsHit));
+
         if (skillVFX != null)
         {
-            if (skillPart.displacementEffect != null) 
-                DisplaceUnit(skillPart.displacementEffect);
-
-            if (skillPart.SummonObject != null)
-                unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);
-
-            if (skillPart.tileEffects.Count > 0)
-                AddTileEffects(skillPart);
-
-            foreach (var SFX in skillVFX)
+			foreach (var SFX in skillVFX)
 			{
                 if (SFX.ShowDamage)
                     damageManager.DealDamageSetup(skillPart, SFX.ShowDamageDelay);

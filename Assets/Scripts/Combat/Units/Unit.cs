@@ -15,11 +15,11 @@ public class Unit : UnitStats
     [HideInInspector] public UIManager uiManager;
     [HideInInspector] public UI_Singletons ui_Singletons;
 
-    [HideInInspector] public UnityEvent OnTurnStart;
-    [HideInInspector] public UnityEvent OnTurnEnd;
+    [HideInInspector] public UnityEvent OnUnitTurnStartEvent = new UnityEvent();
+    [HideInInspector] public UnityEvent OnUnitTurnEndEvent = new UnityEvent();
 
-    [HideInInspector] public UnityEvent<DamageData> OnDealDamage;
-    [HideInInspector] public UnityEvent<DamageData> OnTakeDamage;
+    [HideInInspector] public UnityEvent<DamageDataCalculated> OnDealDamage;
+    [HideInInspector] public UnityEvent<DamageDataCalculated> OnTakeDamage;
     [HideInInspector] public Animator modelAnimator;
 
     [HideInInspector] public Healthbar ThisHealthbar;
@@ -77,7 +77,7 @@ public class Unit : UnitStats
         MoveSpeed = Random.Range(5, 15);
     }
 
-    public virtual void RollInitiative()
+    public virtual void RollInitiative() // Move to a manager?
     {
         if (Friendly)
             Initiative = Random.Range(0, 4);
@@ -139,7 +139,7 @@ public class Unit : UnitStats
 
     void ReduceStatusEffects()
     {
-        var statusEffectToRemove = new  List<DefaultStatusEffect>();
+        var statusEffectToRemove = new  List<StatusEffect>();
 
         foreach (var statusEffect in statusEffects)
         {
@@ -193,8 +193,8 @@ public class Unit : UnitStats
     public virtual IEnumerator StartTurn()
     {
         yield return null;
-        if (OnTurnStart != null)
-            OnTurnStart.Invoke();
+        if (OnUnitTurnStartEvent != null)
+            OnUnitTurnStartEvent.Invoke();
 
         boardManager.Clear();
         SetStartOfTurnStats();
@@ -209,10 +209,8 @@ public class Unit : UnitStats
 
     public virtual void EndTurn()
     {
-        if (OnTurnEnd != null)
-            OnTurnEnd.Invoke();
-
-        damageManager.TakeDotDamage(this);
+        if (OnUnitTurnEndEvent != null)
+            OnUnitTurnEndEvent.Invoke();
 
         StartCoroutine(combatManager.EndTurn());
     }

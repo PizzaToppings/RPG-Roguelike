@@ -117,6 +117,7 @@ public class CombatManager : MonoBehaviour
     {
         if (CombatData.onTurnEnd != null)
             CombatData.onTurnEnd.Invoke();
+
         yield return new WaitForSeconds(1);
         TurnStart();
     }

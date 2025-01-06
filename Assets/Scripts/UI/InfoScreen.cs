@@ -46,10 +46,7 @@ public class InfoScreen : MonoBehaviour
             }
         }
 
-
-
         skillDescription.text = skill.Description;
-
 
         gameObject.SetActive(true);
     }

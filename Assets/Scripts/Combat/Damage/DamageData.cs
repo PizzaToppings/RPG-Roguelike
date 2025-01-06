@@ -1,13 +1,11 @@
-using System.Collections.Generic;
+using UnityEngine;
 
-public class DamageData 
+[System.Serializable]
+public class DamageData
 {
-    public DamageTypeEnum DamageType;
-    public bool MagicalDamage;
-    public int Damage;
-    public Unit Caster;
-    public Unit Target;
-    public List<SO_StatusEffect> statusEffects;
+    [HideInInspector] public Unit Caster;
 
-    // status effects
+    public DamageTypeEnum DamageType;
+    public int Power;
+    public bool IsMagical;
 }

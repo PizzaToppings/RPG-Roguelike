@@ -9,7 +9,7 @@ public enum ClassEnum { Athletics, Acrobatics, Marksmanship, Subtlety, Protectio
 
 // Damage etc
 public enum DamageTypeEnum {Physical, Arcane, Fire, Water, Earth, Ice, Electric, Psychic, Holy, Dark, Poison, Healing, Shield}
-public enum StatusEfectEnum {None, Blinded, Silenced, Charmed, Frightened, Incapacitated, Stunned, DoT, Rooted, Invisible, Unstoppable }
+public enum StatusEfectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Manaburn, Rooted, Taunt, Thorns, PhysicalDamage, PhysicalDefense, MagicalDamage, MagicalDefense }
 public enum DisplacementEnum { Teleport, Move }
 
 

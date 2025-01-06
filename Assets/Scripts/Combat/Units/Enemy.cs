@@ -27,8 +27,7 @@ public class Enemy : Unit
     public override IEnumerator StartTurn()
     {
         yield return null;
-        Debug.Log("starting enemy turn");
-        PossibleMovementTiles = new List<BoardTile>();
+        PossibleMovementTiles = new List<BoardTile>(); 
         StartCoroutine(base.StartTurn());
 
         //StartCoroutine(holdturnforasec());
@@ -140,7 +139,6 @@ public class Enemy : Unit
 
 	public override void EndTurn()
     {
-        Debug.Log("ending enemy turn");
         base.EndTurn();
     }
 }

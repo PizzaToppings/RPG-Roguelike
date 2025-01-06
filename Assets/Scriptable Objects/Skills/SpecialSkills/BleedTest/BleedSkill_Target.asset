@@ -9,29 +9,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbbc954076eb9c44bd1cbae407eb541, type: 3}
-  m_Name: halfCircleSkillshot
+  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
+  m_Name: BleedSkill_Target
   m_EditorClassIdentifier: 
   OriginTiles:
   - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
-  FinalDirection: 1
+  FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 0
+  TargetTileKind: 5
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
   tileColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    Priority: 10
-  AddProjectileLine: 0
+    Color: {r: 1, g: 0.22142233, b: 0.0047169924, a: 1}
+    Priority: 7
+  AddProjectileLine: 1
   ProjectileLineOffset: 1
   SkillVFX: []
   DamageEffect:
@@ -40,14 +40,20 @@ MonoBehaviour:
     Power: 0
     IsMagical: 0
   MinRange: 0
-  MaxRange: 0
+  MaxRange: 1
   IncludeInAutoMove: 0
-  AffectedByBlockedTiles: 0
+  AffectedByBlockedTiles: 1
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
   StatusEfects:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: f947dce6c69b24a458b295238895e4e7, type: 2}
+  - {fileID: 11400000, guid: f58aa4d811444914292d9d0a4205d846, type: 2}
   tileEffects: []
   displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
+  SelectedTargetTileColor:
+    FillCenter: 1
+    Color: {r: 1, g: 0.21960786, b: 0.003921569, a: 1}
+    Priority: 6
+  CanTargetSelf: 0
