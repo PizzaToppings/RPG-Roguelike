@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,6 +45,9 @@ public class Healthbar : MonoBehaviour
 
     void ShowStatusEffects()
 	{
+        if (ui_Singletons == null)
+            ui_Singletons = UI_Singletons.Instance;
+
         statusEffectImages.ForEach(x => x.enabled = false);
 
         int imageIndex = 0;

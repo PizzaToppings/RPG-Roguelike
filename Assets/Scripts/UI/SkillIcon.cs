@@ -15,10 +15,6 @@ public class SkillIcon : MonoBehaviour
     [SerializeField] GameObject chargesImage;
     [SerializeField] TextMeshProUGUI chargesText;
 
-   float infoDelay = 1.5f;
-   float infoTimer = 0;
-   bool isHovering = false;
-
     public void Init()
     {
         skillsManager = SkillsManager.Instance;
@@ -36,7 +32,7 @@ public class SkillIcon : MonoBehaviour
     {
         icon.gameObject.SetActive(true);
 
-        if (skillsManager.CanCastSkill(skill))
+        if (skillsManager.CanCastSkill(skill, UnitData.ActiveUnit))
             icon.sprite = skill.Image;
         else if (skill.Image_Inactive != null)
             icon.sprite = skill.Image_Inactive;

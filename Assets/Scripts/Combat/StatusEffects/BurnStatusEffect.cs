@@ -8,8 +8,6 @@ public class BurnStatusEffect : StatusEffect
 
 	public override void Apply()
 	{
-		base.Apply();
-
 		Target.OnUnitTurnEndEvent.AddListener(Burn);
 		Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Burn);
 	}
@@ -58,8 +56,6 @@ public class BurnStatusEffect : StatusEffect
 
 	public override void EndEffect()
 	{
-		base.EndEffect();
-
 		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Burn);
 		Target.OnUnitTurnEndEvent.RemoveListener(Burn);
 	}

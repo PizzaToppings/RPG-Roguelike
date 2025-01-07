@@ -32,6 +32,7 @@ public class SO_MainSkill : ScriptableObject
 
     public TileColor castLockColor;
 
+    public bool IsMagical;
 
     public virtual void Preview(BoardTile mouseOverTile, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {

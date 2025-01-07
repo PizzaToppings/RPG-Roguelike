@@ -10,7 +10,6 @@ public class SkillsManager : MonoBehaviour
     SkillVFXManager skillVFXManager;
     DamageManager damageManager;
     UIManager uiManager;
-    InputManager inputManager;
     UnitManager unitManager;
     ConsumableManager consumableManager;
     StatusEffectManager statusEffectManager;
@@ -28,7 +27,6 @@ public class SkillsManager : MonoBehaviour
         skillVFXManager = GetComponent<SkillVFXManager>();
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
-        inputManager = InputManager.Instance;
         unitManager = UnitManager.Instance;
         consumableManager = ConsumableManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;
@@ -244,8 +242,16 @@ public class SkillsManager : MonoBehaviour
         return skill.GetAttackRange();
     }
 
-    public bool CanCastSkill(SO_MainSkill skill)
+    public bool CanCastSkill(SO_MainSkill skill, Unit caster)
     {
+        // silenced
+        if (skill.IsMagical && statusEffectManager.UnitHasStatuseffect(caster, StatusEfectEnum.Silenced))
+            return false;
+
+        // blinded
+        if (skill.IsMagical == false && statusEffectManager.UnitHasStatuseffect(caster, StatusEfectEnum.Blinded))
+            return false;
+
         return skill.Charges != 0 &&
             (UnitData.ActiveUnit as Character).Energy >= skill.EnergyCost;
     }

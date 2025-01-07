@@ -103,7 +103,7 @@ public class Character : Unit
 
     public void ToggleSkill(SO_MainSkill skill)
     {
-        if (skillsManager.CanCastSkill(skill) == false)
+        if (skillsManager.CanCastSkill(skill, UnitData.ActiveUnit) == false)
             return;
 
 		boardManager.VisualClear();

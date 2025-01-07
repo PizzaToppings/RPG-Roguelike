@@ -57,8 +57,6 @@ public class UI_Singletons : MonoBehaviour
     [SerializeField] Sprite TauntIcon;
     [SerializeField] Sprite ThornsIcon;
 
-
-
     public void CreateInstance()
     {
         Instance = this;

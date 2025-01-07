@@ -52,8 +52,9 @@ public class Enemy : Unit
     public void TargetEnemy()
 	{
         var skill = SkillData.CurrentActiveSkill;
+        var caster = UnitData.ActiveUnit;
 
-        if (skillsManager.CanCastSkill(skill) == false) 
+        if (skillsManager.CanCastSkill(skill, caster) == false) 
             return;
 
         var attackRange = 0f;

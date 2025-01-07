@@ -6,8 +6,6 @@ public class PoisonStatusEffect : StatusEffect
 
 	public override void Apply()
 	{
-		base.Apply();
-
 		Target.OnUnitTurnEndEvent.AddListener(Poison);
 		Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Poison);
 	}
@@ -33,8 +31,6 @@ public class PoisonStatusEffect : StatusEffect
 
 	public override void EndEffect()
 	{
-		base.EndEffect();
-
 		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Poison);
 		Target.OnUnitTurnEndEvent.RemoveListener(Poison);
 	}

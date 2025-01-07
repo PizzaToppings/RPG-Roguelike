@@ -13,10 +13,22 @@ public class StatusEffect
 
     public virtual void Apply()
 	{
-	}
+        Target.OnUnitTurnEndEvent.AddListener(ReduceDuration);
+        Target.ThisHealthbar.AddStatusEffect(statusEfectType);
+    }
+
+    void ReduceDuration()
+    {
+        Duration--;
+
+        if (Duration == 0)
+            EndEffect();
+    }
 
     public virtual void EndEffect()
     {
+        Target.ThisHealthbar.RemoveStatusEffect(statusEfectType);
+        Target.OnUnitTurnEndEvent.RemoveListener(ReduceDuration);
     }
 }
 
