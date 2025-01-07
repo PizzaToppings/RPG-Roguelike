@@ -35,7 +35,7 @@ public class BleedStatusEffect : StatusEffect
 	{
 		base.EndEffect();
 
-		Target.ThisHealthbar.RemoveStatusEffect(statusEfectType);
+		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Bleed);
 		Target.OnUnitTurnEndEvent.RemoveListener(Bleed);
 	}
 }

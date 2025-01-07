@@ -24,6 +24,9 @@ public class StatusEffectManager : MonoBehaviour
                 case StatusEfectEnum.Poison:
                     statusEffect = CreatePoisonEffect(statusEffectSO, target);
                     break;
+                case StatusEfectEnum.Burn:
+                    statusEffect = CreateBurnEffect(statusEffectSO, target);
+                    break;
             }
 
             statusEffect.Apply();
@@ -60,6 +63,22 @@ public class StatusEffectManager : MonoBehaviour
         };
 
         return poisonStatusEffect;
+    }
+
+    public BurnStatusEffect CreateBurnEffect(SO_StatusEffect statusEffectSO, Unit target)
+    {
+        var burnStatusEffect = new BurnStatusEffect
+        {
+            Buff = false,
+            statusEfectType = statusEffectSO.StatusEfectType,
+            Duration = statusEffectSO.Duration,
+            IsMagical = statusEffectSO.IsMagical,
+            Caster = UnitData.ActiveUnit,
+            Target = target,
+            Power = statusEffectSO.Power
+        };
+
+        return burnStatusEffect;
     }
 
     public bool UnitHasStatuseffect(Unit unit, StatusEfectEnum statusEfect)

@@ -35,7 +35,7 @@ public class PoisonStatusEffect : StatusEffect
 	{
 		base.EndEffect();
 
-		Target.ThisHealthbar.RemoveStatusEffect(statusEfectType);
+		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Poison);
 		Target.OnUnitTurnEndEvent.RemoveListener(Poison);
 	}
 }

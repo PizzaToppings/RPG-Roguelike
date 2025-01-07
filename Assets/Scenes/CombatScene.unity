@@ -58024,7 +58024,7 @@ MonoBehaviour:
       m_Calls: []
   modelAnimator: {fileID: 0}
   ThisHealthbar: {fileID: 0}
-  startXPosition: 8
+  startXPosition: 11
   startYPosition: 8
   MouseOver: 0
   PossibleMovementTiles: []

@@ -127,7 +127,7 @@ public class BoardManager : MonoBehaviour
 		return tileDirectionIndex;
 	}
 
-    public List<BoardTile> getTilesWithinDirectRange(BoardTile starttile, float range)
+    public List<BoardTile> GetTilesWithinDirectRange(BoardTile starttile, float range, bool FreeSpacesOnly)
     {
         var tileList = new List<BoardTile>();
         foreach (var tile in BoardData.BoardTiles)
@@ -137,9 +137,11 @@ public class BoardManager : MonoBehaviour
 
             if (GetRangeBetweenTiles(starttile.Coordinates, tile.Coordinates) <= range)
 			{
-                if (tile.currentUnit == null || tile.currentUnit == UnitData.ActiveUnit)
+                if (!FreeSpacesOnly || tile.currentUnit == null || tile.currentUnit == UnitData.ActiveUnit)
+                {
                     tileList.Add(tile);
-			}
+                }
+            }
         }
 
         return tileList;
@@ -147,7 +149,7 @@ public class BoardManager : MonoBehaviour
 
     public List<BoardTile> GetTilesInDirectAttackRange(BoardTile tile, float attackRange, bool includeInMoveRange)
     {
-        var attackTilesInRange = getTilesWithinDirectRange(tile, attackRange);
+        var attackTilesInRange = GetTilesWithinDirectRange(tile, attackRange, true);
 
         if (includeInMoveRange)
 		{

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: BleedSkill_Main
+  m_Name: BurnSkill_Main
   m_EditorClassIdentifier: 
-  SkillName: Bleed
+  SkillName: Burn
   Image: {fileID: 21300000, guid: 0602ca026fec6bd44b65da95fc12fd1b, type: 3}
   Image_Inactive: {fileID: 0}
   IsBasic: 0

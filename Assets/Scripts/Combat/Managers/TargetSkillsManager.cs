@@ -131,8 +131,6 @@ public class TargetSkillsManager : MonoBehaviour
         boardManager.SetAOE(data.MaxRange, data.OriginTiles, data);
     }
 
-    
-
     public void SetSkillAOE(float skillRangeLeft, BoardTile currentTile, SO_Skillpart skillData)
     {
         if (skillRangeLeft <= 0)
