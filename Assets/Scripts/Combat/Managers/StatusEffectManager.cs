@@ -19,30 +19,29 @@ public class StatusEffectManager : MonoBehaviour
 		    switch (statusEffectSO.StatusEfectType)
 		    {
                 case StatusEfectEnum.Bleed:
-                    CreateBleedEffect(statusEffectSO, target);
+                    ApplyBleedEffect(statusEffectSO, target);
                     break;
                 case StatusEfectEnum.Poison:
-                    CreatePoisonEffect(statusEffectSO, target);
+                    ApplyPoisonEffect(statusEffectSO, target);
                     break;
                 case StatusEfectEnum.Burn:
-                    CreateBurnEffect(statusEffectSO, target);
+                    ApplyBurnEffect(statusEffectSO, target);
                     break;
                 case StatusEfectEnum.Blinded:
                 case StatusEfectEnum.Silenced:
-                    CreateDefaultEffect(statusEffectSO, target);
+                    ApplyDefaultEffect(statusEffectSO, target);
                     break;
             }
 		}
 	}
 
-    public void CreateDefaultEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyDefaultEffect(SO_StatusEffect statusEffectSO, Unit target)
     {
-        var statusEffect = new StatusEffect
+        var statusEffect = new DefaultStatusEffect
         {
             Buff = false,
             statusEfectType = statusEffectSO.StatusEfectType,
             Duration = statusEffectSO.Duration,
-            IsMagical = statusEffectSO.IsMagical, // remove from basic?
             Caster = UnitData.ActiveUnit,
             Target = target
         };
@@ -50,7 +49,7 @@ public class StatusEffectManager : MonoBehaviour
         statusEffect.Apply();
     }
 
-    public void CreateBleedEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyBleedEffect(SO_StatusEffect statusEffectSO, Unit target)
 	{
         var bleedStatusEffect = new BleedStatusEffect
         {
@@ -66,7 +65,7 @@ public class StatusEffectManager : MonoBehaviour
         bleedStatusEffect.Apply();
 	}
 
-    public void CreatePoisonEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyPoisonEffect(SO_StatusEffect statusEffectSO, Unit target)
     {
         var poisonStatusEffect = new PoisonStatusEffect
         {
@@ -82,7 +81,7 @@ public class StatusEffectManager : MonoBehaviour
         poisonStatusEffect.Apply();
     }
 
-    public void CreateBurnEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyBurnEffect(SO_StatusEffect statusEffectSO, Unit target)
     {
         var burnStatusEffect = new BurnStatusEffect
         {

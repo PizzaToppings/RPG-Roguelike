@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: WallSkillTest_Main
   m_EditorClassIdentifier: 
+  SkillName: 
   Image: {fileID: 21300000, guid: afddb522506b6c247b26664a3f9b0a1a, type: 3}
   Image_Inactive: {fileID: 21300000, guid: dcf394391273d5d48bd28599b0a29aca, type: 3}
-  castLockColor:
-    FillCenter: 1
-    Color: {r: 0.47843137, g: 0.30588236, b: 0.02745098, a: 1}
-    Priority: 6
+  IsBasic: 0
+  IsConsumable: 0
+  IsMagical: 1
+  Classes: 
   Description: This creates a stone wall
   SkillPartGroups:
   - CastOnTile: 1
@@ -28,8 +29,12 @@ MonoBehaviour:
     CastOnTarget: 0
     skillParts:
     - {fileID: 11400000, guid: dd51387985aac7c44b7629bea1b4b523, type: 2}
-  EnergyCost: 111
-  DafaultCharges: 1
+  EnergyCost: 10
+  DefaultCharges: 1
   Charges: 1
   TargetKind: 0
   Cursor: 3
+  castLockColor:
+    FillCenter: 1
+    Color: {r: 0.47843137, g: 0.30588236, b: 0.02745098, a: 1}
+    Priority: 6

@@ -848,9 +848,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 243.04723, y: 34.974632, z: 4.8457747}
+    m_Target: {x: 18.092175, y: 0.94955695, z: 12.000766}
     speed: 2
-    m_Value: {x: 59.27435, y: 359.01352, z: 26.223158}
+    m_Value: {x: 243.04723, y: 34.974632, z: 4.8457747}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -898,11 +898,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.09077066, y: -0.011360463, z: 0.0010307024, w: -0.995816}
     speed: 2
-    m_Value: {x: -0.20556659, y: -0.049302172, z: 0.010369751, w: -0.9773455}
+    m_Value: {x: -0.09077066, y: -0.011360463, z: 0.0010307024, w: -0.995816}
   m_Size:
-    m_Target: 41.49008
+    m_Target: 1.8735172
     speed: 2
-    m_Value: 48.485783
+    m_Value: 41.49008
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1214,7 +1214,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scriptable Objects/Skills/SpecialSkills/BleedTest
+    - Assets/Scriptable Objects/Skills/SpecialSkills
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1233,7 +1233,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 400}
     m_SelectedIDs: 66a30300
     m_LastClickedID: 238438
-    m_ExpandedIDs: 00000000727900007479000076790000787900007a7900007c7900007e79000080790000827900008479000086790000887900008a7900008c7900008e7900009079000092790000947900009679000098790000
+    m_ExpandedIDs: 00000000ee740000f0740000f2740000f4740000f6740000f8740000fa740000fc740000fe74000000750000027500000475000006750000087500000a7500000c7500000e750000107500001275000014750000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1262,7 +1262,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000727900007479000076790000787900007a7900007c7900007e79000080790000827900008479000086790000887900008a7900008c7900008e7900009079000092790000947900009679000098790000
+    m_ExpandedIDs: 00000000ee740000f0740000f2740000f4740000f6740000f8740000fa740000fc740000fe74000000750000027500000475000006750000087500000a7500000c7500000e750000107500001275000014750000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

@@ -6,18 +6,16 @@ public class StatusEffect
     
     public StatusEfectEnum statusEfectType;
     public int Duration;
-    public bool IsMagical;
 
     public Unit Caster;
     public Unit Target;
 
     public virtual void Apply()
 	{
-        Target.OnUnitTurnEndEvent.AddListener(ReduceDuration);
-        Target.ThisHealthbar.AddStatusEffect(statusEfectType);
+        Target.statusEffects.Add(this);
     }
 
-    void ReduceDuration()
+    public void ReduceDuration()
     {
         Duration--;
 
@@ -27,8 +25,7 @@ public class StatusEffect
 
     public virtual void EndEffect()
     {
-        Target.ThisHealthbar.RemoveStatusEffect(statusEfectType);
-        Target.OnUnitTurnEndEvent.RemoveListener(ReduceDuration);
+        Target.statusEffects.Remove(this);
     }
 }
 

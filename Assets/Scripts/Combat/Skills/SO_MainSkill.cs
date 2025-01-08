@@ -10,6 +10,7 @@ public class SO_MainSkill : ScriptableObject
     [Space]
     public bool IsBasic;
     public bool IsConsumable;
+    public bool IsMagical;
 
     [Space]
     public List<ClassEnum> Classes;
@@ -31,9 +32,6 @@ public class SO_MainSkill : ScriptableObject
     public CursorType Cursor;
 
     public TileColor castLockColor;
-
-    public bool IsMagical;
-
     public virtual void Preview(BoardTile mouseOverTile, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         var SkillPartGroupIndex = SkillData.SkillPartGroupIndex;

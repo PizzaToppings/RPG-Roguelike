@@ -3,9 +3,12 @@ using UnityEngine;
 public class BleedStatusEffect : StatusEffect
 {
     public int Power;
+	public bool IsMagical;
 
 	public override void Apply()
 	{
+        base.Apply();
+
 		Target.OnUnitTurnEndEvent.AddListener(Bleed);
 		Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Bleed);
 	}
@@ -31,6 +34,8 @@ public class BleedStatusEffect : StatusEffect
 
 	public override void EndEffect()
 	{
+        base.EndEffect();
+
 		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Bleed);
 		Target.OnUnitTurnEndEvent.RemoveListener(Bleed);
 	}
