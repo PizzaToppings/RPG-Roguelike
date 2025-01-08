@@ -205,6 +205,8 @@ public class Unit : UnitStats
 
         uiManager.TriggerActivityText(turnStartText);
 
+        yield return new WaitForSeconds(1.5f);
+
         if (OnUnitTurnStartEvent != null)
             OnUnitTurnStartEvent.Invoke();
 

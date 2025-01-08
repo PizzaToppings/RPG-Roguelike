@@ -8,7 +8,7 @@ public class TestDummyAI : Enemy
     {
         UnitData.CurrentAction = CurrentActionKind.Animating;
 
-        StartCoroutine(base.StartTurn());
+        yield return StartCoroutine(base.StartTurn());
         yield return null;
 
         yield return new WaitForSeconds(1);

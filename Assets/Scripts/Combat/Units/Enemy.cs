@@ -28,7 +28,7 @@ public class Enemy : Unit
     {
         yield return null;
         PossibleMovementTiles = new List<BoardTile>(); 
-        StartCoroutine(base.StartTurn());
+        yield return StartCoroutine(base.StartTurn());
 
         //StartCoroutine(holdturnforasec());
     }
