@@ -17,7 +17,7 @@ MonoBehaviour:
   Image_Inactive: {fileID: 21300000, guid: dcf394391273d5d48bd28599b0a29aca, type: 3}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 1
+  IsMagical: 0
   Classes: 
   Description: This creates a stone wall
   SkillPartGroups:

@@ -29,6 +29,8 @@ public class StatusEffectManager : MonoBehaviour
                     break;
                 case StatusEfectEnum.Blinded:
                 case StatusEfectEnum.Silenced:
+                case StatusEfectEnum.Stunned:
+                case StatusEfectEnum.Incapacitated:
                     ApplyDefaultEffect(statusEffectSO, target);
                     break;
             }
@@ -102,12 +104,14 @@ public class StatusEffectManager : MonoBehaviour
         return unit.statusEffects.Find(x => x.statusEfectType == statusEfect) != null;
     }
 
-    public bool CantTakeTurn(Unit unit)
+    public bool IsStunned(Unit unit)
     {
-        var incapacitated = UnitHasStatuseffect(unit, StatusEfectEnum.Incapacitated);
-        var stunned = UnitHasStatuseffect(unit, StatusEfectEnum.Blinded);
+        return UnitHasStatuseffect(unit, StatusEfectEnum.Stunned);
+    }
 
-        return incapacitated || stunned;
+    public bool IsIncapacitated(Unit unit)
+    {
+        return UnitHasStatuseffect(unit, StatusEfectEnum.Incapacitated);
     }
 
     public void CleanseAll(Unit target)

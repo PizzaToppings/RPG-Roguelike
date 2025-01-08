@@ -10,7 +10,7 @@ public class DefaultStatusEffect : StatusEffect
         Target.ThisHealthbar.AddStatusEffect(statusEfectType);
     }
 
-    public virtual void EndEffect()
+    public override void EndEffect()
     {
         base.EndEffect();
 

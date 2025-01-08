@@ -192,18 +192,31 @@ public class Unit : UnitStats
 
     public virtual IEnumerator StartTurn()
     {
+        var turnStartText = $"Turn: {UnitData.ActiveUnit.UnitName}";
         yield return null;
+
+        var isStunned = statusEffectManager.IsStunned(this);
+        if (isStunned)
+            turnStartText += " - stunned";
+
+        var isIncapactated = statusEffectManager.IsIncapacitated(this);
+        if (isIncapactated)
+            turnStartText += " - incapacitated";
+
+        uiManager.TriggerActivityText(turnStartText);
+
         if (OnUnitTurnStartEvent != null)
             OnUnitTurnStartEvent.Invoke();
 
         boardManager.Clear();
         SetStartOfTurnStats();
 
-        if (statusEffectManager.CantTakeTurn(this))
+        if (isStunned || isIncapactated)
         {
             EndTurn();
             yield break;
         }
+
         boardManager.SetMovementAOE(MoveSpeedLeft, Tile);
     }
 
