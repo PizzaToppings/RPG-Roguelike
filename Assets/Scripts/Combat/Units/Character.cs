@@ -176,11 +176,15 @@ public class Character : Unit
 
     public override IEnumerator StartTurn()
     {
-        yield return null;
+        yield return StartCoroutine(base.StartTurn());
+
 		UnitData.CurrentAction = CurrentActionKind.Basic;
+    }
 
-        StartCoroutine(base.StartTurn());
-
+    public override void SetStartOfTurnStats()
+    {
+        base.SetStartOfTurnStats();
         Energy = MaxEnergy;
+        ThisHealthbar.UpdateHealthbar();
     }
 }

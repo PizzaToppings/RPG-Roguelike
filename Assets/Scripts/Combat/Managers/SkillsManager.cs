@@ -245,11 +245,11 @@ public class SkillsManager : MonoBehaviour
     public bool CanCastSkill(SO_MainSkill skill, Unit caster)
     {
         // silenced
-        if (skill.IsMagical && statusEffectManager.UnitHasStatuseffect(caster, StatusEfectEnum.Silenced))
+        if (skill.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEfectEnum.Silenced))
             return false;
 
         // blinded
-        if (skill.IsMagical == false && statusEffectManager.UnitHasStatuseffect(caster, StatusEfectEnum.Blinded))
+        if (skill.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEfectEnum.Blinded))
             return false;
 
         return skill.Charges != 0 &&

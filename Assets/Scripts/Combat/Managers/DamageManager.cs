@@ -120,7 +120,7 @@ public class DamageManager : MonoBehaviour
         target.TakeDamage(data.Damage);
 
         var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
-        if (statusEffectManager.UnitHasStatuseffect(target, StatusEfectEnum.Incapacitated))
+        if (statusEffectManager.UnitHasStatusEffect(target, StatusEfectEnum.Incapacitated))
             caster.statusEffects.Remove(incapacitated);
     }
 

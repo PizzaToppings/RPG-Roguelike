@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,18 +28,33 @@ public class StatusEffectManager : MonoBehaviour
                 case StatusEfectEnum.Burn:
                     ApplyBurnEffect(statusEffectSO, target);
                     break;
+                case StatusEfectEnum.Manaburn:
+                    ApplyManaBurnEffect(statusEffectSO, target);
+                    break;
                 case StatusEfectEnum.Blinded:
                 case StatusEfectEnum.Silenced:
                 case StatusEfectEnum.Stunned:
                 case StatusEfectEnum.Incapacitated:
+                case StatusEfectEnum.Hidden:
+                case StatusEfectEnum.Lifedrain:
                     ApplyDefaultEffect(statusEffectSO, target);
                     break;
             }
+
+            // add stat-increase system for stats
 		}
 	}
 
     public void ApplyDefaultEffect(SO_StatusEffect statusEffectSO, Unit target)
     {
+        if (UnitHasStatusEffect(target, statusEffectSO.StatusEfectType))
+        {
+            var existingStatusEffect = GetUnitStatusEffect(target, statusEffectSO.StatusEfectType);
+
+            if (existingStatusEffect.Duration < statusEffectSO.Duration)
+                existingStatusEffect.Duration = statusEffectSO.Duration;
+        }
+
         var statusEffect = new DefaultStatusEffect
         {
             Buff = false,
@@ -99,19 +115,29 @@ public class StatusEffectManager : MonoBehaviour
         burnStatusEffect.Apply();
     }
 
-    public bool UnitHasStatuseffect(Unit unit, StatusEfectEnum statusEfect)
+    public void ApplyManaBurnEffect(SO_StatusEffect statusEffectSO, Unit target)
+    {
+        var manaBurnStatusEffect = new ManaburnStatusEffect
+        {
+            Buff = false,
+            statusEfectType = statusEffectSO.StatusEfectType,
+            Duration = statusEffectSO.Duration,
+            Caster = UnitData.ActiveUnit,
+            Target = target,
+            Power = statusEffectSO.Power
+        };
+
+        manaBurnStatusEffect.Apply();
+    }
+
+    public bool UnitHasStatusEffect(Unit unit, StatusEfectEnum statusEfect)
     {
         return unit.statusEffects.Find(x => x.statusEfectType == statusEfect) != null;
     }
 
-    public bool IsStunned(Unit unit)
+    public StatusEffect GetUnitStatusEffect(Unit unit, StatusEfectEnum statusEfect)
     {
-        return UnitHasStatuseffect(unit, StatusEfectEnum.Stunned);
-    }
-
-    public bool IsIncapacitated(Unit unit)
-    {
-        return UnitHasStatuseffect(unit, StatusEfectEnum.Incapacitated);
+        return unit.statusEffects.First(x => x.statusEfectType == statusEfect);
     }
 
     public void CleanseAll(Unit target)

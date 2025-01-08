@@ -131,24 +131,9 @@ public class Unit : UnitStats
         transform.LookAt(new Vector3(endPosition.x, transform.position.y, endPosition.z));
     }
 
-    void SetStartOfTurnStats()
+    public virtual void SetStartOfTurnStats()
     {
-        MoveSpeedLeft = statusEffectManager.UnitHasStatuseffect(this, StatusEfectEnum.Rooted) == false ? MoveSpeed : 0;
-        ReduceStatusEffects();
-    }
-
-    void ReduceStatusEffects()
-    {
-        var statusEffectToRemove = new  List<StatusEffect>();
-
-        foreach (var statusEffect in statusEffects)
-        {
-            statusEffect.Duration--;
-            if (statusEffect.Duration == 0)
-                statusEffectToRemove.Add(statusEffect);
-        }
-
-        statusEffectToRemove.ForEach(x => statusEffects.Remove(x));
+        MoveSpeedLeft = MoveSpeed;
     }
 
     public virtual void PreviewSkills(BoardTile mouseOverTile)
@@ -193,25 +178,24 @@ public class Unit : UnitStats
     public virtual IEnumerator StartTurn()
     {
         var turnStartText = $"Turn: {UnitData.ActiveUnit.UnitName}";
-        yield return null;
 
-        var isStunned = statusEffectManager.IsStunned(this);
+        var isStunned = statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Stunned);
         if (isStunned)
             turnStartText += " - stunned";
 
-        var isIncapactated = statusEffectManager.IsIncapacitated(this);
+        var isIncapactated = statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Incapacitated);
         if (isIncapactated)
             turnStartText += " - incapacitated";
 
         uiManager.TriggerActivityText(turnStartText);
 
+        boardManager.Clear();
+        SetStartOfTurnStats();
+
         yield return new WaitForSeconds(1.5f);
 
         if (OnUnitTurnStartEvent != null)
             OnUnitTurnStartEvent.Invoke();
-
-        boardManager.Clear();
-        SetStartOfTurnStats();
 
         if (isStunned || isIncapactated)
         {

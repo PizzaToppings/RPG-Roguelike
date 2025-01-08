@@ -5,11 +5,11 @@ public enum GameState { StartOfGame, StartOfRound, StartOfTurn, EndOfTurn, EndOf
 
 // Characters and skills
 public enum ClassEnum { Athletics, Acrobatics, Marksmanship, Subtlety, Protection, Sorcery, Elementalism, Nature, Holy, Unholy }
-
+public enum StatsEnum { maxHitpoints, MoveSpeed, PhysicalPower, MagicalPower, PhysicalDefense, MagicalDefense }
 
 // Damage etc
 public enum DamageTypeEnum {Physical, Arcane, Fire, Water, Earth, Ice, Electric, Psychic, Holy, Dark, Poison, Healing, Shield}
-public enum StatusEfectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Manaburn, Rooted, Taunt, Thorns, PhysicalDamage, PhysicalDefense, MagicalDamage, MagicalDefense }
+public enum StatusEfectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Manaburn, Rooted, Taunt, Thorns }
 public enum DisplacementEnum { Teleport, Move }
 
 
