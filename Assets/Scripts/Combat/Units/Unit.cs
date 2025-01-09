@@ -17,6 +17,7 @@ public class Unit : UnitStats
 
     [HideInInspector] public UnityEvent OnUnitTurnStartEvent = new UnityEvent();
     [HideInInspector] public UnityEvent OnUnitTurnEndEvent = new UnityEvent();
+    [HideInInspector] public UnityEvent<DamagaDataResolved> OnUnitTakeDamageEvent = new UnityEvent<DamagaDataResolved>();
 
     [HideInInspector] public UnityEvent<DamageDataCalculated> OnDealDamage;
     [HideInInspector] public UnityEvent<DamageDataCalculated> OnTakeDamage;
@@ -141,14 +142,32 @@ public class Unit : UnitStats
 		boardManager.VisualClear();
 	}
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(DamageDataCalculated damageDataCalculated)
 	{
-        ShieldPoints -= damage;
-        if (ShieldPoints < 0)
+        var shieldDamage = damageDataCalculated.Damage < ShieldPoints ? damageDataCalculated.Damage : ShieldPoints;
+        var damage = 0;
+
+        ShieldPoints -= shieldDamage;
+
+        if (ShieldPoints == 0)
         {
-            Hitpoints += ShieldPoints;
-            ShieldPoints = 0;
+            damage = damageDataCalculated.Damage - shieldDamage;
+            Hitpoints -= damage;
         }
+
+        var damagaDataResolved = new DamagaDataResolved
+        {
+            Attacker = damageDataCalculated.Caster,
+            Target = this,
+            damageType = damageDataCalculated.DamageType,
+            DamageDone = damage,
+            ShieldDamage = shieldDamage,
+            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
+            IsMagical = damageDataCalculated.IsMagical
+        };
+
+        if (OnUnitTakeDamageEvent != null)
+            OnUnitTakeDamageEvent.Invoke(damagaDataResolved);
 
         ThisHealthbar.UpdateHealthbar();
 	}
@@ -203,7 +222,8 @@ public class Unit : UnitStats
             yield break;
         }
 
-        boardManager.SetMovementAOE(MoveSpeedLeft, Tile);
+        if (statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Rooted) == false)
+            boardManager.SetMovementAOE(MoveSpeedLeft, Tile);
     }
 
     public virtual void EndTurn()

@@ -56456,6 +56456,9 @@ MonoBehaviour:
   OnUnitTurnEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnUnitTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
   OnDealDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -58014,6 +58017,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnUnitTurnEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUnitTakeDamageEvent:
     m_PersistentCalls:
       m_Calls: []
   OnDealDamage:

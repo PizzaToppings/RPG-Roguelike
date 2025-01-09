@@ -133,11 +133,6 @@ public class Enemy : Unit
         }
     }
 
-	public override void TakeDamage(int damage)
-	{
-		base.TakeDamage(damage);
-	}
-
 	public override void EndTurn()
     {
         base.EndTurn();

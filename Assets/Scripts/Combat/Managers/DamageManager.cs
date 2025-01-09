@@ -25,17 +25,15 @@ public class DamageManager : MonoBehaviour
         
         var damage = CalculateDamage(damageEffect, caster, target);
 
-        DamageDataCalculated data = new DamageDataCalculated()
+        DamageDataCalculated data = new DamageDataCalculated
         {
             DamageType = damageEffect.DamageType,
             Caster = caster,
-            MagicalDamage = damageEffect.IsMagical,
+            IsMagical = damageEffect.IsMagical,
             Target = target,
             Damage = damage,
-            //statusEffects = AddDefaultStatusEffects(skill)
         };
 
-        //data.statusEffects.AddRange(skill.StatusEfects);
 
         return data;
     }
@@ -62,21 +60,6 @@ public class DamageManager : MonoBehaviour
 
         return 1;
     }
-
-    //List<SO_StatusEffect> AddDefaultStatusEffects(SO_Skillpart skill)
-    //{
-    //    var statusEffects = new List<SO_StatusEffect>();
-
-    //    foreach (var dse in skill.defaultStatusEffects)
-    //    {
-    //        var statusEffect = ScriptableObject.CreateInstance<SO_StatusEffect>();
-    //        statusEffect.statusEfectType = dse.statusEfectType;
-    //        statusEffect.duration = dse.Duration;
-
-    //        statusEffects.Add(statusEffect);
-    //    }
-    //    return statusEffects;
-    //}
 
 
     public void DealDamageSetup(SO_Skillpart skillPart, float delay)
@@ -111,17 +94,18 @@ public class DamageManager : MonoBehaviour
         var caster = data.Caster;
         var target = data.Target;
 
-        Debug.Log(caster.UnitName + " hit " + target.UnitName + " for " + data.Damage + " " + data.DamageType.ToString() + " damage.");
         healthCanvas.ShowDamageNumber(data);
 
         if (data.Damage == 0)
             return;
 
-        target.TakeDamage(data.Damage);
+        target.TakeDamage(data);
 
-        var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
         if (statusEffectManager.UnitHasStatusEffect(target, StatusEfectEnum.Incapacitated))
+        {
+            var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
             caster.statusEffects.Remove(incapacitated);
+        }
     }
 
     void Heal(DamageDataCalculated data)
@@ -133,7 +117,6 @@ public class DamageManager : MonoBehaviour
 
         data.Damage = correctedHeal;
         
-        Debug.Log(caster.UnitName + " heals " + target.UnitName + " for " + data.Damage + ".");
         healthCanvas.ShowDamageNumber(data);
 
         if (data.Damage == 0)
@@ -147,7 +130,6 @@ public class DamageManager : MonoBehaviour
 
         target.Shield(data.Damage);
 
-        Debug.Log(caster.UnitName + " shields " + target.UnitName + " for " + data.Damage + ".");
         healthCanvas.ShowDamageNumber(data);
 
         if (data.Damage == 0)

@@ -8,6 +8,7 @@ public class SO_StatusEffect : ScriptableObject
 
     public StatusEfectEnum StatusEfectType;
     public DamageTypeEnum DamageType;
+    public StatsEnum Stat;
     public int Power;
     public int Duration;
     public bool IsMagical;

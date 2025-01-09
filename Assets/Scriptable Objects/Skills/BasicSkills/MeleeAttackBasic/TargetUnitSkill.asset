@@ -25,18 +25,34 @@ MonoBehaviour:
   OriginTargetSkillParts: []
   TargetTileKind: 5
   TargetTileSkillParts: []
-  SkillFX: []
+  DirectionAnchor: 0
+  DirectionAnchorSkillPart: {fileID: 0}
   tileColor:
     FillCenter: 0
     Color: {r: 1, g: 0.50048995, b: 0, a: 1}
     Priority: 6
-  DamageType: 0
-  Power: 10
-  Range: 1.5
+  AddProjectileLine: 0
+  ProjectileLineOffset: 1
+  SkillVFX:
+  - {fileID: 11400000, guid: 1c3454abdff2ba244b44573237c18680, type: 2}
+  DamageEffect:
+    Caster: {fileID: 0}
+    DamageType: 0
+    Power: 5
+    IsMagical: 0
+  MinRange: 0
+  MaxRange: 1.5
   IncludeInAutoMove: 1
+  AffectedByBlockedTiles: 0
+  FreeSpacesOnly: 0
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets: []
   StatusEfects: []
-  defaultStatusEffects: []
+  tileEffects: []
+  displacementEffect: {fileID: 0}
+  SummonObject: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
     Color: {r: 1, g: 0.5019608, b: 0, a: 1}
     Priority: 5
+  CanTargetSelf: 0

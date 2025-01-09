@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: BasicSkill
   m_EditorClassIdentifier: 
+  SkillName: BASIC
   Image: {fileID: 21300000, guid: 6f7770eab77e2ea4a8d50e19fa02ff6c, type: 3}
   Image_Inactive: {fileID: 0}
+  IsBasic: 1
+  IsConsumable: 0
+  IsMagical: 0
   Classes: 
   Description: 
   SkillPartGroups:
@@ -21,8 +25,8 @@ MonoBehaviour:
     CastOnTarget: 1
     skillParts:
     - {fileID: 11400000, guid: 967c385fd7e60b14b899c2506c14bf4b, type: 2}
-  EnergyCost: 0
-  DafaultCharges: 1
+  EnergyCost: 10
+  DefaultCharges: 1
   Charges: 1
   TargetKind: 0
   Cursor: 1

@@ -34,6 +34,9 @@ public class SkillsManager : MonoBehaviour
 
     public void SetSkills(Character character)
     {
+        character.basicAttack.Init();
+        character.basicSkill.Init();
+
         foreach (var skill in character.skills)
         {
             if (skill != null)
