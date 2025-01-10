@@ -13260,6 +13260,7 @@ MonoBehaviour:
   HealthBarCanvas: {fileID: 612791211}
   DamageNumber: {fileID: 130459335682623652, guid: 964963de016c1144a8f2a2b884180213,
     type: 3}
+  HealNumber: {fileID: 0}
   DamageNumbersCanvas: {fileID: 190849}
 --- !u!1 &428878331
 GameObject:

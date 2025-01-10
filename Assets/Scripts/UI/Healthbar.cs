@@ -32,7 +32,7 @@ public class Healthbar : MonoBehaviour
 	{
         statusEffects.Add(statusEffect);
 
-        ShowStatusEffects();
+        UpdateStatusEffects();
     }
 
     public void RemoveStatusEffect(StatusEfectEnum statusEffect)
@@ -40,10 +40,10 @@ public class Healthbar : MonoBehaviour
         if (statusEffects.Contains(statusEffect))
             statusEffects.Remove(statusEffect);
 
-        ShowStatusEffects();
+        UpdateStatusEffects();
     }
 
-    void ShowStatusEffects()
+    void UpdateStatusEffects()
 	{
         if (ui_Singletons == null)
             ui_Singletons = UI_Singletons.Instance;

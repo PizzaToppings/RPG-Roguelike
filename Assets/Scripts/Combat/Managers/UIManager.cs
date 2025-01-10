@@ -29,11 +29,6 @@ public class UIManager : MonoBehaviour
 
     public void Init()
     {
-        InitUI();
-    }
-
-    void InitUI()
-    {
         basicAttackIcon.Init();
         basicSkillIcon.Init();
 

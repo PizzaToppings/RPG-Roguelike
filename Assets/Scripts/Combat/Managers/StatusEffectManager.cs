@@ -33,10 +33,11 @@ public class StatusEffectManager : MonoBehaviour
                     ApplyThornsEffect(statusEffectSO, target);
                     break;
                 case StatusEfectEnum.StatChange:
-                    
+                    ApplyStatChangeEffect(statusEffectSO, target);
                     break;
             }
 
+            // all other cases:
             ApplyDefaultEffect(statusEffectSO, target);
         }
 	}
@@ -53,7 +54,7 @@ public class StatusEffectManager : MonoBehaviour
 
         var statusEffect = new DefaultStatusEffect
         {
-            Buff = false,
+            IsBuff = false,
             statusEfectType = statusEffectSO.StatusEfectType,
             Duration = statusEffectSO.Duration,
             Caster = UnitData.ActiveUnit,
@@ -67,7 +68,7 @@ public class StatusEffectManager : MonoBehaviour
 	{
         var bleedStatusEffect = new BleedStatusEffect
         {
-            Buff = false,
+            IsBuff = false,
             statusEfectType = statusEffectSO.StatusEfectType,
             Duration = statusEffectSO.Duration,
             IsMagical = statusEffectSO.IsMagical,
@@ -83,7 +84,7 @@ public class StatusEffectManager : MonoBehaviour
     {
         var poisonStatusEffect = new PoisonStatusEffect
         {
-            Buff = false,
+            IsBuff = false,
             statusEfectType = statusEffectSO.StatusEfectType,
             Duration = statusEffectSO.Duration,
             IsMagical = statusEffectSO.IsMagical,
@@ -99,7 +100,7 @@ public class StatusEffectManager : MonoBehaviour
     {
         var burnStatusEffect = new BurnStatusEffect
         {
-            Buff = false,
+            IsBuff = false,
             statusEfectType = statusEffectSO.StatusEfectType,
             Duration = statusEffectSO.Duration,
             IsMagical = statusEffectSO.IsMagical,
@@ -115,7 +116,7 @@ public class StatusEffectManager : MonoBehaviour
     {
         var thornsStatusEffect = new ThornsStatusEffect
         {
-            Buff = true,
+            IsBuff = true,
             statusEfectType = statusEffectSO.StatusEfectType,
             Duration = statusEffectSO.Duration,
             IsMagical = statusEffectSO.IsMagical,
@@ -131,7 +132,7 @@ public class StatusEffectManager : MonoBehaviour
     {
         var manaBurnStatusEffect = new ManaburnStatusEffect
         {
-            Buff = false,
+            IsBuff = false,
             statusEfectType = statusEffectSO.StatusEfectType,
             Duration = statusEffectSO.Duration,
             Caster = UnitData.ActiveUnit,
@@ -183,7 +184,7 @@ public class StatusEffectManager : MonoBehaviour
 
     public void CleanseAll(Unit target)
     {
-        var cleanses = target.statusEffects.FindAll(x => !x.Buff);
+        var cleanses = target.statusEffects.FindAll(x => !x.IsBuff);
         cleanses.ForEach(x =>target.statusEffects.Remove(x));
 
         ResetCleanseStatusEffects(target);
@@ -191,7 +192,7 @@ public class StatusEffectManager : MonoBehaviour
 
     public void CleanseType(Unit target, StatusEfectEnum type)
     {
-        var cleanses = target.statusEffects.FindAll(x => x.statusEfectType == type && !x.Buff);
+        var cleanses = target.statusEffects.FindAll(x => x.statusEfectType == type && !x.IsBuff);
         cleanses.ForEach(x =>target.statusEffects.Remove(x));
 
         ResetCleanseStatusEffects(target);

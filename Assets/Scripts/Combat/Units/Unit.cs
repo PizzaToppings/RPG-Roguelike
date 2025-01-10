@@ -142,7 +142,7 @@ public class Unit : UnitStats
 		boardManager.VisualClear();
 	}
 
-    public virtual void TakeDamage(DamageDataCalculated damageDataCalculated)
+    public virtual DamagaDataResolved TakeDamage(DamageDataCalculated damageDataCalculated)
 	{
         var shieldDamage = damageDataCalculated.Damage < ShieldPoints ? damageDataCalculated.Damage : ShieldPoints;
         var damage = 0;
@@ -159,7 +159,7 @@ public class Unit : UnitStats
         {
             Attacker = damageDataCalculated.Caster,
             Target = this,
-            damageType = damageDataCalculated.DamageType,
+            DamageType = damageDataCalculated.DamageType,
             DamageDone = damage,
             ShieldDamage = shieldDamage,
             AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
@@ -170,28 +170,54 @@ public class Unit : UnitStats
             OnUnitTakeDamageEvent.Invoke(damagaDataResolved);
 
         ThisHealthbar.UpdateHealthbar();
+
+        return damagaDataResolved;
 	}
 
-    public virtual int Heal(int healing)
+    public virtual DamagaDataResolved Heal(DamageDataCalculated damageDataCalculated)
     {
-        var correctedHealing = healing;
-        Hitpoints += healing;
+        var correctedHealing = damageDataCalculated.Damage;
+        Hitpoints += correctedHealing;
         if (Hitpoints > MaxHitpoints)
         {
             correctedHealing -= Hitpoints - MaxHitpoints;
             Hitpoints = MaxHitpoints;
         }
 
+        var damagaDataResolved = new DamagaDataResolved
+        {
+            Attacker = damageDataCalculated.Caster,
+            Target = this,
+            DamageType = damageDataCalculated.DamageType,
+            DamageDone = correctedHealing,
+            ShieldDamage = 0,
+            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
+            IsMagical = damageDataCalculated.IsMagical
+        };
+
         ThisHealthbar.UpdateHealthbar();
 
-        return correctedHealing;
+        return damagaDataResolved;
     }
 
-    public virtual void Shield(int shield)
+    public virtual DamagaDataResolved Shield(DamageDataCalculated damageDataCalculated)
     {
-        ShieldPoints += shield;
+        ShieldPoints += damageDataCalculated.Damage;
+
+        var damagaDataResolved = new DamagaDataResolved
+        {
+            Attacker = damageDataCalculated.Caster,
+            Target = this,
+            DamageType = damageDataCalculated.DamageType,
+            DamageDone = 0,
+            ShieldDamage = -damageDataCalculated.Damage,
+            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
+            IsMagical = damageDataCalculated.IsMagical
+        };
 
         ThisHealthbar.UpdateHealthbar();
+
+        return damagaDataResolved;
     }
 
     public virtual IEnumerator StartTurn()

@@ -94,12 +94,12 @@ public class DamageManager : MonoBehaviour
         var caster = data.Caster;
         var target = data.Target;
 
-        healthCanvas.ShowDamageNumber(data);
-
         if (data.Damage == 0)
             return;
 
-        target.TakeDamage(data);
+        var damageDataResolved = target.TakeDamage(data);
+        
+        healthCanvas.ShowDamageNumber(damageDataResolved);
 
         if (statusEffectManager.UnitHasStatusEffect(target, StatusEfectEnum.Incapacitated))
         {
@@ -110,14 +110,11 @@ public class DamageManager : MonoBehaviour
 
     void Heal(DamageDataCalculated data)
     {
-        var caster = data.Caster;
         var target = data.Target;
 
-        var correctedHeal = target.Heal(data.Damage);
-
-        data.Damage = correctedHeal;
+        var correctedHeal = target.Heal(data);
         
-        healthCanvas.ShowDamageNumber(data);
+        healthCanvas.ShowHealNumber(correctedHeal);
 
         if (data.Damage == 0)
             return;
@@ -125,12 +122,11 @@ public class DamageManager : MonoBehaviour
 
     void Shield(DamageDataCalculated data)
     {
-        var caster = data.Caster;
         var target = data.Target;
 
-        target.Shield(data.Damage);
+        var shieldsCalculated = target.Shield(data);
 
-        healthCanvas.ShowDamageNumber(data);
+        healthCanvas.ShowHealNumber(shieldsCalculated);
 
         if (data.Damage == 0)
             return;
