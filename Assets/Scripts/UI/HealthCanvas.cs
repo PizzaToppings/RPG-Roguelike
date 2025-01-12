@@ -12,6 +12,7 @@ public class HealthCanvas : MonoBehaviour
     [Space]
     public GameObject DamageNumber;
     public GameObject HealNumber;
+    public GameObject StatusEfectText;
     public Transform DamageNumbersCanvas;
 
 
@@ -52,7 +53,7 @@ public class HealthCanvas : MonoBehaviour
 
     public void ShowStatusEffect(string displayText, Unit target, bool isBuff)
     {
-        var se = Instantiate(HealNumber, DamageNumbersCanvas);
+        var se = Instantiate(StatusEfectText, DamageNumbersCanvas);
         var statusText = se.GetComponent<FloatingStatusEffectText>();
         statusText.Init(displayText, target, isBuff);
     }

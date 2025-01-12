@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
-  m_Name: BurnSkill_Target
+  m_Name: Heal_Target
   m_EditorClassIdentifier: 
   OriginTiles:
   - {fileID: 0}
@@ -29,30 +29,30 @@ MonoBehaviour:
   DirectionAnchorSkillPart: {fileID: 0}
   tileColor:
     FillCenter: 0
-    Color: {r: 1, g: 0.22142233, b: 0.0047169924, a: 1}
+    Color: {r: 0.9716981, g: 0.8437566, b: 0, a: 1}
     Priority: 7
-  AddProjectileLine: 1
+  AddProjectileLine: 0
   ProjectileLineOffset: 1
-  SkillVFX: []
+  SkillVFX:
+  - {fileID: 11400000, guid: c085fbf7e96891a42adb3c98f5c21af2, type: 2}
   DamageEffect:
     Caster: {fileID: 0}
-    DamageType: 0
-    Power: 0
+    DamageType: 11
+    Power: 1
     IsMagical: 0
   MinRange: 0
-  MaxRange: 6.5
+  MaxRange: 8
   IncludeInAutoMove: 0
-  AffectedByBlockedTiles: 1
+  AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects:
-  - {fileID: 11400000, guid: f58aa4d811444914292d9d0a4205d846, type: 2}
+  StatusEfects: []
   tileEffects: []
   displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
-    Color: {r: 1, g: 0.21960786, b: 0.003921569, a: 1}
-    Priority: 6
+    Color: {r: 0.9725491, g: 0.8431373, b: 0, a: 1}
+    Priority: 5
   CanTargetSelf: 0

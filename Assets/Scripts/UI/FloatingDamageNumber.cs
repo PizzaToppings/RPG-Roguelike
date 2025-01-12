@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class FloatingDamageNumber : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class FloatingDamageNumber : MonoBehaviour
     float fadeDuration = 0.3f;
 
     private Vector3 startPosition;
-    private float timer;
 
     float sideMovementValue = 0;
     float bounceValue = 0;
@@ -32,35 +32,42 @@ public class FloatingDamageNumber : MonoBehaviour
         text.text = data.DamageDone.ToString();
 
         if (data.ShieldDamage != 0)
-            text.text += $" ({data.ShieldDamage} blocked)";
+            text.text += $"\n <color=#D7D7D7> ({data.ShieldDamage} blocked)";
 
         startPosition = Camera.main.WorldToScreenPoint(data.Target.transform.position);
         transform.position = startPosition;
+
+        StartCoroutine(AnimateDamageText());
     }
 
-    void Update()
+    private IEnumerator AnimateDamageText()
     {
         if (damageDataResolved == null)
-            return;
+            yield break;
 
-        timer += Time.deltaTime;
-        float progress = timer / duration;
-        var sideMovement = sideMovementValue * progress;
-        var bounceCurveValue = bounceCurve.Evaluate(progress) * bounceValue;
+        float timer = 0f;
 
-        if (progress < 1f)
+        while (timer < duration + fadeDuration)
         {
-            transform.position = Camera.main.WorldToScreenPoint(damageDataResolved.Target.transform.position) + new Vector3(sideMovement, bounceCurveValue, 0);
+            timer += Time.deltaTime;
+            float progress = timer / duration;
+            var sideMovement = sideMovementValue * progress;
+            var bounceCurveValue = bounceCurve.Evaluate(progress) * bounceValue;
+
+            if (progress < 1f)
+            {
+                transform.position = Camera.main.WorldToScreenPoint(damageDataResolved.Target.transform.position)
+                                     + new Vector3(sideMovement, bounceCurveValue, 0);
+            }
+            else if (progress < 1f + fadeDuration)
+            {
+                float fadeProgress = (progress - 1f) / fadeDuration;
+                text.alpha = Mathf.Lerp(1f, 0f, fadeProgress);
+            }
+
+            yield return null; // Wait for the next frame
         }
-        else if (progress < 1f + fadeDuration)
-        {
-            transform.position = Camera.main.WorldToScreenPoint(damageDataResolved.Target.transform.position) + new Vector3(sideMovement, bounceCurveValue, 0);
-            float fadeProgress = (progress - 1f) / fadeDuration;
-            text.alpha = Mathf.Lerp(1f, 0f, fadeProgress);
-        }
-        else
-        {
-            Destroy(gameObject); // TODO cache
-        }
+
+        Destroy(gameObject); // TODO cache
     }
 }

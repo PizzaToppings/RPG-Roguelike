@@ -9,36 +9,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ea86c1f688f1743be5ed65f3919415, type: 3}
-  m_Name: ShieldTest_Part1
+  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
+  m_Name: ShieldTest_TargetUnit
   m_EditorClassIdentifier: 
-  OriginTiles: []
-  OriginTargets:
+  OriginTiles:
   - {fileID: 0}
+  OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
-  OriginTargetKind: 1
+  OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 0
+  TargetTileKind: 5
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
   tileColor:
-    FillCenter: 1
-    Color: {r: 0.058490515, g: 0.8060348, b: 1, a: 1}
-    Priority: 5
+    FillCenter: 0
+    Color: {r: 0.3160377, g: 1, b: 0.99350333, a: 1}
+    Priority: 7
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  DamageType: 12
-  Power: 10
-  Range: 0
-  IncludeInAutoMove: 0
   SkillVFX:
   - {fileID: 11400000, guid: cb1f9a58143b46c48ad88bb07e361b8c, type: 2}
+  DamageEffect:
+    Caster: {fileID: 0}
+    DamageType: 12
+    Power: 5
+    IsMagical: 0
+  MinRange: 0
+  MaxRange: 8
+  IncludeInAutoMove: 0
+  AffectedByBlockedTiles: 0
+  FreeSpacesOnly: 0
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets: []
   StatusEfects: []
-  defaultStatusEffects: []
+  tileEffects: []
   displacementEffect: {fileID: 0}
+  SummonObject: {fileID: 0}
+  SelectedTargetTileColor:
+    FillCenter: 1
+    Color: {r: 0.31764707, g: 1, b: 0.9921569, a: 1}
+    Priority: 6
+  CanTargetSelf: 0

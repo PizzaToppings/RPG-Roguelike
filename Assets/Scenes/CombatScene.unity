@@ -8293,13 +8293,13 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: f744dde3c4be55a4fb5578ebb27af22c,
+      objectReference: {fileID: 11400000, guid: 0d86d369e8903bb4884cd091a57a3919,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: 'skills.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 048b8fab0d672af459f7e56bb6fb56d4,
+      objectReference: {fileID: 11400000, guid: aeeb0adec15d4984b9303603e8a68aae,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -13260,7 +13260,10 @@ MonoBehaviour:
   HealthBarCanvas: {fileID: 612791211}
   DamageNumber: {fileID: 130459335682623652, guid: 964963de016c1144a8f2a2b884180213,
     type: 3}
-  HealNumber: {fileID: 0}
+  HealNumber: {fileID: 130459335682623652, guid: 3d2f7956232373443bdd81637210dd3d,
+    type: 3}
+  StatusEfectText: {fileID: 130459335682623652, guid: 26c44ce04f809134ebb98858282a9859,
+    type: 3}
   DamageNumbersCanvas: {fileID: 190849}
 --- !u!1 &428878331
 GameObject:

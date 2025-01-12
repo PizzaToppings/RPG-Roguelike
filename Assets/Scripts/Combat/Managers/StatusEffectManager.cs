@@ -22,19 +22,19 @@ public class StatusEffectManager : MonoBehaviour
                     return;
                 case StatusEfectEnum.Poison:
                     ApplyPoisonEffect(statusEffectSO, target);
-                    break;
+                    return;
                 case StatusEfectEnum.Burn:
                     ApplyBurnEffect(statusEffectSO, target);
-                    break;
+                    return;
                 case StatusEfectEnum.Manaburn:
                     ApplyManaBurnEffect(statusEffectSO, target);
-                    break;
+                    return;
                 case StatusEfectEnum.Thorns:
                     ApplyThornsEffect(statusEffectSO, target);
-                    break;
+                    return;
                 case StatusEfectEnum.StatChange:
                     ApplyStatChangeEffect(statusEffectSO, target);
-                    break;
+                    return;
             }
 
             // all other cases:

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: ShieldTest_Main
+  m_Name: Heal
   m_EditorClassIdentifier: 
-  SkillName: 
-  Image: {fileID: 21300000, guid: f6911c2b9e23b6943be7dd791b0850c9, type: 3}
+  SkillName: HEAL
+  Image: {fileID: 21300000, guid: 9a4d6f519631a444293aacfa39ff4fa2, type: 3}
   Image_Inactive: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
@@ -24,11 +24,11 @@ MonoBehaviour:
   - CastOnTile: 0
     CastOnTarget: 1
     skillParts:
-    - {fileID: 11400000, guid: 2dc643a0700261f439049a6a5ba985ed, type: 2}
-  EnergyCost: 0
+    - {fileID: 11400000, guid: 22049349d567c4044b60bb3b5c856d98, type: 2}
+  EnergyCost: 10
   DefaultCharges: 1
-  Charges: 1
-  TargetKind: 1
+  Charges: 0
+  TargetKind: 0
   Cursor: 0
   castLockColor:
     FillCenter: 0
