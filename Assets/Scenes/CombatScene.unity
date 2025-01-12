@@ -8169,17 +8169,17 @@ PrefabInstance:
     - target: {fileID: 8519817777296322554, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.108356
+      value: 14.92
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322554, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.938946
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322554, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.0244865
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322554, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -39228,7 +39228,7 @@ MonoBehaviour:
   UnholyIcon: {fileID: 21300000, guid: 85cead675376a8148970433b01d7fe59, type: 3}
   PhysicalDamageColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   ArcaneDamageColor: {r: 0.3537736, g: 0.21960784, b: 1, a: 1}
-  FireDamageColor: {r: 1, g: 0.2971698, b: 0.2971698, a: 1}
+  FireDamageColor: {r: 1, g: 0, b: 0, a: 1}
   WaterDamageColor: {r: 0.36320752, g: 0.75180787, b: 1, a: 1}
   EarthDamageColor: {r: 0.5943396, g: 0.4051006, b: 0.2270826, a: 1}
   IceDamageColor: {r: 0.6462264, g: 0.91524184, b: 1, a: 1}
@@ -49999,7 +49999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.79, y: 0}
   m_AnchorMax: {x: 0.79, y: 1}
-  m_AnchoredPosition: {x: -29.8, y: 0.29999924}
+  m_AnchoredPosition: {x: -29.800003, y: 0.29999542}
   m_SizeDelta: {x: 77.21, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1753529487
@@ -58804,7 +58804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.79, y: 0}
   m_AnchorMax: {x: 0.79, y: 1}
-  m_AnchoredPosition: {x: -112.2, y: 0.29999924}
+  m_AnchoredPosition: {x: -112.2, y: 0.29999542}
   m_SizeDelta: {x: 77.21, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2086172994

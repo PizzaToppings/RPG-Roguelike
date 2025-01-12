@@ -28,7 +28,6 @@ public class SO_MainSkill : ScriptableObject
     [HideInInspector] public int Charges = 1;
 
     [Space]
-    public TargetKindEnum TargetKind;
     public CursorType Cursor;
 
     public TileColor castLockColor;

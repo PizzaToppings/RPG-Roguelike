@@ -375,13 +375,13 @@ public class BoardManager : MonoBehaviour
 
         var friendly = UnitData.ActiveUnit.Friendly;
 
-        if (SkillData.CurrentActiveSkill.TargetKind == TargetKindEnum.Allies)
+        if (data.TargetKind == TargetKindEnum.Allies)
         {
             if (target.Friendly == friendly)
                 return true;
         }
 
-        if (SkillData.CurrentActiveSkill.TargetKind == TargetKindEnum.All)
+        if (data.TargetKind == TargetKindEnum.All)
             return true;
 
         return (target.Friendly != friendly);

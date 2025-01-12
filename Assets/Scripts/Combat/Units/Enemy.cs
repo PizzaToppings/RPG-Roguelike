@@ -94,7 +94,7 @@ public class Enemy : Unit
 	{
         base.OnClick();
 
-        if (UnitData.CurrentAction == CurrentActionKind.Basic/* || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot*/)
+        if (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && SkillData.CurrentActiveSkill.Charges != 0)
             {
@@ -112,6 +112,7 @@ public class Enemy : Unit
             yield return StartCoroutine(boardManager.MoveToTile());
 
         var basicAttack = (UnitData.ActiveUnit as Character).basicAttack;
+        basicAttack.Charges--;
         yield return StartCoroutine(skillsManager.CastSkill(basicAttack));
     }
 

@@ -26,6 +26,8 @@ public class SO_Skillpart : ScriptableObject
     public OriginTileEnum DirectionAnchor = OriginTileEnum.None;
     public SO_Skillpart DirectionAnchorSkillPart;
 
+    public TargetKindEnum TargetKind;
+
     [Header(" - Visuals")]
     public TileColor tileColor;
     public bool AddProjectileLine;

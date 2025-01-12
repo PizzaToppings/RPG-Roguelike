@@ -102,18 +102,12 @@ public class SkillsManager : MonoBehaviour
 
     public IEnumerator CastSkill(SO_MainSkill skill)
     {
-        var index = 0;
-
         foreach (var spg in skill.SkillPartGroups)
         {
-            if (index >= SkillData.SkillPartGroupIndex)
-                continue;
-
             foreach (var sp in spg.skillParts)
             {
                 yield return StartCoroutine(CastSkillsPart(sp));
             }
-            index++;
         }
 
         Character character = SkillData.Caster as Character;
