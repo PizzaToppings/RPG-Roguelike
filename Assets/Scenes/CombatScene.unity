@@ -2475,7 +2475,7 @@ Transform:
   m_GameObject: {fileID: 67902598}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 53.3, y: 2.8, z: 59.1}
+  m_LocalPosition: {x: 53.3, y: 0, z: 59.1}
   m_LocalScale: {x: 10, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2833,7 +2833,7 @@ Transform:
   m_GameObject: {fileID: 77032603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -37.6, y: -2.8, z: -46.3}
+  m_LocalPosition: {x: -37.6, y: 0, z: -46.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12712,13 +12712,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 411587742}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2896165, y: 0, z: 0, w: 0.9571428}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.34051085, y: 0, z: 0, w: 0.9402406}
+  m_LocalPosition: {x: 0, y: 9.17, z: -9.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1676247758}
-  m_LocalEulerAnglesHint: {x: 33.67, y: 0, z: 0}
+  m_Father: {fileID: 546395575}
+  m_LocalEulerAnglesHint: {x: 39.816, y: 0, z: 0}
 --- !u!81 &411587744
 AudioListener:
   m_ObjectHideFlags: 0
@@ -16441,6 +16441,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1968917929}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &546395574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 546395575}
+  m_Layer: 0
+  m_Name: CamRotator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &546395575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546395574}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 411587743}
+  m_Father: {fileID: 1676247758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &547876262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22071,6 +22103,7 @@ MonoBehaviour:
   inputManager: {fileID: 1769544685}
   consumableManager: {fileID: 1398009755}
   initiativeTracker: {fileID: 1916852739}
+  cameraController: {fileID: 1676247759}
 --- !u!114 &709766163 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4473422043703298615, guid: 633e76ebe8981104e92c3b4dde93ebb9,
@@ -40881,7 +40914,7 @@ Transform:
   m_GameObject: {fileID: 1439827315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1158781, y: 0.8153095, z: -1.5200901}
+  m_LocalPosition: {x: 1.1158781, y: 0, z: -1.5200901}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48078,14 +48111,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676247757}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.0205542, z: -0, w: 0.99978876}
-  m_LocalPosition: {x: 15.52, y: 12.8, z: -6.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.52, y: 0, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 411587743}
+  - {fileID: 546395575}
   m_Father: {fileID: 1439827316}
-  m_LocalEulerAnglesHint: {x: 0, y: -2.356, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1676247759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48098,7 +48131,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f113dde633f058b449a2f54517a5a423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camRotator: {fileID: 546395575}
   moveSpeed: 5
+  zoomSpeed: 50
+  rotationSpeed: 100
+  zoomRange: {x: 2, y: 20}
 --- !u!1001 &1676632862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56714,10 +56751,10 @@ MonoBehaviour:
   MoveSpeedLeft: 0
   Initiative: 0
   IsTargeted: 0
-  PhysicalPower: 50
-  MagicalPower: 50
-  PhysicalDefense: 50
-  MagicalDefense: 50
+  PhysicalPower: 0
+  MagicalPower: 0
+  PhysicalDefense: 0
+  MagicalDefense: 0
   Resistances: 
   Vulnerabilities: 
   Tile: {fileID: 0}
@@ -58277,10 +58314,10 @@ MonoBehaviour:
   MoveSpeedLeft: 0
   Initiative: 0
   IsTargeted: 0
-  PhysicalPower: 50
-  MagicalPower: 50
-  PhysicalDefense: 50
-  MagicalDefense: 50
+  PhysicalPower: 0
+  MagicalPower: 0
+  PhysicalDefense: 0
+  MagicalDefense: 0
   Resistances: 
   Vulnerabilities: 
   Tile: {fileID: 0}

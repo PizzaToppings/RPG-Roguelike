@@ -18,7 +18,7 @@ public class CombatManager : MonoBehaviour
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
-
+    [SerializeField] CameraController cameraController;
 
     void Start()
     {
@@ -97,9 +97,14 @@ public class CombatManager : MonoBehaviour
             RoundStart();
         }
 
+        var CurrentActiveUnit = UnitData.Units[CombatData.currentCharacterTurn];
+
+        StartCoroutine(cameraController.MoveToUnit(CurrentActiveUnit));
+
+        // move cam to active unit
+
         initiativeTracker.NextTurn();
 
-        var CurrentActiveUnit = UnitData.Units[CombatData.currentCharacterTurn];
         UnitData.ActiveUnit = CurrentActiveUnit;
 		StartCoroutine(CurrentActiveUnit.StartTurn());
 		CombatData.currentCharacterTurn++;
