@@ -10,8 +10,6 @@ public class Character : Unit
     public SO_MainSkill basicAttack;
     public SO_MainSkill basicSkill;
 
-    [HideInInspector] public int MaxSkillShotAmount = 4;
-    [HideInInspector] public List<bool> SkillshotsEquipped;
     public List<SO_MainSkill> skills = new List<SO_MainSkill>();
 
     [Space]
@@ -46,27 +44,6 @@ public class Character : Unit
 
         if (skills?.Count == 0)
             return;
-
-        SetSkills();
-    }
-
-    void SetSkills()
-    {
-        SkillData.Caster = this;
-
-        for (int i = 0; i < MaxSkillShotAmount; i++)
-        {
-            if (i >= skills.Count)
-            {
-                SkillshotsEquipped.Add(false);
-                continue;
-            }
-
-            if (skills[i] != null)
-                SkillshotsEquipped.Add(true);
-            else
-                SkillshotsEquipped.Add(true);
-        }
     }
 
     void UseSkills()

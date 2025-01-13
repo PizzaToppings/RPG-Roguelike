@@ -30,11 +30,13 @@ public class SO_SKillVFX : ScriptableObject
 	[HideInInspector] public Vector3 Origin;
 	[HideInInspector] public Vector3 Destination;
 
-	private SkillPartData data;
+	private SkillPartData SPData;
+	private DamageData damageData;
 
-	public void SetValues(SkillPartData spd)
+	public void SetValues(SkillPartData spd, DamageData damageData)
     {
-		data = spd;
+		SPData = spd;
+		this.damageData = damageData;
 		if (SkillFxKind == SkillFxType.Animation)
         {
 			Origin = Destination = GetDestination();
@@ -53,17 +55,17 @@ public class SO_SKillVFX : ScriptableObject
 
 		if (SkillOriginKind == SkillFxOriginEnum.Caster)
 		{
-			origin = SkillData.Caster.transform.position;
+			origin = damageData.Caster.transform.position;
 		}
 
 		if (SkillOriginKind == SkillFxOriginEnum.Target)
 		{
-			origin = data.TargetsHit[0].transform.position;
+			origin = SPData.TargetsHit[0].transform.position;
 		}
 
 		if (SkillOriginKind == SkillFxOriginEnum.Tiles)
 		{
-			origin = data.TilesHit[0].transform.position;
+			origin = SPData.TilesHit[0].transform.position;
 		}
 
 		return origin + Vector3.up;
@@ -75,17 +77,17 @@ public class SO_SKillVFX : ScriptableObject
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Caster)
 		{
-			destination = SkillData.Caster.transform.position;
+			destination = damageData.Caster.transform.position;
 		}
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Target)
 		{
-			destination = data.TargetsHit[0].transform.position;
+			destination = SPData.TargetsHit[0].transform.position;
 		}
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Tiles)
 		{
-			destination = data.TilesHit[0].transform.position;
+			destination = SPData.TilesHit[0].transform.position;
 		}
 
 		return destination + Vector3.up;

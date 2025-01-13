@@ -34,8 +34,11 @@ public class SkillsManager : MonoBehaviour
 
     public void SetSkills(Character character)
     {
-        character.basicAttack.Init();
-        character.basicSkill.Init();
+        if (character.Summon == false)
+		{
+            character.basicAttack.Init();
+            character.basicSkill.Init();
+		}
 
         foreach (var skill in character.skills)
         {
@@ -114,7 +117,7 @@ public class SkillsManager : MonoBehaviour
         character.StopCasting();
     }
 
-    IEnumerator CastSkillsPart(SO_Skillpart skillPart)
+    public IEnumerator CastSkillsPart(SO_Skillpart skillPart)
     {
         var skillVFX = skillPart.SkillVFX;
         var skillPartData = skillPart.PartData;
@@ -139,7 +142,7 @@ public class SkillsManager : MonoBehaviour
                 if (SFX.ShowDamage)
                     damageManager.DealDamageSetup(skillPart, SFX.ShowDamageDelay);
 
-                SFX.SetValues(skillPartData);
+                SFX.SetValues(skillPartData, skillPart.DamageEffect);
                 yield return StartCoroutine(skillVFXManager.Cast(SFX));
 			}
         }

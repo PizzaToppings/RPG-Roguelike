@@ -7,7 +7,6 @@ public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance;
 
-    SkillsManager skillsManager;
     TargetSkillsManager targetSkillsManager;
 
     [Space]
@@ -34,7 +33,6 @@ public class BoardManager : MonoBehaviour
     {
         movementLR = GetComponent<LineRenderer>();
         Directions = GetDirections();
-        skillsManager = SkillsManager.Instance;
         targetSkillsManager = TargetSkillsManager.Instance;
     }
 

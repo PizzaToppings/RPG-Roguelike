@@ -46,6 +46,8 @@ public class DamageManager : MonoBehaviour
         var typeModifier = GetTypeModifyer(damageEffect, target);
 
         var damage = Mathf.CeilToInt((skillPower + casterPower - targetDefense) * typeModifier);
+        if (damage < 0)
+            damage = 0;
 
         return damage;
     }

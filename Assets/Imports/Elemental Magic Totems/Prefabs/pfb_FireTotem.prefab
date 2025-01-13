@@ -9603,7 +9603,7 @@ GameObject:
   - component: {fileID: 466112}
   - component: {fileID: 3399172}
   - component: {fileID: 2361346}
-  - component: {fileID: 2739364374550202691}
+  - component: {fileID: 7619081490102706995}
   m_Layer: 0
   m_Name: pfb_FireTotem
   m_TagString: Untagged
@@ -9681,7 +9681,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2739364374550202691
+--- !u!114 &7619081490102706995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9690,26 +9690,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 124340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b7f798078994494f9b7a7db8a1da702, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f808ff0f1853df40b8cafbdf4715388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitName: 
+  UnitName: Fire Totem
   Friendly: 1
   Summon: 1
-  MaxHitpoints: 10
-  Hitpoints: 10
-  ShieldPoints: 0
+  MaxHitpoints: 30
+  Hitpoints: 30
+  ShieldPoints: 5
   MoveSpeed: 0
   MoveSpeedLeft: 0
   Initiative: 0
   IsTargeted: 0
-  PhysicalPower: 10
-  MagicalPower: 10
-  PhysicalDefense: 10
-  MagicalDefense: 10
-  Resistances: 
+  PhysicalPower: 0
+  MagicalPower: 0
+  PhysicalDefense: 0
+  MagicalDefense: 2
+  Resistances: 02000000
   Vulnerabilities: 
-  statusEffects: []
   Tile: {fileID: 0}
   combatManager: {fileID: 0}
   boardManager: {fileID: 0}
@@ -9719,10 +9718,14 @@ MonoBehaviour:
   statusEffectManager: {fileID: 0}
   damageManager: {fileID: 0}
   uiManager: {fileID: 0}
-  OnTurnStart:
+  ui_Singletons: {fileID: 0}
+  OnUnitTurnStartEvent:
     m_PersistentCalls:
       m_Calls: []
-  OnTurnEnd:
+  OnUnitTurnEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUnitTakeDamageEvent:
     m_PersistentCalls:
       m_Calls: []
   OnDealDamage:
@@ -9736,13 +9739,7 @@ MonoBehaviour:
   startXPosition: 0
   startYPosition: 0
   MouseOver: 0
-  MaxEnergy: 100
-  Energy: 0
-  basicAttack: {fileID: 11400000, guid: f5f07cd6831161447a859ccf58f8c8e5, type: 2}
-  basicSkill: {fileID: 0}
-  MaxSkillShotAmount: 4
-  SkillshotsEquipped: 
-  skills: []
+  skill: {fileID: 11400000, guid: 244d5741458b65f428d9bd9fc25060c0, type: 2}
 --- !u!1 &133444
 GameObject:
   m_ObjectHideFlags: 0

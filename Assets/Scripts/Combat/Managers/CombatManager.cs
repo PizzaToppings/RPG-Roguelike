@@ -104,7 +104,7 @@ public class CombatManager : MonoBehaviour
 		StartCoroutine(CurrentActiveUnit.StartTurn());
 		CombatData.currentCharacterTurn++;
 
-        if (CurrentActiveUnit.Friendly)
+        if (CurrentActiveUnit.Friendly && CurrentActiveUnit.Summon == false)
         {
             skillsManager.SetSkills(CurrentActiveUnit as Character);
             consumableManager.SetConsumables(CurrentActiveUnit as Character);
