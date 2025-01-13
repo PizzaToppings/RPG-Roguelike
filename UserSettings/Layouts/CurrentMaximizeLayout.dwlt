@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 66004
+  controlID: 87279
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 65887
+  controlID: 87185
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -622,9 +622,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 38.23847, y: 8.6052265, z: 1.1391563}
+    m_Target: {x: -11.731987, y: 9.288966, z: -9.651858}
     speed: 2
-    m_Value: {x: 38.23847, y: 8.6052265, z: 1.1391563}
+    m_Value: {x: -11.731987, y: 9.288966, z: -9.651858}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -670,13 +670,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.12739639, y: 0.031830728, z: -0.0040906174, w: -0.9913332}
+    m_Target: {x: -0.36642137, y: 0.025673741, z: -0.010115119, w: -0.9300406}
     speed: 2
-    m_Value: {x: -0.12739632, y: 0.03183071, z: -0.004090615, w: -0.9913326}
+    m_Value: {x: -0.3664211, y: 0.025673723, z: -0.010115111, w: -0.93003994}
   m_Size:
-    m_Target: 25.437618
+    m_Target: 9.068105
     speed: 2
-    m_Value: 25.437618
+    m_Value: 9.068105
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -924,7 +924,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 65948
+  controlID: 87230
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -991,10 +991,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 160}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: ec16fdff0ac1feffc65affffd4edffff64faffff986300007264000096660000ee6600000a67000052670000586c0000866c0000366e00007c6e0000
+      m_ExpandedIDs: 74f2f8fff4f2f8ffb006f9ff3408f9ff480af9ff960ef9ffd211f9ff1812f9ffd614f9ffec16fdff0ac1feffc65affffd4edffff64faffff9863000096660000ee6600000a67000052670000586c0000866c0000366e0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1093,7 +1093,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Placeholders/UI
+    - Assets/Scenes
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1103,16 +1103,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Prefabs/Placeholders/UI
+  - Assets/Scenes
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Gebruiker\Documents\Git Repos\Unity Projects\RPG-Roguelike
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c2670900
-    m_LastClickedID: 616386
-    m_ExpandedIDs: 0000000006620000086200001262000014620000226200004e6200005062000076620000786200001463000026a1000000ca9a3b
+    m_SelectedIDs: 62630000
+    m_LastClickedID: 25442
+    m_ExpandedIDs: 0000000006620000086200001262000014620000226200007862000014630000f4a0000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1141,7 +1141,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000006620000086200001262000014620000226200004e62000050620000766200007862000026a1000000ca9a3b
+    m_ExpandedIDs: 0000000006620000086200001262000014620000226200007862000014630000f4a0000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1262,13 +1262,10 @@ MonoBehaviour:
     m_SaveData: []
     m_ContainerData: []
     m_OverlaysVisible: 1
-  m_ObjectsLockedBeforeSerialization:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_InstanceIDsLockedBeforeSerialization: 9e6f0000
+  m_ObjectsLockedBeforeSerialization: []
+  m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
-    m_CachedPref: -151
+    m_CachedPref: 512
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
@@ -1276,5 +1273,5 @@ MonoBehaviour:
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
-    m_IsLocked: 1
+    m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
