@@ -19,6 +19,7 @@ public class FloatingDamageNumber : MonoBehaviour
 
     public void Init(DamagaDataResolved data, Color textColor)
     {
+        gameObject.SetActive(true);
         damageDataResolved = data;
 
         bool isNegative = Random.Range(0, 2) == 1;
@@ -65,9 +66,9 @@ public class FloatingDamageNumber : MonoBehaviour
                 text.alpha = Mathf.Lerp(1f, 0f, fadeProgress);
             }
 
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        Destroy(gameObject); // TODO cache
+        gameObject.SetActive(false);
     }
 }

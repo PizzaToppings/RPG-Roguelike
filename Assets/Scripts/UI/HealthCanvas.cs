@@ -37,24 +37,51 @@ public class HealthCanvas : MonoBehaviour
 
     public void ShowDamageNumber(DamagaDataResolved data)
     {
+        var damageNumber = GetOrCreateFloatingNumber<FloatingDamageNumber>(DamageNumber);
         var color = ui_Singletons.GetDamageTypeColor(data.DamageType);
-        var dn = Instantiate(DamageNumber, DamageNumbersCanvas);
-        var damageNumber = dn.GetComponent<FloatingDamageNumber>();
         damageNumber.Init(data, color);
     }
 
     public void ShowHealNumber(DamagaDataResolved data)
     {
+        var healNumber = GetOrCreateFloatingNumber<FloatingHealNumber>(HealNumber);
         var color = ui_Singletons.GetDamageTypeColor(data.DamageType);
-        var hn = Instantiate(HealNumber, DamageNumbersCanvas);
-        var healNumber = hn.GetComponent<FloatingHealNumber>();
         healNumber.Init(data, color);
     }
 
     public void ShowStatusEffect(string displayText, Unit target, bool isBuff)
     {
-        var se = Instantiate(StatusEfectText, DamageNumbersCanvas);
-        var statusText = se.GetComponent<FloatingStatusEffectText>();
+        var statusText = GetOrCreateFloatingNumber<FloatingStatusEffectText>(HealNumber); // Assuming HealNumber is correct here
         statusText.Init(displayText, target, isBuff);
+    }
+
+    private T GetOrCreateFloatingNumber<T>(GameObject prefab) where T : Component
+    {
+        T floatingNumber = null;
+
+        if (DamageNumbersCanvas.childCount > 0)
+		{
+            foreach (Transform childTransform in DamageNumbersCanvas.transform)
+            {
+                var child = childTransform.gameObject;
+
+                if (child == null)
+                    continue;
+
+                if (child.activeSelf)
+                    continue;
+
+                if (child.TryGetComponent<T>(out floatingNumber))
+                    break;
+            }
+		}
+
+        if (floatingNumber == null)
+        {
+            var instance = Instantiate(prefab, DamageNumbersCanvas);
+            floatingNumber = instance.GetComponent<T>();
+        }
+
+        return floatingNumber;
     }
 }

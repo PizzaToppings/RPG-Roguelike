@@ -27,16 +27,8 @@ public class Enemy : Unit
     public override IEnumerator StartTurn()
     {
         yield return null;
-        PossibleMovementTiles = new List<BoardTile>(); 
+        PossibleMovementTiles = new List<BoardTile>();
         yield return StartCoroutine(base.StartTurn());
-
-        //StartCoroutine(holdturnforasec());
-    }
-
-    IEnumerator holdturnforasec() // temp
-    {
-        yield return new WaitForSeconds(3);
-        EndTurn();
     }
 
     public override void OnMouseDown()
@@ -57,11 +49,9 @@ public class Enemy : Unit
         if (skillsManager.CanCastSkill(skill, caster) == false) 
             return;
 
-        var attackRange = 0f;
-
         if (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
         {
-            attackRange = skillsManager.GetSkillAttackRange();
+            var attackRange = skillsManager.GetSkillAttackRange();
             if (attackRange == 0)
                 return;
 

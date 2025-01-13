@@ -18,6 +18,7 @@ public class FloatingStatusEffectText : MonoBehaviour
 
     public void Init(string displayText, Unit target, bool isBuff)
     {
+        gameObject.SetActive(true);
         text.color = Color.grey; // change?
         text.text = displayText;
 
@@ -59,6 +60,6 @@ public class FloatingStatusEffectText : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject); // TODO cache
+        gameObject.SetActive(false);
     }
 }

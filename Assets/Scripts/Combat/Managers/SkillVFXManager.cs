@@ -4,11 +4,12 @@ using System.Collections.Generic;
 
 public class SkillVFXManager : MonoBehaviour
 {
-    public static SkillVFXManager Instance; 
-    
-	LineRenderer ProjectileLine;
+    public static SkillVFXManager Instance;
+
+    [SerializeField] Transform skillObjectParent;
+
+    LineRenderer ProjectileLine;
     float projectileLineVertexCount = 12;
-    // TODO still needs to animate the casting character and affected characters
 
     public void CreateInstance()
     {
@@ -20,26 +21,29 @@ public class SkillVFXManager : MonoBehaviour
 		ProjectileLine = GetComponent<LineRenderer>();
 	}
 
-    public IEnumerator Cast(SO_SKillVFX skillFx)
+    public IEnumerator Cast(SO_SKillVFX skillVFX)
     {
-        yield return new WaitForSeconds(skillFx.StartDelay);
-        
-        var skillObject = Instantiate(skillFx.SkillObject, skillFx.Origin, Quaternion.identity);
+        yield return new WaitForSeconds(skillVFX.StartDelay);
 
-        if (skillFx.SkillFxKind == SkillFxType.Projectile)
+        var skillObject = GetOrCreateSpellObject(skillVFX);
+        
+        skillObject.transform.position = skillVFX.Origin;
+        skillObject.transform.rotation = Quaternion.identity;
+
+        if (skillVFX.SkillFxKind == SkillFxType.Projectile)
         {
-            yield return StartCoroutine(MoveProjectileAlongCurve(skillObject, skillFx));
+            yield return StartCoroutine(MoveProjectileAlongCurve(skillObject, skillVFX));
         }
 
-        if (skillFx.SkillFxKind == SkillFxType.Animation)
+        if (skillVFX.SkillFxKind == SkillFxType.Animation)
         {
             var particleSystem = skillObject.GetComponent<ParticleSystem>();
 
-            if (skillFx.StickToUnit)
+            if (skillVFX.StickToUnit)
             {
                 while (true)
                 {
-                    skillObject.transform.position = skillFx.GetDestination();
+                    skillObject.transform.position = skillVFX.GetDestination();
 
                     if (particleSystem.isStopped)
                         break;
@@ -51,10 +55,35 @@ public class SkillVFXManager : MonoBehaviour
             yield return new WaitUntil(() => particleSystem.isStopped);
         }
 
-        yield return new WaitForSeconds(skillFx.ExtendDelay);
+        yield return new WaitForSeconds(skillVFX.ExtendDelay);
 
-        Destroy(skillObject); // TODO change
-        yield return new WaitForSeconds(skillFx.EndDelay);
+        skillObject.SetActive(false);
+        yield return new WaitForSeconds(skillVFX.EndDelay);
+    }
+
+    GameObject GetOrCreateSpellObject(SO_SKillVFX skillVFX)
+	{
+        if (skillObjectParent.childCount > 0)
+        {
+            foreach (Transform childTransform in skillObjectParent.transform)
+            {
+                var child = childTransform.gameObject;
+
+                if (child == null)
+                    continue;
+
+                if (child.activeSelf)
+                    continue;
+
+                if (child.name == skillVFX.SkillObject.name + "(Clone)")
+                {
+                    child.transform.position = skillVFX.Origin;
+                    child.SetActive(true);
+                    return child;
+                }
+            }
+        }
+        return Instantiate(skillVFX.SkillObject, skillVFX.Origin, Quaternion.identity, skillObjectParent);
     }
 
     private IEnumerator MoveProjectileAlongCurve(GameObject skillObject, SO_SKillVFX skillFx)

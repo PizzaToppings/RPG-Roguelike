@@ -15,6 +15,7 @@ public class FloatingHealNumber : MonoBehaviour
 
     public void Init(DamagaDataResolved data, Color textColor)
     {
+        gameObject.SetActive(true);
         damageDataResolved = data;
         text.color = textColor;
         
@@ -59,7 +60,7 @@ public class FloatingHealNumber : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject); // TODO cache
+        gameObject.SetActive(false);
     }
 }
 
