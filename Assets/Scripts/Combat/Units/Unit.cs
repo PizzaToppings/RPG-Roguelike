@@ -170,6 +170,8 @@ public class Unit : UnitStats
             OnUnitTakeDamageEvent.Invoke(damagaDataResolved);
 
         ThisHealthbar.UpdateHealthbar();
+        if (Hitpoints <= 0)
+            Die();
 
         return damagaDataResolved;
 	}
@@ -258,5 +260,11 @@ public class Unit : UnitStats
             OnUnitTurnEndEvent.Invoke();
 
         StartCoroutine(combatManager.EndTurn());
+    }
+
+    public virtual void Die()
+	{
+        ThisHealthbar.RemoveHealthbar();
+        StartCoroutine(unitManager.RemoveUnit(this));
     }
 }

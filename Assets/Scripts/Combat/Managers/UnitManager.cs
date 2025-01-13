@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
@@ -83,5 +84,42 @@ public class UnitManager : MonoBehaviour
         unit.Init();
 
         initiativeTracker.AddToInitiative(unit);
+    }
+
+    public IEnumerator RemoveUnit(Unit unit)
+	{
+        unit.gameObject.SetActive(false);
+        unit.Tile.currentUnit = null;
+        initiativeTracker.RemoveFromInitiative(unit);
+
+        int deadCharacterIndex = UnitData.Units.IndexOf(unit);
+       
+        UnitData.Units.Remove(unit);
+
+        if (deadCharacterIndex < CombatData.currentUnitTurn)
+        {
+            CombatData.currentUnitTurn--;
+        }
+        else if (deadCharacterIndex == CombatData.currentUnitTurn)
+        {
+            CombatData.currentUnitTurn--;
+            yield return StartCoroutine(combatManager.EndTurn());
+        }
+
+        // remove unit from lists
+        if (unit is Character)
+            UnitData.Characters.Remove(unit as Character);
+
+        if (unit is Enemy)
+            UnitData.Enemies.Remove(unit as Enemy);
+
+        if (UnitData.Characters.Count == 0)
+            combatManager.Lose();
+
+        if (UnitData.Enemies.Count == 0)
+            combatManager.Win();
+
+        yield return new WaitForSeconds(1);
+        Destroy(unit.gameObject);
     }
 }

@@ -137,8 +137,11 @@ public class Character : Unit
     {
         boardManager.Clear();
         ui_Singletons.SetCursor(CursorType.Normal);
-        UnitData.CurrentAction = CurrentActionKind.Basic;
-		SkillData.Reset();
+
+        if (UnitData.ActiveUnit == this)
+            UnitData.CurrentAction = CurrentActionKind.Basic;
+		
+        SkillData.Reset();
 		boardManager.SetAOE(MoveSpeedLeft, Tile, null);
         skillVFXManager.EndProjectileLine();
         SetSkillData(basicAttack);

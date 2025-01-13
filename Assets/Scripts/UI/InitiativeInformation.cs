@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -16,10 +14,13 @@ public class InitiativeInformation : MonoBehaviour
     public Color EnemyBackground;
     public Color EnemyNumber;
 
+    public Unit thisUnit;
+
     public int Initiative = 0;
 
     public void Init(Unit unit, int index)
     {
+        thisUnit = unit;
         if (unit.Friendly)
         {
             Background.color = FriendlyBackground;

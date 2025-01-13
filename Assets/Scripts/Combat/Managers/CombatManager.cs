@@ -91,23 +91,20 @@ public class CombatManager : MonoBehaviour
 
     public void TurnStart()
     {
-        if (CombatData.currentCharacterTurn == UnitData.Units.Count)
+        if (CombatData.currentUnitTurn == UnitData.Units.Count)
         {
-            CombatData.currentCharacterTurn = 0;
+            CombatData.currentUnitTurn = 0;
             RoundStart();
         }
 
-        var CurrentActiveUnit = UnitData.Units[CombatData.currentCharacterTurn];
+        var CurrentActiveUnit = UnitData.Units[CombatData.currentUnitTurn];
 
         StartCoroutine(cameraController.MoveToUnit(CurrentActiveUnit));
-
-        // move cam to active unit
 
         initiativeTracker.NextTurn();
 
         UnitData.ActiveUnit = CurrentActiveUnit;
 		StartCoroutine(CurrentActiveUnit.StartTurn());
-		CombatData.currentCharacterTurn++;
 
         if (CurrentActiveUnit.Friendly && CurrentActiveUnit.Summon == false)
         {
@@ -124,6 +121,18 @@ public class CombatManager : MonoBehaviour
             CombatData.onTurnEnd.Invoke();
 
         yield return new WaitForSeconds(1);
+		CombatData.currentUnitTurn++;
+
         TurnStart();
+    }
+
+    public void Win()
+	{
+        Debug.Log("Huzzzah!");
+	}
+
+    public void Lose()
+	{
+        Debug.Log("You lost!");
     }
 }

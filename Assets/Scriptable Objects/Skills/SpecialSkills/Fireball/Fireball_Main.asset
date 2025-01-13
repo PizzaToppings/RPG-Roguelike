@@ -17,7 +17,7 @@ MonoBehaviour:
   Image_Inactive: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
+  IsMagical: 1
   BaseRange: 0
   Classes: 
   Description: This is a skill
@@ -29,7 +29,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3d9b45842d69b3443bfd4c1721be1ebd, type: 2}
   EnergyCost: 10
   DefaultCharges: 2
-  Charges: 2
+  Charges: 1
   Cursor: 3
   castLockColor:
     FillCenter: 0

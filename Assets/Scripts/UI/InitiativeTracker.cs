@@ -1,17 +1,16 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class InitiativeTracker : MonoBehaviour
 {
-    public GameObject InitiativeImage;
+    public GameObject InitiativeImagePrefab;
 
-    List<InitiativeInformation> InitiativeList = new List<InitiativeInformation>();
+    List<InitiativeInformation> initiativeList = new List<InitiativeInformation>();
 
     public void SetInitiative()
     {
-        InitiativeList.Clear();
+        initiativeList.Clear();
 
         for (int i = 0; i < UnitData.Characters.Count; i++)
         {
@@ -24,28 +23,36 @@ public class InitiativeTracker : MonoBehaviour
             AddToInitiative(enemy);
         }
 
-        InitiativeList.Sort((x, y) => x.Initiative);
+        initiativeList.Sort((x, y) => x.Initiative);
 
         NextTurn();
     }
 
     public void AddToInitiative(Unit unit)
 	{
-        var image = Instantiate(InitiativeImage, transform);
+        var image = Instantiate(InitiativeImagePrefab, transform);
         var init = image.GetComponent<InitiativeInformation>();
-        init.Init(unit, InitiativeList.Count);
+        init.Init(unit, initiativeList.Count);
 
-        InitiativeList.Add(init);
+        initiativeList.Add(init);
+        initiativeList.Sort((x, y) => x.Initiative);
+    }
 
-        InitiativeList.Sort((x, y) => x.Initiative);
+    public void RemoveFromInitiative(Unit unit)
+	{
+        var init = initiativeList.First(x => x.thisUnit == unit);
+
+        initiativeList.Remove(init);
+        Destroy(init.gameObject);
+        initiativeList.Sort((x, y) => x.Initiative);
     }
 
     public void NextTurn()
     {
-        foreach (var initiative in InitiativeList)
+        foreach (var initiative in initiativeList)
             initiative.ToggleActive(false);
 
-        InitiativeList[CombatData.currentCharacterTurn].ToggleActive(true);
+        initiativeList[CombatData.currentUnitTurn].ToggleActive(true);
     }
 
     public void NextRound()

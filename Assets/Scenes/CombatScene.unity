@@ -8247,7 +8247,7 @@ PrefabInstance:
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: MagicalPower
-      value: 60
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -8257,12 +8257,12 @@ PrefabInstance:
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: PhysicalPower
-      value: 52
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: MagicalDefense
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -8277,7 +8277,7 @@ PrefabInstance:
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: PhysicalDefense
-      value: 43
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -48133,9 +48133,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camRotator: {fileID: 546395575}
   moveSpeed: 5
-  zoomSpeed: 50
   rotationSpeed: 100
+  zoomSpeed: 50
   zoomRange: {x: 2, y: 20}
+  panToCharacterSpeed: 60
 --- !u!1001 &1676632862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55177,7 +55178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ea7fef0bfd3df43b1ddd7142c171fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitiativeImage: {fileID: 2828334946107872672, guid: 8eefb53d809f0944ca0694650f6d6584,
+  InitiativeImagePrefab: {fileID: 2828334946107872672, guid: 8eefb53d809f0944ca0694650f6d6584,
     type: 3}
 --- !u!1001 &1923662547
 PrefabInstance:

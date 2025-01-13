@@ -65,4 +65,9 @@ public class Healthbar : MonoBehaviour
                 return;
         }
     }
+
+    public void RemoveHealthbar()
+	{
+        Destroy(gameObject);
+	}
 }

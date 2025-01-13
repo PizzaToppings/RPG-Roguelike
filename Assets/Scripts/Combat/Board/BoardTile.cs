@@ -171,7 +171,6 @@ public class BoardTile : MonoBehaviour
 
             if (movementLeft > -1 && UnitData.CurrentAction == CurrentActionKind.Basic)
             {
-                // start moving
                 StartCoroutine(boardManager.MoveToTile());
             }
         }
