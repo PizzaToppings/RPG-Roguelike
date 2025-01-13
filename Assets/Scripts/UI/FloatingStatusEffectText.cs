@@ -18,7 +18,6 @@ public class FloatingStatusEffectText : MonoBehaviour
 
     public void Init(string displayText, Unit target, bool isBuff)
     {
-        gameObject.SetActive(true);
         text.color = Color.grey; // change?
         text.text = displayText;
 

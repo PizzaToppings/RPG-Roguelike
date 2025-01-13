@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +10,8 @@ public class InfoScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI skillName;
     [SerializeField] TextMeshProUGUI energyAmount;
     [SerializeField] TextMeshProUGUI chargeAmount;
+    [SerializeField] TextMeshProUGUI skillRange;
+    [SerializeField] TextMeshProUGUI isMagicalText;
     [SerializeField] TextMeshProUGUI skillType;
     [SerializeField] List<Image> classIcons;
     [SerializeField] TextMeshProUGUI skillDescription;
@@ -20,13 +21,19 @@ public class InfoScreen : MonoBehaviour
         if (ui_Singletons == null)
             ui_Singletons = UI_Singletons.Instance;
 
+        // basic
         skillName.text = skill.SkillName;
         energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
         chargeAmount.text = "Charges: " + skill.DefaultCharges.ToString();
+        skillRange.text = "Range: " + skill.BaseRange.ToString();
+        isMagicalText.text = skill.IsMagical ? "magical" : "physical";
+        isMagicalText.gameObject.SetActive(false);
 
+        // skillIcons
         foreach (var skillIcon in classIcons)
             skillIcon.gameObject.SetActive(false);
 
+        // basic skills or consumables
         if (skill.IsBasic)
 		{
             skillType.text = "Basic skill";
@@ -38,6 +45,7 @@ public class InfoScreen : MonoBehaviour
         else
 		{
             skillType.text = string.Empty;
+            isMagicalText.gameObject.SetActive(true);
 
             for (var i = 0; i < skill.Classes.Count; i++)
 			{
