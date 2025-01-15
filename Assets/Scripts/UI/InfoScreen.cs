@@ -25,7 +25,7 @@ public class InfoScreen : MonoBehaviour
         skillName.text = skill.SkillName;
         energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
         chargeAmount.text = "Charges: " + skill.DefaultCharges.ToString();
-        skillRange.text = "Range: " + skill.BaseRange.ToString();
+        skillRange.text = "Range: " + GetBaseRange(skill);
         isMagicalText.text = skill.IsMagical ? "magical" : "physical";
         isMagicalText.gameObject.SetActive(false);
 
@@ -57,6 +57,28 @@ public class InfoScreen : MonoBehaviour
         skillDescription.text = skill.Description;
 
         gameObject.SetActive(true);
+    }
+
+    string GetBaseRange(SO_MainSkill skill)
+    {
+        string range = string.Empty;
+
+        foreach (var spg in skill.SkillPartGroups)
+        {
+            foreach (var sp in spg.skillParts)
+            {
+                if (sp is SO_TargetSelfSkill)
+                {
+                    range = "Self";
+                }
+                else
+                {
+                    range = sp.MaxRange.ToString();
+                    break;
+                }
+            }
+        }
+        return range;
     }
 
     public void Deactivate()

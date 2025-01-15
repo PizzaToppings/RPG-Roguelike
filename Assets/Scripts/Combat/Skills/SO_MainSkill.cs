@@ -11,7 +11,6 @@ public class SO_MainSkill : ScriptableObject
     public bool IsBasic;
     public bool IsConsumable;
     public bool IsMagical;
-    public float BaseRange;
 
     [Space]
     public List<ClassEnum> Classes;

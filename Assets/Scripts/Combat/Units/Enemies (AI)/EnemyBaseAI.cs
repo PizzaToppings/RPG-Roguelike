@@ -22,6 +22,10 @@ public class EnemyBaseAI : Enemy
 
         var preferredTarget = GetTargetPreference(TargetPreference, UnitData.Characters);
 
+        PossibleMovementTiles.Add(Tile);
+
+        PossibleMovementTiles.ForEach(x => x.EnemyPreferenceRating = 0);
+
         foreach (var tile in PossibleMovementTiles)
         {
             foreach (var character in UnitData.Characters)
