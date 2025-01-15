@@ -121,7 +121,9 @@ public class Unit : UnitStats
         }
         var endTile = path[path.Count-1];
 
-        UnitData.CurrentAction = CurrentActionKind.Basic;
+        if (Friendly)
+            UnitData.CurrentAction = CurrentActionKind.Basic;
+
         boardManager.Clear();
         boardManager.SetAOE(MoveSpeedLeft, endTile, null);
         modelAnimator.SetBool("Run", false);
@@ -251,7 +253,7 @@ public class Unit : UnitStats
         }
 
         if (statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Rooted) == false)
-            boardManager.SetMovementAOE(MoveSpeedLeft, Tile);
+            boardManager.SetAOE(MoveSpeedLeft, Tile, null);
     }
 
     public virtual void EndTurn()

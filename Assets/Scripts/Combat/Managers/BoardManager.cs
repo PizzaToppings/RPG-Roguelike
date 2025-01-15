@@ -70,6 +70,11 @@ public class BoardManager : MonoBehaviour
                     y >= 0 && y < BoardData.columnAmount);
     }
 
+    public float GetRangeBetweenTiles(BoardTile startTile, BoardTile EndTile)
+    {
+        return GetRangeBetweenTiles(startTile.Coordinates, EndTile.Coordinates);
+    }
+
     public float GetRangeBetweenTiles(Vector2 startTile, Vector2 EndTile)
     {
         var range = 0f;
@@ -166,59 +171,59 @@ public class BoardManager : MonoBehaviour
         return tilesOrdened;
     }
 
-    public int GetRangeBetweenTiles(BoardTile startTile, BoardTile endTile)
-    {
-        List<BoardTile> openSet = new List<BoardTile>();
-        HashSet<BoardTile> closedSet = new HashSet<BoardTile>();
+    //public int GetRangeBetweenTiles(BoardTile startTile, BoardTile endTile)
+    //{
+    //    List<BoardTile> openSet = new List<BoardTile>();
+    //    HashSet<BoardTile> closedSet = new HashSet<BoardTile>();
 
-        startTile.DistanceToTarget = Vector2.Distance(startTile.Coordinates, endTile.Coordinates);
-        startTile.DistanceTraveled = 0;
+    //    startTile.DistanceToTarget = Vector2.Distance(startTile.Coordinates, endTile.Coordinates);
+    //    startTile.DistanceTraveled = 0;
 
-        openSet.Add(startTile);
+    //    openSet.Add(startTile);
 
-        while (openSet.Count > 0)
-        {
-            BoardTile currentTile = openSet[0];
-            for (int i = 1; i < openSet.Count; i++)
-            {
-                if (openSet[i].DistanceToTarget < currentTile.DistanceToTarget ||
-                    (openSet[i].DistanceToTarget == currentTile.DistanceToTarget &&
-                     openSet[i].DistanceToTarget < currentTile.DistanceToTarget))
-                {
-                    currentTile = openSet[i];
-                }
-            }
+    //    while (openSet.Count > 0)
+    //    {
+    //        BoardTile currentTile = openSet[0];
+    //        for (int i = 1; i < openSet.Count; i++)
+    //        {
+    //            if (openSet[i].DistanceToTarget < currentTile.DistanceToTarget ||
+    //                (openSet[i].DistanceToTarget == currentTile.DistanceToTarget &&
+    //                 openSet[i].DistanceToTarget < currentTile.DistanceToTarget))
+    //            {
+    //                currentTile = openSet[i];
+    //            }
+    //        }
 
-            openSet.Remove(currentTile);
-            closedSet.Add(currentTile);
+    //        openSet.Remove(currentTile);
+    //        closedSet.Add(currentTile);
 
-            if (currentTile.Coordinates == endTile.Coordinates)
-            {
-                return (int)currentTile.DistanceTraveled;
-            }
+    //        if (currentTile.Coordinates == endTile.Coordinates)
+    //        {
+    //            return (int)currentTile.DistanceTraveled;
+    //        }
 
-            foreach (var neighbor in currentTile.connectedTiles)
-            {
-                if (closedSet.Contains(neighbor) || neighbor == null) 
-                    continue;
+    //        foreach (var neighbor in currentTile.connectedTiles)
+    //        {
+    //            if (closedSet.Contains(neighbor) || neighbor == null) 
+    //                continue;
 
-                float newDistanceTraveled = currentTile.DistanceTraveled + 1;
+    //            float newDistanceTraveled = currentTile.DistanceTraveled + 1;
 
-                if (newDistanceTraveled < neighbor.DistanceTraveled || !openSet.Contains(neighbor))
-                {
-                    neighbor.DistanceTraveled = newDistanceTraveled;
-                    neighbor.DistanceToTarget = Vector2.Distance(neighbor.Coordinates, endTile.Coordinates);
-                    neighbor.PreviousTile = currentTile;
+    //            if (newDistanceTraveled < neighbor.DistanceTraveled || !openSet.Contains(neighbor))
+    //            {
+    //                neighbor.DistanceTraveled = newDistanceTraveled;
+    //                neighbor.DistanceToTarget = Vector2.Distance(neighbor.Coordinates, endTile.Coordinates);
+    //                neighbor.PreviousTile = currentTile;
 
-                    if (!openSet.Contains(neighbor))
-                    {
-                        openSet.Add(neighbor);
-                    }
-                }
-            }
-        }
-        return-1;
-    }
+    //                if (!openSet.Contains(neighbor))
+    //                {
+    //                    openSet.Add(neighbor);
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return-1;
+    //}
 
     public void Clear()
     {
@@ -272,7 +277,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void SetMovementAOE(float movementLeft, BoardTile currentTile)
+    void SetMovementAOE(float movementLeft, BoardTile currentTile)
     {
         if (movementLeft <= 0)
             return;
@@ -438,12 +443,6 @@ public class BoardManager : MonoBehaviour
 
         if (currentTile == null)
             return;
-
-        //      while (currentTile != null)
-        //{
-        //          Path.Add(currentTile);
-        //          currentTile = currentTile.PreviousTile;
-        //      }
 
         Path = GetDirectPathBetweenTiles(UnitData.ActiveUnit.Tile, endTile);
     }

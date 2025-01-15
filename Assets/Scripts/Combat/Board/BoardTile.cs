@@ -46,6 +46,9 @@ public class BoardTile : MonoBehaviour
     public bool hasTileEffect = false;
     public TileColor tileEffectColor = null;
 
+    // Enemy AI
+    [HideInInspector] public float EnemyPreferenceRating;
+
     [HideInInspector] public Vector3 position => transform.position;
 
     public void Init()

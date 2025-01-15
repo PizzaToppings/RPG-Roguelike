@@ -26,7 +26,8 @@ public class Enemy : Unit
 
     public override IEnumerator StartTurn()
     {
-        yield return null;
+        UnitData.CurrentAction = CurrentActionKind.Animating;
+
         PossibleMovementTiles = new List<BoardTile>();
         yield return StartCoroutine(base.StartTurn());
     }
