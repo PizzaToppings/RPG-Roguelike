@@ -1,23 +1,25 @@
 using System.Collections;
 using UnityEngine;
 
-public class FireTotem : Unit
+public class SimpleEnemyAI : EnemyBaseAI
 {
     public SO_Skillpart skill;
 
+
     public override IEnumerator StartTurn()
     {
-        UnitData.CurrentAction = CurrentActionKind.Animating;
-
         yield return StartCoroutine(base.StartTurn());
 
+        FindOptimalTile();
+        yield return StartCoroutine(MoveToTile());
+
         yield return new WaitForSeconds(1);
-        StartCoroutine(Firebolt());
+        yield return StartCoroutine(Attack());
     }
 
-    public IEnumerator Firebolt()
+    public IEnumerator Attack()
     {
-        StartCoroutine(uiManager.ShowActivityText("Firebolt"));
+        StartCoroutine(uiManager.ShowActivityText("Strike"));
         yield return new WaitForSeconds(1);
 
         var damageData = skill.DamageEffect;
@@ -26,37 +28,37 @@ public class FireTotem : Unit
         Unit target = null;
         float closestTargetRange = 0;
 
-        foreach (var enemy in UnitData.Enemies)
-		{
-            var blocked = boardManager.TileIsBehindClosedTile(Tile, enemy.Tile);
+        foreach (var character in UnitData.Characters)
+        {
+            var blocked = boardManager.TileIsBehindClosedTile(Tile, character.Tile);
             if (blocked)
                 continue;
 
-            var range = boardManager.GetRangeBetweenTiles(Tile, enemy.Tile);
+            var range = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
             if (range > skill.MaxRange)
                 continue;
 
             if (target == null)
-			{
-                target = enemy;
+            {
+                target = character;
                 closestTargetRange = range;
-			}
+            }
             else
-			{
+            {
                 if (range < closestTargetRange)
-				{
-                    target = enemy;
+                {
+                    target = character;
                     closestTargetRange = range;
                 }
-			}
-		}
+            }
+        }
 
         if (target != null)
-		{
+        {
             skill.PartData = new SkillPartData();
             skill.PartData.TargetsHit.Add(target);
             StartCoroutine(skillsManager.CastSkillsPart(skill));
-		}
+        }
 
         yield return new WaitForSeconds(2);
 

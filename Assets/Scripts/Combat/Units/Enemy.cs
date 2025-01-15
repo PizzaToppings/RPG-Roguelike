@@ -91,6 +91,7 @@ public class Enemy : Unit
             {
                 skillVFXManager.EndProjectileLine();
                 UnitData.CurrentAction = CurrentActionKind.Animating;
+                SkillData.Caster = UnitData.ActiveUnit;
                 StartCoroutine(AttackEnemyBasicAttack());
             }
         }

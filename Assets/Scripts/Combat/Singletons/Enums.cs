@@ -12,6 +12,9 @@ public enum DamageTypeEnum {Physical, Arcane, Fire, Water, Earth, Ice, Electric,
 public enum StatusEfectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Manaburn, Rooted, Taunt, Thorns, StatChange }
 public enum DisplacementEnum { Teleport, Move }
 
+// Enemy AI
+public enum TargetPreferenceEnum { closestTarget, LowestHealthTarget }
+
 
 // Spell Targeting
 public enum OriginTileEnum { None, Caster, LastTargetTile, LastTile, GetFromSkillPart };

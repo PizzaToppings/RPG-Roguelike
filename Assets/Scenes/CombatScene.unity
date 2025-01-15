@@ -56794,8 +56794,11 @@ MonoBehaviour:
   startYPosition: 10
   MouseOver: 0
   PossibleMovementTiles: []
-  OptimalRange: 1.5
   OptimalTile: {fileID: 0}
+  Target: {fileID: 0}
+  OptimalRange: 1.5
+  TargetPreference: 0
+  skill: {fileID: 11400000, guid: 967c385fd7e60b14b899c2506c14bf4b, type: 2}
 --- !u!114 &1987272036 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4473422043703298615, guid: 633e76ebe8981104e92c3b4dde93ebb9,
@@ -58359,8 +58362,11 @@ MonoBehaviour:
   startYPosition: 10
   MouseOver: 0
   PossibleMovementTiles: []
-  OptimalRange: 3.5
   OptimalTile: {fileID: 0}
+  Target: {fileID: 0}
+  OptimalRange: 3.5
+  TargetPreference: 0
+  skill: {fileID: 11400000, guid: b2cd3cb45f21fee46970e4c3bdd0e1bb, type: 2}
 --- !u!1 &2044830137
 GameObject:
   m_ObjectHideFlags: 0

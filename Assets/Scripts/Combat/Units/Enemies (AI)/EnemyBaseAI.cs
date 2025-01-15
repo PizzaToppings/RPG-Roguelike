@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class EnemyBaseAI : Enemy
 {
-    public float OptimalRange;
     [HideInInspector] public BoardTile OptimalTile;
+    [HideInInspector] public Unit Target;
+
+    public float OptimalRange;
+    public TargetPreferenceEnum TargetPreference;
 
     public override IEnumerator StartTurn()
     {
@@ -17,14 +20,18 @@ public class EnemyBaseAI : Enemy
     {
         boardManager.SetAOE(MoveSpeedLeft, Tile, null);
 
+        var preferredTarget = GetTargetPreference(TargetPreference, UnitData.Characters);
+
         foreach (var tile in PossibleMovementTiles)
         {
             foreach (var character in UnitData.Characters)
             {
+                int preferedBonus = character == preferredTarget ? 50 : 0;
+
                 var rangeToCharacter = boardManager.GetRangeBetweenTiles(tile, character.Tile);
 
                 if (rangeToCharacter <= OptimalRange)
-                    tile.EnemyPreferenceRating += 200;
+                    tile.EnemyPreferenceRating += 200 + preferedBonus;
 
                 float distanceModifier = 100;
                 distanceModifier -= 5 * rangeToCharacter;
@@ -47,6 +54,53 @@ public class EnemyBaseAI : Enemy
         }
 
         OptimalTile = PossibleMovementTiles.OrderByDescending(x => x.EnemyPreferenceRating).First();
+    }
+
+    public Unit SetTarget()
+    {
+        List<Character> targetsInRange = new List<Character>();
+
+        foreach (var character in UnitData.Characters)
+        {
+            var rangeToCharacter = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
+
+            if (rangeToCharacter <= OptimalRange)
+                targetsInRange.Add(character);
+        }
+
+        var preferedTarget = GetTargetPreference(TargetPreference, targetsInRange);
+        if (preferedTarget != null)
+            return preferedTarget;
+        else
+            return targetsInRange.First();
+    }
+
+    public Unit GetTargetPreference(TargetPreferenceEnum targetPreference, List<Character> targetList)
+    {
+        switch (targetPreference)
+        {
+            case TargetPreferenceEnum.closestTarget:
+                Character closestCharacter = null;
+                float shortestDistance = float.MaxValue;
+
+                foreach (var character in targetList)
+                {
+                    var rangeToCharacter = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
+
+                    if (rangeToCharacter < shortestDistance)
+                    {
+                        shortestDistance = rangeToCharacter;
+                        closestCharacter = character;
+                    }
+                }
+                return closestCharacter;
+
+            case TargetPreferenceEnum.LowestHealthTarget:
+                Character lowestHealthCharacter = UnitData.Characters.OrderByDescending(x => x.Hitpoints).First();
+                return lowestHealthCharacter;
+        }
+
+        return null;
     }
 
     public IEnumerator MoveToTile()
