@@ -54,7 +54,7 @@ public class InfoScreen : MonoBehaviour
             }
         }
 
-        skillDescription.text = skill.Description;
+        skillDescription.text = GetDescription(skill);
 
         gameObject.SetActive(true);
     }
@@ -86,6 +86,32 @@ public class InfoScreen : MonoBehaviour
             }
         }
         return range;
+    }
+
+    string GetDescription(SO_MainSkill skill)
+    {
+        var description = skill.Description;
+        var caster = UnitData.ActiveUnit;
+
+        for (int i = 0; i < skill.SkillPartGroups.Count; i++)
+        {
+            var spg = skill.SkillPartGroups[i];
+
+            for (int y = 0; y <spg.skillParts.Count; y++)
+            {
+                if (description.Contains($"<damage{i}-{y}>") == false)
+                    continue;
+
+                var skillPart = spg.skillParts[y];
+                var skillDamage = skillPart.DamageEffect.Power;
+                var bonusDamage = skillPart.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+                var totalDamage = (skillDamage + bonusDamage).ToString();
+
+                description = description.Replace($"<damage{i}-{y}>", totalDamage);
+            }
+        }
+
+        return description;
     }
 
     public void Deactivate()

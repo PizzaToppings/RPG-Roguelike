@@ -19,8 +19,8 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 0000000004000000
-  Description: Deal <damage> to an enemy and reduce it's Physical Defense by 1 for
-    2 turns.
+  Description: Deal <damage0-0> to an enemy and reduce it's Physical Defense by 1
+    for 2 turns.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
@@ -28,7 +28,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 50e59b2ee68690c47a46b4994fb244cc, type: 2}
   EnergyCost: 3
   DefaultCharges: 1
-  Charges: 1
+  Charges: 0
   Cursor: 1
   castLockColor:
     FillCenter: 0

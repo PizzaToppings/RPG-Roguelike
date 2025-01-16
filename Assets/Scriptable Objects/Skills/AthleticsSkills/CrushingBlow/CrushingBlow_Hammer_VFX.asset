@@ -15,8 +15,10 @@ MonoBehaviour:
   SkillFxKind: 0
   SkillOriginKind: 2
   SkillOriginOffset: {x: 0, y: 3, z: 0}
+  SkillOriginRotation: {x: 180, y: 0, z: 0}
   SkillDestinationKind: 2
   SkillDestinationOffset: {x: 0, y: 0, z: 0}
+  SkillDestinationRotation: {x: 0, y: 0, z: 0}
   StickToUnit: 0
   ProjectileSpeedCurve:
     serializedVersion: 2
