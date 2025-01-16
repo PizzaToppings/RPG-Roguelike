@@ -123,18 +123,6 @@ public class SkillsManager : MonoBehaviour
         var skillPartData = skillPart.PartData;
         skillPart.DamageEffect.Caster = UnitData.ActiveUnit;
 
-        if (skillPart.displacementEffect != null)
-            DisplaceUnit(skillPart.displacementEffect);
-
-        if (skillPart.SummonObject != null)
-            unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);
-
-        if (skillPart.tileEffects.Count > 0)
-            AddTileEffects(skillPart);
-
-        if (skillPart.StatusEfects.Count > 0)
-            skillPart.StatusEfects.ForEach(x => statusEffectManager.ApplyStatusEffect(x, skillPartData.TargetsHit));
-
         if (skillVFX != null)
         {
 			foreach (var SFX in skillVFX)
@@ -146,6 +134,18 @@ public class SkillsManager : MonoBehaviour
                 yield return StartCoroutine(skillVFXManager.Cast(SFX));
 			}
         }
+
+        if (skillPart.displacementEffect != null)
+            DisplaceUnit(skillPart.displacementEffect);
+
+        if (skillPart.SummonObject != null)
+            unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);
+
+        if (skillPart.tileEffects.Count > 0)
+            AddTileEffects(skillPart);
+
+        if (skillPart.StatusEfects.Count > 0)
+            skillPart.StatusEfects.ForEach(x => statusEffectManager.ApplyStatusEffect(x, skillPartData.TargetsHit));
     }
 
     public void AddTileEffects(SO_Skillpart skillPart)

@@ -51,7 +51,7 @@ public class HealthCanvas : MonoBehaviour
 
     public void ShowStatusEffect(string displayText, Unit target, bool isBuff)
     {
-        var statusText = GetOrCreateFloatingNumber<FloatingStatusEffectText>(HealNumber); // Assuming HealNumber is correct here
+        var statusText = GetOrCreateFloatingNumber<FloatingStatusEffectText>(StatusEfectText);
         statusText.Init(displayText, target, isBuff);
     }
 
