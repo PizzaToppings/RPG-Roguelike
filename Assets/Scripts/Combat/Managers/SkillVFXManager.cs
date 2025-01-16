@@ -28,7 +28,7 @@ public class SkillVFXManager : MonoBehaviour
         var skillObject = GetOrCreateSpellObject(skillVFX);
         
         skillObject.transform.position = skillVFX.Origin;
-        skillObject.transform.rotation = Quaternion.identity;
+        skillObject.transform.rotation = Quaternion.Euler(skillVFX.SkillOriginRotation);
 
         if (skillVFX.SkillFxKind == SkillFxType.Projectile)
         {

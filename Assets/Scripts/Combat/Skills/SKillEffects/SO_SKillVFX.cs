@@ -4,8 +4,16 @@ using UnityEngine;
 public class SO_SKillVFX : ScriptableObject
 { 
 	public SkillFxType SkillFxKind;
+
+	[Space]
 	public SkillFxOriginEnum SkillOriginKind;
+	public Vector3 SkillOriginOffset;
+	public Vector3 SkillOriginRotation;
+
+	[Space]
 	public SkillFxDestinationEnum SkillDestinationKind;
+	public Vector3 SkillDestinationOffset;
+	public Vector3 SkillDestinationRotation;
 
 	[Space]
 	public bool StickToUnit;
@@ -68,7 +76,7 @@ public class SO_SKillVFX : ScriptableObject
 			origin = SPData.TilesHit[0].transform.position;
 		}
 
-		return origin + Vector3.up;
+		return origin + Vector3.up + SkillOriginOffset;
 	}
 
 	public Vector3 GetDestination()
@@ -90,6 +98,6 @@ public class SO_SKillVFX : ScriptableObject
 			destination = SPData.TilesHit[0].transform.position;
 		}
 
-		return destination + Vector3.up;
+		return destination + Vector3.up + SkillDestinationOffset;
     }
 }

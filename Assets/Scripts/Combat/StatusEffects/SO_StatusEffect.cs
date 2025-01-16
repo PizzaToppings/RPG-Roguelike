@@ -12,5 +12,5 @@ public class SO_StatusEffect : ScriptableObject
     public int Power;
     public int Duration;
     public bool IsMagical;
-
+    public bool Permanent;
 }

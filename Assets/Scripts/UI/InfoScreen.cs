@@ -65,6 +65,9 @@ public class InfoScreen : MonoBehaviour
 
         foreach (var spg in skill.SkillPartGroups)
         {
+            if (range != string.Empty)
+                break;
+
             foreach (var sp in spg.skillParts)
             {
                 if (sp is SO_TargetSelfSkill)
@@ -73,7 +76,11 @@ public class InfoScreen : MonoBehaviour
                 }
                 else
                 {
-                    range = sp.MaxRange.ToString();
+                    if (sp.MaxRange == 1.5f)
+                        range = "Melee";
+                    else
+                        range = sp.MaxRange.ToString();
+                    
                     break;
                 }
             }

@@ -145,31 +145,18 @@ public class StatusEffectManager : MonoBehaviour
 
     public void ApplyStatChangeEffect(SO_StatusEffect statusEffectSO, Unit target)
     {
-        switch (statusEffectSO.Stat)
+        var statChangeEffect = new StatChangeEffect
         {
-            case StatsEnum.PhysicalPower:
-                target.PhysicalPower += statusEffectSO.Power;
-                break;
-            case StatsEnum.PhysicalDefense:
-                target.PhysicalDefense += statusEffectSO.Power;
-                break;
-            case StatsEnum.MagicalPower:
-                target.MagicalPower += statusEffectSO.Power;
-                break;
-            case StatsEnum.MagicalDefense:
-                target.MagicalDefense += statusEffectSO.Power;
-                break;
-            case StatsEnum.MoveSpeed:
-                target.MoveSpeed += statusEffectSO.Power;
-                break;
-            case StatsEnum.MaxHitpoints:
-                target.MaxHitpoints += statusEffectSO.Power;
-                break;
-            case StatsEnum.MaxEnergy:
-                var character = target as Character;
-                character.MaxEnergy += statusEffectSO.Power;
-                break;
-        }
+            IsBuff = false,
+            statusEfectType = statusEffectSO.StatusEfectType,
+            Duration = statusEffectSO.Duration,
+            Caster = UnitData.ActiveUnit,
+            Target = target,
+            Power = statusEffectSO.Power,
+            Stat = statusEffectSO.Stat
+        };
+
+        statChangeEffect.Apply();
     }
 
     public bool UnitHasStatusEffect(Unit unit, StatusEfectEnum statusEfect)
