@@ -29,16 +29,20 @@ public class SO_MainSkill : ScriptableObject
 
     [Space]
     public CursorType Cursor;
-
     public TileColor castLockColor;
-    public virtual void Preview(BoardTile mouseOverTile, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
+
+    [HideInInspector] public Unit Caster;
+
+
+    public virtual void Preview(BoardTile mouseOverTile, Unit caster, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         var SkillPartGroupIndex = SkillData.SkillPartGroupIndex;
+        Caster = caster;
 
         for (int i = 0; i < SkillPartGroups[SkillPartGroupIndex].skillParts.Count; i++)
 		{
 			var skillPartList = SkillPartGroups[SkillPartGroupIndex].skillParts;
-			skillPartList[i].Preview(mouseOverTile, skillPartList, overwriteOriginTile, overwriteTargetTile, target);
+			skillPartList[i].Preview(mouseOverTile, skillPartList, caster, overwriteOriginTile, overwriteTargetTile, target);
 		}
 
         if (SkillPartGroupIndex == 0)

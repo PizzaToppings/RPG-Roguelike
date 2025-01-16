@@ -7,10 +7,10 @@ public class SO_ConeSkill : SO_Skillpart
     [Header(" - Cone Specific")]
     public bool isWide;
 
-    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots,
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots, Unit caster,
        BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit Target = null)
     {
-        base.Preview(mouseOverTile, skillshots);
+        base.Preview(mouseOverTile, skillshots, caster);
         TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
         targetSkillsManager.PreviewCone(this);
 

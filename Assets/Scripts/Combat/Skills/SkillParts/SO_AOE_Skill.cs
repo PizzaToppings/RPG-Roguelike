@@ -4,10 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AOE_Skill", menuName = "ScriptableObjects/SkillParts/AOE_Skill")]
 public class SO_AOE_Skill : SO_Skillpart
 {
-    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots,
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots, Unit caster,
        BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit Target = null)
     {
-        base.Preview(mouseOverTile, skillshots);
+        base.Preview(mouseOverTile, skillshots, caster);
 
         TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
         targetSkillsManager.GetAOE(this);

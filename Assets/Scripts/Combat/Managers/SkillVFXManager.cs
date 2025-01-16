@@ -21,14 +21,14 @@ public class SkillVFXManager : MonoBehaviour
 		ProjectileLine = GetComponent<LineRenderer>();
 	}
 
-    public IEnumerator Cast(SO_SKillVFX skillVFX)
+    public IEnumerator Cast(SO_SKillVFX skillVFX, Unit caster)
     {
         yield return new WaitForSeconds(skillVFX.StartDelay);
 
         var skillObject = GetOrCreateSpellObject(skillVFX);
         
         skillObject.transform.position = skillVFX.Origin;
-        skillObject.transform.rotation = Quaternion.Euler(skillVFX.SkillOriginRotation);
+        skillObject.transform.rotation = Quaternion.Euler(caster.transform.rotation.eulerAngles + skillVFX.SkillOriginRotation);
 
         if (skillVFX.SkillFxKind == SkillFxType.Projectile)
         {

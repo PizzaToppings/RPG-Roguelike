@@ -131,7 +131,7 @@ public class BoardTile : MonoBehaviour
         }
     }
 
-    void TargetSkill(List<BoardTile> tilesInAttackRange, float attackRange)
+    void TargetSkill(List<BoardTile> tilesInAttackRange)
     {
         var closestTile = this;
         var skill = SkillData.CurrentActiveSkill;
@@ -141,7 +141,7 @@ public class BoardTile : MonoBehaviour
             closestTile = tilesInAttackRange.FirstOrDefault();
 
             boardManager.VisualClear();
-			SkillData.CurrentActiveSkill.Preview(this, closestTile);
+			SkillData.CurrentActiveSkill.Preview(this, UnitData.ActiveUnit, closestTile);
             closestTile.PreviewAttackWithinRange();
 		}
 
@@ -219,7 +219,7 @@ public class BoardTile : MonoBehaviour
         {
             boardManager.VisualClear();
             skillVFXManager.EndProjectileLine();
-            SkillData.CurrentActiveSkill.Preview(null);
+            SkillData.CurrentActiveSkill.Preview(null, UnitData.ActiveUnit);
         }
     }
 

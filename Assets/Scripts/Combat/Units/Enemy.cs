@@ -103,9 +103,10 @@ public class Enemy : Unit
         if (boardManager.GetTilesInDirectAttackRange(Tile, attackRange, true).Any(x => x.currentUnit == UnitData.ActiveUnit) == false)
             yield return StartCoroutine(boardManager.MoveToTile());
 
-        var basicAttack = (UnitData.ActiveUnit as Character).basicAttack;
+        var character = UnitData.ActiveUnit as Character;
+        var basicAttack = character.basicAttack;
         basicAttack.Charges--;
-        yield return StartCoroutine(skillsManager.CastSkill(basicAttack));
+        yield return StartCoroutine(skillsManager.CastSkill(basicAttack, character));
     }
 
     public override void OnMouseExit()

@@ -10,10 +10,10 @@ public class SO_LineSkill : SO_Skillpart
     public bool GetLastTileOnly;
     public TileColor endColor;
 
-    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots,
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots, Unit caster,
        BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit Target = null)
     {
-        base.Preview(mouseOverTile, skillshots);
+        base.Preview(mouseOverTile, skillshots,caster);
         TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
         targetSkillsManager.PreviewLine(this);
 

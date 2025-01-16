@@ -55,7 +55,7 @@ public class FireTotem : Unit
 		{
             skill.PartData = new SkillPartData();
             skill.PartData.TargetsHit.Add(target);
-            StartCoroutine(skillsManager.CastSkillsPart(skill));
+            StartCoroutine(skillsManager.CastSkillsPart(skill, this));
 		}
 
         yield return new WaitForSeconds(2);

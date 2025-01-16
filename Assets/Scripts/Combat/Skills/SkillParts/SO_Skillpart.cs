@@ -58,10 +58,13 @@ public class SO_Skillpart : ScriptableObject
     
     List<SO_Skillpart> skillPartsList;
 
-    public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts,
+    [HideInInspector] public Unit Caster;
+
+    public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts, Unit caster,
         BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         skillPartsList = skillParts;
+        Caster = caster;
 
         SetInitData(mouseOverTile);
 
@@ -200,5 +203,10 @@ public class SO_Skillpart : ScriptableObject
     public bool HasDuplicateTile(BoardTile tile)
     {
         return PreventDuplicateTiles.Any(skillPart => skillPart.PartData.TilesHit.Contains(tile));
+    }
+
+    public void RotateCaster(Vector3 target)
+    {
+        Caster.transform.LookAt(new Vector3(target.x, Caster.transform.position.y, target.z));
     }
 }

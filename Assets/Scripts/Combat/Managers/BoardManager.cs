@@ -171,60 +171,6 @@ public class BoardManager : MonoBehaviour
         return tilesOrdened;
     }
 
-    //public int GetRangeBetweenTiles(BoardTile startTile, BoardTile endTile)
-    //{
-    //    List<BoardTile> openSet = new List<BoardTile>();
-    //    HashSet<BoardTile> closedSet = new HashSet<BoardTile>();
-
-    //    startTile.DistanceToTarget = Vector2.Distance(startTile.Coordinates, endTile.Coordinates);
-    //    startTile.DistanceTraveled = 0;
-
-    //    openSet.Add(startTile);
-
-    //    while (openSet.Count > 0)
-    //    {
-    //        BoardTile currentTile = openSet[0];
-    //        for (int i = 1; i < openSet.Count; i++)
-    //        {
-    //            if (openSet[i].DistanceToTarget < currentTile.DistanceToTarget ||
-    //                (openSet[i].DistanceToTarget == currentTile.DistanceToTarget &&
-    //                 openSet[i].DistanceToTarget < currentTile.DistanceToTarget))
-    //            {
-    //                currentTile = openSet[i];
-    //            }
-    //        }
-
-    //        openSet.Remove(currentTile);
-    //        closedSet.Add(currentTile);
-
-    //        if (currentTile.Coordinates == endTile.Coordinates)
-    //        {
-    //            return (int)currentTile.DistanceTraveled;
-    //        }
-
-    //        foreach (var neighbor in currentTile.connectedTiles)
-    //        {
-    //            if (closedSet.Contains(neighbor) || neighbor == null) 
-    //                continue;
-
-    //            float newDistanceTraveled = currentTile.DistanceTraveled + 1;
-
-    //            if (newDistanceTraveled < neighbor.DistanceTraveled || !openSet.Contains(neighbor))
-    //            {
-    //                neighbor.DistanceTraveled = newDistanceTraveled;
-    //                neighbor.DistanceToTarget = Vector2.Distance(neighbor.Coordinates, endTile.Coordinates);
-    //                neighbor.PreviousTile = currentTile;
-
-    //                if (!openSet.Contains(neighbor))
-    //                {
-    //                    openSet.Add(neighbor);
-    //                }
-    //            }
-    //        }
-    //    }
-    //    return-1;
-    //}
-
     public void Clear()
     {
         foreach (var tile in BoardData.BoardTiles)

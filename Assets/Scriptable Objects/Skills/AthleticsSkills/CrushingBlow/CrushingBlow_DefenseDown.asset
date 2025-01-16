@@ -17,7 +17,7 @@ MonoBehaviour:
   StatusEfectType: 14
   DamageType: 0
   Stat: 5
-  Power: 1
+  Power: -1
   Duration: 2
   IsMagical: 0
   Permanent: 0

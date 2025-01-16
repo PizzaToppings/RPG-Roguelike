@@ -98,7 +98,7 @@ public class Character : Unit
             SetSkillData(skill);
 
             var currentMouseTile = boardManager.GetCurrentMouseTile();
-            skill.Preview(currentMouseTile);
+            skill.Preview(currentMouseTile, this);
 		}
     }
 
@@ -151,7 +151,7 @@ public class Character : Unit
     {
         base.PreviewSkills(mouseOverTile);
 
-        SkillData.CurrentActiveSkill.Preview(mouseOverTile);
+        SkillData.CurrentActiveSkill.Preview(mouseOverTile, this);
     }
 
     public override IEnumerator StartTurn()

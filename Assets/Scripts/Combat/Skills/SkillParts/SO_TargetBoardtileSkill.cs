@@ -7,12 +7,12 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
     [Header(" - TargetTile Specific")]
     public TileColor SelectedTileColor;
 
-    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots, 
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots, Unit caster,
         BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null) 
     {
         TargetTileKind = TargetTileEnum.MouseOverTile;
 
-        base.Preview(mouseOverTile, skillshots);
+        base.Preview(mouseOverTile, skillshots, caster);
 
         if (overwriteOriginTile != null)
             OriginTiles[0] = overwriteOriginTile;

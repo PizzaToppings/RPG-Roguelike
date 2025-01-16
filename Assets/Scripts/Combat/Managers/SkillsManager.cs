@@ -74,7 +74,7 @@ public class SkillsManager : MonoBehaviour
             
             if (NoTargetsInRange(skill) == false)
 			{
-                skill.Preview(boardManager.GetCurrentMouseTile());
+                skill.Preview(boardManager.GetCurrentMouseTile(), UnitData.ActiveUnit);
 
                 return;
 			}
@@ -91,7 +91,7 @@ public class SkillsManager : MonoBehaviour
         var portrait = character.ThisHealthbar as CharacterPortrait;
         portrait.UpdateHealthbar(); // includes energybar
 
-        StartCoroutine(CastSkill(skill));
+        StartCoroutine(CastSkill(skill, character));
 
         if (skill.IsConsumable)
             consumableManager.DeleteConsumable(skill);
@@ -103,13 +103,13 @@ public class SkillsManager : MonoBehaviour
             uiManager.TriggerActivityText(skill.SkillName);
     }
 
-    public IEnumerator CastSkill(SO_MainSkill skill)
+    public IEnumerator CastSkill(SO_MainSkill skill, Unit caster)
     {
         foreach (var spg in skill.SkillPartGroups)
         {
             foreach (var sp in spg.skillParts)
             {
-                yield return StartCoroutine(CastSkillsPart(sp));
+                yield return StartCoroutine(CastSkillsPart(sp, caster));
             }
         }
 
@@ -117,7 +117,7 @@ public class SkillsManager : MonoBehaviour
         character.StopCasting();
     }
 
-    public IEnumerator CastSkillsPart(SO_Skillpart skillPart)
+    public IEnumerator CastSkillsPart(SO_Skillpart skillPart, Unit caster)
     {
         var skillVFX = skillPart.SkillVFX;
         var skillPartData = skillPart.PartData;
@@ -131,7 +131,7 @@ public class SkillsManager : MonoBehaviour
                     damageManager.DealDamageSetup(skillPart, SFX.ShowDamageDelay);
 
                 SFX.SetValues(skillPartData, skillPart.DamageEffect);
-                yield return StartCoroutine(skillVFXManager.Cast(SFX));
+                yield return StartCoroutine(skillVFXManager.Cast(SFX, caster));
 			}
         }
 

@@ -11,13 +11,13 @@ public class SO_TargetUnitSkill : SO_Skillpart
     [Space]
     public bool CanTargetSelf;
 
-    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots,
+    public override SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillshots, Unit caster,
        BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit overwriteTarget = null)
     {
         base.OriginTileKind = OriginTileKind;
         TargetTileKind = TargetTileEnum.MouseOverTarget;
 
-        base.Preview(mouseOverTile, skillshots);
+        base.Preview(mouseOverTile, skillshots, caster);
         TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
         targetSkillsManager.GetAOE(this);
 
