@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f0dbf551fb3c7146a4d5bb926065435, type: 3}
-  m_Name: QuickCharge_SlowEffect
+  m_Name: IronGrip_Stun
   m_EditorClassIdentifier: 
   statusEffectManager: {fileID: 0}
   Buff: 0
-  StatusEfectType: 14
+  StatusEfectType: 6
   DamageType: 0
-  Stat: 2
-  Power: -2
+  Stat: 0
+  Power: 0
   Duration: 1
   IsMagical: 0
   Permanent: 0
