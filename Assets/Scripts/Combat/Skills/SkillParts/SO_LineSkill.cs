@@ -17,6 +17,8 @@ public class SO_LineSkill : SO_Skillpart
         TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
         targetSkillsManager.PreviewLine(this);
 
+        RotateCaster(InputManager.Instance.GetMousePosition());
+
         PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
         
         return this;

@@ -8170,7 +8170,7 @@ PrefabInstance:
     - target: {fileID: 8519817777296322554, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.92
+      value: 20.83
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322554, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -8180,7 +8180,7 @@ PrefabInstance:
     - target: {fileID: 8519817777296322554, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.5
+      value: 7.69
       objectReference: {fileID: 0}
     - target: {fileID: 8519817777296322554, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -8300,7 +8300,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: aeeb0adec15d4984b9303603e8a68aae,
+      objectReference: {fileID: 11400000, guid: e37baa55d14165d4e9afca09439d072a,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}

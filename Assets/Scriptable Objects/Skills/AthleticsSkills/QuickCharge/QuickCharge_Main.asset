@@ -10,25 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: SweepingStrike_Main
+  m_Name: QuickCharge_Main
   m_EditorClassIdentifier: 
-  SkillName: Sweeping Strike
-  Image: {fileID: 21300000, guid: 60a5a51ae81db3741aac935745c8776b, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: bdf16bc61f4adc14f9dd3e3dfbbb702a, type: 3}
+  SkillName: Quick Charge
+  Image: {fileID: 21300000, guid: 5084f513239ac3b4eb07155364ebf052, type: 3}
+  Image_Inactive: {fileID: 21300000, guid: 7e875855d28743741880a515ac17495d, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
-  Classes: 0000000001000000
-  Description: Deals <damage0-0> in a wide arc.
+  Classes: 000000000100000004000000
+  Description: 'Charge in a straight line, stopping at the first enemy hit, dealing
+    <damage0-1> damage and slowing them by 2 for 1 turn. '
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 0
     skillParts:
-    - {fileID: 11400000, guid: f578958fb9daadb469845a7614fc48ce, type: 2}
-  EnergyCost: 6
+    - {fileID: 11400000, guid: f957f4b88930e6c4fb75e6a0dfa272cd, type: 2}
+    - {fileID: 11400000, guid: d0c7e5a253412c94b9fab832ad7aecb0, type: 2}
+  EnergyCost: 4
   DefaultCharges: 1
-  Charges: 1
-  Cursor: 0
+  Charges: 0
+  Cursor: 1
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}

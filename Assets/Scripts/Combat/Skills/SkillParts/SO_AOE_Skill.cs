@@ -14,6 +14,8 @@ public class SO_AOE_Skill : SO_Skillpart
 
         var duplicateTiles = new List<BoardTile>();
 
+        RotateCaster(InputManager.Instance.GetMousePosition());
+
         PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
 
         return this;

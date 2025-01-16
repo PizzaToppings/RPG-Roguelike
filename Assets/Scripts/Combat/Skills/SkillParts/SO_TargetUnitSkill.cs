@@ -29,6 +29,8 @@ public class SO_TargetUnitSkill : SO_Skillpart
         if (CanTargetSelf == false && target == SkillData.Caster)
             target = null;
 
+        RotateCaster(InputManager.Instance.GetMousePosition());
+
         if (target != null)
 		{
             TargetUnit(target);

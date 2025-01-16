@@ -14,6 +14,8 @@ public class SO_ConeSkill : SO_Skillpart
         TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
         targetSkillsManager.PreviewCone(this);
 
+        RotateCaster(InputManager.Instance.GetMousePosition());
+
         PartData.TilesHit.RemoveAll(x => HasDuplicateTile(x));
 
         return this;

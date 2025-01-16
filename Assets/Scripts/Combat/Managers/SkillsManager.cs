@@ -123,6 +123,9 @@ public class SkillsManager : MonoBehaviour
         var skillPartData = skillPart.PartData;
         skillPart.DamageEffect.Caster = UnitData.ActiveUnit;
 
+        if (skillPart.displacementEffect != null)
+            DisplaceUnit(skillPart.displacementEffect);
+
         if (skillVFX != null)
         {
 			foreach (var SFX in skillVFX)
@@ -134,9 +137,6 @@ public class SkillsManager : MonoBehaviour
                 yield return StartCoroutine(skillVFXManager.Cast(SFX, caster));
 			}
         }
-
-        if (skillPart.displacementEffect != null)
-            DisplaceUnit(skillPart.displacementEffect);
 
         if (skillPart.SummonObject != null)
             unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);

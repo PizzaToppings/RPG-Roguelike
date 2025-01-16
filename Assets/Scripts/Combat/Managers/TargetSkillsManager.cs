@@ -246,14 +246,18 @@ public class TargetSkillsManager : MonoBehaviour
 
             if (skillpart.GetLastTileOnly)
 			{
-                var lastTile = skillpart.PartData.TilesHit[^1];
+                BoardTile lastTile = null;
+                //skillpart.PartData.TilesHit.Reverse();
+                foreach (var tile in skillpart.PartData.TilesHit)
+                {
+                    if (tile.currentUnit != null)
+                        continue;
+
+                    lastTile = tile;
+                }
 
                 skillpart.PartData.TilesHit.Clear();
                 SkillData.AddTileToCurrentList(skillPartIndex, lastTile);
-
-                skillpart.PartData.TargetsHit.Clear();
-                var target = boardManager.FindTarget(lastTile, skillpart);
-                SkillData.AddTargetToCurrentList(skillpart.SkillPartIndex, target);
 
                 lastTile.SetColor(skillpart.endColor);
             }

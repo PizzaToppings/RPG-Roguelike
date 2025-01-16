@@ -33,6 +33,8 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
             return this;
         }
 
+        RotateCaster(InputManager.Instance.GetMousePosition());
+
         PartData.TilesHit.Clear();
         PartData.CanCast = false;
 
