@@ -15,4 +15,12 @@ public class SO_DisplacementEffect : ScriptableObject
     public float Speed = 1;
     public float Offset;
 
+    [Space]
+    public AnimationCurve HeightCurve = AnimationCurve.Constant(1, 1, 1);
+    public float Height = 1;
+    public float Duration;
+    public bool UseDuration;
+
+    [Space]
+    public SO_SKillVFX VFX;
 }

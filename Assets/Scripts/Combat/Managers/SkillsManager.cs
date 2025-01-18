@@ -124,17 +124,22 @@ public class SkillsManager : MonoBehaviour
         skillPart.DamageEffect.Caster = UnitData.ActiveUnit;
 
         if (skillPart.displacementEffect != null)
-            DisplaceUnit(skillPart.displacementEffect);
+		{
+            if (skillPart.displacementEffect.UseDuration)
+                yield return StartCoroutine(DisplaceUnit(skillPart.displacementEffect, skillPart, caster));
+            else
+                StartCoroutine(DisplaceUnit(skillPart.displacementEffect, skillPart, caster));
+        }
 
         if (skillVFX != null)
         {
-			foreach (var SFX in skillVFX)
+			foreach (var VFX in skillVFX)
 			{
-                if (SFX.ShowDamage)
-                    damageManager.DealDamageSetup(skillPart, SFX.ShowDamageDelay);
+                if (VFX.ShowDamage)
+                    damageManager.DealDamageSetup(skillPart, VFX.ShowDamageDelay);
 
-                SFX.SetValues(skillPartData, skillPart.DamageEffect);
-                yield return StartCoroutine(skillVFXManager.Cast(SFX, caster));
+                VFX.SetValues(skillPartData, skillPart.DamageEffect);
+                yield return StartCoroutine(skillVFXManager.Cast(VFX, caster));
 			}
         }
 
@@ -160,17 +165,27 @@ public class SkillsManager : MonoBehaviour
 		}
 	}
 
-    public void DisplaceUnit(SO_DisplacementEffect displacement)
+    public IEnumerator DisplaceUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
+        if (displacement.VFX)
+		{
+            displacement.VFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            StartCoroutine(skillVFXManager.Cast(displacement.VFX, caster));
+        }
+
         switch (displacement.DisplacementType)
         {
             case DisplacementEnum.Teleport:
-                StartCoroutine(TeleportUnit(displacement));
-                return;
+                yield return StartCoroutine(TeleportUnit(displacement));
+                break;
 
             case DisplacementEnum.Move:
-                StartCoroutine(MoveUnit(displacement));
-                return;
+                yield return StartCoroutine(MoveUnit(displacement));
+                break;
+
+            case DisplacementEnum.Lift:
+                yield return StartCoroutine(LiftUnit(displacement));
+                break;
         }
     }
 
@@ -223,9 +238,9 @@ public class SkillsManager : MonoBehaviour
         while (currentIndex < pointList.Count - 1)
         {
             time += Time.deltaTime;
-            float projectileSpeed = displacement.SpeedCurve.Evaluate(time) * displacement.Speed;
+            float speed = displacement.SpeedCurve.Evaluate(time) * displacement.Speed;
 
-            unit.transform.position = Vector3.MoveTowards(unit.transform.position, pointList[currentIndex + 1], projectileSpeed * Time.deltaTime);
+            unit.transform.position = Vector3.MoveTowards(unit.transform.position, pointList[currentIndex + 1], speed * Time.deltaTime);
 
             if (Vector3.Distance(unit.transform.position, pointList[currentIndex + 1]) < 0.1f)
             {
@@ -234,6 +249,29 @@ public class SkillsManager : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public IEnumerator LiftUnit(SO_DisplacementEffect displacement)
+    {
+        var unit = displacement.Unit.PartData.TargetsHit.First();
+        var defaultHeight = unit.position.y;
+
+        yield return new WaitForSeconds(displacement.Delay);
+
+        float time = 0f;
+        float height = 0f;
+        float speed = 1 / displacement.Duration;
+
+        while (time < 1)
+        {
+            height = defaultHeight + displacement.HeightCurve.Evaluate(time) * displacement.Height;
+            time += Time.deltaTime * speed;
+
+            unit.transform.position = new Vector3(unit.transform.position.x, height, unit.transform.position.z);
+
+            yield return null;
+        }
+        unit.transform.position = new Vector3(unit.transform.position.x, defaultHeight, unit.transform.position.z);
     }
 
     public float GetSkillAttackRange()

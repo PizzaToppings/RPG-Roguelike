@@ -2475,7 +2475,7 @@ Transform:
   m_GameObject: {fileID: 67902598}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 53.3, y: 0, z: 59.1}
+  m_LocalPosition: {x: 53.3, y: -0.85, z: 59.1}
   m_LocalScale: {x: 10, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3589,7 +3589,7 @@ Transform:
   m_GameObject: {fileID: 104375610}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1158781, y: 0.8153095, z: -1.5200901}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27994,7 +27994,7 @@ Transform:
   m_GameObject: {fileID: 917179166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 1.38, z: 6.088}
+  m_LocalPosition: {x: 10.75, y: 0.14999998, z: 6.088}
   m_LocalScale: {x: 1.36, y: 2.84, z: 1.24}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37067,7 +37067,7 @@ Transform:
   m_GameObject: {fileID: 1274932669}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 1.38, z: 4.576}
+  m_LocalPosition: {x: 10.75, y: 0.14999998, z: 4.576}
   m_LocalScale: {x: 1.36, y: 2.84, z: 1.24}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38522,6 +38522,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323798432}
   m_CullTransparentMesh: 1
+--- !u!1001 &1324363847
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.890461
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.4934278
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778065919817830156, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].time
+      value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992727775591953644, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[1].time
+      value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4737135376469318611, guid: ec80d37c86f0ee543b54bd89daeefa64,
+        type: 3}
+      propertyPath: m_Name
+      value: IronGrip_Charge_VFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec80d37c86f0ee543b54bd89daeefa64, type: 3}
 --- !u!1001 &1324436746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58058,7 +58136,7 @@ Transform:
   m_GameObject: {fileID: 2020012381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 1.38, z: 7.5}
+  m_LocalPosition: {x: 10.75, y: 0.15, z: 7.5}
   m_LocalScale: {x: 1.36, y: 2.84, z: 1.24}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61174,3 +61252,4 @@ SceneRoots:
   - {fileID: 2020012385}
   - {fileID: 917179170}
   - {fileID: 1274932673}
+  - {fileID: 1324363847}

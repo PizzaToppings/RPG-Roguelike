@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103bedd4cb394c54182b5e0e34591a95, type: 3}
   m_Name: IronGrip_Lift
   m_EditorClassIdentifier: 
-  DisplacementType: 1
+  DisplacementType: 2
   Unit: {fileID: 11400000, guid: 39487c1ded958b94ca93bfb331b84cdd, type: 2}
   TargetPosition: {fileID: 11400000, guid: 39487c1ded958b94ca93bfb331b84cdd, type: 2}
   Delay: 0
@@ -42,3 +42,76 @@ MonoBehaviour:
     m_RotationOrder: 4
   Speed: 1
   Offset: 4
+  HeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.0032697916
+      inSlope: 2.4058976
+      outSlope: 2.4058976
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.41058874
+      value: 0.9845647
+      inSlope: 0.019144768
+      outSlope: 0.019144768
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11377403
+    - serializedVersion: 3
+      time: 0.6375416
+      value: 0.9960484
+      inSlope: 0.029503481
+      outSlope: 0.029503481
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7478057
+      value: 0.99880195
+      inSlope: 0.003373514
+      outSlope: 0.003373514
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.76466686
+      value: 1.0091106
+      inSlope: 0.0018922485
+      outSlope: 0.0018922485
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7744348
+      value: -0.0039722323
+      inSlope: -0.024628077
+      outSlope: -0.024628077
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.24359535
+    - serializedVersion: 3
+      time: 0.99651784
+      value: -0.0010073185
+      inSlope: 0.013350475
+      outSlope: 0.013350475
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Height: 2.2
+  Duration: 2.7
+  UseDuration: 1
+  VFX: {fileID: 11400000, guid: f7a2bab6766e3f24086c026d2383076c, type: 2}
