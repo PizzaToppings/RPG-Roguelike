@@ -26,6 +26,9 @@ public class SO_Skillpart : ScriptableObject
     public OriginTileEnum DirectionAnchor = OriginTileEnum.None;
     public SO_Skillpart DirectionAnchorSkillPart;
 
+    public DirectionInputEnum DirectionInput = DirectionInputEnum.Mouse;
+    public SO_Skillpart DirectionInputSkillPart;
+
     public TargetKindEnum TargetKind;
 
     [Header(" - Visuals")]

@@ -8300,7 +8300,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: e37baa55d14165d4e9afca09439d072a,
+      objectReference: {fileID: 11400000, guid: 705c9d8ff1462bd4ab6716800679d503,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -38522,84 +38522,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323798432}
   m_CullTransparentMesh: 1
---- !u!1001 &1324363847
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 19.890461
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.4934278
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303029553059892989, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3778065919817830156, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].time
-      value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992727775591953644, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].time
-      value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737135376469318611, guid: ec80d37c86f0ee543b54bd89daeefa64,
-        type: 3}
-      propertyPath: m_Name
-      value: IronGrip_Charge_VFX
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ec80d37c86f0ee543b54bd89daeefa64, type: 3}
 --- !u!1001 &1324436746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61252,4 +61174,3 @@ SceneRoots:
   - {fileID: 2020012385}
   - {fileID: 917179170}
   - {fileID: 1274932673}
-  - {fileID: 1324363847}

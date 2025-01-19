@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
+  m_Name: GroundSlam_KockbackLine
+  m_EditorClassIdentifier: 
+  OriginTiles:
+  - {fileID: 0}
+  - {fileID: 0}
+  OriginTargets: []
+  TargetTile: {fileID: 0}
+  FinalDirection: 6
+  MagicalDamage: 0
+  SkillPartIndex: 1
+  OriginTileKind: 2
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  DirectionAnchor: 1
+  DirectionAnchorSkillPart: {fileID: 0}
+  DirectionInput: 2
+  DirectionInputSkillPart: {fileID: 11400000, guid: 7a2e8c9e95264854ba1b5f82a6e7c6c2,
+    type: 2}
+  TargetKind: 0
+  tileColor:
+    FillCenter: 0
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 4
+  AddProjectileLine: 0
+  ProjectileLineOffset: 1
+  SkillVFX: []
+  DamageEffect:
+    Caster: {fileID: 0}
+    DamageType: 0
+    Power: 0
+    IsMagical: 0
+  MinRange: 0
+  MaxRange: 2.5
+  IncludeInAutoMove: 0
+  AffectedByBlockedTiles: 0
+  FreeSpacesOnly: 0
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets: []
+  StatusEfects: []
+  tileEffects: []
+  displacementEffect: {fileID: 11400000, guid: 3ba7475b6a6a249438f3d7240bf83f03, type: 2}
+  SummonObject: {fileID: 0}
+  Caster: {fileID: 0}
+  Angles: 00000000
+  PierceAmount: -1
+  GetLastTileOnly: 1
+  endColor:
+    FillCenter: 1
+    Color: {r: 1, g: 0, b: 0, a: 0.9137255}
+    Priority: 3

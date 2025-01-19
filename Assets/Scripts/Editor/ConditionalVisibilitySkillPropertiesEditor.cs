@@ -16,6 +16,9 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
     SerializedProperty directionAnchor;
     SerializedProperty directionAnchorSkillPart;
 
+    SerializedProperty directionInput;
+    SerializedProperty directionInputSkillPart;
+
     SerializedProperty addProjectileLine;
     SerializedProperty projectileLineOffset;
 
@@ -32,6 +35,9 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
 
         directionAnchor = serializedObject.FindProperty("DirectionAnchor");
         directionAnchorSkillPart = serializedObject.FindProperty("DirectionAnchorSkillPart");
+
+        directionInput = serializedObject.FindProperty("DirectionInput");
+        directionInputSkillPart = serializedObject.FindProperty("DirectionInputSkillPart");
 
         addProjectileLine = serializedObject.FindProperty("AddProjectileLine");
         projectileLineOffset = serializedObject.FindProperty("ProjectileLineOffset");
@@ -59,32 +65,26 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
                 break;
         }
 
-        // OriginTargetKind
-        //if (target is SO_AOE_Skill)
-        //{
-        //    EditorGUILayout.PropertyField(originTargetKind, new GUIContent("Origin Target Kind"));
-        //}
-
-        //switch ((OriginTileEnum)originTileKind.enumValueIndex)
-        //{
-        //    case OriginTileEnum.GetFromSkillPart:
-        //        EditorGUILayout.PropertyField(originTileSkillParts, new GUIContent("Origin Tile Skillparts"));
-        //        break;
-        //}
-
-        // DirectionCenterTile
         // DirectionCenterTile
         if (target is SO_ConeSkill || target is SO_HalfCircleSkill || target is SO_LineSkill)
         {
             EditorGUILayout.PropertyField(directionAnchor, new GUIContent("Direction Anchor"));
+            EditorGUILayout.PropertyField(directionInput, new GUIContent("Direction Input"));
         }
 
         switch ((OriginTileEnum)directionAnchor.enumValueIndex)
         {
             case OriginTileEnum.GetFromSkillPart:
-                EditorGUILayout.PropertyField(directionAnchorSkillPart, new GUIContent("Direction Anchor Skillparts"));
+                EditorGUILayout.PropertyField(directionAnchorSkillPart, new GUIContent("Direction Anchor Skillpart"));
                 break;
         }
+
+        //switch ((DirectionInputEnum)directionInput.enumValueIndex)
+        //{
+        //    case DirectionInputEnum.OriginTile:
+        //        EditorGUILayout.PropertyField(directionInputSkillPart, new GUIContent("Direction Input Skillpart"));
+        //        break;
+        //}
 
         // ProjectileLine
         if (target is SO_TargetBoardtileSkill || target is SO_TargetUnitSkill)

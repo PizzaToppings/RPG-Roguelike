@@ -24,13 +24,12 @@ public class TargetSkillsManager : MonoBehaviour
 
     public void PreviewLine(SO_LineSkill skillData)
     {
-        List<int> directions = new List<int>();
-
         foreach (var originTile in skillData.OriginTiles)
         {
+            List<int> directions = new List<int>();
             foreach (var direction in skillData.Angles)
             {
-                var dir = direction + GetDirection(skillData);
+                var dir = direction + GetDirection(skillData, originTile);
                 directions.Add(dir);
             }
 
@@ -42,7 +41,7 @@ public class TargetSkillsManager : MonoBehaviour
     {
         foreach (var originTile in skillData.OriginTiles)
         {
-            var direction = GetDirection(skillData);
+            var direction = GetDirection(skillData, originTile);
             PreviewConeCast(direction, skillData);
             CorrectConeCast(originTile, skillData);
         }
@@ -52,13 +51,13 @@ public class TargetSkillsManager : MonoBehaviour
     {
         foreach (var originTile in skillData.OriginTiles)
         {
-            var direction = GetDirection(skillData);
+            var direction = GetDirection(skillData, originTile);
             PreviewHalfCircleCast(direction, skillData);
             CorrectConeCast(originTile, skillData);
         }
     }
 
-    int GetDirection(SO_Skillpart skillData)
+    int GetDirection(SO_Skillpart skillData, BoardTile originTile)
     {
         if (skillData.TargetTileKind == TargetTileEnum.PreviousDirection)
         {
@@ -69,14 +68,22 @@ public class TargetSkillsManager : MonoBehaviour
         var directionAnchorTile = GetDirectionAnchorTile(skillData);
 
         var tileDirectionIndex = 0;
-        var mousePosition = inputManager.GetMousePosition();
-        Vector3 dir = (mousePosition - directionAnchorTile.position).normalized;
-        Vector2 mouseDirection = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
+        Vector3 directionInput = new Vector3();
+
+        if (skillData.DirectionInput == DirectionInputEnum.Mouse)
+            directionInput = inputManager.GetMousePosition();
+        else if (skillData.DirectionInput == DirectionInputEnum.Caster)
+            directionInput = UnitData.ActiveUnit.Tile.position;
+        else if (skillData.DirectionInput == DirectionInputEnum.OriginTile)
+            directionInput = originTile.position;
+
+        Vector3 dir = (directionInput - directionAnchorTile.position).normalized;
+        var direction = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
 
         var directions = boardManager.Directions;
         for (int i = 0; i < directions.Length; i++)
         {
-            if (mouseDirection == directions[i])
+            if (direction == directions[i])
             {
                 tileDirectionIndex = i;
                 break;
@@ -217,6 +224,8 @@ public class TargetSkillsManager : MonoBehaviour
                 curentCoordinates = nextCoordinates;
             }
 
+            List<BoardTile> tilesHit = new List<BoardTile>();
+
             foreach (var coordinate in line)
             {
                 var tile = boardManager.GetBoardTile(coordinate);
@@ -228,8 +237,7 @@ public class TargetSkillsManager : MonoBehaviour
                     break;
 
                 tile.SetColor(skillpart.tileColor);
-
-                SkillData.AddTileToCurrentList(skillPartIndex, tile);
+                tilesHit.Add(tile);
 
                 var target = boardManager.FindTarget(tile, skillpart);
                 if (target != null)
@@ -247,8 +255,7 @@ public class TargetSkillsManager : MonoBehaviour
             if (skillpart.GetLastTileOnly)
 			{
                 BoardTile lastTile = null;
-                //skillpart.PartData.TilesHit.Reverse();
-                foreach (var tile in skillpart.PartData.TilesHit)
+                foreach (var tile in tilesHit)
                 {
                     if (tile.currentUnit != null)
                         continue;
@@ -256,11 +263,14 @@ public class TargetSkillsManager : MonoBehaviour
                     lastTile = tile;
                 }
 
-                skillpart.PartData.TilesHit.Clear();
                 SkillData.AddTileToCurrentList(skillPartIndex, lastTile);
 
-                lastTile.SetColor(skillpart.endColor);
+                lastTile.SetColor(skillpart.endColor); // add a list of tiles hit locally
             }
+            else
+			{
+                skillpart.PartData.TilesHit.AddRange(tilesHit);
+			}
 
             line.Clear();
         }

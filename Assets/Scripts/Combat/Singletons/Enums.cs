@@ -21,6 +21,7 @@ public enum OriginTileEnum { None, Caster, LastTargetTile, LastTile, GetFromSkil
 public enum OriginTargetEnum { None, Caster, LastTarget, TargetOnLastTiles, GetFromSkillPart };
 public enum TargetTileEnum { None, MouseOverTile, CasterTile, Caster, PreviousDirection, MouseOverTarget, GetFromSkillPart };
 public enum TargetKindEnum { Enemies, Allies, All };
+public enum DirectionInputEnum { Mouse, Caster, OriginTile }
 public enum CursorType { Normal, Melee, Ranged, Spell, Cross }
 
 

@@ -206,49 +206,43 @@ public class SkillsManager : MonoBehaviour
     public IEnumerator MoveUnit(SO_DisplacementEffect displacement)
     {
         var pointList = new List<Vector3>();
-        var unit = displacement.Unit.PartData.TargetsHit.First();
-        var originalTile = unit.Tile;
-        var targetTile = displacement.TargetPosition.PartData.TilesHit.First();
-        var originalPosition = originalTile.position;
-        var targetPosition = targetTile.position;
+        var units = new List<Unit>(displacement.Unit.PartData.TargetsHit);
+        var originalTiles = units.Select(x => x.Tile).ToList();
+        var targetTiles = new List<BoardTile>(displacement.TargetPosition.PartData.TilesHit);
+        var originalPositions = originalTiles.Select(x => x.position).ToList();
+        var targetPositions = targetTiles.Select(x => x.position).ToList();
+        originalTiles.ForEach(x => x.currentUnit = null);
 
-        unit.Tile = targetTile;
-        originalTile.currentUnit = null;
-        targetTile.currentUnit = unit;
+        for (int i = 0; i < units.Count; i++)
+        {
+            units[i].Tile = targetTiles[i];
+            targetTiles[i].currentUnit = units[i];
+        }
 
         yield return new WaitForSeconds(displacement.Delay);
 
-        var heightOffset = Vector3.Distance(originalPosition, targetPosition);
-        var middleOffset = Vector3.up * heightOffset * displacement.Offset * 0.5f;
-
-        Vector3 middlePosition = Vector3.Lerp(originalPosition, targetPosition, 0.5f) + middleOffset;
-
-        for (float ratio = 0; ratio <= 1; ratio += 1f / displacementVertexCount)
-        {
-            var tangent1 = Vector3.Lerp(targetPosition, middlePosition, ratio);
-            var tangent2 = Vector3.Lerp(middlePosition, originalPosition, ratio);
-            var curve = Vector3.Lerp(tangent1, tangent2, ratio);
-            pointList.Add(curve);
-        }
-        pointList.Reverse();
-
         float time = 0f;
-        int currentIndex = 0;
 
-        while (currentIndex < pointList.Count - 1)
+        while (time < 1f)
         {
-            time += Time.deltaTime;
-            float speed = displacement.SpeedCurve.Evaluate(time) * displacement.Speed;
+            time += Time.deltaTime * displacement.Speed;
+            time = Mathf.Clamp01(time);
 
-            unit.transform.position = Vector3.MoveTowards(unit.transform.position, pointList[currentIndex + 1], speed * Time.deltaTime);
-
-            if (Vector3.Distance(unit.transform.position, pointList[currentIndex + 1]) < 0.1f)
-            {
-                currentIndex++;
-            }
+            float height = displacement.HeightCurve.Evaluate(time) * displacement.Height;
+            
+            for (int i = 0; i < units.Count; i++)
+			{
+                Vector3 newPosition = Vector3.Lerp(originalPositions[i], targetPositions[i], time) + Vector3.up * height;
+                units[i].transform.position = newPosition;
+			}
 
             yield return null;
         }
+
+        for (int i = 0; i < units.Count; i++)
+		{
+            units[i].transform.position = targetPositions[i];
+		}
     }
 
     public IEnumerator LiftUnit(SO_DisplacementEffect displacement)
