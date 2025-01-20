@@ -167,29 +167,29 @@ public class SkillsManager : MonoBehaviour
 
     public IEnumerator DisplaceUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
-        if (displacement.VFX)
+        if (displacement.StartVFX)
 		{
-            displacement.VFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
-            StartCoroutine(skillVFXManager.Cast(displacement.VFX, caster));
+            displacement.StartVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            StartCoroutine(skillVFXManager.Cast(displacement.StartVFX, caster));
         }
 
         switch (displacement.DisplacementType)
         {
             case DisplacementEnum.Teleport:
-                yield return StartCoroutine(TeleportUnit(displacement));
+                yield return StartCoroutine(TeleportUnit(displacement, skillPart, caster));
                 break;
 
             case DisplacementEnum.Move:
-                yield return StartCoroutine(MoveUnit(displacement));
+                yield return StartCoroutine(MoveUnit(displacement, skillPart, caster));
                 break;
 
             case DisplacementEnum.Lift:
-                yield return StartCoroutine(LiftUnit(displacement));
+                yield return StartCoroutine(LiftUnit(displacement, skillPart, caster));
                 break;
         }
     }
 
-    public IEnumerator TeleportUnit(SO_DisplacementEffect displacement)
+    public IEnumerator TeleportUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
         var unit = displacement.Unit.PartData.TargetsHit.First();
         var originalPosition = unit.Tile;
@@ -201,9 +201,15 @@ public class SkillsManager : MonoBehaviour
         originalPosition.currentUnit = null;
         targetPosition.currentUnit = unit;
         unit.transform.position = targetPosition.position;
+
+        if (displacement.EndVFX)
+        {
+            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
+        }
     }
 
-    public IEnumerator MoveUnit(SO_DisplacementEffect displacement)
+    public IEnumerator MoveUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
         var pointList = new List<Vector3>();
         var units = new List<Unit>(displacement.Unit.PartData.TargetsHit);
@@ -243,9 +249,15 @@ public class SkillsManager : MonoBehaviour
 		{
             units[i].transform.position = targetPositions[i];
 		}
+
+        if (displacement.EndVFX)
+        {
+            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
+        }
     }
 
-    public IEnumerator LiftUnit(SO_DisplacementEffect displacement)
+    public IEnumerator LiftUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
         var unit = displacement.Unit.PartData.TargetsHit.First();
         var defaultHeight = unit.position.y;
@@ -266,6 +278,12 @@ public class SkillsManager : MonoBehaviour
             yield return null;
         }
         unit.transform.position = new Vector3(unit.transform.position.x, defaultHeight, unit.transform.position.z);
+
+        if (displacement.EndVFX)
+        {
+            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
+        }
     }
 
     public float GetSkillAttackRange()

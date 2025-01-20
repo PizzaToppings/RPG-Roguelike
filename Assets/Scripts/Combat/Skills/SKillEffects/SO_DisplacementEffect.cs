@@ -22,5 +22,6 @@ public class SO_DisplacementEffect : ScriptableObject
     public bool UseDuration;
 
     [Space]
-    public SO_SKillVFX VFX;
+    public SO_SKillVFX StartVFX;
+    public SO_SKillVFX EndVFX;
 }

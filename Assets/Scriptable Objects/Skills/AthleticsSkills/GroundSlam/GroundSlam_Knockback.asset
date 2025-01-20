@@ -40,24 +40,43 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Speed: 15
+  Speed: 2
   Offset: 0.5
   HeightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0
+      value: 0
+      inSlope: 3.3798578
+      outSlope: 3.3798578
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.06585481
+    - serializedVersion: 3
+      time: 0.50426424
+      value: 0.69699335
+      inSlope: 0.039443992
+      outSlope: 0.039443992
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19051923
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0084124
+      value: 0.00987941
+      inSlope: -2.5596228
+      outSlope: -2.5596228
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06475649
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Height: 1
+  Height: 2
   Duration: 0
   UseDuration: 0
-  VFX: {fileID: 0}
+  StartVFX: {fileID: 0}
+  EndVFX: {fileID: 11400000, guid: 5fc46dccefe98c1459de9211e754815c, type: 2}

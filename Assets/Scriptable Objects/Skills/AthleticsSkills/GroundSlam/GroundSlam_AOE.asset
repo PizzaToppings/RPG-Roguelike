@@ -36,7 +36,8 @@ MonoBehaviour:
     Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  SkillVFX: []
+  SkillVFX:
+  - {fileID: 11400000, guid: 220c30a9ff8b71b4c8a3b3a430ea921f, type: 2}
   DamageEffect:
     Caster: {fileID: 0}
     DamageType: 0
@@ -51,6 +52,6 @@ MonoBehaviour:
   PreventDuplicateTargets: []
   StatusEfects: []
   tileEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect: {fileID: 11400000, guid: 3ba7475b6a6a249438f3d7240bf83f03, type: 2}
   SummonObject: {fileID: 0}
   Caster: {fileID: 0}

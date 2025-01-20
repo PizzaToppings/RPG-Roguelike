@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
-  m_Name: GroundSlam_Impact_VFX
+  m_Name: GroundSlam_Landing_VFX
   m_EditorClassIdentifier: 
   SkillFxKind: 1
-  SkillOriginKind: 1
+  SkillOriginKind: 2
   SkillOriginOffset: {x: 0, y: 0, z: 0}
   SkillOriginRotation: {x: 0, y: 0, z: 0}
-  SkillDestinationKind: 1
+  SkillDestinationKind: 2
   SkillDestinationOffset: {x: 0, y: 0, z: 0}
   SkillDestinationRotation: {x: 0, y: 0, z: 0}
   StickToUnit: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   EndDelay: 0
   ShowDamage: 1
   ShowDamageDelay: 0
-  SkillObject: {fileID: 5926805117036883808, guid: 9ffd90d439086394db5c596736d30fcb,
+  SkillObject: {fileID: 3799320058994972318, guid: 7ac265b3ab9f80d43af944d683ee5873,
     type: 3}
-  Origin: {x: 13.884122, y: 0.18469048, z: 15.02009}
-  Destination: {x: 13.884122, y: 0.18469048, z: 15.02009}
+  Origin: {x: 21.38412, y: 0.18469048, z: 16.52009}
+  Destination: {x: 21.38412, y: 0.18469048, z: 16.52009}

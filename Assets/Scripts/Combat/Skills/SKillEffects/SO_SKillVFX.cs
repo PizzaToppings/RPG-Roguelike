@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkillFX", menuName = "ScriptableObjects/SkillEffects/SkillVFX")]
@@ -35,8 +37,8 @@ public class SO_SKillVFX : ScriptableObject
 	[Space]
 	public GameObject SkillObject;
 
-	[HideInInspector] public Vector3 Origin;
-	[HideInInspector] public Vector3 Destination;
+	[HideInInspector] public List<Vector3> Origins = new List<Vector3>();
+	[HideInInspector] public List<Vector3> Destinations = new List<Vector3>();
 
 	private SkillPartData SPData;
 	private DamageData damageData;
@@ -47,57 +49,57 @@ public class SO_SKillVFX : ScriptableObject
 		this.damageData = damageData;
 		if (SkillFxKind == SkillFxType.Animation)
         {
-			Origin = Destination = GetDestination();
+			Origins = Destinations = GetDestinations();
         }
 
 		if (SkillFxKind == SkillFxType.Projectile)
         {
-			Origin = GetOrigin();
-			Destination = GetDestination();
+			Origins = GetOrigins();
+			Destinations = GetDestinations();
         }
     }
 
-	public Vector3 GetOrigin()
+	public List<Vector3> GetOrigins()
     {
-		var origin = new Vector3();
+		var origins = new List<Vector3>();
 
 		if (SkillOriginKind == SkillFxOriginEnum.Caster)
 		{
-			origin = damageData.Caster.transform.position;
+			origins.Add(damageData.Caster.transform.position + Vector3.up + SkillOriginOffset);
 		}
 
 		if (SkillOriginKind == SkillFxOriginEnum.Target)
 		{
-			origin = SPData.TargetsHit[0].transform.position;
+			origins.AddRange(SPData.TargetsHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).ToList());
 		}
 
 		if (SkillOriginKind == SkillFxOriginEnum.Tiles)
 		{
-			origin = SPData.TilesHit[0].transform.position;
+			origins.AddRange(SPData.TilesHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).ToList());
 		}
 
-		return origin + Vector3.up + SkillOriginOffset;
+		return origins;
 	}
 
-	public Vector3 GetDestination()
+	public List<Vector3> GetDestinations()
     {
-		var destination = new Vector3();
+		var destinations = new List<Vector3>();
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Caster)
 		{
-			destination = damageData.Caster.transform.position;
+			destinations.Add(damageData.Caster.transform.position + Vector3.up + SkillOriginOffset); ;
 		}
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Target)
 		{
-			destination = SPData.TargetsHit[0].transform.position;
+			destinations.AddRange(SPData.TargetsHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).ToList());
 		}
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Tiles)
 		{
-			destination = SPData.TilesHit[0].transform.position;
+			destinations.AddRange(SPData.TilesHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).ToList());
 		}
 
-		return destination + Vector3.up + SkillDestinationOffset;
+		return destinations;
     }
 }

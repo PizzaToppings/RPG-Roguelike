@@ -114,4 +114,5 @@ MonoBehaviour:
   Height: 2.2
   Duration: 2.7
   UseDuration: 1
-  VFX: {fileID: 11400000, guid: f7a2bab6766e3f24086c026d2383076c, type: 2}
+  StartVFX: {fileID: 11400000, guid: f7a2bab6766e3f24086c026d2383076c, type: 2}
+  EndVFX: {fileID: 0}

@@ -14694,7 +14694,7 @@ GameObject:
   - component: {fileID: 1572903226942092947}
   - component: {fileID: 4497202276570154437}
   m_Layer: 0
-  m_Name: GroundSlam_VFX
+  m_Name: GroundSlam_Impact_VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

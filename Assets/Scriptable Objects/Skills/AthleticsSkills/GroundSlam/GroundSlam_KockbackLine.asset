@@ -53,7 +53,7 @@ MonoBehaviour:
   PreventDuplicateTargets: []
   StatusEfects: []
   tileEffects: []
-  displacementEffect: {fileID: 11400000, guid: 3ba7475b6a6a249438f3d7240bf83f03, type: 2}
+  displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
   Caster: {fileID: 0}
   Angles: 00000000

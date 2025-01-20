@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 16919
+  controlID: 23722
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 16810
+  controlID: 23615
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -674,9 +674,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.20165423, y: -0.15875967, z: 0.033143327, w: -0.96593606}
   m_Size:
-    m_Target: 3.0439053
+    m_Target: 2.412585
     speed: 2
-    m_Value: 3.0439053
+    m_Value: 2.412585
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -732,7 +732,7 @@ MonoBehaviour:
     x: 0
     y: 79
     width: 896
-    height: 406
+    height: 363
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -924,7 +924,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 16864
+  controlID: 23666
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -945,8 +945,8 @@ MonoBehaviour:
     y: 0
     width: 580
     height: 431
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -994,7 +994,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: dc2effffae39ffff26fbffff6a630000
+      m_ExpandedIDs: ce82feffa886feffdc2effffae39ffff26fbffff6a630000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1011,7 +1011,7 @@ MonoBehaviour:
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 4}
+        m_ClientGUIView: {fileID: 11}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1109,10 +1109,10 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 444}
+    scrollPos: {x: 0, y: 216}
     m_SelectedIDs: 0e780000
     m_LastClickedID: 30734
-    m_ExpandedIDs: 0000000030770000327700003477000036770000387700003a7700003c7700003e770000fe7700000278000000ca9a3b
+    m_ExpandedIDs: 0000000030770000327700003477000036770000387700003a7700003c7700003e770000027800009876010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1141,7 +1141,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000030770000327700003477000036770000387700003a7700003c7700003e770000fe7700000278000000ca9a3b
+    m_ExpandedIDs: 0000000030770000327700003477000036770000387700003a7700003c7700003e770000027800009876010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1167,8 +1167,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: bc600000
-    m_LastClickedInstanceID: 24764
+    m_SelectedInstanceIDs: 2e5bfeff
+    m_LastClickedInstanceID: -107730
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 584e0000000000006ab801002e2000002e5d00006c6c0000
     m_RenameOverlay:
@@ -1187,7 +1187,7 @@ MonoBehaviour:
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 13}
+      m_ClientGUIView: {fileID: 4}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1218,8 +1218,8 @@ MonoBehaviour:
     y: 0
     width: 443
     height: 941
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -1268,7 +1268,7 @@ MonoBehaviour:
     m_CachedPref: -259
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 24764
+  m_LastInspectedObjectInstanceID: -107730
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
