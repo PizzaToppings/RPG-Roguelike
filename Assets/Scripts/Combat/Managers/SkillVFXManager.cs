@@ -71,6 +71,9 @@ public class SkillVFXManager : MonoBehaviour
         var objectList = new List<GameObject>();
         var objectAmount = skillVFX.Origins.Count > skillVFX.Destinations.Count ? skillVFX.Origins.Count : skillVFX.Destinations.Count;
 
+        if (skillVFX.MainTargetOnly)
+            objectAmount = 1;
+
         for (int i = 0; i < objectAmount; i++)
 		{
             var originIndex = i < skillVFX.Origins.Count-1 ? i : skillVFX.Origins.Count-1;

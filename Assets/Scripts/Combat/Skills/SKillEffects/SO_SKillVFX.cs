@@ -6,6 +6,7 @@ using UnityEngine;
 public class SO_SKillVFX : ScriptableObject
 { 
 	public SkillFxType SkillFxKind;
+	public bool MainTargetOnly;
 
 	[Space]
 	public SkillFxOriginEnum SkillOriginKind;
