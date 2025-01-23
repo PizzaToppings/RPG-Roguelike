@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: GroundSlam_Main
+  m_Name: LeapingStrike_Main
   m_EditorClassIdentifier: 
-  SkillName: Ground Slam
-  Image: {fileID: 21300000, guid: 4dbf32081b3769c4bbfa08922cf24b8e, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: 043ae993a531f674f8bba56b31114bc1, type: 3}
+  SkillName: Leaping Strike
+  Image: {fileID: 21300000, guid: e4e36cd9e7c375743923d8f7e9abbcdf, type: 3}
+  Image_Inactive: {fileID: 21300000, guid: 6c0aeba1cb6c1db418a702c5ed108188, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
-  Classes: 000000000700000004000000
-  Description: Slam the ground, dealing <damage0-0> to all enemies around you and
-    knock them back 2 tiles.
+  Classes: 0000000001000000
+  Description: Jump to a tile and deal <damage0-1> to all tiles around you.
   SkillPartGroups:
-  - CastOnTile: 0
+  - CastOnTile: 1
     CastOnTarget: 0
     skillParts:
-    - {fileID: 11400000, guid: 7a2e8c9e95264854ba1b5f82a6e7c6c2, type: 2}
-    - {fileID: 11400000, guid: ce08989ec1aea2f4f8e7efcb79ad9b77, type: 2}
+    - {fileID: 11400000, guid: bfe456e2209dd3e4e9d47df91856b366, type: 2}
+    - {fileID: 11400000, guid: b3a4c57d9d6880040a557707c948c3f5, type: 2}
+    - {fileID: 11400000, guid: 46643d356ae6afc4e8c0051e6c62b2a4, type: 2}
   EnergyCost: 5
   DefaultCharges: 1
   Charges: 1

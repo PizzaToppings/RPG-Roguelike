@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
+  m_Name: SeveringBlow_Target
+  m_EditorClassIdentifier: 
+  OriginTiles:
+  - {fileID: 0}
+  OriginTargets: []
+  TargetTile: {fileID: 0}
+  FinalDirection: 0
+  MagicalDamage: 0
+  SkillPartIndex: 0
+  OriginTileKind: 1
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 5
+  TargetTileSkillParts: []
+  DirectionAnchor: 0
+  DirectionAnchorSkillPart: {fileID: 0}
+  DirectionInput: 0
+  DirectionInputSkillPart: {fileID: 0}
+  TargetKind: 0
+  tileColor:
+    FillCenter: 0
+    Color: {r: 0.8113208, g: 0, b: 0, a: 1}
+    Priority: 5
+  AddProjectileLine: 0
+  ProjectileLineOffset: 1
+  SkillVFX:
+  - {fileID: 11400000, guid: 1c7c975ac0829de47bb57249f590cb69, type: 2}
+  DamageEffect:
+    Caster: {fileID: 0}
+    DamageType: 0
+    Power: 9
+    IsMagical: 0
+  MinRange: 0
+  MaxRange: 1.5
+  IncludeInAutoMove: 0
+  AffectedByBlockedTiles: 0
+  FreeSpacesOnly: 0
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets: []
+  StatusEfects:
+  - {fileID: 11400000, guid: 5fd6506c4d6771e45889eda3ecbc8316, type: 2}
+  tileEffects: []
+  displacementEffect: {fileID: 0}
+  SummonObject: {fileID: 0}
+  Caster: {fileID: 0}
+  SelectedTargetTileColor:
+    FillCenter: 1
+    Color: {r: 0.8117648, g: 0, b: 0, a: 1}
+    Priority: 4
+  CanTargetSelf: 0

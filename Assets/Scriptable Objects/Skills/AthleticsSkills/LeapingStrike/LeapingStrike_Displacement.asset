@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103bedd4cb394c54182b5e0e34591a95, type: 3}
+  m_Name: LeapingStrike_Displacement
+  m_EditorClassIdentifier: 
+  DisplacementType: 1
+  Unit: {fileID: 11400000, guid: bfe456e2209dd3e4e9d47df91856b366, type: 2}
+  TargetPosition: {fileID: 11400000, guid: b3a4c57d9d6880040a557707c948c3f5, type: 2}
+  Delay: 0
+  SpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Speed: 2
+  Offset: 0
+  HeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 4.762208
+      outSlope: 4.762208
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.077809155
+    - serializedVersion: 3
+      time: 0.49712813
+      value: 1.0084033
+      inSlope: 0.11131103
+      outSlope: 0.11131103
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19887386
+    - serializedVersion: 3
+      time: 1.0043335
+      value: -0.0046539307
+      inSlope: -4.34718
+      outSlope: -4.34718
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.087361366
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Height: 2
+  Duration: 0
+  UseDuration: 1
+  StartVFX: {fileID: 0}
+  EndVFX: {fileID: 0}

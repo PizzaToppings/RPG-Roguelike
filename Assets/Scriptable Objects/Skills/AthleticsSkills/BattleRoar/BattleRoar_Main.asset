@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
+  m_Name: BattleRoar_Main
+  m_EditorClassIdentifier: 
+  SkillName: Battle Roar
+  Image: {fileID: 21300000, guid: 759d2db469762114a91216bb2268dffe, type: 3}
+  Image_Inactive: {fileID: 21300000, guid: 281391b8dd3d1bf4580b61198f9a728a, type: 3}
+  IsBasic: 0
+  IsConsumable: 0
+  IsMagical: 0
+  Classes: 00000000
+  Description: Let out a fearsome roar that gives allies within range +1 physical
+    power for 2 turns.
+  SkillPartGroups: []
+  EnergyCost: 4
+  DefaultCharges: 1
+  Charges: 1
+  Cursor: 0
+  castLockColor:
+    FillCenter: 0
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    Priority: 10
+  Caster: {fileID: 0}
