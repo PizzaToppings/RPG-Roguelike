@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
-  m_Name: KnockbackPunch_AoE
+  m_Name: BererkerFrenzy_Target
   m_EditorClassIdentifier: 
   OriginTiles:
   - {fileID: 0}
@@ -32,16 +32,16 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 0.9622642, g: 0, b: 0, a: 1}
-    Priority: 8
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 7
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   SkillVFX:
-  - {fileID: 11400000, guid: 04d7c4b4ecf893f45b14db72f5f0fcd8, type: 2}
+  - {fileID: 11400000, guid: 47fab76f3bc313147b62ec12c8282a0b, type: 2}
   DamageEffect:
     Caster: {fileID: 0}
     DamageType: 0
-    Power: 8
+    Power: 5
     IsMagical: 0
   MinRange: 0
   MaxRange: 1.5
@@ -52,11 +52,11 @@ MonoBehaviour:
   PreventDuplicateTargets: []
   StatusEfects: []
   tileEffects: []
-  displacementEffect: {fileID: 11400000, guid: f18d3ccc3e0e2b247b83491f83e58ba1, type: 2}
+  displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
   Caster: {fileID: 0}
   SelectedTargetTileColor:
-    FillCenter: 0
-    Color: {r: 0.9607844, g: 0, b: 0, a: 1}
-    Priority: 5
+    FillCenter: 1
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 6
   CanTargetSelf: 0

@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: KnockbackPunch_Main
+  m_Name: BerserkerFrenzy_Main
   m_EditorClassIdentifier: 
-  SkillName: Knockback Punch
-  Image: {fileID: 21300000, guid: 990c8fa84d95dc34590968c09e9dcbf6, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: 28be8a83211388c47bed734390840743, type: 3}
+  SkillName: Berserker Frenzy
+  Image: {fileID: 21300000, guid: c7850c4fe82582a409d07ed08478f210, type: 3}
+  Image_Inactive: {fileID: 21300000, guid: 2160cf28fb97a1e4195a3c126e28072d, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
-  Classes: 0000000004000000
-  Description: Hit an enemy, dealing <damage0-0> and knock them back 3 tiles.
+  Classes: 0000000001000000
+  Description: 
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
     skillParts:
-    - {fileID: 11400000, guid: a1dc96ecb123db54189dee6f2c02ad8e, type: 2}
-    - {fileID: 11400000, guid: 1df3c3bd25565924cb5b3667d8c4753d, type: 2}
-  EnergyCost: 4
+    - {fileID: 11400000, guid: 21db1047ed4326c4e9fdbd89e2c67182, type: 2}
+  EnergyCost: 6
   DefaultCharges: 1
-  Charges: 1
+  Charges: 0
   Cursor: 0
   castLockColor:
     FillCenter: 0

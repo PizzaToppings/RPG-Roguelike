@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
   m_Name: KnockbackPunch_knockback_VFX
   m_EditorClassIdentifier: 
-  SkillFxKind: 0
+  SkillFxKind: 1
   MainTargetOnly: 0
-  SkillOriginKind: 0
+  SkillOriginKind: 2
   SkillOriginOffset: {x: 0, y: 0, z: 0}
   SkillOriginRotation: {x: 0, y: 0, z: 0}
-  SkillDestinationKind: 0
+  SkillDestinationKind: 2
   SkillDestinationOffset: {x: 0, y: 0, z: 0}
   SkillDestinationRotation: {x: 0, y: 0, z: 0}
-  StickToUnit: 0
+  StickToUnit: 1
   ProjectileSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -48,10 +48,13 @@ MonoBehaviour:
   ProjectileSpeed: 1
   ProjectileOffset: 0
   StartDelay: 0
-  ExtendDelay: 0
+  ExtendDelay: 0.3
   EndDelay: 0
-  ShowDamage: 1
+  ShowDamage: 0
   ShowDamageDelay: 0
-  SkillObject: {fileID: 0}
-  Origins: []
-  Destinations: []
+  SkillObject: {fileID: 7306396699149290241, guid: 7515214949d66b046a94823f72a6f6e3,
+    type: 3}
+  Origins:
+  - {x: 16.88412, y: 0.18469048, z: 16.52009}
+  Destinations:
+  - {x: 16.88412, y: 0.18469048, z: 16.52009}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
-  m_Name: KnockbackPunch_Impact_VFX
+  m_Name: BerserkerFrenzy_Slash_VFX
   m_EditorClassIdentifier: 
   SkillFxKind: 1
   MainTargetOnly: 0
@@ -49,10 +49,10 @@ MonoBehaviour:
   ProjectileOffset: 0
   StartDelay: 0
   ExtendDelay: 0
-  EndDelay: 0
+  EndDelay: 0.2
   ShowDamage: 1
   ShowDamageDelay: 0
-  SkillObject: {fileID: 13793549744091743, guid: 13be7217e11bb6a40a2f30714a24c9fa,
+  SkillObject: {fileID: 543221541885347099, guid: 5597cfe8088d83946996ebd9afa4aede,
     type: 3}
   Origins:
   - {x: 16.88412, y: 0.18469048, z: 16.52009}
