@@ -37,7 +37,10 @@ MonoBehaviour:
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   SkillVFX:
-  - {fileID: 11400000, guid: 47fab76f3bc313147b62ec12c8282a0b, type: 2}
+  - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
+  - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
+  - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
+  - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
   DamageEffect:
     Caster: {fileID: 0}
     DamageType: 0

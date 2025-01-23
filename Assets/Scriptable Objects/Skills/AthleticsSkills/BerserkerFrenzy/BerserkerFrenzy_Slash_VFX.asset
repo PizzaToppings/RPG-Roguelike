@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillFxKind: 1
   MainTargetOnly: 0
-  SkillOriginKind: 2
+  SkillOriginKind: 1
   SkillOriginOffset: {x: 0, y: 0, z: 0}
   SkillOriginRotation: {x: 0, y: 0, z: 0}
-  SkillDestinationKind: 2
+  SkillDestinationKind: 1
   SkillDestinationOffset: {x: 0, y: 0, z: 0}
   SkillDestinationRotation: {x: 0, y: 0, z: 0}
   StickToUnit: 0
@@ -52,9 +52,9 @@ MonoBehaviour:
   EndDelay: 0.2
   ShowDamage: 1
   ShowDamageDelay: 0
-  SkillObject: {fileID: 543221541885347099, guid: 5597cfe8088d83946996ebd9afa4aede,
+  SkillObject: {fileID: 8380365999175400790, guid: 82502c8b4d18fe54e989f1db48c392d0,
     type: 3}
   Origins:
-  - {x: 16.88412, y: 0.18469048, z: 16.52009}
+  - {x: 12.384122, y: 0.18469048, z: 16.52009}
   Destinations:
-  - {x: 16.88412, y: 0.18469048, z: 16.52009}
+  - {x: 12.384122, y: 0.18469048, z: 16.52009}

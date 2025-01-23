@@ -61,7 +61,7 @@ public class SkillVFXManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitUntil(() => particleSystem.isStopped);
+            yield return new WaitForSeconds(particleSystem.main.duration);
         }
 
         yield return new WaitForSeconds(skillVFX.ExtendDelay);
