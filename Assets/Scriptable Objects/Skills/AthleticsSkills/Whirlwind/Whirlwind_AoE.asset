@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: Whirlwind_AoE
   m_EditorClassIdentifier: 
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
@@ -35,7 +36,9 @@ MonoBehaviour:
     Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  SkillVFX: []
+  SkillVFX:
+  - {fileID: 11400000, guid: 79a08b707bb8aa54bad7d239261e4ec4, type: 2}
+  - {fileID: 11400000, guid: 258c39785e5f8f049ace93b88e54b9b4, type: 2}
   DamageEffect:
     Caster: {fileID: 0}
     DamageType: 0

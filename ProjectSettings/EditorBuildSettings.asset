@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterSelectScene.unity
     guid: b9215bb38d0bdbd4f82e5037f053427c
   - enabled: 1
-    path: Assets/Scenes/CombatScene.unity
+    path: Assets/Scenes/TestCombatScene.unity
     guid: e7b379115cef56e4fa0217f96a445509
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
