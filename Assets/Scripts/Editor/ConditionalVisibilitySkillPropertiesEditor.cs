@@ -49,7 +49,7 @@ public class ConditionalVisibilitySkillPropertiesEditor : Editor
 
         DrawPropertiesExcluding(serializedObject, "OriginTileKind", "OriginTargetKind", "TargetTileKind", 
             "OriginTileSkillParts", "OriginTargetSkillParts", "TargetTileSkillParts", "DirectionAnchor", "DirectionAnchorSkillPart",
-            "AddProjectileLine", "ProjectileLineOffset");
+            "AddProjectileLine", "ProjectileLineOffset", "DirectionInput", "DirectionInputSkillPart");
 
         // OriginTileKind
         if (target is SO_AOE_Skill || target is SO_ConeSkill || target is SO_HalfCircleSkill || 

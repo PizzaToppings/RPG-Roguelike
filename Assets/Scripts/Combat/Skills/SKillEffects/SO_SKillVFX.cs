@@ -88,7 +88,7 @@ public class SO_SKillVFX : ScriptableObject
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Caster)
 		{
-			destinations.Add(damageData.Caster.transform.position + Vector3.up + SkillOriginOffset); ;
+			destinations.Add(damageData.Caster.transform.position + Vector3.up + SkillOriginOffset);
 		}
 
 		if (SkillDestinationKind == SkillFxDestinationEnum.Target)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -48,6 +49,9 @@ public class SkillVFXManager : MonoBehaviour
             {
                 while (true)
                 {
+                    if (skillVFX.GetDestinations().Count == 0)
+                        break;
+
                     skillObjects[0].transform.position = skillVFX.GetDestinations()[0];
 
                     if (particleSystem.isStopped)
@@ -64,6 +68,37 @@ public class SkillVFXManager : MonoBehaviour
 
         skillObjects.ForEach(skillObject => skillObject.SetActive(false));
         yield return new WaitForSeconds(skillVFX.EndDelay);
+    }
+
+    public void EndActiveVFX(SO_SKillVFX skillVFX)
+    {
+        var skillObjects = GetActiveSpellObjects(skillVFX);
+        var particleSystems = skillObjects.Select(x => x.GetComponent<ParticleSystem>()).ToList();
+        particleSystems.ForEach(x => x.Stop());
+        skillObjects.ForEach(skillObject => skillObject.SetActive(false));
+    }
+
+    List<GameObject> GetActiveSpellObjects(SO_SKillVFX skillVFX)
+    {
+        var objectList = new List<GameObject>();
+
+        foreach (Transform childTransform in skillObjectParent.transform)
+        {
+            var child = childTransform.gameObject;
+
+            if (child == null)
+                continue;
+
+            if (child.activeSelf == false)
+                continue;
+
+            if (child.name == skillVFX.SkillObject.name + "(Clone)")
+            {
+                objectList.Add(child);
+            }
+        }
+
+        return objectList;
     }
 
     List<GameObject> GetOrCreateSpellObjects(SO_SKillVFX skillVFX)
