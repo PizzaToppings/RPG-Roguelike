@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: BattleRoar_AoE
   m_EditorClassIdentifier: 
-  OriginTiles: []
+  OriginTiles:
+  - {fileID: 0}
   OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
@@ -28,14 +29,15 @@ MonoBehaviour:
   DirectionAnchorSkillPart: {fileID: 0}
   DirectionInput: 0
   DirectionInputSkillPart: {fileID: 0}
-  TargetKind: 0
+  TargetKind: 1
   tileColor:
     FillCenter: 0
     Color: {r: 0.9056604, g: 0.42629662, b: 0, a: 1}
     Priority: 7
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  SkillVFX: []
+  SkillVFX:
+  - {fileID: 11400000, guid: e11d320e957494a4e8ab0fb0f0e13539, type: 2}
   DamageEffect:
     Caster: {fileID: 0}
     DamageType: 0

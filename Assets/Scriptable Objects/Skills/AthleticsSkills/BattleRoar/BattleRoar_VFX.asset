@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
   m_Name: BattleRoar_VFX
   m_EditorClassIdentifier: 
-  SkillFxKind: 0
+  SkillFxKind: 1
   MainTargetOnly: 0
-  SkillOriginKind: 0
-  SkillOriginOffset: {x: 0, y: 0, z: 0}
+  SkillOriginKind: 1
+  SkillOriginOffset: {x: 0, y: -0.5, z: 0}
   SkillOriginRotation: {x: 0, y: 0, z: 0}
-  SkillDestinationKind: 0
-  SkillDestinationOffset: {x: 0, y: 0, z: 0}
+  SkillDestinationKind: 1
+  SkillDestinationOffset: {x: 0, y: -0.5, z: 0}
   SkillDestinationRotation: {x: 0, y: 0, z: 0}
   StickToUnit: 0
   ProjectileSpeedCurve:
@@ -50,8 +50,11 @@ MonoBehaviour:
   StartDelay: 0
   ExtendDelay: 0
   EndDelay: 0
-  ShowDamage: 1
+  ShowDamage: 0
   ShowDamageDelay: 0
-  SkillObject: {fileID: 0}
-  Origins: []
-  Destinations: []
+  SkillObject: {fileID: 8618717472993787555, guid: 4cfd11ee250da144296252d1fd9fc775,
+    type: 3}
+  Origins:
+  - {x: 13.884122, y: -0.31530952, z: 13.52009}
+  Destinations:
+  - {x: 13.884122, y: -0.31530952, z: 13.52009}

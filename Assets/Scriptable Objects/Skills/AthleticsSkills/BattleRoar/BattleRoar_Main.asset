@@ -21,10 +21,14 @@ MonoBehaviour:
   Classes: 00000000
   Description: Let out a fearsome roar that gives allies within range +1 physical
     power for 2 turns.
-  SkillPartGroups: []
+  SkillPartGroups:
+  - CastOnTile: 0
+    CastOnTarget: 0
+    skillParts:
+    - {fileID: 11400000, guid: dbb305ad24b5d0a4c8195bd21b2426cf, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
-  Charges: 1
+  Charges: 0
   Cursor: 0
   castLockColor:
     FillCenter: 0
