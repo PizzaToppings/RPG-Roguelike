@@ -234,7 +234,8 @@ public class SkillsManager : MonoBehaviour
 
         while (time < 1f)
         {
-            time += Time.deltaTime * displacement.Speed;
+            var displacementSpeed = displacement.Speed * displacement.SpeedCurve.Evaluate(time);
+            time += Time.deltaTime * displacementSpeed;
             time = Mathf.Clamp01(time);
 
             float height = displacement.HeightCurve.Evaluate(time) * displacement.Height;
