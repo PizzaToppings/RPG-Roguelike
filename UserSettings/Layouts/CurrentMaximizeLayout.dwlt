@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 57845
+  controlID: 91764
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 57726
+  controlID: 91661
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -446,10 +446,10 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Particles
       index: 1
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Floating":true,"m_FloatingSnapOffset":{"x":-288.0,"y":-201.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":3,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Floating":true,"m_FloatingSnapOffset":{"x":-289.0,"y":-199.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":3,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 1
       collapsed: 0
-      snapOffset: {x: -288, y: -201}
+      snapOffset: {x: -289, y: -199}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 3
       layout: 4
@@ -622,9 +622,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 17.868334, y: 0.16860946, z: 4.8148656}
+    m_Target: {x: 20.679745, y: 0.8028098, z: 2.8616278}
     speed: 2
-    m_Value: {x: 17.868334, y: 0.16860946, z: 4.8148656}
+    m_Value: {x: 20.679745, y: 0.8028098, z: 2.8616278}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -670,13 +670,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.21211256, y: -0.5347467, z: 0.14076391, w: -0.80576974}
+    m_Target: {x: -0.20315668, y: -0.37037855, z: 0.083372116, w: -0.9025635}
     speed: 2
-    m_Value: {x: -0.21210991, y: -0.53474003, z: 0.14076215, w: -0.80575967}
+    m_Value: {x: -0.20315416, y: -0.37037396, z: 0.08337108, w: -0.9025523}
   m_Size:
-    m_Target: 3.0644736
+    m_Target: 2.1101906
     speed: 2
-    m_Value: 3.0644736
+    m_Value: 2.1101906
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -800,8 +800,8 @@ MonoBehaviour:
     y: 345
     width: 906
     height: 588
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 226}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -924,7 +924,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 57775
+  controlID: 91716
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -994,7 +994,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 266dfbff2e6dfbffc075fbff8278fbffd84dfeff2499feff44a6feff0ca7feff4ab3feff8cb8fefff60affffce2afffffc4effff145bffff7263ffffa266ffff086bffff2afbffffea6200008a6500003c6b0000a06e0000225301002a540100e2550100a6570100465a0100e65f0100fc4d0200e2760200bc7902005c7f0200
+      m_ExpandedIDs: 8250faff44a7faffcaaafaff36acfaffaeb0faff266dfbff2e6dfbffc075fbff8278fbffd84dfeff2499feff44a6feff0ca7feff4ab3feff8cb8fefff60affffce2afffffc4effff145bffff7263ffffa266ffff086bffff2afbffffea6200008a6500003c6b0000a06e0000225301002a540100e2550100a6570100465a0100e65f0100fc4d0200e27602001c770200bc7902005c7f0200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1011,7 +1011,7 @@ MonoBehaviour:
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 11}
+        m_ClientGUIView: {fileID: 4}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1093,7 +1093,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/SpellFX/BerserkerFrenzy
+    - Assets/Scripts/Combat/Skills/SkillParts
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1103,16 +1103,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Prefabs/SpellFX/BerserkerFrenzy
+  - Assets/Scripts/Combat/Skills/SkillParts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Temp\RPG-roguelike
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 303}
-    m_SelectedIDs: 24150700
-    m_LastClickedID: 464164
-    m_ExpandedIDs: 000000002c7700002e77000030770000327700003477000036770000387700003a7700003c7700003e77000040770000427700004477000046770000487700004a7700004c7700004e77000050770000527700005477000056770000587700005a7700005c7700005e770000607700006277000064770000687700006a7700006c7700006e770000707700007277000076770000787700003e780000cc78000020f3000032430100004501008c3f020000ca9a3b
+    scrollPos: {x: 0, y: 693}
+    m_SelectedIDs: 54aa0500
+    m_LastClickedID: 371284
+    m_ExpandedIDs: 000000002c7700002e77000030770000327700003477000036770000387700003a7700003c7700003e77000040770000427700004477000046770000487700004a7700004c7700004e77000050770000527700005477000056770000587700005a7700005c7700005e770000607700006277000064770000687700006a7700006c7700006e77000070770000727700007477000076770000787700007a770000cc78000020f300003a430100004501008c3f02009e3f0200a03f0200a43f020012a3070000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1141,7 +1141,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002c7700002e77000030770000327700003477000036770000387700003a7700003c7700003e77000040770000427700004477000046770000487700004a7700004c7700004e77000050770000527700005477000056770000587700005a7700005c7700005e770000607700006277000064770000687700006a7700006c7700006e770000707700007277000076770000787700003e780000cc78000020f3000032430100004501008c3f020000ca9a3b
+    m_ExpandedIDs: 000000002c7700002e77000030770000327700003477000036770000387700003a7700003c7700003e770000407700004277000046770000487700004a7700004c7700004e77000050770000527700005477000056770000587700005a7700005c7700005e770000607700006277000064770000687700006a7700006c7700006e77000070770000727700007477000076770000787700007a770000cc78000020f300003a430100004501008c3f02009e3f0200a03f0200a43f020012a3070000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1167,9 +1167,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 76150700
-    m_LastClickedInstanceID: 464246
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 3ebdfeff
+    m_LastClickedInstanceID: -82626
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 584e0000000000006ab801002e2000002e5d00006c6c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1265,10 +1265,10 @@ MonoBehaviour:
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
-    m_CachedPref: -151
+    m_CachedPref: 151
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 464246
+  m_LastInspectedObjectInstanceID: -82626
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

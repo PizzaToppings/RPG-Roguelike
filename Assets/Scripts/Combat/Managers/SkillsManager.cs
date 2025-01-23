@@ -113,7 +113,7 @@ public class SkillsManager : MonoBehaviour
             }
         }
 
-        Character character = SkillData.Caster as Character;
+        Character character = caster as Character;
         character.StopCasting();
     }
 

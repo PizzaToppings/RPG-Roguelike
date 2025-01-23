@@ -11,7 +11,7 @@ public class SO_TargetSelfSkill : SO_Skillpart
 
         caster.Tile.SetColor(tileColor);
 
-        PartData.TargetsHit.Add(SkillData.Caster);
+        PartData.TargetsHit.Add(caster);
         return this;
     }
 }

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ea86c1f688f1743be5ed65f3919415, type: 3}
+  m_Name: StonewallStance_TargetSelf
+  m_EditorClassIdentifier: 
+  OriginTiles: []
+  OriginTargets: []
+  TargetTile: {fileID: 0}
+  FinalDirection: 0
+  MagicalDamage: 0
+  SkillPartIndex: 0
+  OriginTileKind: 0
+  OriginTileSkillParts: []
+  OriginTargetKind: 0
+  OriginTargetSkillParts: []
+  TargetTileKind: 0
+  TargetTileSkillParts: []
+  DirectionAnchor: 0
+  DirectionAnchorSkillPart: {fileID: 0}
+  DirectionInput: 0
+  DirectionInputSkillPart: {fileID: 0}
+  TargetKind: 0
+  tileColor:
+    FillCenter: 1
+    Color: {r: 0.111294046, g: 0.47197133, b: 0.5754717, a: 1}
+    Priority: 6
+  AddProjectileLine: 0
+  ProjectileLineOffset: 1
+  SkillVFX:
+  - {fileID: 11400000, guid: 85a1a3808e5c68e4086db87473a4d45a, type: 2}
+  DamageEffect:
+    Caster: {fileID: 0}
+    DamageType: 0
+    Power: 0
+    IsMagical: 0
+  MinRange: 0
+  MaxRange: 0
+  IncludeInAutoMove: 0
+  AffectedByBlockedTiles: 0
+  FreeSpacesOnly: 0
+  PreventDuplicateTiles: []
+  PreventDuplicateTargets: []
+  StatusEfects:
+  - {fileID: 11400000, guid: e57af1e123aa7864f8fedc3b32902f68, type: 2}
+  - {fileID: 11400000, guid: 2b682fbad10e4734faf60a1e01b989cf, type: 2}
+  - {fileID: 11400000, guid: 69f9026c801cf0f4da23f33a088c6685, type: 2}
+  tileEffects: []
+  displacementEffect: {fileID: 0}
+  SummonObject: {fileID: 0}
+  Caster: {fileID: 0}
