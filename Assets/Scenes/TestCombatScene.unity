@@ -8288,7 +8288,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 16438f75cefe7a24e981aa051e1b7f67,
+      objectReference: {fileID: 11400000, guid: 366c467fc321f1b4a8038c81c06a8af8,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
