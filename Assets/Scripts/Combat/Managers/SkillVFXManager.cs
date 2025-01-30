@@ -24,12 +24,17 @@ public class SkillVFXManager : MonoBehaviour
 
     public IEnumerator Cast(SO_SKillVFX skillVFX, Unit caster)
     {
+        // Big SkillVFX idea: Can toggle vfx on or off during skills, so it can last longer!
+
         yield return new WaitForSeconds(skillVFX.StartDelay);
 
         var skillObjects = GetOrCreateSpellObjects(skillVFX);
-
+        
         for (int i = 0; i < skillObjects.Count; i++)
 		{
+            if (skillVFX.UseLineRenderer)
+                SetLineRenderer(skillObjects[0], skillVFX);
+            
             var originIndex = i < skillVFX.Origins.Count - 1 ? i : skillVFX.Origins.Count - 1;
 
             skillObjects[i].transform.position = skillVFX.Origins[originIndex];
@@ -66,8 +71,47 @@ public class SkillVFXManager : MonoBehaviour
 
         yield return new WaitForSeconds(skillVFX.ExtendDelay);
 
-        skillObjects.ForEach(skillObject => skillObject.SetActive(false));
+        StartCoroutine(DisableSkillObject(skillVFX, skillObjects));
+
         yield return new WaitForSeconds(skillVFX.EndDelay);
+    }
+
+    IEnumerator DisableSkillObject(SO_SKillVFX skillVFX, List<GameObject> skillObjects)
+    {
+        if (skillVFX.StickToUnit)
+        {
+            float time = 0;
+            while (true)
+            {
+                time += Time.deltaTime;
+                if (skillVFX.GetDestinations().Count == 0)
+                    break;
+
+                skillObjects[0].transform.position = skillVFX.GetDestinations()[0];
+
+                if (skillVFX.UseLineRenderer)
+                    SetLineRenderer(skillObjects[0], skillVFX);
+
+                if (time >= skillVFX.DisableObjectDelay)
+                    break;
+
+                yield return null;
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(skillVFX.DisableObjectDelay);
+        }
+
+        skillObjects.ForEach(skillObject => skillObject.SetActive(false));
+    }
+
+    void SetLineRenderer(GameObject skillObject, SO_SKillVFX skillVFX)
+    {
+        var lineRenderer = skillObject.GetComponent<LineRenderer>();
+
+        lineRenderer.SetPosition(0, skillVFX.GetLineRendererTarget(skillVFX.LineRendererOriginKind, skillObject));
+        lineRenderer.SetPosition(1, skillVFX.GetLineRendererTarget(skillVFX.LineRendererDestinationKind, skillObject));
     }
 
     public void EndActiveVFX(SO_SKillVFX skillVFX)
@@ -140,14 +184,14 @@ public class SkillVFXManager : MonoBehaviour
     }
 
 
-    private IEnumerator MoveProjectilesAlongCurve(List<GameObject> skillObjects, SO_SKillVFX skillFx)
+    private IEnumerator MoveProjectilesAlongCurve(List<GameObject> skillObjects, SO_SKillVFX skillVfx)
     {
         var pointList = new List<Vector3>();
-        Vector3 originPosition = skillFx.Origins[0] + Vector3.up;
-        Vector3 targetPosition = skillFx.Destinations[0] + Vector3.up;
+        Vector3 originPosition = skillVfx.Origins[0] + Vector3.up;
+        Vector3 targetPosition = skillVfx.Destinations[0] + Vector3.up;
 
         var heightOffset = Vector3.Distance(originPosition, targetPosition);
-        var middleOffset = Vector3.up * heightOffset * skillFx.ProjectileOffset * 0.5f;
+        var middleOffset = Vector3.up * heightOffset * skillVfx.ProjectileOffset * 0.5f;
 
         Vector3 middlePosition = Vector3.Lerp(originPosition, targetPosition, 0.5f) + middleOffset;
 
@@ -166,7 +210,7 @@ public class SkillVFXManager : MonoBehaviour
         while (currentIndex < pointList.Count - 1)
         {
             time += Time.deltaTime;
-            float projectileSpeed = skillFx.ProjectileSpeedCurve.Evaluate(time) * skillFx.ProjectileSpeed;
+            float projectileSpeed = skillVfx.ProjectileSpeedCurve.Evaluate(time) * skillVfx.ProjectileSpeed;
 
             skillObjects[0].transform.position = Vector3.MoveTowards(skillObjects[0].transform.position, pointList[currentIndex + 1], projectileSpeed * Time.deltaTime);
 
@@ -174,6 +218,9 @@ public class SkillVFXManager : MonoBehaviour
             {
                 currentIndex++;
             }
+
+            if (skillVfx.UseLineRenderer)
+                SetLineRenderer(skillObjects[0], skillVfx);
 
             yield return null;
         }

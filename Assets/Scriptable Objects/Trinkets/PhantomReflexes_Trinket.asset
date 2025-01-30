@@ -10,9 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a77b3c0f07e2d94888bae7c760eb9be, type: 3}
-  m_Name: TestPassive
+  m_Name: PhantomReflexes_Trinket
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: 8f761b1f12ed86c479aa306104d418b2, type: 3}
-  Description: This is only to test
+  Image: {fileID: 0}
+  classes: 
+  Rarity: 1
+  Description: 
   TriggerMoment: 1
-  TriggerEffect: 1
+  TriggerEffect: 2
+  ChargesToTrigger: 5
+  TriggerOnce: 0
+  Power: 1
+  Target: 0
+  Range: 0
+  StatusEffect: 14
+  Stat: 

@@ -105,7 +105,7 @@ public class Unit : UnitStats
             while (distanceLeft <= 1)
             {
                 // move to next tile
-                distanceLeft += Time.deltaTime * (1f + MoveSpeed * 0.1f);
+                distanceLeft += Time.deltaTime * (2f + MoveSpeed * 0.1f);
                 transform.position = Vector3.Lerp(startPosition, endPosition, distanceLeft);
 
                 yield return new WaitForEndOfFrame();
