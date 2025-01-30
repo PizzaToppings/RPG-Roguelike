@@ -96,13 +96,13 @@ public class UnitManager : MonoBehaviour
        
         UnitData.Units.Remove(unit);
 
-        if (deadCharacterIndex < CombatData.currentUnitTurn)
+        if (deadCharacterIndex < CombatData.CurrentUnitTurn)
         {
-            CombatData.currentUnitTurn--;
+            CombatData.CurrentUnitTurn--;
         }
-        else if (deadCharacterIndex == CombatData.currentUnitTurn)
+        else if (deadCharacterIndex == CombatData.CurrentUnitTurn)
         {
-            CombatData.currentUnitTurn--;
+            CombatData.CurrentUnitTurn--;
             yield return StartCoroutine(combatManager.EndTurn());
         }
 

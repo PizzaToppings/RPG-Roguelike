@@ -20,7 +20,6 @@ public class BoardManager : MonoBehaviour
     Vector3 MovementLineOffset = Vector3.up * 0.2f;
 
     [HideInInspector] public List<BoardTile> Path = new List<BoardTile>();
-    BoardTile currentMouseTile;
 
     public Vector2Int[] Directions;
 
@@ -215,6 +214,9 @@ public class BoardManager : MonoBehaviour
         if (data == null)
         {
             SetMovementAOE(movementLeft, startingTile);
+
+            if (UnitData.ActiveUnit.Friendly && BoardData.CurrentMouseTile != null)
+                BoardData.CurrentMouseTile.Target();
         }
         else
 		{
@@ -416,22 +418,13 @@ public class BoardManager : MonoBehaviour
 
         yield return StartCoroutine(UnitData.ActiveUnit.Move(Path));
     }
-
-    public BoardTile GetCurrentMouseTile()
-    {
-        return currentMouseTile;
-    }
-    
-    public void SetCurrentMouseTile(BoardTile tile)
-	{
-        currentMouseTile = tile;
-    }
+   
 
     public IEnumerator DeselectCurrentMouseTile(BoardTile tile)
 	{
         yield return new WaitForSeconds(0.1f);
 
-        if (currentMouseTile == tile)
-            currentMouseTile = null;
+        if (BoardData.CurrentMouseTile == tile)
+            BoardData.CurrentMouseTile = null;
 	}
 }

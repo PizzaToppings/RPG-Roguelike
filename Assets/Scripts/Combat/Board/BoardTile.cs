@@ -78,7 +78,7 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        boardManager.SetCurrentMouseTile(this);
+        BoardData.CurrentMouseTile = this;
 
         if (!EventSystem.current.IsPointerOverGameObject())
             Target();

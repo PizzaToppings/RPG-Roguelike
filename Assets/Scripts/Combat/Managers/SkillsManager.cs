@@ -55,8 +55,7 @@ public class SkillsManager : MonoBehaviour
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot 
             && SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
         {
-            var currentMouseTile = boardManager.GetCurrentMouseTile();
-            UnitData.ActiveUnit.PreviewSkills(currentMouseTile);
+            UnitData.ActiveUnit.PreviewSkills(BoardData.CurrentMouseTile);
         }
     }
 
@@ -74,7 +73,7 @@ public class SkillsManager : MonoBehaviour
             
             if (NoTargetsInRange(skill) == false)
 			{
-                skill.Preview(boardManager.GetCurrentMouseTile(), UnitData.ActiveUnit);
+                skill.Preview(BoardData.CurrentMouseTile, UnitData.ActiveUnit);
 
                 return;
 			}

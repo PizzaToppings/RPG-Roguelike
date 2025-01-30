@@ -4,7 +4,7 @@ public class CombatData
 {
     public static int currentRound = 0;
 
-    public static int currentUnitTurn = 0;
+    public static int CurrentUnitTurn = 0;
 
     public static UnityEvent onTurnStart = new UnityEvent();
     public static UnityEvent onTurnEnd = new UnityEvent();

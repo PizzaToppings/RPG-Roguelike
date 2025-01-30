@@ -97,7 +97,7 @@ public class Character : Unit
 
             SetSkillData(skill);
 
-            var currentMouseTile = boardManager.GetCurrentMouseTile();
+            var currentMouseTile = BoardData.CurrentMouseTile;
             skill.Preview(currentMouseTile, this);
 		}
     }
@@ -158,7 +158,13 @@ public class Character : Unit
     {
         yield return StartCoroutine(base.StartTurn());
 
-		UnitData.CurrentAction = CurrentActionKind.Basic;
+        skillsManager.SetSkills(this);
+        consumableManager.SetConsumables(this);
+
+        UnitData.CurrentAction = CurrentActionKind.Basic;
+
+        if (UnitData.ActiveUnit.Friendly && BoardData.CurrentMouseTile != null)
+            BoardData.CurrentMouseTile.Target();
     }
 
     public override void SetStartOfTurnStats()

@@ -10,6 +10,7 @@ public class Unit : UnitStats
     [HideInInspector] public UnitManager unitManager;
     [HideInInspector] public SkillsManager skillsManager;
     [HideInInspector] public SkillVFXManager skillVFXManager;
+    [HideInInspector] public ConsumableManager consumableManager;
     [HideInInspector] public StatusEffectManager statusEffectManager;
     [HideInInspector] public DamageManager damageManager;
     [HideInInspector] public UIManager uiManager;
@@ -41,6 +42,7 @@ public class Unit : UnitStats
         unitManager = UnitManager.Instance;
         skillsManager = SkillsManager.Instance;
         skillVFXManager = SkillVFXManager.Instance;
+        consumableManager = ConsumableManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
