@@ -35,3 +35,8 @@ public enum TriggerMomentEnum { StartOfGame, StartOfTurn, EndOfTurn, StartOfRoun
 public enum TriggerEffectEnum { DealDamage, TakeDamage, AddStatusEffect } 
 public enum TileTriggerMomentEnum { OnEnterTile, StartOfTurn, EndOfTurn, Aura }
 public enum TileTriggerEffectEnum { DealDamage, ApplyEffect }
+
+// Prerequisites
+public enum PrerequisiteUnitEnum { None, Target, Caster }
+public enum PrerequisiteConditionEnum { None, StatusEffect, Damage, DamagePercentage }
+public enum PrerequisiteOperatorsEnum { Equals, MoreThan, LessThen, MoreThanOrEqual, LessThenOrEqual }

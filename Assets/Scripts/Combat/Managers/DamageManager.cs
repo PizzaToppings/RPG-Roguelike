@@ -79,6 +79,16 @@ public class DamageManager : MonoBehaviour
         {
             foreach (var damageEffect in damageEffects)
             {
+                var canCast = true;
+                foreach (var prerequisite in damageEffect.Prerequisites)
+                {
+                    canCast = prerequisite.HasPrerequisite(damageEffect.Caster, target);
+                    if (canCast == false)
+                        break;
+                }
+                if (canCast == false)
+                    break;
+
                 if (damageEffect.Power > 0)
                 {
                     var data = GetDamageData(damageEffect, target);

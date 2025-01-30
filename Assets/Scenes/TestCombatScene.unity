@@ -56997,6 +56997,7 @@ MonoBehaviour:
   unitManager: {fileID: 0}
   skillsManager: {fileID: 0}
   skillVFXManager: {fileID: 0}
+  consumableManager: {fileID: 0}
   statusEffectManager: {fileID: 0}
   damageManager: {fileID: 0}
   uiManager: {fileID: 0}
@@ -58565,6 +58566,7 @@ MonoBehaviour:
   unitManager: {fileID: 0}
   skillsManager: {fileID: 0}
   skillVFXManager: {fileID: 0}
+  consumableManager: {fileID: 0}
   statusEffectManager: {fileID: 0}
   damageManager: {fileID: 0}
   uiManager: {fileID: 0}
