@@ -93,21 +93,25 @@ public class InfoScreen : MonoBehaviour
         var description = skill.Description;
         var caster = UnitData.ActiveUnit;
 
-        for (int i = 0; i < skill.SkillPartGroups.Count; i++)
+        foreach (var spg in skill.SkillPartGroups)
         {
-            var spg = skill.SkillPartGroups[i];
-
-            for (int y = 0; y <spg.skillParts.Count; y++)
+            foreach (var skillPart in spg.skillParts)
             {
-                if (description.Contains($"<damage{i}-{y}>") == false)
-                    continue;
+                foreach (var damageEffect in skillPart.DamageEffects)
+                {
+                    var damagePlaceholder = $"<damage{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.DamageEffects.IndexOf(damageEffect)}>";
 
-                var skillPart = spg.skillParts[y];
-                var skillDamage = skillPart.DamageEffect.Power;
-                var bonusDamage = skillPart.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
-                var totalDamage = (skillDamage + bonusDamage).ToString();
+                    if (!description.Contains(damagePlaceholder))
+                        continue;
 
-                description = description.Replace($"<damage{i}-{y}>", totalDamage);
+                    var skillDamage = damageEffect.Power;
+                    var bonusDamage = skillPart.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+                    var totalDamage = (skillDamage + bonusDamage).ToString();
+                    var damageType = damageEffect.DamageType.ToString();
+                    var damageText = $"{totalDamage} {damageType} damage";
+
+                    description = description.Replace(damagePlaceholder, damageText);
+                }
             }
         }
 

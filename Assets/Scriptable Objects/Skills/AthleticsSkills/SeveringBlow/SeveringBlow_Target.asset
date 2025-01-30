@@ -38,8 +38,8 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   SkillVFX:
   - {fileID: 11400000, guid: 1c7c975ac0829de47bb57249f590cb69, type: 2}
-  DamageEffect:
-    Caster: {fileID: 0}
+  DamageEffects:
+  - Caster: {fileID: 0}
     DamageType: 0
     Power: 9
     IsMagical: 0

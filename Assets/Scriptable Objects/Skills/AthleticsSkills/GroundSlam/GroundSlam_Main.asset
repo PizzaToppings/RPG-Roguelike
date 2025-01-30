@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 000000000700000004000000
-  Description: Slam the ground, dealing <damage0-0> to all enemies around you and
+  Description: Slam the ground, dealing <damage0-0-0> to all enemies around you and
     knock them back 2 tiles.
   SkillPartGroups:
   - CastOnTile: 0

@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 0000000001000000
-  Description: Deal <damage0-0> to all enemies around you.
+  Description: Deal <damage0-0-0> to all enemies around you.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 0

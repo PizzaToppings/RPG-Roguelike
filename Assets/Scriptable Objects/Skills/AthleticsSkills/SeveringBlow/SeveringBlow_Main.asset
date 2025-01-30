@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 00000000
-  Description: Deals <damage0-0> to an enemy and slow it for 2 turns.
+  Description: Deals <damage0-0-0> to an enemy and slow it for 2 turns.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1

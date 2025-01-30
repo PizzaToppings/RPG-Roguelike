@@ -20,9 +20,6 @@ public class FireTotem : Unit
         StartCoroutine(uiManager.ShowActivityText("Firebolt"));
         yield return new WaitForSeconds(1);
 
-        var damageData = skill.DamageEffect;
-        damageData.Caster = this;
-
         Unit target = null;
         float closestTargetRange = 0;
 

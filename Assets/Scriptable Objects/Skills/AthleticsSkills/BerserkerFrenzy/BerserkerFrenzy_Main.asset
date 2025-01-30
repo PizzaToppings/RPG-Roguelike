@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 0000000001000000
-  Description: Attack an enemy 4 times for <damage0-0>.
+  Description: Attack an enemy 4 times for <damage0-0-0>.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
@@ -27,7 +27,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 21db1047ed4326c4e9fdbd89e2c67182, type: 2}
   EnergyCost: 6
   DefaultCharges: 1
-  Charges: 1
+  Charges: 0
   Cursor: 0
   castLockColor:
     FillCenter: 0

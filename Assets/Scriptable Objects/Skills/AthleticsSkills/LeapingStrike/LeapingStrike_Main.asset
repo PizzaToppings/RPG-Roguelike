@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 0000000001000000
-  Description: Jump to a tile and deal <damage0-1> to all tiles around you.
+  Description: Jump to a tile and deal <damage0-1-0> to all tiles around you.
   SkillPartGroups:
   - CastOnTile: 1
     CastOnTarget: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageManager : MonoBehaviour
@@ -72,20 +73,23 @@ public class DamageManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        DamageData damageEffect = skillPart.DamageEffect;
+        List<DamageData> damageEffects = skillPart.DamageEffects;
 
         foreach (var target in skillPart.PartData.TargetsHit)
         {
-            if (damageEffect.Power > 0)
+            foreach (var damageEffect in damageEffects)
             {
-                var data = GetDamageData(damageEffect, target);
+                if (damageEffect.Power > 0)
+                {
+                    var data = GetDamageData(damageEffect, target);
 
-                if (damageEffect.DamageType == DamageTypeEnum.Healing)
-                    Heal(data);
-                else if (damageEffect.DamageType == DamageTypeEnum.Shield)
-                    Shield(data);
-                else
-                    DealDamage(data);
+                    if (damageEffect.DamageType == DamageTypeEnum.Healing)
+                        Heal(data);
+                    else if (damageEffect.DamageType == DamageTypeEnum.Shield)
+                        Shield(data);
+                    else
+                        DealDamage(data);
+                }
             }
         }
     }

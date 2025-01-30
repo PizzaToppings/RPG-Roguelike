@@ -39,8 +39,8 @@ MonoBehaviour:
   SkillVFX:
   - {fileID: 11400000, guid: 79a08b707bb8aa54bad7d239261e4ec4, type: 2}
   - {fileID: 11400000, guid: 258c39785e5f8f049ace93b88e54b9b4, type: 2}
-  DamageEffect:
-    Caster: {fileID: 0}
+  DamageEffects:
+  - Caster: {fileID: 0}
     DamageType: 0
     Power: 6
     IsMagical: 0

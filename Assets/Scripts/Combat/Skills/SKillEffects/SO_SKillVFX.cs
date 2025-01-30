@@ -48,11 +48,14 @@ public class SO_SKillVFX : ScriptableObject
 	[HideInInspector] public List<Vector3> Destinations = new List<Vector3>();
 
 	private SkillPartData SPData;
-	private DamageData damageData;
+	//private List<DamageData> damageDatas;
+	private Unit caster;
 
-	public void SetValues(SkillPartData spd, DamageData damageData)
+	public void SetValues(SkillPartData spd, Unit caster)
     {
-		CloneData(spd, damageData);
+		CloneData(spd);
+		this.caster = caster;
+
 		if (SkillFxKind == SkillFxType.Animation)
         {
 			Origins = Destinations = GetDestinations();
@@ -65,7 +68,7 @@ public class SO_SKillVFX : ScriptableObject
         }
     }
 
-	void CloneData(SkillPartData spd, DamageData damageData)
+	void CloneData(SkillPartData spd)
     {
         SPData = new SkillPartData
         { 
@@ -75,14 +78,6 @@ public class SO_SKillVFX : ScriptableObject
 			GroupIndex = spd.GroupIndex,
 			CanCast = spd.CanCast
 		};
-
-		this.damageData = new DamageData
-		{
-			Caster = damageData.Caster,
-			DamageType = damageData.DamageType,
-			Power = damageData.Power,
-			IsMagical = damageData.IsMagical
-		};
     }
 
     public List<Vector3> GetOrigins()
@@ -91,7 +86,7 @@ public class SO_SKillVFX : ScriptableObject
 
 		if (SkillOriginKind == SkillFxTargetEnum.Caster)
 		{
-			origins.Add(damageData.Caster.transform.position + Vector3.up + SkillOriginOffset);
+			origins.Add(caster.transform.position + Vector3.up + SkillOriginOffset);
 		}
 
 		if (SkillOriginKind == SkillFxTargetEnum.Target)
@@ -113,7 +108,7 @@ public class SO_SKillVFX : ScriptableObject
 
 		if (SkillDestinationKind == SkillFxTargetEnum.Caster)
 		{
-			destinations.Add(damageData.Caster.transform.position + Vector3.up + SkillOriginOffset);
+			destinations.Add(caster.transform.position + Vector3.up + SkillOriginOffset);
 		}
 
 		if (SkillDestinationKind == SkillFxTargetEnum.Target)
@@ -132,7 +127,7 @@ public class SO_SKillVFX : ScriptableObject
 	public Vector3 GetLineRendererTarget(SkillFxTargetEnum target, GameObject skillObject)
     {
 		if (target == SkillFxTargetEnum.Caster)
-			return damageData.Caster.transform.position + Vector3.up;
+			return caster.transform.position + Vector3.up;
 
 		if (target == SkillFxTargetEnum.Target)
 			return SPData.TargetsHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).First();

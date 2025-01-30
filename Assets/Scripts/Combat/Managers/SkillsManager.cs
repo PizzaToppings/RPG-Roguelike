@@ -120,7 +120,7 @@ public class SkillsManager : MonoBehaviour
     {
         var skillVFX = skillPart.SkillVFX;
         var skillPartData = skillPart.PartData;
-        skillPart.DamageEffect.Caster = UnitData.ActiveUnit;
+        skillPart.DamageEffects.ForEach(x => x.Caster = UnitData.ActiveUnit);
 
         if (skillPart.displacementEffect != null)
 		{
@@ -137,7 +137,7 @@ public class SkillsManager : MonoBehaviour
                 if (VFX.ShowDamage)
                     damageManager.DealDamageSetup(skillPart, VFX.ShowDamageDelay);
 
-                VFX.SetValues(skillPartData, skillPart.DamageEffect);
+                VFX.SetValues(skillPartData, caster);
                 yield return StartCoroutine(skillVFXManager.Cast(VFX, caster));
 			}
         }
@@ -168,7 +168,7 @@ public class SkillsManager : MonoBehaviour
     {
         if (displacement.StartVFX)
 		{
-            displacement.StartVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            displacement.StartVFX.SetValues(skillPart.PartData, caster);
             StartCoroutine(skillVFXManager.Cast(displacement.StartVFX, caster));
         }
 
@@ -204,7 +204,7 @@ public class SkillsManager : MonoBehaviour
 
         if (displacement.EndVFX)
         {
-            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            displacement.EndVFX.SetValues(skillPart.PartData, caster);
             StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
         }
 
@@ -255,7 +255,7 @@ public class SkillsManager : MonoBehaviour
 
         if (displacement.EndVFX)
         {
-            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            displacement.EndVFX.SetValues(skillPart.PartData, caster);
             StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
         }
      
@@ -295,7 +295,7 @@ public class SkillsManager : MonoBehaviour
         }
         if (displacement.EndVFX)
         {
-            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            displacement.EndVFX.SetValues(skillPart.PartData, caster);
             StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
         }
     }
