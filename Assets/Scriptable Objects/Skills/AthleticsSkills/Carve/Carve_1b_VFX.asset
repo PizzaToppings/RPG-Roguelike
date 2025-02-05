@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
-  m_Name: GougingCleave_1a_VFX
+  m_Name: Carve_1b_VFX
   m_EditorClassIdentifier: 
   SkillFxKind: 1
   MainTargetOnly: 0
@@ -54,11 +54,11 @@ MonoBehaviour:
   ExtendDelay: 0
   DisableObjectDelay: 0
   EndDelay: 0
-  ShowDamage: 0
-  ShowDamageDelay: 0
-  SkillObject: {fileID: 2020685896230007551, guid: cdb76be8433d0d4429275a04036e445e,
+  ShowDamage: 1
+  ShowDamageDelay: 0.15
+  SkillObject: {fileID: 8468871602763524037, guid: cbf2d1f54dd698a4faf7d25f8c6ac40c,
     type: 3}
   Origins:
-  - {x: 13.884122, y: 0.18469048, z: 9.02009}
+  - {x: 16.88412, y: 0.18469048, z: 13.52009}
   Destinations:
-  - {x: 13.884122, y: 0.18469048, z: 9.02009}
+  - {x: 16.88412, y: 0.18469048, z: 13.52009}
