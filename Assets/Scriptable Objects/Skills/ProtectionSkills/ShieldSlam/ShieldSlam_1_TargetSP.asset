@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
-  m_Name: ShieldTest_TargetUnit
+  m_Name: ShieldSlam_1_TargetSP
   m_EditorClassIdentifier: 
   OriginTiles:
   - {fileID: 0}
@@ -29,24 +29,25 @@ MonoBehaviour:
   DirectionAnchorSkillPart: {fileID: 0}
   DirectionInput: 0
   DirectionInputSkillPart: {fileID: 0}
-  TargetKind: 1
+  TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 0.3160377, g: 1, b: 0.99350333, a: 1}
-    Priority: 7
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 6
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   SkillVFX:
-  - {fileID: 11400000, guid: cb1f9a58143b46c48ad88bb07e361b8c, type: 2}
+  - {fileID: 11400000, guid: 12f727ea39132714d827c9dca0750990, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
     IsMagical: 0
-    Modifiers: []
+    Modifiers:
+    - {fileID: 11400000, guid: eaea5d4fe17948d44b3e7153deaedd2a, type: 2}
     Prerequisites: []
-    DamageType: 10
-    Power: 10
+    DamageType: 0
+    Power: 0
   MinRange: 0
-  MaxRange: 8
+  MaxRange: 1.5
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
@@ -59,6 +60,6 @@ MonoBehaviour:
   Caster: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
-    Color: {r: 0.31764707, g: 1, b: 0.9921569, a: 1}
-    Priority: 6
-  CanTargetSelf: 1
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 5
+  CanTargetSelf: 0

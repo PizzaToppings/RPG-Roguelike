@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TargetUnitSkill", menuName = "ScriptableObjects/SkillParts/TargetUnitSkill")]
+[CreateAssetMenu(fileName = "AutoTargetSkill", menuName = "ScriptableObjects/SkillParts/AutoTargetSkill")]
 public class SO_AutoTargetSkill : SO_Skillpart
 {
     [Header(" - TargetUnit Specific")]

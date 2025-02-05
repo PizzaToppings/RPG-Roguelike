@@ -93,18 +93,15 @@ public class DamageManager : MonoBehaviour
                 }
                 if (canCast == false)
                     break;
+                
+                var data = CalculateDamageData(damageEffect, target);
 
-                if (damageEffect.Power > 0)
-                {
-                    var data = CalculateDamageData(damageEffect, target);
-
-                    if (damageEffect.DamageType == DamageTypeEnum.Healing)
-                        Heal(data);
-                    else if (damageEffect.DamageType == DamageTypeEnum.Shield)
-                        Shield(data);
-                    else
-                        DealDamage(data);
-                }
+                if (damageEffect.DamageType == DamageTypeEnum.Healing)
+                    Heal(data);
+                else if (damageEffect.DamageType == DamageTypeEnum.Shield)
+                    Shield(data);
+                else
+                    DealDamage(data);
             }
         }
     }
