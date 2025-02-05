@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class SkillIcon : MonoBehaviour
+public class SkillIcon : MonoBehaviour, IPointerClickHandler
 {
     SkillsManager skillsManager;
     UIManager uiManager;
@@ -75,12 +76,20 @@ public class SkillIcon : MonoBehaviour
         uiManager.StartShowSkillInformation(skill);
     }
 
-    public void OnPointerClick()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (skill == null)
-            return; 
-        
-        CastSkill();
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (skill == null)
+                return;
+
+            CastSkill();
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            uiManager.LockSkillInformation(skill);
+        }
     }
 
     public void OnPointerExit() 

@@ -126,6 +126,11 @@ public class UIManager : MonoBehaviour
         showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
 	}
 
+    public void LockSkillInformation(SO_MainSkill skill)
+    {
+        infoScreen.Activate(skill, true);
+    }
+
     public void EndShowSkillInformation(SO_MainSkill skill)
     {
         StopCoroutine(showSkillCoroutine);
@@ -136,6 +141,6 @@ public class UIManager : MonoBehaviour
     public IEnumerator ShowSkillInformation(SO_MainSkill skill)
 	{
         yield return new WaitForSeconds(1);
-        infoScreen.Activate(skill);
+        infoScreen.Activate(skill, false);
     }
 }

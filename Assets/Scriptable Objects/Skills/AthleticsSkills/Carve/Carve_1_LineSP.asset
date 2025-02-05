@@ -52,7 +52,7 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects:
+  StatusEffects:
   - {fileID: 11400000, guid: a4e8002003181f745ac196ffa99651e4, type: 2}
   tileEffects: []
   displacementEffect: {fileID: 0}

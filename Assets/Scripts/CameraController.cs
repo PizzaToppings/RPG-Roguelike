@@ -76,7 +76,7 @@ public class CameraController : MonoBehaviour
 
     void Rotate()
     {
-        if (Input.GetMouseButton(1)) // Right mouse button
+        if (Input.GetMouseButton(2)) // Right mouse button
         {
             float rotateHorizontal = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
             transform.Rotate(Vector3.up, rotateHorizontal, Space.World);

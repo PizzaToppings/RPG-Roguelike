@@ -6,11 +6,13 @@ public class KeywordTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     private TextMeshProUGUI tmpText;
     private Camera uiCamera;
+    private TooltipManager tooltipManager;
 
     private void Awake()
     {
         tmpText = GetComponent<TextMeshProUGUI>();
-        uiCamera = Camera.main; // Adjust if using a different UI camera
+        uiCamera = GetComponentInParent<Canvas>().worldCamera;
+        tooltipManager = TooltipManager.Instance;
     }
 
     private void Update()
@@ -22,11 +24,11 @@ public class KeywordTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             {
                 TMP_LinkInfo linkInfo = tmpText.textInfo.linkInfo[linkIndex];
                 string keyword = linkInfo.GetLinkID();
-                TooltipManager.Instance.ShowTooltip(keyword, Input.mousePosition);
+                ShowToolTip(keyword);
             }
             else
             {
-                TooltipManager.Instance.HideTooltip();
+                tooltipManager.HideTooltip();
             }
         }
     }
@@ -35,5 +37,27 @@ public class KeywordTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerExit(PointerEventData eventData)
     {
         TooltipManager.Instance.HideTooltip();
+    }
+
+    void ShowToolTip(string keyword)
+    {
+        var tooltiptext = string.Empty;
+        switch (keyword)
+        {
+            case "Bleed":
+                tooltiptext = "Deal physical damage at the end of the unit's turn. While this is active, all physical damage done is increase by 2.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Burn":
+                tooltiptext = "At the end of the unit's turn, explode to deal fire damage to the unit and those within 2 range. If Burn is applied to a target effected by Burn, trigger the first one.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Poison":
+                tooltiptext = "Deal poison damage at the end of the units turn. Doesn't fade and applying new poison increase the damage.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+        }
     }
 }

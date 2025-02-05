@@ -148,8 +148,8 @@ public class SkillsManager : MonoBehaviour
         if (skillPart.tileEffects.Count > 0)
             AddTileEffects(skillPart);
 
-        if (skillPart.StatusEfects.Count > 0)
-            skillPart.StatusEfects.ForEach(x => statusEffectManager.ApplyStatusEffect(x, skillPartData.TargetsHit));
+        if (skillPart.StatusEffects.Count > 0)
+            skillPart.StatusEffects.ForEach(x => statusEffectManager.ApplyStatusEffect(x, skillPartData.TargetsHit));
     }
 
     public void AddTileEffects(SO_Skillpart skillPart)
