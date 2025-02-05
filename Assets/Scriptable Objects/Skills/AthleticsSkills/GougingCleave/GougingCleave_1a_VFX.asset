@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
-  m_Name: Rend_1b_VFX
+  m_Name: GougingCleave_1a_VFX
   m_EditorClassIdentifier: 
   SkillFxKind: 1
   MainTargetOnly: 0
@@ -55,10 +55,8 @@ MonoBehaviour:
   DisableObjectDelay: 0
   EndDelay: 0
   ShowDamage: 1
-  ShowDamageDelay: 0.1
-  SkillObject: {fileID: 5179137982296905911, guid: 1d62de91f5d60764f9a17d1476fed21f,
+  ShowDamageDelay: 0
+  SkillObject: {fileID: 2020685896230007551, guid: cdb76be8433d0d4429275a04036e445e,
     type: 3}
-  Origins:
-  - {x: 16.88412, y: 0.18469048, z: 16.52009}
-  Destinations:
-  - {x: 16.88412, y: 0.18469048, z: 16.52009}
+  Origins: []
+  Destinations: []
