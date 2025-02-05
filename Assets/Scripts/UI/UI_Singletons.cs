@@ -72,10 +72,6 @@ public class UI_Singletons : MonoBehaviour
                 return ArcaneDamageColor;
             case DamageTypeEnum.Fire:
                 return FireDamageColor;
-            case DamageTypeEnum.Water:
-                return WaterDamageColor;
-            case DamageTypeEnum.Earth:
-                return EarthDamageColor;
             case DamageTypeEnum.Ice:
                 return IceDamageColor;
             case DamageTypeEnum.Electric:

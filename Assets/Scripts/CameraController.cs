@@ -7,18 +7,22 @@ public class CameraController : MonoBehaviour
     [SerializeField] Transform camRotator;
 
     [Space]
-    [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 100f;
     [SerializeField] float zoomSpeed = 5f;
-    [SerializeField] Vector2 zoomRange = new Vector2(5f, 50f);
 
     [Space]
     [SerializeField] float panToCharacterSpeed = 60f;
 
+    [Space]
+    [SerializeField] Vector2 zoomRange = new Vector2(5f, 50f);
+    [SerializeField] Vector2 RotateRange = new Vector2(-40, 40);
+
+    bool receivingMovementInput = false;
+
     void Update()
     {
         Move();
-        Scroll();
         Zoom();
         Rotate();
     }
@@ -32,32 +36,28 @@ public class CameraController : MonoBehaviour
 
     void Move()
     {
-        if (Input.GetKey(KeyCode.W))
-            transform.position += transform.forward * Time.deltaTime * moveSpeed;
-
-        if (Input.GetKey(KeyCode.A))
-            transform.position -= transform.right * Time.deltaTime * moveSpeed;
-
-        if (Input.GetKey(KeyCode.S))
-            transform.position -= transform.forward * Time.deltaTime * moveSpeed;
-
-        if (Input.GetKey(KeyCode.D))
-            transform.position += transform.right * Time.deltaTime * moveSpeed;
-    }
-
-    void Scroll()
-    {
+        Vector3 moveDirection = Vector3.zero;
         Vector3 mousePosition = Input.mousePosition;
 
-        if (mousePosition.x >= Screen.width - 10)
-            transform.position += transform.right * Time.deltaTime * moveSpeed;
-        else if (mousePosition.x <= 10)
-            transform.position += -transform.right * Time.deltaTime * moveSpeed;
+        if (Input.GetKey(KeyCode.W) || mousePosition.y >= Screen.height - 10)
+            moveDirection += transform.forward;
 
-        if (mousePosition.y >= Screen.height - 10)
-            transform.position += transform.forward * Time.deltaTime * moveSpeed;
-        else if (mousePosition.y <= 10)
-            transform.position += -transform.forward * Time.deltaTime * moveSpeed;
+        if (Input.GetKey(KeyCode.A) || mousePosition.x <= 10)
+            moveDirection -= transform.right;
+
+        if (Input.GetKey(KeyCode.S) || mousePosition.y <= 10)
+            moveDirection -= transform.forward;
+
+        if (Input.GetKey(KeyCode.D) || mousePosition.x >= Screen.width - 10)
+            moveDirection += transform.right;
+
+        receivingMovementInput = moveDirection != Vector3.zero;
+
+        if (receivingMovementInput)
+        {
+            moveDirection.Normalize();
+            transform.position += moveDirection * FixedMoveSpeed();
+        }
     }
 
     void Zoom()
@@ -79,10 +79,15 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButton(1)) // Right mouse button
         {
             float rotateHorizontal = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-            float rotateVertical = -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
-
             transform.Rotate(Vector3.up, rotateHorizontal, Space.World);
-            camRotator.Rotate(Vector3.right, rotateVertical, Space.Self);
+            
+            float rotateVertical = -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
+            Vector3 currentRotation = camRotator.localEulerAngles;
+            float newXRotation = currentRotation.x + rotateVertical;
+            if (newXRotation > 180) newXRotation -= 360;
+            newXRotation = Mathf.Clamp(newXRotation, RotateRange.x, RotateRange.y);
+
+            camRotator.localEulerAngles = new Vector3(newXRotation, currentRotation.y, currentRotation.z);
         }
     }
 
@@ -91,7 +96,7 @@ public class CameraController : MonoBehaviour
         var startDistance = Vector3.Distance(unit.position, transform.position);
         var distance = startDistance;
 
-        while (distance > 0.1f)
+        while (UnitData.ActiveUnit == unit && receivingMovementInput == false) 
         {
             distance = Vector3.Distance(unit.position, transform.position);
             var distanceSpeed = distance / startDistance;
@@ -101,5 +106,12 @@ public class CameraController : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    float FixedMoveSpeed()
+    {
+        var zoomDistance = Vector3.Distance(camTransform.position, camTransform.parent.position);
+        var speed = moveSpeed * Time.deltaTime * (zoomDistance * 0.4f);
+        return speed;
     }
 }

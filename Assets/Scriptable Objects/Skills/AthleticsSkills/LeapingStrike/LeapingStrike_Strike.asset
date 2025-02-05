@@ -40,6 +40,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a026ad2e2c22d0649bd31eaa6a298484, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
+    Modifiers:
+    - {fileID: 0}
+    Prerequisites: []
     DamageType: 0
     Power: 9
     IsMagical: 0

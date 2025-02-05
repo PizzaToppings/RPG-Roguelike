@@ -8,7 +8,7 @@ public enum ClassEnum { Athletics, Acrobatics, Marksmanship, Subtlety, Protectio
 public enum StatsEnum { MaxHitpoints, MaxEnergy, MoveSpeed, PhysicalPower, MagicalPower, PhysicalDefense, MagicalDefense }
 
 // Damage etc
-public enum DamageTypeEnum {Physical, Arcane, Fire, Water, Earth, Ice, Electric, Psychic, Holy, Dark, Poison, Healing, Shield}
+public enum DamageTypeEnum {Physical, Arcane, Fire, Ice, Electric, Psychic, Holy, Dark, Poison, Healing, Shield}
 public enum StatusEfectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Manaburn, Rooted, Taunt, Thorns, Dodge, StatChange }
 public enum DisplacementEnum { Teleport, Move, Lift }
 
@@ -23,6 +23,7 @@ public enum TargetTileEnum { None, MouseOverTile, CasterTile, Caster, PreviousDi
 public enum TargetKindEnum { Enemies, Allies, All };
 public enum DirectionInputEnum { Mouse, Caster, OriginTile }
 public enum CursorType { Normal, Melee, Ranged, Spell, Cross }
+public enum AutoTargetEnum { Closest, LowestHealth }
 
 
 // Skill FX

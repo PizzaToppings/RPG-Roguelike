@@ -23,7 +23,7 @@ public class PoisonStatusEffect : StatusEffect
 			IsMagical = IsMagical
 		};
 
-		var damageData = damageManager.GetDamageData(damageEffect, Target);
+		var damageData = damageManager.CalculateDamageData(damageEffect, Target);
 		damageManager.DealDamage(damageData);
 
 		Duration--;

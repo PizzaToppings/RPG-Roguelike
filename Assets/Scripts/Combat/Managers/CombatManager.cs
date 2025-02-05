@@ -99,11 +99,11 @@ public class CombatManager : MonoBehaviour
 
         var CurrentActiveUnit = UnitData.Units[CombatData.CurrentUnitTurn];
 
-        StartCoroutine(cameraController.MoveToUnit(CurrentActiveUnit));
-
         initiativeTracker.NextTurn();
 
         UnitData.ActiveUnit = CurrentActiveUnit;
+
+        StartCoroutine(cameraController.MoveToUnit(CurrentActiveUnit));
 		StartCoroutine(CurrentActiveUnit.StartTurn());
 
         uiManager.StartTurn(CurrentActiveUnit);

@@ -27,7 +27,7 @@ public class ThornsStatusEffect : StatusEffect
             IsMagical = IsMagical
         };
 
-        var damageData = damageManager.GetDamageData(damageEffect, damagaDataResolved.Attacker);
+        var damageData = damageManager.CalculateDamageData(damageEffect, damagaDataResolved.Attacker);
         damageManager.DealDamage(damageData);
     }
 

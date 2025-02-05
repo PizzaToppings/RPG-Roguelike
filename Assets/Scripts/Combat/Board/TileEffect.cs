@@ -60,7 +60,7 @@ public class TileEffect
 		{
             case TileTriggerEffectEnum.DealDamage:
                 DamageManager damageManager = DamageManager.Instance;
-                var damageData = damageManager.GetDamageData(_damageEffect, _tile.currentUnit); 
+                var damageData = damageManager.CalculateDamageData(_damageEffect, _tile.currentUnit); 
                 damageManager.DealDamage(damageData);
                 return;
 		}

@@ -19,17 +19,22 @@ public class DamageManager : MonoBehaviour
         statusEffectManager = StatusEffectManager.Instance;
     }
 
-    public DamageDataCalculated GetDamageData(DamageData damageEffect, Unit target)
+    public DamageDataCalculated CalculateDamageData(DamageData damageData, Unit target)
     {
-        var caster = damageEffect.Caster;
+        var caster = damageData.Caster;
+
+        foreach (var modifier in damageData.Modifiers)
+        {
+            damageData = modifier.Apply(damageData);
+        }
         
-        var damage = CalculateDamage(damageEffect, caster, target);
+        var damage = CalculateDamage(damageData, caster, target);
 
         DamageDataCalculated data = new DamageDataCalculated
         {
-            DamageType = damageEffect.DamageType,
+            DamageType = damageData.DamageType,
             Caster = caster,
-            IsMagical = damageEffect.IsMagical,
+            IsMagical = damageData.IsMagical,
             Target = target,
             Damage = damage,
         };
@@ -91,7 +96,7 @@ public class DamageManager : MonoBehaviour
 
                 if (damageEffect.Power > 0)
                 {
-                    var data = GetDamageData(damageEffect, target);
+                    var data = CalculateDamageData(damageEffect, target);
 
                     if (damageEffect.DamageType == DamageTypeEnum.Healing)
                         Heal(data);
