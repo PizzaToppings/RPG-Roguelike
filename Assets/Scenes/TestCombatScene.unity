@@ -8300,13 +8300,13 @@ PrefabInstance:
         type: 3}
       propertyPath: 'skills.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 3ca6abc92bdca344b8cb00b6384799a6,
+      objectReference: {fileID: 11400000, guid: 2ca27717661e7bd4789f2f0465aa7aa8,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
       propertyPath: 'skills.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: 4084a92bb46544a418e6eb26a2b45705,
+      objectReference: {fileID: 11400000, guid: 2ca27717661e7bd4789f2f0465aa7aa8,
         type: 2}
     - target: {fileID: 8519817777296322566, guid: 78c6401d3122018499ccc29ad47c7670,
         type: 3}
@@ -12321,6 +12321,8 @@ MonoBehaviour:
   - {fileID: 772992956}
   - {fileID: 5215887}
   skillDescription: {fileID: 867404975}
+  clickToLockText: {fileID: 0}
+  IsLocked: 0
 --- !u!114 &400404132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17534,7 +17536,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 10.826874, y: -55.356953, z: 6.1264725, w: -32.73703}
+  m_margin: {x: 10.826874, y: -52.056133, z: 6.1264725, w: -34.533077}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -25922,7 +25924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &808856035
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38432,7 +38434,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 6.529724, y: 5.022774, z: -0.8963089, w: 10.041696}
+  m_margin: {x: 11.121201, y: 6.6461906, z: -0.8963089, w: 10.041696}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -40147,7 +40149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1398630717
 RectTransform:
   m_ObjectHideFlags: 0

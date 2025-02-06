@@ -15,8 +15,12 @@ public class InfoScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI skillType;
     [SerializeField] List<Image> classIcons;
     [SerializeField] TextMeshProUGUI skillDescription;
+    [SerializeField] TextMeshProUGUI clickToLockText;
 
-    bool isLocked;
+    const string ClickTolock = "Rightclick to lock this panel.";
+    const string ClickToUnlock = "Click to remove this panel.";
+
+    public bool IsLocked;
 
     public void Activate(SO_MainSkill skill, bool lockScreen)
     {
@@ -24,7 +28,10 @@ public class InfoScreen : MonoBehaviour
             ui_Singletons = UI_Singletons.Instance;
 
         if (lockScreen)
-            isLocked = lockScreen;
+        {
+            IsLocked = lockScreen;
+            clickToLockText.text = ClickToUnlock;
+        }
 
         // basic
         skillName.text = skill.SkillName;
@@ -158,13 +165,14 @@ public class InfoScreen : MonoBehaviour
 
     public void Unlock()
     {
-        isLocked = false;
+        IsLocked = false;
         gameObject.SetActive(false);
+        clickToLockText.text = ClickTolock;
     }
 
     public void Deactivate()
 	{
-        if (isLocked == false)
+        if (IsLocked == false)
             gameObject.SetActive(false);
     }
 }

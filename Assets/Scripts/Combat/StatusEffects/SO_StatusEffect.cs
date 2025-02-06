@@ -13,4 +13,8 @@ public class SO_StatusEffect : ScriptableObject
     public int Duration;
     public bool IsMagical;
     public bool Permanent;
+
+    public virtual void Apply(Unit target)
+    {
+    }
 }

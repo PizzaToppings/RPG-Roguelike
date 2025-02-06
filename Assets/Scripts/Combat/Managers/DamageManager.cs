@@ -48,13 +48,23 @@ public class DamageManager : MonoBehaviour
         var skillPower = damageEffect.Power;
         var casterPower = damageEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
         var targetDefense = damageEffect.IsMagical ? target.MagicalDefense : target.PhysicalDefense;
+        var bleedDamage = GetBleedBonusDamage(target, damageEffect.DamageType);
         var typeModifier = GetTypeModifyer(damageEffect, target);
 
-        var damage = Mathf.CeilToInt((skillPower + casterPower - targetDefense) * typeModifier);
+        var damage = Mathf.CeilToInt((skillPower + bleedDamage + casterPower - targetDefense) * typeModifier);
         if (damage < 0)
             damage = 0;
 
         return damage;
+    }
+
+    int GetBleedBonusDamage(Unit target, DamageTypeEnum damageType)
+    {
+        if (statusEffectManager.UnitHasStatusEffect(target, StatusEfectEnum.Bleed)
+            && damageType == DamageTypeEnum.Physical)
+            return 2;
+
+        return 0;
     }
 
     float GetTypeModifyer(DamageData damageEffect, Unit target)

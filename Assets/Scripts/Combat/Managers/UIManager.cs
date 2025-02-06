@@ -123,7 +123,8 @@ public class UIManager : MonoBehaviour
 
     public void StartShowSkillInformation(SO_MainSkill skill)
 	{
-        showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
+        if (infoScreen.IsLocked == false)
+            showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
 	}
 
     public void LockSkillInformation(SO_MainSkill skill)

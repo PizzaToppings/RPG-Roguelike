@@ -35,10 +35,13 @@ public class StatusEffectManager : MonoBehaviour
                 case StatusEfectEnum.StatChange:
                     ApplyStatChangeEffect(statusEffectSO, target);
                     return;
+                case StatusEfectEnum.Unique:
+                    
+                    return;
+                default:
+                    ApplyDefaultEffect(statusEffectSO, target);
+                    return;
             }
-
-            // all other cases:
-            ApplyDefaultEffect(statusEffectSO, target);
         }
 	}
 
@@ -157,6 +160,11 @@ public class StatusEffectManager : MonoBehaviour
         };
 
         statChangeEffect.Apply();
+    }
+
+    public void ApplyUniqueEffect(SO_StatusEffect statusEffectSO, Unit target)
+    {
+
     }
 
     public bool UnitHasStatusEffect(Unit unit, StatusEfectEnum statusEfect)
