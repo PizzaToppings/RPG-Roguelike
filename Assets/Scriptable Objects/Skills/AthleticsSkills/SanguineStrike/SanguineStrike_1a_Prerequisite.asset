@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d635940f7aad9ed4b90248a245adb035, type: 3}
+  m_Name: SanguineStrike_1a_Prerequisite
+  m_EditorClassIdentifier: 
+  Unit: 1
+  Condition: 1
+  Operator: 0
+  StatusEffect: 9
+  Value: 0

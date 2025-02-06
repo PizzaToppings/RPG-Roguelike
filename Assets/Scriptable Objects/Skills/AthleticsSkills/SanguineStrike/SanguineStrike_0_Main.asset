@@ -10,25 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: HemorrhageStrike_0_Main
+  m_Name: SanguineStrike_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Hemorrhage Strike
-  Image: {fileID: 21300000, guid: 7e013bb77493f4544ba03068ea16e205, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: e71c84c61b2d0684e93dd3f8fcc7645e, type: 3}
+  SkillName: Sanguine Strike
+  Image: {fileID: 21300000, guid: eed923750d30bfe43966ca4c96a8768e, type: 3}
+  Image_Inactive: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
-  Classes: 00000000
-  Description: Deal <damage0-0-0> to an enemy. Increase the duration of all bleed
-    effects on the target by 1.
-  SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 1
-    skillParts:
-    - {fileID: 11400000, guid: 48eee7dead3cf9949855878cf5e36657, type: 2}
-  EnergyCost: 4
+  Classes: 
+  Description: 
+  SkillPartGroups: []
+  EnergyCost: 10
   DefaultCharges: 1
-  Charges: 0
+  Charges: 1
   Cursor: 0
   castLockColor:
     FillCenter: 0
