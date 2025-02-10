@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
-  m_Name: BattleRoar_VFX
+  m_Name: BerserkerFrenzy_1a_hit_VFX
   m_EditorClassIdentifier: 
   SkillFxKind: 1
   MainTargetOnly: 0
-  SkillOriginKind: 1
-  SkillOriginOffset: {x: 0, y: -0.5, z: 0}
+  SkillOriginKind: 2
+  SkillOriginOffset: {x: 0, y: 0, z: 0}
   SkillOriginRotation: {x: 0, y: 0, z: 0}
-  SkillDestinationKind: 1
-  SkillDestinationOffset: {x: 0, y: -0.5, z: 0}
+  SkillDestinationKind: 2
+  SkillDestinationOffset: {x: 0, y: 0, z: 0}
   SkillDestinationRotation: {x: 0, y: 0, z: 0}
   StickToUnit: 0
   ProjectileSpeedCurve:
@@ -49,12 +49,12 @@ MonoBehaviour:
   ProjectileOffset: 0
   StartDelay: 0
   ExtendDelay: 0
-  EndDelay: 0
-  ShowDamage: 0
+  EndDelay: 0.2
+  ShowDamage: 1
   ShowDamageDelay: 0
-  SkillObject: {fileID: 8618717472993787555, guid: 4cfd11ee250da144296252d1fd9fc775,
+  SkillObject: {fileID: 543221541885347099, guid: 5597cfe8088d83946996ebd9afa4aede,
     type: 3}
   Origins:
-  - {x: 13.884122, y: -0.31530952, z: 13.52009}
+  - {x: 16.88412, y: 0.18469048, z: 16.52009}
   Destinations:
-  - {x: 13.884122, y: -0.31530952, z: 13.52009}
+  - {x: 16.88412, y: 0.18469048, z: 16.52009}

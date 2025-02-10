@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
-  m_Name: BererkerFrenzy_Target
+  m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
+  m_Name: CrushingBlow_1_TargetUnit
   m_EditorClassIdentifier: 
   OriginTiles:
   - {fileID: 0}
@@ -23,7 +23,7 @@ MonoBehaviour:
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 5
+  TargetTileKind: 1
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
@@ -33,18 +33,16 @@ MonoBehaviour:
   tileColor:
     FillCenter: 0
     Color: {r: 1, g: 0, b: 0, a: 1}
-    Priority: 7
+    Priority: 6
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   SkillVFX:
-  - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
-  - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
-  - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
-  - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
+  - {fileID: 11400000, guid: 55e43410161052b45b46e229171dee41, type: 2}
+  - {fileID: 11400000, guid: 5a8496fcb477f664ab65a706d74927c7, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
     DamageType: 0
-    Power: 5
+    Power: 9
     IsMagical: 0
   MinRange: 0
   MaxRange: 1.5
@@ -53,13 +51,13 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects: []
+  StatusEfects:
+  - {fileID: 11400000, guid: 29df9ea2699f90843b1909efde7e4ac6, type: 2}
   tileEffects: []
   displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
   Caster: {fileID: 0}
-  SelectedTargetTileColor:
+  SelectedTileColor:
     FillCenter: 1
     Color: {r: 1, g: 0, b: 0, a: 1}
-    Priority: 6
-  CanTargetSelf: 0
+    Priority: 5

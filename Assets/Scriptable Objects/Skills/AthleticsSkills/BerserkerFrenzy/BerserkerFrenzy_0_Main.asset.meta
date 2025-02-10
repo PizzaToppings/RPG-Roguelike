@@ -1,5 +1,10 @@
 fileFormatVersion: 2
 guid: 49cbd252f5428d74abc9a80330dcb84b
+labels:
+- Damage_Physical
+- Multihit
+- Skill_Acrobatics
+- Skill_Athletics
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

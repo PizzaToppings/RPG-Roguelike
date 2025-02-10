@@ -18,7 +18,7 @@ MonoBehaviour:
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
@@ -30,15 +30,22 @@ MonoBehaviour:
   DirectionInputSkillPart: {fileID: 0}
   TargetKind: 0
   tileColor:
-    FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    Priority: 10
+    FillCenter: 1
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 7
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  SkillVFX: []
-  DamageEffects: []
+  SkillVFX:
+  - {fileID: 11400000, guid: 3480253ffc0aea04491cad1add4e7cae, type: 2}
+  DamageEffects:
+  - Caster: {fileID: 0}
+    IsMagical: 0
+    Modifiers: []
+    Prerequisites: []
+    DamageType: 0
+    Power: 3
   MinRange: 0
-  MaxRange: 0
+  MaxRange: 1.5
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
@@ -46,11 +53,11 @@ MonoBehaviour:
   PreventDuplicateTargets: []
   StatusEffects: []
   tileEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect: {fileID: 11400000, guid: 42f3b665b64749d4faad66225f905471, type: 2}
   SummonObject: {fileID: 0}
   Caster: {fileID: 0}
   SelectedTargetTileColor:
-    FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    Priority: 10
+    FillCenter: 1
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 6
   CanTargetSelf: 0

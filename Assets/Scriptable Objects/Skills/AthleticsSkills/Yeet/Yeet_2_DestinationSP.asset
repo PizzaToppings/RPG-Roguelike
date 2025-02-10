@@ -18,7 +18,7 @@ MonoBehaviour:
   FinalDirection: 0
   MagicalDamage: 0
   SkillPartIndex: 0
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
@@ -31,14 +31,14 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    Priority: 10
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 8
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   SkillVFX: []
   DamageEffects: []
   MinRange: 0
-  MaxRange: 0
+  MaxRange: 5
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
@@ -50,6 +50,6 @@ MonoBehaviour:
   SummonObject: {fileID: 0}
   Caster: {fileID: 0}
   SelectedTileColor:
-    FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    Priority: 10
+    FillCenter: 1
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Priority: 7

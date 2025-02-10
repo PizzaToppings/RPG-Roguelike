@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
-  m_Name: CrushingBlow_Impact_VFX
+  m_Name: CrushingBlow_1b_Hammer_VFX
   m_EditorClassIdentifier: 
-  SkillFxKind: 1
+  SkillFxKind: 0
   SkillOriginKind: 2
-  SkillOriginOffset: {x: 0, y: 0, z: 0}
+  SkillOriginOffset: {x: 0, y: 3, z: 0}
+  SkillOriginRotation: {x: 180, y: 0, z: 0}
   SkillDestinationKind: 2
   SkillDestinationOffset: {x: 0, y: 0, z: 0}
+  SkillDestinationRotation: {x: 0, y: 0, z: 0}
   StickToUnit: 0
   ProjectileSpeedCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
+      time: -0.1462676
+      value: -0.0009287894
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -31,8 +33,26 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 0.4776147
+      value: 0.013171685
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.52558696
+      value: 0.9921075
+      inSlope: 0.06052579
+      outSlope: 0.06052579
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99425954
+      value: 1.0111332
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -42,14 +62,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ProjectileSpeed: 1
+  ProjectileSpeed: 15
   ProjectileOffset: 0
   StartDelay: 0
   ExtendDelay: 0
   EndDelay: 0
-  ShowDamage: 1
+  ShowDamage: 0
   ShowDamageDelay: 0
-  SkillObject: {fileID: 4326684241236243659, guid: 19cdc3b6b3b61d84c9c3778975b9aafe,
+  SkillObject: {fileID: 5650693647682189576, guid: f4607a37441d6a046b43eb6fc65841e8,
     type: 3}
-  Origin: {x: 0, y: 0, z: 0}
-  Destination: {x: 0, y: 0, z: 0}
+  Origin: {x: 18, y: 4, z: 15}
+  Destination: {x: 18, y: 1, z: 15}

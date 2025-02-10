@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 4c5be7f6f6ba51e4f987fde48ed0fb3a
+guid: bd01a075785dac64ca7b8312d3ae8d6d
+labels:
+- AoE_Area
+- Buff_MartialPower
+- Skill_Athletics
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

@@ -12,16 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: IntimidatingShout_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
-  Image: {fileID: 0}
+  SkillName: Intimidating Shout
+  Image: {fileID: 21300000, guid: fc407fe7bddd6fb4997de40eedb3c2e6, type: 3}
   Image_Inactive: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
-  Classes: 
-  Description: 
-  SkillPartGroups: []
-  EnergyCost: 10
+  Classes: 0000000004000000
+  Description: 'Reduce the Martial Defense of all enemies within 3 Range by 2 for
+    2 turns. '
+  SkillPartGroups:
+  - CastOnTile: 0
+    CastOnTarget: 0
+    skillParts:
+    - {fileID: 11400000, guid: 9374cc5e83620c1439b6d62cfa73039b, type: 2}
+  EnergyCost: 4
   DefaultCharges: 1
   Cursor: 0
   castLockColor:

@@ -1,5 +1,10 @@
 fileFormatVersion: 2
 guid: e4459c60db683ab4699d6c80b3f5367b
+labels:
+- AoE_Line
+- Damage_Physical
+- Debuff_Bleed
+- Skill_Athletics
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
