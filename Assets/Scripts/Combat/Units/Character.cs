@@ -49,6 +49,8 @@ public class Character : Unit
 
         if (skills?.Count == 0)
             return;
+
+        InitSkills();
     }
 
     void UseSkills()

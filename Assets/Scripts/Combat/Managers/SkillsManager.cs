@@ -14,8 +14,6 @@ public class SkillsManager : MonoBehaviour
     ConsumableManager consumableManager;
     StatusEffectManager statusEffectManager;
 
-    float displacementVertexCount = 12;
-
     public void CreateInstance()
     {
         Instance = this;

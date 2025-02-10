@@ -24,7 +24,7 @@ public class SkillVFXManager : MonoBehaviour
 
     public IEnumerator Cast(SO_SKillVFX skillVFX, Unit caster)
     {
-        // Big SkillVFX idea: Can toggle vfx on or off during skills, so it can last longer!
+        // Big SkillVFX idea: Can toggle vfx on or off during skills, so it can last longer
 
         yield return new WaitForSeconds(skillVFX.StartDelay);
 

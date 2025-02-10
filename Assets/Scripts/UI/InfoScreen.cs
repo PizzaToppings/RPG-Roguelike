@@ -105,6 +105,7 @@ public class InfoScreen : MonoBehaviour
     {
         var description = skill.mainSkillSO.Description;
         description = ReplaceEffectText(description, skill);
+        description += CannotCastText(skill);
 
         return description;
     }
@@ -187,6 +188,32 @@ public class InfoScreen : MonoBehaviour
         }
 
         return string.Empty;
+    }
+
+    string CannotCastText(Skill skill)
+    {
+        var statusEffectManager = StatusEffectManager.Instance;
+        var caster = UnitData.ActiveUnit as Character;
+        var text = string.Empty;
+
+        // silenced
+        if (skill.mainSkillSO.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Silenced))
+            text += "<br>   Silenced.";
+
+        // blinded
+        if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
+            text += "<br>   Blinded.";
+
+        if (skill.Charges == 0)
+            text += "<br>   No charges left.";
+
+        if (caster.Energy >= skill.EnergyCost)
+            text += "<br>   Not enough Energy.";
+
+        if (text == string.Empty)
+            return text;
+
+        return $"<br> <i> <color=#ff0000ff>{text}</color></i>";
     }
 
     public void Unlock()

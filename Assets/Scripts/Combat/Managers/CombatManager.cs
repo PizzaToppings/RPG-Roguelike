@@ -27,7 +27,7 @@ public class CombatManager : MonoBehaviour
         CreateInstances();
         InitManagers();
         CreateBattlefield();
-		PlaceUnits();
+		SetUnits();
 		SetInitiative();
 		RoundStart();
 		TurnStart();
@@ -66,7 +66,7 @@ public class CombatManager : MonoBehaviour
         boardManager.AddBoardTilesToList();
     }
 
-    void PlaceUnits()
+    void SetUnits()
     {
         unitManager.PlaceUnits();
     }
