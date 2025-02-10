@@ -10,25 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: SanguineStrike_0_Main
+  m_Name: VampiricStrike_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Sanguine Strike
-  Image: {fileID: 21300000, guid: eed923750d30bfe43966ca4c96a8768e, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: f01ee16e22643ab4682ee5913418b36d, type: 3}
+  SkillName: Vampiric Strike
+  Image: {fileID: 21300000, guid: e1fe5b47c2731104f897c7d181263e97, type: 3}
+  Image_Inactive: {fileID: 21300000, guid: ec9e1844299d1704082a0281e5d14270, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
-  Classes: 0000000001000000
-  Description: 'Deal <damage0-0-0> to an enemy. If the target is bleeding, do it
-    again. '
+  Classes: 0000000009000000
+  Description: 'Deal <damage0-0-0> to an enemy and heal yourself for 5. If the target
+    is bleeding, double the healing. '
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
     skillParts:
-    - {fileID: 11400000, guid: b5886aada5abe374da6d730d01033ffd, type: 2}
+    - {fileID: 11400000, guid: 3c643636bf07a32489340bbb5de2a56d, type: 2}
+    - {fileID: 0}
   EnergyCost: 10
   DefaultCharges: 1
-  Charges: 0
+  Charges: 1
   Cursor: 0
   castLockColor:
     FillCenter: 0

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
-  m_Name: HemorrhageStrike_1b_VFX
+  m_Name: VampiricStrike_1a_VFX
   m_EditorClassIdentifier: 
-  SkillFxKind: 0
+  SkillFxKind: 1
   MainTargetOnly: 0
   SkillOriginKind: 2
   SkillOriginOffset: {x: 0, y: 0, z: 0}

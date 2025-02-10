@@ -5,8 +5,8 @@ public class Prerequisite : ScriptableObject
 {
     public PrerequisiteUnitEnum Unit;
     public PrerequisiteConditionEnum Condition;
-    public PrerequisiteOperatorsEnum Operator;
     public StatusEffectEnum StatusEffect;
+    public PrerequisiteOperatorsEnum Operator;
     public float Value;
 
     public bool HasPrerequisite(Unit caster, Unit target) // TODO change this. Can probably be obtained from damageData or something similar
@@ -17,7 +17,11 @@ public class Prerequisite : ScriptableObject
         switch (Condition)
         {
             case PrerequisiteConditionEnum.StatusEffect:
-                if (statusEffectManager.UnitHasStatusEffect(unit, StatusEffect))
+                var statusIsPresent = statusEffectManager.UnitHasStatusEffect(unit, StatusEffect);
+                if (statusIsPresent && Operator == PrerequisiteOperatorsEnum.Equals)
+                    return true;
+
+                if (statusIsPresent == false && Operator == PrerequisiteOperatorsEnum.NotEquals)
                     return true;
 
                 break;

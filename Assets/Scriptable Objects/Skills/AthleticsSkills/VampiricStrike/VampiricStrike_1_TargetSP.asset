@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
-  m_Name: SanguineStrike_1_TargetSP
+  m_Name: VampiricStrike_1_TargetSP
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
+  OriginTiles: []
   OriginTargets: []
   TargetTile: {fileID: 0}
   FinalDirection: 0
@@ -23,7 +22,7 @@ MonoBehaviour:
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
-  TargetTileKind: 5
+  TargetTileKind: 0
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
@@ -33,27 +32,20 @@ MonoBehaviour:
   tileColor:
     FillCenter: 0
     Color: {r: 1, g: 0, b: 0, a: 1}
-    Priority: 6
+    Priority: 7
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   SkillVFX:
-  - {fileID: 11400000, guid: 75429fbcef0f8bd4bbac5484bbb41497, type: 2}
+  - {fileID: 11400000, guid: 3559caf6fcc9b96409df40f965cedda3, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
     IsMagical: 0
     Modifiers: []
     Prerequisites: []
     DamageType: 0
-    Power: 6
-  - Caster: {fileID: 0}
-    IsMagical: 0
-    Modifiers: []
-    Prerequisites:
-    - {fileID: 11400000, guid: 8f40d08d6a94bbf4cb9b8e693a464384, type: 2}
-    DamageType: 0
-    Power: 6
+    Power: 10
   MinRange: 0
-  MaxRange: 1.5
+  MaxRange: 0
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
@@ -67,5 +59,5 @@ MonoBehaviour:
   SelectedTargetTileColor:
     FillCenter: 1
     Color: {r: 1, g: 0, b: 0, a: 1}
-    Priority: 5
+    Priority: 6
   CanTargetSelf: 0

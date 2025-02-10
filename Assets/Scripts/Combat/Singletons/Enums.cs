@@ -40,4 +40,4 @@ public enum TileTriggerEffectEnum { DealDamage, ApplyEffect }
 // Prerequisites
 public enum PrerequisiteUnitEnum { None, Target, Caster }
 public enum PrerequisiteConditionEnum { None, StatusEffect, Damage, DamagePercentage }
-public enum PrerequisiteOperatorsEnum { Equals, MoreThan, LessThen, MoreThanOrEqual, LessThenOrEqual }
+public enum PrerequisiteOperatorsEnum { Equals, MoreThan, LessThen, MoreThanOrEqual, LessThenOrEqual, NotEquals }

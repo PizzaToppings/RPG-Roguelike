@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d3a9d992172a9439a0008bc29ded9a, type: 3}
-  m_Name: HemorrhageStrike_1b_VFX
+  m_Name: VampiricStrike_2b_VFX
   m_EditorClassIdentifier: 
-  SkillFxKind: 0
+  SkillFxKind: 1
   MainTargetOnly: 0
-  SkillOriginKind: 2
+  SkillOriginKind: 1
   SkillOriginOffset: {x: 0, y: 0, z: 0}
   SkillOriginRotation: {x: 0, y: 0, z: 0}
-  SkillDestinationKind: 2
+  SkillDestinationKind: 1
   SkillDestinationOffset: {x: 0, y: 0, z: 0}
   SkillDestinationRotation: {x: 0, y: 0, z: 0}
   UseLineRenderer: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
   EndDelay: 0
   ShowDamage: 1
   ShowDamageDelay: 0
-  SkillObject: {fileID: 5179137982296905911, guid: 1d62de91f5d60764f9a17d1476fed21f,
+  SkillObject: {fileID: 323135947582038282, guid: 7654b43a00fc05b4f8a49e333b4300e1,
     type: 3}
   Origins: []
   Destinations: []
