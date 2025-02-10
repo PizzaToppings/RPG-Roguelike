@@ -140,33 +140,33 @@ public class UI_Singletons : MonoBehaviour
         Cursor.SetCursor(texture, Vector2.zero, cursorMode);
     }
 
-    public Sprite GetStatusIcon(StatusEfectEnum statusEfect)
+    public Sprite GetStatusIcon(StatusEffectEnum statusEfect)
 	{
 		switch (statusEfect)
 		{
-            case StatusEfectEnum.Bleed:
+            case StatusEffectEnum.Bleed:
                 return BleedIcon;
-            case StatusEfectEnum.Poison:
+            case StatusEffectEnum.Poison:
                 return PoisonIcon;
-            case StatusEfectEnum.Burn:
+            case StatusEffectEnum.Burn:
                 return BurnedIcon;
-            case StatusEfectEnum.Hidden:
+            case StatusEffectEnum.Hidden:
                 return HiddenIcon;
-            case StatusEfectEnum.Blinded:
+            case StatusEffectEnum.Blinded:
                 return BlindedIcon;
-            case StatusEfectEnum.Silenced:
+            case StatusEffectEnum.Silenced:
                 return SilencedIcon;
-            case StatusEfectEnum.Frightened:
+            case StatusEffectEnum.Frightened:
                 return FrightenedIcon;
-            case StatusEfectEnum.Incapacitated:
+            case StatusEffectEnum.Incapacitated:
                 return IncapacitatedIcon;
-            case StatusEfectEnum.Stunned:
+            case StatusEffectEnum.Stunned:
                 return StunnedIcon;
-            case StatusEfectEnum.Rooted:
+            case StatusEffectEnum.Rooted:
                 return RootedIcon;
-            case StatusEfectEnum.Taunt:
+            case StatusEffectEnum.Taunt:
                 return TauntIcon;
-            case StatusEfectEnum.Thorns:
+            case StatusEffectEnum.Thorns:
                 return ThornsIcon;
 
         }

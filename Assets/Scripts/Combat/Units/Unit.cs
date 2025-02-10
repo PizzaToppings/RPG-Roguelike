@@ -230,11 +230,11 @@ public class Unit : UnitStats
     {
         var turnStartText = $"Turn: {UnitData.ActiveUnit.UnitName}";
 
-        var isStunned = statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Stunned);
+        var isStunned = statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Stunned);
         if (isStunned)
             turnStartText += " - stunned";
 
-        var isIncapactated = statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Incapacitated);
+        var isIncapactated = statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Incapacitated);
         if (isIncapactated)
             turnStartText += " - incapacitated";
 
@@ -254,7 +254,7 @@ public class Unit : UnitStats
             yield break;
         }
 
-        if (statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Rooted) == false)
+        if (statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Rooted) == false)
             boardManager.SetAOE(MoveSpeedLeft, Tile, null);
     }
 

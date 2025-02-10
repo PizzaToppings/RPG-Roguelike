@@ -58,6 +58,71 @@ public class KeywordTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 tooltiptext = "Deal poison damage at the end of the units turn. Doesn't fade and applying new poison increase the damage.";
                 tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
                 return;
+
+            case "Blinded":
+                tooltiptext = "Cannot use Martial Skills.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Silenced":
+                tooltiptext = "Cannot use Magical Skills.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Frightened":
+                tooltiptext = "The unit is less likely to target the caster with skills.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Taunt":
+                tooltiptext = "The unit is more likely to target the caster with skills.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Stunned":
+                tooltiptext = "The unit cannot act next turn.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Incpacitated":
+                tooltiptext = "The unit cannot act next turn. Last until damaged.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Regen":
+                tooltiptext = "Regain health at the end of the turn.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Rooted":
+                tooltiptext = "Movement speed is 0.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Hidden":
+                tooltiptext = "The unit cannot be targeted by skills. Ends when the unit is damaged.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Fatique":
+                tooltiptext = "The unit starts the next turn with less Energy.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Lifedrain":
+                tooltiptext = "Restore health whenever the unit deals damage.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Thorns":
+                tooltiptext = "Deal damage to anyone who attacks the unit in melee range.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
+
+            case "Dodge":
+                tooltiptext = "Negate the first time the unit would take damage. Lasts one turn.";
+                tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
+                return;
         }
     }
 }

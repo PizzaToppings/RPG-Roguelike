@@ -7,7 +7,7 @@ public class IncreaseBleedDurationStatusEffect : SO_StatusEffect
     {
         foreach (var statusEffect in target.statusEffects)
         {
-            if (statusEffect.statusEfectType == StatusEfectEnum.Bleed)
+            if (statusEffect.statusEfectType == StatusEffectEnum.Bleed)
             {
                 statusEffect.Duration += 1;
             }

@@ -17,7 +17,7 @@ public class DefaultTrinket : SO_Trinket
     public float Range;
 
     [Space]
-    public StatusEfectEnum StatusEffect;
+    public StatusEffectEnum StatusEffect;
     public List<StatsEnum> Stat;
 
     public override void Init(Character character)

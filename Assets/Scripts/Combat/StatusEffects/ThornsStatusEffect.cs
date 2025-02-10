@@ -11,7 +11,7 @@ public class ThornsStatusEffect : StatusEffect
 
         Target.OnUnitTakeDamageEvent.AddListener(Thorns);
         Target.OnUnitTurnEndEvent.AddListener(ReduceDuration);
-        Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Thorns);
+        Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Thorns);
     }
 
     public void Thorns(DamagaDataResolved damagaDataResolved)
@@ -35,7 +35,7 @@ public class ThornsStatusEffect : StatusEffect
     {
         base.EndEffect();
 
-        Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Thorns);
+        Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Thorns);
         Target.OnUnitTakeDamageEvent.RemoveListener(Thorns);
     }
 }

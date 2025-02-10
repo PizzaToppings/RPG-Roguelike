@@ -5,7 +5,7 @@ public class StatusEffect
 
     public bool IsBuff;
     
-    public StatusEfectEnum statusEfectType;
+    public StatusEffectEnum statusEfectType;
     public int Duration;
 
     public Unit Caster;

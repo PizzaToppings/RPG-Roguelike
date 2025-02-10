@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ManaburnStatusEffect : StatusEffect
+public class FatiqueStatusEffect : StatusEffect
 {
     public int Power;
 
@@ -9,7 +9,7 @@ public class ManaburnStatusEffect : StatusEffect
         base.Apply();
 
         Target.OnUnitTurnStartEvent.AddListener(BurnMana);
-        Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Manaburn);
+        Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Fatique);
     }
 
     public void BurnMana()
@@ -28,7 +28,7 @@ public class ManaburnStatusEffect : StatusEffect
     {
         base.EndEffect();
 
-        Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Manaburn);
+        Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Fatique);
         Target.OnUnitTurnStartEvent.RemoveListener(ReduceDuration);
     }
 }

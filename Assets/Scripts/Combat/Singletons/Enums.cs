@@ -9,7 +9,7 @@ public enum StatsEnum { MaxHitpoints, MaxEnergy, MoveSpeed, PhysicalPower, Magic
 
 // Damage etc
 public enum DamageTypeEnum {Physical, Arcane, Fire, Ice, Electric, Psychic, Holy, Dark, Poison, Healing, Shield}
-public enum StatusEfectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Manaburn, Rooted, Taunt, Thorns, Dodge, StatChange, Unique }
+public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Fatique, Rooted, Taunt, Thorns, Dodge, StatChange, Unique }
 public enum DisplacementEnum { Teleport, Move, Lift }
 
 // Enemy AI

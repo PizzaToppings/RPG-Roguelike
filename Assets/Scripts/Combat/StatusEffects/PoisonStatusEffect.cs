@@ -10,7 +10,7 @@ public class PoisonStatusEffect : StatusEffect
         base.Apply();
 		
 		Target.OnUnitTurnEndEvent.AddListener(Poison);
-		Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Poison);
+		Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Poison);
 	}
 
 	void Poison()
@@ -36,7 +36,7 @@ public class PoisonStatusEffect : StatusEffect
 	{
         base.EndEffect();
 		
-		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Poison);
+		Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Poison);
 		Target.OnUnitTurnEndEvent.RemoveListener(Poison);
 	}
 }

@@ -12,7 +12,7 @@ public class Healthbar : MonoBehaviour
 
     [SerializeField] List<Image> statusEffectImages;
 
-    List<StatusEfectEnum> statusEffects = new List<StatusEfectEnum>();
+    List<StatusEffectEnum> statusEffects = new List<StatusEffectEnum>();
 
     int maxHitpoints => thisUnit.MaxHitpoints;
     int hitpoints => thisUnit.Hitpoints;
@@ -28,14 +28,14 @@ public class Healthbar : MonoBehaviour
         shieldbar.fillAmount = (float)(shieldPoints + hitpoints) / maxHealth;
     }
 
-    public void AddStatusEffect(StatusEfectEnum statusEffect)
+    public void AddStatusEffect(StatusEffectEnum statusEffect)
 	{
         statusEffects.Add(statusEffect);
 
         UpdateStatusEffects();
     }
 
-    public void RemoveStatusEffect(StatusEfectEnum statusEffect)
+    public void RemoveStatusEffect(StatusEffectEnum statusEffect)
     {
         if (statusEffects.Contains(statusEffect))
             statusEffects.Remove(statusEffect);

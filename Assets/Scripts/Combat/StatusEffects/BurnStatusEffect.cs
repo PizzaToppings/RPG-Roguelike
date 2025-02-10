@@ -12,7 +12,7 @@ public class BurnStatusEffect : StatusEffect
         base.Apply();
 	
 		Target.OnUnitTurnEndEvent.AddListener(Burn);
-		Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Burn);
+		Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Burn);
 	}
 
 	void Burn()
@@ -61,7 +61,7 @@ public class BurnStatusEffect : StatusEffect
 	{
         base.EndEffect();
 		
-		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Burn);
+		Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Burn);
 		Target.OnUnitTurnEndEvent.RemoveListener(Burn);
 	}
 }

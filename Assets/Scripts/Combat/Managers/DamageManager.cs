@@ -60,7 +60,7 @@ public class DamageManager : MonoBehaviour
 
     int GetBleedBonusDamage(Unit target, DamageTypeEnum damageType)
     {
-        if (statusEffectManager.UnitHasStatusEffect(target, StatusEfectEnum.Bleed)
+        if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Bleed)
             && damageType == DamageTypeEnum.Physical)
             return 2;
 
@@ -128,9 +128,9 @@ public class DamageManager : MonoBehaviour
         
         healthCanvas.ShowDamageNumber(damageDataResolved);
 
-        if (statusEffectManager.UnitHasStatusEffect(target, StatusEfectEnum.Incapacitated))
+        if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Incapacitated))
         {
-            var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
+            var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEffectEnum.Incapacitated);
             caster.statusEffects.Remove(incapacitated);
         }
     }

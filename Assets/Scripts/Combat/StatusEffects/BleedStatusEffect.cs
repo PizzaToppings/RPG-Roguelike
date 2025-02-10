@@ -10,7 +10,7 @@ public class BleedStatusEffect : StatusEffect
         base.Apply();
 
 		Target.OnUnitTurnEndEvent.AddListener(Bleed);
-		Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Bleed);
+		Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Bleed);
 	}
 
 	void Bleed()
@@ -36,7 +36,7 @@ public class BleedStatusEffect : StatusEffect
 	{
         base.EndEffect();
 
-		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Bleed);
+		Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Bleed);
 		Target.OnUnitTurnEndEvent.RemoveListener(Bleed);
 	}
 }

@@ -135,7 +135,7 @@ public class InfoScreen : MonoBehaviour
                 // Replace Status Effect Text
                 foreach (var statusEffect in skillPart.StatusEffects)
                 {
-                    string effectName = statusEffect.StatusEfectType.ToString().ToLower();
+                    string effectName = statusEffect.StatusEffectType.ToString().ToLower();
                     string colorCode = effectName switch
                     {
                         "bleed" => "#BF0000",
@@ -150,10 +150,9 @@ public class InfoScreen : MonoBehaviour
                     if (description.Contains(statusPlaceholder))
                     {
                         var damage = statusEffect.Power;
-                        var bonusDamage = statusEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
-                        var totalDamage = (damage + bonusDamage).ToString();
-                        var durationText = statusEffect.StatusEfectType == StatusEfectEnum.Bleed ? $" for {statusEffect.Duration} turn(s)" : "";
-                        var statusText = $"{totalDamage} <link={effectName}><u><color={colorCode}>{effectName}</color></u></link>{durationText}.";
+                        var totalPower = CalculateTotalPower(statusEffect, caster);
+                        var durationText = GetDurationText(statusEffect);
+                        var statusText = $"{totalPower} <link={effectName}><u><color={colorCode}>{effectName}</color></u></link>{durationText}.";
                         description = description.Replace(statusPlaceholder, statusText);
                     }
                 }
@@ -161,6 +160,33 @@ public class InfoScreen : MonoBehaviour
         }
 
         return description;
+    }
+
+    string CalculateTotalPower(SO_StatusEffect statusEffect, Unit caster)
+    {
+        var power = statusEffect.Power;
+        var bonusDamage = statusEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
+
+        switch (statusEffect.StatusEffectType)
+        {
+            case StatusEffectEnum.Bleed:
+            case StatusEffectEnum.Burn:
+                return (power + bonusDamage).ToString();
+        }
+
+        return power.ToString();
+    }
+
+    string GetDurationText(SO_StatusEffect statusEffect)
+    {
+        switch (statusEffect.StatusEffectType)
+        {
+            case StatusEffectEnum.Bleed:
+            case StatusEffectEnum.Thorns:
+                return $" for {statusEffect.Duration} turn(s)";
+        }
+
+        return string.Empty;
     }
 
     public void Unlock()

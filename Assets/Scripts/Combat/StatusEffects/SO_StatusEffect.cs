@@ -6,7 +6,7 @@ public class SO_StatusEffect : ScriptableObject
     [HideInInspector] public StatusEffectManager statusEffectManager = StatusEffectManager.Instance;
     [HideInInspector] public bool Buff;
 
-    public StatusEfectEnum StatusEfectType;
+    public StatusEffectEnum StatusEffectType;
     public DamageTypeEnum DamageType;
     public StatsEnum Stat;
     public int Power;

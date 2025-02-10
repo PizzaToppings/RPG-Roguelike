@@ -6,7 +6,7 @@ public class Prerequisite : ScriptableObject
     public PrerequisiteUnitEnum Unit;
     public PrerequisiteConditionEnum Condition;
     public PrerequisiteOperatorsEnum Operator;
-    public StatusEfectEnum StatusEffect;
+    public StatusEffectEnum StatusEffect;
     public float Value;
 
     public bool HasPrerequisite(Unit caster, Unit target) // TODO change this. Can probably be obtained from damageData or something similar
