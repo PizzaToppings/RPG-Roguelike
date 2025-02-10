@@ -75,7 +75,7 @@ public class Enemy : Unit
 
         skill.SetTargetAndTile(this, Tile);
 
-        ui_Singletons.SetCursor(SkillData.CurrentActiveSkill.Cursor);
+        ui_Singletons.SetCursor(SkillData.CurrentActiveSkill.mainSkillSO.Cursor);
             
         if (attackRange > 1.5f) // so more than melee
             skillVFXManager.PreviewProjectileLine(closestTile.transform.position, transform.position, 1);

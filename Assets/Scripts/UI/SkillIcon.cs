@@ -8,7 +8,7 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     SkillsManager skillsManager;
     UIManager uiManager;
 
-    SO_MainSkill skill;
+    Skill skill;
 
     public Image icon;
 
@@ -22,7 +22,7 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
         uiManager = UIManager.Instance;
     }
 
-    public void SetOrUpdate(SO_MainSkill thisSkill) 
+    public void SetOrUpdate(Skill thisSkill) 
     {
         skill = thisSkill;
         SetIcon();
@@ -34,9 +34,9 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
         icon.gameObject.SetActive(true);
 
         if (skillsManager.CanCastSkill(skill, UnitData.ActiveUnit))
-            icon.sprite = skill.Image;
-        else if (skill.Image_Inactive != null)
-            icon.sprite = skill.Image_Inactive;
+            icon.sprite = skill.mainSkillSO.Image;
+        else if (skill.mainSkillSO.Image_Inactive != null)
+            icon.sprite = skill.mainSkillSO.Image_Inactive;
     }
 
     void SetCharges()

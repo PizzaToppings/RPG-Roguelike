@@ -7,13 +7,18 @@ public class Character : Unit
     [HideInInspector] public int MaxEnergy = 100;
     [HideInInspector] public int Energy;
 
-    public SO_MainSkill basicAttack;
-    public SO_MainSkill basicSkill;
+    public SO_MainSkill basicAttackSO;
+    public SO_MainSkill basicSkillSO;
 
-    public List<SO_MainSkill> skills = new List<SO_MainSkill>();
+    public Skill basicAttack;
+    public Skill basicSkill;
+
+    public List<SO_MainSkill> skillsSO = new List<SO_MainSkill>();
+    [HideInInspector] public List<Skill> skills = new List<Skill>();
 
     [Space]
-    public List<SO_MainSkill> consumables;
+    public List<SO_MainSkill> consumablesSO = new List<SO_MainSkill>();
+    public List<Skill> consumables = new List<Skill>();
 
     public override void Init()
     {
@@ -78,7 +83,7 @@ public class Character : Unit
         ToggleSkill(skill);
     }
 
-    public void ToggleSkill(SO_MainSkill skill)
+    public void ToggleSkill(Skill skill)
     {
         if (skillsManager.CanCastSkill(skill, UnitData.ActiveUnit) == false)
             return;
@@ -102,7 +107,7 @@ public class Character : Unit
 		}
     }
 
-    void SetSkillData(SO_MainSkill skill)
+    void SetSkillData(Skill skill)
 	{
         SkillData.CurrentActiveSkill = skill;
         SkillData.SkillPartGroupDatas.Clear();
@@ -172,5 +177,19 @@ public class Character : Unit
         base.SetStartOfTurnStats();
         Energy = MaxEnergy;
         ThisHealthbar.UpdateHealthbar();
+    }
+
+    public void InitSkills()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (skillsSO[i] == null)
+                continue;
+
+            var skillSO = skillsSO[i];
+
+            var skill = new Skill();
+            skill.Init(skillSO);
+        }
     }
 }

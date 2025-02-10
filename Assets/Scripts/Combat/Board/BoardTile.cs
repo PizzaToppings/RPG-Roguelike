@@ -147,7 +147,7 @@ public class BoardTile : MonoBehaviour
 
         skill.SetTargetAndTile(currentUnit, this);
 
-        ui_Singletons.SetCursor(SkillData.CurrentActiveSkill.Cursor);
+        ui_Singletons.SetCursor(SkillData.CurrentActiveSkill.mainSkillSO.Cursor);
     }
 
     public void PreviewAttackWithinRange()

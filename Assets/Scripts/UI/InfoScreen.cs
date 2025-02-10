@@ -22,7 +22,7 @@ public class InfoScreen : MonoBehaviour
 
     public bool IsLocked;
 
-    public void Activate(SO_MainSkill skill, bool lockScreen)
+    public void Activate(Skill skill, bool lockScreen)
     {
         if (ui_Singletons == null)
             ui_Singletons = UI_Singletons.Instance;
@@ -34,11 +34,11 @@ public class InfoScreen : MonoBehaviour
         }
 
         // basic
-        skillName.text = skill.SkillName;
+        skillName.text = skill.mainSkillSO.SkillName;
         energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
         chargeAmount.text = "Charges: " + skill.DefaultCharges.ToString();
         skillRange.text = "Range: " + GetBaseRange(skill);
-        isMagicalText.text = skill.IsMagical ? "magical" : "physical";
+        isMagicalText.text = skill.mainSkillSO.IsMagical ? "magical" : "physical";
         isMagicalText.gameObject.SetActive(false);
 
         // skillIcons
@@ -46,11 +46,11 @@ public class InfoScreen : MonoBehaviour
             skillIcon.gameObject.SetActive(false);
 
         // basic skills or consumables
-        if (skill.IsBasic)
+        if (skill.mainSkillSO.IsBasic)
 		{
             skillType.text = "Basic skill";
 		}
-        else if (skill.IsConsumable)
+        else if (skill.mainSkillSO.IsConsumable)
         {
             skillType.text = "Consumable";
         }
@@ -59,10 +59,10 @@ public class InfoScreen : MonoBehaviour
             skillType.text = string.Empty;
             isMagicalText.gameObject.SetActive(true);
 
-            for (var i = 0; i < skill.Classes.Count; i++)
+            for (var i = 0; i < skill.mainSkillSO.Classes.Count; i++)
 			{
                 classIcons[i].gameObject.SetActive(true);
-                classIcons[i].sprite = ui_Singletons.GetClassIcon(skill.Classes[i]);
+                classIcons[i].sprite = ui_Singletons.GetClassIcon(skill.mainSkillSO.Classes[i]);
             }
         }
 
@@ -72,7 +72,7 @@ public class InfoScreen : MonoBehaviour
         skillDescription.ForceMeshUpdate();
     }
 
-    string GetBaseRange(SO_MainSkill skill)
+    string GetBaseRange(Skill skill)
     {
         string range = string.Empty;
 
@@ -101,15 +101,15 @@ public class InfoScreen : MonoBehaviour
         return range;
     }
 
-    string GetDescription(SO_MainSkill skill)
+    string GetDescription(Skill skill)
     {
-        var description = skill.Description;
+        var description = skill.mainSkillSO.Description;
         description = ReplaceEffectText(description, skill);
 
         return description;
     }
 
-    string ReplaceEffectText(string description, SO_MainSkill skill)
+    string ReplaceEffectText(string description, Skill skill)
     {
         var caster = UnitData.ActiveUnit;
 

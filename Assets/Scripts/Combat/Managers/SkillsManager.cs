@@ -92,17 +92,17 @@ public class SkillsManager : MonoBehaviour
 
         StartCoroutine(CastSkill(skill, character));
 
-        if (skill.IsConsumable)
+        if (skill.mainSkillSO.IsConsumable)
             consumableManager.DeleteConsumable(skill);
 
         uiManager.SetSkillIcons(character);
         uiManager.SetConsumableIcons(character);
 
-        if (skill.IsBasic == false)
-            uiManager.TriggerActivityText(skill.SkillName);
+        if (skill.mainSkillSO.IsBasic == false)
+            uiManager.TriggerActivityText(skill.mainSkillSO.SkillName);
     }
 
-    public IEnumerator CastSkill(SO_MainSkill skill, Unit caster)
+    public IEnumerator CastSkill(Skill skill, Unit caster)
     {
         foreach (var spg in skill.SkillPartGroups)
         {
@@ -306,21 +306,21 @@ public class SkillsManager : MonoBehaviour
         return skill.GetAttackRange();
     }
 
-    public bool CanCastSkill(SO_MainSkill skill, Unit caster)
+    public bool CanCastSkill(Skill skill, Unit caster)
     {
         // silenced
-        if (skill.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Silenced))
+        if (skill.mainSkillSO.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Silenced))
             return false;
 
         // blinded
-        if (skill.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
+        if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
             return false;
 
         return skill.Charges != 0 &&
             (UnitData.ActiveUnit as Character).Energy >= skill.EnergyCost;
     }
 
-    public bool NoTargetsInRange(SO_MainSkill skill)
+    public bool NoTargetsInRange(Skill skill)
 	{
         return skill.SkillPartGroups[SkillData.SkillPartGroupIndex].skillParts.Any(x =>
                 x.NoTargetsInRange());
