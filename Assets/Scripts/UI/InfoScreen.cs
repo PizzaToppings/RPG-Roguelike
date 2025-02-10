@@ -83,7 +83,11 @@ public class InfoScreen : MonoBehaviour
 
             foreach (var sp in spg.skillParts)
             {
-                if (sp is SO_TargetSelfSkill)
+                if (sp is SO_TargetSelfSkill ||
+                    sp is SO_LineSkill ||
+                    sp is SO_ConeSkill || 
+                    sp is SO_AOE_Skill ||
+                    sp is SO_HalfCircleSkill)
                 {
                     range = "Self";
                 }
