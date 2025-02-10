@@ -26,10 +26,10 @@ public class SO_AutoTargetSkill : SO_Skillpart
         if (HasDuplicateTarget(target))
             target = null;
 
-        RotateCaster(InputManager.Instance.GetMousePosition());
 
         if (target != null)
         {
+            RotateCaster(target.position);
             TargetUnit(target);
             return this;
         }
