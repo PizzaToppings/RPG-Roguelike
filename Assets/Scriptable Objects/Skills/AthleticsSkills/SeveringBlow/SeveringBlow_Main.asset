@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 00000000
-  Description: Deals <damage0-0-0> to an enemy and slow it for 2 turns.
+  Description: Deals <damage0-0-0> to an enemy and slow it by 2 for 2 turns.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
@@ -27,10 +27,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: aa249e1c369ab0f4eb9c906f583f0e23, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
-  Charges: 0
   Cursor: 0
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}
     Priority: 10
-  Caster: {fileID: 0}

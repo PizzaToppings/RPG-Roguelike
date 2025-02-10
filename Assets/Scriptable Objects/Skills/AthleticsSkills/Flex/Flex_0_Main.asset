@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: Rend_0_Main
+  m_Name: Flex_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Rend
-  Image: {fileID: 21300000, guid: 3b5f58da069c77b489a2ef96a4e45e55, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: 536b364d331ef434bb77919fe5882f27, type: 3}
+  SkillName: Flex
+  Image: {fileID: 21300000, guid: 795ffab1c858e5744a9c47ee110f4b1b, type: 3}
+  Image_Inactive: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
   Classes: 00000000
-  Description: Deal <damage0-0-0> to an Enemy and give it 7 <Bleed0-0-0> for 3 turns.
+  Description: 'Gain 1 Martial Power for 1 turn. '
   SkillPartGroups:
   - CastOnTile: 0
-    CastOnTarget: 1
+    CastOnTarget: 0
     skillParts:
-    - {fileID: 11400000, guid: e5fc3771e4eed3c4681de2587dfe5c14, type: 2}
-  EnergyCost: 4
-  DefaultCharges: 1
+    - {fileID: 11400000, guid: 21d1b9b1e43afd94899d96220f86e24f, type: 2}
+  EnergyCost: 2
+  DefaultCharges: 3
   Cursor: 0
   castLockColor:
     FillCenter: 0
