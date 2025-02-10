@@ -78,8 +78,10 @@ public class SkillVFXManager : MonoBehaviour
 
     Vector3 GetAimDirection(SO_SKillVFX skillVFX, Unit caster)
     {
-        var mainTarget = skillVFX.Destinations[0];
-        return (mainTarget - caster.position).normalized;
+        var mainTarget = skillVFX.SPData.TilesHit[0];
+        if (mainTarget == null)
+            mainTarget = skillVFX.SPData.TargetsHit[0].Tile;
+        return (mainTarget.position - caster.position).normalized;
     }
 
     IEnumerator DisableSkillObject(SO_SKillVFX skillVFX, List<GameObject> skillObjects)

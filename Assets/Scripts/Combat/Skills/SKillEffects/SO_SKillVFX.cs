@@ -47,7 +47,7 @@ public class SO_SKillVFX : ScriptableObject
 	[HideInInspector] public List<Vector3> Origins = new List<Vector3>();
 	[HideInInspector] public List<Vector3> Destinations = new List<Vector3>();
 
-	private SkillPartData SPData;
+	[HideInInspector] public SkillPartData SPData;
 	//private List<DamageData> damageDatas;
 	private Unit caster;
 
