@@ -10,8 +10,8 @@ public class Character : Unit
     public SO_MainSkill basicAttackSO;
     public SO_MainSkill basicSkillSO;
 
-    public Skill basicAttack;
-    public Skill basicSkill;
+    public Skill basicAttack = new Skill();
+    public Skill basicSkill = new Skill();
 
     public List<SO_MainSkill> skillsSO = new List<SO_MainSkill>();
     [HideInInspector] public List<Skill> skills = new List<Skill>();
@@ -22,6 +22,8 @@ public class Character : Unit
 
     public override void Init()
     {
+        // set skills here?
+
         Friendly = true;
         base.Init();
 
@@ -47,7 +49,7 @@ public class Character : Unit
 	{
 		base.SetStats();
 
-        if (skills?.Count == 0)
+        if (skillsSO.Count == 0)
             return;
 
         InitSkills();
@@ -183,6 +185,12 @@ public class Character : Unit
 
     public void InitSkills()
     {
+        //basicAttack = new Skill();
+        //basicSkill = new Skill();
+        basicAttack.Init(basicAttackSO);
+        basicSkill.Init(basicSkillSO);
+
+        skills.Clear();
         for (int i = 0; i < 4; i++)
         {
             if (skillsSO[i] == null)
@@ -192,6 +200,7 @@ public class Character : Unit
 
             var skill = new Skill();
             skill.Init(skillSO);
+            skills.Add(skill);
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : MonoBehaviour
+public class Skill
 {
     public SO_MainSkill mainSkillSO;
 
@@ -20,6 +20,7 @@ public class Skill : MonoBehaviour
         mainSkillSO = skillSO;
         EnergyCost = skillSO.EnergyCost;
         DefaultCharges = skillSO.DefaultCharges;
+        SkillPartGroups = skillSO.SkillPartGroups;
         Charges = DefaultCharges;
     }
 
