@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CartoonGrass_Plant_13_LOD0
-  m_Shader: {fileID: -6465566751694194690, guid: c6061680ab07a6a48a5c82959c0ad3ac,
+  m_Shader: {fileID: -6465566751694194690, guid: 70aad2398a854694a87440f685eda5aa,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -32,11 +32,20 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - MainTex:
+        m_Texture: {fileID: 2800000, guid: bd3487482d246344f9ccbcb9d9eeea39, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Mask_R_Emission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_1793293fe3ee4b13a22ae97b00890889_Out_0:
         m_Texture: {fileID: 2800000, guid: bd3487482d246344f9ccbcb9d9eeea39, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -63,8 +72,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Brightness_Rim: 2
     - GradientHeight: 0.5
     - GradientSmoothness: 0.7
+    - Rim_Power: 5
+    - Toon_Ramp_Offset: 0.5
+    - Toon_Ramp_Smoothness: 0
     - WindSpeed: 1
     - WindStrength: 0.1
     - _BUILTIN_QueueControl: 0
@@ -78,9 +91,11 @@ Material:
     - _WindStrength: 0.1
     m_Colors:
     - BottomColor: {r: 0.23631357, g: 0.26415092, b: 0.07392901, a: 0}
+    - Toon_Ramp_Tint: {r: 0.49056596, g: 0.49056596, b: 0.49056596, a: 1}
     - TopColor: {r: 0.77254903, g: 0.7611023, b: 0.2235294, a: 0}
     - WindDirection: {r: 1, g: 0, b: 0, a: 0}
     - _BottomColor: {r: 0.23529413, g: 0.2627451, b: 0.07450981, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _TopColor: {r: 0.7725491, g: 0.7607844, b: 0.22352943, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
@@ -96,4 +111,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 9
