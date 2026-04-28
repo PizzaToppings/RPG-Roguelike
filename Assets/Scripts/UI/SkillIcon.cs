@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class SkillIcon : MonoBehaviour
+public class SkillIcon : MonoBehaviour, IPointerClickHandler
 {
     SkillsManager skillsManager;
     UIManager uiManager;
 
+    //SKill skill -- does this still exist?
     SO_MainSkill skill;
     Character character;
 
@@ -24,6 +26,7 @@ public class SkillIcon : MonoBehaviour
         uiManager = UIManager.Instance;
     }
 
+    //public void SetOrUpdate(Skill thisSkill) 
     public void SetOrUpdate(SO_MainSkill thisSkill, Character thisCharacter) 
     {
         skill = thisSkill;
@@ -38,9 +41,9 @@ public class SkillIcon : MonoBehaviour
         icon.gameObject.SetActive(true);
 
         if (skillsManager.CanCastSkill(skill, UnitData.ActiveUnit))
-            icon.sprite = skill.Image;
-        else if (skill.Image_Inactive != null)
-            icon.sprite = skill.Image_Inactive;
+            icon.sprite = skill.mainSkillSO.Image;
+        else if (skill.mainSkillSO.Image_Inactive != null)
+            icon.sprite = skill.mainSkillSO.Image_Inactive;
     }
 
     void SetCharges()
@@ -99,12 +102,20 @@ public class SkillIcon : MonoBehaviour
         uiManager.StartShowSkillInformation(skill);
     }
 
-    public void OnPointerClick()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (skill == null)
-            return; 
-        
-        CastSkill();
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (skill == null)
+                return;
+
+            CastSkill();
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            uiManager.LockSkillInformation(skill);
+        }
     }
 
     public void OnPointerExit() 

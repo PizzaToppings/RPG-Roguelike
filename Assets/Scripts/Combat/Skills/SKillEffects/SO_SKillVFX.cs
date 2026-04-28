@@ -9,14 +9,19 @@ public class SO_SKillVFX : ScriptableObject
 	public bool MainTargetOnly;
 
 	[Space]
-	public SkillFxOriginEnum SkillOriginKind;
+	public SkillFxTargetEnum SkillOriginKind;
 	public Vector3 SkillOriginOffset;
 	public Vector3 SkillOriginRotation;
 
 	[Space]
-	public SkillFxDestinationEnum SkillDestinationKind;
+	public SkillFxTargetEnum SkillDestinationKind;
 	public Vector3 SkillDestinationOffset;
 	public Vector3 SkillDestinationRotation;
+
+	[Space]
+	public bool UseLineRenderer;
+	public SkillFxTargetEnum LineRendererOriginKind;
+	public SkillFxTargetEnum LineRendererDestinationKind;
 
 	[Space]
 	public bool StickToUnit;
@@ -29,6 +34,7 @@ public class SO_SKillVFX : ScriptableObject
 	[Space]
 	public float StartDelay = 0;
 	public float ExtendDelay = 0;
+	public float DisableObjectDelay = 0;
 	public float EndDelay = 0;
 
 	[Space]
@@ -41,13 +47,15 @@ public class SO_SKillVFX : ScriptableObject
 	[HideInInspector] public List<Vector3> Origins = new List<Vector3>();
 	[HideInInspector] public List<Vector3> Destinations = new List<Vector3>();
 
-	private SkillPartData SPData;
-	private DamageData damageData;
+	[HideInInspector] public SkillPartData SPData;
+	//private List<DamageData> damageDatas;
+	private Unit caster;
 
-	public void SetValues(SkillPartData spd, DamageData damageData)
+	public void SetValues(SkillPartData spd, Unit caster)
     {
-		SPData = spd;
-		this.damageData = damageData;
+		CloneData(spd);
+		this.caster = caster;
+
 		if (SkillFxKind == SkillFxType.Animation)
         {
 			Origins = Destinations = GetDestinations();
@@ -60,21 +68,33 @@ public class SO_SKillVFX : ScriptableObject
         }
     }
 
-	public List<Vector3> GetOrigins()
+	void CloneData(SkillPartData spd)
+    {
+        SPData = new SkillPartData
+        { 
+			TilesHit = new List<BoardTile>(spd.TilesHit),
+			TargetsHit = new List<Unit>(spd.TargetsHit),
+			PartIndex = spd.PartIndex,
+			GroupIndex = spd.GroupIndex,
+			CanCast = spd.CanCast
+		};
+    }
+
+    public List<Vector3> GetOrigins()
     {
 		var origins = new List<Vector3>();
 
-		if (SkillOriginKind == SkillFxOriginEnum.Caster)
+		if (SkillOriginKind == SkillFxTargetEnum.Caster)
 		{
-			origins.Add(damageData.Caster.transform.position + Vector3.up + SkillOriginOffset);
+			origins.Add(caster.transform.position + Vector3.up + SkillOriginOffset);
 		}
 
-		if (SkillOriginKind == SkillFxOriginEnum.Target)
+		if (SkillOriginKind == SkillFxTargetEnum.Target)
 		{
 			origins.AddRange(SPData.TargetsHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).ToList());
 		}
 
-		if (SkillOriginKind == SkillFxOriginEnum.Tiles)
+		if (SkillOriginKind == SkillFxTargetEnum.Tiles)
 		{
 			origins.AddRange(SPData.TilesHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).ToList());
 		}
@@ -86,21 +106,36 @@ public class SO_SKillVFX : ScriptableObject
     {
 		var destinations = new List<Vector3>();
 
-		if (SkillDestinationKind == SkillFxDestinationEnum.Caster)
+		if (SkillDestinationKind == SkillFxTargetEnum.Caster)
 		{
-			destinations.Add(damageData.Caster.transform.position + Vector3.up + SkillOriginOffset);
+			destinations.Add(caster.transform.position + Vector3.up + SkillOriginOffset);
 		}
 
-		if (SkillDestinationKind == SkillFxDestinationEnum.Target)
+		if (SkillDestinationKind == SkillFxTargetEnum.Target)
 		{
 			destinations.AddRange(SPData.TargetsHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).ToList());
 		}
 
-		if (SkillDestinationKind == SkillFxDestinationEnum.Tiles)
+		if (SkillDestinationKind == SkillFxTargetEnum.Tiles)
 		{
 			destinations.AddRange(SPData.TilesHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).ToList());
 		}
 
 		return destinations;
     }
+
+	public Vector3 GetLineRendererTarget(SkillFxTargetEnum target, GameObject skillObject)
+    {
+		if (target == SkillFxTargetEnum.Caster)
+			return caster.transform.position + Vector3.up;
+
+		if (target == SkillFxTargetEnum.Target)
+			return SPData.TargetsHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).First();
+
+		if (target == SkillFxTargetEnum.Tiles)
+			return SPData.TilesHit.Select(x => x.transform.position + Vector3.up + SkillOriginOffset).First();
+
+		// if target == skillObject
+		return skillObject.transform.position;
+	}
 }

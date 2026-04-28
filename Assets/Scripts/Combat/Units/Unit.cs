@@ -10,6 +10,7 @@ public class Unit : UnitStats
     [HideInInspector] public UnitManager unitManager;
     [HideInInspector] public SkillsManager skillsManager;
     [HideInInspector] public SkillVFXManager skillVFXManager;
+    [HideInInspector] public ConsumableManager consumableManager;
     [HideInInspector] public StatusEffectManager statusEffectManager;
     [HideInInspector] public DamageManager damageManager;
     [HideInInspector] public UIManager uiManager;
@@ -41,6 +42,7 @@ public class Unit : UnitStats
         unitManager = UnitManager.Instance;
         skillsManager = SkillsManager.Instance;
         skillVFXManager = SkillVFXManager.Instance;
+        consumableManager = ConsumableManager.Instance;
         statusEffectManager = StatusEffectManager.Instance;
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
@@ -228,11 +230,11 @@ public class Unit : UnitStats
     {
         var turnStartText = $"Turn: {UnitData.ActiveUnit.UnitName}";
 
-        var isStunned = statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Stunned);
+        var isStunned = statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Stunned);
         if (isStunned)
             turnStartText += " - stunned";
 
-        var isIncapactated = statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Incapacitated);
+        var isIncapactated = statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Incapacitated);
         if (isIncapactated)
             turnStartText += " - incapacitated";
 
@@ -252,7 +254,7 @@ public class Unit : UnitStats
             yield break;
         }
 
-        if (statusEffectManager.UnitHasStatusEffect(this, StatusEfectEnum.Rooted) == false)
+        if (statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Rooted) == false)
             boardManager.SetAOE(MoveSpeedLeft, Tile, null);
     }
 

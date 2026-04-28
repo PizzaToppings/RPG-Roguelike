@@ -20,7 +20,7 @@ MonoBehaviour:
   IsMagical: 0
   Classes: 000000000100000004000000
   Description: 'Charge in a straight line, stopping at the first enemy hit, dealing
-    <damage0-1> damage and slowing them by 2 for 1 turn. '
+    <damage0-1-0> damage and slowing them by 2 for 1 turn. '
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 0

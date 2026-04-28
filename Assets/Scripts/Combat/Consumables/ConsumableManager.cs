@@ -31,7 +31,7 @@ public class ConsumableManager : MonoBehaviour
         }
     }
 
-    public void DeleteConsumable(SO_MainSkill consumable)
+    public void DeleteConsumable(Skill consumable)
 	{
         var character = UnitData.ActiveUnit as Character;
 

@@ -32,7 +32,7 @@ public class CombatManager : MonoBehaviour
         CreateInstances();
         InitManagers();
         CreateBattlefield();
-		PlaceUnits();
+		SetUnits();
 		SetInitiative();
 		RoundStart();
 		TurnStart();
@@ -71,7 +71,7 @@ public class CombatManager : MonoBehaviour
         boardManager.AddBoardTilesToList();
     }
 
-    void PlaceUnits()
+    void SetUnits()
     {
         unitManager.PlaceUnits();
     }
@@ -96,26 +96,20 @@ public class CombatManager : MonoBehaviour
 
     public void TurnStart()
     {
-        if (CombatData.currentUnitTurn == UnitData.Units.Count)
+        if (CombatData.CurrentUnitTurn == UnitData.Units.Count)
         {
-            CombatData.currentUnitTurn = 0;
+            CombatData.CurrentUnitTurn = 0;
             RoundStart();
         }
 
-        var CurrentActiveUnit = UnitData.Units[CombatData.currentUnitTurn];
-
-        StartCoroutine(cameraController.MoveToUnit(CurrentActiveUnit));
+        var CurrentActiveUnit = UnitData.Units[CombatData.CurrentUnitTurn];
 
         initiativeTracker.NextTurn();
 
         UnitData.ActiveUnit = CurrentActiveUnit;
-		StartCoroutine(CurrentActiveUnit.StartTurn());
 
-        if (CurrentActiveUnit.Friendly && CurrentActiveUnit.Summon == false)
-        {
-            skillsManager.SetSkills(CurrentActiveUnit as Character);
-            consumableManager.SetConsumables(CurrentActiveUnit as Character);
-        }
+        StartCoroutine(cameraController.MoveToUnit(CurrentActiveUnit));
+		StartCoroutine(CurrentActiveUnit.StartTurn());
 
         uiManager.StartTurn(CurrentActiveUnit);
     }
@@ -126,7 +120,7 @@ public class CombatManager : MonoBehaviour
             CombatData.onTurnEnd.Invoke();
 
         yield return new WaitForSeconds(1);
-		CombatData.currentUnitTurn++;
+		CombatData.CurrentUnitTurn++;
 
         TurnStart();
     }

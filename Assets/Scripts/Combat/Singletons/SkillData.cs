@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class SkillData
 {
-    public static SO_MainSkill CurrentActiveSkill = null;
+    public static Skill CurrentActiveSkill = null;
 
     public static Unit Caster;
     public static bool CastOnTile => CurrentSkillPartGroupData.CastOnTile;

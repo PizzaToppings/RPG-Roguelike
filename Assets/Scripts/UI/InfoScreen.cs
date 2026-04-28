@@ -15,18 +15,30 @@ public class InfoScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI skillType;
     [SerializeField] List<Image> classIcons;
     [SerializeField] TextMeshProUGUI skillDescription;
+    [SerializeField] TextMeshProUGUI clickToLockText;
 
-    public void Activate(SO_MainSkill skill)
+    const string ClickTolock = "Rightclick to lock this panel.";
+    const string ClickToUnlock = "Click to remove this panel.";
+
+    public bool IsLocked;
+
+    public void Activate(Skill skill, bool lockScreen)
     {
         if (ui_Singletons == null)
             ui_Singletons = UI_Singletons.Instance;
 
+        if (lockScreen)
+        {
+            IsLocked = lockScreen;
+            clickToLockText.text = ClickToUnlock;
+        }
+
         // basic
-        skillName.text = skill.SkillName;
+        skillName.text = skill.mainSkillSO.SkillName;
         energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
         chargeAmount.text = "Charges: " + skill.DefaultCharges.ToString();
         skillRange.text = "Range: " + GetBaseRange(skill);
-        isMagicalText.text = skill.IsMagical ? "magical" : "physical";
+        isMagicalText.text = skill.mainSkillSO.IsMagical ? "magical" : "physical";
         isMagicalText.gameObject.SetActive(false);
 
         // skillIcons
@@ -34,11 +46,11 @@ public class InfoScreen : MonoBehaviour
             skillIcon.gameObject.SetActive(false);
 
         // basic skills or consumables
-        if (skill.IsBasic)
+        if (skill.mainSkillSO.IsBasic)
 		{
             skillType.text = "Basic skill";
 		}
-        else if (skill.IsConsumable)
+        else if (skill.mainSkillSO.IsConsumable)
         {
             skillType.text = "Consumable";
         }
@@ -47,19 +59,20 @@ public class InfoScreen : MonoBehaviour
             skillType.text = string.Empty;
             isMagicalText.gameObject.SetActive(true);
 
-            for (var i = 0; i < skill.Classes.Count; i++)
+            for (var i = 0; i < skill.mainSkillSO.Classes.Count; i++)
 			{
                 classIcons[i].gameObject.SetActive(true);
-                classIcons[i].sprite = ui_Singletons.GetClassIcon(skill.Classes[i]);
+                classIcons[i].sprite = ui_Singletons.GetClassIcon(skill.mainSkillSO.Classes[i]);
             }
         }
 
         skillDescription.text = GetDescription(skill);
 
         gameObject.SetActive(true);
+        skillDescription.ForceMeshUpdate();
     }
 
-    string GetBaseRange(SO_MainSkill skill)
+    string GetBaseRange(Skill skill)
     {
         string range = string.Empty;
 
@@ -70,7 +83,11 @@ public class InfoScreen : MonoBehaviour
 
             foreach (var sp in spg.skillParts)
             {
-                if (sp is SO_TargetSelfSkill)
+                if (sp is SO_TargetSelfSkill ||
+                    sp is SO_LineSkill ||
+                    sp is SO_ConeSkill || 
+                    sp is SO_AOE_Skill ||
+                    sp is SO_HalfCircleSkill)
                 {
                     range = "Self";
                 }
@@ -88,34 +105,131 @@ public class InfoScreen : MonoBehaviour
         return range;
     }
 
-    string GetDescription(SO_MainSkill skill)
+    string GetDescription(Skill skill)
     {
-        var description = skill.Description;
+        var description = skill.mainSkillSO.Description;
+        description = ReplaceEffectText(description, skill);
+        description += CannotCastText(skill);
+
+        return description;
+    }
+
+    string ReplaceEffectText(string description, Skill skill)
+    {
         var caster = UnitData.ActiveUnit;
 
-        for (int i = 0; i < skill.SkillPartGroups.Count; i++)
+        foreach (var spg in skill.SkillPartGroups)
         {
-            var spg = skill.SkillPartGroups[i];
-
-            for (int y = 0; y <spg.skillParts.Count; y++)
+            foreach (var skillPart in spg.skillParts)
             {
-                if (description.Contains($"<damage{i}-{y}>") == false)
-                    continue;
+                // Replace Damage Text
+                foreach (var damageEffect in skillPart.DamageEffects)
+                {
+                    var damagePlaceholder = $"<damage{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.DamageEffects.IndexOf(damageEffect)}>";
+                    if (description.Contains(damagePlaceholder))
+                    {
+                        var skillDamage = damageEffect.Power;
+                        var bonusDamage = skillPart.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+                        var totalDamage = (skillDamage + bonusDamage).ToString();
+                        var damageType = damageEffect.DamageType.ToString();
+                        var damageText = $"{totalDamage} {damageType} damage";
+                        description = description.Replace(damagePlaceholder, damageText);
+                    }
+                }
 
-                var skillPart = spg.skillParts[y];
-                var skillDamage = skillPart.DamageEffect.Power;
-                var bonusDamage = skillPart.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
-                var totalDamage = (skillDamage + bonusDamage).ToString();
+                // Replace Status Effect Text
+                foreach (var statusEffect in skillPart.StatusEffects)
+                {
+                    string effectName = statusEffect.StatusEffectType.ToString().ToLower();
+                    string colorCode = effectName switch
+                    {
+                        "bleed" => "#BF0000",
+                        "burn" => "#ff0000ff",
+                        "poison" => "#00BE01",
+                        _ => "#FFFFFF"
+                    };
 
-                description = description.Replace($"<damage{i}-{y}>", totalDamage);
+                    var statusPlaceholder = $"<{effectName}{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.StatusEffects.IndexOf(statusEffect)}>";
+                    effectName = effectName.Substring(0, 1).ToUpper() + effectName.Substring(1).ToLower();
+                    
+                    if (description.Contains(statusPlaceholder))
+                    {
+                        var damage = statusEffect.Power;
+                        var totalPower = CalculateTotalPower(statusEffect, caster);
+                        var durationText = GetDurationText(statusEffect);
+                        var statusText = $"{totalPower} <link={effectName}><u><color={colorCode}>{effectName}</color></u></link>{durationText}.";
+                        description = description.Replace(statusPlaceholder, statusText);
+                    }
+                }
             }
         }
 
         return description;
     }
 
+    string CalculateTotalPower(SO_StatusEffect statusEffect, Unit caster)
+    {
+        var power = statusEffect.Power;
+        var bonusDamage = statusEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
+
+        switch (statusEffect.StatusEffectType)
+        {
+            case StatusEffectEnum.Bleed:
+            case StatusEffectEnum.Burn:
+                return (power + bonusDamage).ToString();
+        }
+
+        return power.ToString();
+    }
+
+    string GetDurationText(SO_StatusEffect statusEffect)
+    {
+        switch (statusEffect.StatusEffectType)
+        {
+            case StatusEffectEnum.Bleed:
+            case StatusEffectEnum.Thorns:
+                return $" for {statusEffect.Duration} turn(s)";
+        }
+
+        return string.Empty;
+    }
+
+    string CannotCastText(Skill skill)
+    {
+        var statusEffectManager = StatusEffectManager.Instance;
+        var caster = UnitData.ActiveUnit as Character;
+        var text = string.Empty;
+
+        // silenced
+        if (skill.mainSkillSO.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Silenced))
+            text += "<br>   Silenced.";
+
+        // blinded
+        if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
+            text += "<br>   Blinded.";
+
+        if (skill.Charges == 0)
+            text += "<br>   No charges left.";
+
+        if (caster.Energy >= skill.EnergyCost)
+            text += "<br>   Not enough Energy.";
+
+        if (text == string.Empty)
+            return text;
+
+        return $"<br> <i> <color=#ff0000ff>{text}</color></i>";
+    }
+
+    public void Unlock()
+    {
+        IsLocked = false;
+        gameObject.SetActive(false);
+        clickToLockText.text = ClickTolock;
+    }
+
     public void Deactivate()
 	{
-        gameObject.SetActive(false);
+        if (IsLocked == false)
+            gameObject.SetActive(false);
     }
 }

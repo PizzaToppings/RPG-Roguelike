@@ -52,7 +52,7 @@ public class InitiativeTracker : MonoBehaviour
         foreach (var initiative in initiativeList)
             initiative.ToggleActive(false);
 
-        initiativeList[CombatData.currentUnitTurn].ToggleActive(true);
+        initiativeList[CombatData.CurrentUnitTurn].ToggleActive(true);
     }
 
     public void NextRound()

@@ -9,7 +9,12 @@ public class EnemyBaseAI : Enemy
     [HideInInspector] public Unit Target;
 
     public float OptimalRange;
-    public TargetPreferenceEnum TargetPreference;
+    public TargetEnum TargetPreference;
+
+    public override IEnumerator StartTurn()
+    {
+        yield return StartCoroutine(base.StartTurn());
+    }
 
     public void FindOptimalTile()
     {
@@ -74,11 +79,11 @@ public class EnemyBaseAI : Enemy
             return targetsInRange.FirstOrDefault();
     }
 
-    public Unit GetTargetPreference(TargetPreferenceEnum targetPreference, List<Character> targetList)
+    public Unit GetTargetPreference(TargetEnum targetPreference, List<Character> targetList)
     {
         switch (targetPreference)
         {
-            case TargetPreferenceEnum.closestTarget:
+            case TargetEnum.closestTarget:
                 Character closestCharacter = null;
                 float shortestDistance = float.MaxValue;
 

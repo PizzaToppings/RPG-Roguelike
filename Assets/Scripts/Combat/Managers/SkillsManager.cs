@@ -16,8 +16,6 @@ public class SkillsManager : MonoBehaviour
     ConsumableManager consumableManager;
     StatusEffectManager statusEffectManager;
 
-    // float displacementVertexCount = 12;
-
     public void CreateInstance()
     {
         Instance = this;
@@ -56,8 +54,7 @@ public class SkillsManager : MonoBehaviour
 
         if (SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
         {
-            var currentMouseTile = boardManager.GetCurrentMouseTile();
-            UnitData.ActiveUnit.PreviewSkills(currentMouseTile);
+            UnitData.ActiveUnit.PreviewSkills(BoardData.CurrentMouseTile);
         }
     }
 
@@ -75,7 +72,7 @@ public class SkillsManager : MonoBehaviour
             
             if (NoTargetsInRange(skill) == false)
 			{
-                skill.Preview(boardManager.GetCurrentMouseTile(), UnitData.ActiveUnit);
+                skill.Preview(BoardData.CurrentMouseTile, UnitData.ActiveUnit);
 
                 return;
 			}
@@ -94,17 +91,17 @@ public class SkillsManager : MonoBehaviour
 
         StartCoroutine(CastSkill(skill, character));
 
-        if (skill.IsConsumable)
+        if (skill.mainSkillSO.IsConsumable)
             consumableManager.DeleteConsumable(skill);
 
         uiManager.SetSkillIcons(character);
         uiManager.SetConsumableIcons(character);
 
-        if (skill.IsBasic == false)
-            uiManager.TriggerActivityText(skill.SkillName);
+        if (skill.mainSkillSO.IsBasic == false)
+            uiManager.TriggerActivityText(skill.mainSkillSO.SkillName);
     }
 
-    public IEnumerator CastSkill(SO_MainSkill skill, Unit caster)
+    public IEnumerator CastSkill(Skill skill, Unit caster)
     {
         foreach (var spg in skill.SkillPartGroups)
         {
@@ -121,7 +118,7 @@ public class SkillsManager : MonoBehaviour
     {
         var skillVFX = skillPart.SkillVFX;
         var skillPartData = skillPart.PartData;
-        skillPart.DamageEffect.Caster = UnitData.ActiveUnit;
+        skillPart.DamageEffects.ForEach(x => x.Caster = UnitData.ActiveUnit);
 
         if (skillPart.displacementEffect != null)
 		{
@@ -138,7 +135,7 @@ public class SkillsManager : MonoBehaviour
                 if (VFX.ShowDamage)
                     damageManager.DealDamageSetup(skillPart, VFX.ShowDamageDelay);
 
-                VFX.SetValues(skillPartData, skillPart.DamageEffect);
+                VFX.SetValues(skillPartData, caster);
                 yield return StartCoroutine(skillVFXManager.Cast(VFX, caster));
 			}
         }
@@ -149,8 +146,8 @@ public class SkillsManager : MonoBehaviour
         if (skillPart.tileEffects.Count > 0)
             AddTileEffects(skillPart);
 
-        if (skillPart.StatusEfects.Count > 0)
-            skillPart.StatusEfects.ForEach(x => statusEffectManager.ApplyStatusEffect(x, skillPartData.TargetsHit));
+        if (skillPart.StatusEffects.Count > 0)
+            skillPart.StatusEffects.ForEach(x => statusEffectManager.ApplyStatusEffect(x, skillPartData.TargetsHit));
     }
 
     public void AddTileEffects(SO_Skillpart skillPart)
@@ -169,7 +166,7 @@ public class SkillsManager : MonoBehaviour
     {
         if (displacement.StartVFX)
 		{
-            displacement.StartVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            displacement.StartVFX.SetValues(skillPart.PartData, caster);
             StartCoroutine(skillVFXManager.Cast(displacement.StartVFX, caster));
         }
 
@@ -205,7 +202,7 @@ public class SkillsManager : MonoBehaviour
 
         if (displacement.EndVFX)
         {
-            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            displacement.EndVFX.SetValues(skillPart.PartData, caster);
             StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
         }
 
@@ -256,7 +253,7 @@ public class SkillsManager : MonoBehaviour
 
         if (displacement.EndVFX)
         {
-            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            displacement.EndVFX.SetValues(skillPart.PartData, caster);
             StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
         }
      
@@ -296,7 +293,7 @@ public class SkillsManager : MonoBehaviour
         }
         if (displacement.EndVFX)
         {
-            displacement.EndVFX.SetValues(skillPart.PartData, skillPart.DamageEffect);
+            displacement.EndVFX.SetValues(skillPart.PartData, caster);
             StartCoroutine(skillVFXManager.Cast(displacement.EndVFX, caster));
         }
     }
@@ -307,21 +304,21 @@ public class SkillsManager : MonoBehaviour
         return skill.GetAttackRange();
     }
 
-    public bool CanCastSkill(SO_MainSkill skill, Unit caster)
+    public bool CanCastSkill(Skill skill, Unit caster)
     {
         // silenced
-        if (skill.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEfectEnum.Silenced))
+        if (skill.mainSkillSO.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Silenced))
             return false;
 
         // blinded
-        if (skill.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEfectEnum.Blinded))
+        if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
             return false;
 
         return SkillData.GetCharges(skill) != 0 &&
             (UnitData.ActiveUnit as Character).Energy >= skill.EnergyCost;
     }
 
-    public bool NoTargetsInRange(SO_MainSkill skill)
+    public bool NoTargetsInRange(Skill skill)
 	{
         return skill.SkillPartGroups[SkillData.SkillPartGroupIndex].skillParts.Any(x =>
                 x.NoTargetsInRange());

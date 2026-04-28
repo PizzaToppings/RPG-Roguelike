@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusEffectManager: {fileID: 0}
   Buff: 0
-  StatusEfectType: 14
+  StatusEfectType: 15
   DamageType: 0
   Stat: 3
   Power: 2

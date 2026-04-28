@@ -15,38 +15,41 @@ public class StatusEffectManager : MonoBehaviour
 	{
         foreach (var target in targets)
 		{
-		    switch (statusEffectSO.StatusEfectType)
+		    switch (statusEffectSO.StatusEffectType)
 		    {
-                case StatusEfectEnum.Bleed:
+                case StatusEffectEnum.Bleed:
                     ApplyBleedEffect(statusEffectSO, target);
                     break;
-                case StatusEfectEnum.Poison:
+                case StatusEffectEnum.Poison:
                     ApplyPoisonEffect(statusEffectSO, target);
                     break;
-                case StatusEfectEnum.Burn:
+                case StatusEffectEnum.Burn:
                     ApplyBurnEffect(statusEffectSO, target);
                     break;
-                case StatusEfectEnum.Manaburn:
-                    ApplyManaBurnEffect(statusEffectSO, target);
+                case StatusEffectEnum.Fatique:
+                    ApplyFatiqueEffect(statusEffectSO, target);
                     break;
-                case StatusEfectEnum.Thorns:
+                case StatusEffectEnum.Thorns:
                     ApplyThornsEffect(statusEffectSO, target);
                     break;
-                case StatusEfectEnum.StatChange:
+                case StatusEffectEnum.StatChange:
                     ApplyStatChangeEffect(statusEffectSO, target);
                     break;
+                case StatusEffectEnum.Unique:
+                    
+                    return;
+                default:
+                    ApplyDefaultEffect(statusEffectSO, target);
+                    return;
             }
-
-            // all other cases:
-            ApplyDefaultEffect(statusEffectSO, target);
         }
 	}
 
     public void ApplyDefaultEffect(SO_StatusEffect statusEffectSO, Unit target)
     {
-        if (UnitHasStatusEffect(target, statusEffectSO.StatusEfectType))
+        if (UnitHasStatusEffect(target, statusEffectSO.StatusEffectType))
         {
-            var existingStatusEffect = GetUnitStatusEffect(target, statusEffectSO.StatusEfectType);
+            var existingStatusEffect = GetUnitStatusEffect(target, statusEffectSO.StatusEffectType);
 
             if (existingStatusEffect.Duration < statusEffectSO.Duration)
                 existingStatusEffect.Duration = statusEffectSO.Duration;
@@ -57,7 +60,7 @@ public class StatusEffectManager : MonoBehaviour
         var statusEffect = new DefaultStatusEffect
         {
             IsBuff = false,
-            statusEfectType = statusEffectSO.StatusEfectType,
+            statusEfectType = statusEffectSO.StatusEffectType,
             Duration = statusEffectSO.Duration,
             Caster = UnitData.ActiveUnit,
             Target = target
@@ -71,7 +74,7 @@ public class StatusEffectManager : MonoBehaviour
         var bleedStatusEffect = new BleedStatusEffect
         {
             IsBuff = false,
-            statusEfectType = statusEffectSO.StatusEfectType,
+            statusEfectType = statusEffectSO.StatusEffectType,
             Duration = statusEffectSO.Duration,
             IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
@@ -87,7 +90,7 @@ public class StatusEffectManager : MonoBehaviour
         var poisonStatusEffect = new PoisonStatusEffect
         {
             IsBuff = false,
-            statusEfectType = statusEffectSO.StatusEfectType,
+            statusEfectType = statusEffectSO.StatusEffectType,
             Duration = statusEffectSO.Duration,
             IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
@@ -103,7 +106,7 @@ public class StatusEffectManager : MonoBehaviour
         var burnStatusEffect = new BurnStatusEffect
         {
             IsBuff = false,
-            statusEfectType = statusEffectSO.StatusEfectType,
+            statusEfectType = statusEffectSO.StatusEffectType,
             Duration = statusEffectSO.Duration,
             IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
@@ -119,7 +122,7 @@ public class StatusEffectManager : MonoBehaviour
         var thornsStatusEffect = new ThornsStatusEffect
         {
             IsBuff = true,
-            statusEfectType = statusEffectSO.StatusEfectType,
+            statusEfectType = statusEffectSO.StatusEffectType,
             Duration = statusEffectSO.Duration,
             IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
@@ -130,19 +133,19 @@ public class StatusEffectManager : MonoBehaviour
         thornsStatusEffect.Apply();
     }
 
-    public void ApplyManaBurnEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyFatiqueEffect(SO_StatusEffect statusEffectSO, Unit target)
     {
-        var manaBurnStatusEffect = new ManaburnStatusEffect
+        var fatiqueStatusEffect = new FatiqueStatusEffect
         {
             IsBuff = false,
-            statusEfectType = statusEffectSO.StatusEfectType,
+            statusEfectType = statusEffectSO.StatusEffectType,
             Duration = statusEffectSO.Duration,
             Caster = UnitData.ActiveUnit,
             Target = target,
             Power = statusEffectSO.Power
         };
 
-        manaBurnStatusEffect.Apply();
+        fatiqueStatusEffect.Apply();
     }
 
     public void ApplyStatChangeEffect(SO_StatusEffect statusEffectSO, Unit target)
@@ -150,7 +153,7 @@ public class StatusEffectManager : MonoBehaviour
         var statChangeEffect = new StatChangeEffect
         {
             IsBuff = false,
-            statusEfectType = statusEffectSO.StatusEfectType,
+            statusEfectType = statusEffectSO.StatusEffectType,
             Duration = statusEffectSO.Duration,
             Caster = UnitData.ActiveUnit,
             Target = target,
@@ -161,12 +164,17 @@ public class StatusEffectManager : MonoBehaviour
         statChangeEffect.Apply();
     }
 
-    public bool UnitHasStatusEffect(Unit unit, StatusEfectEnum statusEfect)
+    public void ApplyUniqueEffect(SO_StatusEffect statusEffectSO, Unit target)
+    {
+
+    }
+
+    public bool UnitHasStatusEffect(Unit unit, StatusEffectEnum statusEfect)
     {
         return unit.statusEffects.Find(x => x.statusEfectType == statusEfect) != null;
     }
 
-    public StatusEffect GetUnitStatusEffect(Unit unit, StatusEfectEnum statusEfect)
+    public StatusEffect GetUnitStatusEffect(Unit unit, StatusEffectEnum statusEfect)
     {
         return unit.statusEffects.First(x => x.statusEfectType == statusEfect);
     }
@@ -177,7 +185,7 @@ public class StatusEffectManager : MonoBehaviour
         cleanses.ForEach(x => x.EndEffect());
     }
 
-    public void CleanseType(Unit target, StatusEfectEnum type)
+    public void CleanseType(Unit target, StatusEffectEnum type)
     {
         var cleanses = target.statusEffects.FindAll(x => x.statusEfectType == type && !x.IsBuff);
         cleanses.ForEach(x => x.EndEffect());

@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 0000000004000000
-  Description: Hit an enemy, dealing <damage0-0> and knock them back 3 tiles.
+  Description: Hit an enemy, dealing <damage0-0-0> and knock them back 3 tiles.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1

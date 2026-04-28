@@ -32,7 +32,7 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 1
-    Color: {r: 0, g: 1, b: 0.9176471, a: 0}
+    Color: {r: 0, g: 1, b: 0.9176471, a: 1}
     Priority: 3
   AddProjectileLine: 0
   ProjectileLineOffset: 1

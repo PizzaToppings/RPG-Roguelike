@@ -17,8 +17,9 @@ MonoBehaviour:
   Image_Inactive: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
+  IsMagical: 0
   Classes: 0300000002000000
-  Description: 
+  Description: <burn0-0-0>
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
@@ -27,9 +28,9 @@ MonoBehaviour:
   EnergyCost: 10
   DefaultCharges: 1
   Charges: 1
-  TargetKind: 0
   Cursor: 0
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}
     Priority: 10
+  Caster: {fileID: 0}

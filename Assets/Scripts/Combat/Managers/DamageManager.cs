@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageManager : MonoBehaviour
@@ -18,17 +19,22 @@ public class DamageManager : MonoBehaviour
         statusEffectManager = StatusEffectManager.Instance;
     }
 
-    public DamageDataCalculated GetDamageData(DamageData damageEffect, Unit target)
+    public DamageDataCalculated CalculateDamageData(DamageData damageData, Unit target)
     {
-        var caster = damageEffect.Caster;
+        var caster = damageData.Caster;
+
+        foreach (var modifier in damageData.Modifiers)
+        {
+            damageData = modifier.Apply(damageData);
+        }
         
-        var damage = CalculateDamage(damageEffect, caster, target);
+        var damage = CalculateDamage(damageData, caster, target);
 
         DamageDataCalculated data = new DamageDataCalculated
         {
-            DamageType = damageEffect.DamageType,
+            DamageType = damageData.DamageType,
             Caster = caster,
-            IsMagical = damageEffect.IsMagical,
+            IsMagical = damageData.IsMagical,
             Target = target,
             Damage = damage,
         };
@@ -42,13 +48,23 @@ public class DamageManager : MonoBehaviour
         var skillPower = damageEffect.Power;
         var casterPower = damageEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
         var targetDefense = damageEffect.IsMagical ? target.MagicalDefense : target.PhysicalDefense;
+        var bleedDamage = GetBleedBonusDamage(target, damageEffect.DamageType);
         var typeModifier = GetTypeModifyer(damageEffect, target);
 
-        var damage = Mathf.CeilToInt((skillPower + casterPower - targetDefense) * typeModifier);
+        var damage = Mathf.CeilToInt((skillPower + bleedDamage + casterPower - targetDefense) * typeModifier);
         if (damage < 0)
             damage = 0;
 
         return damage;
+    }
+
+    int GetBleedBonusDamage(Unit target, DamageTypeEnum damageType)
+    {
+        if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Bleed)
+            && damageType == DamageTypeEnum.Physical)
+            return 2;
+
+        return 0;
     }
 
     float GetTypeModifyer(DamageData damageEffect, Unit target)
@@ -72,13 +88,23 @@ public class DamageManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        DamageData damageEffect = skillPart.DamageEffect;
+        List<DamageData> damageEffects = skillPart.DamageEffects;
 
         foreach (var target in skillPart.PartData.TargetsHit)
         {
-            if (damageEffect.Power > 0)
+            foreach (var damageEffect in damageEffects)
             {
-                var data = GetDamageData(damageEffect, target);
+                var canCast = true;
+                foreach (var prerequisite in damageEffect.Prerequisites)
+                {
+                    canCast = prerequisite.HasPrerequisite(damageEffect.Caster, target);
+                    if (canCast == false)
+                        break;
+                }
+                if (canCast == false)
+                    break;
+                
+                var data = CalculateDamageData(damageEffect, target);
 
                 if (damageEffect.DamageType == DamageTypeEnum.Healing)
                     Heal(data);
@@ -102,9 +128,9 @@ public class DamageManager : MonoBehaviour
         
         healthCanvas.ShowDamageNumber(damageDataResolved);
 
-        if (statusEffectManager.UnitHasStatusEffect(target, StatusEfectEnum.Incapacitated))
+        if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Incapacitated))
         {
-            var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
+            var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEffectEnum.Incapacitated);
             target.statusEffects.Remove(incapacitated);
         }
     }

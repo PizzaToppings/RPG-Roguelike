@@ -12,7 +12,7 @@ public class BurnStatusEffect : StatusEffect
         base.Apply();
 	
 		Target.OnUnitTurnEndEvent.AddListener(Burn);
-		Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Burn);
+		Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Burn);
 	}
 
 	void Burn()
@@ -42,12 +42,12 @@ public class BurnStatusEffect : StatusEffect
 		var targets = new List<Unit>();
 		targets.AddRange(damageTiles.Where(tile => tile.currentUnit != null).Select(tile => tile.currentUnit));
 
-		var damageData = damageManager.GetDamageData(damageEffect, Target);
+		var damageData = damageManager.CalculateDamageData(damageEffect, Target);
 		damageManager.DealDamage(damageData);
 
 		foreach (var target in targets)
 		{
-			damageData = damageManager.GetDamageData(damageEffect, target);
+			damageData = damageManager.CalculateDamageData(damageEffect, target);
 			damageManager.DealDamage(damageData);
 		}
 
@@ -61,7 +61,7 @@ public class BurnStatusEffect : StatusEffect
 	{
         base.EndEffect();
 		
-		Target.ThisHealthbar.RemoveStatusEffect(StatusEfectEnum.Burn);
+		Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Burn);
 		Target.OnUnitTurnEndEvent.RemoveListener(Burn);
 	}
 }

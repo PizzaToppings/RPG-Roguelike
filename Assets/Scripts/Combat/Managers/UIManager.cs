@@ -126,22 +126,28 @@ public class UIManager : MonoBehaviour
         ActivityBar.SetActive(true);
     }
 
-    public void StartShowSkillInformation(SO_MainSkill skill)
+    public void StartShowSkillInformation(Skill skill)
 	{
-        showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
+        if (infoScreen.IsLocked == false)
+            showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
 	}
 
-    public void EndShowSkillInformation(SO_MainSkill skill)
+    public void LockSkillInformation(Skill skill)
+    {
+        infoScreen.Activate(skill, true);
+    }
+
+    public void EndShowSkillInformation(Skill skill)
     {
         StopCoroutine(showSkillCoroutine);
 
         infoScreen.Deactivate();
     }
 
-    public IEnumerator ShowSkillInformation(SO_MainSkill skill)
+    public IEnumerator ShowSkillInformation(Skill skill)
 	{
         yield return new WaitForSeconds(1);
-        infoScreen.Activate(skill);
+        infoScreen.Activate(skill, false);
     }
 
     public void SetActiveSkillBorder(SO_MainSkill skill)

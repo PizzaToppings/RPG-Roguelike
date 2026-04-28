@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 0000000001000000
-  Description: Deals <damage0-0> in a wide arc.
+  Description: Deals <damage0-0-0> in a wide arc.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 0

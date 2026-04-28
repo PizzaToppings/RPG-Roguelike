@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 4c5be7f6f6ba51e4f987fde48ed0fb3a
+labels:
+- Damage_Physical
+- Debuff_MartialDefense
+- Skill_Athletics
+- Skill_Protection
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

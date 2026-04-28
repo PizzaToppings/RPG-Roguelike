@@ -27,6 +27,9 @@ MonoBehaviour:
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
+  DirectionInput: 0
+  DirectionInputSkillPart: {fileID: 0}
+  TargetKind: 1
   tileColor:
     FillCenter: 0
     Color: {r: 0.3160377, g: 1, b: 0.99350333, a: 1}
@@ -35,11 +38,13 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   SkillVFX:
   - {fileID: 11400000, guid: cb1f9a58143b46c48ad88bb07e361b8c, type: 2}
-  DamageEffect:
-    Caster: {fileID: 0}
-    DamageType: 12
-    Power: 5
+  DamageEffects:
+  - Caster: {fileID: 0}
     IsMagical: 0
+    Modifiers: []
+    Prerequisites: []
+    DamageType: 10
+    Power: 10
   MinRange: 0
   MaxRange: 8
   IncludeInAutoMove: 0
@@ -51,8 +56,9 @@ MonoBehaviour:
   tileEffects: []
   displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
+  Caster: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
     Color: {r: 0.31764707, g: 1, b: 0.9921569, a: 1}
     Priority: 6
-  CanTargetSelf: 0
+  CanTargetSelf: 1
