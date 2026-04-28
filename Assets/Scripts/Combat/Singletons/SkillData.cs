@@ -14,6 +14,17 @@ public class SkillData
 
     public static SkillPartGroupData CurrentSkillPartGroupData => SkillPartGroupDatas[SkillPartGroupIndex];
 
+    static Dictionary<SO_MainSkill, int> SkillCharges = new Dictionary<SO_MainSkill, int>();
+
+    public static int GetCharges(SO_MainSkill skill)
+    {
+        return SkillCharges.TryGetValue(skill, out int charges) ? charges : skill.DefaultCharges;
+    }
+
+    public static void SetCharges(SO_MainSkill skill, int value)
+    {
+        SkillCharges[skill] = value;
+    }
 
     public static SkillPartData GetCurrentSkillPartData(int skillPartIndex)
 	{

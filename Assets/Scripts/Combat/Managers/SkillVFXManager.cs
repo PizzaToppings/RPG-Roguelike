@@ -43,6 +43,8 @@ public class SkillVFXManager : MonoBehaviour
 
         if (skillVFX.SkillFxKind == SkillFxType.Animation)
         {
+            if (skillObjects.Count == 0)
+                yield break;
             var particleSystem = skillObjects[0].GetComponent<ParticleSystem>();
 
             if (skillVFX.StickToUnit)

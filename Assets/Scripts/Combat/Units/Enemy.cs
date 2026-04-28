@@ -87,7 +87,7 @@ public class Enemy : Unit
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic/* || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot*/)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && SkillData.CurrentActiveSkill.Charges != 0)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && SkillData.GetCharges(SkillData.CurrentActiveSkill) != 0)
             {
                 skillVFXManager.EndProjectileLine();
                 UnitData.CurrentAction = CurrentActionKind.Animating;
@@ -105,7 +105,7 @@ public class Enemy : Unit
 
         var character = UnitData.ActiveUnit as Character;
         var basicAttack = character.basicAttack;
-        basicAttack.Charges--;
+        SkillData.SetCharges(basicAttack, SkillData.GetCharges(basicAttack) - 1);
         yield return StartCoroutine(skillsManager.CastSkill(basicAttack, character));
     }
 

@@ -8,12 +8,15 @@ public class SkillIcon : MonoBehaviour
     UIManager uiManager;
 
     SO_MainSkill skill;
+    Character character;
 
     public Image icon;
 
     [Space]
+    [SerializeField] GameObject ActiveBorder;
     [SerializeField] GameObject chargesImage;
     [SerializeField] TextMeshProUGUI chargesText;
+    [SerializeField] TextMeshProUGUI EnergycostText;
 
     public void Init()
     {
@@ -21,11 +24,13 @@ public class SkillIcon : MonoBehaviour
         uiManager = UIManager.Instance;
     }
 
-    public void SetOrUpdate(SO_MainSkill thisSkill) 
+    public void SetOrUpdate(SO_MainSkill thisSkill, Character thisCharacter) 
     {
         skill = thisSkill;
+        character = thisCharacter;
         SetIcon();
         SetCharges();
+        SetEnergycost();
     }
 
     void SetIcon()
@@ -52,19 +57,38 @@ public class SkillIcon : MonoBehaviour
         {
             chargesImage.SetActive(true);
             chargesText.gameObject.SetActive(true);
-            chargesText.text = skill.Charges.ToString();
+            chargesText.text = SkillData.GetCharges(skill).ToString();
         }
+    }
+
+    void SetEnergycost()
+    {
+        if (EnergycostText == null)
+            return;
+        EnergycostText.text = skill.EnergyCost.ToString();
+
+        if (character.Energy >= skill.EnergyCost)
+            EnergycostText.color = uiManager.energyTextAvailable;
+        else
+            EnergycostText.color = uiManager.energyTextUnavailable;
+    }
+
+    public void UpdateActiveBorder(SO_MainSkill activeSkill)
+    {
+        if (ActiveBorder != null)
+            ActiveBorder.SetActive(skill != null && skill == activeSkill);
     }
 
     public void Clear()
 	{
         icon.gameObject.SetActive(false);
+        if (ActiveBorder != null)
+            ActiveBorder.SetActive(false);
     }
 
     public void CastSkill()
     {
-        Character caster = UnitData.ActiveUnit as Character;
-        caster.ToggleSkill(skill);
+        character.ToggleSkill(skill);
     }
 
     public void OnPointerEnter() 

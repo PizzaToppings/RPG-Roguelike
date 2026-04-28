@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d883fac0301d752429a2f9c9bffbd277, type: 3}
+  m_Name: EncounterPool
+  m_EditorClassIdentifier: 
+  Encounters:
+  - {fileID: 11400000, guid: 90c8f2ed5b09f4d4390211bd821c22d6, type: 2}
+  - {fileID: 11400000, guid: e3e6322539b5cc94f997aae2e906bd50, type: 2}
+  - {fileID: 11400000, guid: eaf74247ec715354294c9b06b798f412, type: 2}
+  - {fileID: 11400000, guid: 98150f8f1d124f1489d14b267282d0d1, type: 2}
+  - {fileID: 11400000, guid: bd15543e4e51b9e44a77f6dd98c01316, type: 2}

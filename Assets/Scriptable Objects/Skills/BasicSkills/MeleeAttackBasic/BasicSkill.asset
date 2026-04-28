@@ -25,12 +25,12 @@ MonoBehaviour:
     CastOnTarget: 1
     skillParts:
     - {fileID: 11400000, guid: 967c385fd7e60b14b899c2506c14bf4b, type: 2}
-  EnergyCost: 10
+  EnergyCost: 1
   DefaultCharges: 1
   Charges: 1
-  TargetKind: 0
   Cursor: 1
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}
     Priority: 10
+  Caster: {fileID: 0}

@@ -8,4 +8,9 @@ public class BoardData
 
     public static int rowAmount = 20;
     public static int columnAmount = 15;
+
+    public static void Reset()
+    {
+        BoardTiles = null;
+    }
 }

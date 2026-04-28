@@ -19,22 +19,22 @@ public class StatusEffectManager : MonoBehaviour
 		    {
                 case StatusEfectEnum.Bleed:
                     ApplyBleedEffect(statusEffectSO, target);
-                    return;
+                    break;
                 case StatusEfectEnum.Poison:
                     ApplyPoisonEffect(statusEffectSO, target);
-                    return;
+                    break;
                 case StatusEfectEnum.Burn:
                     ApplyBurnEffect(statusEffectSO, target);
-                    return;
+                    break;
                 case StatusEfectEnum.Manaburn:
                     ApplyManaBurnEffect(statusEffectSO, target);
-                    return;
+                    break;
                 case StatusEfectEnum.Thorns:
                     ApplyThornsEffect(statusEffectSO, target);
-                    return;
+                    break;
                 case StatusEfectEnum.StatChange:
                     ApplyStatChangeEffect(statusEffectSO, target);
-                    return;
+                    break;
             }
 
             // all other cases:
@@ -50,6 +50,8 @@ public class StatusEffectManager : MonoBehaviour
 
             if (existingStatusEffect.Duration < statusEffectSO.Duration)
                 existingStatusEffect.Duration = statusEffectSO.Duration;
+
+            return; // added by AI
         }
 
         var statusEffect = new DefaultStatusEffect
@@ -172,21 +174,12 @@ public class StatusEffectManager : MonoBehaviour
     public void CleanseAll(Unit target)
     {
         var cleanses = target.statusEffects.FindAll(x => !x.IsBuff);
-        cleanses.ForEach(x =>target.statusEffects.Remove(x));
-
-        ResetCleanseStatusEffects(target);
+        cleanses.ForEach(x => x.EndEffect());
     }
 
     public void CleanseType(Unit target, StatusEfectEnum type)
     {
         var cleanses = target.statusEffects.FindAll(x => x.statusEfectType == type && !x.IsBuff);
-        cleanses.ForEach(x =>target.statusEffects.Remove(x));
-
-        ResetCleanseStatusEffects(target);
-    }
-
-    public void ResetCleanseStatusEffects(Unit unit /**, List<StatusEfectEnum> types**/)
-    {
-        StartCoroutine(unit.StartTurn());
+        cleanses.ForEach(x => x.EndEffect());
     }
 }

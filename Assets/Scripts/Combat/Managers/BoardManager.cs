@@ -97,14 +97,18 @@ public class BoardManager : MonoBehaviour
     public List<BoardTile> GetDirectPathBetweenTiles(BoardTile startTile, BoardTile endTile)
 	{
         var path = new List<BoardTile>();
+        int maxIterations = BoardData.BoardTiles.GetLength(0) + BoardData.BoardTiles.GetLength(1);
 
-        while (startTile != endTile)
+        while (startTile != endTile && path.Count <= maxIterations)
 		{
             var d = GetDirectionBetweenTiles(startTile, endTile);
             var direction = Directions[d];
 
             var newCoordinates = startTile.Coordinates + direction;
             startTile = GetBoardTile(newCoordinates);
+
+            if (startTile == null)
+                break;
 
             path.Add(startTile);
         }
@@ -157,16 +161,14 @@ public class BoardManager : MonoBehaviour
         if (includeInMoveRange)
 		{
             attackTilesInRange = attackTilesInRange.Where(x => x.movementLeft > -1f).ToList();
-            if (attackTilesInRange.Count == 0)
-                return null;
 		}
+
+        if (attackTilesInRange.Count == 0)
+            return null;
 
         var attackerTile = UnitData.ActiveUnit.Tile;
         var tilesOrdened = attackTilesInRange.OrderBy(
             x => GetRangeBetweenTiles(attackerTile.Coordinates, x.Coordinates)).ToList();
-
-        if (attackTilesInRange.Count == 0)
-            return null;
 
         return tilesOrdened;
     }

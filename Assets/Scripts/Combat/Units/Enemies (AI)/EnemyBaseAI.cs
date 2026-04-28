@@ -11,11 +11,6 @@ public class EnemyBaseAI : Enemy
     public float OptimalRange;
     public TargetPreferenceEnum TargetPreference;
 
-    public override IEnumerator StartTurn()
-    {
-        yield return StartCoroutine(base.StartTurn());
-    }
-
     public void FindOptimalTile()
     {
         boardManager.SetAOE(MoveSpeedLeft, Tile, null);
@@ -52,8 +47,8 @@ public class EnemyBaseAI : Enemy
 
                 var rangeToEnemy = boardManager.GetRangeBetweenTiles(tile, enemy.Tile);
 
-                if (rangeToEnemy <= 5) // TODO Edit this value based on something
-                    tile.EnemyPreferenceRating += 50;
+                if (rangeToEnemy <= 5) // TODO Edit this value based on something. Do enemies want to be close to each other? Or far away?
+                    tile.EnemyPreferenceRating += 50; // currently it's a bonus to be close to other enemies
             }
         }
 
@@ -76,7 +71,7 @@ public class EnemyBaseAI : Enemy
         if (preferedTarget != null)
             return preferedTarget;
         else
-            return targetsInRange.First();
+            return targetsInRange.FirstOrDefault();
     }
 
     public Unit GetTargetPreference(TargetPreferenceEnum targetPreference, List<Character> targetList)
@@ -100,7 +95,7 @@ public class EnemyBaseAI : Enemy
                 return closestCharacter;
 
             case TargetPreferenceEnum.LowestHealthTarget:
-                Character lowestHealthCharacter = UnitData.Characters.OrderByDescending(x => x.Hitpoints).First();
+                Character lowestHealthCharacter = targetList.OrderBy(x => x.Hitpoints).First();
                 return lowestHealthCharacter;
         }
 

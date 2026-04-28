@@ -24,6 +24,11 @@ public class CombatManager : MonoBehaviour
     {
         Instance = this;
 
+        UnitData.Reset();
+        CombatData.Reset();
+        BoardData.Reset();
+        SkillData.Reset();
+
         CreateInstances();
         InitManagers();
         CreateBattlefield();
@@ -128,11 +133,17 @@ public class CombatManager : MonoBehaviour
 
     public void Win()
 	{
-        Debug.Log("Huzzzah!");
+        if (RunManager.Instance != null)
+            RunManager.Instance.OnCombatWon();
+        else
+            Debug.Log("Combat won! (RunManager not present - testing mode)");
 	}
 
     public void Lose()
 	{
-        Debug.Log("You lost!");
+        if (RunManager.Instance != null)
+            RunManager.Instance.OnCombatLost();
+        else
+            Debug.Log("Combat lost! (RunManager not present - testing mode)");
     }
 }

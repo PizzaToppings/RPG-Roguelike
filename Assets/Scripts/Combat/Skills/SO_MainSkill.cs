@@ -25,19 +25,15 @@ public class SO_MainSkill : ScriptableObject
     [Space]
     public int EnergyCost = 10;
     public int DefaultCharges = 1;
-    [HideInInspector] public int Charges = 1;
 
     [Space]
     public CursorType Cursor;
     public TileColor castLockColor;
 
-    [HideInInspector] public Unit Caster;
-
 
     public virtual void Preview(BoardTile mouseOverTile, Unit caster, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         var SkillPartGroupIndex = SkillData.SkillPartGroupIndex;
-        Caster = caster;
 
         for (int i = 0; i < SkillPartGroups[SkillPartGroupIndex].skillParts.Count; i++)
 		{
@@ -96,8 +92,7 @@ public class SO_MainSkill : ScriptableObject
 
     public void Init()
     {
-        Charges = DefaultCharges;
-        SkillData.SkillPartGroupIndex = 0;
+        SkillData.SetCharges(this, DefaultCharges);
     }
 
     public virtual void Reset()

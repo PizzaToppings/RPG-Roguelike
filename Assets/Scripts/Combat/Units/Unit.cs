@@ -102,10 +102,10 @@ public class Unit : UnitStats
 
             Rotate(endPosition);
 
-            while (distanceLeft <= 1)
+            while (distanceLeft < 1f)
             {
                 // move to next tile
-                distanceLeft += Time.deltaTime * (1f + MoveSpeed * 0.1f);
+                distanceLeft = Mathf.Min(distanceLeft + Time.deltaTime * (1f + MoveSpeed * 0.2f), 1f);
                 transform.position = Vector3.Lerp(startPosition, endPosition, distanceLeft);
 
                 yield return new WaitForEndOfFrame();

@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7ca051d6bbdcc47b663f45fad4bb1d, type: 3}
   m_Name: TestCharacter
   m_EditorClassIdentifier: 
-  Name: TestCharacter
-  Classes: 0000000007000000
+  Name: Chuck
+  Classes: 0000000002000000
+  CharacterPrefab: {fileID: 1623717467118256991, guid: 10b2f86aa19e3af469339d6bf46dd62b,
+    type: 3}
   MaxHealth: 100
-  MaxEnergy: 100
+  MaxEnergy: 10
   MoveSpeed: 6
   Initiative: 10
-  PhysicalPower: 52
-  MagicalPower: 60
-  PhysicalDefense: 43
-  MagicalDefense: 50
+  PhysicalPower: 2
+  MagicalPower: 0
+  PhysicalDefense: 1
+  MagicalDefense: 0
   basicAttack: {fileID: 11400000, guid: 25bc364d867ba7b498e508665a601a73, type: 2}
   basicSkill: {fileID: 11400000, guid: f5f07cd6831161447a859ccf58f8c8e5, type: 2}
-  BasicPassiveEffect: {fileID: 11400000, guid: 688a87028a301c94caf6715809812ead, type: 2}
+  BasicTrinket: {fileID: 11400000, guid: 688a87028a301c94caf6715809812ead, type: 2}

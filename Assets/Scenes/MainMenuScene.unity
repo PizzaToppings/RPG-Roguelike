@@ -800,7 +800,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671387862}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 73.84226, y: 399.1175, z: 83.943375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11446,6 +11446,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 51.38, z: 0}
+--- !u!1 &1986509509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1986509511}
+  - component: {fileID: 1986509510}
+  m_Layer: 0
+  m_Name: RunManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1986509510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986509509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903291c57cf2a054cab093eef8260d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterRoster: {fileID: 11400000, guid: adaa1ff5e701ef64dac0234ebc525100, type: 2}
+  skillPool: {fileID: 11400000, guid: 03a3ab7d4cf6fe24198b8489cdd69a25, type: 2}
+  encounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
+  characterSelectScene: CharacterSelectScene
+  skillSelectScene: SkillSelectScene
+  combatScene: TestCombatScene
+  mainMenuScene: MainMenuScene
+  characterOptionCount: 3
+  skillOptionCount: 3
+--- !u!4 &1986509511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986509509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2016863455
 GameObject:
   m_ObjectHideFlags: 0
@@ -11722,10 +11775,11 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1986509511}
+  - {fileID: 671387864}
   - {fileID: 1312168212}
   - {fileID: 1582664454}
   - {fileID: 544140573}
   - {fileID: 1806929352}
   - {fileID: 1962856848}
   - {fileID: 1491299201}
-  - {fileID: 671387864}

@@ -39,6 +39,7 @@ public class StatChangeEffect : StatusEffect
                 break;
             case StatsEnum.MaxEnergy:
                 var character = Target as Character;
+                Debug.Log($"Increasing MaxEnergy of {character.name} by {Power}");
                 character.MaxEnergy += Power;
                 break;
         }

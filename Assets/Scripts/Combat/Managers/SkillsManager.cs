@@ -1,10 +1,12 @@
 using System.Linq;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class SkillsManager : MonoBehaviour
 {
+    public UnityEvent OnSkillCastComplete = new UnityEvent();
     public static SkillsManager Instance;
     BoardManager boardManager;
     SkillVFXManager skillVFXManager;
@@ -14,7 +16,7 @@ public class SkillsManager : MonoBehaviour
     ConsumableManager consumableManager;
     StatusEffectManager statusEffectManager;
 
-    float displacementVertexCount = 12;
+    // float displacementVertexCount = 12;
 
     public void CreateInstance()
     {
@@ -52,8 +54,7 @@ public class SkillsManager : MonoBehaviour
         if (UnitData.CurrentAction != CurrentActionKind.CastingSkillshot)
             return;
 
-        if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot 
-            && SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
+        if (SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
         {
             var currentMouseTile = boardManager.GetCurrentMouseTile();
             UnitData.ActiveUnit.PreviewSkills(currentMouseTile);
@@ -84,9 +85,9 @@ public class SkillsManager : MonoBehaviour
         boardManager.Clear();
         skillVFXManager.EndProjectileLine();
 
-        skill.Charges--;
+        SkillData.SetCharges(skill, SkillData.GetCharges(skill) - 1);
         var character = UnitData.ActiveUnit as Character;
-        character.Energy -= skill.EnergyCost;
+        character.ConsumeEnergy(skill.EnergyCost);
 
         var portrait = character.ThisHealthbar as CharacterPortrait;
         portrait.UpdateHealthbar(); // includes energybar
@@ -113,8 +114,7 @@ public class SkillsManager : MonoBehaviour
             }
         }
 
-        Character character = caster as Character;
-        character.StopCasting();
+        OnSkillCastComplete.Invoke();
     }
 
     public IEnumerator CastSkillsPart(SO_Skillpart skillPart, Unit caster)
@@ -317,7 +317,7 @@ public class SkillsManager : MonoBehaviour
         if (skill.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEfectEnum.Blinded))
             return false;
 
-        return skill.Charges != 0 &&
+        return SkillData.GetCharges(skill) != 0 &&
             (UnitData.ActiveUnit as Character).Energy >= skill.EnergyCost;
     }
 

@@ -18,6 +18,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] SkillIcon[] consumableIcons;
 
     [Space]
+    [SerializeField] TextMeshProUGUI EnergyText;
+    public Color energyTextAvailable;
+    public Color energyTextUnavailable;
+
+    [Space]
     [SerializeField] List<CharacterPortrait> CharacterPortraits;
 
     Coroutine showSkillCoroutine;
@@ -57,15 +62,15 @@ public class UIManager : MonoBehaviour
 
     public void SetSkillIcons(Character CurrentActiveUnit)
     {
-        basicAttackIcon.SetOrUpdate(CurrentActiveUnit.basicAttack);
-        basicSkillIcon.SetOrUpdate(CurrentActiveUnit.basicSkill);
+        basicAttackIcon.SetOrUpdate(CurrentActiveUnit.basicAttack, CurrentActiveUnit);
+        basicSkillIcon.SetOrUpdate(CurrentActiveUnit.basicSkill, CurrentActiveUnit);
 
         for (int i = 0; i < CurrentActiveUnit.skills.Count; i++)
         {
             var skill = CurrentActiveUnit.skills[i];
 
             if (skill != null)
-                skillIcons[i].SetOrUpdate(skill);
+                skillIcons[i].SetOrUpdate(skill, CurrentActiveUnit);
             else
                 skillIcons[i].Clear();
         }
@@ -78,7 +83,7 @@ public class UIManager : MonoBehaviour
             var consumable = CurrentActiveUnit.consumables[i];
 
             if (consumable != null)
-                consumableIcons[i].SetOrUpdate(consumable);
+                consumableIcons[i].SetOrUpdate(consumable, CurrentActiveUnit);
             else
                 consumableIcons[i].Clear();
         }
@@ -137,5 +142,28 @@ public class UIManager : MonoBehaviour
 	{
         yield return new WaitForSeconds(1);
         infoScreen.Activate(skill);
+    }
+
+    public void SetActiveSkillBorder(SO_MainSkill skill)
+    {
+        basicAttackIcon.UpdateActiveBorder(skill);
+        basicSkillIcon.UpdateActiveBorder(skill);
+
+        foreach (var icon in skillIcons)
+            icon.UpdateActiveBorder(skill);
+
+        foreach (var icon in consumableIcons)
+            icon.UpdateActiveBorder(skill);
+    }
+
+    public void ResetSkills()
+    {
+        foreach (var skillIcon in skillIcons)
+            skillIcon.Clear();
+    }
+
+    public void SetEnergy(int amount, int maxEnergy)
+    {
+        EnergyText.text = amount.ToString() + "/" + maxEnergy.ToString();
     }
 }

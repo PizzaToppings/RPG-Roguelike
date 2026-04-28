@@ -83,6 +83,16 @@ public class UnitManager : MonoBehaviour
 
         unit.Init();
 
+        int insertIndex = UnitData.Units.Count - 1; 
+        UnitData.Units.RemoveAt(UnitData.Units.Count - 1);
+        insertIndex = 0;
+        while (insertIndex < UnitData.Units.Count && UnitData.Units[insertIndex].Initiative <= unit.Initiative)
+            insertIndex++;
+        UnitData.Units.Insert(insertIndex, unit);
+
+        if (insertIndex <= CombatData.currentUnitTurn)
+            CombatData.currentUnitTurn++;
+
         initiativeTracker.AddToInitiative(unit);
     }
 
@@ -96,17 +106,7 @@ public class UnitManager : MonoBehaviour
        
         UnitData.Units.Remove(unit);
 
-        if (deadCharacterIndex < CombatData.currentUnitTurn)
-        {
-            CombatData.currentUnitTurn--;
-        }
-        else if (deadCharacterIndex == CombatData.currentUnitTurn)
-        {
-            CombatData.currentUnitTurn--;
-            yield return StartCoroutine(combatManager.EndTurn());
-        }
-
-        // remove unit from lists
+        // remove unit from sub-lists before any turn logic runs
         if (unit is Character)
             UnitData.Characters.Remove(unit as Character);
 
@@ -118,6 +118,16 @@ public class UnitManager : MonoBehaviour
 
         if (UnitData.Enemies.Count == 0)
             combatManager.Win();
+
+        if (deadCharacterIndex < CombatData.currentUnitTurn)
+        {
+            CombatData.currentUnitTurn--;
+        }
+        else if (deadCharacterIndex == CombatData.currentUnitTurn)
+        {
+            CombatData.currentUnitTurn--;
+            yield return StartCoroutine(combatManager.EndTurn());
+        }
 
         yield return new WaitForSeconds(1);
         Destroy(unit.gameObject);

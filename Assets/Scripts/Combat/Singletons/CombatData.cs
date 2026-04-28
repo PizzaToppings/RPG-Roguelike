@@ -10,4 +10,14 @@ public class CombatData
     public static UnityEvent onTurnEnd = new UnityEvent();
     public static UnityEvent onRoundStart = new UnityEvent();
     public static UnityEvent onRoundEnd = new UnityEvent();
+
+    public static void Reset()
+    {
+        currentRound = 0;
+        currentUnitTurn = 0;
+        onTurnStart.RemoveAllListeners();
+        onTurnEnd.RemoveAllListeners();
+        onRoundStart.RemoveAllListeners();
+        onRoundEnd.RemoveAllListeners();
+    }
 }

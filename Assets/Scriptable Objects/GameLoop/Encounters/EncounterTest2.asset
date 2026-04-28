@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4de32f407155c147ae37b3945989340, type: 3}
+  m_Name: EncounterTest2
+  m_EditorClassIdentifier: 
+  EncounterName: Encounter Test 2
+  Enemies:
+  - EnemyPrefab: {fileID: 4395843208511029253, guid: 4f5366374d6e3f54a8de476e5d3942cb,
+      type: 3}
+    StartX: 0
+    StartY: 0

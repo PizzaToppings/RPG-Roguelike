@@ -185,7 +185,7 @@ public class BoardTile : MonoBehaviour
 
     public void UnTarget()
     {
-        boardManager.DeselectCurrentMouseTile(this);
+         StartCoroutine(boardManager.DeselectCurrentMouseTile(this));
 
 		if (currentUnit != null)
 		{
@@ -236,7 +236,7 @@ public class BoardTile : MonoBehaviour
     {
         currentUnit = null;
 
-        if (OnEnterTileEvent != null)
+        if (OnExitTileEvent != null)
             OnExitTileEvent.Invoke();
     }
 

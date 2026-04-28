@@ -6,6 +6,7 @@ public class SO_Character : ScriptableObject
 {
     public string Name;
     public List<ClassEnum> Classes;
+    public GameObject CharacterPrefab;
 
     [Space]
     public int MaxHealth;

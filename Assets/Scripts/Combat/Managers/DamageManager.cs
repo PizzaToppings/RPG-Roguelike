@@ -105,7 +105,7 @@ public class DamageManager : MonoBehaviour
         if (statusEffectManager.UnitHasStatusEffect(target, StatusEfectEnum.Incapacitated))
         {
             var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEfectEnum.Incapacitated);
-            caster.statusEffects.Remove(incapacitated);
+            target.statusEffects.Remove(incapacitated);
         }
     }
 
@@ -116,9 +116,6 @@ public class DamageManager : MonoBehaviour
         var correctedHeal = target.Heal(data);
         
         healthCanvas.ShowHealNumber(correctedHeal);
-
-        if (data.Damage == 0)
-            return;
     }
 
     void Shield(DamageDataCalculated data)
@@ -128,8 +125,5 @@ public class DamageManager : MonoBehaviour
         var shieldsCalculated = target.Shield(data);
 
         healthCanvas.ShowHealNumber(shieldsCalculated);
-
-        if (data.Damage == 0)
-            return;
     }
 }

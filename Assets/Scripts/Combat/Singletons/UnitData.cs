@@ -8,4 +8,13 @@ public class UnitData
 
     public static Unit ActiveUnit {get; set; } 
     public static CurrentActionKind CurrentAction;
+
+    public static void Reset()
+    {
+        Units.Clear();
+        Characters.Clear();
+        Enemies.Clear();
+        ActiveUnit = null;
+        CurrentAction = CurrentActionKind.Basic;
+    }
 }

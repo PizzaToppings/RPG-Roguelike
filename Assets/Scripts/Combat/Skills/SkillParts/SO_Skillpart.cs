@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class SO_Skillpart : ScriptableObject
 {
-    [HideInInspector] public List<BoardTile> OriginTiles;
-    [HideInInspector] public List<Unit> OriginTargets;
-    [HideInInspector] public BoardTile TargetTile;
-    [HideInInspector] public SkillPartData PartData;
-    [HideInInspector] public SkillPartGroupData MatchedSkillPartGroupData;
-    [HideInInspector] public int FinalDirection;
-    [HideInInspector] public bool MagicalDamage;
-    [HideInInspector] public int SkillPartIndex = 0;
+    [System.NonSerialized] public List<BoardTile> OriginTiles;
+    [System.NonSerialized] public List<Unit> OriginTargets;
+    [System.NonSerialized] public BoardTile TargetTile;
+    [System.NonSerialized] public SkillPartData PartData;
+    [System.NonSerialized] public int FinalDirection;
+    [System.NonSerialized] public bool MagicalDamage;
+    [System.NonSerialized] public int SkillPartIndex = 0;
 
     [Header(" - Targeting")]
     public OriginTileEnum OriginTileKind = OriginTileEnum.None;
@@ -61,13 +60,11 @@ public class SO_Skillpart : ScriptableObject
     
     List<SO_Skillpart> skillPartsList;
 
-    [HideInInspector] public Unit Caster;
-
     public virtual SO_Skillpart Preview(BoardTile mouseOverTile, List<SO_Skillpart> skillParts, Unit caster,
         BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         skillPartsList = skillParts;
-        Caster = caster;
+        SkillData.Caster = caster;
 
         SetInitData(mouseOverTile);
 
@@ -210,6 +207,6 @@ public class SO_Skillpart : ScriptableObject
 
     public void RotateCaster(Vector3 target)
     {
-        Caster.transform.LookAt(new Vector3(target.x, Caster.transform.position.y, target.z));
+        SkillData.Caster.transform.LookAt(new Vector3(target.x, SkillData.Caster.transform.position.y, target.z));
     }
 }

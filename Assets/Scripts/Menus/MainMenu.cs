@@ -5,6 +5,9 @@ public class MainMenu : MonoBehaviour
 {
     public void StartNewGame()
     {
-        SceneManager.LoadScene("CharacterSelectScene");
+        if (RunManager.Instance != null)
+            RunManager.Instance.StartNewRun();
+        else
+            SceneManager.LoadScene("CharacterSelectScene"); // fallback for editor testing
     }
 }
