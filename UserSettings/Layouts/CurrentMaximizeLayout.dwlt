@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 526
+  controlID: 1228
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 422
+  controlID: 1125
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneView
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -173,15 +173,15 @@ MonoBehaviour:
     y: 0
     width: 898
     height: 490
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
-  m_ActualView: {fileID: 5}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 5}
   - {fileID: 6}
   - {fileID: 7}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -636,9 +636,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 21.669733, y: -0.39536142, z: 13.298431}
+    m_Target: {x: 15.3045, y: -1.1861571, z: 9.136946}
     speed: 2
-    m_Value: {x: 21.669733, y: -0.39536142, z: 13.298431}
+    m_Value: {x: 15.3045, y: -1.1861571, z: 9.136946}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -684,13 +684,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.24998836, y: -0.17116223, z: 0.044948198, w: -0.9519448}
+    m_Target: {x: -0.24632677, y: 0.055786803, z: -0.014204544, w: -0.96748096}
     speed: 2
-    m_Value: {x: -0.24998711, y: -0.17116137, z: 0.044947974, w: -0.95194006}
+    m_Value: {x: -0.24632551, y: 0.055786517, z: -0.014204471, w: -0.967476}
   m_Size:
-    m_Target: 2.5194442
+    m_Target: 4.4378805
     speed: 2
-    m_Value: 2.5194442
+    m_Value: 4.4378805
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 467
+  controlID: 1176
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -959,8 +959,8 @@ MonoBehaviour:
     y: 0
     width: 565
     height: 425
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -1008,7 +1008,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0caefdff16b3fdff6cce0100
+      m_ExpandedIDs: 1c90fdff0caefdff16b3fdff6cce0100d2d6010024e10100c8e30100fae30100bae90100e6e9010014ea0100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1107,7 +1107,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Materials/Objects
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1117,16 +1117,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Materials/Objects
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Gebruiker\Documents\Git Repos\Unity Projects\RPG-Roguelike
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 158}
-    m_SelectedIDs: 568d0000
-    m_LastClickedID: 36182
-    m_ExpandedIDs: 00000000308d0000368d0000388d000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 00080200
+    m_LastClickedID: 133120
+    m_ExpandedIDs: 00000000308d0000548d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1181,8 +1181,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: e6e20100
+    m_LastClickedInstanceID: 123622
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 584e0000000000006ab801002e2000002e5d00006c6c0000c87d0000b87d0000
     m_RenameOverlay:
@@ -1232,8 +1232,8 @@ MonoBehaviour:
     y: 0
     width: 441
     height: 925
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -1282,7 +1282,7 @@ MonoBehaviour:
     m_CachedPref: -151
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -1
+  m_LastInspectedObjectInstanceID: 123622
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

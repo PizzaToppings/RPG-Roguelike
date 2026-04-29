@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Character : Unit
@@ -23,19 +24,17 @@ public class Character : Unit
 
     public override void Init()
     {
-        // Apply the selected character's skills before base.Init() so they are
-        // ready for SetSkillData() and the skills manager.
         if (RunData.SelectedCharacter != null)
         {
-            basicAttack.Init(RunData.SelectedCharacter.basicAttack);
-            basicSkill.Init(RunData.SelectedCharacter.basicSkill);
-            skills = RunData.AcquiredSkills.ConvertAll(so => { var s = new Skill(); s.Init(so); return s; });
+            basicAttack = RunData.SelectedCharacter.basicAttack;
+            basicSkill  = RunData.SelectedCharacter.basicSkill;
+            skills      = new List<Skill>(RunData.AcquiredSkills);
         }
         else
         {
             basicAttack.Init(basicAttackSO);
             basicSkill.Init(basicSkillSO);
-            skills = skillsSO.ConvertAll(so => { var s = new Skill(); s.Init(so); return s; });
+            skills = skillsSO.Where(so => so != null).Select(so => { var s = new Skill(); s.Init(so); return s; }).ToList();
         }
 
         Friendly = true;

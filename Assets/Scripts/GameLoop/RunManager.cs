@@ -69,7 +69,9 @@ public class RunManager : MonoBehaviour
     /// <summary>Called by SkillSelectCard when the player picks a skill.</summary>
     public void SelectSkill(SO_MainSkill skill)
     {
-        RunData.AcquiredSkills.Add(skill);
+        var skillInstance = new Skill();
+        skillInstance.Init(skill);
+        RunData.AcquiredSkills.Add(skillInstance);
         RunData.CurrentEncounter = PickRandomEncounter();
         SceneManager.LoadScene(combatScene);
     }
@@ -128,7 +130,7 @@ public class RunManager : MonoBehaviour
         }
 
         var characterClasses  = RunData.SelectedCharacter.Classes;
-        var alreadyOwned      = new HashSet<SO_MainSkill>(RunData.AcquiredSkills);
+        var alreadyOwned      = new HashSet<SO_MainSkill>(RunData.AcquiredSkills.Select(s => s.mainSkillSO));
 
         return skillPool.Skills
             .Where(s => !alreadyOwned.Contains(s) &&

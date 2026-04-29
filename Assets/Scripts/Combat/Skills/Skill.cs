@@ -11,9 +11,6 @@ public class Skill
     [Space]
     public int EnergyCost = 10;
     public int DefaultCharges = 1;
-    [HideInInspector] public int Charges = 1;
-
-    [HideInInspector] public Unit Caster;
 
     public void Init(SO_MainSkill skillSO)
     {
@@ -21,13 +18,16 @@ public class Skill
         EnergyCost = skillSO.EnergyCost;
         DefaultCharges = skillSO.DefaultCharges;
         SkillPartGroups = skillSO.SkillPartGroups;
-        Charges = DefaultCharges;
+    }
+
+    public void Init()
+    {
+        SkillData.SetCharges(this, DefaultCharges);
     }
 
     public void Preview(BoardTile mouseOverTile, Unit caster, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
     {
         var SkillPartGroupIndex = SkillData.SkillPartGroupIndex;
-        Caster = caster;
 
         for (int i = 0; i < SkillPartGroups[SkillPartGroupIndex].skillParts.Count; i++)
         {
@@ -82,12 +82,6 @@ public class Skill
                 sp.SetTargetAndTile(target, tile);
             }
         }
-    }
-
-    public void Init()
-    {
-        Charges = DefaultCharges;
-        SkillData.SkillPartGroupIndex = 0;
     }
 
     public virtual void Reset()

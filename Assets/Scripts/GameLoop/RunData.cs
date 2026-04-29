@@ -10,7 +10,7 @@ public static class RunData
     public static SO_Character SelectedCharacter;
 
     /// <summary>All special skills acquired so far this run (one added after each combat victory).</summary>
-    public static List<SO_MainSkill> AcquiredSkills = new List<SO_MainSkill>();
+    public static List<Skill> AcquiredSkills = new List<Skill>();
 
     /// <summary>The encounter that should be loaded in the next combat scene.</summary>
     public static SO_Encounter CurrentEncounter;
