@@ -14,7 +14,7 @@ public class CombatData
     public static void Reset()
     {
         currentRound = 0;
-        currentUnitTurn = 0;
+        CurrentUnitTurn = 0;
         onTurnStart.RemoveAllListeners();
         onTurnEnd.RemoveAllListeners();
         onRoundStart.RemoveAllListeners();

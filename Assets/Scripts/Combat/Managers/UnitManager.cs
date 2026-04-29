@@ -90,8 +90,8 @@ public class UnitManager : MonoBehaviour
             insertIndex++;
         UnitData.Units.Insert(insertIndex, unit);
 
-        if (insertIndex <= CombatData.currentUnitTurn)
-            CombatData.currentUnitTurn++;
+        if (insertIndex <= CombatData.CurrentUnitTurn)
+            CombatData.CurrentUnitTurn++;
 
         initiativeTracker.AddToInitiative(unit);
     }
@@ -119,13 +119,13 @@ public class UnitManager : MonoBehaviour
         if (UnitData.Enemies.Count == 0)
             combatManager.Win();
 
-        if (deadCharacterIndex < CombatData.currentUnitTurn)
+        if (deadCharacterIndex < CombatData.CurrentUnitTurn)
         {
-            CombatData.currentUnitTurn--;
+            CombatData.CurrentUnitTurn--;
         }
-        else if (deadCharacterIndex == CombatData.currentUnitTurn)
+        else if (deadCharacterIndex == CombatData.CurrentUnitTurn)
         {
-            CombatData.currentUnitTurn--;
+            CombatData.CurrentUnitTurn--;
             yield return StartCoroutine(combatManager.EndTurn());
         }
 

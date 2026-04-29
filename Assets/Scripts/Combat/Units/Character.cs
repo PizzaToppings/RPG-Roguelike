@@ -27,9 +27,15 @@ public class Character : Unit
         // ready for SetSkillData() and the skills manager.
         if (RunData.SelectedCharacter != null)
         {
-            basicAttack = RunData.SelectedCharacter.basicAttack;
-            basicSkill  = RunData.SelectedCharacter.basicSkill;
-            skills      = new List<SO_MainSkill>(RunData.AcquiredSkills);
+            basicAttack.Init(RunData.SelectedCharacter.basicAttack);
+            basicSkill.Init(RunData.SelectedCharacter.basicSkill);
+            skills = RunData.AcquiredSkills.ConvertAll(so => { var s = new Skill(); s.Init(so); return s; });
+        }
+        else
+        {
+            basicAttack.Init(basicAttackSO);
+            basicSkill.Init(basicSkillSO);
+            skills = skillsSO.ConvertAll(so => { var s = new Skill(); s.Init(so); return s; });
         }
 
         Friendly = true;

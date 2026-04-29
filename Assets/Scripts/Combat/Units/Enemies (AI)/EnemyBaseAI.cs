@@ -99,7 +99,7 @@ public class EnemyBaseAI : Enemy
                 }
                 return closestCharacter;
 
-            case TargetPreferenceEnum.LowestHealthTarget:
+            case TargetEnum.LowestHealthTarget:
                 Character lowestHealthCharacter = targetList.OrderBy(x => x.Hitpoints).First();
                 return lowestHealthCharacter;
         }

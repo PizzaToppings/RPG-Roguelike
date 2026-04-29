@@ -9,7 +9,7 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     UIManager uiManager;
 
     //SKill skill -- does this still exist?
-    SO_MainSkill skill;
+    Skill skill;
     Character character;
 
     public Image icon;
@@ -27,7 +27,7 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     }
 
     //public void SetOrUpdate(Skill thisSkill) 
-    public void SetOrUpdate(SO_MainSkill thisSkill, Character thisCharacter) 
+    public void SetOrUpdate(Skill thisSkill, Character thisCharacter) 
     {
         skill = thisSkill;
         character = thisCharacter;
@@ -76,7 +76,7 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
             EnergycostText.color = uiManager.energyTextUnavailable;
     }
 
-    public void UpdateActiveBorder(SO_MainSkill activeSkill)
+    public void UpdateActiveBorder(Skill activeSkill)
     {
         if (ActiveBorder != null)
             ActiveBorder.SetActive(skill != null && skill == activeSkill);

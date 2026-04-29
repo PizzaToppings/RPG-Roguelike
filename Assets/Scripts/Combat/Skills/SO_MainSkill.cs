@@ -92,7 +92,6 @@ public class SO_MainSkill : ScriptableObject
 
     public void Init()
     {
-        SkillData.SetCharges(this, DefaultCharges);
     }
 
     public virtual void Reset()

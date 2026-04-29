@@ -150,7 +150,7 @@ public class UIManager : MonoBehaviour
         infoScreen.Activate(skill, false);
     }
 
-    public void SetActiveSkillBorder(SO_MainSkill skill)
+    public void SetActiveSkillBorder(Skill skill)
     {
         basicAttackIcon.UpdateActiveBorder(skill);
         basicSkillIcon.UpdateActiveBorder(skill);
