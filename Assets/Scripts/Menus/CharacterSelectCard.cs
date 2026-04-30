@@ -2,39 +2,62 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// One selectable card on the character selection screen.
-///
-/// Required child UI elements (wire up in Inspector):
-///   - Name Text        : TextMeshProUGUI – character name
-///   - Classes Text     : TextMeshProUGUI – comma-separated class list
-///   - Stats Text       : TextMeshProUGUI – HP / Energy / Power / Defense / Speed summary
-///   - Portrait         : Image           – character portrait (optional)
-///   - Select Button    : Button          – confirm the selection
-/// </summary>
 public class CharacterSelectCard : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI nameText;
-    [SerializeField] TextMeshProUGUI classesText;
-    [SerializeField] TextMeshProUGUI statsText;
+    [SerializeField] Image classIconOne;
+    [SerializeField] Image classIconTwo;
+    [SerializeField] TextMeshProUGUI SpeedText;
+    [SerializeField] TextMeshProUGUI InitiativeText;
+    [SerializeField] TextMeshProUGUI PhysicalPowerText;
+    [SerializeField] TextMeshProUGUI PhysicalDefenseText;
+    [SerializeField] TextMeshProUGUI MagicalPowerText;
+    [SerializeField] TextMeshProUGUI MagicalDefenseText;
     [SerializeField] Image           portrait;
+
+    [Space]
+    [SerializeField] CharacterSelectSkillIcon basicAttackIcon;
+    [SerializeField] CharacterSelectSkillIcon basicSkillIcon;
+    //[SerializeField] CharacterSelectSkillIcon SkillIconThree;
+
+    [Space]
     [SerializeField] Button          selectButton;
 
     SO_Character characterData;
+
+    Skill basicAttack = new Skill();
+    Skill basicSkill = new Skill();
 
     public void Setup(SO_Character character)
     {
         characterData = character;
 
         nameText.text    = character.Name;
-        classesText.text = string.Join(", ", character.Classes);
-        statsText.text   = $"HP {character.MaxHealth}  |  Energy {character.MaxEnergy}\n" +
-                           $"Phys {character.PhysicalPower} / {character.PhysicalDefense}\n" +
-                           $"Magic {character.MagicalPower} / {character.MagicalDefense}\n" +
-                           $"Speed {character.MoveSpeed}  |  Init {character.Initiative}";
+        classIconOne.sprite = CharacterSelectUI.Instance.GetClassIcon(character.Classes[0]);
+        classIconTwo.sprite = CharacterSelectUI.Instance.GetClassIcon(character.Classes[1]);
+
+        SpeedText.text = character.MoveSpeed.ToString();
+        InitiativeText.text = character.Initiative.ToString();
+        PhysicalPowerText.text = character.PhysicalPower.ToString();
+        PhysicalDefenseText.text = character.PhysicalDefense.ToString();
+        MagicalPowerText.text = character.MagicalPower.ToString();
+        MagicalDefenseText.text = character.MagicalDefense.ToString();
 
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(OnSelect);
+
+        Debug.Log($"Setting up character card for {character.Name}");
+        Debug.Log($"characterdata {characterData}");
+        Debug.Log($"attack {characterData.basicAttack}");
+        Debug.Log($"skill {characterData.basicSkill}");
+        Debug.Log($"skill {basicAttack}");
+        Debug.Log($"skill {basicSkill}");
+
+        basicAttack.Init(characterData.basicAttack);
+        basicSkill.Init(characterData.basicSkill);
+
+        basicAttackIcon.Set(basicAttack);
+        basicSkillIcon.Set(basicSkill);
     }
 
     void OnSelect()

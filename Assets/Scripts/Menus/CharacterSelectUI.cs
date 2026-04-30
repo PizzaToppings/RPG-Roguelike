@@ -1,18 +1,22 @@
+using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// Attach to a root GameObject in CharacterSelectScene.
-/// Populates the three character cards with randomly drawn options from the CharacterRoster.
-///
-/// Scene setup:
-///   - Create 3 UI card prefabs based on CharacterSelectCard and assign them to the Cards array.
-/// </summary>
+
 public class CharacterSelectUI : MonoBehaviour
 {
+    public static CharacterSelectUI Instance;
+
     [SerializeField] CharacterSelectCard[] cards;
+
+    Coroutine showSkillCoroutine;
+
+    [SerializeField] InfoScreen infoScreen;
+    [SerializeField] SO_UI_Icons icons;
 
     void Start()
     {
+        Instance = this;
+
         if (RunManager.Instance == null)
         {
             Debug.LogWarning("CharacterSelectUI: RunManager not found in scene. Start from MainMenuScene or ensure RunManager GameObject exists.");
@@ -29,4 +33,24 @@ public class CharacterSelectUI : MonoBehaviour
                 cards[i].gameObject.SetActive(false);
         }
     }
+
+    public void StartShowSkillInformation(Skill skill)
+    {
+        showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
+    }
+
+    public void EndShowSkillInformation(Skill skill)
+    {
+        StopCoroutine(showSkillCoroutine);
+
+        infoScreen.Deactivate();
+    }
+
+    public IEnumerator ShowSkillInformation(Skill skill)
+    {
+        yield return new WaitForSeconds(1);
+        infoScreen.Activate(skill, false);
+    }
+    public Sprite GetClassIcon(ClassEnum thisClass) => icons.GetClassIcon(thisClass);
+
 }

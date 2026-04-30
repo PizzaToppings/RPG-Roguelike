@@ -8,7 +8,6 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     SkillsManager skillsManager;
     UIManager uiManager;
 
-    //SKill skill -- does this still exist?
     Skill skill;
     Character character;
 
@@ -26,7 +25,6 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
         uiManager = UIManager.Instance;
     }
 
-    //public void SetOrUpdate(Skill thisSkill) 
     public void SetOrUpdate(Skill thisSkill, Character thisCharacter) 
     {
         skill = thisSkill;

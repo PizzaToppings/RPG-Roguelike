@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff713aaf1e9d09b4595eae72f3238c9a, type: 3}
+  m_Name: UI_ICons
+  m_EditorClassIdentifier: 
+  DefaultCursorTexture: {fileID: 2800000, guid: 44a99ee545fd8ba46a452b12c1f9378b,
+    type: 3}
+  MeleeAttackCursorTexture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48,
+    type: 3}
+  RangedAttackCursorTexture: {fileID: 2800000, guid: d65d95ca16518034fa82669a92d0b6e7,
+    type: 3}
+  SpellCursorTexture: {fileID: 2800000, guid: 9ee5febc9c797aa45a8619f4542d6eee, type: 3}
+  CrossCursorTexture: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
+  AthleticsIcon: {fileID: 21300000, guid: bd412a2cc55cead4ea873f45c938b04f, type: 3}
+  AcrobaticsIcon: {fileID: 21300000, guid: 83aa35328d0fcca4cac0727f3054937e, type: 3}
+  MarksmanshipIcon: {fileID: 21300000, guid: d882c4e1ae97bff41bb3ba3d79a9d1b6, type: 3}
+  SubtletyIcon: {fileID: 21300000, guid: 7de36611e3aca4f43aac64c59fe5f856, type: 3}
+  ProtectionIcon: {fileID: 21300000, guid: 748e9132080c81d4dbe28df086066954, type: 3}
+  SorceryIcon: {fileID: 21300000, guid: c8f65991fbf802e4a806a6f5c51a06eb, type: 3}
+  ElementalismIcon: {fileID: 21300000, guid: 203e6f0fbd6b1344f9fb778c67c6db9c, type: 3}
+  NatureIcon: {fileID: 21300000, guid: d8b29d646def4e04089464c7c56134e5, type: 3}
+  HolyIcon: {fileID: 21300000, guid: 88950c882f1192041a8ff8ae54ec8f10, type: 3}
+  UnholyIcon: {fileID: 21300000, guid: 85cead675376a8148970433b01d7fe59, type: 3}
+  PhysicalDamageColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+  ArcaneDamageColor: {r: 0.3537736, g: 0.21960784, b: 1, a: 1}
+  FireDamageColor: {r: 1, g: 0, b: 0, a: 1}
+  WaterDamageColor: {r: 0.36320752, g: 0.75180787, b: 1, a: 1}
+  EarthDamageColor: {r: 0.5943396, g: 0.4051006, b: 0.2270826, a: 1}
+  IceDamageColor: {r: 0.6462264, g: 0.91524184, b: 1, a: 1}
+  ElectricDamageColor: {r: 1, g: 0.95726705, b: 0.4764151, a: 1}
+  PsychicDamageColor: {r: 0.83230203, g: 0.023584902, b: 1, a: 1}
+  HolyDamageColor: {r: 0.9245283, g: 0.74509805, b: 0.082858644, a: 1}
+  DarkDamageColor: {r: 0.39884013, g: 0.06848521, b: 0.764151, a: 1}
+  PoisonDamageColor: {r: 0.17021182, g: 0.4811321, b: 0.19876571, a: 1}
+  HealingColor: {r: 0.9974991, g: 1, b: 0, a: 1}
+  ShieldColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
+  BleedIcon: {fileID: 21300000, guid: 0a81058d6be40014982b527eab95f62a, type: 3}
+  PoisonIcon: {fileID: 21300000, guid: c43f20655cb1c3b46962f6b00bc95d52, type: 3}
+  BurnedIcon: {fileID: 21300000, guid: 88c0e88b29901f041ba384590604cd20, type: 3}
+  HiddenIcon: {fileID: 21300000, guid: 8bad4441b93439e469523638206276e3, type: 3}
+  BlindedIcon: {fileID: 21300000, guid: 3321f9076b038624cb3d9e675271a20d, type: 3}
+  SilencedIcon: {fileID: 21300000, guid: d6ded131bfa14a44dbfd81eeaa286ab8, type: 3}
+  FrightenedIcon: {fileID: 21300000, guid: 2e79bdcb91d9e9f46ae532573d2e4daf, type: 3}
+  IncapacitatedIcon: {fileID: 21300000, guid: 291449d14c0703c4b91285a253812398, type: 3}
+  StunnedIcon: {fileID: 21300000, guid: ffa58aec5d2ce1b40b9196109adfc55d, type: 3}
+  RootedIcon: {fileID: 21300000, guid: 041451af39874464d890d2c2e0ff90e4, type: 3}
+  TauntIcon: {fileID: 21300000, guid: b1b04f19d5ae4fb42827d6fec252eb2a, type: 3}
+  ThornsIcon: {fileID: 21300000, guid: 07ae1c931b2cd6b43b5aa3df4126d692, type: 3}

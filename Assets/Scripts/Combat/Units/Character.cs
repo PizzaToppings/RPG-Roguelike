@@ -26,8 +26,8 @@ public class Character : Unit
     {
         if (RunData.SelectedCharacter != null)
         {
-            basicAttack = RunData.SelectedCharacter.basicAttack;
-            basicSkill  = RunData.SelectedCharacter.basicSkill;
+            basicAttack.Init(RunData.SelectedCharacter.basicAttack);
+            basicSkill.Init(RunData.SelectedCharacter.basicSkill);
             skills      = new List<Skill>(RunData.AcquiredSkills);
         }
         else

@@ -19,7 +19,7 @@ public class SO_Character : ScriptableObject
     public int MagicalDefense;
 
     [Space]
-    public Skill basicAttack;
-    public Skill basicSkill;
+    public SO_MainSkill basicAttack;
+    public SO_MainSkill basicSkill;
     public SO_Trinket BasicTrinket;
 }
