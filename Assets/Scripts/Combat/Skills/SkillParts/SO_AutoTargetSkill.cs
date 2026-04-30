@@ -62,6 +62,7 @@ public class SO_AutoTargetSkill : SO_Skillpart
         PartData.TargetsHit.Clear();
         PartData.TilesHit.Clear();
         PartData.TargetsHit.Add(target);
+        PartData.TilesHit.Add(target.Tile);
 
         if (AddProjectileLine)
             ShowProjectileLine(SkillData.Caster.position, PartData.TargetsHit[0].position);

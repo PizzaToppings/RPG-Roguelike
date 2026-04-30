@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class Skill
     [Space]
     public int EnergyCost = 10;
     public int DefaultCharges = 1;
+    public int Charges => SkillData.GetCharges(this);
 
     public void Init(SO_MainSkill skillSO)
     {
