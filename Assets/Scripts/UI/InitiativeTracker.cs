@@ -23,7 +23,7 @@ public class InitiativeTracker : MonoBehaviour
             AddToInitiative(enemy);
         }
 
-        initiativeList.Sort((x, y) => x.Initiative);
+        SortAndRefresh();
 
         NextTurn();
     }
@@ -35,7 +35,7 @@ public class InitiativeTracker : MonoBehaviour
         init.Init(unit, initiativeList.Count);
 
         initiativeList.Add(init);
-        initiativeList.Sort((x, y) => x.Initiative);
+        SortAndRefresh();
     }
 
     public void RemoveFromInitiative(Unit unit)
@@ -44,7 +44,19 @@ public class InitiativeTracker : MonoBehaviour
 
         initiativeList.Remove(init);
         Destroy(init.gameObject);
-        initiativeList.Sort((x, y) => x.Initiative);
+        SortAndRefresh();
+    }
+
+    void SortAndRefresh()
+    {
+        initiativeList.Sort((x, y) => x.Initiative - y.Initiative);
+
+        for (int i = 0; i < initiativeList.Count; i++)
+        {
+            initiativeList[i].transform.SetSiblingIndex(i);
+            initiativeList[i].SetName();
+            initiativeList[i].RefreshColor();
+        }
     }
 
     public void NextTurn()

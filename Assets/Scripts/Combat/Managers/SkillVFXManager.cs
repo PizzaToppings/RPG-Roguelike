@@ -80,9 +80,9 @@ public class SkillVFXManager : MonoBehaviour
 
     Vector3 GetAimDirection(SO_SKillVFX skillVFX, Unit caster)
     {
-        var mainTarget = skillVFX.SPData.TilesHit[0];
-        if (mainTarget == null)
-            mainTarget = skillVFX.SPData.TargetsHit[0].Tile;
+        BoardTile mainTarget = skillVFX.SPData.TilesHit.Count > 0
+            ? skillVFX.SPData.TilesHit[0]
+            : skillVFX.SPData.TargetsHit[0].Tile;
         return (mainTarget.position - caster.position).normalized;
     }
 
