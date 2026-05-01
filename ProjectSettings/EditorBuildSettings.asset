@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestCombatScene.unity
     guid: e7b379115cef56e4fa0217f96a445509
+  - enabled: 1
+    path: Assets/Scenes/SkillSelectScene.unity
+    guid: dcb035cff2be73844a250a425e6d6ca8
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

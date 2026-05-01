@@ -1,24 +1,17 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-/// <summary>
-/// One selectable card on the skill selection screen.
-///
-/// Required child UI elements (wire up in Inspector):
-///   - Skill Name Text  : TextMeshProUGUI – skill name
-///   - Classes Text     : TextMeshProUGUI – compatible classes (or "Universal")
-///   - Description Text : TextMeshProUGUI – skill description
-///   - Skill Icon       : Image           – skill icon sprite
-///   - Energy Cost Text : TextMeshProUGUI – energy cost (optional)
-///   - Select Button    : Button          – confirm the selection
-/// </summary>
 public class SkillSelectCard : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI skillNameText;
-    [SerializeField] TextMeshProUGUI classesText;
+    [SerializeField] List<Image>     classIcons;
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] TextMeshProUGUI energyCostText;
+    [SerializeField] TextMeshProUGUI rangeText;
+    [SerializeField] TextMeshProUGUI DamageTypeText;
+    [SerializeField] TextMeshProUGUI ChargesText;
     [SerializeField] Image           skillIcon;
     [SerializeField] Button          selectButton;
 
@@ -29,8 +22,27 @@ public class SkillSelectCard : MonoBehaviour
         skillData = skill;
 
         skillNameText.text   = skill.SkillName;
-        classesText.text     = skill.Classes.Count > 0 ? string.Join(", ", skill.Classes) : "Universal";
+
+        for (int i = 0; i < skillData.Classes.Count; i++)
+        {
+            classIcons[i].gameObject.SetActive(true);
+            classIcons[i].sprite = SkillSelectUI.Instance.GetClassIcon(skillData.Classes[i]);
+        }
         descriptionText.text = skill.Description;
+
+        if (DamageTypeText != null)
+        {
+            if (skill.IsMagical)
+                DamageTypeText.text = "Damage Type: Magical";
+            else
+                DamageTypeText.text = "Damage Type: Physical";
+        }
+
+        if (ChargesText != null)
+            ChargesText.text = $"Charges: {skill.DefaultCharges}";
+
+        if (rangeText != null)
+            rangeText.text = $"Range: {skill.GetAttackRange()}";
 
         if (energyCostText != null)
             energyCostText.text = $"Cost: {skill.EnergyCost}";

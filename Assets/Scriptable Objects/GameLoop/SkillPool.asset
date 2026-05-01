@@ -12,4 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127605872b83d1d449dccfee6c8cf1ad, type: 3}
   m_Name: SkillPool
   m_EditorClassIdentifier: 
-  Skills: []
+  Skills:
+  - {fileID: 11400000, guid: bd01a075785dac64ca7b8312d3ae8d6d, type: 2}
+  - {fileID: 11400000, guid: 49cbd252f5428d74abc9a80330dcb84b, type: 2}
+  - {fileID: 11400000, guid: 3ca6abc92bdca344b8cb00b6384799a6, type: 2}
+  - {fileID: 11400000, guid: e4459c60db683ab4699d6c80b3f5367b, type: 2}
+  - {fileID: 11400000, guid: 4c5be7f6f6ba51e4f987fde48ed0fb3a, type: 2}
+  - {fileID: 11400000, guid: 28ab132f1bdb5b34c850f92dd8264017, type: 2}
+  - {fileID: 11400000, guid: 10519385b68ab9e45aee5d5f85676946, type: 2}
+  - {fileID: 11400000, guid: dfe5cf204d9729f479c2b726ff8154d3, type: 2}
+  - {fileID: 11400000, guid: 366c467fc321f1b4a8038c81c06a8af8, type: 2}
+  - {fileID: 11400000, guid: 705c9d8ff1462bd4ab6716800679d503, type: 2}
+  - {fileID: 11400000, guid: 2ca27717661e7bd4789f2f0465aa7aa8, type: 2}
+  - {fileID: 11400000, guid: 3178ed8a50e130f40a0c7f068bd1d003, type: 2}
+  - {fileID: 11400000, guid: e1fd823b042f3f94d9fd2cdacf3dc800, type: 2}
+  - {fileID: 11400000, guid: 7757013e94ff22e4fa3c21a25991831d, type: 2}
+  - {fileID: 11400000, guid: 5828efd1d7c85ac4d8ec869235576d73, type: 2}
+  - {fileID: 11400000, guid: e37baa55d14165d4e9afca09439d072a, type: 2}
+  - {fileID: 11400000, guid: ef5eac478b5ca4f48afbe4667711da13, type: 2}
+  - {fileID: 11400000, guid: af676bc3262e7d048978e06f8a471f6b, type: 2}
+  - {fileID: 11400000, guid: d861aab15d959a042ad74fa03797ce2f, type: 2}
+  - {fileID: 11400000, guid: c48ba09261ed7a1419ef3cae235c7131, type: 2}
+  - {fileID: 11400000, guid: 16438f75cefe7a24e981aa051e1b7f67, type: 2}
+  - {fileID: 11400000, guid: 8e164b7e4ede4a74189e7b84442db8d1, type: 2}
+  - {fileID: 11400000, guid: ce3cf8a739d16bd48a69ee3a54aa8416, type: 2}
+  - {fileID: 11400000, guid: 4084a92bb46544a418e6eb26a2b45705, type: 2}
+  - {fileID: 11400000, guid: 07114953f5fe77e4496cd769601fc6fe, type: 2}

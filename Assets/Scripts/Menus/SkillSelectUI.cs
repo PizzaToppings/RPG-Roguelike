@@ -1,19 +1,18 @@
 using UnityEngine;
 
-/// <summary>
-/// Attach to a root GameObject in SkillSelectScene.
-/// Populates the skill cards with randomly drawn options from the SkillPool,
-/// filtered to skills that match the selected character's classes.
-///
-/// Scene setup:
-///   - Create 3 UI card prefabs based on SkillSelectCard and assign them to the Cards array.
-/// </summary>
 public class SkillSelectUI : MonoBehaviour
 {
+    public static SkillSelectUI Instance;
+
     [SerializeField] SkillSelectCard[] cards;
+
+    [SerializeField] SO_UI_Icons icons;
+
 
     void Start()
     {
+        Instance = this;
+
         if (RunManager.Instance == null)
         {
             Debug.LogWarning("SkillSelectUI: RunManager not found. Start from MainMenuScene or ensure RunManager GameObject exists.");
@@ -35,4 +34,7 @@ public class SkillSelectUI : MonoBehaviour
                 cards[i].gameObject.SetActive(false);
         }
     }
+
+    public Sprite GetClassIcon(ClassEnum thisClass) => icons.GetClassIcon(thisClass);
+
 }
