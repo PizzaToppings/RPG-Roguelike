@@ -36,6 +36,7 @@ public class CombatManager : MonoBehaviour
         CreateInstances();
         InitManagers();
         CreateBattlefield();
+        boardManager.Clear();
 		SetUnits();
 		PreloadVFX();
 		SetInitiative();

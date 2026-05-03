@@ -418,6 +418,7 @@ public class BoardManager : MonoBehaviour
     public IEnumerator MoveToTile()
     {
         UnitData.CurrentAction = CurrentActionKind.Animating;
+        VisualClear();
         Path.Reverse();
 
         yield return StartCoroutine(UnitData.ActiveUnit.Move(Path));

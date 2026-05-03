@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     public Color energyTextUnavailable;
 
     [Space]
+    public Sprite disabledSkillSprite;
+
+    [Space]
     [SerializeField] List<CharacterPortrait> CharacterPortraits;
 
     Coroutine showSkillCoroutine;
@@ -58,6 +61,19 @@ public class UIManager : MonoBehaviour
             SetSkillIcons(character);
             SetConsumableIcons(character);
         }
+        else
+        {
+            SetDisabledSkillIcons();
+        }
+    }
+
+    public void SetDisabledSkillIcons()
+    {
+        basicAttackIcon.SetDisabled();
+        basicSkillIcon.SetDisabled();
+
+        foreach (var skillIcon in skillIcons)
+            skillIcon.SetDisabled();
     }
 
     public void SetSkillIcons(Character CurrentActiveUnit)

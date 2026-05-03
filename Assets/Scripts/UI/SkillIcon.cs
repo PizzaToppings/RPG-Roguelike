@@ -16,6 +16,7 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     [Space]
     [SerializeField] GameObject ActiveBorder;
     [SerializeField] GameObject chargesImage;
+    [SerializeField] GameObject energyCostImage;
     [SerializeField] TextMeshProUGUI chargesText;
     [SerializeField] TextMeshProUGUI EnergycostText;
 
@@ -66,6 +67,8 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     {
         if (EnergycostText == null)
             return;
+
+        energyCostImage.SetActive(true);
         EnergycostText.text = skill.EnergyCost.ToString();
 
         if (character.Energy >= skill.EnergyCost)
@@ -78,6 +81,21 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     {
         if (ActiveBorder != null)
             ActiveBorder.SetActive(skill != null && skill == activeSkill);
+    }
+
+    public void SetDisabled()
+    {
+        icon.gameObject.SetActive(true);
+        icon.sprite = uiManager.disabledSkillSprite;
+
+        if (chargesImage != null)
+            chargesImage.SetActive(false);
+        if (chargesText != null)
+            chargesText.gameObject.SetActive(false);
+        energyCostImage.SetActive(false);
+
+        if (ActiveBorder != null)
+            ActiveBorder.SetActive(false);
     }
 
     public void Clear()

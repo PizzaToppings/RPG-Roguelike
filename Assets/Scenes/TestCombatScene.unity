@@ -211,7 +211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0fb0b6cd7ee1d4c4eb261e33ef630c61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b265b2c937528454f82a357a40966537, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2126,6 +2126,7 @@ MonoBehaviour:
   icon: {fileID: 1277361}
   ActiveBorder: {fileID: 762800967}
   chargesImage: {fileID: 236603856}
+  energyCostImage: {fileID: 1530834386}
   chargesText: {fileID: 791703390}
   EnergycostText: {fileID: 815251984}
 --- !u!114 &42713168
@@ -2340,7 +2341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &55532161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3231,7 +3232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &76602787
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3328,6 +3329,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   ActiveBorder: {fileID: 0}
   chargesImage: {fileID: 0}
+  energyCostImage: {fileID: 0}
   chargesText: {fileID: 0}
   EnergycostText: {fileID: 0}
 --- !u!114 &76602790
@@ -7676,7 +7678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &236603857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8624,7 +8626,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0fb0b6cd7ee1d4c4eb261e33ef630c61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b265b2c937528454f82a357a40966537, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -12121,7 +12123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &377083162
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12435,7 +12437,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0fb0b6cd7ee1d4c4eb261e33ef630c61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b265b2c937528454f82a357a40966537, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13362,7 +13364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0fb0b6cd7ee1d4c4eb261e33ef630c61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b265b2c937528454f82a357a40966537, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13625,6 +13627,7 @@ MonoBehaviour:
   icon: {fileID: 415802689}
   ActiveBorder: {fileID: 849664260}
   chargesImage: {fileID: 612673627}
+  energyCostImage: {fileID: 873896386}
   chargesText: {fileID: 109675556}
   EnergycostText: {fileID: 990010485}
 --- !u!114 &424703303
@@ -14841,7 +14844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &464907920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15957,6 +15960,7 @@ MonoBehaviour:
   icon: {fileID: 1799892316}
   ActiveBorder: {fileID: 1583184194}
   chargesImage: {fileID: 464907919}
+  energyCostImage: {fileID: 55532160}
   chargesText: {fileID: 1603953415}
   EnergycostText: {fileID: 1172749680}
 --- !u!114 &514079462
@@ -19512,7 +19516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &612673628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20497,6 +20501,7 @@ MonoBehaviour:
   icon: {fileID: 775727901}
   ActiveBorder: {fileID: 0}
   chargesImage: {fileID: 0}
+  energyCostImage: {fileID: 0}
   chargesText: {fileID: 0}
   EnergycostText: {fileID: 0}
 --- !u!114 &641880338
@@ -27804,7 +27809,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0fb0b6cd7ee1d4c4eb261e33ef630c61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b265b2c937528454f82a357a40966537, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -28853,7 +28858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &873896387
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35990,7 +35995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1169799306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39000,6 +39005,7 @@ MonoBehaviour:
   icon: {fileID: 382079003}
   ActiveBorder: {fileID: 1074932394}
   chargesImage: {fileID: 1534349457}
+  energyCostImage: {fileID: 1169799305}
   chargesText: {fileID: 2062936568}
   EnergycostText: {fileID: 5874900}
 --- !u!114 &1264349141
@@ -41043,6 +41049,7 @@ MonoBehaviour:
   icon: {fileID: 1853669709}
   ActiveBorder: {fileID: 0}
   chargesImage: {fileID: 0}
+  energyCostImage: {fileID: 0}
   chargesText: {fileID: 0}
   EnergycostText: {fileID: 0}
 --- !u!114 &1339945926
@@ -41885,6 +41892,8 @@ MonoBehaviour:
   EnergyText: {fileID: 1714023696}
   energyTextAvailable: {r: 0.14901961, g: 0.7803922, b: 0.9607844, a: 1}
   energyTextUnavailable: {r: 0.6415094, g: 0.1724813, b: 0.1724813, a: 1}
+  disabledSkillSprite: {fileID: 21300000, guid: b265b2c937528454f82a357a40966537,
+    type: 3}
   CharacterPortraits:
   - {fileID: 131053502}
   - {fileID: 0}
@@ -46133,7 +46142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1519368074
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46230,6 +46239,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   ActiveBorder: {fileID: 0}
   chargesImage: {fileID: 0}
+  energyCostImage: {fileID: 0}
   chargesText: {fileID: 0}
   EnergycostText: {fileID: 0}
 --- !u!114 &1519368077
@@ -46963,7 +46973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1530834387
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47402,7 +47412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1534349458
 RectTransform:
   m_ObjectHideFlags: 0
@@ -48660,7 +48670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1589722077
 RectTransform:
   m_ObjectHideFlags: 0
@@ -51174,7 +51184,7 @@ MonoBehaviour:
   camRotator: {fileID: 546395575}
   moveSpeed: 5
   rotationSpeed: 100
-  zoomSpeed: 50
+  zoomSpeed: 400
   panToCharacterSpeed: 60
   zoomRange: {x: 2, y: 20}
   RotateRange: {x: -40, y: 40}
@@ -53374,6 +53384,7 @@ MonoBehaviour:
   icon: {fileID: 842464748}
   ActiveBorder: {fileID: 297622524}
   chargesImage: {fileID: 76602786}
+  energyCostImage: {fileID: 1589722076}
   chargesText: {fileID: 1413943571}
   EnergycostText: {fileID: 1247230310}
 --- !u!114 &1753529489
@@ -54807,7 +54818,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0fb0b6cd7ee1d4c4eb261e33ef630c61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b265b2c937528454f82a357a40966537, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -54961,6 +54972,7 @@ MonoBehaviour:
   icon: {fileID: 278484093}
   ActiveBorder: {fileID: 0}
   chargesImage: {fileID: 0}
+  energyCostImage: {fileID: 0}
   chargesText: {fileID: 0}
   EnergycostText: {fileID: 0}
 --- !u!114 &1808716599
@@ -62244,6 +62256,7 @@ MonoBehaviour:
   icon: {fileID: 272225336}
   ActiveBorder: {fileID: 614441284}
   chargesImage: {fileID: 1519368073}
+  energyCostImage: {fileID: 377083161}
   chargesText: {fileID: 1475626063}
   EnergycostText: {fileID: 347457146}
 --- !u!114 &2086172996

@@ -97,6 +97,8 @@ public class Unit : UnitStats
 
         Tile.OnExitTile();
 
+        BoardTile previousTile = Tile;
+
         for (int i = 0; i < path.Count; i++)
         {
             endPosition = path[i].transform.position;
@@ -115,7 +117,8 @@ public class Unit : UnitStats
 
             path[i].OnEnterTile(this);
 
-            MoveSpeedLeft--;
+            MoveSpeedLeft -= boardManager.GetRangeReduction(previousTile, path[i]);
+            previousTile = path[i];
             startPosition = endPosition;
 
             if (i != path.Count - 1)
