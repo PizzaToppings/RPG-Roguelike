@@ -1,9 +1,18 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FireTotem : Unit
 {
     public SO_Skillpart skill;
+
+    public override List<SO_SKillVFX> GetSkillVFXList()
+    {
+        var result = new List<SO_SKillVFX>();
+        if (skill?.SkillVFX != null)
+            result.AddRange(skill.SkillVFX);
+        return result;
+    }
 
     public override IEnumerator StartTurn()
     {
@@ -50,6 +59,7 @@ public class FireTotem : Unit
 
         if (target != null)
 		{
+            Rotate(target.transform.position);
             skill.PartData = new SkillPartData();
             skill.PartData.TargetsHit.Add(target);
             StartCoroutine(skillsManager.CastSkillsPart(skill, this));

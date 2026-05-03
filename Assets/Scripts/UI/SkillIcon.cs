@@ -102,6 +102,9 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!CombatData.IsReady)
+            return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (skill == null)

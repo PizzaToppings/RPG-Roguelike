@@ -38,7 +38,7 @@ public class SkillVFXManager : MonoBehaviour
             var originIndex = i < skillVFX.Origins.Count - 1 ? i : skillVFX.Origins.Count - 1;
 
             skillObjects[i].transform.position = skillVFX.Origins[originIndex];
-            skillObjects[i].transform.rotation = Quaternion.Euler(GetAimDirection(skillVFX, caster) + skillVFX.SkillOriginRotation);
+            skillObjects[i].transform.rotation = Quaternion.LookRotation(GetAimDirection(skillVFX, caster)) * Quaternion.Euler(skillVFX.SkillOriginRotation);
         }
 
         if (skillVFX.SkillFxKind == SkillFxType.Projectile)
@@ -155,6 +155,26 @@ public class SkillVFXManager : MonoBehaviour
         return objectList;
     }
 
+    public void PreloadVFX(List<SO_SKillVFX> vfxList, int poolSize = 2)
+    {
+        foreach (var vfx in vfxList)
+        {
+            if (vfx == null || vfx.SkillObject == null)
+                continue;
+
+            int existing = 0;
+            foreach (Transform child in skillObjectParent)
+                if (child.gameObject.name == vfx.SkillObject.name + "(Clone)")
+                    existing++;
+
+            for (int i = existing; i < poolSize; i++)
+            {
+                var obj = Instantiate(vfx.SkillObject, skillObjectParent);
+                obj.SetActive(false);
+            }
+        }
+    }
+
     List<GameObject> GetOrCreateSpellObjects(SO_SKillVFX skillVFX)
     {
         var objectList = new List<GameObject>();
@@ -167,27 +187,32 @@ public class SkillVFXManager : MonoBehaviour
 		{
             var originIndex = i < skillVFX.Origins.Count-1 ? i : skillVFX.Origins.Count-1;
 
-            if (skillObjectParent.childCount > 0)
+            GameObject found = null;
+
+            foreach (Transform childTransform in skillObjectParent.transform)
             {
-                foreach (Transform childTransform in skillObjectParent.transform)
+                var child = childTransform.gameObject;
+
+                if (child == null || child.activeSelf)
+                    continue;
+
+                if (child.name == skillVFX.SkillObject.name + "(Clone)")
                 {
-                    var child = childTransform.gameObject;
-
-                    if (child == null)
-                        continue;
-
-                    if (child.activeSelf)
-                        continue;
-
-                    if (child.name == skillVFX.SkillObject.name + "(Clone)")
-                    {
-                        child.transform.position = skillVFX.Origins[originIndex];
-                        child.SetActive(true);
-                        objectList.Add(child);
-                    }
+                    found = child;
+                    break;
                 }
             }
-            objectList.Add(Instantiate(skillVFX.SkillObject, skillVFX.Origins[originIndex], Quaternion.identity, skillObjectParent));
+
+            if (found != null)
+            {
+                found.transform.position = skillVFX.Origins[originIndex];
+                found.SetActive(true);
+                objectList.Add(found);
+            }
+            else
+            {
+                objectList.Add(Instantiate(skillVFX.SkillObject, skillVFX.Origins[originIndex], Quaternion.identity, skillObjectParent));
+            }
         }
         
         return objectList;

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
@@ -20,6 +21,9 @@ public class CombatManager : MonoBehaviour
     [SerializeField] InitiativeTracker initiativeTracker;
     [SerializeField] CameraController cameraController;
 
+    [Space]
+    [SerializeField] float combatStartDelay = 1f;
+
     void Start()
     {
         Instance = this;
@@ -33,10 +37,17 @@ public class CombatManager : MonoBehaviour
         InitManagers();
         CreateBattlefield();
 		SetUnits();
+		PreloadVFX();
 		SetInitiative();
 		RoundStart();
-		TurnStart();
+		StartCoroutine(DelayedTurnStart());
 	}
+
+    IEnumerator DelayedTurnStart()
+    {
+        yield return new WaitForSeconds(combatStartDelay);
+        TurnStart();
+    }
 
     void CreateInstances()
     {
@@ -76,6 +87,14 @@ public class CombatManager : MonoBehaviour
         unitManager.PlaceUnits();
     }
 
+    void PreloadVFX()
+    {
+        var allVFX = new List<SO_SKillVFX>();
+        foreach (var unit in UnitData.Units)
+            allVFX.AddRange(unit.GetSkillVFXList());
+        skillVFXManager.PreloadVFX(allVFX);
+    }
+
     public void SetInitiative()
     {
         UnitData.Units.Sort((x1, x2) =>
@@ -96,6 +115,8 @@ public class CombatManager : MonoBehaviour
 
     public void TurnStart()
     {
+        CombatData.IsReady = true;
+
         if (CombatData.CurrentUnitTurn == UnitData.Units.Count)
         {
             CombatData.CurrentUnitTurn = 0;

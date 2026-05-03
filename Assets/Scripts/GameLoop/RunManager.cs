@@ -89,10 +89,6 @@ public class RunManager : MonoBehaviour
         SceneManager.LoadScene(mainMenuScene);
     }
 
-    // -------------------------------------------------------
-    // Option generation
-    // -------------------------------------------------------
-
     /// <summary>
     /// Returns up to <see cref="characterOptionCount"/> randomly chosen characters from the roster.
     /// </summary>
@@ -110,11 +106,6 @@ public class RunManager : MonoBehaviour
             .ToArray();
     }
 
-    /// <summary>
-    /// Returns up to <see cref="skillOptionCount"/> skills from the pool that are compatible
-    /// with the selected character's classes and have not been acquired yet.
-    /// Skills with an empty Classes list are offered to all characters.
-    /// </summary>
     public SO_MainSkill[] GetSkillOptions()
     {
         if (skillPool == null || skillPool.Skills.Count == 0)
@@ -140,10 +131,6 @@ public class RunManager : MonoBehaviour
             .ToArray();
     }
 
-    // -------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------
-
     SO_Encounter PickRandomEncounter()
     {
         if (encounterPool == null || encounterPool.Encounters.Count == 0)
@@ -152,6 +139,7 @@ public class RunManager : MonoBehaviour
             return null;
         }
 
-        return encounterPool.Encounters[Random.Range(0, encounterPool.Encounters.Count)];
+        var encounter = encounterPool.Encounters[Random.Range(0, encounterPool.Encounters.Count)];
+        return encounter;
     }
 }

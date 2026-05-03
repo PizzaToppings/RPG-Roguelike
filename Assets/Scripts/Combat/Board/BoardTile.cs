@@ -86,7 +86,7 @@ public class BoardTile : MonoBehaviour
 
     public void Target()
     {
-        if (UnitData.ActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
+        if (!CombatData.IsReady || UnitData.ActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
             return;
 
         if (currentUnit != null && SkillData.CastOnTarget && UnitData.CurrentAction == CurrentActionKind.Basic)
@@ -167,6 +167,9 @@ public class BoardTile : MonoBehaviour
 
     public void OnClick()
 	{
+        if (!CombatData.IsReady)
+            return;
+
         if (currentUnit == null)
 		{
             if (UnitData.ActiveUnit.Friendly == false || EventSystem.current.IsPointerOverGameObject())

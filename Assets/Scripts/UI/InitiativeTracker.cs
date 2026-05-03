@@ -54,7 +54,7 @@ public class InitiativeTracker : MonoBehaviour
         for (int i = 0; i < initiativeList.Count; i++)
         {
             initiativeList[i].transform.SetSiblingIndex(i);
-            initiativeList[i].SetName();
+            initiativeList[i].SetNumber(i + 1);
             initiativeList[i].RefreshColor();
         }
     }

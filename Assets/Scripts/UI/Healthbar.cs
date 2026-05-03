@@ -45,10 +45,12 @@ public class Healthbar : MonoBehaviour
 
     void UpdateStatusEffects()
 	{
+        if (this == null || !gameObject) return;
+
         if (ui_Singletons == null)
             ui_Singletons = UI_Singletons.Instance;
 
-        statusEffectImages.ForEach(x => x.enabled = false);
+        statusEffectImages.ForEach(x => { if (x != null) x.enabled = false; });
 
         int imageIndex = 0;
         for (int i = 0; i < statusEffects.Count; i++)

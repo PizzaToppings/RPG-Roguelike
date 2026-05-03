@@ -38,8 +38,6 @@ public class InitiativeInformation : MonoBehaviour
 
     public void RefreshColor()
     {
-        Debug.Log("Refreshing color for " + thisUnit.name + " with initiative " + Initiative);
-        Debug.Log("Friendly: " + thisUnit.Friendly);
         if (thisUnit.Friendly)
         {
             Background.color = FriendlyBackground;
@@ -55,11 +53,6 @@ public class InitiativeInformation : MonoBehaviour
     public void SetNumber(int index)
     {
         number.text = (index + 1).ToString();
-    }
-
-    public void SetName()
-    {
-        number.text = thisUnit.name;
     }
 
     public void ToggleActive(bool active)

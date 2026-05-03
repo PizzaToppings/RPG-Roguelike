@@ -121,7 +121,9 @@ public class Enemy : Unit
         if (closestTile != null && 
             (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
         {
-            closestTile.UnTarget();
+            var tile = closestTile;
+            closestTile = null;
+            tile.UnTarget();
             SkillData.Reset();
             skillVFXManager.EndProjectileLine();
         }

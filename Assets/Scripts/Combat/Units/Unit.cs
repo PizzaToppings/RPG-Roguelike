@@ -131,7 +131,7 @@ public class Unit : UnitStats
         modelAnimator.SetBool("Run", false);
     }
 
-    void Rotate(Vector3 endPosition) 
+    protected void Rotate(Vector3 endPosition) 
     {
         transform.LookAt(new Vector3(endPosition.x, transform.position.y, endPosition.z));
     }
@@ -224,6 +224,11 @@ public class Unit : UnitStats
         ThisHealthbar.UpdateHealthbar();
 
         return damagaDataResolved;
+    }
+
+    public virtual List<SO_SKillVFX> GetSkillVFXList()
+    {
+        return new List<SO_SKillVFX>();
     }
 
     public virtual IEnumerator StartTurn()

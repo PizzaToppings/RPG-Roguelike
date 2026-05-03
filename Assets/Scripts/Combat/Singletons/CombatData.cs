@@ -2,6 +2,8 @@ using UnityEngine.Events;
 
 public class CombatData
 {
+    public static bool IsReady = false;
+
     public static int currentRound = 0;
 
     public static int CurrentUnitTurn = 0;
@@ -13,6 +15,7 @@ public class CombatData
 
     public static void Reset()
     {
+        IsReady = false;
         currentRound = 0;
         CurrentUnitTurn = 0;
         onTurnStart.RemoveAllListeners();

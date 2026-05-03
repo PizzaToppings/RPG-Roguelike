@@ -46,13 +46,6 @@ public class CharacterSelectCard : MonoBehaviour
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(OnSelect);
 
-        Debug.Log($"Setting up character card for {character.Name}");
-        Debug.Log($"characterdata {characterData}");
-        Debug.Log($"attack {characterData.basicAttack}");
-        Debug.Log($"skill {characterData.basicSkill}");
-        Debug.Log($"skill {basicAttack}");
-        Debug.Log($"skill {basicSkill}");
-
         basicAttack.Init(characterData.basicAttack);
         basicSkill.Init(characterData.basicSkill);
 

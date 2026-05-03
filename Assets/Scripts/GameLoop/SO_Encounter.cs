@@ -2,10 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Defines a single combat encounter: a named set of enemies with their starting board positions.
-/// Create via: right-click in Project window > ScriptableObjects > GameLoop > Encounter
-/// </summary>
 [CreateAssetMenu(fileName = "Encounter", menuName = "ScriptableObjects/GameLoop/Encounter")]
 public class SO_Encounter : ScriptableObject
 {

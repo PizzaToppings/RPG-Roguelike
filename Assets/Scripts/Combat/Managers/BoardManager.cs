@@ -31,6 +31,7 @@ public class BoardManager : MonoBehaviour
     public void Init()
     {
         movementLR = GetComponent<LineRenderer>();
+        movementLR.positionCount = 0;
         Directions = GetDirections();
         targetSkillsManager = TargetSkillsManager.Instance;
     }
@@ -342,6 +343,7 @@ public class BoardManager : MonoBehaviour
 
     public void PreviewMovementLine(BoardTile finaltile)
     {
+        movementLR.positionCount = 0;
         movementLR.positionCount++;
         movementLR.SetPosition(0, finaltile.position + MovementLineOffset);
 

@@ -201,12 +201,33 @@ public class Character : Unit
         SkillData.CurrentActiveSkill.Preview(mouseOverTile, this);
     }
 
+    public override List<SO_SKillVFX> GetSkillVFXList()
+    {
+        var result = new List<SO_SKillVFX>();
+        var allSkills = new List<Skill> { basicAttack, basicSkill };
+        allSkills.AddRange(skills);
+        allSkills.AddRange(consumables);
+        foreach (var skill in allSkills)
+        {
+            if (skill == null) continue;
+            foreach (var spg in skill.SkillPartGroups)
+                foreach (var sp in spg.skillParts)
+                    if (sp?.SkillVFX != null)
+                        result.AddRange(sp.SkillVFX);
+        }
+        return result;
+    }
+
     public override IEnumerator StartTurn()
     {
         yield return StartCoroutine(base.StartTurn());
 
         skillsManager.SetSkills(this);
         consumableManager.SetConsumables(this);
+
+        // Refresh icons now that energy has been restored and charges have been reset.
+        uiManager.SetSkillIcons(this);
+        uiManager.SetConsumableIcons(this);
 
         UnitData.CurrentAction = CurrentActionKind.Basic;
 
