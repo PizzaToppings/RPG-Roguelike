@@ -73,11 +73,14 @@ public class BoardTile : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (Input.GetMouseButton(1)) return;
         OnClick();
     }
 
     void OnMouseEnter()
     {
+        if (Input.GetMouseButton(1)) return;
+
         BoardData.CurrentMouseTile = this;
 
         if (!EventSystem.current.IsPointerOverGameObject())

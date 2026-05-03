@@ -51183,7 +51183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camRotator: {fileID: 546395575}
   moveSpeed: 5
-  rotationSpeed: 100
+  rotationSpeed: 150
   zoomSpeed: 400
   panToCharacterSpeed: 60
   zoomRange: {x: 2, y: 20}
