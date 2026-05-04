@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Healthbar : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Healthbar : MonoBehaviour
 
     [HideInInspector] public Unit thisUnit;
     [SerializeField] Image healthbar;
+    [SerializeField] TextMeshProUGUI hitpointsText;
     [SerializeField] Image shieldbar;
 
     [SerializeField] List<Image> statusEffectImages;
@@ -26,6 +28,7 @@ public class Healthbar : MonoBehaviour
 
         healthbar.fillAmount = (float)hitpoints / maxHealth;
         shieldbar.fillAmount = (float)(shieldPoints + hitpoints) / maxHealth;
+        hitpointsText.text = $"{hitpoints} / {maxHitpoints}" + (shieldPoints > 0 ? $" + {shieldPoints}" : "");
     }
 
     public void AddStatusEffect(StatusEffectEnum statusEffect)

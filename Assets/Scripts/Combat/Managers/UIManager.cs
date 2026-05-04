@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -42,7 +43,10 @@ public class UIManager : MonoBehaviour
 
         for (var i = 0; i < UnitData.Characters.Count; i++)
 		{
+            CharacterPortraits[i].gameObject.SetActive(true);
             CharacterPortraits[i].thisUnit = UnitData.Characters[i];
+            CharacterPortraits[i].Set();
+            CharacterPortraits[i].UpdateHealthbar();
             UnitData.Characters[i].ThisHealthbar = CharacterPortraits[i];
         }
 

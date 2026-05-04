@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestCharacter 2
   m_EditorClassIdentifier: 
   Name: Jim
-  Image: {fileID: 0}
+  Image: {fileID: 21300000, guid: 0fe0431c1781d8f4cbf0acde39e19cb9, type: 3}
   Classes: 0000000001000000
   CharacterPrefab: {fileID: 1623717467118256991, guid: 10b2f86aa19e3af469339d6bf46dd62b,
     type: 3}

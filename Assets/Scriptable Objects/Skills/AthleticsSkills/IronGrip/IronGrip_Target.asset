@@ -12,13 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: IronGrip_Target
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 0
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -27,6 +20,8 @@ MonoBehaviour:
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
+  DirectionInput: 0
+  DirectionInputSkillPart: {fileID: 0}
   TargetKind: 0
   tileColor:
     FillCenter: 0
@@ -35,11 +30,7 @@ MonoBehaviour:
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   SkillVFX: []
-  DamageEffect:
-    Caster: {fileID: 0}
-    DamageType: 0
-    Power: 0
-    IsMagical: 0
+  DamageEffects: []
   MinRange: 0
   MaxRange: 1.5
   IncludeInAutoMove: 0
@@ -47,13 +38,10 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects:
-  - {fileID: 11400000, guid: b334b70b30bedeb44a515d7c85058d5b, type: 2}
-  - {fileID: 11400000, guid: 48afb5a3848599d42900f1df38555c0a, type: 2}
+  StatusEffects: []
   tileEffects: []
   displacementEffect: {fileID: 11400000, guid: 446ba191a414ed04095379b11d6c97cf, type: 2}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
     Color: {r: 0.8196079, g: 0.4901961, b: 0, a: 1}

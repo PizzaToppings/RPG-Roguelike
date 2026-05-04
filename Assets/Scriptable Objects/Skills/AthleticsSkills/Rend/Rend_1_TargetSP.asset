@@ -12,13 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: Rend_1_TargetSP
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 0
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -52,12 +45,11 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects:
+  StatusEffects:
   - {fileID: 11400000, guid: 7c9885493af5c9347aee2b291d48d413, type: 2}
   tileEffects: []
   displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
     Color: {r: 1, g: 0, b: 0, a: 1}

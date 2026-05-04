@@ -21,4 +21,4 @@ MonoBehaviour:
   - EnemyPrefab: {fileID: 6609752126696691879, guid: 5ecdd490e165273468e3b1b557867738,
       type: 3}
     StartX: 0
-    StartY: 0
+    StartY: 1

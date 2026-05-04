@@ -10,10 +10,9 @@ public class SkillSelectAssignButton : MonoBehaviour
 
     public void Setup(SO_Character character, int partyIndex, SO_MainSkill skill)
     {
-        if (characterIcon != null)
-            characterIcon.sprite = character.Image;
-
         characterIcon = GetComponent<Image>();
+        characterIcon.sprite = character.Image;
+        
         button = GetComponent<Button>();
 
         bool compatible = skill.Classes.Count == 0 ||
