@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   IsMagical: 0
   Classes: 00000000
-  Description: Deal <damage0-0-0> to an Enemy and give it 7 <Bleed0-0-0> for 3 turns.
+  Description: Deal <damage0-0-0> to an Enemy and give it 7 <bleed0-1-0> for 3 turns.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1

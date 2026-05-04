@@ -28,10 +28,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 8ae02fe93ca03b141821c274bc6230c0, type: 2}
   EnergyCost: 5
   DefaultCharges: 1
-  Charges: 1
   Cursor: 0
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}
     Priority: 10
-  Caster: {fileID: 0}

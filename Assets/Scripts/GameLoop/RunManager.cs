@@ -62,24 +62,35 @@ public class RunManager : MonoBehaviour
     /// <summary>Called by CharacterSelectCard when the player picks a character.</summary>
     public void SelectCharacter(SO_Character character)
     {
-        RunData.SelectedCharacter = character;
+        RunData.Party.Add(new RunDataPartyMember(character));
         SceneManager.LoadScene(skillSelectScene);
     }
 
-    /// <summary>Called by SkillSelectCard when the player picks a skill.</summary>
-    public void SelectSkill(SO_MainSkill skill)
+    /// <summary>Called by SkillSelectCard when the player picks a skill for a specific party member.</summary>
+    public void SelectSkill(SO_MainSkill skill, int partyMemberIndex)
     {
         var skillInstance = new Skill();
         skillInstance.Init(skill);
-        RunData.AcquiredSkills.Add(skillInstance);
+        RunData.Party[partyMemberIndex].Skills.Add(skillInstance);
         RunData.CurrentEncounter = PickRandomEncounter();
         SceneManager.LoadScene(combatScene);
     }
 
-    /// <summary>Called by CombatManager.Win(). Proceeds to skill selection for the next combat.</summary>
+    /// <summary>
+    /// Called by CombatManager.Win().
+    /// Every 2 wins a new character joins the party (up to the 4-member cap).
+    /// Otherwise the player proceeds to skill selection.
+    /// </summary>
     public void OnCombatWon()
     {
-        SceneManager.LoadScene(skillSelectScene);
+        RunData.CombatWins++;
+        bool partyFull         = RunData.Party.Count >= 4;
+        bool shouldAddCharacter = (RunData.CombatWins % 2 == 0) && !partyFull;
+
+        if (shouldAddCharacter)
+            SceneManager.LoadScene(characterSelectScene);
+        else
+            SceneManager.LoadScene(skillSelectScene);
     }
 
     /// <summary>Called by CombatManager.Lose(). Returns to the main menu and resets the run.</summary>
@@ -90,7 +101,8 @@ public class RunManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns up to <see cref="characterOptionCount"/> randomly chosen characters from the roster.
+    /// Returns up to <see cref="characterOptionCount"/> randomly chosen characters from the roster,
+    /// excluding characters already in the party.
     /// </summary>
     public SO_Character[] GetCharacterOptions()
     {
@@ -100,13 +112,19 @@ public class RunManager : MonoBehaviour
             return new SO_Character[0];
         }
 
+        var alreadyInParty = new HashSet<SO_Character>(RunData.Party.Select(m => m.Character));
         return characterRoster.Characters
+            .Where(c => !alreadyInParty.Contains(c))
             .OrderBy(_ => Random.value)
             .Take(characterOptionCount)
             .ToArray();
     }
 
-    public SO_MainSkill[] GetSkillOptions()
+    /// <summary>
+    /// Returns up to <see cref="skillOptionCount"/> skills valid for the given party member.
+    /// Skills already owned by <em>any</em> party member are excluded to prevent duplicates.
+    /// </summary>
+    public SO_MainSkill[] GetSkillOptions(int partyMemberIndex = 0)
     {
         if (skillPool == null || skillPool.Skills.Count == 0)
         {
@@ -114,18 +132,55 @@ public class RunManager : MonoBehaviour
             return new SO_MainSkill[0];
         }
 
-        if (RunData.SelectedCharacter == null)
+        if (partyMemberIndex >= RunData.Party.Count)
         {
-            Debug.LogWarning("RunManager: No character selected when requesting skill options.");
+            Debug.LogWarning("RunManager: Invalid party member index when requesting skill options.");
             return new SO_MainSkill[0];
         }
 
-        var characterClasses  = RunData.SelectedCharacter.Classes;
-        var alreadyOwned      = new HashSet<SO_MainSkill>(RunData.AcquiredSkills.Select(s => s.mainSkillSO));
+        var targetMember     = RunData.Party[partyMemberIndex];
+        var characterClasses = targetMember.Character.Classes;
+
+        // Exclude all skills already assigned to any party member.
+        var alreadyOwned = new HashSet<SO_MainSkill>(
+            RunData.Party.SelectMany(m => m.Skills.Select(s => s.mainSkillSO)));
 
         return skillPool.Skills
             .Where(s => !alreadyOwned.Contains(s) &&
                         (s.Classes.Count == 0 || s.Classes.Any(c => characterClasses.Contains(c))))
+            .OrderBy(_ => Random.value)
+            .Take(skillOptionCount)
+            .ToArray();
+    }
+
+    /// <summary>
+    /// Returns up to <see cref="skillOptionCount"/> skills that at least one party member can use
+    /// and that are not yet owned by anyone. Used by the skill-select screen when each card
+    /// shows per-character assign buttons instead of a single select button.
+    /// </summary>
+    public SO_MainSkill[] GetSkillOptionsForParty()
+    {
+        if (skillPool == null || skillPool.Skills.Count == 0)
+        {
+            Debug.LogWarning("RunManager: SkillPool is empty or not assigned.");
+            return new SO_MainSkill[0];
+        }
+
+        if (RunData.Party.Count == 0)
+        {
+            Debug.LogWarning("RunManager: Party is empty when requesting skill options.");
+            return new SO_MainSkill[0];
+        }
+
+        var alreadyOwned = new HashSet<SO_MainSkill>(
+            RunData.Party.SelectMany(m => m.Skills.Select(s => s.mainSkillSO)));
+
+        var allPartyClasses = new HashSet<ClassEnum>(
+            RunData.Party.SelectMany(m => m.Character.Classes));
+
+        return skillPool.Skills
+            .Where(s => !alreadyOwned.Contains(s) &&
+                        (s.Classes.Count == 0 || s.Classes.Any(c => allPartyClasses.Contains(c))))
             .OrderBy(_ => Random.value)
             .Take(skillOptionCount)
             .ToArray();

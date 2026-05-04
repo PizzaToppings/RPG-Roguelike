@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Character : Unit
 {
+    /// <summary>Index into RunData.Party. Set by PartyManager before Init() is called.</summary>
+    [HideInInspector] public int partyMemberIndex = 0;
+
     [HideInInspector] public int MaxEnergy = 10;
     [HideInInspector] public int Energy;
 
@@ -24,11 +27,12 @@ public class Character : Unit
 
     public override void Init()
     {
-        if (RunData.SelectedCharacter != null)
+        var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
+        if (partyMember != null)
         {
-            basicAttack.Init(RunData.SelectedCharacter.basicAttack);
-            basicSkill.Init(RunData.SelectedCharacter.basicSkill);
-            skills      = new List<Skill>(RunData.AcquiredSkills);
+            basicAttack.Init(partyMember.Character.basicAttack);
+            basicSkill.Init(partyMember.Character.basicSkill);
+            skills = new List<Skill>(partyMember.Skills);
         }
         else
         {
@@ -61,13 +65,13 @@ public class Character : Unit
 
 	public override void SetStats()
 	{
-        if (RunData.SelectedCharacter != null)
+        var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
+        if (partyMember != null)
         {
-            // Apply stats from the ScriptableObject chosen at the start of the run.
-            var soc = RunData.SelectedCharacter;
+            var soc = partyMember.Character;
             UnitName        = soc.Name;
             MaxHitpoints    = soc.MaxHealth;
-            Hitpoints       = soc.MaxHealth;
+            Hitpoints       = partyMember.CurrentHitpoints > 0 ? partyMember.CurrentHitpoints : soc.MaxHealth;
             MaxEnergy       = soc.MaxEnergy;
             MoveSpeed       = soc.MoveSpeed;
             PhysicalPower   = soc.PhysicalPower;
@@ -77,14 +81,15 @@ public class Character : Unit
         }
         else
         {
-            base.SetStats(); // fallback: random MoveSpeed used during direct scene testing
+            base.SetStats(); // fallback: direct scene testing without RunManager
         }
     }
 
     public override void RollInitiative()
     {
-        if (RunData.SelectedCharacter != null)
-            Initiative = RunData.SelectedCharacter.Initiative;
+        var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
+        if (partyMember != null)
+            Initiative = partyMember.Character.Initiative;
         else
             base.RollInitiative();
     }
@@ -181,15 +186,16 @@ public class Character : Unit
 
     public void StopCasting()
     {
+        if (UnitData.ActiveUnit != this)
+            return;
+
         boardManager.Clear();
         ui_Singletons.SetCursor(CursorType.Normal);
         uiManager.SetActiveSkillBorder(null);
+        UnitData.CurrentAction = CurrentActionKind.Basic;
 
-        if (UnitData.ActiveUnit == this)
-            UnitData.CurrentAction = CurrentActionKind.Basic;
-		
         SkillData.Reset();
-		boardManager.SetAOE(MoveSpeedLeft, Tile, null);
+        boardManager.SetAOE(MoveSpeedLeft, Tile, null);
         skillVFXManager.EndProjectileLine();
         SetSkillData(basicAttack);
     }

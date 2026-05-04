@@ -109,7 +109,7 @@ public class Unit : UnitStats
             while (distanceLeft < 1f)
             {
                 // move to next tile
-                distanceLeft = Mathf.Min(distanceLeft + Time.deltaTime * (1f + MoveSpeed * 0.2f), 1f);
+                distanceLeft = Mathf.Min(distanceLeft + Time.deltaTime * (1f + MoveSpeed * 0.4f), 1f);
                 transform.position = Vector3.Lerp(startPosition, endPosition, distanceLeft);
 
                 yield return new WaitForEndOfFrame();
@@ -268,8 +268,14 @@ public class Unit : UnitStats
 
     public virtual void EndTurn()
     {
+        if (!gameObject.activeInHierarchy) return;
+
         if (OnUnitTurnEndEvent != null)
             OnUnitTurnEndEvent.Invoke();
+
+        // Unit may have died during turn-end effects (e.g. Bleed), in which case
+        // RemoveUnit already handles the turn transition.
+        if (!gameObject.activeInHierarchy) return;
 
         StartCoroutine(combatManager.EndTurn());
     }

@@ -21,14 +21,14 @@ public class SimpleEnemyAI : EnemyBaseAI
         FindOptimalTile();
         yield return StartCoroutine(MoveToTile());
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.3f);
         yield return StartCoroutine(Attack());
     }
 
     public IEnumerator Attack()
     {
         StartCoroutine(uiManager.ShowActivityText("Strike"));
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.3f);
 
         Unit target = null;
         float closestTargetRange = 0;

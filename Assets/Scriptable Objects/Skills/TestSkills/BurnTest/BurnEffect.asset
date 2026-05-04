@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusEffectManager: {fileID: 0}
   Buff: 0
-  StatusEfectType: 8
+  StatusEffectType: 8
   DamageType: 2
   Stat: 0
   Power: 1
   Duration: 2
   IsMagical: 1
+  Permanent: 0

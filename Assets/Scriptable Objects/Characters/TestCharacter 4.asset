@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: TestCharacter 4
   m_EditorClassIdentifier: 
   Name: Pierre
+  Image: {fileID: 0}
   Classes: 0500000004000000
   CharacterPrefab: {fileID: 1623717467118256991, guid: 10b2f86aa19e3af469339d6bf46dd62b,
     type: 3}
-  MaxHealth: 100
+  MaxHealth: 20
   MaxEnergy: 10
   MoveSpeed: 7
   Initiative: 8

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SO_Character : ScriptableObject
 {
     public string Name;
+    public Sprite Image;
     public List<ClassEnum> Classes;
     public GameObject CharacterPrefab;
 

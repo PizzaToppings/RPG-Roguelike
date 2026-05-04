@@ -23,6 +23,7 @@ public class CombatManager : MonoBehaviour
 
     [Space]
     [SerializeField] float combatStartDelay = 1f;
+    [SerializeField] float combatEndDelay = 2f;
 
     void Start()
     {
@@ -149,14 +150,33 @@ public class CombatManager : MonoBehaviour
 
     public void Win()
 	{
+        StartCoroutine(WinCoroutine());
+	}
+
+    IEnumerator WinCoroutine()
+    {
+        yield return new WaitForSeconds(combatEndDelay);
+
+        foreach (var character in UnitData.Characters)
+        {
+            if (character.partyMemberIndex < RunData.Party.Count)
+                RunData.Party[character.partyMemberIndex].CurrentHitpoints = character.Hitpoints;
+        }
+
         if (RunManager.Instance != null)
             RunManager.Instance.OnCombatWon();
         else
             Debug.Log("Combat won! (RunManager not present - testing mode)");
-	}
+    }
 
     public void Lose()
 	{
+        StartCoroutine(LoseCoroutine());
+	}
+
+    IEnumerator LoseCoroutine()
+    {
+        yield return new WaitForSeconds(combatEndDelay);
         if (RunManager.Instance != null)
             RunManager.Instance.OnCombatLost();
         else

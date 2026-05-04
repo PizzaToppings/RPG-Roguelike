@@ -13,7 +13,8 @@ public class SkillSelectCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI DamageTypeText;
     [SerializeField] TextMeshProUGUI ChargesText;
     [SerializeField] Image           skillIcon;
-    [SerializeField] Button          selectButton;
+    [Tooltip("One assign button per party slot (max 4). Wire up in the inspector.")]
+    [SerializeField] SkillSelectAssignButton[] assignButtons;
 
     SO_MainSkill skillData;
 
@@ -48,15 +49,27 @@ public class SkillSelectCard : MonoBehaviour
             energyCostText.text = $"Cost: {skill.EnergyCost}";
 
         if (skillIcon != null && skill.Image != null)
+        {
+            skillIcon.gameObject.SetActive(true);
             skillIcon.sprite = skill.Image;
+        }
 
-        selectButton.onClick.RemoveAllListeners();
-        selectButton.onClick.AddListener(OnSelect);
-    }
-
-    void OnSelect()
-    {
-        RunManager.Instance.SelectSkill(skillData);
+        // Set up one assign button per party member.
+        if (assignButtons != null)
+        {
+            for (int i = 0; i < assignButtons.Length; i++)
+            {
+                if (i < RunData.Party.Count)
+                {
+                    assignButtons[i].gameObject.SetActive(true);
+                    assignButtons[i].Setup(RunData.Party[i].Character, i, skill);
+                }
+                else
+                {
+                    assignButtons[i].gameObject.SetActive(false);
+                }
+            }
+        }
     }
 
     string ReplaceEffectText(string description, SO_MainSkill skill)
@@ -66,21 +79,23 @@ public class SkillSelectCard : MonoBehaviour
             foreach (var skillPart in spg.skillParts)
             {
                 // Replace Damage Text
-                foreach (var damageEffect in skillPart.DamageEffects)
+                if (skillPart.DamageEffects.Count > 0)
                 {
-                    var damagePlaceholder = $"<damage{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.DamageEffects.IndexOf(damageEffect)}>";
-                    if (description.Contains(damagePlaceholder))
+                    foreach (var damageEffect in skillPart.DamageEffects)
                     {
-                        var damageType = damageEffect.DamageType.ToString();
-                        var damageText = $"{damageEffect.Power} {damageType} damage";
-                        description = description.Replace(damagePlaceholder, damageText);
+                        var damagePlaceholder = $"<damage{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.DamageEffects.IndexOf(damageEffect)}>";
+                        if (description.Contains(damagePlaceholder))
+                        {
+                            var damageType = damageEffect.DamageType.ToString();
+                            var damageText = $"{damageEffect.Power} {damageType} damage";
+                            description = description.Replace(damagePlaceholder, damageText);
+                        }
                     }
                 }
 
                 // Replace Status Effect Text
                 foreach (var statusEffect in skillPart.StatusEffects)
                 {
-                    Debug.Log($"Processing status effect: {statusEffect.StatusEffectType} with power {statusEffect.Power} and duration {statusEffect.Duration}");
                     string effectName = statusEffect.StatusEffectType.ToString().ToLower();
                     string colorCode = effectName switch
                     {
