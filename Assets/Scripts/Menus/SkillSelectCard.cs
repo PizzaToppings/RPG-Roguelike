@@ -28,7 +28,7 @@ public class SkillSelectCard : MonoBehaviour
             classIcons[i].gameObject.SetActive(true);
             classIcons[i].sprite = SkillSelectUI.Instance.GetClassIcon(skillData.Classes[i]);
         }
-        descriptionText.text = skill.Description;
+        descriptionText.text = ReplaceEffectText(skill.Description, skill);
 
         if (DamageTypeText != null)
         {
@@ -57,5 +57,64 @@ public class SkillSelectCard : MonoBehaviour
     void OnSelect()
     {
         RunManager.Instance.SelectSkill(skillData);
+    }
+
+    string ReplaceEffectText(string description, SO_MainSkill skill)
+    {
+        foreach (var spg in skill.SkillPartGroups)
+        {
+            foreach (var skillPart in spg.skillParts)
+            {
+                // Replace Damage Text
+                foreach (var damageEffect in skillPart.DamageEffects)
+                {
+                    var damagePlaceholder = $"<damage{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.DamageEffects.IndexOf(damageEffect)}>";
+                    if (description.Contains(damagePlaceholder))
+                    {
+                        var damageType = damageEffect.DamageType.ToString();
+                        var damageText = $"{damageEffect.Power} {damageType} damage";
+                        description = description.Replace(damagePlaceholder, damageText);
+                    }
+                }
+
+                // Replace Status Effect Text
+                foreach (var statusEffect in skillPart.StatusEffects)
+                {
+                    Debug.Log($"Processing status effect: {statusEffect.StatusEffectType} with power {statusEffect.Power} and duration {statusEffect.Duration}");
+                    string effectName = statusEffect.StatusEffectType.ToString().ToLower();
+                    string colorCode = effectName switch
+                    {
+                        "bleed" => "#BF0000",
+                        "burn" => "#ff0000ff",
+                        "poison" => "#00BE01",
+                        _ => "#FFFFFF"
+                    };
+
+                    var statusPlaceholder = $"<{effectName}{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.StatusEffects.IndexOf(statusEffect)}>";
+                    effectName = effectName.Substring(0, 1).ToUpper() + effectName.Substring(1).ToLower();
+
+                    var statusIdx = description.IndexOf(statusPlaceholder, System.StringComparison.OrdinalIgnoreCase);
+                    if (statusIdx >= 0)
+                    {
+                        var durationText = GetDurationText(statusEffect);
+                        var statusText = $"{statusEffect.Power} <link={effectName}><u><color={colorCode}>{effectName}</color></u></link>{durationText}.";
+                        description = description.Remove(statusIdx, statusPlaceholder.Length).Insert(statusIdx, statusText);
+                    }
+                }
+            }
+        }
+
+        return description;
+    }
+
+    string GetDurationText(SO_StatusEffect statusEffect)
+    {
+        switch (statusEffect.StatusEffectType)
+        {
+            case StatusEffectEnum.Bleed:
+            case StatusEffectEnum.Thorns:
+                return $" for {statusEffect.Duration} turn(s)";
+        }
+        return string.Empty;
     }
 }

@@ -152,13 +152,14 @@ public class InfoScreen : MonoBehaviour
                     var statusPlaceholder = $"<{effectName}{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.StatusEffects.IndexOf(statusEffect)}>";
                     effectName = effectName.Substring(0, 1).ToUpper() + effectName.Substring(1).ToLower();
                     
-                    if (description.Contains(statusPlaceholder))
+                    var statusIdx = description.IndexOf(statusPlaceholder, System.StringComparison.OrdinalIgnoreCase);
+                    if (statusIdx >= 0)
                     {
                         var damage = statusEffect.Power;
                         var totalPower = CalculateTotalPower(statusEffect, caster);
                         var durationText = GetDurationText(statusEffect);
                         var statusText = $"{totalPower} <link={effectName}><u><color={colorCode}>{effectName}</color></u></link>{durationText}.";
-                        description = description.Replace(statusPlaceholder, statusText);
+                        description = description.Remove(statusIdx, statusPlaceholder.Length).Insert(statusIdx, statusText);
                     }
                 }
             }
@@ -200,18 +201,16 @@ public class InfoScreen : MonoBehaviour
         var caster = UnitData.ActiveUnit as Character;
         var text = string.Empty;
 
-        // silenced
         if (skill.mainSkillSO.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Silenced))
             text += "<br>   Silenced.";
 
-        // blinded
         if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
             text += "<br>   Blinded.";
 
         if (skill.Charges == 0)
             text += "<br>   No charges left.";
 
-        if (caster.Energy >= skill.EnergyCost)
+        if (caster.Energy < skill.EnergyCost)
             text += "<br>   Not enough Energy.";
 
         if (text == string.Empty)
