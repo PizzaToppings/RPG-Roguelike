@@ -173,7 +173,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator ShowSkillInformation(Skill skill)
 	{
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
         infoScreen.Activate(skill, false);
     }
 

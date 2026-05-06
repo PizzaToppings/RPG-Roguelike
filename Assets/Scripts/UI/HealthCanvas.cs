@@ -36,6 +36,7 @@ public class HealthCanvas : MonoBehaviour
         var healthbar = hb.GetComponent<FloatingHealthbar>();
         healthbar.Init(unit);
         unit.ThisHealthbar = healthbar;
+        healthbar.UpdateHealthbar();
 
         if (unit is EnemyBaseAI enemyAI)
             healthbar.InitIntent(enemyAI);

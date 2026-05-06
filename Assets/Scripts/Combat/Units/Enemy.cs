@@ -40,6 +40,7 @@ public class Enemy : Unit
     public override void OnMouseEnter()
 	{
         Tile.Target();
+        EnemyInfoPanelManager.Instance?.ShowPanel(this);
     }
 
     public void TargetEnemy()
@@ -112,6 +113,7 @@ public class Enemy : Unit
     public override void OnMouseExit()
     {
         Tile.UnTarget();
+        EnemyInfoPanelManager.Instance?.HidePanel();
     }
 
     public void UnTargetEnemy()
