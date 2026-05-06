@@ -30,7 +30,7 @@ public class InfoScreen : MonoBehaviour
         if (lockScreen)
         {
             IsLocked = lockScreen;
-            clickToLockText.text = ClickToUnlock;
+            // clickToLockText.text = ClickToUnlock;
         }
 
         // basic

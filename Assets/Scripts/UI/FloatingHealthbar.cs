@@ -1,25 +1,55 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class FloatingHealthbar : Healthbar
 {
     Transform unit;
     Vector3 offset = Vector3.up * 2f;
 
-    Camera camera;
+    Camera mainCamera;
+
+    [Space]
+    [Header("Intent")]
+    [SerializeField] Image intentActionImage;
+    [SerializeField] Image intentTargetImage;
+    [SerializeField] TextMeshProUGUI orderText;
+
+    UI_Singletons ui_Singletons => UI_Singletons.Instance;
 
     public void Init(Unit myUnit)
     {
         thisUnit = myUnit;
-        camera = Camera.main;
+        mainCamera = Camera.main;
         unit = myUnit.transform;
+    }
+
+    public void InitIntent(EnemyBaseAI enemy)
+    {
+        UpdateIntent(enemy.IntentAction, enemy.IntentTarget);
+    }
+
+    public void UpdateIntent(IntentActionEnum action, IntentTargetEnum target)
+    {
+        if (intentActionImage != null)
+            intentActionImage.sprite = ui_Singletons.GetIntentActionIcon(action);
+
+        if (intentTargetImage != null)
+            intentTargetImage.sprite = ui_Singletons.GetIntentTargetIcon(target);
+    }
+
+    public void SetOrderNumber(int order)
+    {
+        if (orderText != null)
+            orderText.text = order.ToString();
     }
 
     void Update()
     {
-        if (unit == null || camera == null)
+        if (unit == null || mainCamera == null)
             return;
 
-        Vector3 screenPosition = camera.WorldToScreenPoint(unit.position + offset);
+        Vector3 screenPosition = mainCamera.WorldToScreenPoint(unit.position + offset);
 
         transform.position = screenPosition;
     }

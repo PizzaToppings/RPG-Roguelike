@@ -1,3 +1,4 @@
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UI_ICons", menuName = "ScriptableObjects/UI/Icons")]
@@ -40,6 +41,30 @@ public class SO_UI_Icons : ScriptableObject
     [SerializeField] Color PoisonDamageColor;
     [SerializeField] Color HealingColor;
     [SerializeField] Color ShieldColor;
+
+    [Space]
+    [Header(" - Intent Action Icons")]
+    [SerializeField] Sprite IntentUnknownIcon;
+    [SerializeField] Sprite IntentMeleePhysicalIcon;
+    [SerializeField] Sprite IntentRangedPhysicalIcon;
+    [SerializeField] Sprite IntentMeleeMagicalIcon;
+    [SerializeField] Sprite IntentRangedMagicalIcon;
+    [SerializeField] Sprite IntentDebuffIcon;
+    [SerializeField] Sprite IntentBuffIcon;
+    [SerializeField] Sprite IntentHealIcon;
+    [SerializeField] Sprite IntentShieldIcon;
+    [SerializeField] Sprite IntentWaitIcon;
+
+    [Space]
+    [Header(" - Intent Target Icons")]
+    [SerializeField] Sprite IntentTargetUnknownIcon;
+    [SerializeField] Sprite IntentTargetNearestIcon;
+    [SerializeField] Sprite IntentTargetLowestHealthIcon;
+    [SerializeField] Sprite IntentTargetFullestHealthIcon;
+    [SerializeField] Sprite IntentTargetAreaIcon;
+    [SerializeField] Sprite IntentTargetSelfIcon;
+    [SerializeField] Sprite IntentTargetRandomIcon;
+    [SerializeField] Sprite IntentAOEIcon;
 
     [Space]
     [Header(" - Status Icons")]
@@ -167,5 +192,47 @@ public class SO_UI_Icons : ScriptableObject
                 return ThornsIcon;
         }
         return null;
+    }
+
+    public Sprite GetIntentActionIcon(IntentActionEnum action)
+    {
+        switch (action)
+        {
+            case IntentActionEnum.PhysicalMeleeAttack:
+                return IntentMeleePhysicalIcon;
+            case IntentActionEnum.PhysicalRangedAttack:
+                return IntentRangedPhysicalIcon;
+            case IntentActionEnum.MagicalMeleeAttack:
+                return IntentMeleeMagicalIcon;
+            case IntentActionEnum.MagicalRangedAttack:
+                return IntentRangedMagicalIcon;
+            case IntentActionEnum.Debuff:
+                return IntentDebuffIcon;
+            case IntentActionEnum.Buff:
+                return IntentBuffIcon;
+            case IntentActionEnum.Heal:
+                return IntentHealIcon;
+            case IntentActionEnum.AOE:
+                return IntentAOEIcon;
+        }
+        return IntentUnknownIcon;
+    }
+
+    public Sprite GetIntentTargetIcon(IntentTargetEnum target)
+    {
+        switch (target)
+        {
+            case IntentTargetEnum.Nearest:
+                return IntentTargetNearestIcon;
+            case IntentTargetEnum.LowestHealth:
+                return IntentTargetLowestHealthIcon;
+            case IntentTargetEnum.Area:
+                return IntentTargetAreaIcon;
+            case IntentTargetEnum.Self:
+                return IntentTargetSelfIcon;
+            case IntentTargetEnum.Random:
+                return IntentTargetRandomIcon;
+        }
+        return IntentTargetUnknownIcon;
     }
 }

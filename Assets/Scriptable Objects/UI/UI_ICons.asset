@@ -43,6 +43,35 @@ MonoBehaviour:
   PoisonDamageColor: {r: 0.17021182, g: 0.4811321, b: 0.19876571, a: 1}
   HealingColor: {r: 0.9974991, g: 1, b: 0, a: 1}
   ShieldColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
+  IntentUnknownIcon: {fileID: 21300000, guid: 8e0799899922cc941bcbbdd181687033, type: 3}
+  IntentMeleePhysicalIcon: {fileID: 21300000, guid: 9d23e9bcdc9bb0348b3989434ea49d92,
+    type: 3}
+  IntentRangedPhysicalIcon: {fileID: 21300000, guid: 2b8a782a1be947d40b62a11620314d39,
+    type: 3}
+  IntentMeleeMagicalIcon: {fileID: 21300000, guid: dd4bd759d49d5c04ab3bd29dacdc1440,
+    type: 3}
+  IntentRangedMagicalIcon: {fileID: 21300000, guid: f684e459d5b97ea4f9ecc3c0d5c29657,
+    type: 3}
+  IntentDebuffIcon: {fileID: 21300000, guid: a4262d358c70a454e83ff82eb70498e1, type: 3}
+  IntentBuffIcon: {fileID: 21300000, guid: d13f323ae9da68f4889d8f4131f1a768, type: 3}
+  IntentHealIcon: {fileID: 21300000, guid: 356ddde08405f8045b3a23113f2b5c4f, type: 3}
+  IntentShieldIcon: {fileID: 21300000, guid: 1d0556f6951f4b54795446e69f2f4640, type: 3}
+  IntentWaitIcon: {fileID: 21300000, guid: 60c173e757f02514494c963a6dc1e675, type: 3}
+  IntentTargetUnknownIcon: {fileID: 21300000, guid: 8e0799899922cc941bcbbdd181687033,
+    type: 3}
+  IntentTargetNearestIcon: {fileID: 21300000, guid: 78894350704147b46a86c6835bff8afb,
+    type: 3}
+  IntentTargetLowestHealthIcon: {fileID: 21300000, guid: 0bfb222382a7f93438afecd2ec74205a,
+    type: 3}
+  IntentTargetFullestHealthIcon: {fileID: 21300000, guid: b5cf7089b6e31994fb431e2967f82f23,
+    type: 3}
+  IntentTargetAreaIcon: {fileID: 21300000, guid: 54fa638abe5d07e428f528375535872d,
+    type: 3}
+  IntentTargetSelfIcon: {fileID: 21300000, guid: 60f83e9992c5c7443bbac98c283eeb4e,
+    type: 3}
+  IntentTargetRandomIcon: {fileID: 21300000, guid: 8e0799899922cc941bcbbdd181687033,
+    type: 3}
+  IntentAOEIcon: {fileID: 21300000, guid: 54fa638abe5d07e428f528375535872d, type: 3}
   BleedIcon: {fileID: 21300000, guid: 0a81058d6be40014982b527eab95f62a, type: 3}
   PoisonIcon: {fileID: 21300000, guid: c43f20655cb1c3b46962f6b00bc95d52, type: 3}
   BurnedIcon: {fileID: 21300000, guid: 88c0e88b29901f041ba384590604cd20, type: 3}

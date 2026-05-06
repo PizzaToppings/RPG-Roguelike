@@ -28,7 +28,8 @@ public class Healthbar : MonoBehaviour
 
         healthbar.fillAmount = (float)hitpoints / maxHealth;
         shieldbar.fillAmount = (float)(shieldPoints + hitpoints) / maxHealth;
-        hitpointsText.text = $"{hitpoints} / {maxHitpoints}" + (shieldPoints > 0 ? $" + {shieldPoints}" : "");
+        if (hitpointsText != null)
+            hitpointsText.text = $"{hitpoints} / {maxHitpoints}" + (shieldPoints > 0 ? $" + {shieldPoints}" : "");
     }
 
     public void AddStatusEffect(StatusEffectEnum statusEffect)

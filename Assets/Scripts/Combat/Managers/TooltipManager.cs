@@ -13,7 +13,7 @@ public class TooltipManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        tooltipPanel.SetActive(false); // Hide at start
+        tooltipPanel.SetActive(false); 
     }
 
     public void ShowTooltip(string title, string text, Vector2 position)

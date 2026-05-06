@@ -12,11 +12,18 @@ public class KeywordTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         tmpText = GetComponent<TextMeshProUGUI>();
         uiCamera = GetComponentInParent<Canvas>().worldCamera;
+    }
+
+    private void Start()
+    {
         tooltipManager = TooltipManager.Instance;
     }
 
     private void Update()
     {
+        if (tooltipManager == null)
+            tooltipManager = TooltipManager.Instance;
+
         if (Input.mousePosition != null)
         {
             int linkIndex = TMP_TextUtilities.FindIntersectingLink(tmpText, Input.mousePosition, uiCamera);
@@ -41,7 +48,12 @@ public class KeywordTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     void ShowToolTip(string keyword)
     {
+        Debug.Log(keyword);
+        Debug.Log(tooltipManager);
+
+
         var tooltiptext = string.Empty;
+        Debug.Log(tooltiptext);
         switch (keyword)
         {
             case "Bleed":

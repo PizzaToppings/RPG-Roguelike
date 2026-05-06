@@ -45,8 +45,6 @@ public class UIManager : MonoBehaviour
 		{
             CharacterPortraits[i].gameObject.SetActive(true);
             CharacterPortraits[i].thisUnit = UnitData.Characters[i];
-            CharacterPortraits[i].Set();
-            CharacterPortraits[i].UpdateHealthbar();
             UnitData.Characters[i].ThisHealthbar = CharacterPortraits[i];
         }
 
@@ -55,6 +53,15 @@ public class UIManager : MonoBehaviour
 
         foreach (var consumableIcon in consumableIcons)
             consumableIcon.Init();
+    }
+
+    public void InitPortraits()
+    {
+        for (var i = 0; i < UnitData.Characters.Count; i++)
+        {
+            CharacterPortraits[i].Set();
+            CharacterPortraits[i].UpdateHealthbar();
+        }
     }
 
     public void StartTurn(Unit CurrentActiveUnit)

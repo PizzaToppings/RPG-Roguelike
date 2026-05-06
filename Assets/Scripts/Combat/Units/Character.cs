@@ -6,11 +6,12 @@ using UnityEngine;
 
 public class Character : Unit
 {
-    /// <summary>Index into RunData.Party. Set by PartyManager before Init() is called.</summary>
     [HideInInspector] public int partyMemberIndex = 0;
 
     [HideInInspector] public int MaxEnergy = 10;
     [HideInInspector] public int Energy;
+
+    public SO_Character characterSO;
 
     public SO_MainSkill basicAttackSO;
     public SO_MainSkill basicSkillSO;
@@ -81,6 +82,8 @@ public class Character : Unit
         }
         else
         {
+            if (characterSO != null)
+                UnitName = characterSO.Name;
             base.SetStats(); // fallback: direct scene testing without RunManager
         }
     }

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class HealthCanvas : MonoBehaviour
@@ -25,6 +26,8 @@ public class HealthCanvas : MonoBehaviour
         {
             CreateHealthbar(unit);
         }
+
+        RefreshEnemyOrderNumbers();
     }
 
     public void CreateHealthbar(Enemy unit)
@@ -33,6 +36,20 @@ public class HealthCanvas : MonoBehaviour
         var healthbar = hb.GetComponent<FloatingHealthbar>();
         healthbar.Init(unit);
         unit.ThisHealthbar = healthbar;
+
+        if (unit is EnemyBaseAI enemyAI)
+            healthbar.InitIntent(enemyAI);
+    }
+
+    void RefreshEnemyOrderNumbers()
+    {
+        var sortedEnemies = UnitData.Enemies
+            .Where(e => e.ThisHealthbar != null)
+            .OrderBy(e => e.Initiative)
+            .ToList();
+
+        for (int i = 0; i < sortedEnemies.Count; i++)
+            (sortedEnemies[i].ThisHealthbar as FloatingHealthbar)?.SetOrderNumber(i + 1);
     }
 
     public void ShowDamageNumber(DamagaDataResolved data)

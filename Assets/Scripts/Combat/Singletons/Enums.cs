@@ -15,6 +15,10 @@ public enum DisplacementEnum { Teleport, Move, Lift }
 // Enemy AI
 public enum TargetEnum { Self, closestTarget, LowestHealthTarget }
 
+// Enemy Intent (displayed above healthbar)
+public enum IntentActionEnum { Unknown, PhysicalMeleeAttack, PhysicalRangedAttack, MagicalMeleeAttack, MagicalRangedAttack, Debuff, Buff, Heal, AOE }
+public enum IntentTargetEnum { Unknown, Nearest, LowestHealth, Area, Self, Random }
+
 
 // Spell Targeting
 public enum OriginTileEnum { None, Caster, LastTargetTile, LastTile, GetFromSkillPart };

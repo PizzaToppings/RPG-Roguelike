@@ -11,6 +11,11 @@ public class EnemyBaseAI : Enemy
     public float OptimalRange;
     public TargetEnum TargetPreference;
 
+    [Space]
+    [Header("Intent")]
+    public IntentActionEnum IntentAction;
+    public IntentTargetEnum IntentTarget;
+
     public override IEnumerator StartTurn()
     {
         yield return StartCoroutine(base.StartTurn());

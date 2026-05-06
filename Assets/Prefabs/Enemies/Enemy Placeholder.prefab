@@ -91,6 +91,7 @@ MonoBehaviour:
   unitManager: {fileID: 0}
   skillsManager: {fileID: 0}
   skillVFXManager: {fileID: 0}
+  consumableManager: {fileID: 0}
   statusEffectManager: {fileID: 0}
   damageManager: {fileID: 0}
   uiManager: {fileID: 0}
@@ -120,6 +121,8 @@ MonoBehaviour:
   Target: {fileID: 0}
   OptimalRange: 1.5
   TargetPreference: 0
+  IntentAction: 1
+  IntentTarget: 1
   skill: {fileID: 11400000, guid: 967c385fd7e60b14b899c2506c14bf4b, type: 2}
 --- !u!1001 &2734717085770481927
 PrefabInstance:
