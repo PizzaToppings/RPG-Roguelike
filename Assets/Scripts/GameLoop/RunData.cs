@@ -8,6 +8,7 @@ public class RunDataPartyMember
 {
     public SO_Character Character;
     public List<Skill> Skills = new List<Skill>();
+    public List<SO_Trinket> Trinkets = new List<SO_Trinket>();
 
     /// <summary>HP carried over from the last combat. 0 means unset (use MaxHealth).</summary>
     public int CurrentHitpoints = 0;

@@ -1,4 +1,3 @@
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UI_ICons", menuName = "ScriptableObjects/UI/Icons")]

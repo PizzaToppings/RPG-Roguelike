@@ -12,7 +12,7 @@ public class SO_Trinket : ScriptableObject
     [TextArea(15, 20)]
     public string Description;
 
-    public virtual void Init(Character character)
+    public virtual void Init(Character character, Trinket trinket)
     {
 
     }

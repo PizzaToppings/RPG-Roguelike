@@ -26,6 +26,8 @@ public class Character : Unit
     public List<SO_MainSkill> consumablesSO = new List<SO_MainSkill>();
     public List<Skill> consumables = new List<Skill>();
 
+    [HideInInspector] public List<Trinket> trinkets = new List<Trinket>();
+
     public override void Init()
     {
         var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
@@ -34,12 +36,19 @@ public class Character : Unit
             basicAttack.Init(partyMember.Character.basicAttack);
             basicSkill.Init(partyMember.Character.basicSkill);
             skills = new List<Skill>(partyMember.Skills);
+            trinkets = partyMember.Trinkets.Select(so => { var t = new Trinket(); t.Init(so, this); return t; }).ToList();
         }
         else
         {
             basicAttack.Init(basicAttackSO);
             basicSkill.Init(basicSkillSO);
             skills = skillsSO.Where(so => so != null).Select(so => { var s = new Skill(); s.Init(so); return s; }).ToList();
+            if (characterSO != null && characterSO.BasicTrinket != null)
+            {
+                var t = new Trinket();
+                t.Init(characterSO.BasicTrinket, this);
+                trinkets = new List<Trinket> { t };
+            }
         }
 
         Friendly = true;
