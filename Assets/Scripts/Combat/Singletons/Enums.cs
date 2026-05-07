@@ -1,3 +1,7 @@
+// Run map nodes
+public enum NodeTypeEnum { Combat, EliteCombat, Boss, RestZone, Shop, Event, TreasureRoom }
+public enum EncounterTierEnum { Normal, Elite, Boss }
+
 // States
 public enum CurrentActionKind { None, Basic, CastingSkillshot, Animating };
 public enum GameState { StartOfGame, StartOfRound, StartOfTurn, EndOfTurn, EndOfRound, EndOfGame}

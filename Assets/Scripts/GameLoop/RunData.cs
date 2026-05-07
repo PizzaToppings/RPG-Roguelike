@@ -34,8 +34,26 @@ public static class RunData
     /// <summary>Number of combat encounters won so far this run.</summary>
     public static int CombatWins = 0;
 
-    /// <summary>The encounter that should be loaded in the next combat scene.</summary>
+    /// <summary>The type of the next node the player will enter.</summary>
+    public static NodeTypeEnum CurrentNodeType;
+
+    /// <summary>The encounter that should be loaded in the next combat scene (Combat, EliteCombat, or Boss).</summary>
     public static SO_Encounter CurrentEncounter;
+
+    /// <summary>The event to present at the next Event node.</summary>
+    public static SO_Event CurrentEvent;
+
+    /// <summary>The trinkets randomly selected for the current Treasure Room.</summary>
+    public static List<SO_Trinket> CurrentTreasureOptions = new List<SO_Trinket>();
+
+    /// <summary>The skills randomly selected for the current Shop.</summary>
+    public static List<SO_MainSkill> CurrentShopSkills = new List<SO_MainSkill>();
+
+    /// <summary>The trinkets randomly selected for the current Shop.</summary>
+    public static List<SO_Trinket> CurrentShopTrinkets = new List<SO_Trinket>();
+
+    /// <summary>How much gold the party has accumulated this run.</summary>
+    public static int Gold;
 
     /// <summary>Convenience accessor – the character chosen at the start of the run.</summary>
     public static SO_Character SelectedCharacter => Party.Count > 0 ? Party[0].Character : null;
@@ -45,6 +63,12 @@ public static class RunData
     {
         Party.Clear();
         CombatWins = 0;
+        CurrentNodeType = NodeTypeEnum.Combat;
         CurrentEncounter = null;
+        CurrentEvent = null;
+        CurrentTreasureOptions.Clear();
+        CurrentShopSkills.Clear();
+        CurrentShopTrinkets.Clear();
+        Gold = 0;
     }
 }
