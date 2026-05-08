@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Trinket", menuName = "ScriptableObjects/Trinkets/DefaultTrinket")]
@@ -10,7 +11,9 @@ public class DefaultTrinket : SO_Trinket
     public bool TriggerOnce;
 
     [Space]
-    public int Power;
+    public int Value = 1;
+    
+    [Space]
     public DamageTypeEnum DamageType;
 
     [Space]
@@ -18,8 +21,7 @@ public class DefaultTrinket : SO_Trinket
     public float Range;
 
     [Space]
-    public StatusEffectEnum StatusEffect;
-    public SO_StatusEffect StatusEffectSO;
+    public List<SO_StatusEffect> StatusEffects;
     public List<StatsEnum> Stat;
 
     public override void Init(Character character, Trinket trinket)
@@ -74,21 +76,31 @@ public class DefaultTrinket : SO_Trinket
         switch (TriggerEffect)
         {
             case TriggerEffectEnum.DealDamage:
-                var damageData = new DamageData { Caster = character, DamageType = DamageType, Power = Power };
+                var damageData = new DamageData { Caster = character, DamageType = DamageType, Power = Value };
                 var damageManager = DamageManager.Instance;
                 foreach (var target in GetTargets(character))
                     damageManager.DealDamage(damageManager.CalculateDamageData(damageData, target));
                 break;
 
             case TriggerEffectEnum.TakeDamage:
-                var selfDamageData = new DamageData { Caster = character, DamageType = DamageType, Power = Power };
+                var selfDamageData = new DamageData { Caster = character, DamageType = DamageType, Power = Value };
                 var selfDamageManager = DamageManager.Instance;
                 selfDamageManager.DealDamage(selfDamageManager.CalculateDamageData(selfDamageData, character));
                 break;
 
             case TriggerEffectEnum.AddStatusEffect:
-                if (StatusEffectSO == null) break;
-                StatusEffectManager.Instance.ApplyStatusEffect(StatusEffectSO, GetTargets(character));
+                foreach (var statusEffect in StatusEffects)
+                    StatusEffectManager.Instance.ApplyStatusEffect(statusEffect, GetTargets(character), Value);
+                break;
+
+            case TriggerEffectEnum.AddEnergy:
+                character.SetEnergy(character.Energy + Value);
+                break;
+
+            case TriggerEffectEnum.ModifyStat:
+                foreach (var target in GetTargets(character))
+                    foreach (var stat in Stat)
+                        ApplyStatChange(target, stat, Value);
                 break;
         }
     }
@@ -99,14 +111,51 @@ public class DefaultTrinket : SO_Trinket
         {
             case TargetEnum.Self:
                 return new List<Unit> { character };
+
             case TargetEnum.closestTarget:
-                // TODO: find closest enemy within Range using BoardManager
-                return new List<Unit>();
+                var closestPool = FilterByRange(UnitData.Enemies.Cast<Unit>().ToList(), character);
+                if (closestPool.Count == 0) return closestPool;
+                return new List<Unit> { closestPool.OrderBy(u => BoardManager.Instance.GetRangeBetweenTiles(character.Tile, u.Tile)).First() };
+
             case TargetEnum.LowestHealthTarget:
-                // TODO: find lowest health enemy within Range using BoardManager
-                return new List<Unit>();
+                var lowestPool = FilterByRange(UnitData.Enemies.Cast<Unit>().ToList(), character);
+                if (lowestPool.Count == 0) return lowestPool;
+                return new List<Unit> { lowestPool.OrderBy(u => u.Hitpoints).First() };
+
+            case TargetEnum.AllAllies:
+                return FilterByRange(UnitData.Characters.Cast<Unit>().ToList(), character);
+
+            case TargetEnum.AllEnemies:
+                return FilterByRange(UnitData.Enemies.Cast<Unit>().ToList(), character);
+
+            case TargetEnum.AllUnits:
+                return FilterByRange(UnitData.Units, character);
+
             default:
                 return new List<Unit>();
+        }
+    }
+
+    private List<Unit> FilterByRange(List<Unit> units, Character character)
+    {
+        if (Range <= 0) return new List<Unit>(units);
+        return units.Where(u => BoardManager.Instance.GetRangeBetweenTiles(character.Tile, u.Tile) <= Range).ToList();
+    }
+
+    private void ApplyStatChange(Unit target, StatsEnum stat, int value)
+    {
+        switch (stat)
+        {
+            case StatsEnum.PhysicalPower:   target.PhysicalPower   += value; break;
+            case StatsEnum.MagicalPower:    target.MagicalPower    += value; break;
+            case StatsEnum.PhysicalDefense: target.PhysicalDefense += value; break;
+            case StatsEnum.MagicalDefense:  target.MagicalDefense  += value; break;
+            case StatsEnum.MoveSpeed:       target.MoveSpeed       += value; break;
+            case StatsEnum.MaxHitpoints:    target.MaxHitpoints    += value; break;
+            case StatsEnum.MaxEnergy:
+                var character = target as Character;
+                if (character != null) character.MaxEnergy += value;
+                break;
         }
     }
 }

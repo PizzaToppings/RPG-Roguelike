@@ -24,6 +24,8 @@ public class Unit : UnitStats
     [HideInInspector] public UnityEvent<DamageDataCalculated> OnTakeDamage;
     [HideInInspector] public Animator modelAnimator;
 
+    [HideInInspector] public float OutgoingDamageMultiplier = 1f;
+
     [HideInInspector] public Healthbar ThisHealthbar;
 
     [HideInInspector] public Vector3 position => transform.position;

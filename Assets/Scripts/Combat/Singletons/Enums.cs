@@ -17,7 +17,7 @@ public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened,
 public enum DisplacementEnum { Teleport, Move, Lift }
 
 // Enemy AI
-public enum TargetEnum { Self, closestTarget, LowestHealthTarget }
+public enum TargetEnum { Self, closestTarget, LowestHealthTarget, AllAllies, AllEnemies, AllUnits }
 
 // Enemy Intent (displayed above healthbar)
 public enum IntentActionEnum { Unknown, PhysicalMeleeAttack, PhysicalRangedAttack, MagicalMeleeAttack, MagicalRangedAttack, Debuff, Buff, Heal, AOE }
@@ -41,7 +41,7 @@ public enum SkillFxTargetEnum { None, Caster, Target, Tiles, SkillObject }
 
 // Triggers
 public enum TriggerMomentEnum { StartOfGame, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnHeal, OnUseAbility }
-public enum TriggerEffectEnum { DealDamage, TakeDamage, AddStatusEffect } 
+public enum TriggerEffectEnum { DealDamage, TakeDamage, AddStatusEffect, AddEnergy, ModifyStat } 
 public enum TileTriggerMomentEnum { OnEnterTile, StartOfTurn, EndOfTurn, Aura }
 public enum TileTriggerEffectEnum { DealDamage, ApplyEffect }
 

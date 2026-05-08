@@ -86,6 +86,11 @@ public class DamageManager : MonoBehaviour
 
     IEnumerator DealDamageWithDelay(SO_Skillpart skillPart, float delay)
     {
+        // Snapshot and immediately reset so the multiplier only applies to this skillpart.
+        var caster = skillPart.DamageEffects.Count > 0 ? skillPart.DamageEffects[0].Caster : null;
+        var damageMultiplier = caster != null ? caster.OutgoingDamageMultiplier : 1f;
+        if (caster != null) caster.OutgoingDamageMultiplier = 1f;
+
         yield return new WaitForSeconds(delay);
 
         List<DamageData> damageEffects = skillPart.DamageEffects;
@@ -103,8 +108,9 @@ public class DamageManager : MonoBehaviour
                 }
                 if (canCast == false)
                     break;
-                
+
                 var data = CalculateDamageData(damageEffect, target);
+                data.Damage = Mathf.CeilToInt(data.Damage * damageMultiplier);
 
                 if (damageEffect.DamageType == DamageTypeEnum.Healing)
                     Heal(data);

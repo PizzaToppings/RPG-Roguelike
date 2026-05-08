@@ -11,29 +11,29 @@ public class StatusEffectManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ApplyStatusEffect(SO_StatusEffect statusEffectSO, List<Unit> targets)
+    public void ApplyStatusEffect(SO_StatusEffect statusEffectSO, List<Unit> targets, int powerOverride = 0)
 	{
         foreach (var target in targets)
 		{
 		    switch (statusEffectSO.StatusEffectType)
 		    {
                 case StatusEffectEnum.Bleed:
-                    ApplyBleedEffect(statusEffectSO, target);
+                    ApplyBleedEffect(statusEffectSO, target, powerOverride);
                     break;
                 case StatusEffectEnum.Poison:
-                    ApplyPoisonEffect(statusEffectSO, target);
+                    ApplyPoisonEffect(statusEffectSO, target, powerOverride);
                     break;
                 case StatusEffectEnum.Burn:
-                    ApplyBurnEffect(statusEffectSO, target);
+                    ApplyBurnEffect(statusEffectSO, target, powerOverride);
                     break;
                 case StatusEffectEnum.Fatique:
-                    ApplyFatiqueEffect(statusEffectSO, target);
+                    ApplyFatiqueEffect(statusEffectSO, target, powerOverride);
                     break;
                 case StatusEffectEnum.Thorns:
-                    ApplyThornsEffect(statusEffectSO, target);
+                    ApplyThornsEffect(statusEffectSO, target, powerOverride);
                     break;
                 case StatusEffectEnum.StatChange:
-                    ApplyStatChangeEffect(statusEffectSO, target);
+                    ApplyStatChangeEffect(statusEffectSO, target, powerOverride);
                     break;
                 case StatusEffectEnum.Unique:
                     
@@ -69,7 +69,7 @@ public class StatusEffectManager : MonoBehaviour
         statusEffect.Apply();
     }
 
-    public void ApplyBleedEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyBleedEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
 	{
         var bleedStatusEffect = new BleedStatusEffect
         {
@@ -79,13 +79,13 @@ public class StatusEffectManager : MonoBehaviour
             IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = statusEffectSO.Power
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
         };
 
         bleedStatusEffect.Apply();
 	}
 
-    public void ApplyPoisonEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyPoisonEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
     {
         var poisonStatusEffect = new PoisonStatusEffect
         {
@@ -95,13 +95,13 @@ public class StatusEffectManager : MonoBehaviour
             IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = statusEffectSO.Power
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
         };
 
         poisonStatusEffect.Apply();
     }
 
-    public void ApplyBurnEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyBurnEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
     {
         var burnStatusEffect = new BurnStatusEffect
         {
@@ -111,13 +111,13 @@ public class StatusEffectManager : MonoBehaviour
             IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = statusEffectSO.Power
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
         };
 
         burnStatusEffect.Apply();
     }
 
-    public void ApplyThornsEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyThornsEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
     {
         var thornsStatusEffect = new ThornsStatusEffect
         {
@@ -127,13 +127,13 @@ public class StatusEffectManager : MonoBehaviour
             IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = statusEffectSO.Power
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
         };
 
         thornsStatusEffect.Apply();
     }
 
-    public void ApplyFatiqueEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyFatiqueEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
     {
         var fatiqueStatusEffect = new FatiqueStatusEffect
         {
@@ -142,13 +142,13 @@ public class StatusEffectManager : MonoBehaviour
             Duration = statusEffectSO.Duration,
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = statusEffectSO.Power
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
         };
 
         fatiqueStatusEffect.Apply();
     }
 
-    public void ApplyStatChangeEffect(SO_StatusEffect statusEffectSO, Unit target)
+    public void ApplyStatChangeEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
     {
         var statChangeEffect = new StatChangeEffect
         {
@@ -157,7 +157,7 @@ public class StatusEffectManager : MonoBehaviour
             Duration = statusEffectSO.Duration,
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = statusEffectSO.Power,
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power,
             Stat = statusEffectSO.Stat
         };
 

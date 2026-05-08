@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SO_Trinket : ScriptableObject
 {
+    public string TrinketName;
     public Sprite Image;
     public List<ClassEnum> classes;
 

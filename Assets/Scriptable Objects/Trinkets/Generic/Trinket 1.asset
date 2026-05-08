@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a77b3c0f07e2d94888bae7c760eb9be, type: 3}
-  m_Name: PhantomReflexes_Trinket
+  m_Name: Trinket 1
   m_EditorClassIdentifier: 
+  TrinketName: 
   Image: {fileID: 0}
   classes: 
   Rarity: 1
   Description: 
-  TriggerMoment: 1
-  TriggerEffect: 2
-  ChargesToTrigger: 5
-  TriggerOnce: 0
-  Power: 1
+  TriggerMoment: 3
+  TriggerEffect: 0
+  ChargesToTrigger: 0
+  TriggerOnce: 1
+  Value: 0
+  DamageType: 0
   Target: 0
   Range: 0
-  StatusEffect: 14
+  StatusEffect: 0
+  StatusEffectSO: {fileID: 0}
   Stat: 
