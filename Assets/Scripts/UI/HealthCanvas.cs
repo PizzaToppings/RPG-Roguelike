@@ -75,6 +75,9 @@ public class HealthCanvas : MonoBehaviour
 
     private T GetOrCreateFloatingNumber<T>(GameObject prefab) where T : Component
     {
+        if (DamageNumbersCanvas == null)
+            return null;
+
         T floatingNumber = null;
 
         if (DamageNumbersCanvas.childCount > 0)

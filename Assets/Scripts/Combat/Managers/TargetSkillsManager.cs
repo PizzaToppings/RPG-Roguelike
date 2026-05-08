@@ -265,7 +265,8 @@ public class TargetSkillsManager : MonoBehaviour
 
                 SkillData.AddTileToCurrentList(skillPartIndex, lastTile);
 
-                lastTile.SetColor(skillpart.endColor); // add a list of tiles hit locally
+                if (lastTile != null)
+                    lastTile.SetColor(skillpart.endColor); // add a list of tiles hit locally
             }
             else
 			{

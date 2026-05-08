@@ -69,10 +69,10 @@ public class EnemyInfoPanelManager : MonoBehaviour
         if (enemyNameText != null)
             enemyNameText.text = enemy.UnitName;
 
-        if (physicalPowerText != null)            physicalPowerText.text = $"Physical Power: {enemy.PhysicalPower}";
-        if (magicalPowerText != null)             magicalPowerText.text = $"Magical Power: {enemy.MagicalPower}";
-        if (physicalDefenseText != null)          physicalDefenseText.text = $"Physical Defense: {enemy.PhysicalDefense}";
-        if (magicalDefenseText != null)           magicalDefenseText.text = $"Magical Defense: {enemy.MagicalDefense}";
+        if (physicalPowerText != null)            physicalPowerText.text = enemy.PhysicalPower.ToString();
+        if (magicalPowerText != null)             magicalPowerText.text = enemy.MagicalPower.ToString();
+        if (physicalDefenseText != null)          physicalDefenseText.text = enemy.PhysicalDefense.ToString();
+        if (magicalDefenseText != null)           magicalDefenseText.text = enemy.MagicalDefense.ToString();
 
         if (resistancesText != null)
         {

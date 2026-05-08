@@ -47,10 +47,16 @@ public class DamageManager : MonoBehaviour
 	{
         var skillPower = damageEffect.Power;
         var casterPower = damageEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
-        var targetDefense = damageEffect.IsMagical ? target.MagicalDefense : target.PhysicalDefense;
         var bleedDamage = GetBleedBonusDamage(target, damageEffect.DamageType);
         var typeModifier = GetTypeModifyer(damageEffect, target);
 
+        if (damageEffect.DamageType == DamageTypeEnum.Healing || damageEffect.DamageType == DamageTypeEnum.Shield)
+        {
+            var beneficial = Mathf.CeilToInt((skillPower + casterPower) * typeModifier);
+            return beneficial < 0 ? 0 : beneficial;
+        }
+
+        var targetDefense = damageEffect.IsMagical ? target.MagicalDefense : target.PhysicalDefense;
         var damage = Mathf.CeilToInt((skillPower + bleedDamage + casterPower - targetDefense) * typeModifier);
         if (damage < 0)
             damage = 0;
@@ -133,6 +139,9 @@ public class DamageManager : MonoBehaviour
         var damageDataResolved = target.TakeDamage(data);
         
         healthCanvas.ShowDamageNumber(damageDataResolved);
+
+        if (caster != null)
+            caster.OnDealDamage?.Invoke(data);
 
         if (target.Hitpoints <= 0 && !target.Friendly && caster != null)
             caster.OnKillEnemyEvent.Invoke(target);

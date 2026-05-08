@@ -123,6 +123,8 @@ public class CombatManager : MonoBehaviour
         if (CombatData.CurrentUnitTurn == UnitData.Units.Count)
         {
             CombatData.CurrentUnitTurn = 0;
+            if (CombatData.onRoundEnd != null)
+                CombatData.onRoundEnd.Invoke();
             RoundStart();
         }
 

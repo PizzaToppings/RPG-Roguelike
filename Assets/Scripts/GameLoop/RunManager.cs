@@ -133,6 +133,12 @@ public class RunManager : MonoBehaviour
         AdvanceStep();
     }
 
+    /// <summary>Called by RestZoneUI when the player leaves the rest zone.</summary>
+    public void OnRestZoneLeft()
+    {
+        AdvanceStep();
+    }
+
     /// <summary>Called by CombatManager when the player loses. Returns to the main menu.</summary>
     public void OnCombatLost()
     {

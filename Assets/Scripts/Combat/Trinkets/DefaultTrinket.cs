@@ -27,6 +27,7 @@ public class DefaultTrinket : SO_Trinket
 
     public override void Init(Character character, Trinket trinket)
     {
+        Debug.Log($"[Trinket] '{TrinketName}' Init on '{character.UnitName}' — TriggerMoment: {TriggerMoment}, TriggerEffect: {TriggerEffect}");
         switch (TriggerMoment)
         {
             case TriggerMomentEnum.StartOfCombat:
@@ -65,21 +66,28 @@ public class DefaultTrinket : SO_Trinket
 
     private void OnTrigger(Character character, Trinket trinket)
     {
-        if (TriggerOnce && trinket.hasTriggered) return;
+        if (TriggerOnce && trinket.hasTriggered)
+        {
+            Debug.Log($"[Trinket] '{TrinketName}' skipped on '{character.UnitName}' — already triggered (TriggerOnce).");
+            return;
+        }
 
         if (ChargesToTrigger > 1)
         {
             trinket.chargeCount++;
+            Debug.Log($"[Trinket] '{TrinketName}' charge {trinket.chargeCount}/{ChargesToTrigger} on '{character.UnitName}'.");
             if (trinket.chargeCount < ChargesToTrigger) return;
             trinket.chargeCount = 0;
         }
 
+        Debug.Log($"[Trinket] '{TrinketName}' triggering on '{character.UnitName}' — Effect: {TriggerEffect}");
         Trigger(character);
         trinket.hasTriggered = true;
     }
 
     private void Trigger(Character character)
     {
+        Debug.Log($"[Trinket] '{TrinketName}' executing Trigger on '{character.UnitName}' — Effect: {TriggerEffect}");
         switch (TriggerEffect)
         {
             case TriggerEffectEnum.DealDamage:

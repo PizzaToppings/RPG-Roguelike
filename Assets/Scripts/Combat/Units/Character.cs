@@ -36,19 +36,12 @@ public class Character : Unit
             basicAttack.Init(partyMember.Character.basicAttack);
             basicSkill.Init(partyMember.Character.basicSkill);
             skills = new List<Skill>(partyMember.Skills);
-            trinkets = partyMember.Trinkets.Select(so => { var t = new Trinket(); t.Init(so, this); return t; }).ToList();
         }
         else
         {
             basicAttack.Init(basicAttackSO);
             basicSkill.Init(basicSkillSO);
             skills = skillsSO.Where(so => so != null).Select(so => { var s = new Skill(); s.Init(so); return s; }).ToList();
-            if (characterSO != null && characterSO.BasicTrinket != null)
-            {
-                var t = new Trinket();
-                t.Init(characterSO.BasicTrinket, this);
-                trinkets = new List<Trinket> { t };
-            }
         }
 
         Friendly = true;
@@ -58,6 +51,30 @@ public class Character : Unit
         SetSkillData(basicAttack);
 
         skillsManager.OnSkillCastComplete.AddListener(StopCasting);
+    }
+
+    public void InitTrinkets()
+    {
+        var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
+        if (partyMember != null)
+        {
+            Debug.Log($"[Trinket] {UnitName}: initializing {partyMember.Trinkets.Count} trinket(s) from party data.");
+            trinkets = partyMember.Trinkets.Select(so => { var t = new Trinket(); t.Init(so, this); return t; }).ToList();
+        }
+        else
+        {
+            if (characterSO != null && characterSO.BasicTrinket != null)
+            {
+                Debug.Log($"[Trinket] {UnitName}: initializing BasicTrinket '{characterSO.BasicTrinket.TrinketName}' from characterSO.");
+                var t = new Trinket();
+                t.Init(characterSO.BasicTrinket, this);
+                trinkets = new List<Trinket> { t };
+            }
+            else
+            {
+                Debug.Log($"[Trinket] {UnitName}: no trinkets to initialize.");
+            }
+        }
     }
 
     public override void Update()

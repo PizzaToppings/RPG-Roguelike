@@ -179,6 +179,8 @@ public class Unit : UnitStats
         if (OnUnitTakeDamageEvent != null)
             OnUnitTakeDamageEvent.Invoke(damagaDataResolved);
 
+        OnTakeDamage?.Invoke(damageDataCalculated);
+
         ThisHealthbar.UpdateHealthbar();
         if (Hitpoints <= 0)
             Die();

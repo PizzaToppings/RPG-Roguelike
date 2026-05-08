@@ -50,6 +50,13 @@ public class UnitManager : MonoBehaviour
         }
 
         healthCanvas.Init();
+
+        foreach (Transform child in characterParent)
+        {
+            var character = child.GetComponent<Character>();
+            if (character != null)
+                character.InitTrinkets();
+        }
     }
 
     void PlaceUnit(Transform child)
