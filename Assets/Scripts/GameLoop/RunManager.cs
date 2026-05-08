@@ -8,11 +8,14 @@ using UnityEngine.SceneManagement;
 /// Place this on a GameObject in MainMenuScene - it will persist via DontDestroyOnLoad.
 ///
 /// Setup in Inspector:
-///   - Character Roster : SO_CharacterRoster asset containing all SO_Character assets
-///   - Skill Pool       : SO_SkillPool asset containing all selectable special skills
-///   - Encounter Pool   : SO_EncounterPool asset containing all SO_Encounter assets
-///   - Trinket Pool     : all SO_Trinket assets available as rewards or shop stock
-///   - Scene Names      : Match the exact names in your Build Settings
+///   - Character Roster      : SO_CharacterRoster asset containing all SO_Character assets
+///   - Skill Pool            : SO_SkillPool asset containing all selectable special skills
+///   - Encounter Pool        : SO_EncounterPool asset for normal combats
+///   - Elite Encounter Pool  : SO_EncounterPool asset for elite combats
+///   - Boss Encounter Pool   : SO_EncounterPool asset for boss fights
+///   - Trinket Pool          : SO_TrinketPool asset for trinket rewards
+///   - Progression           : Ordered list of ProgressionStep values defining the full run
+///   - Scene Names           : Match the exact names in your Build Settings
 /// </summary>
 public class RunManager : MonoBehaviour
 {
@@ -22,7 +25,29 @@ public class RunManager : MonoBehaviour
     [SerializeField] SO_CharacterRoster characterRoster;
     [SerializeField] SO_SkillPool skillPool;
     [SerializeField] SO_EncounterPool encounterPool;
+    [SerializeField] SO_EncounterPool eliteEncounterPool;
+    [SerializeField] SO_EncounterPool bossEncounterPool;
     [SerializeField] SO_TrinketPool trinketPool;
+
+    [Header("Progression")]
+    [SerializeField] ProgressionStep[] progression = new ProgressionStep[]
+    {
+        ProgressionStep.SelectCharacter,
+        ProgressionStep.SelectSkill,
+        ProgressionStep.Combat,
+        ProgressionStep.SelectSkill,
+        ProgressionStep.SelectTrinket,
+        ProgressionStep.Combat,
+        ProgressionStep.SelectCharacter,
+        ProgressionStep.SelectSkill,
+        ProgressionStep.Combat,
+        ProgressionStep.SelectSkill,
+        ProgressionStep.SelectTrinket,
+        ProgressionStep.Combat,
+        ProgressionStep.SelectSkill,
+        ProgressionStep.RestZone,
+        ProgressionStep.Boss,
+    };
 
     [Header("Rest Zone")]
     [SerializeField] int restHealAmount = 20;
@@ -38,12 +63,18 @@ public class RunManager : MonoBehaviour
     [Header("Scene Names")]
     [SerializeField] string characterSelectScene = "CharacterSelectScene";
     [SerializeField] string skillSelectScene     = "SkillSelectScene";
+    [SerializeField] string trinketSelectScene   = "TrinketSelectScene";
     [SerializeField] string combatScene          = "TestCombatScene";
+    [SerializeField] string restZoneScene        = "RestZoneScene";
+    [SerializeField] string shopScene            = "ShopScene";
+    [SerializeField] string eventScene           = "EventScene";
+    [SerializeField] string treasureRoomScene    = "TreasureRoomScene";
     [SerializeField] string mainMenuScene        = "MainMenuScene";
 
     [Header("Selection Pool Sizes")]
     [SerializeField] int characterOptionCount = 3;
     [SerializeField] int skillOptionCount     = 3;
+    [SerializeField] int trinketOptionCount   = 2;
 
     // -------------------------------------------------------
     // Lifecycle
@@ -65,18 +96,18 @@ public class RunManager : MonoBehaviour
     // Run flow
     // -------------------------------------------------------
 
-    /// <summary>Reset run state and go to character selection.</summary>
+    /// <summary>Reset run state and begin at step 0 of the progression.</summary>
     public void StartNewRun()
     {
         RunData.Reset();
-        SceneManager.LoadScene(characterSelectScene);
+        LoadCurrentStep();
     }
 
     /// <summary>Called by CharacterSelectCard when the player picks a character.</summary>
     public void SelectCharacter(SO_Character character)
     {
         RunData.Party.Add(new RunDataPartyMember(character));
-        SceneManager.LoadScene(skillSelectScene);
+        AdvanceStep();
     }
 
     /// <summary>Called by SkillSelectCard when the player picks a skill for a specific party member.</summary>
@@ -85,32 +116,103 @@ public class RunManager : MonoBehaviour
         var skillInstance = new Skill();
         skillInstance.Init(skill);
         RunData.Party[partyMemberIndex].Skills.Add(skillInstance);
-        RunData.CurrentEncounter = PickRandomEncounter();
-        SceneManager.LoadScene(combatScene);
+        AdvanceStep();
     }
 
-    /// <summary>
-    /// Called by CombatManager.Win().
-    /// Every 2 wins a new character joins the party (up to the 4-member cap).
-    /// Otherwise the player proceeds to skill selection.
-    /// </summary>
+    /// <summary>Called by TrinketSelectAssignButton when the player assigns a trinket to a party member.</summary>
+    public void SelectTrinket(SO_Trinket trinket, int partyMemberIndex)
+    {
+        RunData.Party[partyMemberIndex].Trinkets.Add(trinket);
+        AdvanceStep();
+    }
+
+    /// <summary>Called by CombatManager when the player wins a combat.</summary>
     public void OnCombatWon()
     {
         RunData.CombatWins++;
-        bool partyFull         = RunData.Party.Count >= 4;
-        bool shouldAddCharacter = (RunData.CombatWins % 2 == 0) && !partyFull;
-
-        if (shouldAddCharacter)
-            SceneManager.LoadScene(characterSelectScene);
-        else
-            SceneManager.LoadScene(skillSelectScene);
+        AdvanceStep();
     }
 
-    /// <summary>Called by CombatManager.Lose(). Returns to the main menu and resets the run.</summary>
+    /// <summary>Called by CombatManager when the player loses. Returns to the main menu.</summary>
     public void OnCombatLost()
     {
         RunData.Reset();
         SceneManager.LoadScene(mainMenuScene);
+    }
+
+    /// <summary>Increments the step index and loads the next step's scene.</summary>
+    void AdvanceStep()
+    {
+        RunData.StepIndex++;
+        LoadCurrentStep();
+    }
+
+    /// <summary>Reads the current step from the progression and loads the appropriate scene.</summary>
+    void LoadCurrentStep()
+    {
+        if (RunData.StepIndex >= progression.Length)
+        {
+            Debug.Log("RunManager: Progression complete.");
+            RunData.Reset();
+            SceneManager.LoadScene(mainMenuScene);
+            return;
+        }
+
+        var step = progression[RunData.StepIndex];
+        switch (step)
+        {
+            case ProgressionStep.SelectCharacter:
+                SceneManager.LoadScene(characterSelectScene);
+                break;
+
+            case ProgressionStep.SelectSkill:
+                SceneManager.LoadScene(skillSelectScene);
+                break;
+
+            case ProgressionStep.SelectTrinket:
+                SceneManager.LoadScene(trinketSelectScene);
+                break;
+
+            case ProgressionStep.Combat:
+                RunData.CurrentEncounter = PickEncounter(encounterPool);
+                RunData.CurrentNodeType  = NodeTypeEnum.Combat;
+                SceneManager.LoadScene(combatScene);
+                break;
+
+            case ProgressionStep.EliteCombat:
+                RunData.CurrentEncounter = PickEncounter(eliteEncounterPool);
+                RunData.CurrentNodeType  = NodeTypeEnum.EliteCombat;
+                SceneManager.LoadScene(combatScene);
+                break;
+
+            case ProgressionStep.Boss:
+                RunData.CurrentEncounter = PickEncounter(bossEncounterPool);
+                RunData.CurrentNodeType  = NodeTypeEnum.Boss;
+                SceneManager.LoadScene(combatScene);
+                break;
+
+            case ProgressionStep.RestZone:
+                RunData.CurrentNodeType = NodeTypeEnum.RestZone;
+                SceneManager.LoadScene(restZoneScene);
+                break;
+
+            case ProgressionStep.Shop:
+                PrepShop();
+                RunData.CurrentNodeType = NodeTypeEnum.Shop;
+                SceneManager.LoadScene(shopScene);
+                break;
+
+            case ProgressionStep.Event:
+                RunData.CurrentNodeType = NodeTypeEnum.Event;
+                SceneManager.LoadScene(eventScene);
+                break;
+
+            case ProgressionStep.TreasureRoom:
+                PrepTreasureRoom();
+                RunData.CurrentNodeType = NodeTypeEnum.TreasureRoom;
+                SceneManager.LoadScene(treasureRoomScene);
+                break;
+        }
     }
 
     // -------------------------------------------------------
@@ -270,15 +372,36 @@ public class RunManager : MonoBehaviour
             .ToArray();
     }
 
-    SO_Encounter PickRandomEncounter()
+    /// <summary>
+    /// Returns up to <see cref="trinketOptionCount"/> trinkets from the pool.
+    /// Trinkets already owned by any party member are excluded.
+    /// </summary>
+    public SO_Trinket[] GetTrinketOptions()
     {
-        if (encounterPool == null || encounterPool.Encounters.Count == 0)
+        if (trinketPool == null || trinketPool.Trinkets.Count == 0)
+        {
+            Debug.LogWarning("RunManager: TrinketPool is empty or not assigned.");
+            return new SO_Trinket[0];
+        }
+
+        var alreadyOwned = new HashSet<SO_Trinket>(
+            RunData.Party.SelectMany(m => m.Trinkets));
+
+        return trinketPool.Trinkets
+            .Where(t => !alreadyOwned.Contains(t))
+            .OrderBy(_ => Random.value)
+            .Take(trinketOptionCount)
+            .ToArray();
+    }
+
+    SO_Encounter PickEncounter(SO_EncounterPool pool)
+    {
+        if (pool == null || pool.Encounters.Count == 0)
         {
             Debug.LogWarning("RunManager: EncounterPool is empty or not assigned.");
             return null;
         }
 
-        var encounter = encounterPool.Encounters[Random.Range(0, encounterPool.Encounters.Count)];
-        return encounter;
+        return pool.Encounters[Random.Range(0, pool.Encounters.Count)];
     }
 }

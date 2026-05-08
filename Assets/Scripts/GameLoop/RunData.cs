@@ -34,6 +34,9 @@ public static class RunData
     /// <summary>Number of combat encounters won so far this run.</summary>
     public static int CombatWins = 0;
 
+    /// <summary>Index into RunManager's progression sequence. Advances after each step completes.</summary>
+    public static int StepIndex = 0;
+
     /// <summary>The type of the next node the player will enter.</summary>
     public static NodeTypeEnum CurrentNodeType;
 
@@ -63,6 +66,7 @@ public static class RunData
     {
         Party.Clear();
         CombatWins = 0;
+        StepIndex = 0;
         CurrentNodeType = NodeTypeEnum.Combat;
         CurrentEncounter = null;
         CurrentEvent = null;
