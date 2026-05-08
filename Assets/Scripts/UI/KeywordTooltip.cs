@@ -48,12 +48,9 @@ public class KeywordTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     void ShowToolTip(string keyword)
     {
-        Debug.Log(keyword);
-        Debug.Log(tooltipManager);
-
+        Debug.Log($"the keyword is {keyword}!");
 
         var tooltiptext = string.Empty;
-        Debug.Log(tooltiptext);
         switch (keyword)
         {
             case "Bleed":

@@ -5778,7 +5778,7 @@ GameObject:
   - component: {fileID: 164231520}
   - component: {fileID: 164231519}
   m_Layer: 5
-  m_Name: Left Stats (1)
+  m_Name: Right Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56741,10 +56741,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfoPanel: {fileID: 1631820412}
   enemyNameText: {fileID: 1849864988}
-  physicalPowerText: {fileID: 0}
-  magicalPowerText: {fileID: 0}
-  physicalDefenseText: {fileID: 0}
-  magicalDefenseText: {fileID: 0}
+  physicalPowerText: {fileID: 1921117136}
+  magicalPowerText: {fileID: 805427609}
+  physicalDefenseText: {fileID: 934954132}
+  magicalDefenseText: {fileID: 1236094409}
   resistancesText: {fileID: 0}
   vulnerabilitiesText: {fileID: 0}
   intentSection: {fileID: 1203295638}

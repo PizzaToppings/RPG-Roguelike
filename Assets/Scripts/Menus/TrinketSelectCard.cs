@@ -7,7 +7,6 @@ public class TrinketSelectCard : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI trinketNameText;
     [SerializeField] Image           trinketIcon;
-    [SerializeField] TextMeshProUGUI rarityText;
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] List<Image>     classIcons;
 
@@ -28,9 +27,6 @@ public class TrinketSelectCard : MonoBehaviour
             trinketIcon.gameObject.SetActive(true);
             trinketIcon.sprite = trinket.Image;
         }
-
-        if (rarityText != null)
-            rarityText.text = new string('?', trinket.Rarity);
 
         if (descriptionText != null)
             descriptionText.text = trinket.Description;
