@@ -113,9 +113,9 @@ public class DamageManager : MonoBehaviour
                 data.Damage = Mathf.CeilToInt(data.Damage * damageMultiplier);
 
                 if (damageEffect.DamageType == DamageTypeEnum.Healing)
-                    Heal(data);
+                    HealUnit(data);
                 else if (damageEffect.DamageType == DamageTypeEnum.Shield)
-                    Shield(data);
+                    ShieldUnit(data);
                 else
                     DealDamage(data);
             }
@@ -134,6 +134,9 @@ public class DamageManager : MonoBehaviour
         
         healthCanvas.ShowDamageNumber(damageDataResolved);
 
+        if (target.Hitpoints <= 0 && !target.Friendly && caster != null)
+            caster.OnKillEnemyEvent.Invoke(target);
+
         if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Incapacitated))
         {
             var incapacitated = target.statusEffects.Find(x => x.statusEfectType == StatusEffectEnum.Incapacitated);
@@ -141,7 +144,7 @@ public class DamageManager : MonoBehaviour
         }
     }
 
-    void Heal(DamageDataCalculated data)
+    public void HealUnit(DamageDataCalculated data)
     {
         var target = data.Target;
 
@@ -150,7 +153,7 @@ public class DamageManager : MonoBehaviour
         healthCanvas.ShowHealNumber(correctedHeal);
     }
 
-    void Shield(DamageDataCalculated data)
+    public void ShieldUnit(DamageDataCalculated data)
     {
         var target = data.Target;
 

@@ -12,6 +12,7 @@ public class CombatData
     public static UnityEvent onTurnEnd = new UnityEvent();
     public static UnityEvent onRoundStart = new UnityEvent();
     public static UnityEvent onRoundEnd = new UnityEvent();
+    public static UnityEvent onCombatEnd = new UnityEvent();
 
     public static void Reset()
     {
@@ -22,5 +23,6 @@ public class CombatData
         onTurnEnd.RemoveAllListeners();
         onRoundStart.RemoveAllListeners();
         onRoundEnd.RemoveAllListeners();
+        onCombatEnd.RemoveAllListeners();
     }
 }

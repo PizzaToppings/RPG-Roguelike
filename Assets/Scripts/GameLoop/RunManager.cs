@@ -22,7 +22,7 @@ public class RunManager : MonoBehaviour
     [SerializeField] SO_CharacterRoster characterRoster;
     [SerializeField] SO_SkillPool skillPool;
     [SerializeField] SO_EncounterPool encounterPool;
-    [SerializeField] List<SO_Trinket> trinketPool;
+    [SerializeField] SO_TrinketPool trinketPool;
 
     [Header("Rest Zone")]
     [SerializeField] int restHealAmount = 20;
@@ -131,13 +131,13 @@ public class RunManager : MonoBehaviour
     {
         RunData.CurrentTreasureOptions.Clear();
 
-        if (trinketPool == null || trinketPool.Count == 0)
+        if (trinketPool == null || trinketPool.Trinkets.Count == 0)
         {
             Debug.LogWarning("RunManager: Trinket pool is empty or not assigned.");
             return;
         }
 
-        var picks = trinketPool
+        var picks = trinketPool.Trinkets
             .OrderBy(_ => Random.value)
             .Take(treasureOptionCount)
             .ToList();
@@ -173,9 +173,9 @@ public class RunManager : MonoBehaviour
             RunData.CurrentShopSkills.AddRange(skillPicks);
         }
 
-        if (trinketPool != null && trinketPool.Count > 0)
+        if (trinketPool != null && trinketPool.Trinkets.Count > 0)
         {
-            var trinketPicks = trinketPool
+            var trinketPicks = trinketPool.Trinkets
                 .OrderBy(_ => Random.value)
                 .Take(shopTrinketCount)
                 .ToList();

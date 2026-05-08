@@ -15,6 +15,7 @@ public class DefaultTrinket : SO_Trinket
     
     [Space]
     public DamageTypeEnum DamageType;
+    public bool IsMagical;
 
     [Space]
     public TargetEnum Target;
@@ -28,7 +29,7 @@ public class DefaultTrinket : SO_Trinket
     {
         switch (TriggerMoment)
         {
-            case TriggerMomentEnum.StartOfGame:
+            case TriggerMomentEnum.StartOfCombat:
                 Trigger(character);
                 break;
             case TriggerMomentEnum.StartOfTurn:
@@ -43,6 +44,9 @@ public class DefaultTrinket : SO_Trinket
             case TriggerMomentEnum.EndOfRound:
                 CombatData.onRoundEnd.AddListener(() => OnTrigger(character, trinket));
                 break;
+            case TriggerMomentEnum.EndOfCombat:
+                CombatData.onCombatEnd.AddListener(() => OnTrigger(character, trinket));
+                break;
             case TriggerMomentEnum.OnDealDamage:
                 if (character.OnDealDamage == null)
                     character.OnDealDamage = new UnityEngine.Events.UnityEvent<DamageDataCalculated>();
@@ -52,6 +56,9 @@ public class DefaultTrinket : SO_Trinket
                 if (character.OnTakeDamage == null)
                     character.OnTakeDamage = new UnityEngine.Events.UnityEvent<DamageDataCalculated>();
                 character.OnTakeDamage.AddListener(_ => OnTrigger(character, trinket));
+                break;
+            case TriggerMomentEnum.OnKillEnemy:
+                character.OnKillEnemyEvent.AddListener(_ => OnTrigger(character, trinket));
                 break;
         }
     }
@@ -76,16 +83,18 @@ public class DefaultTrinket : SO_Trinket
         switch (TriggerEffect)
         {
             case TriggerEffectEnum.DealDamage:
-                var damageData = new DamageData { Caster = character, DamageType = DamageType, Power = Value };
+                var damageData = new DamageData { Caster = character, DamageType = DamageType, Power = Value, IsMagical = IsMagical };
                 var damageManager = DamageManager.Instance;
                 foreach (var target in GetTargets(character))
-                    damageManager.DealDamage(damageManager.CalculateDamageData(damageData, target));
-                break;
-
-            case TriggerEffectEnum.TakeDamage:
-                var selfDamageData = new DamageData { Caster = character, DamageType = DamageType, Power = Value };
-                var selfDamageManager = DamageManager.Instance;
-                selfDamageManager.DealDamage(selfDamageManager.CalculateDamageData(selfDamageData, character));
+                {
+                    var calculated = damageManager.CalculateDamageData(damageData, target);
+                    if (DamageType == DamageTypeEnum.Healing)
+                        damageManager.HealUnit(calculated);
+                    else if (DamageType == DamageTypeEnum.Shield)
+                        damageManager.ShieldUnit(calculated);
+                    else
+                        damageManager.DealDamage(calculated);
+                }
                 break;
 
             case TriggerEffectEnum.AddStatusEffect:

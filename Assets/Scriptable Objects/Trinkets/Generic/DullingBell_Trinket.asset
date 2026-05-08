@@ -18,12 +18,12 @@ MonoBehaviour:
   Rarity: 1
   Description: Enemies have -1 physical and magical power at the first round of combat.
   TriggerMoment: 3
-  TriggerEffect: 4
+  TriggerEffect: 2
   ChargesToTrigger: 0
   TriggerOnce: 1
   Value: 0
   DamageType: 0
-  Target: 0
+  Target: 4
   Range: 0
   StatusEffects:
   - {fileID: 11400000, guid: 99e1ce976b182bf4199c5fe2a8a1f48b, type: 2}

@@ -10,23 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a77b3c0f07e2d94888bae7c760eb9be, type: 3}
-  m_Name: TinyChisel_Trinket
+  m_Name: GiantHeart_Trinket
   m_EditorClassIdentifier: 
-  TrinketName: Tiny Chisel
+  TrinketName: Giant Heart
   Image: {fileID: 0}
   classes: 
   Rarity: 1
-  Description: Enemies have -1 physical and magical defense at the first round of
-    combat.
-  TriggerMoment: 3
-  TriggerEffect: 2
+  Description: 'Increase your maximum Hit Point by 10. '
+  TriggerMoment: 0
+  TriggerEffect: 3
   ChargesToTrigger: 0
   TriggerOnce: 1
-  Value: 0
+  Value: 10
   DamageType: 0
-  Target: 4
+  Target: 0
   Range: 0
-  StatusEffects:
-  - {fileID: 11400000, guid: 310e74a5822d947409f5d1d8aa20113e, type: 2}
-  - {fileID: 11400000, guid: 942f26263062f724285f1f140126fe96, type: 2}
-  Stat: 
+  StatusEffects: []
+  Stat: 00000000

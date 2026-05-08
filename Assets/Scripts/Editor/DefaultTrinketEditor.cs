@@ -18,6 +18,7 @@ public class DefaultTrinketEditor : Editor
     SerializedProperty triggerOnce;
     SerializedProperty value;
     SerializedProperty damageType;
+    SerializedProperty isMagical;
     SerializedProperty target;
     SerializedProperty range;
     SerializedProperty statusEffects;
@@ -37,6 +38,7 @@ public class DefaultTrinketEditor : Editor
         triggerOnce      = serializedObject.FindProperty("TriggerOnce");
         value            = serializedObject.FindProperty("Value");
         damageType       = serializedObject.FindProperty("DamageType");
+        isMagical        = serializedObject.FindProperty("IsMagical");
         target           = serializedObject.FindProperty("Target");
         range            = serializedObject.FindProperty("Range");
         statusEffects    = serializedObject.FindProperty("StatusEffects");
@@ -48,9 +50,14 @@ public class DefaultTrinketEditor : Editor
         serializedObject.Update();
 
         var effect     = (TriggerEffectEnum)triggerEffect.enumValueIndex;
+        var moment     = (TriggerMomentEnum)triggerMoment.enumValueIndex;
         var targetType = (TargetEnum)target.enumValueIndex;
 
-        bool showDamageType    = effect == TriggerEffectEnum.DealDamage  || effect == TriggerEffectEnum.TakeDamage;
+        bool implicitlyOnce = moment == TriggerMomentEnum.StartOfCombat || moment == TriggerMomentEnum.EndOfCombat;
+        bool showValue         = effect != TriggerEffectEnum.AddStatusEffect;
+        bool showDamageType    = effect == TriggerEffectEnum.DealDamage;
+        var  selectedDamageType = (DamageTypeEnum)damageType.enumValueIndex;
+        bool showIsMagical     = showDamageType && selectedDamageType != DamageTypeEnum.Healing && selectedDamageType != DamageTypeEnum.Shield;
         bool showTarget        = effect == TriggerEffectEnum.DealDamage  || effect == TriggerEffectEnum.AddStatusEffect || effect == TriggerEffectEnum.ModifyStat;
         bool showRange         = showTarget && targetType != TargetEnum.Self;
         bool showStatusEffects = effect == TriggerEffectEnum.AddStatusEffect;
@@ -69,17 +76,23 @@ public class DefaultTrinketEditor : Editor
         // Always visible
         EditorGUILayout.PropertyField(triggerMoment);
         EditorGUILayout.PropertyField(triggerEffect);
-        EditorGUILayout.PropertyField(chargesToTrigger);
-        EditorGUILayout.PropertyField(triggerOnce);
+        if (!implicitlyOnce)
+        {
+            EditorGUILayout.PropertyField(chargesToTrigger);
+            EditorGUILayout.PropertyField(triggerOnce);
+        }
 
         EditorGUILayout.Space();
-        EditorGUILayout.PropertyField(value);
+        if (showValue)
+            EditorGUILayout.PropertyField(value);
 
         // Damage type
         if (showDamageType)
         {
             EditorGUILayout.Space();
             EditorGUILayout.PropertyField(damageType);
+            if (showIsMagical)
+                EditorGUILayout.PropertyField(isMagical);
         }
 
         // Target and range

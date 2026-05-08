@@ -158,6 +158,8 @@ public class CombatManager : MonoBehaviour
     {
         yield return new WaitForSeconds(combatEndDelay);
 
+        CombatData.onCombatEnd.Invoke();
+
         foreach (var character in UnitData.Characters)
         {
             if (character.partyMemberIndex < RunData.Party.Count)
