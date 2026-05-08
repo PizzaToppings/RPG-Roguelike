@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a77b3c0f07e2d94888bae7c760eb9be, type: 3}
-  m_Name: Trinket 2
+  m_Name: TinyChisel_Trinket
   m_EditorClassIdentifier: 
-  TrinketName: 
+  TrinketName: Dulling Bell
   Image: {fileID: 0}
   classes: 
   Rarity: 1
-  Description: 
+  Description: Enemies have -1 physical and magical power at the first round of combat.
   TriggerMoment: 3
-  TriggerEffect: 2
+  TriggerEffect: 4
   ChargesToTrigger: 0
   TriggerOnce: 1
   Value: 0
   DamageType: 0
   Target: 0
   Range: 0
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 11400000, guid: 99e1ce976b182bf4199c5fe2a8a1f48b, type: 2}
+  - {fileID: 11400000, guid: d5e66cdc6e430d0488c9651bd3ce70e0, type: 2}
   Stat: 

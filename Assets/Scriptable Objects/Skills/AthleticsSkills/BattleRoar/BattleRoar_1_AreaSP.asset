@@ -12,13 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: BattleRoar_1_AreaSP
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 0
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -46,9 +39,7 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects:
-  - {fileID: 11400000, guid: 1d8f1b3bee24bad4d8827f4ca2a60606, type: 2}
+  StatusEffects: []
   tileEffects: []
   displacementEffect: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}
