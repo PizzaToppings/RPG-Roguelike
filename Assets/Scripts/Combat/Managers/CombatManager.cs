@@ -16,6 +16,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] UI_Singletons ui_Singletons;
     [SerializeField] InputManager inputManager;
     [SerializeField] ConsumableManager consumableManager;
+    [SerializeField] TilemapInputHandler tilemapInputHandler;
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
@@ -78,11 +79,13 @@ public class CombatManager : MonoBehaviour
 		uiManager.Init();
         inputManager.Init();
         consumableManager.Init();
+        tilemapInputHandler.Init();
     }
 
     void CreateBattlefield()
     {
         boardManager.AddBoardTilesToList();
+        boardManager.InitHighlightTilemap();
     }
 
     void SetUnits()

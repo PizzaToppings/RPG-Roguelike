@@ -207,6 +207,12 @@ public class SO_Skillpart : ScriptableObject
 
     public void RotateCaster(Vector3 target)
     {
-        SkillData.Caster.transform.LookAt(new Vector3(target.x, SkillData.Caster.transform.position.y, target.z));
+        if (SkillData.Caster.modelSprite != null)
+        {
+            if (target.x < SkillData.Caster.transform.position.x)
+                SkillData.Caster.modelSprite.flipX = true;
+            else if (target.x > SkillData.Caster.transform.position.x)
+                SkillData.Caster.modelSprite.flipX = false;
+        }
     }
 }

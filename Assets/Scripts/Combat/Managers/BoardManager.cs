@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BoardManager : MonoBehaviour
 {
@@ -12,12 +13,18 @@ public class BoardManager : MonoBehaviour
     [Space]
     [SerializeField] Transform BoardParent;
 
+    [Header("2D Highlight Tilemap")]
+    [SerializeField] Tilemap highlightTilemap;
+    [SerializeField] TileBase highlightTile;
+
     public TileColor originalColor;
     public TileColor MovementColor;
     public TileColor MouseOverColor;
 
     LineRenderer movementLR;
-    Vector3 MovementLineOffset = Vector3.up * 0.2f;
+    // In 2D, tiles lie in the XY plane; use a slight negative Z so the line
+    // renders in front of sprites (camera looks along +Z in 2D).
+    Vector3 MovementLineOffset = new Vector3(0f, 0f, -0.5f);
 
     [HideInInspector] public List<BoardTile> Path = new List<BoardTile>();
 
@@ -38,14 +45,66 @@ public class BoardManager : MonoBehaviour
 
     public void AddBoardTilesToList()
     {
-        BoardData.BoardTiles = new BoardTile[BoardData.rowAmount, BoardData.columnAmount];
+        // First pass: resolve actual tilemap cell coordinates and find their bounds.
+        // tile.xPosition is already 0-based (set by BoardGenerator), so we must use
+        // WorldToCell to get the real tilemap coordinates for boardOffset.
+        var tileData = new System.Collections.Generic.List<(BoardTile tile, Vector3Int cell)>();
+        int minX = int.MaxValue, minY = int.MaxValue;
+        int maxX = int.MinValue, maxY = int.MinValue;
 
         foreach (Transform child in BoardParent.transform)
         {
             var tile = child.GetComponent<BoardTile>();
-            tile.Init();
-            BoardData.BoardTiles[tile.xPosition, tile.yPosition] = tile;
+            if (tile == null) continue;
+
+            Vector3Int cellPos = highlightTilemap.WorldToCell(tile.transform.position);
+            tile.CellPosition = cellPos;
+
+            if (cellPos.x < minX) minX = cellPos.x;
+            if (cellPos.y < minY) minY = cellPos.y;
+            if (cellPos.x > maxX) maxX = cellPos.x;
+            if (cellPos.y > maxY) maxY = cellPos.y;
+
+            tileData.Add((tile, cellPos));
         }
+
+        BoardData.boardOffset  = new Vector2Int(minX, minY);
+        BoardData.rowAmount    = maxX - minX + 1;
+        BoardData.columnAmount = maxY - minY + 1;
+        BoardData.BoardTiles   = new BoardTile[BoardData.rowAmount, BoardData.columnAmount];
+
+        foreach (var (tile, cellPos) in tileData)
+        {
+            int ax = cellPos.x - minX;
+            int ay = cellPos.y - minY;
+            tile.Init();
+            tile.xPosition   = ax;
+            tile.yPosition   = ay;
+            tile.Coordinates = new Vector2Int(ax, ay);
+            BoardData.BoardTiles[ax, ay] = tile;
+        }
+    }
+
+    /// <summary>
+    /// Places a transparent highlight tile at every board cell in the overlay
+    /// tilemap. Call once after AddBoardTilesToList.
+    /// </summary>
+    public void InitHighlightTilemap()
+    {
+        foreach (var tile in BoardData.BoardTiles)
+        {
+            if (tile == null) continue;
+            highlightTilemap.SetTile(tile.CellPosition, highlightTile);
+            // Unlock color so SetColor works at runtime
+            highlightTilemap.SetTileFlags(tile.CellPosition, TileFlags.None);
+            highlightTilemap.SetColor(tile.CellPosition, Color.clear);
+        }
+    }
+
+    /// <summary>Sets the color of a cell in the overlay highlight tilemap.</summary>
+    public void SetHighlightColor(Vector3Int cellPos, Color color)
+    {
+        highlightTilemap.SetColor(cellPos, color);
     }
 
     public BoardTile GetBoardTile(int xPosition, int yPosition)
@@ -118,20 +177,25 @@ public class BoardManager : MonoBehaviour
 
 	int GetDirectionBetweenTiles(BoardTile startTile, BoardTile endTile)
 	{
-		var tileDirectionIndex = 0;
+		int bestIndex = 0;
 		Vector3 dir = (endTile.position - startTile.position).normalized;
-		Vector2 direction = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
+		float bestDot = float.MinValue;
 
-		for (int i = 0; i < Directions.Length; i++)
+		for (int i = 0; i < startTile.connectedTiles.Length; i++)
 		{
-			if (direction == Directions[i])
+			var neighbor = startTile.connectedTiles[i];
+			if (neighbor == null) continue;
+
+			Vector3 neighborDir = (neighbor.position - startTile.position).normalized;
+			float dot = Vector3.Dot(dir, neighborDir);
+			if (dot > bestDot)
 			{
-				tileDirectionIndex = i;
-				break;
+				bestDot = dot;
+				bestIndex = i;
 			}
 		}
 
-		return tileDirectionIndex;
+		return bestIndex;
 	}
 
     public List<BoardTile> GetTilesWithinDirectRange(BoardTile starttile, float range, bool FreeSpacesOnly)
@@ -175,8 +239,10 @@ public class BoardManager : MonoBehaviour
 
     public void Clear()
     {
+        if (BoardData.BoardTiles == null) return;
         foreach (var tile in BoardData.BoardTiles)
         {
+            if (tile == null) continue;
             tile.movementLeft = -1;
             tile.PreviousTile = null;
 			tile.skillshotsRangeLeft = new List<float>();
@@ -192,8 +258,10 @@ public class BoardManager : MonoBehaviour
 
     public void VisualClear()
 	{
+        if (BoardData.BoardTiles == null) return;
         foreach (var tile in BoardData.BoardTiles)
         {
+            if (tile == null) continue;
 			tile.skillshotsRangeLeft = new List<float>();
 
             tile.OverrideColor(originalColor);

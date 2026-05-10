@@ -53,15 +53,8 @@ public class InputManager : MonoBehaviour
 
     public Vector3 GetMousePosition()
     {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, Vector3.zero);
-
-        float distance;
-        if (plane.Raycast(ray, out distance))
-        {
-            return ray.GetPoint(distance);
-        }
-
-        return Vector3.zero;
+        Vector3 worldPos = camera.ScreenToWorldPoint(Input.mousePosition);
+        worldPos.z = 0f;
+        return worldPos;
     }
 }

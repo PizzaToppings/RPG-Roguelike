@@ -28,9 +28,8 @@ public class BoardTile : MonoBehaviour
     [HideInInspector] public int yPosition = 0;
     [HideInInspector] public Vector2Int Coordinates;
 
-    // materials
-    Material centerMaterial;
-    Material[] edgeMaterials;
+    // highlight tilemap cell position (set by BoardManager during init)
+    [HideInInspector] public Vector3Int CellPosition;
 
     // movement
     [HideInInspector] public float movementLeft = -1f;
@@ -53,14 +52,6 @@ public class BoardTile : MonoBehaviour
 
     public void Init()
     {
-        edgeMaterials = new Material[4];
-
-        centerMaterial = gameObject.GetComponent<MeshRenderer>().materials[4];
-        edgeMaterials[0] = gameObject.GetComponent<MeshRenderer>().materials[1];// up
-        edgeMaterials[1] = gameObject.GetComponent<MeshRenderer>().materials[2];// right
-        edgeMaterials[2] = gameObject.GetComponent<MeshRenderer>().materials[3];// bottom
-        edgeMaterials[3] = gameObject.GetComponent<MeshRenderer>().materials[0];// left
-
         boardManager = BoardManager.Instance;
         ui_Singletons = UI_Singletons.Instance;
 
@@ -69,22 +60,6 @@ public class BoardTile : MonoBehaviour
 
         skillsManager = SkillsManager.Instance;
         skillVFXManager = SkillVFXManager.Instance;
-    }
-
-    void OnMouseDown()
-    {
-        if (Input.GetMouseButton(1)) return;
-        OnClick();
-    }
-
-    void OnMouseEnter()
-    {
-        if (Input.GetMouseButton(1)) return;
-
-        BoardData.CurrentMouseTile = this;
-
-        if (!EventSystem.current.IsPointerOverGameObject())
-            Target();
     }
 
     public void Target()
@@ -162,11 +137,6 @@ public class BoardTile : MonoBehaviour
         // TODO set hologram from attacker
     }
 
-
-    void OnMouseExit()
-    {
-        UnTarget();
-    }
 
     public void OnClick()
 	{
@@ -251,84 +221,25 @@ public class BoardTile : MonoBehaviour
         if (currentTileColor == null)
             currentTileColor = new TileColor();
 
-        Color transparentColor = color.Color;
-        transparentColor.a = 0.5f;
-
-        if (color.FillCenter)
-            centerMaterial.color = transparentColor;
-        else
-            centerMaterial.color = Color.clear;
-
         if (currentTileColor.Priority < color.Priority)
             return;
-        
-        currentTileColor = color;
 
-        SetEdgeColors(color);
+        currentTileColor = color;
+        ApplyHighlightColor(color);
     }
 
     public void OverrideColor(TileColor color)
     {
-        if (currentTileColor == null)
-            currentTileColor = new TileColor();
-
-        Color transparentColor = color.Color;
-        transparentColor.a = 0.5f;
-
-        if (color.FillCenter)
-            centerMaterial.color = transparentColor;
-        else
-            centerMaterial.color = Color.clear;
-
         currentTileColor = color;
-
-        SetEdgeColors(color);
+        ApplyHighlightColor(color);
     }
 
-    void SetEdgeColors(TileColor color)
+    void ApplyHighlightColor(TileColor color)
     {
-        Color transparentColor = color.Color;
-        transparentColor.a = 0.2f;
-
-        var edgeIndex = 0;
-        for (int i = 0; i < connectedTiles.Length; i += 2)
-        {
-            if (connectedTiles[i] == null)
-            {
-                SetEdgeColor(color.Color, edgeIndex);
-                edgeIndex++;
-                continue;
-            }
-
-            var reverseEdgeIndex = (edgeIndex + 2) % 4;
-
-            if (connectedTiles[i].currentTileColor == currentTileColor)
-            {
-                SetEdgeColor(transparentColor, edgeIndex);
-                connectedTiles[i].SetEdgeColor(transparentColor, reverseEdgeIndex);
-            }
-            else if (currentTileColor.Priority < connectedTiles[i].currentTileColor.Priority)
-            {
-                SetEdgeColor(color.Color, edgeIndex);
-                connectedTiles[i].SetEdgeColor(color.Color, reverseEdgeIndex);
-            }
-            else if (currentTileColor.Priority > connectedTiles[i].currentTileColor.Priority)
-            {
-                SetEdgeColor(connectedTiles[i].currentTileColor.Color, edgeIndex);
-                connectedTiles[i].SetEdgeColor(connectedTiles[i].currentTileColor.Color, reverseEdgeIndex);
-            }
-         
-            edgeIndex++;
-        }
-    }
-
-    public void SetEdgeColor(Color color, int index)
-    {
-        edgeMaterials[index].color = color;
-    }
-
-    public void SetCenterColor(Color color)
-    {
-        centerMaterial.color = color;
+        // FillCenter = true  → full alpha (solid highlight)
+        // FillCenter = false → half alpha (soft highlight)
+        float alpha = color.FillCenter ? 1f : 0.5f;
+        Color c = new Color(color.Color.r, color.Color.g, color.Color.b, alpha);
+        boardManager.SetHighlightColor(CellPosition, c);
     }
 }

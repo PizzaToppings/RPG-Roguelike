@@ -78,15 +78,22 @@ public class TargetSkillsManager : MonoBehaviour
             directionInput = originTile.position;
 
         Vector3 dir = (directionInput - directionAnchorTile.position).normalized;
-        var direction = new Vector2(Mathf.Round(dir.x), Mathf.Round(dir.z));
 
-        var directions = boardManager.Directions;
-        for (int i = 0; i < directions.Length; i++)
+        // In an isometric tilemap, world XY axes don't align with board grid axes,
+        // so rounding dir.x/dir.y gives wrong results. Instead, find the neighbor
+        // whose actual world-space direction best matches the mouse direction.
+        float bestDot = float.MinValue;
+        for (int i = 0; i < directionAnchorTile.connectedTiles.Length; i++)
         {
-            if (direction == directions[i])
+            var neighbor = directionAnchorTile.connectedTiles[i];
+            if (neighbor == null) continue;
+
+            Vector3 neighborDir = (neighbor.position - directionAnchorTile.position).normalized;
+            float dot = Vector3.Dot(dir, neighborDir);
+            if (dot > bestDot)
             {
+                bestDot = dot;
                 tileDirectionIndex = i;
-                break;
             }
         }
 

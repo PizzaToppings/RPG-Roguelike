@@ -24,6 +24,7 @@ public class Unit : UnitStats
     [HideInInspector] public UnityEvent<DamageDataCalculated> OnDealDamage;
     [HideInInspector] public UnityEvent<DamageDataCalculated> OnTakeDamage;
     [HideInInspector] public Animator modelAnimator;
+    [HideInInspector] public SpriteRenderer modelSprite;
 
     [HideInInspector] public float OutgoingDamageMultiplier = 1f;
 
@@ -51,7 +52,8 @@ public class Unit : UnitStats
         uiManager = UIManager.Instance;
         ui_Singletons = UI_Singletons.Instance;
 
-        modelAnimator = transform.GetChild(0).GetComponent<Animator>();
+        modelSprite   = GetComponentInChildren<SpriteRenderer>();
+        modelAnimator = GetComponentInChildren<Animator>();
 
         SetStats();
         RollInitiative();
@@ -93,7 +95,7 @@ public class Unit : UnitStats
 
     public IEnumerator Move(List<BoardTile> path)
     {
-        modelAnimator.SetBool("Run", true);
+        if (modelAnimator != null) modelAnimator.SetBool("Run", true);
 
         Vector3 startPosition = transform.position; 
         Vector3 endPosition;
@@ -134,12 +136,24 @@ public class Unit : UnitStats
 
         boardManager.Clear();
         boardManager.SetAOE(MoveSpeedLeft, endTile, null);
-        modelAnimator.SetBool("Run", false);
+        if (modelAnimator != null) modelAnimator.SetBool("Run", false);
     }
 
-    protected void Rotate(Vector3 endPosition) 
+    protected void Rotate(Vector3 endPosition)
     {
-        transform.LookAt(new Vector3(endPosition.x, transform.position.y, endPosition.z));
+        if (modelSprite == null) return;
+
+        // Convert both positions to screen space and flip based on screen-left/right.
+        // This works correctly on isometric tilemaps where world-X alone is unreliable.
+        Vector3 screenCurrent = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 screenTarget  = Camera.main.WorldToScreenPoint(endPosition);
+
+        float screenDeltaX = screenTarget.x - screenCurrent.x;
+        if (screenDeltaX < -0.5f)
+            modelSprite.flipX = true;
+        else if (screenDeltaX > 0.5f)
+            modelSprite.flipX = false;
+        // If delta is near zero (moving straight up/down in screen space), keep current facing.
     }
 
     public virtual void SetStartOfTurnStats()

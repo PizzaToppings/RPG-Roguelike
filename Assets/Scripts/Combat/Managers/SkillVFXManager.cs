@@ -38,7 +38,9 @@ public class SkillVFXManager : MonoBehaviour
             var originIndex = i < skillVFX.Origins.Count - 1 ? i : skillVFX.Origins.Count - 1;
 
             skillObjects[i].transform.position = skillVFX.Origins[originIndex];
-            skillObjects[i].transform.rotation = Quaternion.LookRotation(GetAimDirection(skillVFX, caster)) * Quaternion.Euler(skillVFX.SkillOriginRotation);
+            Vector3 aimDir = GetAimDirection(skillVFX, caster);
+            float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
+            skillObjects[i].transform.rotation = Quaternion.Euler(0f, 0f, aimAngle) * Quaternion.Euler(skillVFX.SkillOriginRotation);
         }
 
         if (skillVFX.SkillFxKind == SkillFxType.Projectile)
@@ -86,7 +88,8 @@ public class SkillVFXManager : MonoBehaviour
         if (skillVFX.SPData.TargetsHit.Count > 0)
             return (skillVFX.SPData.TargetsHit[0].Tile.position - caster.position).normalized;
 
-        return caster.transform.forward;
+        // Default: face right (was caster.transform.forward in 3D)
+        return Vector3.right;
     }
 
     IEnumerator DisableSkillObject(SO_SKillVFX skillVFX, List<GameObject> skillObjects)
