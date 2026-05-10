@@ -45,27 +45,21 @@ public class BoardManager : MonoBehaviour
 
     public void AddBoardTilesToList()
     {
-        // First pass: resolve actual tilemap cell coordinates and find their bounds.
-        // tile.xPosition is already 0-based (set by BoardGenerator), so we must use
-        // WorldToCell to get the real tilemap coordinates for boardOffset.
-        var tileData = new System.Collections.Generic.List<(BoardTile tile, Vector3Int cell)>();
+        // First pass: find bounds using the CellPosition stored during generation.
         int minX = int.MaxValue, minY = int.MaxValue;
         int maxX = int.MinValue, maxY = int.MinValue;
 
+        var tiles = new System.Collections.Generic.List<BoardTile>();
         foreach (Transform child in BoardParent.transform)
         {
             var tile = child.GetComponent<BoardTile>();
             if (tile == null) continue;
+            tiles.Add(tile);
 
-            Vector3Int cellPos = highlightTilemap.WorldToCell(tile.transform.position);
-            tile.CellPosition = cellPos;
-
-            if (cellPos.x < minX) minX = cellPos.x;
-            if (cellPos.y < minY) minY = cellPos.y;
-            if (cellPos.x > maxX) maxX = cellPos.x;
-            if (cellPos.y > maxY) maxY = cellPos.y;
-
-            tileData.Add((tile, cellPos));
+            if (tile.CellPosition.x < minX) minX = tile.CellPosition.x;
+            if (tile.CellPosition.y < minY) minY = tile.CellPosition.y;
+            if (tile.CellPosition.x > maxX) maxX = tile.CellPosition.x;
+            if (tile.CellPosition.y > maxY) maxY = tile.CellPosition.y;
         }
 
         BoardData.boardOffset  = new Vector2Int(minX, minY);
@@ -73,10 +67,10 @@ public class BoardManager : MonoBehaviour
         BoardData.columnAmount = maxY - minY + 1;
         BoardData.BoardTiles   = new BoardTile[BoardData.rowAmount, BoardData.columnAmount];
 
-        foreach (var (tile, cellPos) in tileData)
+        foreach (var tile in tiles)
         {
-            int ax = cellPos.x - minX;
-            int ay = cellPos.y - minY;
+            int ax = tile.CellPosition.x - minX;
+            int ay = tile.CellPosition.y - minY;
             tile.Init();
             tile.xPosition   = ax;
             tile.yPosition   = ay;

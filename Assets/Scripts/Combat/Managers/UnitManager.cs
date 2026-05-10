@@ -63,8 +63,25 @@ public class UnitManager : MonoBehaviour
     {
         var unit = child.GetComponent<Unit>();
         UnitData.Units.Add(unit);
-        
+
+        int rows = BoardData.BoardTiles.GetLength(0);
+        int cols = BoardData.BoardTiles.GetLength(1);
+
+        if (unit.startXPosition < 0 || unit.startXPosition >= rows ||
+            unit.startYPosition < 0 || unit.startYPosition >= cols)
+        {
+            Debug.LogError($"[UnitManager] '{child.name}' has startXPosition={unit.startXPosition}, startYPosition={unit.startYPosition} " +
+                           $"but the board array is {rows}x{cols}. Set values in range [0,{rows - 1}] x [0,{cols - 1}].");
+            return;
+        }
+
         var startingTile = BoardData.BoardTiles[unit.startXPosition, unit.startYPosition];
+        if (startingTile == null)
+        {
+            Debug.LogError($"[UnitManager] '{child.name}' start tile [{unit.startXPosition},{unit.startYPosition}] exists in the array but has no BoardTile (hole in the map).");
+            return;
+        }
+
         unit.Tile = startingTile;
         startingTile.currentUnit = unit;
         unit.transform.position = startingTile.position;

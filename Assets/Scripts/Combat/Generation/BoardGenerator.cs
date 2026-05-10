@@ -90,6 +90,7 @@ public class BoardGenerator : MonoBehaviour
             Undo.RegisterCreatedObjectUndo(newTile, "Create Tile");
 
             BoardTile tile = newTile.GetComponent<BoardTile>();
+            tile.CellPosition = cellPos; // store original tilemap cell for runtime use
             SetBoardTileValues(tile, ax, ay);
 
             tileList[ax, ay] = tile;
