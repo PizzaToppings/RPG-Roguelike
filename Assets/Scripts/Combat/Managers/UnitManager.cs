@@ -122,6 +122,8 @@ public class UnitManager : MonoBehaviour
 
     public IEnumerator RemoveUnit(Unit unit)
 	{
+        unit.OnDeathEvent.Invoke();
+
         unit.gameObject.SetActive(false);
         unit.Tile.currentUnit = null;
         initiativeTracker.RemoveFromInitiative(unit);

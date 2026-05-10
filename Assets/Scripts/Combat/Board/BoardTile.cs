@@ -28,7 +28,6 @@ public class BoardTile : MonoBehaviour
     [HideInInspector] public int yPosition = 0;
     [HideInInspector] public Vector2Int Coordinates;
 
-    // highlight tilemap cell position (set by BoardManager during init)
     [HideInInspector] public Vector3Int CellPosition;
 
     // movement

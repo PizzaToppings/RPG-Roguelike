@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60e2950789797441ad882480a694034, type: 3}
+  m_Name: Crook_Bow
+  m_EditorClassIdentifier: 
+  Name: Crook (Bow)
+  Image: {fileID: 21300000, guid: ae4fc66cf3a6ef149833c0d36f9ad932, type: 3}
+  MaxHealth: 5
+  MoveSpeed: 0
+  Initiative: 0
+  PhysicalPower: 1
+  MagicalPower: 0
+  PhysicalDefense: 0
+  MagicalDefense: 0
+  AlwaysStartWithFirstSkill: 0
+  Skills:
+  - SkillName: Shoot
+    Skill: {fileID: 11400000, guid: 52aecc7cf03b8cd4abcb1546161461a4, type: 2}
+    IntentAction: 2
+    TargetPreference: 1
+    OptimalRange: 6
+    Chance: 100
+    MaxConsecutiveUses: 0
+    ForcedNextSkillIndex: 0
+  Abilities: []

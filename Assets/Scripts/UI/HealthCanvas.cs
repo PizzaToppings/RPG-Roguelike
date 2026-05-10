@@ -38,8 +38,8 @@ public class HealthCanvas : MonoBehaviour
         unit.ThisHealthbar = healthbar;
         healthbar.UpdateHealthbar();
 
-        if (unit is EnemyBaseAI enemyAI)
-            healthbar.InitIntent(enemyAI);
+        if (unit is EnemyBaseAI)
+            healthbar.InitIntent();
     }
 
     void RefreshEnemyOrderNumbers()

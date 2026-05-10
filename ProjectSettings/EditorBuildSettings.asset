@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharacterSelectScene.unity
     guid: b9215bb38d0bdbd4f82e5037f053427c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestCombatScene.unity
     guid: e7b379115cef56e4fa0217f96a445509
   - enabled: 1
@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TrinketSelectScene.unity
     guid: 97a1d36dcd9b0c04ea577725a3d3dc8c
+  - enabled: 1
+    path: Assets/Scenes/2DTestCombatScene.unity
+    guid: 60c360c9927496c4fb10841c0eb876ad
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

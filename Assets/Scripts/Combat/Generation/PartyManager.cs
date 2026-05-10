@@ -18,6 +18,7 @@ using UnityEngine;
 public class PartyManager : MonoBehaviour
 {
     [SerializeField] Transform  characterParent;
+    [SerializeField] GameObject characterPrefab;
     [SerializeField] Vector2Int[] partyStartPositions =
     {
         new Vector2Int(0, 7),
@@ -48,13 +49,23 @@ public class PartyManager : MonoBehaviour
         {
             var member = RunData.Party[i];
 
-            if (member.Character == null || member.Character.CharacterPrefab == null)
+            if (member.Character == null)
             {
-                Debug.LogWarning($"PartyManager: Party member {i} ({member.Character?.Name}) has no prefab assigned.");
+                Debug.LogWarning($"PartyManager: Party member {i} has no character SO assigned.");
                 continue;
             }
 
-            var instance  = Instantiate(member.Character.CharacterPrefab, characterParent);
+            if (characterPrefab == null)
+            {
+                Debug.LogWarning("PartyManager: No character prefab assigned.");
+                continue;
+            }
+
+            var instance  = Instantiate(characterPrefab, characterParent);
+
+            var spriteRenderer = instance.GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer != null && member.Character.Image != null)
+                spriteRenderer.sprite = member.Character.Image;
             var character = instance.GetComponent<Character>();
 
             if (character != null)

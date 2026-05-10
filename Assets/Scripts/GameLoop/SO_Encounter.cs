@@ -17,8 +17,8 @@ public class SO_Encounter : ScriptableObject
 [Serializable]
 public class EncounterEnemy
 {
-    [Tooltip("Enemy prefab to spawn. Must have an Enemy component.")]
-    public GameObject EnemyPrefab;
+    [Tooltip("Enemy data (stats + sprite).")]
+    public SO_Enemy EnemySO;
 
     [Tooltip("Column index (X) on the 20x15 board.")]
     public int StartX = 10;

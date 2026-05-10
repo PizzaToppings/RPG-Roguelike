@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7ca051d6bbdcc47b663f45fad4bb1d, type: 3}
   m_Name: TestCharacter
   m_EditorClassIdentifier: 
-  Name: Chuck
-  Image: {fileID: 21300000, guid: 39d641ce48db52248b7209a4983cdfd0, type: 3}
+  Name: Warrior
+  Image: {fileID: 21300000, guid: d4603f328b703204b87a964b614348e9, type: 3}
   Classes: 0000000002000000
-  CharacterPrefab: {fileID: 1623717467118256991, guid: 10b2f86aa19e3af469339d6bf46dd62b,
-    type: 3}
   MaxHealth: 20
   MaxEnergy: 10
   MoveSpeed: 6

@@ -5,15 +5,59 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+    public SO_Enemy enemySO;
+
+    [HideInInspector] public List<EnemyAbility> abilities = new List<EnemyAbility>();
     [HideInInspector] public List<BoardTile> PossibleMovementTiles;
 
     BoardTile closestTile;
+
+    public override void SetStats()
+    {
+        if (enemySO != null)
+        {
+            UnitName        = enemySO.Name;
+            MaxHitpoints    = enemySO.MaxHealth;
+            Hitpoints       = enemySO.MaxHealth;
+            MoveSpeed       = enemySO.MoveSpeed;
+            PhysicalPower   = enemySO.PhysicalPower;
+            MagicalPower    = enemySO.MagicalPower;
+            PhysicalDefense = enemySO.PhysicalDefense;
+            MagicalDefense  = enemySO.MagicalDefense;
+        }
+        else
+        {
+            base.SetStats();
+        }
+    }
+
+    public override void RollInitiative()
+    {
+        if (enemySO != null)
+            Initiative = enemySO.Initiative;
+        else
+            base.RollInitiative();
+    }
 
     public override void Init()
     {
         PossibleMovementTiles = new List<BoardTile>();
         Friendly = false;
         base.Init();
+        InitAbilities();
+    }
+
+    public void InitAbilities()
+    {
+        abilities.Clear();
+        if (enemySO == null) return;
+        foreach (var so in enemySO.Abilities)
+        {
+            if (so == null) continue;
+            var ability = new EnemyAbility();
+            ability.Init(so, this);
+            abilities.Add(ability);
+        }
     }
 
     public override void Update()

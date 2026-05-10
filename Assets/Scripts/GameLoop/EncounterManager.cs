@@ -14,7 +14,8 @@ using UnityEngine;
 /// </summary>
 public class EncounterManager : MonoBehaviour
 {
-    [SerializeField] Transform enemyParent;
+    [SerializeField] Transform  enemyParent;
+    [SerializeField] GameObject enemyPrefab;
 
     void Awake()
     {
@@ -37,23 +38,34 @@ public class EncounterManager : MonoBehaviour
     {
         foreach (var entry in RunData.CurrentEncounter.Enemies)
         {
-            if (entry.EnemyPrefab == null)
+            if (entry.EnemySO == null)
             {
-                Debug.LogWarning($"EncounterManager: An enemy entry in '{RunData.CurrentEncounter.EncounterName}' has no prefab assigned.");
+                Debug.LogWarning($"EncounterManager: An enemy entry in '{RunData.CurrentEncounter.EncounterName}' has no SO_Enemy assigned.");
                 continue;
             }
 
-            var instance = Instantiate(entry.EnemyPrefab, enemyParent);
-            var enemy    = instance.GetComponent<Enemy>();
+            if (enemyPrefab == null)
+            {
+                Debug.LogWarning("EncounterManager: No enemy prefab assigned.");
+                continue;
+            }
 
+            var instance = Instantiate(enemyPrefab, enemyParent);
+
+            var spriteRenderer = instance.GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer != null && entry.EnemySO.Image != null)
+                spriteRenderer.sprite = entry.EnemySO.Image;
+
+            var enemy = instance.GetComponent<Enemy>();
             if (enemy != null)
             {
+                enemy.enemySO        = entry.EnemySO;
                 enemy.startXPosition = entry.StartX;
                 enemy.startYPosition = entry.StartY;
             }
             else
             {
-                Debug.LogWarning($"EncounterManager: Prefab '{entry.EnemyPrefab.name}' does not have an Enemy component.");
+                Debug.LogWarning("EncounterManager: Enemy prefab does not have an Enemy component.");
             }
         }
     }

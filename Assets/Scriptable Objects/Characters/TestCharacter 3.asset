@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7ca051d6bbdcc47b663f45fad4bb1d, type: 3}
   m_Name: TestCharacter 3
   m_EditorClassIdentifier: 
-  Name: Jerry
-  Image: {fileID: 21300000, guid: 7d3637772a1b77c49987fdf15e38dfc9, type: 3}
+  Name: Paladin
+  Image: {fileID: 21300000, guid: 6eb1801ba410a664b87794efd02a10ad, type: 3}
   Classes: 0000000004000000
-  CharacterPrefab: {fileID: 1623717467118256991, guid: 10b2f86aa19e3af469339d6bf46dd62b,
-    type: 3}
   MaxHealth: 20
   MaxEnergy: 10
   MoveSpeed: 6

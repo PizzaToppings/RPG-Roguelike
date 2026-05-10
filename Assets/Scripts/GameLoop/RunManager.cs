@@ -64,7 +64,7 @@ public class RunManager : MonoBehaviour
     [SerializeField] string characterSelectScene = "CharacterSelectScene";
     [SerializeField] string skillSelectScene     = "SkillSelectScene";
     [SerializeField] string trinketSelectScene   = "TrinketSelectScene";
-    [SerializeField] string combatScene          = "TestCombatScene";
+    [SerializeField] string combatScene          = "2DTestCombatScene";
     [SerializeField] string restZoneScene        = "RestZoneScene";
     [SerializeField] string shopScene            = "ShopScene";
     [SerializeField] string eventScene           = "EventScene";

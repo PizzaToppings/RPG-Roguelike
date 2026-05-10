@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4de32f407155c147ae37b3945989340, type: 3}
-  m_Name: EncounterTest2
+  m_Script: {fileID: 11500000, guid: 5f0dbf551fb3c7146a4d5bb926065435, type: 3}
+  m_Name: Rat_AI_Bite_PP_Down
   m_EditorClassIdentifier: 
-  EncounterName: Encounter Test 2
-  Enemies:
-  - EnemyPrefab: {fileID: 4395843208511029253, guid: 4f5366374d6e3f54a8de476e5d3942cb,
-      type: 3}
-    StartX: 0
-    StartY: 0
+  statusEffectManager: {fileID: 0}
+  Buff: 0
+  StatusEffectType: 15
+  DamageType: 0
+  Stat: 3
+  Power: -1
+  Duration: 1
+  IsMagical: 0
+  Permanent: 0

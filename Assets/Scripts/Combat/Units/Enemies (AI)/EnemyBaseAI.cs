@@ -7,25 +7,93 @@ public class EnemyBaseAI : Enemy
 {
     [HideInInspector] public BoardTile OptimalTile;
     [HideInInspector] public Unit Target;
+    [HideInInspector] public SO_EnemySkill CurrentSkill;
 
-    public float OptimalRange;
-    public TargetEnum TargetPreference;
+    EnemySkillSequencer sequencer = new EnemySkillSequencer();
 
-    [Space]
-    [Header("Intent")]
-    public IntentActionEnum IntentAction;
-    public IntentTargetEnum IntentTarget;
+    public override List<SO_SKillVFX> GetSkillVFXList()
+    {
+        var result = new List<SO_SKillVFX>();
+        if (enemySO != null)
+            foreach (var s in enemySO.Skills)
+                if (s?.Skill?.SkillVFX != null)
+                    result.AddRange(s.Skill.SkillVFX);
+        return result;
+    }
 
     public override IEnumerator StartTurn()
     {
+        CurrentSkill = sequencer.Pick(enemySO?.Skills, enemySO != null && enemySO.AlwaysStartWithFirstSkill);
+        if (CurrentSkill == null)
+        {
+            EndTurn();
+            yield break;
+        }
+
+        (ThisHealthbar as FloatingHealthbar)?.UpdateIntent(CurrentSkill);
+
         yield return StartCoroutine(base.StartTurn());
+
+        FindOptimalTile();
+        yield return StartCoroutine(MoveToTile());
+
+        yield return new WaitForSeconds(0.3f);
+        yield return StartCoroutine(Attack());
+    }
+
+    public virtual IEnumerator Attack()
+    {
+        var skill = CurrentSkill.Skill;
+
+        StartCoroutine(uiManager.ShowActivityText("Strike"));
+        yield return new WaitForSeconds(0.3f);
+
+        Unit target = null;
+        float closestTargetRange = 0;
+
+        foreach (var character in UnitData.Characters)
+        {
+            var blocked = boardManager.TileIsBehindClosedTile(Tile, character.Tile);
+            if (blocked)
+                continue;
+
+            var range = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
+            if (range > skill.MaxRange)
+                continue;
+
+            if (target == null)
+            {
+                target = character;
+                closestTargetRange = range;
+            }
+            else
+            {
+                if (range < closestTargetRange)
+                {
+                    target = character;
+                    closestTargetRange = range;
+                }
+            }
+        }
+
+        if (target != null)
+        {
+            Rotate(target.transform.position);
+            skill.PartData = new SkillPartData();
+            skill.PartData.TargetsHit.Add(target);
+            StartCoroutine(skillsManager.CastSkillsPart(skill, this));
+        }
+
+        yield return new WaitForSeconds(2);
+
+        EndTurn();
     }
 
     public void FindOptimalTile()
     {
         boardManager.SetAOE(MoveSpeedLeft, Tile, null);
 
-        var preferredTarget = GetTargetPreference(TargetPreference, UnitData.Characters);
+        var preferredTarget = GetTargetPreference(CurrentSkill.TargetPreference, UnitData.Characters);
 
         PossibleMovementTiles.Add(Tile);
 
@@ -39,7 +107,7 @@ public class EnemyBaseAI : Enemy
 
                 var rangeToCharacter = boardManager.GetRangeBetweenTiles(tile, character.Tile);
 
-                if (rangeToCharacter <= OptimalRange)
+                if (rangeToCharacter <= CurrentSkill.OptimalRange)
                     tile.EnemyPreferenceRating += 200 + preferedBonus;
 
                 float distanceModifier = 100;
@@ -73,11 +141,11 @@ public class EnemyBaseAI : Enemy
         {
             var rangeToCharacter = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
 
-            if (rangeToCharacter <= OptimalRange)
+            if (rangeToCharacter <= CurrentSkill.OptimalRange)
                 targetsInRange.Add(character);
         }
 
-        var preferedTarget = GetTargetPreference(TargetPreference, targetsInRange);
+        var preferedTarget = GetTargetPreference(CurrentSkill.TargetPreference, targetsInRange);
         if (preferedTarget != null)
             return preferedTarget;
         else

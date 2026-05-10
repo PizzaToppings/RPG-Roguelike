@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4de32f407155c147ae37b3945989340, type: 3}
-  m_Name: EncounterTest5
+  m_Name: Rats_Encounter
   m_EditorClassIdentifier: 
-  EncounterName: Encounter Test 5
+  EncounterName: Infected Rats
+  Tier: 0
   Enemies:
-  - EnemyPrefab: {fileID: 6609752126696691879, guid: 5ecdd490e165273468e3b1b557867738,
-      type: 3}
-    StartX: 0
-    StartY: 0
-  - EnemyPrefab: {fileID: 4395843208511029253, guid: 4f5366374d6e3f54a8de476e5d3942cb,
-      type: 3}
-    StartX: 0
-    StartY: 1
+  - EnemySO: {fileID: 11400000, guid: 484b0b09736adcc4e9e2fe66eed9cebc, type: 2}
+    StartX: 3
+    StartY: 3
+  - EnemySO: {fileID: 11400000, guid: 484b0b09736adcc4e9e2fe66eed9cebc, type: 2}
+    StartX: 5
+    StartY: 3

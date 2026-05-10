@@ -33,6 +33,7 @@ public class CharacterSelectCard : MonoBehaviour
         characterData = character;
 
         nameText.text    = character.Name;
+        if (portrait != null) portrait.sprite = character.Image;
         classIconOne.sprite = CharacterSelectUI.Instance.GetClassIcon(character.Classes[0]);
         classIconTwo.sprite = CharacterSelectUI.Instance.GetClassIcon(character.Classes[1]);
 

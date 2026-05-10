@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4de32f407155c147ae37b3945989340, type: 3}
-  m_Name: EncounterTest3
+  m_Name: Crooks_Encounter
   m_EditorClassIdentifier: 
-  EncounterName: Encounter Test 3
+  EncounterName: Crooks
+  Tier: 0
   Enemies:
-  - EnemyPrefab: {fileID: 4395843208511029253, guid: 4f5366374d6e3f54a8de476e5d3942cb,
-      type: 3}
-    StartX: 0
-    StartY: 0
-  - EnemyPrefab: {fileID: 4395843208511029253, guid: 4f5366374d6e3f54a8de476e5d3942cb,
-      type: 3}
-    StartX: 0
-    StartY: 1
+  - EnemySO: {fileID: 11400000, guid: ac7c1a567bff7c545a862dbe276513b0, type: 2}
+    StartX: 3
+    StartY: 3
+  - EnemySO: {fileID: 11400000, guid: 1f2b3025a542a9f4da67ea656a5d41ce, type: 2}
+    StartX: 5
+    StartY: 3

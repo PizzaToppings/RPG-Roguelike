@@ -6,6 +6,7 @@ public class InitiativeInformation : MonoBehaviour
 {
     public Image Background;
     public Image Border;
+    public Image portrait;
     public TextMeshProUGUI number;
 
     public Color FriendlyBackground;
@@ -24,15 +25,18 @@ public class InitiativeInformation : MonoBehaviour
         if (unit.Friendly)
         {
             Background.color = FriendlyBackground;
-            number.color = FriendlyNumber;
+            if (number != null) number.color = FriendlyNumber;
         }
         else
         {
             Background.color = EnemyBackground;
-            number.color = EnemyNumber;
+            if (number != null) number.color = EnemyNumber;
         }
 
-        number.text = (index + 1).ToString();
+        if (portrait != null && unit.modelSprite != null)
+            portrait.sprite = unit.modelSprite.sprite;
+
+        if (number != null) number.text = (index + 1).ToString();
         Initiative = unit.Initiative;
     }
 
@@ -41,18 +45,18 @@ public class InitiativeInformation : MonoBehaviour
         if (thisUnit.Friendly)
         {
             Background.color = FriendlyBackground;
-            number.color = FriendlyNumber;
+            if (number != null) number.color = FriendlyNumber;
         }
         else
         {
             Background.color = EnemyBackground;
-            number.color = EnemyNumber;
+            if (number != null) number.color = EnemyNumber;
         }
     }
 
     public void SetNumber(int index)
     {
-        number.text = (index + 1).ToString();
+        if (number != null) number.text = (index + 1).ToString();
     }
 
     public void ToggleActive(bool active)

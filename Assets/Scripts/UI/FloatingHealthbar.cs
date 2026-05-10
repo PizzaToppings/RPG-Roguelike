@@ -24,9 +24,14 @@ public class FloatingHealthbar : Healthbar
         unit = myUnit.transform;
     }
 
-    public void InitIntent(EnemyBaseAI enemy)
+    public void InitIntent()
     {
-        UpdateIntent(enemy.IntentAction, enemy.IntentTarget);
+        UpdateIntent(IntentActionEnum.Unknown, IntentTargetEnum.Unknown);
+    }
+
+    public void UpdateIntent(SO_EnemySkill skill)
+    {
+        UpdateIntent(skill.IntentAction, skill.GetIntentTarget());
     }
 
     public void UpdateIntent(IntentActionEnum action, IntentTargetEnum target)

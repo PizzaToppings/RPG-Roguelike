@@ -18,6 +18,7 @@ public class Unit : UnitStats
 
     [HideInInspector] public UnityEvent OnUnitTurnStartEvent = new UnityEvent();
     [HideInInspector] public UnityEvent OnUnitTurnEndEvent = new UnityEvent();
+    [HideInInspector] public UnityEvent OnDeathEvent = new UnityEvent();
     [HideInInspector] public UnityEvent<DamagaDataResolved> OnUnitTakeDamageEvent = new UnityEvent<DamagaDataResolved>();
     [HideInInspector] public UnityEvent<Unit> OnKillEnemyEvent = new UnityEvent<Unit>();
 

@@ -100,24 +100,27 @@ public class EnemyInfoPanelManager : MonoBehaviour
 
         if (!isAI) return;
 
+        var skill = aiEnemy.CurrentSkill;
+        if (skill == null) return;
+
         var ui = UI_Singletons.Instance;
 
         if (intentActionImage != null && ui != null)
-            intentActionImage.sprite = ui.GetIntentActionIcon(aiEnemy.IntentAction);
+            intentActionImage.sprite = ui.GetIntentActionIcon(skill.IntentAction);
 
         if (intentTargetImage != null && ui != null)
-            intentTargetImage.sprite = ui.GetIntentTargetIcon(aiEnemy.IntentTarget);
+            intentTargetImage.sprite = ui.GetIntentTargetIcon(skill.GetIntentTarget());
 
         if (intentDescriptionText != null)
         {
-            string desc = GetDefaultIntentDescription(aiEnemy.IntentAction);
+            string desc = GetDefaultIntentDescription(skill.IntentAction);
             intentDescriptionText.gameObject.SetActive(!string.IsNullOrEmpty(desc));
             intentDescriptionText.text = desc;
         }
 
         if (intentTargetDescriptionText != null)
         {
-            string targetDesc = GetDefaultIntentTargetDescription(aiEnemy.IntentTarget);
+            string targetDesc = GetDefaultIntentTargetDescription(skill.GetIntentTarget());
             intentTargetDescriptionText.gameObject.SetActive(!string.IsNullOrEmpty(targetDesc));
             intentTargetDescriptionText.text = targetDesc;
         }
