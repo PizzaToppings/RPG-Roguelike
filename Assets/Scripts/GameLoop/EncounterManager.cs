@@ -20,7 +20,16 @@ public class EncounterManager : MonoBehaviour
     void Awake()
     {
         if (RunData.CurrentEncounter == null)
+        {
+            Debug.Log("EncounterManager: No current encounter in RunData — using scene placeholders.");
             return;
+        }
+
+        if (enemyPrefab == null)
+        {
+            Debug.LogWarning("EncounterManager: enemyPrefab is not assigned in the Inspector.");
+            return;
+        }
 
         ClearExistingEnemies();
         SpawnEncounterEnemies();

@@ -11555,10 +11555,10 @@ MonoBehaviour:
   trinketPool: {fileID: 11400000, guid: 5db280366ae30434b8ffebb527c2a93d, type: 2}
   progression: 000000000100000003000000010000000200000003000000000000000100000003000000010000000200000003000000010000000600000005000000
   restHealAmount: 20
-  restHealIsPercentage: 0
+  restHealIsPercentage: 1
   shopSkillCount: 2
   shopTrinketCount: 2
-  treasureOptionCount: 3
+  treasureOptionCount: 2
   characterSelectScene: CharacterSelectScene
   skillSelectScene: SkillSelectScene
   trinketSelectScene: TrinketSelectScene

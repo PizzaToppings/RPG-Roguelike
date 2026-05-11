@@ -5,12 +5,14 @@ using TMPro;
 public class FloatingHealthbar : Healthbar
 {
     Transform unit;
-    Vector3 offset = Vector3.up * 2f;
+    Vector3 offset = Vector3.up * 0.6f;
 
     Camera mainCamera;
+    float referenceOrthoSize;
 
     [Space]
     [Header("Intent")]
+    [SerializeField] GameObject intentParent;
     [SerializeField] Image intentActionImage;
     [SerializeField] Image intentTargetImage;
     [SerializeField] TextMeshProUGUI orderText;
@@ -20,12 +22,29 @@ public class FloatingHealthbar : Healthbar
     public void Init(Unit myUnit)
     {
         thisUnit = myUnit;
+
+
+        if (myUnit.Friendly)
+        {
+                healthbar.sprite = characterHealthbarSprite;
+        }
+        else
+        {
+                healthbar.sprite = enemyHealthbarSprite;
+        }
         mainCamera = Camera.main;
         unit = myUnit.transform;
+        referenceOrthoSize = mainCamera.orthographicSize;
+
+        if (intentParent != null)
+            intentParent.SetActive(false);
     }
 
     public void InitIntent()
     {
+        if (intentParent != null)
+            intentParent.SetActive(true);
+
         UpdateIntent(IntentActionEnum.Unknown, IntentTargetEnum.Unknown);
     }
 
@@ -55,7 +74,9 @@ public class FloatingHealthbar : Healthbar
             return;
 
         Vector3 screenPosition = mainCamera.WorldToScreenPoint(unit.position + offset);
-
         transform.position = screenPosition;
+
+        float scale = referenceOrthoSize / mainCamera.orthographicSize;
+        transform.localScale = Vector3.one * scale;
     }
 }

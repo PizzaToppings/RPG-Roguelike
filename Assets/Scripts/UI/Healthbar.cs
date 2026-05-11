@@ -8,11 +8,14 @@ public class Healthbar : MonoBehaviour
     UI_Singletons ui_Singletons = UI_Singletons.Instance;
 
     [HideInInspector] public Unit thisUnit;
-    [SerializeField] Image healthbar;
+    [HideInInspector] public Image healthbar;
     [SerializeField] TextMeshProUGUI hitpointsText;
     [SerializeField] Image shieldbar;
 
     [SerializeField] List<Image> statusEffectImages;
+
+    public Sprite characterHealthbarSprite;
+    public Sprite enemyHealthbarSprite;
 
     List<StatusEffectEnum> statusEffects = new List<StatusEffectEnum>();
 
@@ -32,14 +35,14 @@ public class Healthbar : MonoBehaviour
             hitpointsText.text = $"{hitpoints} / {maxHitpoints}" + (shieldPoints > 0 ? $" + {shieldPoints}" : "");
     }
 
-    public void AddStatusEffect(StatusEffectEnum statusEffect)
+    public virtual void AddStatusEffect(StatusEffectEnum statusEffect)
 	{
         statusEffects.Add(statusEffect);
 
         UpdateStatusEffects();
     }
 
-    public void RemoveStatusEffect(StatusEffectEnum statusEffect)
+    public virtual void RemoveStatusEffect(StatusEffectEnum statusEffect)
     {
         if (statusEffects.Contains(statusEffect))
             statusEffects.Remove(statusEffect);
@@ -72,7 +75,7 @@ public class Healthbar : MonoBehaviour
         }
     }
 
-    public void RemoveHealthbar()
+    public virtual void RemoveHealthbar()
 	{
         Destroy(gameObject);
 	}

@@ -7,11 +7,6 @@ public class CharacterPortrait : Healthbar
     [SerializeField] Image portraitImage;
     [SerializeField] TextMeshProUGUI characterName;
 
-    public override void UpdateHealthbar()
-    {
-        base.UpdateHealthbar();
-    }
-
     public void Set()
     {
         gameObject.SetActive(true);

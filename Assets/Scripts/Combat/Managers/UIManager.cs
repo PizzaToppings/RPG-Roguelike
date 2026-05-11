@@ -45,7 +45,6 @@ public class UIManager : MonoBehaviour
 		{
             CharacterPortraits[i].gameObject.SetActive(true);
             CharacterPortraits[i].thisUnit = UnitData.Characters[i];
-            UnitData.Characters[i].ThisHealthbar = CharacterPortraits[i];
         }
 
         foreach(var skillIcon in skillIcons)
@@ -60,7 +59,6 @@ public class UIManager : MonoBehaviour
         for (var i = 0; i < UnitData.Characters.Count; i++)
         {
             CharacterPortraits[i].Set();
-            CharacterPortraits[i].UpdateHealthbar();
         }
     }
 

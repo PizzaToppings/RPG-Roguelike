@@ -39,6 +39,7 @@ public class BoardManager : MonoBehaviour
     {
         movementLR = GetComponent<LineRenderer>();
         movementLR.positionCount = 0;
+        movementLR.sortingOrder = 10;
         Directions = GetDirections();
         targetSkillsManager = TargetSkillsManager.Instance;
     }
@@ -197,6 +198,9 @@ public class BoardManager : MonoBehaviour
         var tileList = new List<BoardTile>();
         foreach (var tile in BoardData.BoardTiles)
         {
+            if (tile == null)
+                continue;
+
             if (starttile == tile)
                 continue;
 

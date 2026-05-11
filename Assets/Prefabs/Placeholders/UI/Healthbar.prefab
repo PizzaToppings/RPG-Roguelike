@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &658462670626423677
 RectTransform:
   m_ObjectHideFlags: 0
@@ -332,10 +332,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 658462670626423677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 12, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 25.000002, y: -7}
+  m_SizeDelta: {x: 12, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &889166531401693140
 CanvasRenderer:
@@ -415,7 +415,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 5}
+  m_SizeDelta: {x: 40, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1018752382725712977
 CanvasRenderer:
@@ -478,6 +478,11 @@ MonoBehaviour:
   - {fileID: 3574332109782717386}
   - {fileID: 4675872551136625330}
   - {fileID: 1261510303379392671}
+  characterHealthbarSprite: {fileID: 21300000, guid: b4684f5452a928e4283733e54bfcf454,
+    type: 3}
+  enemyHealthbarSprite: {fileID: 21300000, guid: 4f8e653bf1c0b054680c13a05741c202,
+    type: 3}
+  intentParent: {fileID: 210678523054353906}
   intentActionImage: {fileID: 5353038781562069903}
   intentTargetImage: {fileID: 3303821808864015332}
   orderText: {fileID: 9015366740032193221}
@@ -943,10 +948,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 658462670626423677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 12, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 37.66667, y: -7}
+  m_SizeDelta: {x: 12, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6590289215111713900
 CanvasRenderer:
@@ -1019,10 +1024,10 @@ RectTransform:
   - {fileID: 765636114315560801}
   m_Father: {fileID: 658462670626423677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 12, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 12.333334, y: -7}
+  m_SizeDelta: {x: 12, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5397754251401857948
 CanvasRenderer:

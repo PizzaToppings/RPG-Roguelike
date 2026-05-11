@@ -27,6 +27,11 @@ public class HealthCanvas : MonoBehaviour
             CreateHealthbar(unit);
         }
 
+        foreach (var unit in UnitData.Characters)
+        {
+            CreateHealthbar(unit);
+        }
+
         RefreshEnemyOrderNumbers();
     }
 
@@ -40,6 +45,15 @@ public class HealthCanvas : MonoBehaviour
 
         if (unit is EnemyBaseAI)
             healthbar.InitIntent();
+    }
+
+    public void CreateHealthbar(Character unit)
+    {
+        var hb = Instantiate(HealthBar, HealthBarCanvas);
+        var healthbar = hb.GetComponent<FloatingHealthbar>();
+        healthbar.Init(unit);
+        unit.ThisHealthbar = healthbar;
+        healthbar.UpdateHealthbar();
     }
 
     void RefreshEnemyOrderNumbers()
