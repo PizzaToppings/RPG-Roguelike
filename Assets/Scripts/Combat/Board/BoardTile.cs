@@ -235,9 +235,7 @@ public class BoardTile : MonoBehaviour
 
     void ApplyHighlightColor(TileColor color)
     {
-        // FillCenter = true  → full alpha (solid highlight)
-        // FillCenter = false → half alpha (soft highlight)
-        float alpha = color.FillCenter ? 1f : 0.5f;
+        float alpha = color.FillCenter ? 0.75f : 0.3f;
         Color c = new Color(color.Color.r, color.Color.g, color.Color.b, alpha);
         boardManager.SetHighlightColor(CellPosition, c);
     }

@@ -103,6 +103,24 @@ public class CombatManager : MonoBehaviour
 
     public void SetInitiative()
     {
+        // New turn order system: Characters go first, then enemies in configured order
+        int characterCount = UnitData.Characters.Count;
+        
+        // Assign initiative to characters (they go first)
+        for (int i = 0; i < UnitData.Characters.Count; i++)
+        {
+            UnitData.Characters[i].Initiative = i;
+        }
+        
+        // Assign initiative to enemies (they go after all characters)
+        for (int i = 0; i < UnitData.Enemies.Count; i++)
+        {
+            var enemy = UnitData.Enemies[i];
+            // Characters get 0 to (characterCount-1), so enemies start at characterCount
+            enemy.Initiative = characterCount + enemy.encounterTurnOrder;
+        }
+
+        // Sort all units by initiative
         UnitData.Units.Sort((x1, x2) =>
             x1.Initiative.CompareTo(x2.Initiative));
 

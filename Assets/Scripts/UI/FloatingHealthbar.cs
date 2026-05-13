@@ -107,7 +107,7 @@ public class FloatingHealthbar : Healthbar
             if (minRange == maxRange)
                 intentRangeText.text = maxRange.ToString("F0");
             else if (minRange == 0)
-                intentRangeText.text = $"< {maxRange:F0}";
+                intentRangeText.text = $"{maxRange:F0}";
             else
                 intentRangeText.text = $"{minRange:F0}-{maxRange:F0}";
         }

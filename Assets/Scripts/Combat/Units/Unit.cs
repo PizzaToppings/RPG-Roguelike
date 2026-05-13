@@ -88,10 +88,9 @@ public class Unit : UnitStats
 
     public virtual void RollInitiative() // Move to a manager?
     {
-        if (Friendly)
-            Initiative = Random.Range(0, 4);
-        else
-            Initiative = Random.Range(5, 10);
+        // Initiative is now set by CombatManager based on turn order configuration
+        // This method is kept for compatibility but does nothing
+        Initiative = 0;
     }
 
     public IEnumerator Move(List<BoardTile> path)

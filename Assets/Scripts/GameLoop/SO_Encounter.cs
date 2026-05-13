@@ -12,6 +12,10 @@ public class SO_Encounter : ScriptableObject
 
     [Tooltip("Each entry is an enemy prefab paired with its starting board position (X, Y).")]
     public List<EncounterEnemy> Enemies = new List<EncounterEnemy>();
+
+    [Header("Turn Order Configuration")]
+    [Tooltip("Define the turn order for enemies. Each number represents the index of an enemy in the Enemies list. Leave empty for default order (enemies act in list order).")]
+    public List<int> EnemyTurnOrder = new List<int>();
 }
 
 [Serializable]
@@ -25,4 +29,7 @@ public class EncounterEnemy
 
     [Tooltip("Row index (Y) on the 20x15 board.")]
     public int StartY = 7;
+
+    [HideInInspector]
+    public int TurnOrderIndex = 0; // Set dynamically based on encounter configuration
 }

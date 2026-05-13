@@ -45,11 +45,41 @@ public class EncounterManager : MonoBehaviour
 
     void SpawnEncounterEnemies()
     {
-        foreach (var entry in RunData.CurrentEncounter.Enemies)
+        var encounterData = RunData.CurrentEncounter;
+        
+        // Build the turn order for enemies
+        // If EnemyTurnOrder is configured, use it; otherwise use default list order
+        var turnOrder = new int[encounterData.Enemies.Count];
+        
+        if (encounterData.EnemyTurnOrder != null && encounterData.EnemyTurnOrder.Count > 0)
         {
+            // Use configured turn order
+            for (int i = 0; i < encounterData.EnemyTurnOrder.Count && i < turnOrder.Length; i++)
+            {
+                int enemyIndex = encounterData.EnemyTurnOrder[i];
+                if (enemyIndex >= 0 && enemyIndex < encounterData.Enemies.Count)
+                {
+                    turnOrder[enemyIndex] = i;
+                }
+            }
+        }
+        else
+        {
+            // Default: enemies act in list order
+            for (int i = 0; i < turnOrder.Length; i++)
+            {
+                turnOrder[i] = i;
+            }
+        }
+
+        // Spawn each enemy
+        for (int i = 0; i < encounterData.Enemies.Count; i++)
+        {
+            var entry = encounterData.Enemies[i];
+            
             if (entry.EnemySO == null)
             {
-                Debug.LogWarning($"EncounterManager: An enemy entry in '{RunData.CurrentEncounter.EncounterName}' has no SO_Enemy assigned.");
+                Debug.LogWarning($"EncounterManager: An enemy entry in '{encounterData.EncounterName}' has no SO_Enemy assigned.");
                 continue;
             }
 
@@ -71,6 +101,7 @@ public class EncounterManager : MonoBehaviour
                 enemy.enemySO        = entry.EnemySO;
                 enemy.startXPosition = entry.StartX;
                 enemy.startYPosition = entry.StartY;
+                enemy.encounterTurnOrder = turnOrder[i]; // Set the turn order for this enemy
             }
             else
             {

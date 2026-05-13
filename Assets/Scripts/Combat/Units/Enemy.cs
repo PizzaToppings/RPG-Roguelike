@@ -9,6 +9,7 @@ public class Enemy : Unit
 
     [HideInInspector] public List<EnemyAbility> abilities = new List<EnemyAbility>();
     [HideInInspector] public List<BoardTile> PossibleMovementTiles;
+    [HideInInspector] public int encounterTurnOrder = 0; // Turn order index set by EncounterManager
 
     BoardTile closestTile;
 
@@ -33,10 +34,9 @@ public class Enemy : Unit
 
     public override void RollInitiative()
     {
-        if (enemySO != null)
-            Initiative = enemySO.Initiative;
-        else
-            base.RollInitiative();
+        // Initiative is now set by CombatManager based on encounter turn order configuration
+        // This method is kept for compatibility but does nothing
+        Initiative = 0;
     }
 
     public override void Init()
