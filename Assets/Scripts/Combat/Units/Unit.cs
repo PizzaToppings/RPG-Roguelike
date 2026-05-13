@@ -193,6 +193,24 @@ public class Unit : UnitStats
         transform.position = origin;
     }
 
+    /// <summary>
+    /// Rapidly toggles the sprite's visibility to indicate a hit.
+    /// </summary>
+    IEnumerator BlinkOnHit(float duration = 0.4f, float interval = 0.07f)
+    {
+        if (modelSprite == null) yield break;
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            modelSprite.enabled = !modelSprite.enabled;
+            yield return new WaitForSeconds(interval);
+            elapsed += interval;
+        }
+
+        modelSprite.enabled = true;
+    }
+
     public virtual void SetStartOfTurnStats()
     {
         MoveSpeedLeft = MoveSpeed;
@@ -233,6 +251,10 @@ public class Unit : UnitStats
         OnTakeDamage?.Invoke(damageDataCalculated);
 
         ThisHealthbar.UpdateHealthbar();
+
+        if (damage > 0 || shieldDamage > 0)
+            StartCoroutine(BlinkOnHit());
+
         if (Hitpoints <= 0)
             Die();
 
