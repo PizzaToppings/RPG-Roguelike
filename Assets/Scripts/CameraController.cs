@@ -12,6 +12,10 @@ public class CameraController : MonoBehaviour
     [Space]
     [SerializeField] Vector2 zoomRange = new Vector2(3f, 20f);
 
+    [Space]
+    [SerializeField] Vector2 xRange = new Vector2(-10f, 10f);
+    [SerializeField] Vector2 yRange = new Vector2(-10f, 10f);
+
     bool receivingMovementInput = false;
 
     Camera cam;
@@ -50,7 +54,10 @@ public class CameraController : MonoBehaviour
         {
             moveDirection.Normalize();
             // Scale speed by zoom level so panning feels consistent at any zoom.
-            transform.position += moveDirection * moveSpeed * cam.orthographicSize * Time.deltaTime;
+            Vector3 newPos = transform.position + moveDirection * moveSpeed * cam.orthographicSize * Time.deltaTime;
+            newPos.x = Mathf.Clamp(newPos.x, xRange.x, xRange.y);
+            newPos.y = Mathf.Clamp(newPos.y, yRange.x, yRange.y);
+            transform.position = newPos;
         }
     }
 

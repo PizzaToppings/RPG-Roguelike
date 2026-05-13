@@ -105,6 +105,10 @@ public class Character : Unit
             MagicalPower    = soc.MagicalPower;
             PhysicalDefense = soc.PhysicalDefense;
             MagicalDefense  = soc.MagicalDefense;
+
+            // Apply permanent bonuses from Instant trinkets accumulated during this run
+            MaxHitpoints += partyMember.BonusMaxHitpoints;
+            MaxEnergy    += partyMember.BonusMaxEnergy;
         }
         else
         {

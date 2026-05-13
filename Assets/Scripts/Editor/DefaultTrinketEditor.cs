@@ -53,7 +53,7 @@ public class DefaultTrinketEditor : Editor
         var moment     = (TriggerMomentEnum)triggerMoment.enumValueIndex;
         var targetType = (TargetEnum)target.enumValueIndex;
 
-        bool implicitlyOnce = moment == TriggerMomentEnum.StartOfCombat || moment == TriggerMomentEnum.EndOfCombat;
+        bool implicitlyOnce = moment == TriggerMomentEnum.Instant || moment == TriggerMomentEnum.StartOfCombat || moment == TriggerMomentEnum.EndOfCombat;
         bool showValue         = effect != TriggerEffectEnum.AddStatusEffect;
         bool showDamageType    = effect == TriggerEffectEnum.DealDamage;
         var  selectedDamageType = (DamageTypeEnum)damageType.enumValueIndex;

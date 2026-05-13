@@ -30,6 +30,34 @@ public class DefaultTrinket : SO_Trinket
         Debug.Log($"[Trinket] '{TrinketName}' Init on '{character.UnitName}' — TriggerMoment: {TriggerMoment}, TriggerEffect: {TriggerEffect}");
         switch (TriggerMoment)
         {
+            case TriggerMomentEnum.Instant:
+                var partyMember = character.partyMemberIndex < RunData.Party.Count
+                    ? RunData.Party[character.partyMemberIndex]
+                    : null;
+
+                // Only apply once per run; guard against re-init on subsequent combats
+                if (partyMember == null || !partyMember.AppliedInstantTrinkets.Contains(TrinketName))
+                {
+                    if (partyMember != null)
+                    {
+                        partyMember.AppliedInstantTrinkets.Add(TrinketName);
+
+                        // Persist MaxHitpoints / MaxEnergy bonuses in RunData so they carry over each combat
+                        if (TriggerEffect == TriggerEffectEnum.ModifyStat)
+                        {
+                            foreach (var stat in Stat)
+                            {
+                                if (stat == StatsEnum.MaxHitpoints) partyMember.BonusMaxHitpoints += Value;
+                                else if (stat == StatsEnum.MaxEnergy) partyMember.BonusMaxEnergy += Value;
+                            }
+                        }
+                    }
+
+                    // Apply the effect immediately on the character (SetStats already ran with old bonuses)
+                    Trigger(character);
+                    trinket.hasTriggered = true;
+                }
+                break;
             case TriggerMomentEnum.StartOfCombat:
                 Trigger(character);
                 break;

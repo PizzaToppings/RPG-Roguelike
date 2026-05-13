@@ -13,6 +13,15 @@ public class RunDataPartyMember
     /// <summary>HP carried over from the last combat. 0 means unset (use MaxHealth).</summary>
     public int CurrentHitpoints = 0;
 
+    /// <summary>Permanent MaxHitpoints bonus accumulated from Instant trinkets this run.</summary>
+    public int BonusMaxHitpoints = 0;
+
+    /// <summary>Permanent MaxEnergy bonus accumulated from Instant trinkets this run.</summary>
+    public int BonusMaxEnergy = 0;
+
+    /// <summary>Trinket names whose Instant effect has already been applied this run (prevents re-apply each combat).</summary>
+    public List<string> AppliedInstantTrinkets = new List<string>();
+
     public RunDataPartyMember(SO_Character character)
     {
         Character = character;

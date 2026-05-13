@@ -43,7 +43,7 @@ public enum SkillFxTargetEnum { None, Caster, Target, Tiles, SkillObject }
 
 
 // Triggers
-public enum TriggerMomentEnum { StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnHeal, OnUseAbility, EndOfCombat, OnKillEnemy }
+public enum TriggerMomentEnum { Instant, StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnHeal, OnUseAbility, EndOfCombat, OnKillEnemy }
 public enum TriggerEffectEnum { DealDamage, AddStatusEffect, AddEnergy, ModifyStat } 
 public enum EnemyTriggerMomentEnum { StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnDeath }
 public enum TileTriggerMomentEnum { OnEnterTile, StartOfTurn, EndOfTurn, Aura }

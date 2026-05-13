@@ -86,8 +86,8 @@ public class SkillsManager : MonoBehaviour
         var character = UnitData.ActiveUnit as Character;
         character.ConsumeEnergy(skill.EnergyCost);
 
-        var portrait = character.ThisHealthbar as CharacterPortrait;
-        portrait.UpdateHealthbar(); // includes energybar
+        // var portrait = character.ThisHealthbar as CharacterPortrait;
+        // portrait.UpdateHealthbar(); 
 
         StartCoroutine(CastSkill(skill, character));
 
