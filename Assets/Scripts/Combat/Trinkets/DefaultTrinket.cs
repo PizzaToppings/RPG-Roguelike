@@ -56,7 +56,26 @@ public class DefaultTrinket : SO_Trinket
                     // Apply the effect immediately on the character (SetStats already ran with old bonuses)
                     Trigger(character);
                     trinket.hasTriggered = true;
+
+                    // When MaxHP increases, also heal the character for that amount
+                    if (TriggerEffect == TriggerEffectEnum.ModifyStat)
+                    {
+                        foreach (var stat in Stat)
+                        {
+                            if (stat == StatsEnum.MaxHitpoints)
+                            {
+                                character.Hitpoints = Mathf.Min(character.Hitpoints + Value, character.MaxHitpoints);
+                                if (partyMember != null)
+                                    partyMember.CurrentHitpoints = character.Hitpoints;
+                            }
+                        }
+                    }
                 }
+
+                // Refresh the healthbar — InitTrinkets runs after healthCanvas.Init() so the bar
+                // was drawn with pre-trinket stats and needs an explicit update
+                if (character.ThisHealthbar != null)
+                    character.ThisHealthbar.UpdateHealthbar();
                 break;
             case TriggerMomentEnum.StartOfCombat:
                 Trigger(character);

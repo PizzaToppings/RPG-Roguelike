@@ -17,7 +17,7 @@ MonoBehaviour:
   classes: 
   Rarity: 1
   Description: 'Every 5th turn, gain 1 <Dodge>. '
-  TriggerMoment: 1
+  TriggerMoment: 2
   TriggerEffect: 1
   ChargesToTrigger: 5
   TriggerOnce: 0

@@ -18,13 +18,13 @@ MonoBehaviour:
   Rarity: 1
   Description: Gain 2 Shield at the start of your turn.
   TriggerMoment: 1
-  TriggerEffect: 2
+  TriggerEffect: 0
   ChargesToTrigger: 0
   TriggerOnce: 0
   Value: 2
   DamageType: 10
+  IsMagical: 0
   Target: 0
   Range: 0
-  StatusEffect: 0
-  StatusEffectSO: {fileID: 0}
+  StatusEffects: []
   Stat: 

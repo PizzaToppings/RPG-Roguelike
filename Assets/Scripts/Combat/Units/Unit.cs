@@ -362,5 +362,9 @@ public class Unit : UnitStats
 	{
         ThisHealthbar.RemoveHealthbar();
         StartCoroutine(unitManager.RemoveUnit(this));
+        
+        // Refresh enemy order numbers if an enemy died
+        if (this is Enemy)
+            HealthCanvas.Instance?.RefreshEnemyOrderNumbers();
     }
 }

@@ -16,13 +16,14 @@ MonoBehaviour:
   Image: {fileID: 0}
   classes: 
   Rarity: 1
-  Description: Heal for 10 at the end of combat.
-  TriggerMoment: 9
+  Description: Heal for 2 at the end of combat.
+  TriggerMoment: 10
   TriggerEffect: 0
   ChargesToTrigger: 0
   TriggerOnce: 1
-  Value: 10
+  Value: 2
   DamageType: 9
+  IsMagical: 0
   Target: 0
   Range: 0
   StatusEffects: []

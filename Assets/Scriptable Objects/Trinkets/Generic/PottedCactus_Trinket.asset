@@ -17,12 +17,13 @@ MonoBehaviour:
   classes: 
   Rarity: 2
   Description: Gain 2 <Thorns>.
-  TriggerMoment: 0
+  TriggerMoment: 1
   TriggerEffect: 1
   ChargesToTrigger: 0
   TriggerOnce: 1
   Value: 0
   DamageType: 0
+  IsMagical: 0
   Target: 0
   Range: 0
   StatusEffects:

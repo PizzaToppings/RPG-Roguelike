@@ -17,12 +17,13 @@ MonoBehaviour:
   classes: 
   Rarity: 2
   Description: 'Whenever you kill an enemy, gain 2 energy. '
-  TriggerMoment: 10
+  TriggerMoment: 11
   TriggerEffect: 2
   ChargesToTrigger: 0
   TriggerOnce: 0
   Value: 2
   DamageType: 0
+  IsMagical: 0
   Target: 0
   Range: 0
   StatusEffects: []

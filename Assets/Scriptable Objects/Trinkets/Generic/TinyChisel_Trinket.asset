@@ -18,12 +18,13 @@ MonoBehaviour:
   Rarity: 1
   Description: Enemies have -1 physical and magical defense at the first round of
     combat.
-  TriggerMoment: 3
-  TriggerEffect: 2
+  TriggerMoment: 1
+  TriggerEffect: 1
   ChargesToTrigger: 0
   TriggerOnce: 1
   Value: 0
   DamageType: 0
+  IsMagical: 0
   Target: 4
   Range: 0
   StatusEffects:

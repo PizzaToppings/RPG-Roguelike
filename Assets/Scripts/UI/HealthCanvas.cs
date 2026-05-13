@@ -43,8 +43,8 @@ public class HealthCanvas : MonoBehaviour
         unit.ThisHealthbar = healthbar;
         healthbar.UpdateHealthbar();
 
-        if (unit is EnemyBaseAI)
-            healthbar.InitIntent();
+        if (unit is EnemyBaseAI enemyAI)
+            healthbar.InitIntent(enemyAI.CurrentSkill);
     }
 
     public void CreateHealthbar(Character unit)
@@ -56,7 +56,7 @@ public class HealthCanvas : MonoBehaviour
         healthbar.UpdateHealthbar();
     }
 
-    void RefreshEnemyOrderNumbers()
+    public void RefreshEnemyOrderNumbers()
     {
         var sortedEnemies = UnitData.Enemies
             .Where(e => e.ThisHealthbar != null)

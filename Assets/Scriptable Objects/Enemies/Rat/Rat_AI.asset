@@ -27,7 +27,7 @@ MonoBehaviour:
     Skill: {fileID: 11400000, guid: 2a6cc0dc471b54a4ba2e5804291d0a56, type: 2}
     IntentAction: 1
     TargetPreference: 1
-    OptimalRange: 0
+    OptimalRange: 1
     Chance: 66
     MaxConsecutiveUses: 2
     ForcedNextSkillIndex: 0

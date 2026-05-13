@@ -15,6 +15,8 @@ public class FloatingHealthbar : Healthbar
     [SerializeField] GameObject intentParent;
     [SerializeField] Image intentActionImage;
     [SerializeField] Image intentTargetImage;
+    [SerializeField] TextMeshProUGUI intentDamageText;
+    [SerializeField] TextMeshProUGUI intentRangeText;
     [SerializeField] TextMeshProUGUI orderText;
 
     UI_Singletons ui_Singletons => UI_Singletons.Instance;
@@ -40,17 +42,21 @@ public class FloatingHealthbar : Healthbar
             intentParent.SetActive(false);
     }
 
-    public void InitIntent()
+    public void InitIntent(SO_EnemySkill skill)
     {
         if (intentParent != null)
             intentParent.SetActive(true);
 
-        UpdateIntent(IntentActionEnum.Unknown, IntentTargetEnum.Unknown);
+        UpdateIntent(skill);
     }
 
     public void UpdateIntent(SO_EnemySkill skill)
     {
+        if (skill == null)
+            return;
+
         UpdateIntent(skill.IntentAction, skill.GetIntentTarget());
+        UpdateIntentDamageAndRange(skill);
     }
 
     public void UpdateIntent(IntentActionEnum action, IntentTargetEnum target)
@@ -60,6 +66,51 @@ public class FloatingHealthbar : Healthbar
 
         if (intentTargetImage != null)
             intentTargetImage.sprite = ui_Singletons.GetIntentTargetIcon(target);
+    }
+
+    void UpdateIntentDamageAndRange(SO_EnemySkill skill)
+    {
+        if (skill?.Skill == null)
+        {
+            if (intentDamageText != null)
+                intentDamageText.text = "";
+            if (intentRangeText != null)
+                intentRangeText.text = "";
+            return;
+        }
+
+        // Calculate total damage from all damage effects
+        if (intentDamageText != null)
+        {
+            int totalDamage = 0;
+            if (skill.Skill.DamageEffects != null && skill.Skill.DamageEffects.Count > 0)
+            {
+                foreach (var damageData in skill.Skill.DamageEffects)
+                {
+                    if (damageData != null)
+                        totalDamage += damageData.Power;
+                }
+                intentDamageText.text = totalDamage.ToString();
+            }
+            else
+            {
+                intentDamageText.text = "";
+            }
+        }
+
+        // Display range
+        if (intentRangeText != null)
+        {
+            float minRange = skill.Skill.MinRange;
+            float maxRange = skill.Skill.MaxRange;
+
+            if (minRange == maxRange)
+                intentRangeText.text = maxRange.ToString("F0");
+            else if (minRange == 0)
+                intentRangeText.text = $"< {maxRange:F0}";
+            else
+                intentRangeText.text = $"{minRange:F0}-{maxRange:F0}";
+        }
     }
 
     public void SetOrderNumber(int order)

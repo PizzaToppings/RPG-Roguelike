@@ -17,7 +17,7 @@ MonoBehaviour:
   classes: 
   Rarity: 3
   Description: 'Gain 1 <Dodge> at the start of combat. '
-  TriggerMoment: 0
+  TriggerMoment: 1
   TriggerEffect: 1
   ChargesToTrigger: 0
   TriggerOnce: 0

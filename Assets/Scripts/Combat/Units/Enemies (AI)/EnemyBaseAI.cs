@@ -11,6 +11,13 @@ public class EnemyBaseAI : Enemy
 
     EnemySkillSequencer sequencer = new EnemySkillSequencer();
 
+    public override void Init()
+    {
+        base.Init();
+        // Pick the initial skill so intent can be displayed from the start
+        CurrentSkill = sequencer.Pick(enemySO?.Skills, enemySO != null && enemySO.AlwaysStartWithFirstSkill);
+    }
+
     public override List<SO_SKillVFX> GetSkillVFXList()
     {
         var result = new List<SO_SKillVFX>();
@@ -23,14 +30,12 @@ public class EnemyBaseAI : Enemy
 
     public override IEnumerator StartTurn()
     {
-        CurrentSkill = sequencer.Pick(enemySO?.Skills, enemySO != null && enemySO.AlwaysStartWithFirstSkill);
+        // CurrentSkill is already picked (either in Init or at the end of the previous turn)
         if (CurrentSkill == null)
         {
             EndTurn();
             yield break;
         }
-
-        (ThisHealthbar as FloatingHealthbar)?.UpdateIntent(CurrentSkill);
 
         yield return StartCoroutine(base.StartTurn());
 
@@ -44,9 +49,6 @@ public class EnemyBaseAI : Enemy
     public virtual IEnumerator Attack()
     {
         var skill = CurrentSkill.Skill;
-
-        StartCoroutine(uiManager.ShowActivityText("Strike"));
-        yield return new WaitForSeconds(0.3f);
 
         Unit target = null;
         float closestTargetRange = 0;
@@ -76,15 +78,25 @@ public class EnemyBaseAI : Enemy
             }
         }
 
-        if (target != null)
+        if (target == null)
         {
-            Rotate(target.transform.position);
-            skill.PartData = new SkillPartData();
-            skill.PartData.TargetsHit.Add(target);
-            StartCoroutine(skillsManager.CastSkillsPart(skill, this));
+            EndTurn();
+            yield break;
         }
 
+        StartCoroutine(uiManager.ShowActivityText("Strike"));
+        yield return new WaitForSeconds(0.3f);
+
+        Rotate(target.transform.position);
+        skill.PartData = new SkillPartData();
+        skill.PartData.TargetsHit.Add(target);
+        StartCoroutine(skillsManager.CastSkillsPart(skill, this));
+
         yield return new WaitForSeconds(2);
+
+        // Pick next skill and update intent for next turn
+        CurrentSkill = sequencer.Pick(enemySO?.Skills, false);
+        (ThisHealthbar as FloatingHealthbar)?.UpdateIntent(CurrentSkill);
 
         EndTurn();
     }
@@ -131,6 +143,21 @@ public class EnemyBaseAI : Enemy
         }
 
         OptimalTile = PossibleMovementTiles.OrderByDescending(x => x.EnemyPreferenceRating).First();
+
+        // Fallback: if the best tile is where we already stand, approach the preferred target instead.
+        if (OptimalTile == Tile && UnitData.Characters.Count > 0)
+        {
+            var approachTarget = preferredTarget ?? GetTargetPreference(TargetEnum.closestTarget, UnitData.Characters);
+            if (approachTarget != null)
+            {
+                var approachTile = PossibleMovementTiles
+                    .OrderBy(t => boardManager.GetRangeBetweenTiles(t, approachTarget.Tile))
+                    .First();
+
+                if (approachTile != Tile)
+                    OptimalTile = approachTile;
+            }
+        }
     }
 
     public Unit SetTarget()

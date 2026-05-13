@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Crook (Bow)
   Image: {fileID: 21300000, guid: ae4fc66cf3a6ef149833c0d36f9ad932, type: 3}
   MaxHealth: 5
-  MoveSpeed: 0
+  MoveSpeed: 6
   Initiative: 0
   PhysicalPower: 1
   MagicalPower: 0

@@ -17,14 +17,14 @@ MonoBehaviour:
   classes: 
   Rarity: 2
   Description: Gain 2 additional Energy at your first turn.
-  TriggerMoment: 1
-  TriggerEffect: 3
+  TriggerMoment: 2
+  TriggerEffect: 2
   ChargesToTrigger: 0
-  TriggerOnce: 0
+  TriggerOnce: 1
   Value: 2
   DamageType: 0
+  IsMagical: 0
   Target: 0
   Range: 0
-  StatusEffect: 0
-  StatusEffectSO: {fileID: 0}
+  StatusEffects: []
   Stat: 00000000

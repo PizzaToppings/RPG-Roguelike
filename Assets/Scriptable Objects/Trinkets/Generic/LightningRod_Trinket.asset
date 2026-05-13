@@ -20,7 +20,7 @@ MonoBehaviour:
     in 3 range from you.
 
 '
-  TriggerMoment: 1
+  TriggerMoment: 2
   TriggerEffect: 0
   ChargesToTrigger: 0
   TriggerOnce: 0
