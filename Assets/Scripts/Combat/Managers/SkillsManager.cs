@@ -128,7 +128,8 @@ public class SkillsManager : MonoBehaviour
                 StartCoroutine(DisplaceUnit(skillPart.displacementEffect, skillPart, caster));
         }
 
-        if (skillVFX != null)
+        bool hasVFX = skillVFX != null && skillVFX.Length > 0;
+        if (hasVFX)
         {
 			foreach (var VFX in skillVFX)
 			{
@@ -138,13 +139,13 @@ public class SkillsManager : MonoBehaviour
         }
         else if (skillPart.DamageEffects.Count > 0)
         {
-            // No VFX configured — deal damage immediately.
+            // No VFX configured (or empty array) — deal damage immediately.
             damageManager.DealDamageSetup(skillPart, 0f);
         }
 
         // Temporary 2D stand-in for VFX: dash the caster toward the target,
         // but only when the skill part deals damage or applies a debuff.
-        bool dealsDamage  = skillPart.DamageEffects.Count > 0;
+        bool dealsDamage   = skillPart.DamageEffects.Count > 0;
         bool appliesDebuff = skillPart.StatusEffects.Exists(x => !x.Buff);
         if (dealsDamage || appliesDebuff)
             yield return StartCoroutine(caster.DashTowards(GetSkillPartTargetPosition(skillPartData, caster)));

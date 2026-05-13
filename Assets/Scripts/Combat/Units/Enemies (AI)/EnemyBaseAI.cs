@@ -58,7 +58,7 @@ public class EnemyBaseAI : Enemy
                 continue;
 
             var range = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
-            if (range > skill.MaxRange)
+            if (range < skill.MinRange || range > skill.MaxRange)
                 continue;
 
             if (target == null)
@@ -107,15 +107,15 @@ public class EnemyBaseAI : Enemy
 
                 var rangeToCharacter = boardManager.GetRangeBetweenTiles(tile, character.Tile);
 
-                if (rangeToCharacter <= CurrentSkill.OptimalRange)
+                float skillMinRange = CurrentSkill.Skill != null ? CurrentSkill.Skill.MinRange : 0f;
+                if (rangeToCharacter >= skillMinRange && rangeToCharacter <= CurrentSkill.OptimalRange)
                     tile.EnemyPreferenceRating += 200 + preferedBonus;
+                else if (rangeToCharacter < skillMinRange)
+                    tile.EnemyPreferenceRating -= 300; // Inside minimum range, can't attack from here
 
-                float distanceModifier = 100;
-                distanceModifier -= 5 * rangeToCharacter;
-                if (distanceModifier < 0)
-                    distanceModifier = 0;
-
-                tile.EnemyPreferenceRating -= distanceModifier;
+                // Closer tiles are preferred — subtract distance rather than proximity
+                float distancePenalty = 5 * rangeToCharacter;
+                tile.EnemyPreferenceRating -= distancePenalty;
             }
 
             foreach (var enemy in UnitData.Enemies)
