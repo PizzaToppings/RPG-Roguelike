@@ -157,6 +157,42 @@ public class Unit : UnitStats
         // If delta is near zero (moving straight up/down in screen space), keep current facing.
     }
 
+    /// <summary>
+    /// Briefly dashes the unit toward <paramref name="targetWorldPos"/> and snaps back.
+    /// Used as a temporary stand-in for skill VFX in 2D.
+    /// </summary>
+    public IEnumerator DashTowards(Vector3 targetWorldPos, float distance = 0.35f, float duration = 0.25f)
+    {
+        Vector3 origin = transform.position;
+        Vector3 dir = (targetWorldPos - origin).normalized;
+
+        // Fallback: use current facing direction when there is no valid target position
+        if (dir == Vector3.zero)
+            dir = modelSprite != null && modelSprite.flipX ? Vector3.left : Vector3.right;
+
+        Vector3 dashPeak = origin + dir * distance;
+
+        // Dash forward (40 % of duration)
+        float t = 0f;
+        while (t < 1f)
+        {
+            t = Mathf.Min(t + Time.deltaTime / (duration * 0.4f), 1f);
+            transform.position = Vector3.Lerp(origin, dashPeak, t);
+            yield return null;
+        }
+
+        // Snap back (60 % of duration)
+        t = 0f;
+        while (t < 1f)
+        {
+            t = Mathf.Min(t + Time.deltaTime / (duration * 0.6f), 1f);
+            transform.position = Vector3.Lerp(dashPeak, origin, t);
+            yield return null;
+        }
+
+        transform.position = origin;
+    }
+
     public virtual void SetStartOfTurnStats()
     {
         MoveSpeedLeft = MoveSpeed;

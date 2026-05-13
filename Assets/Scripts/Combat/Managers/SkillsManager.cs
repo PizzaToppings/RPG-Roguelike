@@ -134,11 +134,20 @@ public class SkillsManager : MonoBehaviour
 			{
                 if (VFX.ShowDamage)
                     damageManager.DealDamageSetup(skillPart, VFX.ShowDamageDelay);
-
-                VFX.SetValues(skillPartData, caster);
-                yield return StartCoroutine(skillVFXManager.Cast(VFX, caster));
 			}
         }
+        else if (skillPart.DamageEffects.Count > 0)
+        {
+            // No VFX configured — deal damage immediately.
+            damageManager.DealDamageSetup(skillPart, 0f);
+        }
+
+        // Temporary 2D stand-in for VFX: dash the caster toward the target,
+        // but only when the skill part deals damage or applies a debuff.
+        bool dealsDamage  = skillPart.DamageEffects.Count > 0;
+        bool appliesDebuff = skillPart.StatusEffects.Exists(x => !x.Buff);
+        if (dealsDamage || appliesDebuff)
+            yield return StartCoroutine(caster.DashTowards(GetSkillPartTargetPosition(skillPartData, caster)));
 
         if (skillPart.SummonObject != null)
             unitManager.SummonUnit(skillPart.SummonObject, skillPart.PartData.TilesHit[0], UnitData.ActiveUnit.Friendly);
@@ -161,6 +170,20 @@ public class SkillsManager : MonoBehaviour
             }
 		}
 	}
+
+    Vector3 GetSkillPartTargetPosition(SkillPartData skillPartData, Unit caster)
+    {
+        if (skillPartData.TargetsHit.Count > 0)
+            return skillPartData.TargetsHit[0].transform.position;
+
+        if (skillPartData.TilesHit.Count > 0)
+            return skillPartData.TilesHit[0].transform.position;
+
+        // Fallback: use the caster's current facing direction
+        var sprite = caster.modelSprite;
+        Vector3 facingDir = sprite != null && sprite.flipX ? Vector3.left : Vector3.right;
+        return caster.transform.position + facingDir;
+    }
 
     public IEnumerator DisplaceUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
