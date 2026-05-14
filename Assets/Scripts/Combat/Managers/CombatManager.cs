@@ -17,6 +17,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] InputManager inputManager;
     [SerializeField] ConsumableManager consumableManager;
     [SerializeField] TilemapInputHandler tilemapInputHandler;
+    [SerializeField] CharacterPlacementManager characterPlacementManager;
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
@@ -25,6 +26,8 @@ public class CombatManager : MonoBehaviour
     [Space]
     [SerializeField] float combatStartDelay = 1f;
     [SerializeField] float combatEndDelay = 2f;
+
+    bool placementPhaseEnabled = false;
 
     void Start()
     {
@@ -42,9 +45,7 @@ public class CombatManager : MonoBehaviour
 		SetUnits();
 		uiManager.InitPortraits();
 		PreloadVFX();
-		SetInitiative();
-		RoundStart();
-		StartCoroutine(DelayedTurnStart());
+        StartPlacementPhase();
 	}
 
     IEnumerator DelayedTurnStart()
@@ -66,6 +67,10 @@ public class CombatManager : MonoBehaviour
         skillVFXManager.CreateInstance();
         inputManager.CreateInstance();
         consumableManager.CreateInstance();
+        tilemapInputHandler.CreateInstance();
+        
+        if (characterPlacementManager != null)
+            characterPlacementManager.CreateInstance();
     }
 
     void InitManagers()
@@ -80,6 +85,9 @@ public class CombatManager : MonoBehaviour
         inputManager.Init();
         consumableManager.Init();
         tilemapInputHandler.Init();
+        
+        if (characterPlacementManager != null)
+            characterPlacementManager.Init();
     }
 
     void CreateBattlefield()
@@ -207,5 +215,84 @@ public class CombatManager : MonoBehaviour
             RunManager.Instance.OnCombatLost();
         else
             Debug.Log("Combat lost! (RunManager not present - testing mode)");
+    }
+
+    /// <summary>
+    /// Starts the character placement phase.
+    /// </summary>
+    void StartPlacementPhase()
+    {
+        if (characterPlacementManager == null)
+        {
+            Debug.LogError("[CombatManager] CharacterPlacementManager not assigned!");
+            // Fallback to normal combat start
+            SetInitiative();
+            RoundStart();
+            StartCoroutine(DelayedTurnStart());
+            return;
+        }
+
+        placementPhaseEnabled = true;
+
+        // If none configured, use all board tiles
+        List<Vector2Int> placementTiles;
+        
+        if (RunData.CurrentEncounter.PlayerPlacementTiles != null && 
+            RunData.CurrentEncounter.PlayerPlacementTiles.Count > 0)
+        {
+            placementTiles = RunData.CurrentEncounter.PlayerPlacementTiles;
+        }
+        else
+        {
+            // Use all board tiles
+            placementTiles = GetAllBoardTiles();
+        }
+
+        // Subscribe to placement confirmation event
+        characterPlacementManager.OnPlacementConfirmed.AddListener(OnPlacementConfirmed);
+
+        // Start the placement phase
+        characterPlacementManager.StartPlacementPhase(UnitData.Characters, placementTiles);
+    }
+
+    /// <summary>
+    /// Gets all board tiles as placement options.
+    /// </summary>
+    List<Vector2Int> GetAllBoardTiles()
+    {
+        var allTiles = new List<Vector2Int>();
+        
+        if (BoardData.BoardTiles != null)
+        {
+            for (int x = 0; x < BoardData.rowAmount; x++)
+            {
+                for (int y = 0; y < BoardData.columnAmount; y++)
+                {
+                    if (BoardData.BoardTiles[x, y] != null)
+                    {
+                        allTiles.Add(new Vector2Int(x, y));
+                    }
+                }
+            }
+        }
+        
+        return allTiles;
+    }
+
+    /// <summary>
+    /// Called when the player confirms their character placement.
+    /// </summary>
+    void OnPlacementConfirmed()
+    {
+        placementPhaseEnabled = false;
+
+        // Unsubscribe from the event
+        if (characterPlacementManager != null)
+            characterPlacementManager.OnPlacementConfirmed.RemoveListener(OnPlacementConfirmed);
+
+        // Now start combat normally
+        SetInitiative();
+        RoundStart();
+        StartCoroutine(DelayedTurnStart());
     }
 }

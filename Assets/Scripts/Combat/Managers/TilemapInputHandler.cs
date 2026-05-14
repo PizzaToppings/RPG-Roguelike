@@ -10,18 +10,36 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class TilemapInputHandler : MonoBehaviour
 {
+    public static TilemapInputHandler Instance;
+
     [SerializeField] Tilemap tilemap;
 
+    /// <summary>
+    /// Public accessor for the visual tilemap used for coordinate conversion.
+    /// </summary>
+    public Tilemap VisualTilemap => tilemap;
+
     BoardManager boardManager;
+    CharacterPlacementManager placementManager;
     BoardTile currentHoveredTile;
+
+    public void CreateInstance()
+    {
+        Instance = this;
+    }
 
     public void Init()
     {
         boardManager = BoardManager.Instance;
+        placementManager = CharacterPlacementManager.Instance;
     }
 
     void Update()
     {
+        // Don't interfere during placement phase
+        if (placementManager != null && placementManager.IsPlacementPhase)
+            return;
+
         // On right-mouse-down, clear current hover so the camera can pan freely.
         if (Input.GetMouseButtonDown(1))
         {
@@ -44,6 +62,12 @@ public class TilemapInputHandler : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
         {
             ClearHover();
+            return;
+        }
+
+        if (tilemap == null)
+        {
+            Debug.LogWarning("[TilemapInputHandler] Tilemap is not assigned in the Inspector!");
             return;
         }
 

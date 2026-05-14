@@ -10,6 +10,14 @@ public class SO_Encounter : ScriptableObject
     [Tooltip("Whether this is a normal, elite, or boss encounter.")]
     public EncounterTierEnum Tier = EncounterTierEnum.Normal;
 
+    [Header("Map Configuration")]
+    [Tooltip("The tilemap grid prefab to use for this encounter's battlefield.")]
+    public GameObject MapPrefab;
+
+    [Tooltip("Grid positions (X, Y) where player characters can be placed before combat. Leave empty to use default positions.")]
+    public List<Vector2Int> PlayerPlacementTiles = new List<Vector2Int>();
+
+    [Header("Enemy Configuration")]
     [Tooltip("Each entry is an enemy prefab paired with its starting board position (X, Y).")]
     public List<EncounterEnemy> Enemies = new List<EncounterEnemy>();
 

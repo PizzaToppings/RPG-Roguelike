@@ -16,7 +16,7 @@ public class FloatingHealthbar : Healthbar
     [SerializeField] Image intentActionImage;
     [SerializeField] Image intentTargetImage;
     [SerializeField] TextMeshProUGUI intentDamageText;
-    [SerializeField] TextMeshProUGUI intentRangeText;
+    [SerializeField] TextMeshProUGUI moveRangeText;
     [SerializeField] TextMeshProUGUI orderText;
 
     UI_Singletons ui_Singletons => UI_Singletons.Instance;
@@ -74,8 +74,8 @@ public class FloatingHealthbar : Healthbar
         {
             if (intentDamageText != null)
                 intentDamageText.text = "";
-            if (intentRangeText != null)
-                intentRangeText.text = "";
+            if (moveRangeText != null)
+                moveRangeText.text = "";
             return;
         }
 
@@ -99,17 +99,9 @@ public class FloatingHealthbar : Healthbar
         }
 
         // Display range
-        if (intentRangeText != null)
+        if (moveRangeText != null)
         {
-            float minRange = skill.Skill.MinRange;
-            float maxRange = skill.Skill.MaxRange;
-
-            if (minRange == maxRange)
-                intentRangeText.text = maxRange.ToString("F0");
-            else if (minRange == 0)
-                intentRangeText.text = $"{maxRange:F0}";
-            else
-                intentRangeText.text = $"{minRange:F0}-{maxRange:F0}";
+            moveRangeText.text = thisUnit.MoveSpeed.ToString();
         }
     }
 

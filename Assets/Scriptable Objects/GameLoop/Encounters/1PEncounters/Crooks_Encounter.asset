@@ -14,10 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EncounterName: Crooks
   Tier: 0
+  MapPrefab: {fileID: 4780996589762455522, guid: f6b87f74f78c67d4d9ea24f0e417a71d,
+    type: 3}
+  PlayerPlacementTiles: []
   Enemies:
   - EnemySO: {fileID: 11400000, guid: ac7c1a567bff7c545a862dbe276513b0, type: 2}
     StartX: 3
     StartY: 3
+    TurnOrderIndex: 0
   - EnemySO: {fileID: 11400000, guid: 1f2b3025a542a9f4da67ea656a5d41ce, type: 2}
     StartX: 5
     StartY: 3
+    TurnOrderIndex: 0
+  EnemyTurnOrder: 
