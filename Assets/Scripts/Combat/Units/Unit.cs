@@ -15,6 +15,7 @@ public class Unit : UnitStats
     [HideInInspector] public DamageManager damageManager;
     [HideInInspector] public UIManager uiManager;
     [HideInInspector] public UI_Singletons ui_Singletons;
+    [HideInInspector] public DisplacementPreviewManager displacementPreviewManager;
 
     [HideInInspector] public UnityEvent OnUnitTurnStartEvent = new UnityEvent();
     [HideInInspector] public UnityEvent OnUnitTurnEndEvent = new UnityEvent();
@@ -52,6 +53,7 @@ public class Unit : UnitStats
         damageManager = DamageManager.Instance;
         uiManager = UIManager.Instance;
         ui_Singletons = UI_Singletons.Instance;
+        displacementPreviewManager = DisplacementPreviewManager.Instance;
 
         modelSprite   = GetComponentInChildren<SpriteRenderer>();
         modelAnimator = GetComponentInChildren<Animator>();

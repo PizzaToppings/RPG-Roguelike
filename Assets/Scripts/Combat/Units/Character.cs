@@ -187,6 +187,10 @@ public class Character : Unit
             
             // Update damage predictions for the newly selected skill
             UpdateAllDamagePredictions();
+            
+            // Update displacement projections
+            if (displacementPreviewManager != null)
+                displacementPreviewManager.ShowDisplacementPreviews(SkillData.CurrentActiveSkill);
 		}
     }
 
@@ -194,6 +198,10 @@ public class Character : Unit
 	{
         // Hide all enemy damage predictions when changing skills
         HideAllEnemyDamagePredictions();
+        
+        // Hide displacement projections when changing skills
+        if (displacementPreviewManager != null)
+            displacementPreviewManager.HideAllProjections();
 
         SkillData.CurrentActiveSkill = skill;
         SkillData.SkillPartGroupDatas.Clear();
@@ -240,6 +248,10 @@ public class Character : Unit
 
         // Hide all enemy damage predictions
         HideAllEnemyDamagePredictions();
+        
+        // Hide all displacement projections
+        if (displacementPreviewManager != null)
+            displacementPreviewManager.HideAllProjections();
     }
 
     void HideAllEnemyDamagePredictions()
@@ -264,6 +276,10 @@ public class Character : Unit
 
         // Update damage predictions for all enemies in the skill's area
         UpdateAllDamagePredictions();
+        
+        // Update displacement projections
+        if (displacementPreviewManager != null)
+            displacementPreviewManager.ShowDisplacementPreviews(SkillData.CurrentActiveSkill);
     }
 
     void UpdateAllDamagePredictions()

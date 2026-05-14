@@ -18,6 +18,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] ConsumableManager consumableManager;
     [SerializeField] TilemapInputHandler tilemapInputHandler;
     [SerializeField] CharacterPlacementManager characterPlacementManager;
+    [SerializeField] DisplacementPreviewManager displacementPreviewManager;
 
     [Space]
     [SerializeField] InitiativeTracker initiativeTracker;
@@ -68,6 +69,9 @@ public class CombatManager : MonoBehaviour
         inputManager.CreateInstance();
         consumableManager.CreateInstance();
         tilemapInputHandler.CreateInstance();
+        
+        if (displacementPreviewManager != null)
+            displacementPreviewManager.CreateInstance();
         
         if (characterPlacementManager != null)
             characterPlacementManager.CreateInstance();
