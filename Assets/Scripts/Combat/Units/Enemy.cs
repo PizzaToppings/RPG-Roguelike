@@ -85,6 +85,15 @@ public class Enemy : Unit
 	{
         Tile.Target();
         EnemyInfoPanelManager.Instance?.ShowPanel(this);
+
+        // Show damage prediction if player is targeting with a skill
+        if (ThisHealthbar is FloatingHealthbar floatingHealthbar && 
+            SkillData.CurrentActiveSkill != null && 
+            UnitData.ActiveUnit != null && 
+            UnitData.ActiveUnit.Friendly)
+        {
+            floatingHealthbar.ShowDamagePreview(SkillData.CurrentActiveSkill);
+        }
     }
 
     public void TargetEnemy()
@@ -158,11 +167,23 @@ public class Enemy : Unit
     {
         Tile.UnTarget();
         EnemyInfoPanelManager.Instance?.HidePanel();
+
+        // Hide damage prediction
+        if (ThisHealthbar is FloatingHealthbar floatingHealthbar)
+        {
+            floatingHealthbar.HideDamagePreview();
+        }
     }
 
     public void UnTargetEnemy()
 	{
         ui_Singletons.SetCursor(CursorType.Normal);
+
+        // Hide damage prediction
+        if (ThisHealthbar is FloatingHealthbar floatingHealthbar)
+        {
+            floatingHealthbar.HideDamagePreview();
+        }
 
         if (closestTile != null && 
             (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))

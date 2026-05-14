@@ -184,11 +184,17 @@ public class Character : Unit
 
             var currentMouseTile = BoardData.CurrentMouseTile;
             skill.Preview(currentMouseTile, this);
+            
+            // Update damage predictions for the newly selected skill
+            UpdateAllDamagePredictions();
 		}
     }
 
     void SetSkillData(Skill skill)
 	{
+        // Hide all enemy damage predictions when changing skills
+        HideAllEnemyDamagePredictions();
+
         SkillData.CurrentActiveSkill = skill;
         SkillData.SkillPartGroupDatas.Clear();
 
@@ -231,6 +237,23 @@ public class Character : Unit
         boardManager.SetAOE(MoveSpeedLeft, Tile, null);
         skillVFXManager.EndProjectileLine();
         SetSkillData(basicAttack);
+
+        // Hide all enemy damage predictions
+        HideAllEnemyDamagePredictions();
+    }
+
+    void HideAllEnemyDamagePredictions()
+    {
+        var enemies = UnitData.Enemies;
+        if (enemies == null) return;
+
+        foreach (var enemy in enemies)
+        {
+            if (enemy != null && enemy.ThisHealthbar is FloatingHealthbar floatingHealthbar)
+            {
+                floatingHealthbar.HideDamagePreview();
+            }
+        }
     }
 
     public override void PreviewSkills(BoardTile mouseOverTile)
@@ -238,6 +261,35 @@ public class Character : Unit
         base.PreviewSkills(mouseOverTile);
 
         SkillData.CurrentActiveSkill.Preview(mouseOverTile, this);
+
+        // Update damage predictions for all enemies in the skill's area
+        UpdateAllDamagePredictions();
+    }
+
+    void UpdateAllDamagePredictions()
+    {
+        // First hide all predictions
+        HideAllEnemyDamagePredictions();
+
+        if (SkillData.CurrentActiveSkill == null || UnitData.ActiveUnit != this)
+            return;
+
+        // Get all enemies that will be hit by the current skill
+        var currentSpg = SkillData.CurrentActiveSkill.mainSkillSO.SkillPartGroups[SkillData.SkillPartGroupIndex];
+        
+        foreach (var skillPart in currentSpg.skillParts)
+        {
+            if (skillPart.PartData?.TargetsHit == null)
+                continue;
+
+            foreach (var target in skillPart.PartData.TargetsHit)
+            {
+                if (target is Enemy enemy && enemy.ThisHealthbar is FloatingHealthbar floatingHealthbar)
+                {
+                    floatingHealthbar.ShowDamagePreview(SkillData.CurrentActiveSkill);
+                }
+            }
+        }
     }
 
     public override List<SO_SKillVFX> GetSkillVFXList()

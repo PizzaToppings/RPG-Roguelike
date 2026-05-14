@@ -16,10 +16,16 @@ public class FloatingHealthbar : Healthbar
     [SerializeField] Image intentActionImage;
     [SerializeField] Image intentTargetImage;
     [SerializeField] TextMeshProUGUI intentDamageText;
-    [SerializeField] TextMeshProUGUI moveRangeText;
+    [SerializeField] TextMeshProUGUI attackRangeText;
     [SerializeField] TextMeshProUGUI orderText;
 
+    [Space]
+    [Header("Damage Prediction")]
+    [SerializeField] GameObject damagePreviewParent;
+    [SerializeField] TextMeshProUGUI damagePreviewText;
+
     UI_Singletons ui_Singletons => UI_Singletons.Instance;
+    DamageManager damageManager => DamageManager.Instance;
 
     public void Init(Unit myUnit)
     {
@@ -40,6 +46,9 @@ public class FloatingHealthbar : Healthbar
 
         if (intentParent != null)
             intentParent.SetActive(false);
+
+        if (damagePreviewParent != null)
+            damagePreviewParent.SetActive(false);
     }
 
     public void InitIntent(SO_EnemySkill skill)
@@ -74,8 +83,8 @@ public class FloatingHealthbar : Healthbar
         {
             if (intentDamageText != null)
                 intentDamageText.text = "";
-            if (moveRangeText != null)
-                moveRangeText.text = "";
+            if (attackRangeText != null)
+                attackRangeText.text = "";
             return;
         }
 
@@ -99,9 +108,18 @@ public class FloatingHealthbar : Healthbar
         }
 
         // Display range
-        if (moveRangeText != null)
+        if (attackRangeText != null)
         {
-            moveRangeText.text = thisUnit.MoveSpeed.ToString();
+            if (skill.Skill.MinRange == 0)
+            {
+                attackRangeText.text = skill.Skill.MaxRange.ToString();
+                return;
+            }
+            else
+            {
+                attackRangeText.text = $"{skill.Skill.MinRange}-{skill.Skill.MaxRange}";
+                return;
+            }
         }
     }
 
@@ -109,6 +127,71 @@ public class FloatingHealthbar : Healthbar
     {
         if (orderText != null)
             orderText.text = order.ToString();
+    }
+
+    public void ShowDamagePreview(Skill activeSkill)
+    {
+        if (damagePreviewParent == null || damagePreviewText == null || thisUnit == null)
+            return;
+
+        if (activeSkill == null || SkillData.Caster == null)
+        {
+            HideDamagePreview();
+            return;
+        }
+
+        // Calculate predicted damage from all damage effects in the active skill
+        int totalPredictedDamage = 0;
+        var currentSpg = activeSkill.mainSkillSO.SkillPartGroups[SkillData.SkillPartGroupIndex];
+
+        foreach (var skillPart in currentSpg.skillParts)
+        {
+            if (skillPart.DamageEffects != null)
+            {
+                foreach (var damageData in skillPart.DamageEffects)
+                {
+                    if (damageData != null)
+                    {
+                        // Skip healing and shield effects
+                        if (damageData.DamageType == DamageTypeEnum.Healing || 
+                            damageData.DamageType == DamageTypeEnum.Shield)
+                            continue;
+
+                        // Create a copy of the damage data with the correct caster
+                        var damageDataCopy = new DamageData
+                        {
+                            Power = damageData.Power,
+                            DamageType = damageData.DamageType,
+                            IsMagical = damageData.IsMagical,
+                            Caster = SkillData.Caster,
+                            Modifiers = damageData.Modifiers,
+                            Prerequisites = damageData.Prerequisites
+                        };
+
+                        // Calculate the damage using the DamageManager
+                        var calculatedDamage = damageManager.CalculateDamageData(damageDataCopy, thisUnit);
+                        totalPredictedDamage += calculatedDamage.Damage;
+                    }
+                }
+            }
+        }
+
+        // Only show if there's damage to display
+        if (totalPredictedDamage > 0)
+        {
+            damagePreviewParent.SetActive(true);
+            damagePreviewText.text = totalPredictedDamage.ToString();
+        }
+        else
+        {
+            HideDamagePreview();
+        }
+    }
+
+    public void HideDamagePreview()
+    {
+        if (damagePreviewParent != null)
+            damagePreviewParent.SetActive(false);
     }
 
     void Update()
