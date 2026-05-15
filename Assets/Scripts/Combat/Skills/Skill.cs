@@ -14,12 +14,39 @@ public class Skill
     public int DefaultCharges = 1;
     public int Charges => SkillData.GetCharges(this);
 
+    public List<SkillAugment> Augments = new List<SkillAugment>();
+
     public void Init(SO_MainSkill skillSO)
     {
         mainSkillSO = skillSO;
         EnergyCost = skillSO.EnergyCost;
         DefaultCharges = skillSO.DefaultCharges;
-        SkillPartGroups = skillSO.SkillPartGroups;
+
+        // Deep-copy skill part groups so augments can safely modify
+        // MaxRange / DamageEffects on runtime instances without mutating the shared SO asset.
+        SkillPartGroups = new List<SkillPartGroup>(skillSO.SkillPartGroups.Count);
+        foreach (var spg in skillSO.SkillPartGroups)
+        {
+            var runtimeGroup = new SkillPartGroup
+            {
+                CastOnTile   = spg.CastOnTile,
+                CastOnTarget = spg.CastOnTarget
+            };
+            foreach (var sp in spg.skillParts)
+                runtimeGroup.skillParts.Add(UnityEngine.Object.Instantiate(sp));
+            SkillPartGroups.Add(runtimeGroup);
+        }
+    }
+
+    public void InitAugments(List<SO_SkillAugment> augmentSOs, Character character)
+    {
+        Augments.Clear();
+        foreach (var so in augmentSOs)
+        {
+            var augment = new SkillAugment();
+            augment.Init(so, this, character);
+            Augments.Add(augment);
+        }
     }
 
     public void Init()

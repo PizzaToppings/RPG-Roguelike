@@ -86,9 +86,6 @@ public class SkillsManager : MonoBehaviour
         var character = UnitData.ActiveUnit as Character;
         character.ConsumeEnergy(skill.EnergyCost);
 
-        // var portrait = character.ThisHealthbar as CharacterPortrait;
-        // portrait.UpdateHealthbar(); 
-
         StartCoroutine(CastSkill(skill, character));
 
         if (skill.mainSkillSO.IsConsumable)
@@ -110,6 +107,9 @@ public class SkillsManager : MonoBehaviour
                 yield return StartCoroutine(CastSkillsPart(sp, caster));
             }
         }
+
+        var character = caster as Character;
+        character?.OnSkillCastEvent.Invoke(skill);
 
         OnSkillCastComplete.Invoke();
     }

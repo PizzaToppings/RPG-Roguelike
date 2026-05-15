@@ -10,6 +10,9 @@ public class RunDataPartyMember
     public List<Skill> Skills = new List<Skill>();
     public List<SO_Trinket> Trinkets = new List<SO_Trinket>();
 
+    /// <summary>Augments assigned per skill SO.</summary>
+    public Dictionary<SO_MainSkill, List<SO_SkillAugment>> SkillAugments = new Dictionary<SO_MainSkill, List<SO_SkillAugment>>();
+
     /// <summary>HP carried over from the last combat. 0 means unset (use MaxHealth).</summary>
     public int CurrentHitpoints = 0;
 
@@ -64,6 +67,9 @@ public static class RunData
     /// <summary>The trinkets randomly selected for the current Shop.</summary>
     public static List<SO_Trinket> CurrentShopTrinkets = new List<SO_Trinket>();
 
+    /// <summary>The skill augments randomly selected for the current Shop.</summary>
+    public static List<SO_SkillAugment> CurrentShopSkillAugments = new List<SO_SkillAugment>();
+
     /// <summary>How much gold the party has accumulated this run.</summary>
     public static int Gold;
 
@@ -82,6 +88,7 @@ public static class RunData
         CurrentTreasureOptions.Clear();
         CurrentShopSkills.Clear();
         CurrentShopTrinkets.Clear();
+        CurrentShopSkillAugments.Clear();
         Gold = 0;
     }
 }

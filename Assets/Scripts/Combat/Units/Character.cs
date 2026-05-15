@@ -28,6 +28,8 @@ public class Character : Unit
 
     [HideInInspector] public List<Trinket> trinkets = new List<Trinket>();
 
+    [HideInInspector] public UnityEngine.Events.UnityEvent<Skill> OnSkillCastEvent = new UnityEngine.Events.UnityEvent<Skill>();
+
     public override void Init()
     {
         var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
@@ -51,6 +53,25 @@ public class Character : Unit
         SetSkillData(basicAttack);
 
         skillsManager.OnSkillCastComplete.AddListener(StopCasting);
+    }
+
+    public void InitAugments()
+    {
+        var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
+        if (partyMember == null) return;
+
+        var allSkills = new List<Skill> { basicAttack, basicSkill };
+        allSkills.AddRange(skills);
+
+        foreach (var skill in allSkills)
+        {
+            if (skill?.mainSkillSO == null) continue;
+            if (partyMember.SkillAugments.TryGetValue(skill.mainSkillSO, out var augmentSOs) && augmentSOs.Count > 0)
+            {
+                Debug.Log($"[SkillAugment] {UnitName}: initializing {augmentSOs.Count} augment(s) for '{skill.mainSkillSO.SkillName}'.");
+                skill.InitAugments(augmentSOs, this);
+            }
+        }
     }
 
     public void InitTrinkets()
