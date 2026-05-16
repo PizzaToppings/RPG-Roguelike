@@ -5,7 +5,6 @@ public class SO_MainSkill : ScriptableObject
 {
     public string SkillName;
     public Sprite Image;
-    public Sprite Image_Inactive;
 
     [Space]
     public bool IsBasic;

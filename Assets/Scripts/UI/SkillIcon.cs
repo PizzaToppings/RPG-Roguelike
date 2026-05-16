@@ -12,6 +12,8 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     Character character;
 
     public Image icon;
+    [SerializeField] Material greyscaleMaterial;
+    Material materialInstance; // Unique instance for this icon
 
     [Space]
     [SerializeField] GameObject ActiveBorder;
@@ -24,6 +26,13 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     {
         skillsManager = SkillsManager.Instance;
         uiManager = UIManager.Instance;
+
+        // Create a unique material instance for this icon
+        if (greyscaleMaterial != null)
+        {
+            materialInstance = Instantiate(greyscaleMaterial);
+            icon.material = materialInstance;
+        }
     }
 
     public void SetOrUpdate(Skill thisSkill, Character thisCharacter) 
@@ -38,11 +47,15 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
     void SetIcon()
     {
         icon.gameObject.SetActive(true);
+        icon.sprite = skill.mainSkillSO.Image;
 
-        if (skillsManager.CanCastSkill(skill, UnitData.ActiveUnit))
-            icon.sprite = skill.mainSkillSO.Image;
-        else if (skill.mainSkillSO.Image_Inactive != null)
-            icon.sprite = skill.mainSkillSO.Image_Inactive;
+        if (materialInstance != null)
+        {
+            if (skillsManager.CanCastSkill(skill, UnitData.ActiveUnit))
+                materialInstance.SetFloat("_GrayscaleAmount", 0f);
+            else
+                materialInstance.SetFloat("_GrayscaleAmount", 1f);
+        }
     }
 
     void SetCharges()
@@ -143,5 +156,12 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
             return; 
         
         uiManager.EndShowSkillInformation(skill);
+    }
+
+    void OnDestroy()
+    {
+        // Clean up the material instance to prevent memory leaks
+        if (materialInstance != null)
+            Destroy(materialInstance);
     }
 }
