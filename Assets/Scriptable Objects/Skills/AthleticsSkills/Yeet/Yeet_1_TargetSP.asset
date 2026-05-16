@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: Yeet_1_TargetSP
   m_EditorClassIdentifier: 
-  OriginTiles: []
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 0
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -53,9 +47,77 @@ MonoBehaviour:
   PreventDuplicateTargets: []
   StatusEffects: []
   tileEffects: []
-  displacementEffect: {fileID: 11400000, guid: 42f3b665b64749d4faad66225f905471, type: 2}
+  displacementEffect:
+    UseDisplacement: 0
+    DisplacementType: 1
+    Unit: {fileID: 11400000}
+    TargetPosition: {fileID: 11400000, guid: 49d9d732c312e8543b683f9bc36b1174, type: 2}
+    Delay: 0
+    SpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Speed: 2
+    Offset: 0
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.002166748
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.5044451
+        value: 0.9986058
+        inSlope: -0.032665335
+        outSlope: -0.032665335
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.18045254
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0164602
+        value: 0.009940326
+        inSlope: -3.0888178
+        outSlope: -3.0888178
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.10218951
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Height: 1
+    Duration: 0
+    UseDuration: 0
+    StartVFX: {fileID: 0}
+    EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
     Color: {r: 1, g: 0, b: 0, a: 1}

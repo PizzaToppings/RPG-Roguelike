@@ -18,8 +18,9 @@ MonoBehaviour:
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
+  SkillCombatStyle: 0
   Classes: 
-  Description: 
+  Description: <damage0-0-0>
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
@@ -27,10 +28,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b2cd3cb45f21fee46970e4c3bdd0e1bb, type: 2}
   EnergyCost: 1
   DefaultCharges: 1
-  Charges: 1
   Cursor: 2
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}
     Priority: 10
-  Caster: {fileID: 0}

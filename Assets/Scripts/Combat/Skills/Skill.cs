@@ -24,6 +24,7 @@ public class Skill
 
         // Deep-copy skill part groups so augments can safely modify
         // MaxRange / DamageEffects on runtime instances without mutating the shared SO asset.
+        var originalToInstantiated = new System.Collections.Generic.Dictionary<SO_Skillpart, SO_Skillpart>();
         SkillPartGroups = new List<SkillPartGroup>(skillSO.SkillPartGroups.Count);
         foreach (var spg in skillSO.SkillPartGroups)
         {
@@ -33,8 +34,29 @@ public class Skill
                 CastOnTarget = spg.CastOnTarget
             };
             foreach (var sp in spg.skillParts)
-                runtimeGroup.skillParts.Add(UnityEngine.Object.Instantiate(sp));
+            {
+                var instance = UnityEngine.Object.Instantiate(sp);
+                originalToInstantiated[sp] = instance;
+                runtimeGroup.skillParts.Add(instance);
+            }
             SkillPartGroups.Add(runtimeGroup);
+        }
+
+        // Remap displacement Unit/TargetPosition references from original SOs to their
+        // instantiated counterparts, so PartData (set at runtime on instances) is reachable.
+        foreach (var spg in SkillPartGroups)
+        {
+            foreach (var sp in spg.skillParts)
+            {
+                var d = sp.displacementEffect;
+                if (d == null || !d.UseDisplacement) continue;
+
+                if (d.Unit != null && originalToInstantiated.TryGetValue(d.Unit, out var instUnit))
+                    d.Unit = instUnit;
+
+                if (d.TargetPosition != null && originalToInstantiated.TryGetValue(d.TargetPosition, out var instTarget))
+                    d.TargetPosition = instTarget;
+            }
         }
     }
 

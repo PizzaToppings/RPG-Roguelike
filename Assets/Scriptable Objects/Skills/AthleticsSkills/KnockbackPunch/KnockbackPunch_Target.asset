@@ -12,13 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: KnockbackPunch_Target
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 0
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -40,9 +33,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 04d7c4b4ecf893f45b14db72f5f0fcd8, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
+    IsMagical: 0
+    Modifiers: []
+    Prerequisites: []
     DamageType: 0
     Power: 8
-    IsMagical: 0
   MinRange: 0
   MaxRange: 1.5
   IncludeInAutoMove: 0
@@ -50,11 +45,79 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects: []
+  StatusEffects: []
   tileEffects: []
-  displacementEffect: {fileID: 11400000, guid: f18d3ccc3e0e2b247b83491f83e58ba1, type: 2}
+  displacementEffect:
+    UseDisplacement: 0
+    DisplacementType: 1
+    Unit: {fileID: 11400000}
+    TargetPosition: {fileID: 11400000, guid: 1df3c3bd25565924cb5b3667d8c4753d, type: 2}
+    Delay: 0
+    SpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.38100415
+        value: 0.9950447
+        inSlope: 0.010978195
+        outSlope: 0.010978195
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.67760897
+      - serializedVersion: 3
+        time: 1.0180969
+        value: 0.16888428
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Speed: 4
+    Offset: 0
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Height: 0
+    Duration: 0
+    UseDuration: 0
+    StartVFX: {fileID: 0}
+    EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 0
     Color: {r: 0.9607844, g: 0, b: 0, a: 1}

@@ -194,6 +194,33 @@ public class SkillsManager : MonoBehaviour
 
     public IEnumerator DisplaceUnit(DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
+        // Validate displacement configuration
+        if (displacement.Unit == null)
+        {
+            Debug.LogError($"DisplacementEffect on {skillPart.name}: Unit field is not assigned!");
+            yield break;
+        }
+
+        if (displacement.Unit.PartData == null || displacement.Unit.PartData.TargetsHit == null || displacement.Unit.PartData.TargetsHit.Count == 0)
+        {
+            Debug.LogError($"DisplacementEffect on {skillPart.name}: Unit field '{displacement.Unit.name}' has no valid targets! " +
+                          $"Make sure this skill part executes BEFORE the displacement and actually hits units.");
+            yield break;
+        }
+
+        if ((displacement.DisplacementType == DisplacementEnum.Move || displacement.DisplacementType == DisplacementEnum.Teleport) && displacement.TargetPosition == null)
+        {
+            Debug.LogError($"DisplacementEffect on {skillPart.name}: TargetPosition field is not assigned for {displacement.DisplacementType} displacement!");
+            yield break;
+        }
+
+        if (displacement.TargetPosition != null && (displacement.TargetPosition.PartData == null || displacement.TargetPosition.PartData.TilesHit == null || displacement.TargetPosition.PartData.TilesHit.Count == 0))
+        {
+            Debug.LogError($"DisplacementEffect on {skillPart.name}: TargetPosition field '{displacement.TargetPosition.name}' has no valid tiles! " +
+                          $"Make sure this skill part executes BEFORE the displacement and actually hits tiles.");
+            yield break;
+        }
+
         if (displacement.StartVFX)
 		{
             displacement.StartVFX.SetValues(skillPart.PartData, caster);

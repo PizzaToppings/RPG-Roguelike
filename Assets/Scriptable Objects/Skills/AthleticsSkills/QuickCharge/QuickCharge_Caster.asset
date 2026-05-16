@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ea86c1f688f1743be5ed65f3919415, type: 3}
   m_Name: QuickCharge_Caster
   m_EditorClassIdentifier: 
-  OriginTiles: []
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 0
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 0
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -26,6 +20,8 @@ MonoBehaviour:
   TargetTileSkillParts: []
   DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
+  DirectionInput: 0
+  DirectionInputSkillPart: {fileID: 0}
   TargetKind: 0
   tileColor:
     FillCenter: 0
@@ -34,11 +30,7 @@ MonoBehaviour:
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   SkillVFX: []
-  DamageEffect:
-    Caster: {fileID: 0}
-    DamageType: 0
-    Power: 0
-    IsMagical: 0
+  DamageEffects: []
   MinRange: 0
   MaxRange: 0
   IncludeInAutoMove: 0
@@ -46,8 +38,58 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects: []
+  StatusEffects: []
   tileEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect:
+    UseDisplacement: 0
+    DisplacementType: 1
+    Unit: {fileID: 11400000}
+    TargetPosition: {fileID: 11400000, guid: d0c7e5a253412c94b9fab832ad7aecb0, type: 2}
+    Delay: 0
+    SpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Speed: 20
+    Offset: 0
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Height: 1
+    Duration: 0
+    UseDuration: 0
+    StartVFX: {fileID: 0}
+    EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}
