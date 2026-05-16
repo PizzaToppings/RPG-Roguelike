@@ -120,7 +120,7 @@ public class SkillsManager : MonoBehaviour
         var skillPartData = skillPart.PartData;
         skillPart.DamageEffects.ForEach(x => x.Caster = UnitData.ActiveUnit);
 
-        if (skillPart.displacementEffect != null)
+        if (skillPart.displacementEffect != null && skillPart.displacementEffect.UseDisplacement)
 		{
             if (skillPart.displacementEffect.UseDuration)
                 yield return StartCoroutine(DisplaceUnit(skillPart.displacementEffect, skillPart, caster));
@@ -186,7 +186,7 @@ public class SkillsManager : MonoBehaviour
         return caster.transform.position + facingDir;
     }
 
-    public IEnumerator DisplaceUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
+    public IEnumerator DisplaceUnit(DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
         if (displacement.StartVFX)
 		{
@@ -210,7 +210,7 @@ public class SkillsManager : MonoBehaviour
         }
     }
 
-    public IEnumerator TeleportUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
+    public IEnumerator TeleportUnit(DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
         var unit = displacement.Unit.PartData.TargetsHit.First();
         var originalPosition = unit.Tile;
@@ -233,7 +233,7 @@ public class SkillsManager : MonoBehaviour
         ToggleDisplacementEndEffects(displacement, skillPart, caster);
     }
 
-    public IEnumerator MoveUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
+    public IEnumerator MoveUnit(DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
         var pointList = new List<Vector3>();
         var units = new List<Unit>(displacement.Unit.PartData.TargetsHit);
@@ -284,7 +284,7 @@ public class SkillsManager : MonoBehaviour
         ToggleDisplacementEndEffects(displacement, skillPart, caster);
     }
 
-    public IEnumerator LiftUnit(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
+    public IEnumerator LiftUnit(DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
         var unit = displacement.Unit.PartData.TargetsHit.First();
         var defaultHeight = unit.position.y;
@@ -309,7 +309,7 @@ public class SkillsManager : MonoBehaviour
         ToggleDisplacementEndEffects(displacement, skillPart, caster);
     }
 
-    void ToggleDisplacementEndEffects(SO_DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
+    void ToggleDisplacementEndEffects(DisplacementEffect displacement, SO_Skillpart skillPart, Unit caster)
     {
         if (displacement.StartVFX)
         {

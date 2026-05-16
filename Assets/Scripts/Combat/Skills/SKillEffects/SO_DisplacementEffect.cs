@@ -1,8 +1,14 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Displacement", menuName = "ScriptableObjects/SkillEffects/DisplacementEffect")]
-public class SO_DisplacementEffect : ScriptableObject
+/// <summary>
+/// Serializable displacement effect - embedded directly in skill parts
+/// </summary>
+[Serializable]
+public class DisplacementEffect
 {
+    public bool UseDisplacement;
+
     public DisplacementEnum DisplacementType;
     public SO_Skillpart Unit;
     public SO_Skillpart TargetPosition;

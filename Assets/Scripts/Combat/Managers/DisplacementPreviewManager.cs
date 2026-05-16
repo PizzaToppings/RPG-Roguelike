@@ -29,7 +29,7 @@ public class DisplacementPreviewManager : MonoBehaviour
         
         foreach (var skillPart in currentSpg.skillParts)
         {
-            if (skillPart.displacementEffect == null)
+            if (skillPart.displacementEffect == null || !skillPart.displacementEffect.UseDisplacement)
                 continue;
 
             var unitsToDisplace = skillPart.displacementEffect.Unit?.PartData?.TargetsHit;
