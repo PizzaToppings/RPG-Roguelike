@@ -25,7 +25,8 @@ public class DisplacementPreviewManager : MonoBehaviour
         // Track which units have projections this frame
         HashSet<Unit> unitsWithProjections = new HashSet<Unit>();
 
-        var currentSpg = activeSkill.mainSkillSO.SkillPartGroups[SkillData.SkillPartGroupIndex];
+        // IMPORTANT: Use the runtime Skill.SkillPartGroups, not mainSkillSO.SkillPartGroups
+        var currentSpg = activeSkill.SkillPartGroups[SkillData.SkillPartGroupIndex];
         
         foreach (var skillPart in currentSpg.skillParts)
         {

@@ -134,10 +134,16 @@ public class FloatingHealthbar : Healthbar
 
         // Calculate predicted damage from all damage effects in the active skill
         int totalPredictedDamage = 0;
-        var currentSpg = activeSkill.mainSkillSO.SkillPartGroups[SkillData.SkillPartGroupIndex];
+        // IMPORTANT: Use the runtime Skill.SkillPartGroups for damage calculations
+        var currentSpg = activeSkill.SkillPartGroups[SkillData.SkillPartGroupIndex];
 
         foreach (var skillPart in currentSpg.skillParts)
         {
+            // Only calculate damage for skill parts that actually target this unit
+            // This correctly handles skills with multiple parts hitting the same enemy
+            if (skillPart.PartData?.TargetsHit == null || !skillPart.PartData.TargetsHit.Contains(thisUnit))
+                continue;
+
             if (skillPart.DamageEffects != null)
             {
                 foreach (var damageData in skillPart.DamageEffects)

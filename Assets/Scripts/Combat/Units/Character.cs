@@ -312,7 +312,9 @@ public class Character : Unit
             return;
 
         // Get all enemies that will be hit by the current skill
-        var currentSpg = SkillData.CurrentActiveSkill.mainSkillSO.SkillPartGroups[SkillData.SkillPartGroupIndex];
+        // IMPORTANT: Use the runtime Skill.SkillPartGroups, not mainSkillSO.SkillPartGroups
+        // because Skill creates instantiated copies with PartData set
+        var currentSpg = SkillData.CurrentActiveSkill.SkillPartGroups[SkillData.SkillPartGroupIndex];
         
         foreach (var skillPart in currentSpg.skillParts)
         {
