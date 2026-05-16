@@ -110,16 +110,8 @@ public class FloatingHealthbar : Healthbar
         // Display range
         if (attackRangeText != null)
         {
-            if (skill.Skill.MinRange == 0)
-            {
-                attackRangeText.text = skill.Skill.MaxRange.ToString();
-                return;
-            }
-            else
-            {
-                attackRangeText.text = $"{skill.Skill.MinRange}-{skill.Skill.MaxRange}";
-                return;
-            }
+            var totalThreat = skill.Skill.MaxRange + thisUnit.MoveSpeed;
+            attackRangeText.text = totalThreat.ToString(); 
         }
     }
 

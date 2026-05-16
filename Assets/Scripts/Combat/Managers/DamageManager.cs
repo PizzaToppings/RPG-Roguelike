@@ -49,6 +49,7 @@ public class DamageManager : MonoBehaviour
         var casterPower = damageEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
         var bleedDamage = GetBleedBonusDamage(target, damageEffect.DamageType);
         var typeModifier = GetTypeModifyer(damageEffect, target);
+        var styleMultiplier = CombatStyleUtility.GetStyleMultiplier(caster.CurrentCombatStyle, target.CurrentCombatStyle);
 
         if (damageEffect.DamageType == DamageTypeEnum.Healing || damageEffect.DamageType == DamageTypeEnum.Shield)
         {
@@ -57,7 +58,7 @@ public class DamageManager : MonoBehaviour
         }
 
         var targetDefense = damageEffect.IsMagical ? target.MagicalDefense : target.PhysicalDefense;
-        var damage = Mathf.CeilToInt((skillPower + bleedDamage + casterPower - targetDefense) * typeModifier);
+        var damage = Mathf.CeilToInt((skillPower + bleedDamage + casterPower - targetDefense) * typeModifier * styleMultiplier);
         if (damage < 0)
             damage = 0;
 

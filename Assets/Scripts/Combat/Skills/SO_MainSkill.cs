@@ -13,6 +13,9 @@ public class SO_MainSkill : ScriptableObject
     public bool IsMagical;
 
     [Space]
+    public CombatStyle SkillCombatStyle = CombatStyle.None;
+
+    [Space]
     public List<ClassEnum> Classes;
 
     [Space]

@@ -100,6 +100,12 @@ public class SkillsManager : MonoBehaviour
 
     public IEnumerator CastSkill(Skill skill, Unit caster)
     {
+        // Set the caster's combat style to match the skill
+        if (skill.mainSkillSO.SkillCombatStyle != CombatStyle.None)
+        {
+            caster.CurrentCombatStyle = skill.mainSkillSO.SkillCombatStyle;
+        }
+
         foreach (var spg in skill.SkillPartGroups)
         {
             foreach (var sp in spg.skillParts)
