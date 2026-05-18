@@ -16218,6 +16218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708867989}
   - component: {fileID: 708867990}
+  - component: {fileID: 708867991}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: Untagged
@@ -16270,6 +16271,19 @@ MonoBehaviour:
   cameraController: {fileID: 1143730583}
   combatStartDelay: 1
   combatEndDelay: 2
+--- !u!114 &708867991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708867988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363047f7d41c39c4aa424f4d92736755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testConfig: {fileID: 11400000, guid: 87b55dc26d02ff64f9ffe9946071629b, type: 2}
 --- !u!1 &712637044
 GameObject:
   m_ObjectHideFlags: 0

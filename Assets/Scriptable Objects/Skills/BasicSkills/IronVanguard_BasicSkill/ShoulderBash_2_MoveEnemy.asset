@@ -70,7 +70,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    Speed: 1
+    Speed: 2
     Offset: 0
     HeightCurve:
       serializedVersion: 2
@@ -94,7 +94,7 @@ MonoBehaviour:
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
   Angles: 04000000
-  PierceAmount: -1
+  PierceAmount: 0
   GetLastTileOnly: 1
   endColor:
     FillCenter: 1

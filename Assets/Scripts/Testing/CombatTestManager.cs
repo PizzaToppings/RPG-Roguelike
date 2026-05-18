@@ -1,0 +1,224 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+/// <summary>
+/// Manages combat testing mode.
+/// Place this on a GameObject in the Combat scene.
+/// 
+/// Execution order: This must run in Awake BEFORE EncounterManager and PartyManager,
+/// so it can populate RunData with test data when starting directly in the Combat scene.
+/// 
+/// Set Script Execution Order in Unity to run before Default Time (e.g., -100).
+/// </summary>
+public class CombatTestManager : MonoBehaviour
+{
+    [Header("Test Configuration")]
+    [Tooltip("Test configuration asset. If null, test mode is disabled.")]
+    [SerializeField] SO_CombatTestConfig testConfig;
+
+    void Awake()
+    {
+        // Only activate test mode if:
+        // 1. A test config is assigned
+        // 2. Test mode is enabled in the config
+        // 3. RunData is empty (indicating we started directly in Combat scene)
+        if (testConfig == null || !testConfig.EnableTestMode)
+        {
+            Debug.Log("[CombatTest] Test mode disabled or no config assigned.");
+            return;
+        }
+
+        if (RunData.Party.Count > 0 || RunData.CurrentEncounter != null)
+        {
+            Debug.Log("[CombatTest] RunData already populated (normal game flow). Skipping test initialization.");
+            return;
+        }
+
+        Debug.Log("[CombatTest] Initializing combat test mode...");
+        InitializeTestData();
+    }
+
+    void InitializeTestData()
+    {
+        // Reset RunData to clean state
+        RunData.Reset();
+
+        // Setup encounter
+        SetupEncounter();
+
+        // Setup party
+        SetupParty();
+
+        // Setup starting gold
+        RunData.Gold = testConfig.StartingGold;
+
+        Debug.Log($"[CombatTest] Test initialization complete. Party size: {RunData.Party.Count}, Encounter: {RunData.CurrentEncounter?.EncounterName ?? "None"}");
+    }
+
+    void SetupEncounter()
+    {
+        if (testConfig.PresetEncounter != null)
+        {
+            RunData.CurrentEncounter = testConfig.PresetEncounter;
+            Debug.Log($"[CombatTest] Using preset encounter: {testConfig.PresetEncounter.EncounterName}");
+        }
+        else if (testConfig.RandomizeEncounter && testConfig.EncounterPool != null && testConfig.EncounterPool.Encounters.Count > 0)
+        {
+            RunData.CurrentEncounter = testConfig.EncounterPool.Encounters[Random.Range(0, testConfig.EncounterPool.Encounters.Count)];
+            Debug.Log($"[CombatTest] Randomized encounter: {RunData.CurrentEncounter?.EncounterName ?? "None"}");
+        }
+        else
+        {
+            Debug.LogWarning("[CombatTest] No encounter configured. Using scene default enemies.");
+        }
+    }
+
+    void SetupParty()
+    {
+        List<SO_Character> charactersToUse = new List<SO_Character>();
+
+        // Determine which characters to use
+        if (testConfig.PresetCharacters != null && testConfig.PresetCharacters.Count > 0)
+        {
+            charactersToUse = testConfig.PresetCharacters.Where(c => c != null).ToList();
+            Debug.Log($"[CombatTest] Using {charactersToUse.Count} preset character(s).");
+        }
+        else if (testConfig.RandomizeCharacters && testConfig.CharacterRoster != null && testConfig.CharacterRoster.Characters.Count > 0)
+        {
+            int count = Random.Range(testConfig.MinCharacterCount, testConfig.MaxCharacterCount + 1);
+            charactersToUse = testConfig.CharacterRoster.Characters
+                .Where(c => c != null)
+                .OrderBy(_ => Random.value)
+                .Take(count)
+                .ToList();
+            Debug.Log($"[CombatTest] Randomized {charactersToUse.Count} character(s).");
+        }
+        else
+        {
+            Debug.LogWarning("[CombatTest] No characters configured. Using scene default characters.");
+            return;
+        }
+
+        // Limit to 4 characters max
+        if (charactersToUse.Count > 4)
+        {
+            charactersToUse = charactersToUse.Take(4).ToList();
+            Debug.LogWarning("[CombatTest] Limited party to 4 characters.");
+        }
+
+        // Create party members
+        for (int i = 0; i < charactersToUse.Count; i++)
+        {
+            var character = charactersToUse[i];
+            var member = new RunDataPartyMember(character);
+
+            // Setup skills
+            SetupSkillsForCharacter(member, i);
+
+            // Setup trinkets
+            SetupTrinketsForCharacter(member, i);
+
+            // Setup starting HP
+            if (testConfig.StartingHPPercentage > 0 && testConfig.StartingHPPercentage < 100)
+            {
+                member.CurrentHitpoints = Mathf.RoundToInt(character.MaxHealth * testConfig.StartingHPPercentage / 100f);
+            }
+
+            RunData.Party.Add(member);
+        }
+    }
+
+    void SetupSkillsForCharacter(RunDataPartyMember member, int characterIndex)
+    {
+        List<SO_MainSkill> skillsToAssign = new List<SO_MainSkill>();
+
+        if (testConfig.RandomizeSkills && testConfig.SkillPool != null && testConfig.SkillPool.Skills.Count > 0)
+        {
+            // Randomize skills
+            int skillCount = Random.Range(testConfig.MinSkillsPerCharacter, testConfig.MaxSkillsPerCharacter + 1);
+            
+            // Filter skills by character class if the character has classes
+            var availableSkills = testConfig.SkillPool.Skills.Where(s => s != null).ToList();
+            
+            if (member.Character.Classes != null && member.Character.Classes.Count > 0)
+            {
+                availableSkills = availableSkills
+                    .Where(s => s.Classes == null || s.Classes.Count == 0 || s.Classes.Any(c => member.Character.Classes.Contains(c)))
+                    .ToList();
+            }
+
+            skillsToAssign = availableSkills
+                .OrderBy(_ => Random.value)
+                .Take(skillCount)
+                .ToList();
+
+            Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Randomized {skillsToAssign.Count} skill(s).");
+        }
+        else if (testConfig.PresetSkills != null && characterIndex < testConfig.PresetSkills.Count)
+        {
+            // Use preset skills
+            var preset = testConfig.PresetSkills[characterIndex];
+            if (preset != null && preset.Skills != null)
+            {
+                skillsToAssign = preset.Skills.Where(s => s != null).ToList();
+                Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Using {skillsToAssign.Count} preset skill(s).");
+            }
+        }
+
+        // Limit to 4 skills max
+        if (skillsToAssign.Count > 4)
+        {
+            skillsToAssign = skillsToAssign.Take(4).ToList();
+        }
+
+        // Convert SO_MainSkill to Skill instances
+        foreach (var skillSO in skillsToAssign)
+        {
+            var skill = new Skill();
+            skill.Init(skillSO);
+            member.Skills.Add(skill);
+        }
+    }
+
+    void SetupTrinketsForCharacter(RunDataPartyMember member, int characterIndex)
+    {
+        List<SO_Trinket> trinketsToAssign = new List<SO_Trinket>();
+
+        if (testConfig.RandomizeTrinkets && testConfig.TrinketPool != null && testConfig.TrinketPool.Trinkets.Count > 0)
+        {
+            // Randomize trinkets
+            int trinketCount = Random.Range(testConfig.MinTrinketsPerCharacter, testConfig.MaxTrinketsPerCharacter + 1);
+            
+            // Filter trinkets by character class if applicable
+            var availableTrinkets = testConfig.TrinketPool.Trinkets.Where(t => t != null).ToList();
+            
+            if (member.Character.Classes != null && member.Character.Classes.Count > 0)
+            {
+                availableTrinkets = availableTrinkets
+                    .Where(t => t.classes == null || t.classes.Count == 0 || t.classes.Any(c => member.Character.Classes.Contains(c)))
+                    .ToList();
+            }
+
+            trinketsToAssign = availableTrinkets
+                .OrderBy(_ => Random.value)
+                .Take(trinketCount)
+                .ToList();
+
+            Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Randomized {trinketsToAssign.Count} trinket(s).");
+        }
+        else if (testConfig.PresetTrinkets != null && characterIndex < testConfig.PresetTrinkets.Count)
+        {
+            // Use preset trinkets
+            var preset = testConfig.PresetTrinkets[characterIndex];
+            if (preset != null && preset.Trinkets != null)
+            {
+                trinketsToAssign = preset.Trinkets.Where(t => t != null).ToList();
+                Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Using {trinketsToAssign.Count} preset trinket(s).");
+            }
+        }
+
+        // Add trinkets to member
+        member.Trinkets.AddRange(trinketsToAssign);
+    }
+}

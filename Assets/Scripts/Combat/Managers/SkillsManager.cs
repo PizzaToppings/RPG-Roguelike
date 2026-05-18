@@ -115,7 +115,11 @@ public class SkillsManager : MonoBehaviour
         }
 
         var character = caster as Character;
-        character?.OnSkillCastEvent.Invoke(skill);
+        if (character != null)
+        {
+            Debug.Log($"[SkillsManager] Invoking OnSkillCastEvent for '{character.UnitName}' with skill '{skill.mainSkillSO.SkillName}' (Style: {skill.mainSkillSO.SkillCombatStyle})");
+            character.OnSkillCastEvent.Invoke(skill);
+        }
 
         OnSkillCastComplete.Invoke();
     }

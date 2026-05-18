@@ -23,6 +23,7 @@ public class DefaultTrinketEditor : Editor
     SerializedProperty range;
     SerializedProperty statusEffects;
     SerializedProperty stat;
+    SerializedProperty requiredSkillStyle;
 
     void OnEnable()
     {
@@ -43,6 +44,7 @@ public class DefaultTrinketEditor : Editor
         range            = serializedObject.FindProperty("Range");
         statusEffects    = serializedObject.FindProperty("StatusEffects");
         stat             = serializedObject.FindProperty("Stat");
+        requiredSkillStyle = serializedObject.FindProperty("RequiredSkillStyle");
     }
 
     public override void OnInspectorGUI()
@@ -62,6 +64,7 @@ public class DefaultTrinketEditor : Editor
         bool showRange         = showTarget && targetType != TargetEnum.Self;
         bool showStatusEffects = effect == TriggerEffectEnum.AddStatusEffect;
         bool showStat          = effect == TriggerEffectEnum.ModifyStat;
+        bool showSkillStyle    = moment == TriggerMomentEnum.OnUseAbility;
 
         // SO_Trinket base fields
         EditorGUILayout.PropertyField(trinketName);
@@ -76,6 +79,10 @@ public class DefaultTrinketEditor : Editor
         // Always visible
         EditorGUILayout.PropertyField(triggerMoment);
         EditorGUILayout.PropertyField(triggerEffect);
+        if (showSkillStyle)
+        {
+            EditorGUILayout.PropertyField(requiredSkillStyle, new GUIContent("Required Skill Style", "Filter by skill combat style. Set to None to trigger on any skill."));
+        }
         if (!implicitlyOnce)
         {
             EditorGUILayout.PropertyField(chargesToTrigger);

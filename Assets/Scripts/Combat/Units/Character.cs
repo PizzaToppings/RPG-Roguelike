@@ -76,26 +76,37 @@ public class Character : Unit
 
     public void InitTrinkets()
     {
+        Debug.Log($"[Character] {UnitName}: InitTrinkets starting...");
+        trinkets = new List<Trinket>();
+        
+        // Get the character SO from party data if in a run, otherwise from the GameObject
         var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
-        if (partyMember != null)
+        var activeCharacterSO = partyMember != null ? partyMember.Character : characterSO;
+        
+        Debug.Log($"[Character] {UnitName}: characterSO={(characterSO?.name ?? "null")}, partyMember={(partyMember != null ? "exists" : "null")}, activeCharacterSO={(activeCharacterSO?.name ?? "null")}");
+        
+        // Always initialize BasicTrinket if available
+        if (activeCharacterSO != null && activeCharacterSO.BasicTrinket != null)
         {
-            Debug.Log($"[Trinket] {UnitName}: initializing {partyMember.Trinkets.Count} trinket(s) from party data.");
-            trinkets = partyMember.Trinkets.Select(so => { var t = new Trinket(); t.Init(so, this); return t; }).ToList();
+            Debug.Log($"[Trinket] {UnitName}: initializing BasicTrinket '{activeCharacterSO.BasicTrinket.TrinketName}' from {(partyMember != null ? "party data" : "characterSO")}.");
+            var basicTrinket = new Trinket();
+            basicTrinket.Init(activeCharacterSO.BasicTrinket, this);
+            trinkets.Add(basicTrinket);
         }
         else
         {
-            if (characterSO != null && characterSO.BasicTrinket != null)
-            {
-                Debug.Log($"[Trinket] {UnitName}: initializing BasicTrinket '{characterSO.BasicTrinket.TrinketName}' from characterSO.");
-                var t = new Trinket();
-                t.Init(characterSO.BasicTrinket, this);
-                trinkets = new List<Trinket> { t };
-            }
-            else
-            {
-                Debug.Log($"[Trinket] {UnitName}: no trinkets to initialize.");
-            }
+            Debug.Log($"[Character] {UnitName}: No BasicTrinket found. activeCharacterSO={(activeCharacterSO != null ? "exists" : "null")}, BasicTrinket={(activeCharacterSO?.BasicTrinket != null ? "exists" : "null")}");
         }
+        
+        // Add collected trinkets from party data during runs
+        if (partyMember != null)
+        {
+            Debug.Log($"[Trinket] {UnitName}: initializing {partyMember.Trinkets.Count} collected trinket(s) from party data.");
+            var collectedTrinkets = partyMember.Trinkets.Select(so => { var t = new Trinket(); t.Init(so, this); return t; });
+            trinkets.AddRange(collectedTrinkets);
+        }
+        
+        Debug.Log($"[Trinket] {UnitName}: total {trinkets.Count} trinket(s) initialized.");
     }
 
     public override void Update()

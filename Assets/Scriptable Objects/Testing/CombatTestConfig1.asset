@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63af66061a6275d4ba26e73663e1536a, type: 3}
+  m_Name: CombatTestConfig1
+  m_EditorClassIdentifier: 
+  EnableTestMode: 1
+  PresetEncounter: {fileID: 0}
+  RandomizeEncounter: 1
+  EncounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
+  PresetCharacters:
+  - {fileID: 11400000, guid: b8ec11f2054f9aa4a97ab8529f36739a, type: 2}
+  RandomizeCharacters: 0
+  MinCharacterCount: 1
+  MaxCharacterCount: 4
+  CharacterRoster: {fileID: 11400000, guid: adaa1ff5e701ef64dac0234ebc525100, type: 2}
+  RandomizeSkills: 1
+  MinSkillsPerCharacter: 1
+  MaxSkillsPerCharacter: 2
+  SkillPool: {fileID: 11400000, guid: 03a3ab7d4cf6fe24198b8489cdd69a25, type: 2}
+  PresetSkills: []
+  RandomizeTrinkets: 1
+  MinTrinketsPerCharacter: 0
+  MaxTrinketsPerCharacter: 0
+  TrinketPool: {fileID: 0}
+  PresetTrinkets: []
+  StartingHPPercentage: 100
+  StartingGold: 0

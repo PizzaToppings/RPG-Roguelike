@@ -25,6 +25,9 @@ public class DefaultTrinket : SO_Trinket
     public List<SO_StatusEffect> StatusEffects;
     public List<StatsEnum> Stat;
 
+    [Space]
+    public CombatStyle RequiredSkillStyle = CombatStyle.None;
+
     public override void Init(Character character, Trinket trinket)
     {
         Debug.Log($"[Trinket] '{TrinketName}' Init on '{character.UnitName}' — TriggerMoment: {TriggerMoment}, TriggerEffect: {TriggerEffect}");
@@ -108,6 +111,10 @@ public class DefaultTrinket : SO_Trinket
             case TriggerMomentEnum.OnKillEnemy:
                 character.OnKillEnemyEvent.AddListener(_ => OnTrigger(character, trinket));
                 break;
+            case TriggerMomentEnum.OnUseAbility:
+                Debug.Log($"[Trinket] '{TrinketName}' registering OnUseAbility listener for '{character.UnitName}' — RequiredSkillStyle: {RequiredSkillStyle}");
+                character.OnSkillCastEvent.AddListener(skill => OnSkillUseTrigger(character, trinket, skill));
+                break;
         }
     }
 
@@ -132,21 +139,43 @@ public class DefaultTrinket : SO_Trinket
         trinket.hasTriggered = true;
     }
 
+    private void OnSkillUseTrigger(Character character, Trinket trinket, Skill skill)
+    {
+        Debug.Log($"[Trinket] '{TrinketName}' OnSkillUseTrigger called for '{character.UnitName}' — Skill: '{skill.mainSkillSO.SkillName}' (Style: {skill.mainSkillSO.SkillCombatStyle}), Required: {RequiredSkillStyle}");
+        
+        // Check if the skill's combat style matches the required style (None = any style)
+        if (RequiredSkillStyle != CombatStyle.None && skill.mainSkillSO.SkillCombatStyle != RequiredSkillStyle)
+        {
+            Debug.Log($"[Trinket] '{TrinketName}' skipped on '{character.UnitName}' — skill style {skill.mainSkillSO.SkillCombatStyle} doesn't match required {RequiredSkillStyle}.");
+            return;
+        }
+
+        Debug.Log($"[Trinket] '{TrinketName}' style match confirmed! Triggering effect for '{character.UnitName}' after using '{skill.mainSkillSO.SkillName}'");
+        OnTrigger(character, trinket);
+    }
+
     private void Trigger(Character character)
     {
         Debug.Log($"[Trinket] '{TrinketName}' executing Trigger on '{character.UnitName}' — Effect: {TriggerEffect}");
         switch (TriggerEffect)
         {
             case TriggerEffectEnum.DealDamage:
+                Debug.Log($"[Trinket] '{TrinketName}' DealDamage — DamageType: {DamageType}, Value: {Value}, Target: {Target}");
                 var damageData = new DamageData { Caster = character, DamageType = DamageType, Power = Value, IsMagical = IsMagical };
                 var damageManager = DamageManager.Instance;
-                foreach (var target in GetTargets(character))
+                var targets = GetTargets(character);
+                Debug.Log($"[Trinket] '{TrinketName}' found {targets.Count} target(s)");
+                foreach (var target in targets)
                 {
                     var calculated = damageManager.CalculateDamageData(damageData, target);
+                    Debug.Log($"[Trinket] '{TrinketName}' calculated damage for '{target.UnitName}': {calculated.Damage}");
                     if (DamageType == DamageTypeEnum.Healing)
                         damageManager.HealUnit(calculated);
                     else if (DamageType == DamageTypeEnum.Shield)
+                    {
+                        Debug.Log($"[Trinket] '{TrinketName}' applying Shield to '{target.UnitName}'");
                         damageManager.ShieldUnit(calculated);
+                    }
                     else
                         damageManager.DealDamage(calculated);
                 }
