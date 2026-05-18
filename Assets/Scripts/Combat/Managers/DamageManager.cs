@@ -166,10 +166,7 @@ public class DamageManager : MonoBehaviour
     public void ShieldUnit(DamageDataCalculated data)
     {
         var target = data.Target;
-        Debug.Log($"[DamageManager] ShieldUnit called for '{target.UnitName}' — Shield amount: {data.Damage}");
-        
         var shieldsCalculated = target.Shield(data);
-        Debug.Log($"[DamageManager] Shield applied to '{target.UnitName}' — New ShieldPoints: {target.ShieldPoints}");
 
         healthCanvas.ShowHealNumber(shieldsCalculated);
     }
