@@ -181,9 +181,27 @@ public class TargetSkillsManager : MonoBehaviour
     {
         var tiles = new List<BoardTile>();
 
+        // Get units that might be displaced (from previous skill parts)
+        var unitsToDisplace = new List<Unit>();
+        if (skillPartIndex > 0)
+        {
+            for (int i = 0; i < skillPartIndex; i++)
+            {
+                unitsToDisplace.AddRange(SkillData.GetPreviousTargetsHit(i));
+            }
+        }
+
+        // Check if this skill part will displace units (displacement effect references itself)
+        bool willDisplaceOwnTargets = skillData.displacementEffect != null && 
+                                       skillData.displacementEffect.UseDisplacement &&
+                                       (skillData.displacementEffect.TargetPosition == skillData ||
+                                        skillData.displacementEffect.Unit == skillData);
+
         foreach (var tile in SkillData.GetCurrentTilesHit(skillPartIndex))
         {
-            if (skillData.FreeSpacesOnly && tile.currentUnit != null)
+            // Allow tiles occupied by units that will be displaced, or if this skill part will displace its own targets
+            if (skillData.FreeSpacesOnly && tile.currentUnit != null && 
+                !unitsToDisplace.Contains(tile.currentUnit) && !willDisplaceOwnTargets)
                 continue;
 
             if (skillData.MaxRange - tile.skillshotsRangeLeft[skillPartIndex] < skillData.MinRange)
@@ -262,9 +280,17 @@ public class TargetSkillsManager : MonoBehaviour
             if (skillpart.GetLastTileOnly)
 			{
                 BoardTile lastTile = null;
+                
+                // Check if this skill part will displace units (displacement effect references itself)
+                bool willDisplaceOwnTargets = skillpart.displacementEffect != null && 
+                                               skillpart.displacementEffect.UseDisplacement &&
+                                               (skillpart.displacementEffect.TargetPosition == skillpart ||
+                                                skillpart.displacementEffect.Unit == skillpart);
+                
                 foreach (var tile in tilesHit)
                 {
-                    if (tile.currentUnit != null)
+                    // Skip tiles with units unless this skill will displace them
+                    if (tile.currentUnit != null && !willDisplaceOwnTargets)
                         continue;
 
                     lastTile = tile;

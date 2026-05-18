@@ -252,8 +252,14 @@ public class SkillsManager : MonoBehaviour
         yield return new WaitForSeconds(displacement.Delay);
 
         unit.Tile = targetPosition;
-        originalPosition.currentUnit = null;
-        targetPosition.currentUnit = unit;
+        
+        // Only update tile references if moving to a different tile
+        if (originalPosition != targetPosition)
+        {
+            originalPosition.currentUnit = null;
+            targetPosition.currentUnit = unit;
+        }
+        
         unit.transform.position = targetPosition.position;
 
 
@@ -274,7 +280,15 @@ public class SkillsManager : MonoBehaviour
         var targetTiles = new List<BoardTile>(displacement.TargetPosition.PartData.TilesHit);
         var originalPositions = originalTiles.Select(x => x.position).ToList();
         var targetPositions = targetTiles.Select(x => x.position).ToList();
-        originalTiles.ForEach(x => x.currentUnit = null);
+        
+        // Clear original tiles, but skip tiles that are also target tiles
+        for (int i = 0; i < originalTiles.Count; i++)
+        {
+            if (!targetTiles.Contains(originalTiles[i]))
+            {
+                originalTiles[i].currentUnit = null;
+            }
+        }
 
         for (int i = 0; i < units.Count; i++)
         {
