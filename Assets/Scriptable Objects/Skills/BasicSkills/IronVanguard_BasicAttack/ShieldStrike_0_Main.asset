@@ -13,17 +13,22 @@ MonoBehaviour:
   m_Name: ShieldStrike_0_Main
   m_EditorClassIdentifier: 
   SkillName: Shield Strike
-  Image: {fileID: 0}
-  IsBasic: 0
+  Image: {fileID: 21300000, guid: da677bfa1c5c36f4da33f2a28a42fcb9, type: 3}
+  IsBasic: 1
   IsConsumable: 0
   IsMagical: 0
-  SkillCombatStyle: 0
+  SkillCombatStyle: 2
   Classes: 
-  Description: 
-  SkillPartGroups: []
-  EnergyCost: 10
+  Description: Deal <damage0-0-0> damage to an enemy and gain 1 Shield.
+  SkillPartGroups:
+  - CastOnTile: 0
+    CastOnTarget: 1
+    skillParts:
+    - {fileID: 11400000, guid: 8f62bc6ae7add3042a918a44d56ff61c, type: 2}
+    - {fileID: 11400000, guid: a77e7bc8d5a7d744895e59dff84bf5ff, type: 2}
+  EnergyCost: 1
   DefaultCharges: 1
-  Cursor: 0
+  Cursor: 1
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}

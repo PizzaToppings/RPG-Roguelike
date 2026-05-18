@@ -53,7 +53,7 @@ public class DamageManager : MonoBehaviour
 
         if (damageEffect.DamageType == DamageTypeEnum.Healing || damageEffect.DamageType == DamageTypeEnum.Shield)
         {
-            var beneficial = Mathf.CeilToInt((skillPower + casterPower) * typeModifier);
+            var beneficial = Mathf.CeilToInt(skillPower * typeModifier);
             return beneficial < 0 ? 0 : beneficial;
         }
 

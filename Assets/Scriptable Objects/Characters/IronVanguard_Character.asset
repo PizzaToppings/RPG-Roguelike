@@ -23,6 +23,6 @@ MonoBehaviour:
   MagicalPower: 0
   PhysicalDefense: 3
   MagicalDefense: 1
-  basicAttack: {fileID: 11400000, guid: 25bc364d867ba7b498e508665a601a73, type: 2}
-  basicSkill: {fileID: 11400000, guid: f5f07cd6831161447a859ccf58f8c8e5, type: 2}
+  basicAttack: {fileID: 11400000, guid: 4445cecacff1b5d45994f1912f8c6a5d, type: 2}
+  basicSkill: {fileID: 11400000, guid: bea0b4f7fe5294845847b7f23fd37e62, type: 2}
   BasicTrinket: {fileID: 11400000, guid: 688a87028a301c94caf6715809812ead, type: 2}
