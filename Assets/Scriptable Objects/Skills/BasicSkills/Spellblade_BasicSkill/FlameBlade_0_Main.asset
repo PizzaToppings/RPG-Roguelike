@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: ShieldStrike_0_Main
+  m_Name: FlameBlade_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Shield Strike
-  Image: {fileID: 21300000, guid: da677bfa1c5c36f4da33f2a28a42fcb9, type: 3}
-  IsBasic: 1
+  SkillName: Flame Blade
+  Image: {fileID: 21300000, guid: 71d2ea7eaf6a2404690279964df7cbbb, type: 3}
+  IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
-  SkillCombatStyle: 2
+  IsMagical: 1
+  SkillCombatStyle: 1
   Classes: 
-  Description: Deal <damage0-0-0> damage to an enemy in melee range and gain 1 Shield.
+  Description: Deal <damage0-0-0> in melee range and apply <burn0-0-0>.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
     skillParts:
-    - {fileID: 11400000, guid: 8f62bc6ae7add3042a918a44d56ff61c, type: 2}
-    - {fileID: 11400000, guid: a77e7bc8d5a7d744895e59dff84bf5ff, type: 2}
-  EnergyCost: 1
+    - {fileID: 11400000, guid: 3507024bc73c4af47ac7a7995888aa48, type: 2}
+  EnergyCost: 2
   DefaultCharges: 1
-  Cursor: 1
+  Cursor: 0
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}

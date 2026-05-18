@@ -7,7 +7,9 @@ public class DefaultTrinket : SO_Trinket
 {
     public TriggerMomentEnum TriggerMoment;
     public TriggerEffectEnum TriggerEffect;
-    public int ChargesToTrigger;
+    
+    [Min(1)]
+    public int ChargesToTrigger = 1;
     public bool TriggerOnce;
 
     [Space]
@@ -100,7 +102,7 @@ public class DefaultTrinket : SO_Trinket
             case TriggerMomentEnum.OnDealDamage:
                 if (character.OnDealDamage == null)
                     character.OnDealDamage = new UnityEngine.Events.UnityEvent<DamageDataCalculated>();
-                character.OnDealDamage.AddListener(_ => OnTrigger(character, trinket));
+                character.OnDealDamage.AddListener(data => OnDealDamageTrigger(character, trinket, data));
                 break;
             case TriggerMomentEnum.OnTakeDamage:
                 if (character.OnTakeDamage == null)
@@ -143,6 +145,43 @@ public class DefaultTrinket : SO_Trinket
         }
 
         OnTrigger(character, trinket);
+    }
+
+    private void OnDealDamageTrigger(Character character, Trinket trinket, DamageDataCalculated data)
+    {
+        // Check if the skill's combat style matches the required style (None = any style)
+        if (RequiredSkillStyle != CombatStyle.None && character.CurrentCombatStyle != RequiredSkillStyle)
+        {
+            return;
+        }
+
+        // For OnDealDamage triggers with status effects, apply to the damaged target
+        if (TriggerEffect == TriggerEffectEnum.AddStatusEffect && data.Target != null)
+        {
+            // Check charges/trigger once before applying
+            if (TriggerOnce && trinket.hasTriggered)
+                return;
+
+            if (ChargesToTrigger > 1)
+            {
+                trinket.chargeCount++;
+                if (trinket.chargeCount < ChargesToTrigger) return;
+                trinket.chargeCount = 0;
+            }
+
+            // Apply status effects to the damaged target
+            foreach (var statusEffect in StatusEffects)
+            {
+                StatusEffectManager.Instance.ApplyStatusEffect(statusEffect, new List<Unit> { data.Target }, Value);
+            }
+
+            trinket.hasTriggered = true;
+        }
+        else
+        {
+            // For other effects, use standard trigger
+            OnTrigger(character, trinket);
+        }
     }
 
     private void Trigger(Character character)

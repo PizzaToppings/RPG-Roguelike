@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: ShieldStrike_0_Main
+  m_Name: ArcaneJab_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Shield Strike
-  Image: {fileID: 21300000, guid: da677bfa1c5c36f4da33f2a28a42fcb9, type: 3}
+  SkillName: Arcane Jab
+  Image: {fileID: 21300000, guid: beb0bb89518dd76438e31aa6505b5477, type: 3}
   IsBasic: 1
   IsConsumable: 0
-  IsMagical: 0
-  SkillCombatStyle: 2
+  IsMagical: 1
+  SkillCombatStyle: 3
   Classes: 
-  Description: Deal <damage0-0-0> damage to an enemy in melee range and gain 1 Shield.
+  Description: Deal <damage0-0-0> in 2 range.
   SkillPartGroups:
   - CastOnTile: 0
     CastOnTarget: 1
     skillParts:
-    - {fileID: 11400000, guid: 8f62bc6ae7add3042a918a44d56ff61c, type: 2}
-    - {fileID: 11400000, guid: a77e7bc8d5a7d744895e59dff84bf5ff, type: 2}
+    - {fileID: 11400000, guid: d1a4c3cd275192b4f8bea572bf1a10d5, type: 2}
   EnergyCost: 1
   DefaultCharges: 1
-  Cursor: 1
+  Cursor: 3
   castLockColor:
     FillCenter: 0
     Color: {r: 0, g: 0, b: 0, a: 0}

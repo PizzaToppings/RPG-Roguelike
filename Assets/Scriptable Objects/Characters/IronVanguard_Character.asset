@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronVanguard_Character
   m_EditorClassIdentifier: 
   Name: Iron Vanguard
-  Image: {fileID: 21300000, guid: d4603f328b703204b87a964b614348e9, type: 3}
+  Image: {fileID: 21300000, guid: e4d7d419e5529464286962f0ac440a14, type: 3}
   Classes: 0000000004000000
   MaxHealth: 36
   MaxEnergy: 3

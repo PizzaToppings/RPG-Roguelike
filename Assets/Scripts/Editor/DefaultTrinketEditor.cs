@@ -60,11 +60,13 @@ public class DefaultTrinketEditor : Editor
         bool showDamageType    = effect == TriggerEffectEnum.DealDamage;
         var  selectedDamageType = (DamageTypeEnum)damageType.enumValueIndex;
         bool showIsMagical     = showDamageType && selectedDamageType != DamageTypeEnum.Healing && selectedDamageType != DamageTypeEnum.Shield;
-        bool showTarget        = effect == TriggerEffectEnum.DealDamage  || effect == TriggerEffectEnum.AddStatusEffect || effect == TriggerEffectEnum.ModifyStat;
+        // Hide Target for OnDealDamage + AddStatusEffect (applies to damaged unit automatically)
+        bool showTarget        = (effect == TriggerEffectEnum.DealDamage || effect == TriggerEffectEnum.ModifyStat) || 
+                                 (effect == TriggerEffectEnum.AddStatusEffect && moment != TriggerMomentEnum.OnDealDamage);
         bool showRange         = showTarget && targetType != TargetEnum.Self;
         bool showStatusEffects = effect == TriggerEffectEnum.AddStatusEffect;
         bool showStat          = effect == TriggerEffectEnum.ModifyStat;
-        bool showSkillStyle    = moment == TriggerMomentEnum.OnUseAbility;
+        bool showSkillStyle    = moment == TriggerMomentEnum.OnUseAbility || moment == TriggerMomentEnum.OnDealDamage;
 
         // SO_Trinket base fields
         EditorGUILayout.PropertyField(trinketName);
@@ -81,7 +83,10 @@ public class DefaultTrinketEditor : Editor
         EditorGUILayout.PropertyField(triggerEffect);
         if (showSkillStyle)
         {
-            EditorGUILayout.PropertyField(requiredSkillStyle, new GUIContent("Required Skill Style", "Filter by skill combat style. Set to None to trigger on any skill."));
+            string tooltip = moment == TriggerMomentEnum.OnUseAbility 
+                ? "Filter by skill combat style. Set to None to trigger on any skill."
+                : "Filter by the last skill's combat style. Set to None to trigger on damage from any skill.";
+            EditorGUILayout.PropertyField(requiredSkillStyle, new GUIContent("Required Skill Style", tooltip));
         }
         if (!implicitlyOnce)
         {
