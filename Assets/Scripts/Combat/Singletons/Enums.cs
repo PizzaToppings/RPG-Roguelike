@@ -21,6 +21,8 @@ public enum DisplacementEnum { Teleport, Move, Lift }
 
 // Enemy AI
 public enum TargetEnum { Self, closestTarget, LowestHealthTarget, AllAllies, AllEnemies, AllUnits }
+public enum TrinketTargetFactionEnum { Friendly, Enemy, All }
+public enum TrinketTargetSelectionEnum { Self, Closest, LowestHealth, Area }
 
 // Enemy Intent (displayed above healthbar)
 public enum IntentActionEnum { Unknown, PhysicalMeleeAttack, PhysicalRangedAttack, MagicalMeleeAttack, MagicalRangedAttack, Debuff, Buff, Heal, AOE }

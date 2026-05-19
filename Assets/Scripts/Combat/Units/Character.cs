@@ -111,6 +111,18 @@ public class Character : Unit
         }
     }
 
+    public override void OnMouseEnter()
+    {
+        base.OnMouseEnter();
+        CharacterInfoPanelManager.Instance?.ShowPanel(this);
+    }
+
+    public override void OnMouseExit()
+    {
+        base.OnMouseExit();
+        CharacterInfoPanelManager.Instance?.HidePanel();
+    }
+
 	public override void SetStats()
 	{
         var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;

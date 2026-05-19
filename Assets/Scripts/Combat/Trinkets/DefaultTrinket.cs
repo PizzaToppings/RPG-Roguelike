@@ -20,7 +20,9 @@ public class DefaultTrinket : SO_Trinket
     public bool IsMagical;
 
     [Space]
-    public TargetEnum Target;
+    [Tooltip("DEPRECATED: Use TargetFaction and TargetSelection instead")]
+    public TrinketTargetFactionEnum TargetFaction;
+    public TrinketTargetSelectionEnum TargetSelection;
     public float Range;
 
     [Space]
@@ -222,29 +224,52 @@ public class DefaultTrinket : SO_Trinket
 
     private List<Unit> GetTargets(Character character)
     {
-        switch (Target)
+        // Get the base pool of targets based on faction
+        List<Unit> targetPool = GetTargetPool(character);
+
+        // Apply selection logic to the pool
+        return SelectFromPool(targetPool, character);
+    }
+
+    private List<Unit> GetTargetPool(Character character)
+    {
+        switch (TargetFaction)
         {
-            case TargetEnum.Self:
+            case TrinketTargetFactionEnum.Friendly:
+                return UnitData.Characters.Cast<Unit>().ToList();
+
+            case TrinketTargetFactionEnum.Enemy:
+                return UnitData.Enemies.Cast<Unit>().ToList();
+
+            case TrinketTargetFactionEnum.All:
+                return new List<Unit>(UnitData.Units);
+
+            default:
+                return new List<Unit>();
+        }
+    }
+
+    private List<Unit> SelectFromPool(List<Unit> pool, Character character)
+    {
+        // Apply range filtering first
+        pool = FilterByRange(pool, character);
+
+        if (pool.Count == 0)
+            return pool;
+
+        switch (TargetSelection)
+        {
+            case TrinketTargetSelectionEnum.Self:
                 return new List<Unit> { character };
 
-            case TargetEnum.closestTarget:
-                var closestPool = FilterByRange(UnitData.Enemies.Cast<Unit>().ToList(), character);
-                if (closestPool.Count == 0) return closestPool;
-                return new List<Unit> { closestPool.OrderBy(u => BoardManager.Instance.GetRangeBetweenTiles(character.Tile, u.Tile)).First() };
+            case TrinketTargetSelectionEnum.Closest:
+                return new List<Unit> { pool.OrderBy(u => BoardManager.Instance.GetRangeBetweenTiles(character.Tile, u.Tile)).First() };
 
-            case TargetEnum.LowestHealthTarget:
-                var lowestPool = FilterByRange(UnitData.Enemies.Cast<Unit>().ToList(), character);
-                if (lowestPool.Count == 0) return lowestPool;
-                return new List<Unit> { lowestPool.OrderBy(u => u.Hitpoints).First() };
+            case TrinketTargetSelectionEnum.LowestHealth:
+                return new List<Unit> { pool.OrderBy(u => u.Hitpoints).First() };
 
-            case TargetEnum.AllAllies:
-                return FilterByRange(UnitData.Characters.Cast<Unit>().ToList(), character);
-
-            case TargetEnum.AllEnemies:
-                return FilterByRange(UnitData.Enemies.Cast<Unit>().ToList(), character);
-
-            case TargetEnum.AllUnits:
-                return FilterByRange(UnitData.Units, character);
+            case TrinketTargetSelectionEnum.Area:
+                return pool;
 
             default:
                 return new List<Unit>();
