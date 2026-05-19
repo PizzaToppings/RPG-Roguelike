@@ -20,6 +20,8 @@ public class DefaultTrinketEditor : Editor
     SerializedProperty damageType;
     SerializedProperty isMagical;
     SerializedProperty target;
+    SerializedProperty targetFaction;
+    SerializedProperty targetSelection;
     SerializedProperty range;
     SerializedProperty statusEffects;
     SerializedProperty stat;
@@ -40,7 +42,8 @@ public class DefaultTrinketEditor : Editor
         value            = serializedObject.FindProperty("Value");
         damageType       = serializedObject.FindProperty("DamageType");
         isMagical        = serializedObject.FindProperty("IsMagical");
-        target           = serializedObject.FindProperty("Target");
+        targetFaction    = serializedObject.FindProperty("TargetFaction");
+        targetSelection  = serializedObject.FindProperty("TargetSelection");
         range            = serializedObject.FindProperty("Range");
         statusEffects    = serializedObject.FindProperty("StatusEffects");
         stat             = serializedObject.FindProperty("Stat");
@@ -53,7 +56,8 @@ public class DefaultTrinketEditor : Editor
 
         var effect     = (TriggerEffectEnum)triggerEffect.enumValueIndex;
         var moment     = (TriggerMomentEnum)triggerMoment.enumValueIndex;
-        var targetType = (TargetEnum)target.enumValueIndex;
+        var faction    = (TrinketTargetFactionEnum)targetFaction.enumValueIndex;
+        var selection  = (TrinketTargetSelectionEnum)targetSelection.enumValueIndex;
 
         bool implicitlyOnce = moment == TriggerMomentEnum.Instant || moment == TriggerMomentEnum.StartOfCombat || moment == TriggerMomentEnum.EndOfCombat;
         bool showValue         = effect != TriggerEffectEnum.AddStatusEffect;
@@ -63,7 +67,7 @@ public class DefaultTrinketEditor : Editor
         // Hide Target for OnDealDamage + AddStatusEffect (applies to damaged unit automatically)
         bool showTarget        = (effect == TriggerEffectEnum.DealDamage || effect == TriggerEffectEnum.ModifyStat) || 
                                  (effect == TriggerEffectEnum.AddStatusEffect && moment != TriggerMomentEnum.OnDealDamage);
-        bool showRange         = showTarget && targetType != TargetEnum.Self;
+        bool showRange         = showTarget && selection != TrinketTargetSelectionEnum.Self;
         bool showStatusEffects = effect == TriggerEffectEnum.AddStatusEffect;
         bool showStat          = effect == TriggerEffectEnum.ModifyStat;
         bool showSkillStyle    = moment == TriggerMomentEnum.OnUseAbility || moment == TriggerMomentEnum.OnDealDamage;
@@ -111,7 +115,8 @@ public class DefaultTrinketEditor : Editor
         if (showTarget)
         {
             EditorGUILayout.Space();
-            EditorGUILayout.PropertyField(target);
+            EditorGUILayout.PropertyField(targetFaction);
+            EditorGUILayout.PropertyField(targetSelection);
             if (showRange)
                 EditorGUILayout.PropertyField(range);
         }
