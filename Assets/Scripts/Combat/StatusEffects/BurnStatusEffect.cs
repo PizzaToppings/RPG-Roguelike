@@ -22,7 +22,7 @@ public class BurnStatusEffect : StatusEffect
 		var damageEffect = new DamageData
 		{
 			Caster = Caster,
-			DamageType = DamageTypeEnum.Fire,
+			HitType = HitTypeEnum.Damage,
 			Power = Power,
 			IsMagical = IsMagical
 		};

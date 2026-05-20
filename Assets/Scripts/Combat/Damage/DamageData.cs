@@ -9,6 +9,6 @@ public class DamageData
 
     public List<SkillModifier> Modifiers = new List<SkillModifier>();
     public List<Prerequisite> Prerequisites = new List<Prerequisite>();
-    public DamageTypeEnum DamageType;
+    public HitTypeEnum HitType;
     public int Power;
 }

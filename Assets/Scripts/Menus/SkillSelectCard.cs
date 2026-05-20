@@ -86,8 +86,7 @@ public class SkillSelectCard : MonoBehaviour
                         var damagePlaceholder = $"<damage{skill.SkillPartGroups.IndexOf(spg)}-{spg.skillParts.IndexOf(skillPart)}-{skillPart.DamageEffects.IndexOf(damageEffect)}>";
                         if (description.Contains(damagePlaceholder))
                         {
-                            var damageType = damageEffect.DamageType.ToString();
-                            var damageText = $"{damageEffect.Power} {damageType} damage";
+                            var damageText = $"{damageEffect.Power} damage";
                             description = description.Replace(damagePlaceholder, damageText);
                         }
                     }

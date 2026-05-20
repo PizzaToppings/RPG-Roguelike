@@ -32,7 +32,7 @@ public class DamageManager : MonoBehaviour
 
         DamageDataCalculated data = new DamageDataCalculated
         {
-            DamageType = damageData.DamageType,
+            HitType = damageData.HitType,
             Caster = caster,
             IsMagical = damageData.IsMagical,
             Target = target,
@@ -47,42 +47,29 @@ public class DamageManager : MonoBehaviour
 	{
         var skillPower = damageEffect.Power;
         var casterPower = damageEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
-        var bleedDamage = GetBleedBonusDamage(target, damageEffect.DamageType);
-        var typeModifier = GetTypeModifyer(damageEffect, target);
+        var bleedDamage = GetBleedBonusDamage(target);
         var styleMultiplier = CombatStyleUtility.GetStyleMultiplier(caster.CurrentCombatStyle, target.CurrentCombatStyle);
 
-        if (damageEffect.DamageType == DamageTypeEnum.Healing || damageEffect.DamageType == DamageTypeEnum.Shield)
+        if (damageEffect.HitType == HitTypeEnum.Healing || damageEffect.HitType == HitTypeEnum.Shield)
         {
-            var beneficial = Mathf.CeilToInt(skillPower * typeModifier);
+            var beneficial = Mathf.CeilToInt(skillPower);
             return beneficial < 0 ? 0 : beneficial;
         }
 
         var targetDefense = damageEffect.IsMagical ? target.MagicalDefense : target.PhysicalDefense;
-        var damage = Mathf.CeilToInt((skillPower + bleedDamage + casterPower - targetDefense) * typeModifier * styleMultiplier);
+        var damage = Mathf.CeilToInt((skillPower + bleedDamage + casterPower - targetDefense) * styleMultiplier);
         if (damage < 0)
             damage = 0;
 
         return damage;
     }
 
-    int GetBleedBonusDamage(Unit target, DamageTypeEnum damageType)
+    int GetBleedBonusDamage(Unit target)
     {
-        if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Bleed)
-            && damageType == DamageTypeEnum.Physical)
+        if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Bleed))
             return 2;
 
         return 0;
-    }
-
-    float GetTypeModifyer(DamageData damageEffect, Unit target)
-	{
-        if (target.Resistances.Contains(damageEffect.DamageType))
-            return 0.5f;
-
-        if (target.Vulnerabilities.Contains(damageEffect.DamageType))
-            return 2;
-
-        return 1;
     }
 
 
@@ -119,9 +106,9 @@ public class DamageManager : MonoBehaviour
                 var data = CalculateDamageData(damageEffect, target);
                 data.Damage = Mathf.CeilToInt(data.Damage * damageMultiplier);
 
-                if (damageEffect.DamageType == DamageTypeEnum.Healing)
+                if (damageEffect.HitType == HitTypeEnum.Healing)
                     HealUnit(data);
-                else if (damageEffect.DamageType == DamageTypeEnum.Shield)
+                else if (damageEffect.HitType == HitTypeEnum.Shield)
                     ShieldUnit(data);
                 else
                     DealDamage(data);

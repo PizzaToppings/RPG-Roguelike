@@ -27,7 +27,7 @@ public class DefaultAnomaly : SO_Anomaly
     public int Value = 1;
 
     [Header("Damage (for DealDamage effect)")]
-    public DamageTypeEnum DamageType;
+    public HitTypeEnum HitType;
     public bool IsMagical;
 
     [Header("Status Effects (for AddStatusEffect effect)")]
@@ -92,11 +92,11 @@ public class DefaultAnomaly : SO_Anomaly
                 var damageManager = DamageManager.Instance;
                 foreach (var target in targets)
                 {
-                    var damageData = new DamageData { DamageType = DamageType, Power = Value, IsMagical = IsMagical };
+                    var damageData = new DamageData { HitType = HitType, Power = Value, IsMagical = IsMagical };
                     var calculated = damageManager.CalculateDamageData(damageData, target);
-                    if (DamageType == DamageTypeEnum.Healing)
+                    if (HitType == HitTypeEnum.Healing)
                         damageManager.HealUnit(calculated);
-                    else if (DamageType == DamageTypeEnum.Shield)
+                    else if (HitType == HitTypeEnum.Shield)
                         damageManager.ShieldUnit(calculated);
                     else
                         damageManager.DealDamage(calculated);

@@ -36,7 +36,7 @@ public class HealthCanvas : MonoBehaviour
     }
 
     public void CreateHealthbar(Enemy unit)
-	{
+    {
         var hb = Instantiate(HealthBar, HealthBarCanvas);
         var healthbar = hb.GetComponent<FloatingHealthbar>();
         healthbar.Init(unit);
@@ -70,14 +70,14 @@ public class HealthCanvas : MonoBehaviour
     public void ShowDamageNumber(DamagaDataResolved data)
     {
         var damageNumber = GetOrCreateFloatingNumber<FloatingDamageNumber>(DamageNumber);
-        var color = ui_Singletons.GetDamageTypeColor(data.DamageType);
+        var color = ui_Singletons.GetHitTypeColor(data.HitType);
         damageNumber.Init(data, color);
     }
 
     public void ShowHealNumber(DamagaDataResolved data)
     {
         var healNumber = GetOrCreateFloatingNumber<FloatingHealNumber>(HealNumber);
-        var color = ui_Singletons.GetDamageTypeColor(data.DamageType);
+        var color = ui_Singletons.GetHitTypeColor(data.HitType);
         healNumber.Init(data, color);
     }
 
@@ -95,7 +95,7 @@ public class HealthCanvas : MonoBehaviour
         T floatingNumber = null;
 
         if (DamageNumbersCanvas.childCount > 0)
-		{
+        {
             foreach (Transform childTransform in DamageNumbersCanvas.transform)
             {
                 var child = childTransform.gameObject;
@@ -109,7 +109,7 @@ public class HealthCanvas : MonoBehaviour
                 if (child.TryGetComponent<T>(out floatingNumber))
                     break;
             }
-		}
+        }
 
         if (floatingNumber == null)
         {

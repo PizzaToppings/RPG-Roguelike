@@ -40,7 +40,7 @@ public class DefaultTraitEditor : Editor
         chargesToTrigger = serializedObject.FindProperty("ChargesToTrigger");
         triggerOnce      = serializedObject.FindProperty("TriggerOnce");
         value            = serializedObject.FindProperty("Value");
-        damageType       = serializedObject.FindProperty("DamageType");
+        damageType       = serializedObject.FindProperty("HitType");
         isMagical        = serializedObject.FindProperty("IsMagical");
         targetFaction    = serializedObject.FindProperty("TargetFaction");
         targetSelection  = serializedObject.FindProperty("TargetSelection");
@@ -62,8 +62,8 @@ public class DefaultTraitEditor : Editor
         bool implicitlyOnce = moment == TriggerMomentEnum.Instant || moment == TriggerMomentEnum.StartOfCombat || moment == TriggerMomentEnum.EndOfCombat;
         bool showValue         = effect != TriggerEffectEnum.AddStatusEffect;
         bool showDamageType    = effect == TriggerEffectEnum.DealDamage;
-        var  selectedDamageType = (DamageTypeEnum)damageType.enumValueIndex;
-        bool showIsMagical     = showDamageType && selectedDamageType != DamageTypeEnum.Healing && selectedDamageType != DamageTypeEnum.Shield;
+        var  selectedDamageType = (HitTypeEnum)damageType.enumValueIndex;
+        bool showIsMagical     = showDamageType && selectedDamageType != HitTypeEnum.Healing && selectedDamageType != HitTypeEnum.Shield;
         // Hide Target for OnDealDamage + AddStatusEffect (applies to damaged unit automatically)
         bool showTarget        = (effect == TriggerEffectEnum.DealDamage || effect == TriggerEffectEnum.ModifyStat) || 
                                  (effect == TriggerEffectEnum.AddStatusEffect && moment != TriggerMomentEnum.OnDealDamage);

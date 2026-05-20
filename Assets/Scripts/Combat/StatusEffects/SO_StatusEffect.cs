@@ -7,7 +7,6 @@ public class SO_StatusEffect : ScriptableObject
     [HideInInspector] public bool Buff;
 
     public StatusEffectEnum StatusEffectType;
-    public DamageTypeEnum DamageType;
     public StatsEnum Stat;
     public int Power;
     public int Duration;

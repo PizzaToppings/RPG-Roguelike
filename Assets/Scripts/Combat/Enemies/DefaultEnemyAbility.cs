@@ -24,8 +24,8 @@ public class DefaultEnemyAbility : SO_EnemyAbility
     public int Value = 1;
 
     [Header("Damage")]
-    public DamageTypeEnum DamageType;
-    public bool           IsMagical;
+    public HitTypeEnum HitType;
+    public bool        IsMagical;
 
     [Header("Targeting")]
     public TargetEnum Target;
@@ -111,11 +111,11 @@ public class DefaultEnemyAbility : SO_EnemyAbility
             switch (TriggerEffect)
             {
                 case TriggerEffectEnum.DealDamage:
-                    var data       = new DamageData { Caster = enemy, DamageType = DamageType, Power = Value, IsMagical = IsMagical };
+                    var data       = new DamageData { Caster = enemy, HitType = HitType, Power = Value, IsMagical = IsMagical };
                     var calculated = dm.CalculateDamageData(data, target);
-                    if (DamageType == DamageTypeEnum.Healing)
+                    if (HitType == HitTypeEnum.Healing)
                         dm.HealUnit(calculated);
-                    else if (DamageType == DamageTypeEnum.Shield)
+                    else if (HitType == HitTypeEnum.Shield)
                         dm.ShieldUnit(calculated);
                     else
                         dm.DealDamage(calculated);

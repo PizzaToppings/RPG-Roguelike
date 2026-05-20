@@ -131,8 +131,7 @@ public class InfoScreen : MonoBehaviour
                         var skillDamage = damageEffect.Power;
                         var bonusDamage = skillPart.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
                         var totalDamage = (skillDamage + bonusDamage).ToString();
-                        var damageType = damageEffect.DamageType.ToString();
-                        var damageText = $"{totalDamage} {damageType} damage";
+                        var damageText = $"{totalDamage} damage";
                         description = description.Replace(damagePlaceholder, damageText);
                     }
                 }

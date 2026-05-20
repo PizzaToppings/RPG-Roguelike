@@ -151,15 +151,15 @@ public class FloatingHealthbar : Healthbar
                     if (damageData != null)
                     {
                         // Skip healing and shield effects
-                        if (damageData.DamageType == DamageTypeEnum.Healing || 
-                            damageData.DamageType == DamageTypeEnum.Shield)
+                        if (damageData.HitType == HitTypeEnum.Healing || 
+                            damageData.HitType == HitTypeEnum.Shield)
                             continue;
 
                         // Create a copy of the damage data with the correct caster
                         var damageDataCopy = new DamageData
                         {
                             Power = damageData.Power,
-                            DamageType = damageData.DamageType,
+                            HitType = damageData.HitType,
                             IsMagical = damageData.IsMagical,
                             Caster = SkillData.Caster,
                             Modifiers = damageData.Modifiers,

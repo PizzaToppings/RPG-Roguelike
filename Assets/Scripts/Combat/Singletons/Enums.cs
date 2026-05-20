@@ -15,7 +15,7 @@ public enum ClassEnum { Athletics, Acrobatics, Marksmanship, Subtlety, Protectio
 public enum StatsEnum { MaxHitpoints, MaxEnergy, MoveSpeed, PhysicalPower, MagicalPower, PhysicalDefense, MagicalDefense }
 
 // Damage etc
-public enum DamageTypeEnum {Physical, Arcane, Fire, Ice, Electric, Psychic, Holy, Dark, Poison, Healing, Shield}
+public enum HitTypeEnum { Damage, Healing, Shield }
 public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Fatique, Rooted, Taunt, Thorns, Dodge, StatChange, Unique }
 public enum DisplacementEnum { Teleport, Move, Lift }
 

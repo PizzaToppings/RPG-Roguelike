@@ -23,9 +23,6 @@ public class UnitStats : MonoBehaviour
 	public int PhysicalDefense;
 	public int MagicalDefense;
 
-	public List<DamageTypeEnum> Resistances;
-	public List<DamageTypeEnum> Vulnerabilities;
-
 	public CombatStyle CurrentCombatStyle = CombatStyle.None;
 
     public List<StatusEffect> statusEffects = new List<StatusEffect>();

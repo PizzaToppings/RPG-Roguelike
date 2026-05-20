@@ -239,7 +239,7 @@ public class Unit : UnitStats
         {
             Attacker = damageDataCalculated.Caster,
             Target = this,
-            DamageType = damageDataCalculated.DamageType,
+            HitType = damageDataCalculated.HitType,
             DamageDone = damage,
             ShieldDamage = shieldDamage,
             AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
@@ -276,7 +276,7 @@ public class Unit : UnitStats
         {
             Attacker = damageDataCalculated.Caster,
             Target = this,
-            DamageType = damageDataCalculated.DamageType,
+            HitType = damageDataCalculated.HitType,
             DamageDone = correctedHealing,
             ShieldDamage = 0,
             AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
@@ -296,7 +296,7 @@ public class Unit : UnitStats
         {
             Attacker = damageDataCalculated.Caster,
             Target = this,
-            DamageType = damageDataCalculated.DamageType,
+            HitType = damageDataCalculated.HitType,
             DamageDone = 0,
             ShieldDamage = -damageDataCalculated.Damage,
             AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),

@@ -13,7 +13,7 @@ public class UI_Singletons : MonoBehaviour
     }
 
     public void SetCursor(CursorType cursorType) => icons.SetCursor(cursorType);
-    public Color GetDamageTypeColor(DamageTypeEnum damageType) => icons.GetDamageTypeColor(damageType);
+    public Color GetHitTypeColor(HitTypeEnum hitType) => icons.GetHitTypeColor(hitType);
     public Sprite GetClassIcon(ClassEnum thisClass) => icons.GetClassIcon(thisClass);
     public Sprite GetStatusIcon(StatusEffectEnum statusEffect) => icons.GetStatusIcon(statusEffect);
     public Sprite GetIntentActionIcon(IntentActionEnum action) => icons.GetIntentActionIcon(action);

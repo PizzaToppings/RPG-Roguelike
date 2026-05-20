@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -75,20 +74,10 @@ public class EnemyInfoPanelManager : MonoBehaviour
         if (magicalDefenseText != null)           magicalDefenseText.text = enemy.MagicalDefense.ToString();
 
         if (resistancesText != null)
-        {
-            bool hasResist = enemy.Resistances != null && enemy.Resistances.Count > 0;
-            resistancesText.gameObject.SetActive(hasResist);
-            if (hasResist)
-                resistancesText.text = "Resists: " + FormatDamageTypeList(enemy.Resistances);
-        }
+            resistancesText.gameObject.SetActive(false);
 
         if (vulnerabilitiesText != null)
-        {
-            bool hasVuln = enemy.Vulnerabilities != null && enemy.Vulnerabilities.Count > 0;
-            vulnerabilitiesText.gameObject.SetActive(hasVuln);
-            if (hasVuln)
-                vulnerabilitiesText.text = "Weak to: " + FormatDamageTypeList(enemy.Vulnerabilities);
-        }
+            vulnerabilitiesText.gameObject.SetActive(false);
     }
 
     private void PopulateIntent(EnemyBaseAI aiEnemy)
@@ -174,15 +163,4 @@ public class EnemyInfoPanelManager : MonoBehaviour
         panelRect.position = pos;
     }
 
-    private static string FormatDamageTypeList(List<DamageTypeEnum> types)
-    {
-        var sb = new StringBuilder();
-        for (int i = 0; i < types.Count; i++)
-        {
-            sb.Append(types[i].ToString());
-            if (i < types.Count - 1)
-                sb.Append(", ");
-        }
-        return sb.ToString();
-    }
 }

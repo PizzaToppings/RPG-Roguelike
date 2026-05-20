@@ -22,7 +22,7 @@ public class ThornsStatusEffect : StatusEffect
         var damageEffect = new DamageData
         {
             Caster = Target,
-            DamageType = DamageTypeEnum.Physical,
+            HitType = HitTypeEnum.Damage,
             Power = Power,
             IsMagical = IsMagical
         };

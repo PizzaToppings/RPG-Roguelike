@@ -18,7 +18,7 @@ public class BleedStatusEffect : StatusEffect
 		var damageEffect = new DamageData
 		{
 			Caster = Caster,
-			DamageType = DamageTypeEnum.Physical,
+			HitType = HitTypeEnum.Damage,
 			Power = Power,
 			IsMagical = IsMagical
 		};

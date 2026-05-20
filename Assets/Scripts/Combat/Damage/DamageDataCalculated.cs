@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class DamageDataCalculated
 {
-    public DamageTypeEnum DamageType;
+    public HitTypeEnum HitType;
     public bool IsMagical;
     public int Damage;
     public Unit Caster;

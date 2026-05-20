@@ -16,7 +16,7 @@ public class DefaultTrait : SO_Trait
     public int Value = 1;
     
     [Space]
-    public DamageTypeEnum DamageType;
+    public HitTypeEnum HitType;
     public bool IsMagical;
 
     [Space]
@@ -191,14 +191,14 @@ public class DefaultTrait : SO_Trait
         switch (TriggerEffect)
         {
             case TriggerEffectEnum.DealDamage:
-                var damageData = new DamageData { Caster = character, DamageType = DamageType, Power = Value, IsMagical = IsMagical };
+                var damageData = new DamageData { Caster = character, HitType = HitType, Power = Value, IsMagical = IsMagical };
                 var damageManager = DamageManager.Instance;
                 foreach (var target in GetTargets(character))
                 {
                     var calculated = damageManager.CalculateDamageData(damageData, target);
-                    if (DamageType == DamageTypeEnum.Healing)
+                    if (HitType == HitTypeEnum.Healing)
                         damageManager.HealUnit(calculated);
-                    else if (DamageType == DamageTypeEnum.Shield)
+                    else if (HitType == HitTypeEnum.Shield)
                         damageManager.ShieldUnit(calculated);
                     else
                         damageManager.DealDamage(calculated);

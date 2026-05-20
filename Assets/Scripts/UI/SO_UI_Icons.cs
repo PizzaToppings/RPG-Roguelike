@@ -108,27 +108,13 @@ public class SO_UI_Icons : ScriptableObject
         Cursor.SetCursor(texture, Vector2.zero, cursorMode);
     }
 
-    public Color GetDamageTypeColor(DamageTypeEnum damageType)
+    public Color GetHitTypeColor(HitTypeEnum hitType)
     {
-        switch (damageType)
+        switch (hitType)
         {
-            case DamageTypeEnum.Arcane:
-                return ArcaneDamageColor;
-            case DamageTypeEnum.Fire:
-                return FireDamageColor;
-            case DamageTypeEnum.Ice:
-                return IceDamageColor;
-            case DamageTypeEnum.Electric:
-                return ElectricDamageColor;
-            case DamageTypeEnum.Holy:
-                return HolyDamageColor;
-            case DamageTypeEnum.Dark:
-                return DarkDamageColor;
-            case DamageTypeEnum.Poison:
-                return PoisonDamageColor;
-            case DamageTypeEnum.Healing:
+            case HitTypeEnum.Healing:
                 return HealingColor;
-            case DamageTypeEnum.Shield:
+            case HitTypeEnum.Shield:
                 return ShieldColor;
         }
         return PhysicalDamageColor;
