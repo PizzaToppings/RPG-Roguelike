@@ -32,7 +32,7 @@ public class BurnStatusEffect : StatusEffect
 
         var tileColor = new TileColor
         { 
-			Color = Color.red,
+			Kind = TileColorKind.EnemyIntent,
 			FillCenter = true, 
 			Priority = 1
 		};
