@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Trinket", menuName = "ScriptableObjects/Trinkets/DefaultTrinket")]
-public class DefaultTrinket : SO_Trinket
+[CreateAssetMenu(fileName = "Trait", menuName = "ScriptableObjects/Traits/DefaultTrait")]
+public class DefaultTrait : SO_Trait
 {
     public TriggerMomentEnum TriggerMoment;
     public TriggerEffectEnum TriggerEffect;
@@ -21,8 +21,8 @@ public class DefaultTrinket : SO_Trinket
 
     [Space]
     [Tooltip("DEPRECATED: Use TargetFaction and TargetSelection instead")]
-    public TrinketTargetFactionEnum TargetFaction;
-    public TrinketTargetSelectionEnum TargetSelection;
+    public TraitTargetFactionEnum TargetFaction;
+    public TraitTargetSelectionEnum TargetSelection;
     public float Range;
 
     [Space]
@@ -32,7 +32,7 @@ public class DefaultTrinket : SO_Trinket
     [Space]
     public CombatStyle RequiredSkillStyle = CombatStyle.None;
 
-    public override void Init(Character character, Trinket trinket)
+    public override void Init(Character character, Trait trait)
     {
         switch (TriggerMoment)
         {
@@ -42,11 +42,11 @@ public class DefaultTrinket : SO_Trinket
                     : null;
 
                 // Only apply once per run; guard against re-init on subsequent combats
-                if (partyMember == null || !partyMember.AppliedInstantTrinkets.Contains(TrinketName))
+                if (partyMember == null || !partyMember.AppliedInstantTraits.Contains(TraitName))
                 {
                     if (partyMember != null)
                     {
-                        partyMember.AppliedInstantTrinkets.Add(TrinketName);
+                        partyMember.AppliedInstantTraits.Add(TraitName);
 
                         // Persist MaxHitpoints / MaxEnergy bonuses in RunData so they carry over each combat
                         if (TriggerEffect == TriggerEffectEnum.ModifyStat)
@@ -61,7 +61,7 @@ public class DefaultTrinket : SO_Trinket
 
                     // Apply the effect immediately on the character (SetStats already ran with old bonuses)
                     Trigger(character);
-                    trinket.hasTriggered = true;
+                    trait.hasTriggered = true;
 
                     // When MaxHP increases, also heal the character for that amount
                     if (TriggerEffect == TriggerEffectEnum.ModifyStat)
@@ -78,7 +78,7 @@ public class DefaultTrinket : SO_Trinket
                     }
                 }
 
-                // Refresh the healthbar — InitTrinkets runs after healthCanvas.Init() so the bar
+                // Refresh the healthbar — InitTraits runs after healthCanvas.Init() so the bar
                 // was drawn with pre-trinket stats and needs an explicit update
                 if (character.ThisHealthbar != null)
                     character.ThisHealthbar.UpdateHealthbar();
@@ -87,58 +87,58 @@ public class DefaultTrinket : SO_Trinket
                 Trigger(character);
                 break;
             case TriggerMomentEnum.StartOfTurn:
-                character.OnUnitTurnStartEvent.AddListener(() => OnTrigger(character, trinket));
+                character.OnUnitTurnStartEvent.AddListener(() => OnTrigger(character, trait));
                 break;
             case TriggerMomentEnum.EndOfTurn:
-                character.OnUnitTurnEndEvent.AddListener(() => OnTrigger(character, trinket));
+                character.OnUnitTurnEndEvent.AddListener(() => OnTrigger(character, trait));
                 break;
             case TriggerMomentEnum.StartOfRound:
-                CombatData.onRoundStart.AddListener(() => OnTrigger(character, trinket));
+                CombatData.onRoundStart.AddListener(() => OnTrigger(character, trait));
                 break;
             case TriggerMomentEnum.EndOfRound:
-                CombatData.onRoundEnd.AddListener(() => OnTrigger(character, trinket));
+                CombatData.onRoundEnd.AddListener(() => OnTrigger(character, trait));
                 break;
             case TriggerMomentEnum.EndOfCombat:
-                CombatData.onCombatEnd.AddListener(() => OnTrigger(character, trinket));
+                CombatData.onCombatEnd.AddListener(() => OnTrigger(character, trait));
                 break;
             case TriggerMomentEnum.OnDealDamage:
                 if (character.OnDealDamage == null)
                     character.OnDealDamage = new UnityEngine.Events.UnityEvent<DamageDataCalculated>();
-                character.OnDealDamage.AddListener(data => OnDealDamageTrigger(character, trinket, data));
+                character.OnDealDamage.AddListener(data => OnDealDamageTrigger(character, trait, data));
                 break;
             case TriggerMomentEnum.OnTakeDamage:
                 if (character.OnTakeDamage == null)
                     character.OnTakeDamage = new UnityEngine.Events.UnityEvent<DamageDataCalculated>();
-                character.OnTakeDamage.AddListener(_ => OnTrigger(character, trinket));
+                character.OnTakeDamage.AddListener(_ => OnTrigger(character, trait));
                 break;
             case TriggerMomentEnum.OnKillEnemy:
-                character.OnKillEnemyEvent.AddListener(_ => OnTrigger(character, trinket));
+                character.OnKillEnemyEvent.AddListener(_ => OnTrigger(character, trait));
                 break;
             case TriggerMomentEnum.OnUseAbility:
-                character.OnSkillCastEvent.AddListener(skill => OnSkillUseTrigger(character, trinket, skill));
+                character.OnSkillCastEvent.AddListener(skill => OnSkillUseTrigger(character, trait, skill));
                 break;
         }
     }
 
-    private void OnTrigger(Character character, Trinket trinket)
+    private void OnTrigger(Character character, Trait trait)
     {
-        if (TriggerOnce && trinket.hasTriggered)
+        if (TriggerOnce && trait.hasTriggered)
         {
             return;
         }
 
         if (ChargesToTrigger > 1)
         {
-            trinket.chargeCount++;
-            if (trinket.chargeCount < ChargesToTrigger) return;
-            trinket.chargeCount = 0;
+            trait.chargeCount++;
+            if (trait.chargeCount < ChargesToTrigger) return;
+            trait.chargeCount = 0;
         }
 
         Trigger(character);
-        trinket.hasTriggered = true;
+        trait.hasTriggered = true;
     }
 
-    private void OnSkillUseTrigger(Character character, Trinket trinket, Skill skill)
+    private void OnSkillUseTrigger(Character character, Trait trait, Skill skill)
     {
         // Check if the skill's combat style matches the required style (None = any style)
         if (RequiredSkillStyle != CombatStyle.None && skill.mainSkillSO.SkillCombatStyle != RequiredSkillStyle)
@@ -146,10 +146,10 @@ public class DefaultTrinket : SO_Trinket
             return;
         }
 
-        OnTrigger(character, trinket);
+        OnTrigger(character, trait);
     }
 
-    private void OnDealDamageTrigger(Character character, Trinket trinket, DamageDataCalculated data)
+    private void OnDealDamageTrigger(Character character, Trait trait, DamageDataCalculated data)
     {
         // Check if the skill's combat style matches the required style (None = any style)
         if (RequiredSkillStyle != CombatStyle.None && character.CurrentCombatStyle != RequiredSkillStyle)
@@ -161,14 +161,14 @@ public class DefaultTrinket : SO_Trinket
         if (TriggerEffect == TriggerEffectEnum.AddStatusEffect && data.Target != null)
         {
             // Check charges/trigger once before applying
-            if (TriggerOnce && trinket.hasTriggered)
+            if (TriggerOnce && trait.hasTriggered)
                 return;
 
             if (ChargesToTrigger > 1)
             {
-                trinket.chargeCount++;
-                if (trinket.chargeCount < ChargesToTrigger) return;
-                trinket.chargeCount = 0;
+                trait.chargeCount++;
+                if (trait.chargeCount < ChargesToTrigger) return;
+                trait.chargeCount = 0;
             }
 
             // Apply status effects to the damaged target
@@ -177,12 +177,12 @@ public class DefaultTrinket : SO_Trinket
                 StatusEffectManager.Instance.ApplyStatusEffect(statusEffect, new List<Unit> { data.Target }, Value);
             }
 
-            trinket.hasTriggered = true;
+            trait.hasTriggered = true;
         }
         else
         {
             // For other effects, use standard trigger
-            OnTrigger(character, trinket);
+            OnTrigger(character, trait);
         }
     }
 
@@ -235,13 +235,13 @@ public class DefaultTrinket : SO_Trinket
     {
         switch (TargetFaction)
         {
-            case TrinketTargetFactionEnum.Friendly:
+            case TraitTargetFactionEnum.Friendly:
                 return UnitData.Characters.Cast<Unit>().ToList();
 
-            case TrinketTargetFactionEnum.Enemy:
+            case TraitTargetFactionEnum.Enemy:
                 return UnitData.Enemies.Cast<Unit>().ToList();
 
-            case TrinketTargetFactionEnum.All:
+            case TraitTargetFactionEnum.All:
                 return new List<Unit>(UnitData.Units);
 
             default:
@@ -259,16 +259,16 @@ public class DefaultTrinket : SO_Trinket
 
         switch (TargetSelection)
         {
-            case TrinketTargetSelectionEnum.Self:
+            case TraitTargetSelectionEnum.Self:
                 return new List<Unit> { character };
 
-            case TrinketTargetSelectionEnum.Closest:
+            case TraitTargetSelectionEnum.Closest:
                 return new List<Unit> { pool.OrderBy(u => BoardManager.Instance.GetRangeBetweenTiles(character.Tile, u.Tile)).First() };
 
-            case TrinketTargetSelectionEnum.LowestHealth:
+            case TraitTargetSelectionEnum.LowestHealth:
                 return new List<Unit> { pool.OrderBy(u => u.Hitpoints).First() };
 
-            case TrinketTargetSelectionEnum.Area:
+            case TraitTargetSelectionEnum.Area:
                 return pool;
 
             default:

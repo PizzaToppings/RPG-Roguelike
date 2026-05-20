@@ -1,8 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(DefaultTrinket))]
-public class DefaultTrinketEditor : Editor
+[CustomEditor(typeof(DefaultTrait))]
+public class DefaultTraitEditor : Editor
 {
     // SO_Trinket base fields
     SerializedProperty trinketName;
@@ -29,7 +29,7 @@ public class DefaultTrinketEditor : Editor
 
     void OnEnable()
     {
-        trinketName      = serializedObject.FindProperty("TrinketName");
+        trinketName      = serializedObject.FindProperty("TraitName");
         image            = serializedObject.FindProperty("Image");
         classes          = serializedObject.FindProperty("classes");
         rarity           = serializedObject.FindProperty("Rarity");
@@ -56,8 +56,8 @@ public class DefaultTrinketEditor : Editor
 
         var effect     = (TriggerEffectEnum)triggerEffect.enumValueIndex;
         var moment     = (TriggerMomentEnum)triggerMoment.enumValueIndex;
-        var faction    = (TrinketTargetFactionEnum)targetFaction.enumValueIndex;
-        var selection  = (TrinketTargetSelectionEnum)targetSelection.enumValueIndex;
+        var faction    = (TraitTargetFactionEnum)targetFaction.enumValueIndex;
+        var selection  = (TraitTargetSelectionEnum)targetSelection.enumValueIndex;
 
         bool implicitlyOnce = moment == TriggerMomentEnum.Instant || moment == TriggerMomentEnum.StartOfCombat || moment == TriggerMomentEnum.EndOfCombat;
         bool showValue         = effect != TriggerEffectEnum.AddStatusEffect;
@@ -67,7 +67,7 @@ public class DefaultTrinketEditor : Editor
         // Hide Target for OnDealDamage + AddStatusEffect (applies to damaged unit automatically)
         bool showTarget        = (effect == TriggerEffectEnum.DealDamage || effect == TriggerEffectEnum.ModifyStat) || 
                                  (effect == TriggerEffectEnum.AddStatusEffect && moment != TriggerMomentEnum.OnDealDamage);
-        bool showRange         = showTarget && selection != TrinketTargetSelectionEnum.Self;
+        bool showRange         = showTarget && selection != TraitTargetSelectionEnum.Self;
         bool showStatusEffects = effect == TriggerEffectEnum.AddStatusEffect;
         bool showStat          = effect == TriggerEffectEnum.ModifyStat;
         bool showSkillStyle    = moment == TriggerMomentEnum.OnUseAbility || moment == TriggerMomentEnum.OnDealDamage;

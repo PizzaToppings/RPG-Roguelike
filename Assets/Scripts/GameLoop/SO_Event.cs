@@ -41,8 +41,8 @@ public class EventOption
     [Tooltip("Used when RewardType is GainGold.")]
     public int GoldAmount;
 
-    [Tooltip("Used when RewardType is GainTrinket.")]
-    public SO_Trinket TrinketReward;
+    [Tooltip("Used when RewardType is GainTrait.")]
+    public SO_Trait TraitReward;
 
     [Tooltip("Used when RewardType is GainSkill.")]
     public SO_MainSkill SkillReward;
@@ -59,7 +59,7 @@ public enum EventRewardType
     None,
     HealParty,
     GainGold,
-    GainTrinket,
+    GainTrait,
     GainSkill,
     LoseHP
 }

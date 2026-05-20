@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 ///   - Encounter Pool        : SO_EncounterPool asset for normal combats
 ///   - Elite Encounter Pool  : SO_EncounterPool asset for elite combats
 ///   - Boss Encounter Pool   : SO_EncounterPool asset for boss fights
-///   - Trinket Pool          : SO_TrinketPool asset for trinket rewards
+///   - Trait Pool          : SO_TraitPool asset for trait rewards
 ///   - Progression           : Ordered list of ProgressionStep values defining the full run
 ///   - Scene Names           : Match the exact names in your Build Settings
 /// </summary>
@@ -27,7 +27,7 @@ public class RunManager : MonoBehaviour
     [SerializeField] SO_EncounterPool encounterPool;
     [SerializeField] SO_EncounterPool eliteEncounterPool;
     [SerializeField] SO_EncounterPool bossEncounterPool;
-    [SerializeField] SO_TrinketPool trinketPool;
+    [SerializeField] SO_TraitPool traitPool;
 
     [Header("Progression")]
     [SerializeField] ProgressionStep[] progression = new ProgressionStep[]
@@ -36,13 +36,13 @@ public class RunManager : MonoBehaviour
         ProgressionStep.SelectSkill,
         ProgressionStep.Combat,
         ProgressionStep.SelectSkill,
-        ProgressionStep.SelectTrinket,
+        ProgressionStep.SelectTrait,
         ProgressionStep.Combat,
         ProgressionStep.SelectCharacter,
         ProgressionStep.SelectSkill,
         ProgressionStep.Combat,
         ProgressionStep.SelectSkill,
-        ProgressionStep.SelectTrinket,
+        ProgressionStep.SelectTrait,
         ProgressionStep.Combat,
         ProgressionStep.SelectSkill,
         ProgressionStep.RestZone,
@@ -55,7 +55,7 @@ public class RunManager : MonoBehaviour
 
     [Header("Shop")]
     [SerializeField] int shopSkillCount = 2;
-    [SerializeField] int shopTrinketCount = 2;
+    [SerializeField] int shopTraitCount = 2;
 
     [Header("Treasure Room")]
     [SerializeField] int treasureOptionCount = 3;
@@ -63,7 +63,7 @@ public class RunManager : MonoBehaviour
     [Header("Scene Names")]
     [SerializeField] string characterSelectScene = "CharacterSelectScene";
     [SerializeField] string skillSelectScene     = "SkillSelectScene";
-    [SerializeField] string trinketSelectScene   = "TrinketSelectScene";
+    [SerializeField] string traitSelectScene    = "TraitSelectScene";
     [SerializeField] string combatScene          = "2DTestCombatScene";
     [SerializeField] string restZoneScene        = "RestZoneScene";
     [SerializeField] string shopScene            = "ShopScene";
@@ -74,7 +74,7 @@ public class RunManager : MonoBehaviour
     [Header("Selection Pool Sizes")]
     [SerializeField] int characterOptionCount = 3;
     [SerializeField] int skillOptionCount     = 3;
-    [SerializeField] int trinketOptionCount   = 2;
+    [SerializeField] int traitOptionCount   = 2;
 
     // -------------------------------------------------------
     // Lifecycle
@@ -119,10 +119,10 @@ public class RunManager : MonoBehaviour
         AdvanceStep();
     }
 
-    /// <summary>Called by TrinketSelectAssignButton when the player assigns a trinket to a party member.</summary>
-    public void SelectTrinket(SO_Trinket trinket, int partyMemberIndex)
+    /// <summary>Called by TraitSelectAssignButton when the player assigns a trait to a party member.</summary>
+    public void SelectTrait(SO_Trait trait, int partyMemberIndex)
     {
-        RunData.Party[partyMemberIndex].Trinkets.Add(trinket);
+        RunData.Party[partyMemberIndex].Traits.Add(trait);
         AdvanceStep();
     }
 
@@ -175,8 +175,8 @@ public class RunManager : MonoBehaviour
                 SceneManager.LoadScene(skillSelectScene);
                 break;
 
-            case ProgressionStep.SelectTrinket:
-                SceneManager.LoadScene(trinketSelectScene);
+            case ProgressionStep.SelectTrait:
+                SceneManager.LoadScene(traitSelectScene);
                 break;
 
             case ProgressionStep.Combat:
@@ -232,20 +232,20 @@ public class RunManager : MonoBehaviour
     public bool RestHealIsPercentage => restHealIsPercentage;
 
     /// <summary>
-    /// Randomly picks trinkets from the pool and stores them in
+    /// Randomly picks traits from the pool and stores them in
     /// <see cref="RunData.CurrentTreasureOptions"/> ready for the Treasure Room scene.
     /// </summary>
     public void PrepTreasureRoom()
     {
         RunData.CurrentTreasureOptions.Clear();
 
-        if (trinketPool == null || trinketPool.Trinkets.Count == 0)
+        if (traitPool == null || traitPool.Traits.Count == 0)
         {
-            Debug.LogWarning("RunManager: Trinket pool is empty or not assigned.");
+            Debug.LogWarning("RunManager: Trait pool is empty or not assigned.");
             return;
         }
 
-        var picks = trinketPool.Trinkets
+        var picks = traitPool.Traits
             .OrderBy(_ => Random.value)
             .Take(treasureOptionCount)
             .ToList();
@@ -254,14 +254,14 @@ public class RunManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Randomly picks skills and trinkets from their pools and stores them in
-    /// <see cref="RunData.CurrentShopSkills"/> and <see cref="RunData.CurrentShopTrinkets"/>
+    /// Randomly picks skills and traits from their pools and stores them in
+    /// <see cref="RunData.CurrentShopSkills"/> and <see cref="RunData.CurrentShopTraits"/>
     /// ready for the Shop scene.
     /// </summary>
     public void PrepShop()
     {
         RunData.CurrentShopSkills.Clear();
-        RunData.CurrentShopTrinkets.Clear();
+        RunData.CurrentShopTraits.Clear();
 
         if (skillPool != null && skillPool.Skills.Count > 0)
         {
@@ -281,14 +281,14 @@ public class RunManager : MonoBehaviour
             RunData.CurrentShopSkills.AddRange(skillPicks);
         }
 
-        if (trinketPool != null && trinketPool.Trinkets.Count > 0)
+        if (traitPool != null && traitPool.Traits.Count > 0)
         {
-            var trinketPicks = trinketPool.Trinkets
+            var traitPicks = traitPool.Traits
                 .OrderBy(_ => Random.value)
-                .Take(shopTrinketCount)
+                .Take(shopTraitCount)
                 .ToList();
 
-            RunData.CurrentShopTrinkets.AddRange(trinketPicks);
+            RunData.CurrentShopTraits.AddRange(traitPicks);
         }
     }
 
@@ -379,24 +379,24 @@ public class RunManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns up to <see cref="trinketOptionCount"/> trinkets from the pool.
-    /// Trinkets already owned by any party member are excluded.
+    /// Returns up to <see cref="traitOptionCount"/> traits from the pool.
+    /// Traits already owned by any party member are excluded.
     /// </summary>
-    public SO_Trinket[] GetTrinketOptions()
+    public SO_Trait[] GetTraitOptions()
     {
-        if (trinketPool == null || trinketPool.Trinkets.Count == 0)
+        if (traitPool == null || traitPool.Traits.Count == 0)
         {
-            Debug.LogWarning("RunManager: TrinketPool is empty or not assigned.");
-            return new SO_Trinket[0];
+            Debug.LogWarning("RunManager: TraitPool is empty or not assigned.");
+            return new SO_Trait[0];
         }
 
-        var alreadyOwned = new HashSet<SO_Trinket>(
-            RunData.Party.SelectMany(m => m.Trinkets));
+        var alreadyOwned = new HashSet<SO_Trait>(
+            RunData.Party.SelectMany(m => m.Traits));
 
-        return trinketPool.Trinkets
+        return traitPool.Traits
             .Where(t => !alreadyOwned.Contains(t))
             .OrderBy(_ => Random.value)
-            .Take(trinketOptionCount)
+            .Take(traitOptionCount)
             .ToArray();
     }
 

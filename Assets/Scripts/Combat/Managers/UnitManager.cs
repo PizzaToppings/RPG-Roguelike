@@ -55,7 +55,7 @@ public class UnitManager : MonoBehaviour
         {
             var character = child.GetComponent<Character>();
             if (character != null)
-                character.InitTrinkets();
+                character.InitTraits();
         }
     }
 

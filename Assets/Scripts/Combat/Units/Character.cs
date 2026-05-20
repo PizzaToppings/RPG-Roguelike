@@ -26,7 +26,7 @@ public class Character : Unit
     public List<SO_MainSkill> consumablesSO = new List<SO_MainSkill>();
     public List<Skill> consumables = new List<Skill>();
 
-    [HideInInspector] public List<Trinket> trinkets = new List<Trinket>();
+    [HideInInspector] public List<Trait> traits = new List<Trait>();
 
     [HideInInspector] public UnityEngine.Events.UnityEvent<Skill> OnSkillCastEvent = new UnityEngine.Events.UnityEvent<Skill>();
 
@@ -74,27 +74,27 @@ public class Character : Unit
         }
     }
 
-    public void InitTrinkets()
+    public void InitTraits()
     {
-        trinkets = new List<Trinket>();
+        traits = new List<Trait>();
         
         // Get the character SO from party data if in a run, otherwise from the GameObject
         var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
         var activeCharacterSO = partyMember != null ? partyMember.Character : characterSO;
         
-        // Always initialize BasicTrinket if available
-        if (activeCharacterSO != null && activeCharacterSO.BasicTrinket != null)
+        // Always initialize BasicTrait if available
+        if (activeCharacterSO != null && activeCharacterSO.BasicTrait != null)
         {
-            var basicTrinket = new Trinket();
-            basicTrinket.Init(activeCharacterSO.BasicTrinket, this);
-            trinkets.Add(basicTrinket);
+            var basicTrait = new Trait();
+            basicTrait.Init(activeCharacterSO.BasicTrait, this);
+            traits.Add(basicTrait);
         }
         
-        // Add collected trinkets from party data during runs
+        // Add collected traits from party data during runs
         if (partyMember != null)
         {
-            var collectedTrinkets = partyMember.Trinkets.Select(so => { var t = new Trinket(); t.Init(so, this); return t; });
-            trinkets.AddRange(collectedTrinkets);
+            var collectedTraits = partyMember.Traits.Select(so => { var t = new Trait(); t.Init(so, this); return t; });
+            traits.AddRange(collectedTraits);
         }
     }
 
@@ -139,7 +139,7 @@ public class Character : Unit
             PhysicalDefense = soc.PhysicalDefense;
             MagicalDefense  = soc.MagicalDefense;
 
-            // Apply permanent bonuses from Instant trinkets accumulated during this run
+            // Apply permanent bonuses from Instant traits accumulated during this run
             MaxHitpoints += partyMember.BonusMaxHitpoints;
             MaxEnergy    += partyMember.BonusMaxEnergy;
         }

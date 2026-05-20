@@ -116,8 +116,8 @@ public class CombatTestManager : MonoBehaviour
             // Setup skills
             SetupSkillsForCharacter(member, i);
 
-            // Setup trinkets
-            SetupTrinketsForCharacter(member, i);
+            // Setup traits
+            SetupTraitsForCharacter(member, i);
 
             // Setup starting HP
             if (testConfig.StartingHPPercentage > 0 && testConfig.StartingHPPercentage < 100)
@@ -181,44 +181,44 @@ public class CombatTestManager : MonoBehaviour
         }
     }
 
-    void SetupTrinketsForCharacter(RunDataPartyMember member, int characterIndex)
+    void SetupTraitsForCharacter(RunDataPartyMember member, int characterIndex)
     {
-        List<SO_Trinket> trinketsToAssign = new List<SO_Trinket>();
+        List<SO_Trait> traitsToAssign = new List<SO_Trait>();
 
-        if (testConfig.RandomizeTrinkets && testConfig.TrinketPool != null && testConfig.TrinketPool.Trinkets.Count > 0)
+        if (testConfig.RandomizeTraits && testConfig.TraitPool != null && testConfig.TraitPool.Traits.Count > 0)
         {
-            // Randomize trinkets
-            int trinketCount = Random.Range(testConfig.MinTrinketsPerCharacter, testConfig.MaxTrinketsPerCharacter + 1);
+            // Randomize traits
+            int traitCount = Random.Range(testConfig.MinTraitsPerCharacter, testConfig.MaxTraitsPerCharacter + 1);
             
-            // Filter trinkets by character class if applicable
-            var availableTrinkets = testConfig.TrinketPool.Trinkets.Where(t => t != null).ToList();
+            // Filter traits by character class if applicable
+            var availableTraits = testConfig.TraitPool.Traits.Where(t => t != null).ToList();
             
             if (member.Character.Classes != null && member.Character.Classes.Count > 0)
             {
-                availableTrinkets = availableTrinkets
+                availableTraits = availableTraits
                     .Where(t => t.classes == null || t.classes.Count == 0 || t.classes.Any(c => member.Character.Classes.Contains(c)))
                     .ToList();
             }
 
-            trinketsToAssign = availableTrinkets
+            traitsToAssign = availableTraits
                 .OrderBy(_ => Random.value)
-                .Take(trinketCount)
+                .Take(traitCount)
                 .ToList();
 
-            Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Randomized {trinketsToAssign.Count} trinket(s).");
+            Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Randomized {traitsToAssign.Count} trait(s).");
         }
-        else if (testConfig.PresetTrinkets != null && characterIndex < testConfig.PresetTrinkets.Count)
+        else if (testConfig.PresetTraits != null && characterIndex < testConfig.PresetTraits.Count)
         {
-            // Use preset trinkets
-            var preset = testConfig.PresetTrinkets[characterIndex];
-            if (preset != null && preset.Trinkets != null)
+            // Use preset traits
+            var preset = testConfig.PresetTraits[characterIndex];
+            if (preset != null && preset.Traits != null)
             {
-                trinketsToAssign = preset.Trinkets.Where(t => t != null).ToList();
-                Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Using {trinketsToAssign.Count} preset trinket(s).");
+                traitsToAssign = preset.Traits.Where(t => t != null).ToList();
+                Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Using {traitsToAssign.Count} preset trait(s).");
             }
         }
 
-        // Add trinkets to member
-        member.Trinkets.AddRange(trinketsToAssign);
+        // Add traits to member
+        member.Traits.AddRange(traitsToAssign);
     }
 }

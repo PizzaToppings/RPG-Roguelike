@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class TrinketSelectUI : MonoBehaviour
+public class TraitSelectUI : MonoBehaviour
 {
-    public static TrinketSelectUI Instance;
+    public static TraitSelectUI Instance;
 
-    [SerializeField] TrinketSelectCard[] cards;
+    [SerializeField] TraitSelectCard[] cards;
     [SerializeField] SO_UI_Icons icons;
 
     void Start()
@@ -13,14 +13,14 @@ public class TrinketSelectUI : MonoBehaviour
 
         if (RunManager.Instance == null)
         {
-            Debug.LogWarning("TrinketSelectUI: RunManager not found. Start from MainMenuScene or ensure RunManager GameObject exists.");
+            Debug.LogWarning("TraitSelectUI: RunManager not found. Start from MainMenuScene or ensure RunManager GameObject exists.");
             return;
         }
 
-        var options = RunManager.Instance.GetTrinketOptions();
+        var options = RunManager.Instance.GetTraitOptions();
 
         if (options.Length == 0)
-            Debug.LogWarning("TrinketSelectUI: No trinkets available. Make sure SO_TrinketPool has trinkets assigned.");
+            Debug.LogWarning("TraitSelectUI: No traits available. Make sure SO_TraitPool has traits assigned.");
 
         for (int i = 0; i < cards.Length; i++)
         {

@@ -1,13 +1,13 @@
-public class Trinket
+public class Trait
 {
-    public SO_Trinket trinketSO;
+    public SO_Trait traitSO;
 
     public int chargeCount;
     public bool hasTriggered;
 
-    public void Init(SO_Trinket so, Character character)
+    public void Init(SO_Trait so, Character character)
     {
-        trinketSO = so;
+        traitSO = so;
         chargeCount = 0;
         hasTriggered = false;
 

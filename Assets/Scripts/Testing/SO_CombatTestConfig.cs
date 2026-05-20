@@ -58,23 +58,23 @@ public class SO_CombatTestConfig : ScriptableObject
     [Tooltip("Preset skills per character. Use when not randomizing. Index matches character index.")]
     public List<CharacterSkillPreset> PresetSkills = new List<CharacterSkillPreset>();
 
-    [Header("Trinkets Configuration")]
-    [Tooltip("If true, each character will be assigned random trinkets from the trinket pool.")]
-    public bool RandomizeTrinkets = false;
+    [Header("Traits Configuration")]
+    [Tooltip("If true, each character will be assigned random traits from the trait pool.")]
+    public bool RandomizeTraits = false;
 
-    [Tooltip("Minimum number of trinkets per character when randomizing (0-4).")]
+    [Tooltip("Minimum number of traits per character when randomizing (0-4).")]
     [Range(0, 4)]
-    public int MinTrinketsPerCharacter = 0;
+    public int MinTraitsPerCharacter = 0;
 
-    [Tooltip("Maximum number of trinkets per character when randomizing (0-4).")]
+    [Tooltip("Maximum number of traits per character when randomizing (0-4).")]
     [Range(0, 4)]
-    public int MaxTrinketsPerCharacter = 2;
+    public int MaxTraitsPerCharacter = 2;
 
-    [Tooltip("Pool of trinkets to randomly select from when RandomizeTrinkets is true.")]
-    public SO_TrinketPool TrinketPool;
+    [Tooltip("Pool of traits to randomly select from when RandomizeTraits is true.")]
+    public SO_TraitPool TraitPool;
 
-    [Tooltip("Preset trinkets per character. Use when not randomizing. Index matches character index.")]
-    public List<CharacterTrinketPreset> PresetTrinkets = new List<CharacterTrinketPreset>();
+    [Tooltip("Preset traits per character. Use when not randomizing. Index matches character index.")]
+    public List<CharacterTraitPreset> PresetTraits = new List<CharacterTraitPreset>();
 
     [Header("Starting Conditions")]
     [Tooltip("Starting HP percentage for all characters (0-100). 0 means use default MaxHealth.")]
@@ -93,8 +93,8 @@ public class CharacterSkillPreset
 }
 
 [System.Serializable]
-public class CharacterTrinketPreset
+public class CharacterTraitPreset
 {
-    [Tooltip("Trinkets to assign to this character.")]
-    public List<SO_Trinket> Trinkets = new List<SO_Trinket>();
+    [Tooltip("Traits to assign to this character.")]
+    public List<SO_Trait> Traits = new List<SO_Trait>();
 }

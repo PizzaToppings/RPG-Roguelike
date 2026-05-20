@@ -21,5 +21,5 @@ public class SO_Character : ScriptableObject
     [Space]
     public SO_MainSkill basicAttack;
     public SO_MainSkill basicSkill;
-    public SO_Trinket BasicTrinket;
+    public SO_Trait BasicTrait;
 }

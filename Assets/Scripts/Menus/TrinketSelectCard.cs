@@ -3,42 +3,42 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TrinketSelectCard : MonoBehaviour
+public class TraitSelectCard : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI trinketNameText;
-    [SerializeField] Image           trinketIcon;
+    [SerializeField] TextMeshProUGUI traitNameText;
+    [SerializeField] Image           traitIcon;
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] List<Image>     classIcons;
 
     [Tooltip("One assign button per party slot (max 4). Wire up in the inspector.")]
-    [SerializeField] TrinketSelectAssignButton[] assignButtons;
+    [SerializeField] TraitSelectAssignButton[] assignButtons;
 
-    SO_Trinket trinketData;
+    SO_Trait traitData;
 
-    public void Setup(SO_Trinket trinket)
+    public void Setup(SO_Trait trait)
     {
-        trinketData = trinket;
+        traitData = trait;
 
-        if (trinketNameText != null)
-            trinketNameText.text = trinket.TrinketName;
+        if (traitNameText != null)
+            traitNameText.text = trait.TraitName;
 
-        if (trinketIcon != null && trinket.Image != null)
+        if (traitIcon != null && trait.Image != null)
         {
-            trinketIcon.gameObject.SetActive(true);
-            trinketIcon.sprite = trinket.Image;
+            traitIcon.gameObject.SetActive(true);
+            traitIcon.sprite = trait.Image;
         }
 
         if (descriptionText != null)
-            descriptionText.text = trinket.Description;
+            descriptionText.text = trait.Description;
 
         if (classIcons != null)
         {
             for (int i = 0; i < classIcons.Count; i++)
             {
-                if (i < trinket.classes.Count)
+                if (i < trait.classes.Count)
                 {
                     classIcons[i].gameObject.SetActive(true);
-                    classIcons[i].sprite = TrinketSelectUI.Instance.GetClassIcon(trinket.classes[i]);
+                    classIcons[i].sprite = TraitSelectUI.Instance.GetClassIcon(trait.classes[i]);
                 }
                 else
                 {
@@ -54,7 +54,7 @@ public class TrinketSelectCard : MonoBehaviour
                 if (i < RunData.Party.Count)
                 {
                     assignButtons[i].gameObject.SetActive(true);
-                    assignButtons[i].Setup(RunData.Party[i].Character, i, trinket);
+                    assignButtons[i].Setup(RunData.Party[i].Character, i, trait);
                 }
                 else
                 {

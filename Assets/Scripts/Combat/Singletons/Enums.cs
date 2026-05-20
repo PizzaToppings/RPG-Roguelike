@@ -3,7 +3,7 @@ public enum NodeTypeEnum { Combat, EliteCombat, Boss, RestZone, Shop, Event, Tre
 public enum EncounterTierEnum { Normal, Elite, Boss }
 
 // Run progression steps
-public enum ProgressionStep { SelectCharacter, SelectSkill, SelectTrinket, Combat, EliteCombat, Boss, RestZone, Shop, Event, TreasureRoom }
+public enum ProgressionStep { SelectCharacter, SelectSkill, SelectTrait, Combat, EliteCombat, Boss, RestZone, Shop, Event, TreasureRoom }
 
 // States
 public enum CurrentActionKind { None, Basic, CastingSkillshot, Animating };
@@ -21,8 +21,8 @@ public enum DisplacementEnum { Teleport, Move, Lift }
 
 // Enemy AI
 public enum TargetEnum { Self, closestTarget, LowestHealthTarget, AllAllies, AllEnemies, AllUnits }
-public enum TrinketTargetFactionEnum { Friendly, Enemy, All }
-public enum TrinketTargetSelectionEnum { Self, Closest, LowestHealth, Area }
+public enum TraitTargetFactionEnum { Friendly, Enemy, All }
+public enum TraitTargetSelectionEnum { Self, Closest, LowestHealth, Area }
 
 // Enemy Intent (displayed above healthbar)
 public enum IntentActionEnum { Unknown, PhysicalMeleeAttack, PhysicalRangedAttack, MagicalMeleeAttack, MagicalRangedAttack, Debuff, Buff, Heal, AOE }
@@ -51,6 +51,11 @@ public enum TriggerEffectEnum { DealDamage, AddStatusEffect, AddEnergy, ModifySt
 // Skill Augments
 public enum SkillAugmentTriggerEnum { OnInit, OnCast, OnCastPerTarget }
 public enum SkillAugmentEffectEnum { AddStatusEffectToTargets, AddStatusEffectToCaster, AddEnergy, ModifyEnergyCost, ModifyRange, ModifyDamage, ResetSkill }
+
+// Anomalies
+public enum AnomalyTriggerEnum { OnCombatStart, StartOfRound, EndOfRound, OnCombatEnd }
+public enum AnomalyTargetEnum { AllCharacters, AllEnemies, AllUnits, BoardState }
+public enum AnomalyEffectEnum { AddStatusEffect, ModifyStat, DealDamage }
 public enum EnemyTriggerMomentEnum { StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnDeath }
 public enum TileTriggerMomentEnum { OnEnterTile, StartOfTurn, EndOfTurn, Aura }
 public enum TileTriggerEffectEnum { DealDamage, ApplyEffect }

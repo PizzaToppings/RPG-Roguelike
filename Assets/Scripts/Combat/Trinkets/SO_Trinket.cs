@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SO_Trinket : ScriptableObject
+public class SO_Trait : ScriptableObject
 {
-    public string TrinketName;
+    public string TraitName;
     public Sprite Image;
     public List<ClassEnum> classes;
 
@@ -13,7 +13,7 @@ public class SO_Trinket : ScriptableObject
     [TextArea(15, 20)]
     public string Description;
 
-    public virtual void Init(Character character, Trinket trinket)
+    public virtual void Init(Character character, Trait trait)
     {
 
     }

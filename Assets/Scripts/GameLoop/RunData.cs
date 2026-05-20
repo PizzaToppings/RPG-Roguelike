@@ -2,13 +2,14 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Represents a single member of the player's party during a run.
+/// 
 /// Each member has their own character and individually assigned skills.
 /// </summary>
 public class RunDataPartyMember
 {
     public SO_Character Character;
     public List<Skill> Skills = new List<Skill>();
-    public List<SO_Trinket> Trinkets = new List<SO_Trinket>();
+    public List<SO_Trait> Traits = new List<SO_Trait>();
 
     /// <summary>Augments assigned per skill SO.</summary>
     public Dictionary<SO_MainSkill, List<SO_SkillAugment>> SkillAugments = new Dictionary<SO_MainSkill, List<SO_SkillAugment>>();
@@ -16,14 +17,14 @@ public class RunDataPartyMember
     /// <summary>HP carried over from the last combat. 0 means unset (use MaxHealth).</summary>
     public int CurrentHitpoints = 0;
 
-    /// <summary>Permanent MaxHitpoints bonus accumulated from Instant trinkets this run.</summary>
+    /// <summary>Permanent MaxHitpoints bonus accumulated from Instant traits this run.</summary>
     public int BonusMaxHitpoints = 0;
 
-    /// <summary>Permanent MaxEnergy bonus accumulated from Instant trinkets this run.</summary>
+    /// <summary>Permanent MaxEnergy bonus accumulated from Instant traits this run.</summary>
     public int BonusMaxEnergy = 0;
 
-    /// <summary>Trinket names whose Instant effect has already been applied this run (prevents re-apply each combat).</summary>
-    public List<string> AppliedInstantTrinkets = new List<string>();
+    /// <summary>Trait names whose Instant effect has already been applied this run (prevents re-apply each combat).</summary>
+    public List<string> AppliedInstantTraits = new List<string>();
 
     public RunDataPartyMember(SO_Character character)
     {
@@ -58,17 +59,20 @@ public static class RunData
     /// <summary>The event to present at the next Event node.</summary>
     public static SO_Event CurrentEvent;
 
-    /// <summary>The trinkets randomly selected for the current Treasure Room.</summary>
-    public static List<SO_Trinket> CurrentTreasureOptions = new List<SO_Trinket>();
+    /// <summary>The traits randomly selected for the current Treasure Room.</summary>
+    public static List<SO_Trait> CurrentTreasureOptions = new List<SO_Trait>();
 
     /// <summary>The skills randomly selected for the current Shop.</summary>
     public static List<SO_MainSkill> CurrentShopSkills = new List<SO_MainSkill>();
 
-    /// <summary>The trinkets randomly selected for the current Shop.</summary>
-    public static List<SO_Trinket> CurrentShopTrinkets = new List<SO_Trinket>();
+    /// <summary>The traits randomly selected for the current Shop.</summary>
+    public static List<SO_Trait> CurrentShopTraits = new List<SO_Trait>();
 
     /// <summary>The skill augments randomly selected for the current Shop.</summary>
     public static List<SO_SkillAugment> CurrentShopSkillAugments = new List<SO_SkillAugment>();
+
+    /// <summary>Anomalies that are active for the current run and will be applied at the start of each combat.</summary>
+    public static List<SO_Anomaly> ActiveAnomalies = new List<SO_Anomaly>();
 
     /// <summary>How much gold the party has accumulated this run.</summary>
     public static int Gold;
@@ -87,8 +91,9 @@ public static class RunData
         CurrentEvent = null;
         CurrentTreasureOptions.Clear();
         CurrentShopSkills.Clear();
-        CurrentShopTrinkets.Clear();
+        CurrentShopTraits.Clear();
         CurrentShopSkillAugments.Clear();
+        ActiveAnomalies.Clear();
         Gold = 0;
     }
 }
