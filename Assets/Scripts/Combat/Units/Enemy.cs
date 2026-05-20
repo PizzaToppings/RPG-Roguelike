@@ -85,6 +85,7 @@ public class Enemy : Unit
 	{
         Tile.Target();
         EnemyInfoPanelManager.Instance?.ShowPanel(this);
+        boardManager.ShowEnemyThreatRange(this);
 
         // Show damage prediction if player is targeting with a skill
         if (ThisHealthbar is FloatingHealthbar floatingHealthbar && 
@@ -167,6 +168,7 @@ public class Enemy : Unit
     {
         Tile.UnTarget();
         EnemyInfoPanelManager.Instance?.HidePanel();
+        boardManager.ClearEnemyThreatRange();
 
         // Hide damage prediction
         if (ThisHealthbar is FloatingHealthbar floatingHealthbar)

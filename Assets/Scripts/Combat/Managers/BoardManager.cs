@@ -26,6 +26,8 @@ public class BoardManager : MonoBehaviour
 
     [HideInInspector] public List<BoardTile> Path = new List<BoardTile>();
 
+    private List<BoardTile> _threatRangeTiles = new List<BoardTile>();
+
     public Vector2Int[] Directions;
 
     public void CreateInstance()
@@ -244,6 +246,34 @@ public class BoardManager : MonoBehaviour
             x => GetRangeBetweenTiles(attackerTile.Coordinates, x.Coordinates)).ToList();
 
         return tilesOrdened;
+    }
+
+    public void ShowEnemyThreatRange(Enemy enemy)
+    {
+        ClearEnemyThreatRange();
+
+        var aiEnemy = enemy as EnemyBaseAI;
+        float attackRange = aiEnemy?.CurrentSkill?.OptimalRange ?? 0f;
+        float totalRange = enemy.MoveSpeed + attackRange;
+
+        var tileColor = GetTileColor(TileColorKind.EnemyIntent);
+        _threatRangeTiles = GetTilesWithinDirectRange(enemy.Tile, totalRange, false);
+        _threatRangeTiles.ForEach(t => t.SetColor(tileColor));
+    }
+
+    public void ClearEnemyThreatRange()
+    {
+        foreach (var tile in _threatRangeTiles)
+        {
+            if (tile.movementLeft > -1f)
+                tile.OverrideColor(MovementColor);
+            else
+                tile.OverrideColor(originalColor);
+
+            if (tile.hasTileEffect)
+                tile.SetColor(tile.tileEffectColor);
+        }
+        _threatRangeTiles.Clear();
     }
 
     public void Clear()
