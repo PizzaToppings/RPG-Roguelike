@@ -284,4 +284,62 @@ public class CharacterPlacementManager : MonoBehaviour
 
         return tile.currentUnit as Character;
     }
+
+    /// <summary>
+    /// Restores the placement color for a specific tile if it's a placement tile.
+    /// Used when clearing overlays like enemy threat ranges during placement phase.
+    /// </summary>
+    public void RestorePlacementColor(BoardTile tile)
+    {
+        if (!IsPlacementPhase || tile == null)
+            return;
+
+        if (!AvailablePlacementTiles.Contains(tile.Coordinates))
+            return;
+
+        // Check if tile is occupied by a character
+        if (tile.currentUnit != null && tile.currentUnit is Character)
+        {
+            if (placementOccupiedColor != null)
+                tile.OverrideColor(placementOccupiedColor);
+            else if (placementAvailableColor != null)
+                tile.OverrideColor(placementAvailableColor);
+        }
+        else
+        {
+            if (placementAvailableColor != null)
+                tile.OverrideColor(placementAvailableColor);
+        }
+    }
+
+    /// <summary>
+    /// Hides all placement tile colors (sets them to transparent/original).
+    /// Used when showing enemy intent to ensure only the intent is visible.
+    /// </summary>
+    public void HideAllPlacementColors()
+    {
+        if (!IsPlacementPhase)
+            return;
+
+        foreach (var tilePos in AvailablePlacementTiles)
+        {
+            var tile = boardManager.GetBoardTile(tilePos);
+            if (tile != null)
+            {
+                tile.OverrideColor(boardManager.originalColor);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Restores all placement tile colors.
+    /// Used when hiding enemy intent to show placement colors again.
+    /// </summary>
+    public void RestoreAllPlacementColors()
+    {
+        if (!IsPlacementPhase)
+            return;
+
+        UpdatePlacementTileColors();
+    }
 }

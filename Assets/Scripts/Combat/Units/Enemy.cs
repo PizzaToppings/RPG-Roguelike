@@ -85,13 +85,19 @@ public class Enemy : Unit
 	{
         Tile.Target();
         EnemyInfoPanelManager.Instance?.ShowPanel(this);
-        boardManager.ShowEnemyThreatRange(this);
+        
+        // Only show enemy threat range when player is not casting/aiming a spell
+        bool playerIsCastingSpell = SkillData.CurrentActiveSkill != null && 
+                                     UnitData.ActiveUnit != null && 
+                                     UnitData.ActiveUnit.Friendly;
+        
+        if (!playerIsCastingSpell)
+        {
+            boardManager.ShowEnemyThreatRange(this);
+        }
 
         // Show damage prediction if player is targeting with a skill
-        if (ThisHealthbar is FloatingHealthbar floatingHealthbar && 
-            SkillData.CurrentActiveSkill != null && 
-            UnitData.ActiveUnit != null && 
-            UnitData.ActiveUnit.Friendly)
+        if (ThisHealthbar is FloatingHealthbar floatingHealthbar && playerIsCastingSpell)
         {
             floatingHealthbar.ShowDamagePreview(SkillData.CurrentActiveSkill);
         }

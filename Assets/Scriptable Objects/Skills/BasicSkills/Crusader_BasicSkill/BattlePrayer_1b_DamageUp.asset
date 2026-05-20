@@ -16,7 +16,7 @@ MonoBehaviour:
   Buff: 0
   StatusEffectType: 15
   DamageType: 0
-  Stat: 4
+  Stat: 3
   Power: 2
   Duration: 1
   IsMagical: 0

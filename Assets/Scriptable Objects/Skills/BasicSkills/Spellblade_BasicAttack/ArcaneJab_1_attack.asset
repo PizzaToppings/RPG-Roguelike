@@ -25,7 +25,7 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 0.7169812, g: 0.091313645, b: 0.091313645, a: 1}
+    Kind: 4
     Priority: 5
   AddProjectileLine: 1
   ProjectileLineOffset: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
     IsMagical: 0
     Modifiers: []
     Prerequisites: []
-    DamageType: 0
+    HitType: 0
     Power: 3
   MinRange: 0
   MaxRange: 3
@@ -101,6 +101,6 @@ MonoBehaviour:
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
-    Color: {r: 0.7176471, g: 0.09019608, b: 0.09019608, a: 1}
+    Kind: 4
     Priority: 4
   CanTargetSelf: 0

@@ -25,7 +25,7 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 1
-    Color: {r: 0, g: 0.29826307, b: 1, a: 1}
+    Kind: 3
     Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
     IsMagical: 0
     Modifiers: []
     Prerequisites: []
-    DamageType: 9
+    HitType: 1
     Power: 2
   MinRange: 0
   MaxRange: 0

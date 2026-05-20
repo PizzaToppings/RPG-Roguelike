@@ -47,6 +47,11 @@ public class BoardManager : MonoBehaviour
         movementLR.sortingOrder = 10;
         Directions = GetDirections();
         targetSkillsManager = TargetSkillsManager.Instance;
+        
+        // Initialize tile colors with correct kinds
+        originalColor = GetTileColor(TileColorKind.Original);
+        MovementColor = GetTileColor(TileColorKind.Move);
+        MouseOverColor = GetTileColor(TileColorKind.MouseOver);
     }
 
     public TileColor GetTileColor(TileColorKind kind) => new TileColor { Kind = kind };
@@ -246,6 +251,13 @@ public class BoardManager : MonoBehaviour
     {
         ClearEnemyThreatRange();
 
+        // During placement phase, hide all placement colors so only enemy intent is visible
+        var placementManager = CharacterPlacementManager.Instance;
+        if (placementManager != null && placementManager.IsPlacementPhase)
+        {
+            placementManager.HideAllPlacementColors();
+        }
+
         var aiEnemy = enemy as EnemyBaseAI;
         float attackRange = aiEnemy?.CurrentSkill?.OptimalRange ?? 0f;
         float totalRange = enemy.MoveSpeed + attackRange;
@@ -257,9 +269,19 @@ public class BoardManager : MonoBehaviour
 
     public void ClearEnemyThreatRange()
     {
+        // Check if we're in placement phase
+        var placementManager = CharacterPlacementManager.Instance;
+        bool inPlacementPhase = placementManager != null && placementManager.IsPlacementPhase;
+        
         foreach (var tile in _threatRangeTiles)
         {
-            if (tile.movementLeft > -1f)
+            // During placement phase, clear to original (all placement colors will be restored below)
+            if (inPlacementPhase)
+            {
+                tile.OverrideColor(originalColor);
+            }
+            // Normal combat behavior - restore movement color only if tile is in range AND not occupied
+            else if (tile.movementLeft > -1f && tile.currentUnit == null)
                 tile.OverrideColor(MovementColor);
             else
                 tile.OverrideColor(originalColor);
@@ -268,6 +290,12 @@ public class BoardManager : MonoBehaviour
                 tile.SetColor(tile.tileEffectColor);
         }
         _threatRangeTiles.Clear();
+
+        // During placement phase, restore all placement colors
+        if (inPlacementPhase)
+        {
+            placementManager.RestoreAllPlacementColors();
+        }
     }
 
     public void Clear()
@@ -334,7 +362,7 @@ public class BoardManager : MonoBehaviour
         if (movementLeft <= 0)
             return;
 
-        // can't move to current space 
+        // Mark the tile as reachable but don't color it if it has a unit on it
         if (currentTile.movementLeft == -1)
             currentTile.movementLeft = 0;
 
@@ -348,7 +376,11 @@ public class BoardManager : MonoBehaviour
 
         foreach(var tile in currentTile.connectedTiles)
         {
-            if (tile == null || tile.currentUnit != null || tile.IsBlocked)
+            // Skip null tiles, blocked tiles, or tiles occupied by any unit
+            if (tile == null || tile.IsBlocked)
+                continue;
+            
+            if (tile.currentUnit != null)
                 continue;
 
 			var nextMovementLeft = movementLeft;
@@ -356,7 +388,8 @@ public class BoardManager : MonoBehaviour
 
             if (tile.movementLeft < nextMovementLeft)
             {
-                if (UnitData.ActiveUnit.Friendly)
+                // Only color if friendly AND the tile is empty (no unit)
+                if (UnitData.ActiveUnit.Friendly && tile.currentUnit == null)
 				{
                     if (tile.hasTileEffect == true)
                         tile.SetColor(tile.tileEffectColor);

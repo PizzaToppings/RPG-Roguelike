@@ -24,7 +24,8 @@ MonoBehaviour:
   Value: 1
   DamageType: 10
   IsMagical: 0
-  Target: 0
+  TargetFaction: 0
+  TargetSelection: 0
   Range: 0
   StatusEffects: []
   Stat: 

@@ -178,7 +178,11 @@ public class BoardTile : MonoBehaviour
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
 		{
-            OverrideColor(boardManager.MovementColor);
+            // Only restore movement color if tile is not occupied
+            if (currentUnit == null)
+                OverrideColor(boardManager.MovementColor);
+            else
+                OverrideColor(boardManager.originalColor);
             
             if (hasTileEffect)
                 SetColor(tileEffectColor);
@@ -235,6 +239,20 @@ public class BoardTile : MonoBehaviour
 
     void ApplyHighlightColor(TileColor color)
     {
+        // If tile is occupied by any unit, always render as transparent
+        if (currentUnit != null)
+        {
+            boardManager.SetHighlightColor(CellPosition, Color.clear);
+            return;
+        }
+
+        // Original color means no highlight (transparent)
+        if (color.Kind == TileColorKind.Original)
+        {
+            boardManager.SetHighlightColor(CellPosition, Color.clear);
+            return;
+        }
+        
         float alpha = color.FillCenter ? 0.75f : 0.3f;
         Color c = new Color(color.Color.r, color.Color.g, color.Color.b, alpha);
         boardManager.SetHighlightColor(CellPosition, c);

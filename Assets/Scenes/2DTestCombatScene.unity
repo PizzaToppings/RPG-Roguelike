@@ -4776,11 +4776,11 @@ MonoBehaviour:
   placementConfirmButton: {fileID: 0}
   placementAvailableColor:
     FillCenter: 1
-    Kind: 0
+    Kind: 1
     Priority: 10
   placementOccupiedColor:
     FillCenter: 1
-    Kind: 0
+    Kind: 2
     Priority: 5
   IsPlacementPhase: 0
   AvailablePlacementTiles: []
@@ -30956,13 +30956,13 @@ MonoBehaviour:
     Priority: 10
   MovementColor:
     FillCenter: 0
-    Kind: 0
-    Priority: 10
+    Kind: 1
+    Priority: 9
   MouseOverColor:
-    FillCenter: 0
-    Kind: 0
-    Priority: 10
-  TileColorConfig: {fileID: 0}
+    FillCenter: 1
+    Kind: 2
+    Priority: 8
+  TileColorConfig: {fileID: 11400000, guid: 108796dc1fc12ca44a46ceca6078e1a4, type: 2}
   Path: []
   Directions: []
 --- !u!120 &1882644907

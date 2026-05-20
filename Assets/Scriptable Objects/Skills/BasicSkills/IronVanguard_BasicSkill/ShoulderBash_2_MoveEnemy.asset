@@ -25,7 +25,7 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 3
     Priority: 10
   AddProjectileLine: 0
   ProjectileLineOffset: 1
@@ -98,5 +98,5 @@ MonoBehaviour:
   GetLastTileOnly: 1
   endColor:
     FillCenter: 1
-    Color: {r: 0.78431374, g: 0.25616726, b: 0, a: 1}
+    Kind: 3
     Priority: 3
