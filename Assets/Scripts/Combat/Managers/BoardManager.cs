@@ -17,7 +17,12 @@ public class BoardManager : MonoBehaviour
     [SerializeField] Tilemap highlightTilemap;
     [SerializeField] TileBase highlightTile;
 
-    public TileColor[] TileColors;
+    public TileColor originalColor;
+    public TileColor MovementColor;
+    public TileColor MouseOverColor;
+
+    [Header("Tile Colors")]
+    public TileColorConfig TileColorConfig;
 
     LineRenderer movementLR;
     // In 2D, tiles lie in the XY plane; use a slight negative Z so the line
@@ -42,20 +47,9 @@ public class BoardManager : MonoBehaviour
         movementLR.sortingOrder = 10;
         Directions = GetDirections();
         targetSkillsManager = TargetSkillsManager.Instance;
-
-        if (TileColors == null || TileColors.Length == 0)
-        {
-            TileColors = new TileColor[System.Enum.GetValues(typeof(TileColorKind)).Length];
-            for (int i = 0; i < TileColors.Length; i++)
-                TileColors[i] = new TileColor { Kind = (TileColorKind)i, Priority = 10 };
-        }
     }
 
-    public TileColor originalColor  => TileColors[(int)TileColorKind.Original];
-    public TileColor MovementColor  => TileColors[(int)TileColorKind.Move];
-    public TileColor MouseOverColor => TileColors[(int)TileColorKind.MouseOver];
-
-    public TileColor GetTileColor(TileColorKind kind) => TileColors[(int)kind];
+    public TileColor GetTileColor(TileColorKind kind) => new TileColor { Kind = kind };
 
     public void AddBoardTilesToList()
     {

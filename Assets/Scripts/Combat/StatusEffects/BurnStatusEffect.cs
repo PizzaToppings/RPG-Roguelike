@@ -30,12 +30,7 @@ public class BurnStatusEffect : StatusEffect
 		var boardManager = BoardManager.Instance;
 		var damageTiles = boardManager.GetTilesWithinDirectRange(Target.Tile, 2.5f, false);
 
-        var tileColor = new TileColor
-        { 
-			Kind = TileColorKind.EnemyIntent,
-			FillCenter = true, 
-			Priority = 1
-		};
+        var tileColor = BoardManager.Instance.GetTileColor(TileColorKind.EnemyIntent);
 
         damageTiles.ForEach(x => x.SetColor(tileColor));
 
