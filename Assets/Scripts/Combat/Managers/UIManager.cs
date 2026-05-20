@@ -26,9 +26,6 @@ public class UIManager : MonoBehaviour
     [Space]
     public Sprite disabledSkillSprite;
 
-    [Space]
-    [SerializeField] List<CharacterPortrait> CharacterPortraits;
-
     Coroutine showSkillCoroutine;
 
     public void CreateInstance()
@@ -41,25 +38,11 @@ public class UIManager : MonoBehaviour
         basicAttackIcon.Init();
         basicSkillIcon.Init();
 
-        for (var i = 0; i < UnitData.Characters.Count; i++)
-		{
-            CharacterPortraits[i].gameObject.SetActive(true);
-            CharacterPortraits[i].thisUnit = UnitData.Characters[i];
-        }
-
         foreach(var skillIcon in skillIcons)
             skillIcon.Init();
 
         foreach (var consumableIcon in consumableIcons)
             consumableIcon.Init();
-    }
-
-    public void InitPortraits()
-    {
-        for (var i = 0; i < UnitData.Characters.Count; i++)
-        {
-            CharacterPortraits[i].Set();
-        }
     }
 
     public void StartTurn(Unit CurrentActiveUnit)
