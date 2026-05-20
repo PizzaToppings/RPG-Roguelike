@@ -2,10 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
-/// Manages the pre-combat character placement phase where players can drag
-/// their characters to valid placement tiles before combat begins.
-/// </summary>
 public class CharacterPlacementManager : MonoBehaviour
 {
     public static CharacterPlacementManager Instance;
@@ -78,12 +74,9 @@ public class CharacterPlacementManager : MonoBehaviour
         foreach (var tilePos in AvailablePlacementTiles)
         {
             var tile = boardManager.GetBoardTile(tilePos);
-            if (tile != null)
+            if (tile != null && tile.currentUnit == null)
             {
-                // Always set the color, regardless of occupancy
-                if (tile.currentUnit != null && tile.currentUnit is Character)
-                    tile.SetColor(placementOccupiedColor != null ? placementOccupiedColor : placementAvailableColor);
-                else
+                if (IsTilePlaceable(tilePos))
                     tile.SetColor(placementAvailableColor);
             }
         }
@@ -141,7 +134,8 @@ public class CharacterPlacementManager : MonoBehaviour
         characterPlacements[character] = tilePos;
 
         // Update tile colors
-        UpdatePlacementTileColors();
+        // UpdatePlacementTileColors();
+        HighlightPlacementTiles();
         UpdateConfirmButtonState();
     }
 
@@ -158,15 +152,8 @@ public class CharacterPlacementManager : MonoBehaviour
             var tile = boardManager.GetBoardTile(tilePos);
             if (tile != null)
             {
-                if (tile.currentUnit != null && tile.currentUnit is Character)
-                {
-                    if (placementOccupiedColor != null)
-                        tile.SetColor(placementOccupiedColor);
-                }
-                else
-                {
+                if (IsTilePlaceable(tilePos))
                     tile.SetColor(placementAvailableColor);
-                }
             }
         }
     }

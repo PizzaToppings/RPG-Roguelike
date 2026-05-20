@@ -30960,7 +30960,7 @@ MonoBehaviour:
     Priority: 9
   MouseOverColor:
     FillCenter: 1
-    Kind: 2
+    Kind: 1
     Priority: 8
   TileColorConfig: {fileID: 11400000, guid: 108796dc1fc12ca44a46ceca6078e1a4, type: 2}
   Path: []

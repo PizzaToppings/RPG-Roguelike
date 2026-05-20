@@ -275,8 +275,8 @@ public class BoardManager : MonoBehaviour
             {
                 tile.OverrideColor(originalColor);
             }
-            // Normal combat behavior - restore movement color only if tile is in range AND not occupied
-            else if (tile.movementLeft > -1f && tile.currentUnit == null)
+            // Normal combat behavior - restore movement color only if tile is in range
+            else if (tile.movementLeft > -1f)
                 tile.OverrideColor(MovementColor);
             else
                 tile.OverrideColor(originalColor);
@@ -371,11 +371,7 @@ public class BoardManager : MonoBehaviour
 
         foreach(var tile in currentTile.connectedTiles)
         {
-            // Skip null tiles, blocked tiles, or tiles occupied by any unit
             if (tile == null || tile.IsBlocked)
-                continue;
-            
-            if (tile.currentUnit != null)
                 continue;
 
 			var nextMovementLeft = movementLeft;
@@ -383,8 +379,7 @@ public class BoardManager : MonoBehaviour
 
             if (tile.movementLeft < nextMovementLeft)
             {
-                // Only color if friendly AND the tile is empty (no unit)
-                if (UnitData.ActiveUnit.Friendly && tile.currentUnit == null)
+                if (UnitData.ActiveUnit.Friendly)
 				{
                     if (tile.hasTileEffect == true)
                         tile.SetColor(tile.tileEffectColor);
