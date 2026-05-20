@@ -81,6 +81,9 @@ public class BoardTile : MonoBehaviour
         {
             boardManager.Path = new List<BoardTile>();
             SetColor(boardManager.MouseOverColor);
+            Debug.Log(boardManager.MouseOverColor.Color);
+            Debug.Log(boardManager.MouseOverColor.Kind);
+            Debug.Log("Previewing movement line to tile at " + CellPosition);
             boardManager.PreviewMovementLine(this);
         }
 

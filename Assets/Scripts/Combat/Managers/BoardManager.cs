@@ -47,11 +47,6 @@ public class BoardManager : MonoBehaviour
         movementLR.sortingOrder = 10;
         Directions = GetDirections();
         targetSkillsManager = TargetSkillsManager.Instance;
-        
-        // Initialize tile colors with correct kinds
-        originalColor = GetTileColor(TileColorKind.Original);
-        MovementColor = GetTileColor(TileColorKind.Move);
-        MouseOverColor = GetTileColor(TileColorKind.MouseOver);
     }
 
     public TileColor GetTileColor(TileColorKind kind) => new TileColor { Kind = kind };
