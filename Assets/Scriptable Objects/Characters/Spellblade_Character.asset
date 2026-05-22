@@ -25,4 +25,4 @@ MonoBehaviour:
   MagicalDefense: 2
   basicAttack: {fileID: 11400000, guid: aa3a0b20f18280244b6c42a9ec9b49c7, type: 2}
   basicSkill: {fileID: 11400000, guid: 834a3c53baf1f2d45b4440f564f05d38, type: 2}
-  BasicTrinket: {fileID: 11400000, guid: b71fd203f154702488e90757df947651, type: 2}
+  BasicTrait: {fileID: 11400000, guid: b71fd203f154702488e90757df947651, type: 2}

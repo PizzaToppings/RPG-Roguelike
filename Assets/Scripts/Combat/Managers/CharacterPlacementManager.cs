@@ -68,8 +68,6 @@ public class CharacterPlacementManager : MonoBehaviour
     /// </summary>
     void HighlightPlacementTiles()
     {
-        ClearPlacementHighlights();
-
         if (placementAvailableColor == null)
             return;
 
@@ -136,6 +134,7 @@ public class CharacterPlacementManager : MonoBehaviour
         characterPlacements[character] = tilePos;
 
         // Update tile colors
+        ClearPlacementHighlights();
         HighlightPlacementTiles();
         UpdateConfirmButtonState();
     }
@@ -328,6 +327,6 @@ public class CharacterPlacementManager : MonoBehaviour
         if (!IsPlacementPhase)
             return;
 
-        UpdatePlacementTileColors();
+        HighlightPlacementTiles();
     }
 }

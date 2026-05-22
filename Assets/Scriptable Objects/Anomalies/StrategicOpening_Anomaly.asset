@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1bb18a712c02845ace4f10f8ad1461, type: 3}
+  m_Name: StrategicOpening_Anomaly
+  m_EditorClassIdentifier: 
+  AnomalyName: Strategic Opening
+  Image: {fileID: 0}
+  Rarity: 1
+  Description: Enemies have -1 physical and magical defense at the first round of
+    combat.
+  TriggerMoment: 0
+  TriggerOnce: 1
+  ChargesToTrigger: 1
+  Target: 1
+  TriggerEffect: 1
+  Value: 1
+  HitType: 0
+  IsMagical: 0
+  StatusEffects: []
+  Stat: 0500000006000000

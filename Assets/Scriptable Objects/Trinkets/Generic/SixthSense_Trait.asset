@@ -10,23 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a77b3c0f07e2d94888bae7c760eb9be, type: 3}
-  m_Name: Fortress_Trinket
+  m_Name: SixthSense_Trait
   m_EditorClassIdentifier: 
-  TraitName: 
-  Image: {fileID: 21300000, guid: a7960b9d33ffd6d4ca21ae841555f3de, type: 3}
+  TraitName: Sixth Sense
+  Image: {fileID: 0}
   classes: 
   Rarity: 1
-  Description: Gain 1 Shield after using a Defense skill.
-  TriggerMoment: 9
-  TriggerEffect: 0
-  ChargesToTrigger: 0
+  Description: 'Every 5th turn, gain 1 <Dodge>. '
+  TriggerMoment: 2
+  TriggerEffect: 1
+  ChargesToTrigger: 5
   TriggerOnce: 0
   Value: 1
-  HitType: 2
+  HitType: 0
   IsMagical: 0
   TargetFaction: 0
   TargetSelection: 0
   Range: 0
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 11400000, guid: e7bcf19ee9c91a94f923b91932119ad8, type: 2}
   Stat: 
-  RequiredSkillStyle: 2
+  RequiredSkillStyle: 0
