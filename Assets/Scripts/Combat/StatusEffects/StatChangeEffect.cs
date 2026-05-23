@@ -8,7 +8,11 @@ public class StatChangeEffect : StatusEffect
 
     public override void Apply()
     {
-        base.Apply();
+        Target.statusEffects.Add(this);
+
+        string sign  = Power >= 0 ? "+" : "";
+        string label = $"{StatusEffectDescriptions.GetStatDisplayName(Stat)} {sign}{Power}";
+        healthCanvas.ShowStatusEffect(label, Target, IsBuff);
 
         ChangeStat();
         Target.OnUnitTurnEndEvent.AddListener(ReduceDuration);

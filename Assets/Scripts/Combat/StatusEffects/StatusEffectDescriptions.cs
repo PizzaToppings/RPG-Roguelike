@@ -63,7 +63,7 @@ public static class StatusEffectDescriptions
         }
     }
 
-    private static string GetStatDisplayName(StatsEnum stat)
+    public static string GetStatDisplayName(StatsEnum stat)
     {
         switch (stat)
         {
