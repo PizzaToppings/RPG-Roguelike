@@ -34,6 +34,7 @@ public class SO_Skillpart : ScriptableObject
     public TileColor tileColor;
     public bool AddProjectileLine;
     public float ProjectileLineOffset = 1;
+    public bool DashOnDamageOrEffect = false;
     public SO_SKillVFX[] SkillVFX;
 
     [Space]

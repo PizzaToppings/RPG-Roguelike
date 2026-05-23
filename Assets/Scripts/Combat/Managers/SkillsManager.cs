@@ -149,11 +149,8 @@ public class SkillsManager : MonoBehaviour
             damageManager.DealDamageSetup(skillPart, 0f);
         }
 
-        // Temporary 2D stand-in for VFX: dash the caster toward the target,
-        // but only when the skill part deals damage or applies a debuff.
-        bool dealsDamage   = skillPart.DamageEffects.Count > 0;
-        bool appliesDebuff = skillPart.StatusEffects.Exists(x => !x.Buff);
-        if (dealsDamage || appliesDebuff)
+        // Temporary 2D stand-in for VFX: dash only when this skill part opts in.
+        if (skillPart.DashOnDamageOrEffect)
             yield return StartCoroutine(caster.DashTowards(GetSkillPartTargetPosition(skillPartData, caster)));
 
         if (skillPart.SummonObject != null)
