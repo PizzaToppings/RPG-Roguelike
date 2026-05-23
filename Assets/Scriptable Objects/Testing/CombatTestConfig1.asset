@@ -17,7 +17,7 @@ MonoBehaviour:
   RandomizeEncounter: 1
   EncounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
   PresetCharacters:
-  - {fileID: 11400000, guid: b54fb5503596572418c2e5b32bdb3c93, type: 2}
+  - {fileID: 11400000, guid: 1ca08d772987d1c4493820be0686cfa5, type: 2}
   RandomizeCharacters: 0
   MinCharacterCount: 1
   MaxCharacterCount: 4
@@ -27,10 +27,10 @@ MonoBehaviour:
   MaxSkillsPerCharacter: 2
   SkillPool: {fileID: 11400000, guid: 03a3ab7d4cf6fe24198b8489cdd69a25, type: 2}
   PresetSkills: []
-  RandomizeTrinkets: 1
-  MinTrinketsPerCharacter: 0
-  MaxTrinketsPerCharacter: 0
-  TrinketPool: {fileID: 0}
-  PresetTrinkets: []
+  RandomizeTraits: 0
+  MinTraitsPerCharacter: 0
+  MaxTraitsPerCharacter: 2
+  TraitPool: {fileID: 0}
+  PresetTraits: []
   StartingHPPercentage: 100
   StartingGold: 0

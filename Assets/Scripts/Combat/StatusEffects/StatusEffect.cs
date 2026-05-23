@@ -7,6 +7,7 @@ public class StatusEffect
     
     public StatusEffectEnum statusEfectType;
     public int Duration;
+    public string Description;
 
     public Unit Caster;
     public Unit Target;

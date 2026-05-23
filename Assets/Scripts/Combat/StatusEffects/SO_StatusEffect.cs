@@ -13,6 +13,9 @@ public class SO_StatusEffect : ScriptableObject
     public bool IsMagical;
     public bool Permanent;
 
+    [TextArea(2, 5)]
+    public string Description;
+
     public virtual void Apply(Unit target)
     {
     }

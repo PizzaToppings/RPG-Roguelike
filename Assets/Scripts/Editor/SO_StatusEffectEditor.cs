@@ -11,6 +11,7 @@ public class SO_StatusEffectEditor : Editor
     SerializedProperty duration;
     SerializedProperty isMagical;
     SerializedProperty permanent;
+    SerializedProperty description;
 
     void OnEnable()
     {
@@ -21,6 +22,7 @@ public class SO_StatusEffectEditor : Editor
         duration         = serializedObject.FindProperty("Duration");
         isMagical        = serializedObject.FindProperty("IsMagical");
         permanent        = serializedObject.FindProperty("Permanent");
+        description      = serializedObject.FindProperty("Description");
     }
 
     public override void OnInspectorGUI()
@@ -50,6 +52,21 @@ public class SO_StatusEffectEditor : Editor
         EditorGUILayout.PropertyField(permanent);
         if (!permanent.boolValue)
             EditorGUILayout.PropertyField(duration);
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Description Override", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(description, GUIContent.none);
+
+        var so = (SO_StatusEffect)serializedObject.targetObject;
+        if (string.IsNullOrEmpty(so.Description))
+        {
+            string defaultDesc = StatusEffectDescriptions.GetDefault(
+                (StatusEffectEnum)statusEffectType.enumValueIndex,
+                (StatsEnum)stat.enumValueIndex,
+                power.intValue);
+            if (!string.IsNullOrEmpty(defaultDesc))
+                EditorGUILayout.HelpBox($"Default: {defaultDesc}", MessageType.None);
+        }
 
         serializedObject.ApplyModifiedProperties();
     }

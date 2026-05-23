@@ -15,9 +15,9 @@ MonoBehaviour:
   statusEffectManager: {fileID: 0}
   Buff: 0
   StatusEffectType: 15
-  DamageType: 0
   Stat: 3
   Power: 2
   Duration: 1
   IsMagical: 0
   Permanent: 0
+  Description: Increase Physical Power by 2.

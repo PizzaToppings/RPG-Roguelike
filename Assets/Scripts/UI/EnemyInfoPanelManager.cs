@@ -1,23 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class EnemyInfoPanelManager : MonoBehaviour
+public class EnemyInfoPanelManager : BaseInfoPanelManager
 {
     public static EnemyInfoPanelManager Instance;
 
     [Header("Panel Root")]
     [SerializeField] private GameObject enemyInfoPanel;
-
-    [Header("Basic Info")]
-    [SerializeField] private TextMeshProUGUI enemyNameText;
-    [SerializeField] private TextMeshProUGUI physicalPowerText;
-    [SerializeField] private TextMeshProUGUI magicalPowerText;
-    [SerializeField] private TextMeshProUGUI physicalDefenseText;
-    [SerializeField] private TextMeshProUGUI magicalDefenseText;
-    [SerializeField] private TextMeshProUGUI resistancesText;
-    [SerializeField] private TextMeshProUGUI vulnerabilitiesText;
 
     [Header("Intent (EnemyBaseAI only)")]
     [SerializeField] private GameObject intentSection;
@@ -26,16 +16,12 @@ public class EnemyInfoPanelManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI intentDescriptionText;
     [SerializeField] private TextMeshProUGUI intentTargetDescriptionText;
 
-    private RectTransform panelRect;
-    private Canvas parentCanvas;
-    private bool isVisible;
+    protected override GameObject PanelRoot => enemyInfoPanel;
 
-    private void Awake()
+    protected override void Awake()
     {
         Instance = this;
-        panelRect = enemyInfoPanel.GetComponent<RectTransform>();
-        parentCanvas = enemyInfoPanel.GetComponentInParent<Canvas>();
-        enemyInfoPanel.SetActive(false);
+        base.Awake();
     }
 
     private void Update()
@@ -48,36 +34,18 @@ public class EnemyInfoPanelManager : MonoBehaviour
     {
         if (enemyInfoPanel == null) return;
 
-        PopulateStats(enemy);
+        PopulateBaseStats(enemy);
         PopulateIntent(enemy as EnemyBaseAI);
+        PopulateStatusEffects(enemy);
 
         enemyInfoPanel.SetActive(true);
         isVisible = true;
     }
 
     /// <summary>Call from Enemy.OnMouseExit to hide the panel.</summary>
-    public void HidePanel()
+    public override void HidePanel()
     {
-        if (enemyInfoPanel == null) return;
-        enemyInfoPanel.SetActive(false);
-        isVisible = false;
-    }
-
-    private void PopulateStats(Enemy enemy)
-    {
-        if (enemyNameText != null)
-            enemyNameText.text = enemy.UnitName;
-
-        if (physicalPowerText != null)            physicalPowerText.text = enemy.PhysicalPower.ToString();
-        if (magicalPowerText != null)             magicalPowerText.text = enemy.MagicalPower.ToString();
-        if (physicalDefenseText != null)          physicalDefenseText.text = enemy.PhysicalDefense.ToString();
-        if (magicalDefenseText != null)           magicalDefenseText.text = enemy.MagicalDefense.ToString();
-
-        if (resistancesText != null)
-            resistancesText.gameObject.SetActive(false);
-
-        if (vulnerabilitiesText != null)
-            vulnerabilitiesText.gameObject.SetActive(false);
+        base.HidePanel();
     }
 
     private void PopulateIntent(EnemyBaseAI aiEnemy)
@@ -143,24 +111,5 @@ public class EnemyInfoPanelManager : MonoBehaviour
             default:                            return string.Empty;
         }
     }
-
-    private void ClampToScreen()
-    {
-        Vector3[] corners = new Vector3[4];
-        panelRect.GetWorldCorners(corners);
-
-        float rightOverflow  = corners[2].x - Screen.width;
-        float bottomOverflow = corners[0].y;
-
-        Vector2 pos = panelRect.position;
-
-        if (rightOverflow > 0)
-            pos.x -= rightOverflow;
-
-        if (bottomOverflow < 0)
-            pos.y -= bottomOverflow;
-
-        panelRect.position = pos;
-    }
-
 }
+
