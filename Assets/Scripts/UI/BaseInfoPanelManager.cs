@@ -13,8 +13,6 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI magicalPowerText;
     [SerializeField] protected TextMeshProUGUI physicalDefenseText;
     [SerializeField] protected TextMeshProUGUI magicalDefenseText;
-    [SerializeField] protected TextMeshProUGUI resistancesText;
-    [SerializeField] protected TextMeshProUGUI vulnerabilitiesText;
 
     [Header("Status Effects")]
     [SerializeField] protected Transform statusEffectsContainer;
@@ -46,11 +44,6 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
             physicalDefenseText.text = unit.PhysicalDefense.ToString();
         if (magicalDefenseText != null)
             magicalDefenseText.text = unit.MagicalDefense.ToString();
-
-        if (resistancesText != null)
-            resistancesText.gameObject.SetActive(false);
-        if (vulnerabilitiesText != null)
-            vulnerabilitiesText.gameObject.SetActive(false);
     }
 
     protected void PopulateStatusEffects(Unit unit)

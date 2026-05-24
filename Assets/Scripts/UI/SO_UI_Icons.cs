@@ -28,16 +28,6 @@ public class SO_UI_Icons : ScriptableObject
     [Space]
     [Header(" - Damage Colors")]
     [SerializeField] Color PhysicalDamageColor;
-    [SerializeField] Color ArcaneDamageColor;
-    [SerializeField] Color FireDamageColor;
-    [SerializeField] Color WaterDamageColor;
-    [SerializeField] Color EarthDamageColor;
-    [SerializeField] Color IceDamageColor;
-    [SerializeField] Color ElectricDamageColor;
-    [SerializeField] Color PsychicDamageColor;
-    [SerializeField] Color HolyDamageColor;
-    [SerializeField] Color DarkDamageColor;
-    [SerializeField] Color PoisonDamageColor;
     [SerializeField] Color HealingColor;
     [SerializeField] Color ShieldColor;
 

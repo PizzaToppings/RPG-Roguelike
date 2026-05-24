@@ -10,7 +10,8 @@ public class FloatingStatusEffectText : MonoBehaviour
 
     float duration = 0.8f;
     float fadeDuration = 0.3f;
-    float shakeAmount = 10f;
+    float shakeAmount = 0f;
+    // float shakeAmount = 10f;
 
     bool isBuff;
 
@@ -19,7 +20,7 @@ public class FloatingStatusEffectText : MonoBehaviour
     public void Init(string displayText, Unit target, bool isBuff)
     {
         gameObject.SetActive(true);
-        text.color = Color.grey; // change?
+        text.color = Color.white; // change?
         text.text = displayText;
 
         this.isBuff = isBuff;
@@ -48,11 +49,11 @@ public class FloatingStatusEffectText : MonoBehaviour
                 if (isBuff == false)
                     offset = Mathf.Sin(Time.time * 30f) * shakeAmount;
 
-                transform.position = Camera.main.WorldToScreenPoint(target.transform.position) + new Vector3(offset, upMovement, 0) + Vector3.up * 80f;
+                transform.position = Camera.main.WorldToScreenPoint(target.transform.position) + new Vector3(offset, upMovement, 0) + Vector3.up * 50f;
             }
             else if (progress < 1f + fadeDuration)
             {
-                transform.position = Camera.main.WorldToScreenPoint(target.transform.position) + new Vector3(0, upMovement, 0) + Vector3.up * 80f;
+                transform.position = Camera.main.WorldToScreenPoint(target.transform.position) + new Vector3(0, upMovement, 0) + Vector3.up * 50f;
                 float fadeProgress = (progress - 1f) / fadeDuration;
                 text.alpha = Mathf.Lerp(1f, 0f, fadeProgress);
             }

@@ -8,9 +8,6 @@ public class CharacterInfoPanelManager : BaseInfoPanelManager
     [Header("Panel Root")]
     [SerializeField] private GameObject characterInfoPanel;
 
-    [Header("Character Specific")]
-    [SerializeField] private TextMeshProUGUI energyText;
-
     protected override GameObject PanelRoot => characterInfoPanel;
 
     protected override void Awake()
@@ -30,7 +27,6 @@ public class CharacterInfoPanelManager : BaseInfoPanelManager
         if (characterInfoPanel == null) return;
 
         PopulateBaseStats(character);
-        PopulateCharacterSpecific(character);
         PopulateStatusEffects(character);
 
         characterInfoPanel.SetActive(true);
@@ -41,12 +37,6 @@ public class CharacterInfoPanelManager : BaseInfoPanelManager
     public override void HidePanel()
     {
         base.HidePanel();
-    }
-
-    private void PopulateCharacterSpecific(Character character)
-    {
-        if (energyText != null)
-            energyText.text = $"{character.Energy} / {character.MaxEnergy}";
     }
 }
 
