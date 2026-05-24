@@ -2647,13 +2647,10 @@ MonoBehaviour:
   magicalPowerText: {fileID: 1426239346}
   physicalDefenseText: {fileID: 1121122719}
   magicalDefenseText: {fileID: 1450460605}
-  resistancesText: {fileID: 0}
-  vulnerabilitiesText: {fileID: 0}
   statusEffectsContainer: {fileID: 1479765940}
   statusEffectEntryPrefab: {fileID: 6838405043429011054, guid: 561b3e1707e2229449ca997a893c1446,
     type: 3}
   characterInfoPanel: {fileID: 1479765939}
-  energyText: {fileID: 0}
 --- !u!1 &164231517
 GameObject:
   m_ObjectHideFlags: 0
@@ -29441,8 +29438,6 @@ MonoBehaviour:
   magicalPowerText: {fileID: 805427609}
   physicalDefenseText: {fileID: 934954132}
   magicalDefenseText: {fileID: 1236094409}
-  resistancesText: {fileID: 0}
-  vulnerabilitiesText: {fileID: 0}
   statusEffectsContainer: {fileID: 723968933}
   statusEffectEntryPrefab: {fileID: 6838405043429011054, guid: 561b3e1707e2229449ca997a893c1446,
     type: 3}

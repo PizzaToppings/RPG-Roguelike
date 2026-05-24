@@ -14,7 +14,7 @@ public class StatusEffectEntryUI : MonoBehaviour
     public void Populate(StatusEffect effect)
     {
         if (nameText != null)
-            nameText.text = effect.statusEfectType.ToString();
+            nameText.text = StatusEffectDescriptions.GetDisplayName(effect);
 
         if (descriptionText != null)
             descriptionText.text = effect.Description;

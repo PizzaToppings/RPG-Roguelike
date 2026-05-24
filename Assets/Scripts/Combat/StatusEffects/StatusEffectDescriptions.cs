@@ -63,6 +63,17 @@ public static class StatusEffectDescriptions
         }
     }
 
+    public static string GetDisplayName(StatusEffect effect)
+    {
+        if (effect is StatChangeEffect sce)
+        {
+            string statName  = GetStatDisplayName(sce.Stat);
+            string direction = sce.Power >= 0 ? "Up" : "Down";
+            return $"{statName} {direction}";
+        }
+        return effect.statusEfectType.ToString();
+    }
+
     public static string GetStatDisplayName(StatsEnum stat)
     {
         switch (stat)

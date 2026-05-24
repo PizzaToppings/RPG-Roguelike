@@ -30,17 +30,7 @@ MonoBehaviour:
   NatureIcon: {fileID: 21300000, guid: d8b29d646def4e04089464c7c56134e5, type: 3}
   HolyIcon: {fileID: 21300000, guid: 88950c882f1192041a8ff8ae54ec8f10, type: 3}
   UnholyIcon: {fileID: 21300000, guid: 85cead675376a8148970433b01d7fe59, type: 3}
-  PhysicalDamageColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
-  ArcaneDamageColor: {r: 0.3537736, g: 0.21960784, b: 1, a: 1}
-  FireDamageColor: {r: 1, g: 0, b: 0, a: 1}
-  WaterDamageColor: {r: 0.36320752, g: 0.75180787, b: 1, a: 1}
-  EarthDamageColor: {r: 0.5943396, g: 0.4051006, b: 0.2270826, a: 1}
-  IceDamageColor: {r: 0.6462264, g: 0.91524184, b: 1, a: 1}
-  ElectricDamageColor: {r: 1, g: 0.95726705, b: 0.4764151, a: 1}
-  PsychicDamageColor: {r: 0.83230203, g: 0.023584902, b: 1, a: 1}
-  HolyDamageColor: {r: 0.9245283, g: 0.74509805, b: 0.082858644, a: 1}
-  DarkDamageColor: {r: 0.39884013, g: 0.06848521, b: 0.764151, a: 1}
-  PoisonDamageColor: {r: 0.17021182, g: 0.4811321, b: 0.19876571, a: 1}
+  PhysicalDamageColor: {r: 1, g: 1, b: 1, a: 1}
   HealingColor: {r: 0.9974991, g: 1, b: 0, a: 1}
   ShieldColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
   IntentUnknownIcon: {fileID: 21300000, guid: 8e0799899922cc941bcbbdd181687033, type: 3}
