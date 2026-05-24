@@ -374,6 +374,9 @@ public class BoardManager : MonoBehaviour
             if (tile == null || tile.IsBlocked)
                 continue;
 
+            if (tile.currentUnit != null && tile.currentUnit != UnitData.ActiveUnit)
+                continue;
+
 			var nextMovementLeft = movementLeft;
             nextMovementLeft -= GetRangeReduction(currentTile, tile);
 

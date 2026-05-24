@@ -84,7 +84,7 @@ public class EnemyBaseAI : Enemy
             yield break;
         }
 
-        StartCoroutine(uiManager.ShowActivityText("Strike"));
+        StartCoroutine(uiManager.ShowActivityText(CurrentSkill.SkillName));
         yield return new WaitForSeconds(0.3f);
 
         Rotate(target.transform.position);
@@ -125,9 +125,9 @@ public class EnemyBaseAI : Enemy
                 else if (rangeToCharacter < skillMinRange)
                     tile.EnemyPreferenceRating -= 300; // Inside minimum range, can't attack from here
 
-                // Closer tiles are preferred — subtract distance rather than proximity
-                float distancePenalty = 5 * rangeToCharacter;
-                tile.EnemyPreferenceRating -= distancePenalty;
+                // Prefer tiles closest to the optimal range
+                float distanceFromOptimal = Mathf.Abs(rangeToCharacter - CurrentSkill.OptimalRange);
+                tile.EnemyPreferenceRating -= 10 * distanceFromOptimal;
             }
 
             foreach (var enemy in UnitData.Enemies)
@@ -144,8 +144,15 @@ public class EnemyBaseAI : Enemy
 
         OptimalTile = PossibleMovementTiles.OrderByDescending(x => x.EnemyPreferenceRating).First();
 
-        // Fallback: if the best tile is where we already stand, approach the preferred target instead.
-        if (OptimalTile == Tile && UnitData.Characters.Count > 0)
+        // Fallback: if the best tile is where we already stand AND we are not already
+        // in a valid attack position, approach the preferred target to close the distance.
+        float fallbackMinRange = CurrentSkill.Skill != null ? CurrentSkill.Skill.MinRange : 0f;
+        bool alreadyInRange = UnitData.Characters.Any(c =>
+        {
+            var r = boardManager.GetRangeBetweenTiles(Tile, c.Tile);
+            return r >= fallbackMinRange && r <= CurrentSkill.OptimalRange;
+        });
+        if (OptimalTile == Tile && !alreadyInRange && UnitData.Characters.Count > 0)
         {
             var approachTarget = preferredTarget ?? GetTargetPreference(TargetEnum.closestTarget, UnitData.Characters);
             if (approachTarget != null)
@@ -209,6 +216,9 @@ public class EnemyBaseAI : Enemy
 
     public IEnumerator MoveToTile()
     {
+        if (OptimalTile == Tile)
+            yield break;
+
         boardManager.PreviewMovementLine(OptimalTile);
         boardManager.StopShowingMovement();
         yield return StartCoroutine(boardManager.MoveToTile());
