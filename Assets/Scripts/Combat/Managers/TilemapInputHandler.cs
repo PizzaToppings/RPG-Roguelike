@@ -22,6 +22,7 @@ public class TilemapInputHandler : MonoBehaviour
     BoardManager boardManager;
     CharacterPlacementManager placementManager;
     BoardTile currentHoveredTile;
+    Enemy currentHoveredEnemy;
 
     public void CreateInstance()
     {
@@ -87,12 +88,33 @@ public class TilemapInputHandler : MonoBehaviour
         if (currentHoveredTile != null)
             currentHoveredTile.UnTarget();
 
+        // Clear enemy hover state when moving to a different tile
+        if (currentHoveredEnemy != null)
+        {
+            EnemyInfoPanelManager.Instance?.HidePanel();
+            boardManager.ClearEnemyThreatRange();
+            currentHoveredEnemy = null;
+        }
+
         currentHoveredTile = tile;
 
         if (currentHoveredTile != null)
         {
             BoardData.CurrentMouseTile = currentHoveredTile;
             currentHoveredTile.Target();
+
+            // If the tile has an enemy, show threat range and info panel (player turn only, not during skillshot aim)
+            if (currentHoveredTile.currentUnit is Enemy enemy)
+            {
+                bool isPlayerTurn = UnitData.ActiveUnit != null && UnitData.ActiveUnit.Friendly;
+                bool playerIsCastingSkillshot = UnitData.CurrentAction == CurrentActionKind.CastingSkillshot;
+                if (isPlayerTurn && !playerIsCastingSkillshot)
+                {
+                    currentHoveredEnemy = enemy;
+                    EnemyInfoPanelManager.Instance?.ShowPanel(enemy);
+                    boardManager.ShowEnemyThreatRange(enemy);
+                }
+            }
         }
         else
         {
@@ -115,6 +137,12 @@ public class TilemapInputHandler : MonoBehaviour
         {
             currentHoveredTile.UnTarget();
             currentHoveredTile = null;
+        }
+        if (currentHoveredEnemy != null)
+        {
+            EnemyInfoPanelManager.Instance?.HidePanel();
+            boardManager.ClearEnemyThreatRange();
+            currentHoveredEnemy = null;
         }
         BoardData.CurrentMouseTile = null;
     }

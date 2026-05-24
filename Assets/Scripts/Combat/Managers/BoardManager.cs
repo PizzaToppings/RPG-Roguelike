@@ -246,11 +246,19 @@ public class BoardManager : MonoBehaviour
     {
         ClearEnemyThreatRange();
 
-        // During placement phase, hide all placement colors so only enemy intent is visible
         var placementManager = CharacterPlacementManager.Instance;
         if (placementManager != null && placementManager.IsPlacementPhase)
         {
+            // During placement phase, hide placement colors so only threat is visible
             placementManager.HideAllPlacementColors();
+        }
+        else
+        {
+            // During combat, hide movement range so only threat is visible
+            if (BoardData.BoardTiles != null)
+                foreach (var tile in BoardData.BoardTiles)
+                    if (tile != null && tile.movementLeft > -1f)
+                        tile.OverrideColor(originalColor);
         }
 
         var aiEnemy = enemy as EnemyBaseAI;
@@ -264,32 +272,32 @@ public class BoardManager : MonoBehaviour
 
     public void ClearEnemyThreatRange()
     {
-        // Check if we're in placement phase
         var placementManager = CharacterPlacementManager.Instance;
         bool inPlacementPhase = placementManager != null && placementManager.IsPlacementPhase;
-        
+
         foreach (var tile in _threatRangeTiles)
         {
-            // During placement phase, clear to original (all placement colors will be restored below)
-            if (inPlacementPhase)
-            {
-                tile.OverrideColor(originalColor);
-            }
-            // Normal combat behavior - restore movement color only if tile is in range
-            else if (tile.movementLeft > -1f)
-                tile.OverrideColor(MovementColor);
-            else
-                tile.OverrideColor(originalColor);
-
+            tile.OverrideColor(originalColor);
             if (tile.hasTileEffect)
                 tile.SetColor(tile.tileEffectColor);
         }
         _threatRangeTiles.Clear();
 
-        // During placement phase, restore all placement colors
         if (inPlacementPhase)
         {
             placementManager.RestoreAllPlacementColors();
+        }
+        else
+        {
+            // Restore movement range colors for all movement tiles
+            if (BoardData.BoardTiles != null)
+                foreach (var tile in BoardData.BoardTiles)
+                {
+                    if (tile == null || tile.movementLeft <= -1f) continue;
+                    tile.OverrideColor(MovementColor);
+                    if (tile.hasTileEffect)
+                        tile.SetColor(tile.tileEffectColor);
+                }
         }
     }
 
