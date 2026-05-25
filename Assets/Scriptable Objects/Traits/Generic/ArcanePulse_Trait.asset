@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a77b3c0f07e2d94888bae7c760eb9be, type: 3}
   m_Name: ArcanePulse_Trait
   m_EditorClassIdentifier: 
-  TraitName: Void Pulse
+  TraitName: Arcane Pulse
   Image: {fileID: 0}
   classes: 
   Rarity: 1

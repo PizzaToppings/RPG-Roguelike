@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
+  m_Name: Barrier_0_Main
+  m_EditorClassIdentifier: 
+  SkillName: Barrier
+  Image: {fileID: 0}
+  IsBasic: 1
+  IsConsumable: 0
+  IsMagical: 1
+  SkillCombatStyle: 2
+  Classes: 
+  Description: Give yourself or an Ally 2 Shield and +1 Magical Defense for 1 turn.
+  SkillPartGroups:
+  - CastOnTile: 0
+    CastOnTarget: 0
+    skillParts:
+    - {fileID: 11400000, guid: 879a28c32f9049e499e8511b96e66319, type: 2}
+  EnergyCost: 1
+  DefaultCharges: 1
+  Cursor: 0
+  castLockColor:
+    FillCenter: 0
+    Kind: 0
+    Priority: 10

@@ -19,10 +19,10 @@ MonoBehaviour:
   MaxEnergy: 3
   MoveSpeed: 5
   Initiative: 0
-  PhysicalPower: 1
-  MagicalPower: 3
+  PhysicalPower: 2
+  MagicalPower: 2
   PhysicalDefense: 1
   MagicalDefense: 2
   basicAttack: {fileID: 11400000, guid: aa3a0b20f18280244b6c42a9ec9b49c7, type: 2}
   basicSkill: {fileID: 11400000, guid: 834a3c53baf1f2d45b4440f564f05d38, type: 2}
-  BasicTrait: {fileID: 11400000, guid: b71fd203f154702488e90757df947651, type: 2}
+  BasicTrait: {fileID: 11400000, guid: 339e1145451b4b846a76d471c63097ff, type: 2}
