@@ -22,6 +22,19 @@ public class SO_TargetBoardtileSkill : SO_Skillpart
 
         if (PartData.TilesHit.Contains(mouseOverTile) && HasDuplicateTile(mouseOverTile) == false)
         {
+            if (mouseOverTile.currentUnit != null)
+            {
+                bool isAlly = mouseOverTile.currentUnit.Friendly == SkillData.Caster.Friendly;
+                if ((TargetKind == TargetKindEnum.Allies && !isAlly) ||
+                    (TargetKind == TargetKindEnum.Enemies && isAlly))
+                {
+                    RotateCaster(InputManager.Instance.GetMousePosition());
+                    PartData.TilesHit.Clear();
+                    PartData.CanCast = false;
+                    return this;
+                }
+            }
+
             PartData.TilesHit.Clear();
             mouseOverTile.SetColor(SelectedTileColor);
 

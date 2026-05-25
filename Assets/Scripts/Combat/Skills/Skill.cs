@@ -28,11 +28,7 @@ public class Skill
         SkillPartGroups = new List<SkillPartGroup>(skillSO.SkillPartGroups.Count);
         foreach (var spg in skillSO.SkillPartGroups)
         {
-            var runtimeGroup = new SkillPartGroup
-            {
-                CastOnTile   = spg.CastOnTile,
-                CastOnTarget = spg.CastOnTarget
-            };
+            var runtimeGroup = new SkillPartGroup();
             foreach (var sp in spg.skillParts)
             {
                 var instance = UnityEngine.Object.Instantiate(sp);

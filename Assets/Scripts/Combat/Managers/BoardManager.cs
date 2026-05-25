@@ -470,10 +470,7 @@ public class BoardManager : MonoBehaviour
         var friendly = UnitData.ActiveUnit.Friendly;
 
         if (data.TargetKind == TargetKindEnum.Allies)
-        {
-            if (target.Friendly == friendly)
-                return true;
-        }
+            return target.Friendly == friendly;
 
         if (data.TargetKind == TargetKindEnum.All)
             return true;

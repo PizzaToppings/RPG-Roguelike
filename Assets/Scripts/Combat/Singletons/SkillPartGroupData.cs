@@ -4,8 +4,8 @@ public class SkillPartGroupData
 {
     public List<SkillPartData> SkillPartDatas = new List<SkillPartData>();
     public int GroupIndex;
-    public bool CastOnTile = false;
-    public bool CastOnTarget = false;
+    public bool CastOnTile;
+    public bool CastOnTarget;
 
     public void Reset()
 	{

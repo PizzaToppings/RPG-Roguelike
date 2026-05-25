@@ -243,8 +243,9 @@ public class Character : Unit
         {
             var spg = skill.SkillPartGroups[i];
             var skillPartGroupData = new SkillPartGroupData();
-            skillPartGroupData.CastOnTile = spg.CastOnTile;
-            skillPartGroupData.CastOnTarget = spg.CastOnTarget;
+            var firstPart = spg.skillParts.Count > 0 ? spg.skillParts[0] : null;
+            skillPartGroupData.CastOnTile   = firstPart is SO_TargetBoardtileSkill;
+            skillPartGroupData.CastOnTarget = firstPart is SO_TargetUnitSkill;
             skillPartGroupData.GroupIndex = i;
             SkillData.SkillPartGroupDatas.Add(skillPartGroupData);
 
