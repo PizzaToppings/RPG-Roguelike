@@ -289,15 +289,20 @@ public class BoardManager : MonoBehaviour
         }
         else
         {
-            // Restore movement range colors for all movement tiles
-            if (BoardData.BoardTiles != null)
-                foreach (var tile in BoardData.BoardTiles)
-                {
-                    if (tile == null || tile.movementLeft <= -1f) continue;
-                    tile.OverrideColor(MovementColor);
-                    if (tile.hasTileEffect)
-                        tile.SetColor(tile.tileEffectColor);
-                }
+            bool playerIsCastingSkillshot = UnitData.CurrentAction == CurrentActionKind.CastingSkillshot
+                                            && UnitData.ActiveUnit != null && UnitData.ActiveUnit.Friendly;
+            if (!playerIsCastingSkillshot)
+            {
+                // Restore movement range colors for all movement tiles
+                if (BoardData.BoardTiles != null)
+                    foreach (var tile in BoardData.BoardTiles)
+                    {
+                        if (tile == null || tile.movementLeft <= -1f) continue;
+                        tile.OverrideColor(MovementColor);
+                        if (tile.hasTileEffect)
+                            tile.SetColor(tile.tileEffectColor);
+                    }
+            }
         }
     }
 
