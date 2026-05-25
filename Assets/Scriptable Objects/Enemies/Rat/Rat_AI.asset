@@ -31,11 +31,11 @@ MonoBehaviour:
     Chance: 66
     MaxConsecutiveUses: 2
     ForcedNextSkillIndex: 0
-  - SkillName: Bite
+  - SkillName: Power Up
     Skill: {fileID: 11400000, guid: b35738fa9af468c4e9f17a3a12a5de39, type: 2}
-    IntentAction: 1
-    TargetPreference: 1
-    OptimalRange: 0
+    IntentAction: 6
+    TargetPreference: 0
+    OptimalRange: 1
     Chance: 33
     MaxConsecutiveUses: 1
     ForcedNextSkillIndex: 0

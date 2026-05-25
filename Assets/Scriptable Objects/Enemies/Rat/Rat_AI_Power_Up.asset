@@ -25,14 +25,15 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX: []
   DamageEffects: []
-  MinRange: 0
-  MaxRange: 0
+  MinRange: 1
+  MaxRange: 5
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
@@ -40,5 +41,56 @@ MonoBehaviour:
   PreventDuplicateTargets: []
   StatusEffects: []
   tileEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect:
+    UseDisplacement: 0
+    DisplacementType: 0
+    Unit: {fileID: 0}
+    TargetPosition: {fileID: 0}
+    Delay: 0
+    SpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Speed: 1
+    Offset: 0
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Height: 1
+    Duration: 0
+    UseDuration: 0
+    StartVFX: {fileID: 0}
+    EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}

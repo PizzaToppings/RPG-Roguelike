@@ -564,7 +564,7 @@ MonoBehaviour:
   intentActionImage: {fileID: 5353038781562069903}
   intentTargetImage: {fileID: 3303821808864015332}
   intentDamageText: {fileID: 6272235037660992526}
-  attackRangeText: {fileID: 0}
+  attackRangeText: {fileID: 6442270091126583526}
   orderText: {fileID: 9015366740032193221}
   damagePreviewParent: {fileID: 3097810527776616114}
   damagePreviewText: {fileID: 617631707138421557}
