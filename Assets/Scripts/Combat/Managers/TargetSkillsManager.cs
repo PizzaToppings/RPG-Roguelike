@@ -187,7 +187,7 @@ public class TargetSkillsManager : MonoBehaviour
         {
             for (int i = 0; i < skillPartIndex; i++)
             {
-                unitsToDisplace.AddRange(SkillData.GetPreviousTargetsHit(i));
+                unitsToDisplace.AddRange(SkillData.GetCurrentTargetsHit(i));
             }
         }
 
