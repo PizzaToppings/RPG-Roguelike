@@ -195,6 +195,7 @@ public class BoardTile : MonoBehaviour
             boardManager.VisualClear();
             skillVFXManager.EndProjectileLine();
             SkillData.CurrentActiveSkill.Preview(null, UnitData.ActiveUnit);
+            DisplacementPreviewManager.Instance?.ShowDisplacementPreviews(SkillData.CurrentActiveSkill);
         }
     }
 

@@ -33,6 +33,9 @@ public class DisplacementPreviewManager : MonoBehaviour
             if (skillPart.displacementEffect == null || !skillPart.displacementEffect.UseDisplacement)
                 continue;
 
+            if (skillPart.PartData == null || !skillPart.PartData.CanCast)
+                continue;
+
             var unitsToDisplace = skillPart.displacementEffect.Unit?.PartData?.TargetsHit;
             var targetTiles = skillPart.displacementEffect.TargetPosition?.PartData?.TilesHit;
 
