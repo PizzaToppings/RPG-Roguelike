@@ -21,9 +21,7 @@ MonoBehaviour:
   Classes: 
   Description: Deal <damage0-0-0> to an enemy and push them back 2 tiles.
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 0
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: cffe326e213434348b11e8c06b7e4b81, type: 2}
     - {fileID: 11400000, guid: 31443a20fb54b1b4d918f1a6f1db8573, type: 2}
   EnergyCost: 1

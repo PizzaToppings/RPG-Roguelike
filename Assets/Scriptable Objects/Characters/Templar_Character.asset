@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad7ca051d6bbdcc47b663f45fad4bb1d, type: 3}
-  m_Name: ArcaneWarden_Character
+  m_Name: Templar_Character
   m_EditorClassIdentifier: 
-  Name: Arcane Warden
-  Image: {fileID: 21300000, guid: 69276c7f59ff3bd43b13d00abba90b7a, type: 3}
-  Classes: 0500000004000000
-  MaxHealth: 32
+  Name: Templar
+  Image: {fileID: 21300000, guid: 6eb1801ba410a664b87794efd02a10ad, type: 3}
+  Classes: 0400000008000000
+  MaxHealth: 35
   MaxEnergy: 3
   MoveSpeed: 3
   Initiative: 0
   PhysicalPower: 1
   MagicalPower: 2
-  PhysicalDefense: 2
+  PhysicalDefense: 3
   MagicalDefense: 3
-  basicAttack: {fileID: 11400000, guid: 2d37b36a932ea5642bb5ec5669845e4d, type: 2}
-  basicSkill: {fileID: 11400000, guid: 1590bbbafbe7b8f49a532ef89d2c61ea, type: 2}
-  BasicTrait: {fileID: 11400000, guid: 204f8769c30ec7041ad086848b59a84f, type: 2}
+  basicAttack: {fileID: 11400000, guid: 9c101cec80b2c634ab72a2550d2c5662, type: 2}
+  basicSkill: {fileID: 11400000, guid: 2a8ed4849451d3d4d823caa282f1b5d4, type: 2}
+  BasicTrait: {fileID: 11400000, guid: d0d8c1e818802194d8629275436f55b4, type: 2}

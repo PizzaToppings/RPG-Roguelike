@@ -10,20 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: Barrier_0_Main
+  m_Name: HolyRadiance_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Barrier
+  SkillName: Holy Radiance
   Image: {fileID: 0}
   IsBasic: 1
   IsConsumable: 0
   IsMagical: 1
   SkillCombatStyle: 2
   Classes: 
-  Description: Give yourself or an Ally 2 Shield and +1 Magical Defense for 1 turn.
+  Description: Heal all allies within 3 range for 1 and deal <damage0-0-0> to all
+    enemies.
   SkillPartGroups:
   - skillParts:
-    - {fileID: 11400000, guid: 879a28c32f9049e499e8511b96e66319, type: 2}
-  EnergyCost: 1
+    - {fileID: 11400000, guid: 782a77eac0c1af44e8045b35d9637fa0, type: 2}
+    - {fileID: 11400000, guid: 5c8ea341e32cdb7469ad4354fcacf416, type: 2}
+    - {fileID: 11400000, guid: 9306d6262eefb944f9dfae168071d66c, type: 2}
+  EnergyCost: 2
   DefaultCharges: 1
   Cursor: 0
   castLockColor:

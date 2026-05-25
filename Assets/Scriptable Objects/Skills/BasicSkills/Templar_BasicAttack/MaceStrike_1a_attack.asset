@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
-  m_Name: ForceBash_1b_Push
+  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
+  m_Name: MaceStrike_1a_attack
   m_EditorClassIdentifier: 
-  OriginTileKind: 2
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
   TargetTileKind: 0
   TargetTileSkillParts: []
-  DirectionAnchor: 2
+  DirectionAnchor: 0
   DirectionAnchorSkillPart: {fileID: 0}
-  DirectionInput: 1
+  DirectionInput: 0
   DirectionInputSkillPart: {fileID: 0}
   TargetKind: 0
   tileColor:
@@ -29,23 +29,30 @@ MonoBehaviour:
     Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  DashOnDamageOrEffect: 0
+  DashOnDamageOrEffect: 1
   SkillVFX: []
-  DamageEffects: []
-  MinRange: 0
-  MaxRange: 2
+  DamageEffects:
+  - Caster: {fileID: 0}
+    IsMagical: 0
+    Modifiers: []
+    Prerequisites: []
+    HitType: 0
+    Power: 3
+  MinRange: 1
+  MaxRange: 1.5
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 11400000, guid: 743322ca190ff454498d36519288173b, type: 2}
   tileEffects: []
   displacementEffect:
-    UseDisplacement: 1
-    DisplacementType: 1
-    Unit: {fileID: 11400000, guid: cffe326e213434348b11e8c06b7e4b81, type: 2}
-    TargetPosition: {fileID: 11400000}
+    UseDisplacement: 0
+    DisplacementType: 0
+    Unit: {fileID: 0}
+    TargetPosition: {fileID: 0}
     Delay: 0
     SpeedCurve:
       serializedVersion: 2
@@ -71,7 +78,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    Speed: 2
+    Speed: 1
     Offset: 0
     HeightCurve:
       serializedVersion: 2
@@ -94,10 +101,8 @@ MonoBehaviour:
     StartVFX: {fileID: 0}
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Angles: 04000000
-  PierceAmount: 0
-  GetLastTileOnly: 1
-  endColor:
-    FillCenter: 0
-    Kind: 0
-    Priority: 10
+  SelectedTargetTileColor:
+    FillCenter: 1
+    Kind: 4
+    Priority: 4
+  CanTargetSelf: 0

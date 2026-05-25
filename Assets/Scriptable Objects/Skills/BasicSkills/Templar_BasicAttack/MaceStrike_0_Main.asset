@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: Barrier_0_Main
+  m_Name: MaceStrike_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Barrier
+  SkillName: Mace Strike
   Image: {fileID: 0}
   IsBasic: 1
   IsConsumable: 0
-  IsMagical: 1
+  IsMagical: 0
   SkillCombatStyle: 2
   Classes: 
-  Description: Give yourself or an Ally 2 Shield and +1 Magical Defense for 1 turn.
+  Description: Strike an enemy for <damage0-0-0> and reduce their Physical Power
+    by 1 for one turn.
   SkillPartGroups:
   - skillParts:
-    - {fileID: 11400000, guid: 879a28c32f9049e499e8511b96e66319, type: 2}
+    - {fileID: 11400000, guid: a508a79c4f7753841bbd79a0db4d47be, type: 2}
   EnergyCost: 1
   DefaultCharges: 1
   Cursor: 0

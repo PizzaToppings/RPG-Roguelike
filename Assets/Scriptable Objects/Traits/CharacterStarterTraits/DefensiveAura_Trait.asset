@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2bd68caff89d6243a147f7947e1ef38, type: 3}
-  m_Name: DefensiveAura_Trinket
+  m_Name: DefensiveAura_Trait
   m_EditorClassIdentifier: 
   TraitName: Defensive Aura
   Image: {fileID: 0}
@@ -18,4 +18,6 @@ MonoBehaviour:
   Rarity: 1
   Description: Give youself and all allies within 5 range for 1 Shield at the end
     of your turn.
-  Traits: []
+  Traits:
+  - {fileID: 11400000, guid: 57e7221dcbaf712479827715e8a4939e, type: 2}
+  - {fileID: 11400000, guid: 1cd59213e8a43944ab8d501c0d7a9a4e, type: 2}
