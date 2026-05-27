@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
-public class InitiativeInformation : MonoBehaviour
+public class InitiativeInformation : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image Background;
     public Image Border;
     public Image portrait;
-    public TextMeshProUGUI number;
 
     public Color FriendlyBackground;
     public Color FriendlyNumber;
@@ -19,24 +19,25 @@ public class InitiativeInformation : MonoBehaviour
 
     public int Initiative = 0;
 
+    [Tooltip("Assign the inner RectTransform that contains the visual content (child of this object). The layout group owns this object's root; we offset the content root instead so the layout is unaffected.")]
+    public RectTransform ContentRoot;
+    public float ActiveTurnOffset = -10f;
+
     public void Init(Unit unit, int index)
     {
         thisUnit = unit;
         if (unit.Friendly)
         {
             Background.color = FriendlyBackground;
-            if (number != null) number.color = FriendlyNumber;
         }
         else
         {
             Background.color = EnemyBackground;
-            if (number != null) number.color = EnemyNumber;
         }
 
         if (portrait != null && unit.modelSprite != null)
             portrait.sprite = unit.modelSprite.sprite;
 
-        if (number != null) number.text = (index + 1).ToString();
         Initiative = unit.Initiative;
     }
 
@@ -45,25 +46,36 @@ public class InitiativeInformation : MonoBehaviour
         if (thisUnit.Friendly)
         {
             Background.color = FriendlyBackground;
-            if (number != null) number.color = FriendlyNumber;
         }
         else
         {
             Background.color = EnemyBackground;
-            if (number != null) number.color = EnemyNumber;
         }
     }
 
-    public void SetNumber(int index)
+    public void ToggleHover(bool hovered)
     {
-        if (number != null) number.text = (index + 1).ToString();
+        if (Border == null) return;
+        Border.color = hovered ? Color.white : Color.black;
     }
 
-    public void ToggleActive(bool active)
+    public void SetActiveTurn(bool active)
     {
-        if (active)
-            Border.color = Color.white;
-        else
-            Border.color = Color.black;
+        if (ContentRoot == null) return;
+        var pos = ContentRoot.anchoredPosition;
+        pos.y = active ? ActiveTurnOffset : 0f;
+        ContentRoot.anchoredPosition = pos;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        ToggleHover(true);
+        InitiativeTracker.Instance?.OnInitiativeHoverEnter(thisUnit);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        ToggleHover(false);
+        InitiativeTracker.Instance?.OnInitiativeHoverExit(thisUnit);
     }
 }

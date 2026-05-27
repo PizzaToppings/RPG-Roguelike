@@ -237,6 +237,9 @@ public class CombatManager : MonoBehaviour
 
         placementPhaseEnabled = true;
 
+        // Build initiative order and populate the tracker before placement starts
+        SetInitiative();
+
         // If none configured, use all board tiles
         List<Vector2Int> placementTiles;
         
@@ -294,7 +297,6 @@ public class CombatManager : MonoBehaviour
             characterPlacementManager.OnPlacementConfirmed.RemoveListener(OnPlacementConfirmed);
 
         // Now start combat normally
-        SetInitiative();
         RoundStart();
         StartCoroutine(DelayedTurnStart());
     }

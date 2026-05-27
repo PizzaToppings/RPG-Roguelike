@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0dbf551fb3c7146a4d5bb926065435, type: 3}
   m_Name: BlindedStatus
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  statusEfectType: 1
-  duration: 3
+  statusEffectManager: {fileID: 0}
+  Buff: 0
+  StatusEffectType: 2
+  Stat: 0
+  Power: 0
+  Duration: 0
+  IsMagical: 0
+  Permanent: 0
+  DurationTrigger: 3
+  Description: 

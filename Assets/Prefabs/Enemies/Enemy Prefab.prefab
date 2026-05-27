@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 1952069041733000509}
   - component: {fileID: 5595880516625257107}
   - component: {fileID: 7056795764964822442}
+  - component: {fileID: -17714243656514444}
   m_Layer: 0
   m_Name: Enemy Prefab
   m_TagString: Untagged
@@ -147,8 +148,7 @@ MonoBehaviour:
   MagicalPower: 0
   PhysicalDefense: 0
   MagicalDefense: 0
-  Resistances: 
-  Vulnerabilities: 
+  CurrentCombatStyle: 0
   Tile: {fileID: 0}
   combatManager: {fileID: 0}
   boardManager: {fileID: 0}
@@ -160,6 +160,7 @@ MonoBehaviour:
   damageManager: {fileID: 0}
   uiManager: {fileID: 0}
   ui_Singletons: {fileID: 0}
+  displacementPreviewManager: {fileID: 0}
   OnUnitTurnStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -190,6 +191,7 @@ MonoBehaviour:
   MouseOver: 0
   enemySO: {fileID: 0}
   PossibleMovementTiles: []
+  encounterTurnOrder: 0
   OptimalTile: {fileID: 0}
   Target: {fileID: 0}
   CurrentSkill:
@@ -247,3 +249,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.58, y: 0.67}
   m_EdgeRadius: 0
+--- !u!114 &-17714243656514444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609752126696691879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b9259c019208a43a6c4a14eed32220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterialSource: {fileID: 2100000, guid: 97b6e2f04bc17a44f851912f2ebb68a9,
+    type: 2}
+  outlineColor: {r: 1, g: 0.39831346, b: 0, a: 1}
+  outlineThickness: 1.5

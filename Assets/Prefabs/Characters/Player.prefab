@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 2800989605365716491}
   - component: {fileID: 4139825279082712409}
   - component: {fileID: 2916476113277913133}
+  - component: {fileID: -6471569118534448862}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -148,8 +149,7 @@ MonoBehaviour:
   MagicalPower: 2
   PhysicalDefense: 2
   MagicalDefense: 1
-  Resistances: 
-  Vulnerabilities: 
+  CurrentCombatStyle: 0
   Tile: {fileID: 0}
   combatManager: {fileID: 0}
   boardManager: {fileID: 0}
@@ -161,6 +161,7 @@ MonoBehaviour:
   damageManager: {fileID: 0}
   uiManager: {fileID: 0}
   ui_Singletons: {fileID: 0}
+  displacementPreviewManager: {fileID: 0}
   OnUnitTurnStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -197,6 +198,9 @@ MonoBehaviour:
   basicSkillSO: {fileID: 0}
   skillsSO: []
   consumablesSO: []
+  OnSkillCastEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4139825279082712409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +214,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragAlpha: 0.7
-  dragOffset: {x: 0, y: 0, z: -1}
 --- !u!61 &2916476113277913133
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -257,3 +260,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6, y: 0.7}
   m_EdgeRadius: 0
+--- !u!114 &-6471569118534448862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623717467118256991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b9259c019208a43a6c4a14eed32220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterialSource: {fileID: 2100000, guid: 97b6e2f04bc17a44f851912f2ebb68a9,
+    type: 2}
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineThickness: 1.5
