@@ -38,7 +38,6 @@ public class CharacterSelectCard : MonoBehaviour
         classIconTwo.sprite = CharacterSelectUI.Instance.GetClassIcon(character.Classes[1]);
 
         SpeedText.text = character.MoveSpeed.ToString();
-        InitiativeText.text = character.Initiative.ToString();
         PhysicalPowerText.text = character.PhysicalPower.ToString();
         PhysicalDefenseText.text = character.PhysicalDefense.ToString();
         MagicalPowerText.text = character.MagicalPower.ToString();

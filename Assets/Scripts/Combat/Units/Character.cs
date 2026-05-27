@@ -153,11 +153,7 @@ public class Character : Unit
 
     public override void RollInitiative()
     {
-        var partyMember = partyMemberIndex < RunData.Party.Count ? RunData.Party[partyMemberIndex] : null;
-        if (partyMember != null)
-            Initiative = partyMember.Character.Initiative;
-        else
-            base.RollInitiative();
+        base.RollInitiative();
     }
 
     void UseSkills()

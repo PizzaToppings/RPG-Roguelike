@@ -10,7 +10,6 @@ public class SO_Enemy : ScriptableObject
     [Space]
     public int MaxHealth;
     public int MoveSpeed;
-    public int Initiative;
     public int PhysicalPower;
     public int MagicalPower;
     public int PhysicalDefense;

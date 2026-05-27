@@ -12,7 +12,6 @@ public class SO_Character : ScriptableObject
     public int MaxHealth;
     public int MaxEnergy;
     public int MoveSpeed;
-    public int Initiative;
     public int PhysicalPower;
     public int MagicalPower;
     public int PhysicalDefense;
