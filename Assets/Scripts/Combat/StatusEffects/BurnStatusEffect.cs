@@ -12,6 +12,7 @@ public class BurnStatusEffect : StatusEffect
         base.Apply();
 	
 		Target.OnUnitTurnEndEvent.AddListener(Burn);
+		SubscribeDurationTrigger();
 		Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Burn);
 	}
 
@@ -45,11 +46,6 @@ public class BurnStatusEffect : StatusEffect
 			damageData = damageManager.CalculateDamageData(damageEffect, target);
 			damageManager.DealDamage(damageData);
 		}
-
-		Duration--;
-
-		if (Duration == 0)
-			EndEffect();
 	}
 
 	public override void EndEffect()
@@ -58,5 +54,6 @@ public class BurnStatusEffect : StatusEffect
 		
 		Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Burn);
 		Target.OnUnitTurnEndEvent.RemoveListener(Burn);
+		UnsubscribeDurationTrigger();
 	}
 }

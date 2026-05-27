@@ -10,6 +10,7 @@ public class BleedStatusEffect : StatusEffect
         base.Apply();
 
 		Target.OnUnitTurnEndEvent.AddListener(Bleed);
+		SubscribeDurationTrigger();
 		Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Bleed);
 	}
 
@@ -25,11 +26,6 @@ public class BleedStatusEffect : StatusEffect
 
 		var damageData = damageManager.CalculateDamageData(damageEffect, Target);
 		damageManager.DealDamage(damageData);
-
-		Duration--;
-
-		if (Duration == 0)
-			EndEffect();
 	}
 
 	public override void EndEffect()
@@ -38,5 +34,6 @@ public class BleedStatusEffect : StatusEffect
 
 		Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Bleed);
 		Target.OnUnitTurnEndEvent.RemoveListener(Bleed);
+		UnsubscribeDurationTrigger();
 	}
 }

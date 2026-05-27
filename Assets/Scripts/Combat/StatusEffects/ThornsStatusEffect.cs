@@ -10,7 +10,7 @@ public class ThornsStatusEffect : StatusEffect
         base.Apply();
 
         Target.OnUnitTakeDamageEvent.AddListener(Thorns);
-        Target.OnUnitTurnEndEvent.AddListener(ReduceDuration);
+        SubscribeDurationTrigger();
         Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Thorns);
     }
 
@@ -37,5 +37,6 @@ public class ThornsStatusEffect : StatusEffect
 
         Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Thorns);
         Target.OnUnitTakeDamageEvent.RemoveListener(Thorns);
+        UnsubscribeDurationTrigger();
     }
 }

@@ -11,6 +11,7 @@ public class SO_StatusEffectEditor : Editor
     SerializedProperty duration;
     SerializedProperty isMagical;
     SerializedProperty permanent;
+    SerializedProperty durationTrigger;
     SerializedProperty description;
 
     void OnEnable()
@@ -22,12 +23,26 @@ public class SO_StatusEffectEditor : Editor
         duration         = serializedObject.FindProperty("Duration");
         isMagical        = serializedObject.FindProperty("IsMagical");
         permanent        = serializedObject.FindProperty("Permanent");
+        durationTrigger  = serializedObject.FindProperty("DurationTrigger");
         description      = serializedObject.FindProperty("Description");
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+
+        // Re-fetch any property that failed to resolve during OnEnable (e.g. on subclasses).
+        if (statusEffectType == null) statusEffectType = serializedObject.FindProperty("StatusEffectType");
+        if (damageType       == null) damageType       = serializedObject.FindProperty("DamageType");
+        if (stat             == null) stat             = serializedObject.FindProperty("Stat");
+        if (power            == null) power            = serializedObject.FindProperty("Power");
+        if (duration         == null) duration         = serializedObject.FindProperty("Duration");
+        if (isMagical        == null) isMagical        = serializedObject.FindProperty("IsMagical");
+        if (permanent        == null) permanent        = serializedObject.FindProperty("Permanent");
+        if (durationTrigger  == null) durationTrigger  = serializedObject.FindProperty("DurationTrigger");
+        if (description      == null) description      = serializedObject.FindProperty("Description");
+
+        if (statusEffectType == null || permanent == null) return;
 
         var type = (StatusEffectEnum)statusEffectType.enumValueIndex;
 
@@ -43,27 +58,30 @@ public class SO_StatusEffectEditor : Editor
 
         EditorGUILayout.PropertyField(statusEffectType);
 
-        if (hasPower)      EditorGUILayout.PropertyField(power);
-        if (hasDamageType) EditorGUILayout.PropertyField(damageType);
-        if (hasIsMagical)  EditorGUILayout.PropertyField(isMagical);
-        if (hasStat)       EditorGUILayout.PropertyField(stat);
+        if (hasPower      && power      != null) EditorGUILayout.PropertyField(power);
+        if (hasDamageType && damageType != null) EditorGUILayout.PropertyField(damageType);
+        if (hasIsMagical  && isMagical  != null) EditorGUILayout.PropertyField(isMagical);
+        if (hasStat       && stat       != null) EditorGUILayout.PropertyField(stat);
 
         EditorGUILayout.Space();
         EditorGUILayout.PropertyField(permanent);
         if (!permanent.boolValue)
-            EditorGUILayout.PropertyField(duration);
+        {
+            if (duration != null) EditorGUILayout.PropertyField(duration);
+            if (durationTrigger != null) EditorGUILayout.PropertyField(durationTrigger);
+        }
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Description Override", EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(description, GUIContent.none);
+        if (description != null) EditorGUILayout.PropertyField(description, GUIContent.none);
 
         var so = (SO_StatusEffect)serializedObject.targetObject;
-        if (string.IsNullOrEmpty(so.Description))
+        if (description == null || string.IsNullOrEmpty(so.Description))
         {
             string defaultDesc = StatusEffectDescriptions.GetDefault(
                 (StatusEffectEnum)statusEffectType.enumValueIndex,
-                (StatsEnum)stat.enumValueIndex,
-                power.intValue);
+                stat  != null ? (StatsEnum)stat.enumValueIndex : default,
+                power != null ? power.intValue : 0);
             if (!string.IsNullOrEmpty(defaultDesc))
                 EditorGUILayout.HelpBox($"Default: {defaultDesc}", MessageType.None);
         }

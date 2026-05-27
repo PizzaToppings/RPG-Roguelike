@@ -4,7 +4,6 @@ public class StatChangeEffect : StatusEffect
 {
     public StatsEnum Stat;
     public int Power;
-    public bool IsPermanent;
 
     public override void Apply()
     {
@@ -15,7 +14,7 @@ public class StatChangeEffect : StatusEffect
         healthCanvas.ShowStatusEffect(label, Target, IsBuff);
 
         ChangeStat();
-        Target.OnUnitTurnEndEvent.AddListener(ReduceDuration);
+        SubscribeDurationTrigger();
         //Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Thorns);
     }
 
@@ -83,5 +82,6 @@ public class StatChangeEffect : StatusEffect
         base.EndEffect();
 
         RemoveStat();
+        UnsubscribeDurationTrigger();
     }
 }

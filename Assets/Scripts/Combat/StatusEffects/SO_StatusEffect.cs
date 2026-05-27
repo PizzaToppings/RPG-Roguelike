@@ -12,6 +12,7 @@ public class SO_StatusEffect : ScriptableObject
     public int Duration;
     public bool IsMagical;
     public bool Permanent;
+    public TriggerMomentEnum DurationTrigger = TriggerMomentEnum.EndOfTurn;
 
     [TextArea(2, 5)]
     public string Description;

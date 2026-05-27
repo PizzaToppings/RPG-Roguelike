@@ -10,6 +10,7 @@ public class PoisonStatusEffect : StatusEffect
         base.Apply();
 		
 		Target.OnUnitTurnEndEvent.AddListener(Poison);
+		SubscribeDurationTrigger();
 		Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Poison);
 	}
 
@@ -25,11 +26,6 @@ public class PoisonStatusEffect : StatusEffect
 
 		var damageData = damageManager.CalculateDamageData(damageEffect, Target);
 		damageManager.DealDamage(damageData);
-
-		Duration--;
-
-		if (Duration == 0)
-			EndEffect();
 	}
 
 	public override void EndEffect()
@@ -38,5 +34,6 @@ public class PoisonStatusEffect : StatusEffect
 		
 		Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Poison);
 		Target.OnUnitTurnEndEvent.RemoveListener(Poison);
+		UnsubscribeDurationTrigger();
 	}
 }

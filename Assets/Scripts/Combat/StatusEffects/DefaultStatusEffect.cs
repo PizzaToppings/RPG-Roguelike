@@ -6,7 +6,7 @@ public class DefaultStatusEffect : StatusEffect
     {
         base.Apply();
 
-        Target.OnUnitTurnEndEvent.AddListener(ReduceDuration);
+        SubscribeDurationTrigger();
         Target.ThisHealthbar.AddStatusEffect(statusEfectType);
     }
 
@@ -15,6 +15,6 @@ public class DefaultStatusEffect : StatusEffect
         base.EndEffect();
 
         Target.ThisHealthbar.RemoveStatusEffect(statusEfectType);
-        Target.OnUnitTurnEndEvent.RemoveListener(ReduceDuration);
+        UnsubscribeDurationTrigger();
     }
 }

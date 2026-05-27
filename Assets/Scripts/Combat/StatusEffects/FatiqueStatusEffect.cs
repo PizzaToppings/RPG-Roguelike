@@ -9,6 +9,7 @@ public class FatiqueStatusEffect : StatusEffect
         base.Apply();
 
         Target.OnUnitTurnStartEvent.AddListener(BurnMana);
+        SubscribeDurationTrigger();
         Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Fatique);
     }
 
@@ -17,11 +18,6 @@ public class FatiqueStatusEffect : StatusEffect
         var character = Target as Character;
         character.Energy -= Power;
         character.ThisHealthbar.UpdateHealthbar();
-
-        Duration--;
-
-        if (Duration == 0)
-            EndEffect();
     }
 
     public override void EndEffect()
@@ -29,6 +25,7 @@ public class FatiqueStatusEffect : StatusEffect
         base.EndEffect();
 
         Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Fatique);
-        Target.OnUnitTurnStartEvent.RemoveListener(ReduceDuration);
+        Target.OnUnitTurnStartEvent.RemoveListener(BurnMana);
+        UnsubscribeDurationTrigger();
     }
 }
