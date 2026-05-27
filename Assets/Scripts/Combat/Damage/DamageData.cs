@@ -8,7 +8,7 @@ public class DamageData
     [HideInInspector] public bool IsMagical;
 
     public List<SkillModifier> Modifiers = new List<SkillModifier>();
-    public List<Prerequisite> Prerequisites = new List<Prerequisite>();
+    public List<SO_Prerequisite> Prerequisites = new List<SO_Prerequisite>();
     public HitTypeEnum HitType;
     public int Power;
 }

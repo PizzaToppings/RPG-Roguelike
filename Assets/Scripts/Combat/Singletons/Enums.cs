@@ -62,5 +62,6 @@ public enum TileTriggerEffectEnum { DealDamage, ApplyEffect }
 
 // Prerequisites
 public enum PrerequisiteUnitEnum { None, Target, Caster }
-public enum PrerequisiteConditionEnum { None, StatusEffect, Damage, DamagePercentage }
+public enum PrerequisiteConditionEnum { None, StatusEffect, Damage, DamagePercentage, AdjacentUnits, CombatStyle }
 public enum PrerequisiteOperatorsEnum { Equals, MoreThan, LessThen, MoreThanOrEqual, LessThenOrEqual, NotEquals }
+public enum PrerequisiteAdjacentFactionEnum { Any, Friendly, Enemy }
