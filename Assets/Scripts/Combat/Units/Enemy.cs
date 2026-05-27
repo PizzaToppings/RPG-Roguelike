@@ -12,6 +12,7 @@ public class Enemy : Unit
     [HideInInspector] public int encounterTurnOrder = 0; // Turn order index set by EncounterManager
 
     BoardTile closestTile;
+    BoardTile highlightedTargetTile; // Tile highlighted when showing enemy intent target
 
     public override void SetStats()
     {
@@ -100,6 +101,45 @@ public class Enemy : Unit
         {
             floatingHealthbar.ShowDamagePreview(SkillData.CurrentActiveSkill);
         }
+
+        // Show enemy intent: highlight target and show expected damage
+        if (this is EnemyBaseAI aiEnemy && aiEnemy.CurrentSkill != null)
+        {
+            // Determine the target based on the enemy's targeting preference
+            Unit predictedTarget = null;
+            if (UnitData.Characters != null && UnitData.Characters.Count > 0)
+            {
+                // Filter characters that are within the enemy's threat range
+                var maxRange = aiEnemy.CurrentSkill.OptimalRange + MoveSpeed;
+                var targetCandidates = UnitData.Characters
+                    .Where(c => c != null && c.Tile != null && 
+                           boardManager.GetRangeBetweenTiles(Tile, c.Tile) <= maxRange)
+                    .ToList();
+
+                if (targetCandidates.Count > 0)
+                {
+                    predictedTarget = aiEnemy.GetTargetPreference(aiEnemy.CurrentSkill.TargetPreference, targetCandidates);
+                }
+            }
+
+            if (predictedTarget != null)
+            {
+                // Highlight the target's tile
+                highlightedTargetTile = predictedTarget.Tile;
+                if (highlightedTargetTile != null)
+                {
+                    var targetColor = boardManager.GetTileColor(TileColorKind.EnemyIntent);
+                    targetColor.FillCenter = true; // Make it more visible
+                    highlightedTargetTile.SetColor(targetColor);
+                }
+
+                // Show damage preview on target's healthbar
+                if (predictedTarget.ThisHealthbar is FloatingHealthbar targetHealthbar)
+                {
+                    targetHealthbar.ShowDamagePreviewFromEnemy(aiEnemy);
+                }
+            }
+        }
     }
 
     public void TargetEnemy()
@@ -175,11 +215,37 @@ public class Enemy : Unit
         EnemyInfoPanelManager.Instance?.HidePanel();
         boardManager.ClearEnemyThreatRange();
 
-        // Hide damage prediction
+        // Hide damage prediction on this enemy (from player targeting)
         if (ThisHealthbar is FloatingHealthbar floatingHealthbar)
         {
             floatingHealthbar.HideDamagePreview();
         }
+
+        // Clear enemy intent visualization
+        if (highlightedTargetTile != null)
+        {
+            // Reset the target tile color
+            var originalColor = boardManager.GetTileColor(TileColorKind.Original);
+            highlightedTargetTile.OverrideColor(originalColor);
+            
+            // Reapply tile effect color if present
+            if (highlightedTargetTile.hasTileEffect && highlightedTargetTile.tileEffectColor != null)
+                highlightedTargetTile.SetColor(highlightedTargetTile.tileEffectColor);
+        }
+
+        // Hide damage preview on any character healthbars
+        if (this is EnemyBaseAI && UnitData.Characters != null)
+        {
+            foreach (var character in UnitData.Characters)
+            {
+                if (character?.ThisHealthbar is FloatingHealthbar targetHealthbar)
+                {
+                    targetHealthbar.HideDamagePreview();
+                }
+            }
+        }
+        
+        highlightedTargetTile = null;
     }
 
     public void UnTargetEnemy()

@@ -134,6 +134,7 @@ public class FloatingHealthbar : Healthbar
 
         // Calculate predicted damage from all damage effects in the active skill
         int totalPredictedDamage = 0;
+        bool hasDamageEffects = false;
         // IMPORTANT: Use the runtime Skill.SkillPartGroups for damage calculations
         var currentSpg = activeSkill.SkillPartGroups[SkillData.SkillPartGroupIndex];
 
@@ -155,6 +156,8 @@ public class FloatingHealthbar : Healthbar
                             damageData.HitType == HitTypeEnum.Shield)
                             continue;
 
+                        hasDamageEffects = true;
+
                         // Create a copy of the damage data with the correct caster
                         var damageDataCopy = new DamageData
                         {
@@ -174,11 +177,12 @@ public class FloatingHealthbar : Healthbar
             }
         }
 
-        // Only show if there's damage to display
-        if (totalPredictedDamage > 0)
+        // Only show damage preview if the skill actually has damaging effects
+        // (Show 0 if defense negates all damage, but don't show for healing/support skills)
+        if (hasDamageEffects)
         {
             damagePreviewParent.SetActive(true);
-            damagePreviewText.text = totalPredictedDamage.ToString();
+            damagePreviewText.text = Mathf.Max(0, totalPredictedDamage).ToString();
         }
         else
         {
@@ -190,6 +194,69 @@ public class FloatingHealthbar : Healthbar
     {
         if (damagePreviewParent != null)
             damagePreviewParent.SetActive(false);
+    }
+
+    /// <summary>
+    /// Shows damage preview based on an enemy's intent. Used when hovering over an enemy to see what damage they will deal.
+    /// </summary>
+    public void ShowDamagePreviewFromEnemy(EnemyBaseAI enemy)
+    {
+        if (damagePreviewParent == null || damagePreviewText == null || thisUnit == null || enemy == null)
+            return;
+
+        if (enemy.CurrentSkill?.Skill == null)
+        {
+            HideDamagePreview();
+            return;
+        }
+
+        // Calculate predicted damage from the enemy's skill
+        int totalPredictedDamage = 0;
+        var skillPart = enemy.CurrentSkill.Skill;
+        bool hasDamageEffects = false;
+
+        if (skillPart.DamageEffects != null)
+        {
+            foreach (var damageData in skillPart.DamageEffects)
+            {
+                if (damageData != null)
+                {
+                    // Skip healing and shield effects
+                    if (damageData.HitType == HitTypeEnum.Healing || 
+                        damageData.HitType == HitTypeEnum.Shield)
+                        continue;
+
+                    hasDamageEffects = true;
+
+                    // Create a copy of the damage data with the enemy as caster
+                    var damageDataCopy = new DamageData
+                    {
+                        Power = damageData.Power,
+                        HitType = damageData.HitType,
+                        IsMagical = damageData.IsMagical,
+                        Caster = enemy,
+                        Modifiers = damageData.Modifiers,
+                        Prerequisites = damageData.Prerequisites
+                    };
+
+                    // Calculate the damage using the DamageManager
+                    var calculatedDamage = damageManager.CalculateDamageData(damageDataCopy, thisUnit);
+                    totalPredictedDamage += calculatedDamage.Damage;
+                }
+            }
+        }
+
+        // Only show damage preview if the enemy actually has damaging effects
+        // (Show 0 if defense negates all damage, but don't show for healing/support skills)
+        if (hasDamageEffects)
+        {
+            damagePreviewParent.SetActive(true);
+            damagePreviewText.text = Mathf.Max(0, totalPredictedDamage).ToString();
+        }
+        else
+        {
+            HideDamagePreview();
+        }
     }
 
     void Update()
