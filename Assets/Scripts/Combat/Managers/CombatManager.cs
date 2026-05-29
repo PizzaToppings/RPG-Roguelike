@@ -166,8 +166,15 @@ public class CombatManager : MonoBehaviour
 
         UnitData.ActiveUnit = CurrentActiveUnit;
 
+        // Set the global action state depending on the active unit kind.
+        // If an enemy is active, enter EnemyTurn so systems can adjust input/visuals.
+        if (CurrentActiveUnit != null && CurrentActiveUnit.Friendly == false)
+            UnitData.CurrentAction = CurrentActionKind.EnemyTurn;
+        else
+            UnitData.CurrentAction = CurrentActionKind.Basic;
+
         StartCoroutine(cameraController.MoveToUnit(CurrentActiveUnit));
-		StartCoroutine(CurrentActiveUnit.StartTurn());
+        StartCoroutine(CurrentActiveUnit.StartTurn());
 
         uiManager.StartTurn(CurrentActiveUnit);
     }
@@ -237,6 +244,10 @@ public class CombatManager : MonoBehaviour
 
         placementPhaseEnabled = true;
 
+        // Enter placement mode: disable normal actions and enable placement interactions
+        UnitData.ActiveUnit = null;
+        UnitData.CurrentAction = CurrentActionKind.CharacterPlacement;
+
         // Build initiative order and populate the tracker before placement starts
         SetInitiative();
 
@@ -296,8 +307,11 @@ public class CombatManager : MonoBehaviour
         if (characterPlacementManager != null)
             characterPlacementManager.OnPlacementConfirmed.RemoveListener(OnPlacementConfirmed);
 
-        // Now start combat normally
+        // Reset input state and start combat normally
+        UnitData.CurrentAction = CurrentActionKind.Basic;
+
         RoundStart();
         StartCoroutine(DelayedTurnStart());
     }
+
 }

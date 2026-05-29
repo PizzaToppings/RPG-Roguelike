@@ -111,15 +111,15 @@ public class Character : Unit
         }
     }
 
-    public override void OnMouseEnter()
+    public override void MouseEnter()
     {
-        base.OnMouseEnter();
+        base.MouseEnter();
         CharacterInfoPanelManager.Instance?.ShowPanel(this);
     }
 
-    public override void OnMouseExit()
+    public override void MouseExit()
     {
-        base.OnMouseExit();
+        base.MouseExit();
         CharacterInfoPanelManager.Instance?.HidePanel();
     }
 
@@ -143,17 +143,6 @@ public class Character : Unit
             MaxHitpoints += partyMember.BonusMaxHitpoints;
             MaxEnergy    += partyMember.BonusMaxEnergy;
         }
-        else
-        {
-            if (characterSO != null)
-                UnitName = characterSO.Name;
-            base.SetStats(); // fallback: direct scene testing without RunManager
-        }
-    }
-
-    public override void RollInitiative()
-    {
-        base.RollInitiative();
     }
 
     void UseSkills()
@@ -267,7 +256,7 @@ public class Character : Unit
             return;
 
         boardManager.Clear();
-        ui_Singletons.SetCursor(CursorType.Normal);
+        //ui_Singletons.SetCursor(CursorType.Normal);
         uiManager.SetActiveSkillBorder(null);
         UnitData.CurrentAction = CurrentActionKind.Basic;
 
@@ -370,6 +359,7 @@ public class Character : Unit
 
         UnitData.CurrentAction = CurrentActionKind.Basic;
 
+        // if movement is available, trigger current tile
         if (UnitData.ActiveUnit.Friendly && BoardData.CurrentMouseTile != null)
             BoardData.CurrentMouseTile.Target();
     }

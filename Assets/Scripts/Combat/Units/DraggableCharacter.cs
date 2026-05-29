@@ -53,7 +53,7 @@ public class DraggableCharacter : MonoBehaviour
             InitializeManagers();
             
         // Only allow dragging during placement phase
-        if (!initialized || placementManager == null || !placementManager.IsPlacementPhase)
+        if (!initialized || UnitData.CurrentAction != CurrentActionKind.CharacterPlacement)
             return;
 
         HandleDragging();

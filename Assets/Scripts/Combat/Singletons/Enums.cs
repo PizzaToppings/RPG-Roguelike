@@ -6,7 +6,7 @@ public enum EncounterTierEnum { Normal, Elite, Boss }
 public enum ProgressionStep { SelectCharacter, SelectSkill, SelectTrait, Combat, EliteCombat, Boss, RestZone, Shop, Event, TreasureRoom }
 
 // States
-public enum CurrentActionKind { None, Basic, CastingSkillshot, Animating };
+public enum CurrentActionKind { None, Basic, CastingSkillshot, Animating, EnemyTurn, CharacterPlacement };
 public enum GameState { StartOfGame, StartOfRound, StartOfTurn, EndOfTurn, EndOfRound, EndOfGame}
 
 

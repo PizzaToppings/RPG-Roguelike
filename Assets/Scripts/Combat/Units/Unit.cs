@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,6 +17,8 @@ public class Unit : UnitStats
     [HideInInspector] public UIManager uiManager;
     [HideInInspector] public UI_Singletons ui_Singletons;
     [HideInInspector] public DisplacementPreviewManager displacementPreviewManager;
+    UnitHighlighter highlighter;
+
 
     [HideInInspector] public UnityEvent OnUnitTurnStartEvent = new UnityEvent();
     [HideInInspector] public UnityEvent OnUnitTurnEndEvent = new UnityEvent();
@@ -38,9 +41,6 @@ public class Unit : UnitStats
     public int startXPosition = 0;
     public int startYPosition = 0;
 
-    public bool MouseOver;
-
-
     public virtual void Init()
     {
         combatManager = CombatManager.Instance;
@@ -58,41 +58,48 @@ public class Unit : UnitStats
         modelSprite   = GetComponentInChildren<SpriteRenderer>();
         modelAnimator = GetComponentInChildren<Animator>();
 
+        highlighter = GetComponentInChildren<UnitHighlighter>();
+
         SetStats();
-        RollInitiative();
     }
 
     public virtual void Update()
     {
     }
 
-    public virtual void OnMouseEnter()
+    public virtual void MouseEnter()
     {
+        Tile.Target();
     }
 
-    public virtual void OnMouseDown()
+    public virtual void MouseDown()
     {
+        Tile.OnClick();
     }
 
-    public virtual void OnMouseExit()
+    public virtual void MouseExit()
     {
         Tile.UnTarget();
     }
 
+    // MouseDown will call Onclick through the tile onclick
     public virtual void OnClick()
 	{
 	}
 
-    public virtual void SetStats()
+    // MouseEnter will call Target through the tile MouseEnter
+    public virtual void Target()
     {
-        MoveSpeed = Random.Range(5, 15);
+        highlighter.SetHighlight(true);
     }
 
-    public virtual void RollInitiative() // Move to a manager?
+    public virtual void Untarget()
     {
-        // Initiative is now set by CombatManager based on turn order configuration
-        // This method is kept for compatibility but does nothing
-        Initiative = 0;
+        highlighter.SetHighlight(false);
+    }
+
+    public virtual void SetStats()
+    {
     }
 
     public IEnumerator Move(List<BoardTile> path)
@@ -330,7 +337,7 @@ public class Unit : UnitStats
         boardManager.Clear();
         SetStartOfTurnStats();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
         if (OnUnitTurnStartEvent != null)
             OnUnitTurnStartEvent.Invoke();

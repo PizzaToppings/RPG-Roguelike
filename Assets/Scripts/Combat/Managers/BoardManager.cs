@@ -247,7 +247,7 @@ public class BoardManager : MonoBehaviour
         ClearEnemyThreatRange();
 
         var placementManager = CharacterPlacementManager.Instance;
-        if (placementManager != null && placementManager.IsPlacementPhase)
+        if (UnitData.CurrentAction == CurrentActionKind.CharacterPlacement)
         {
             // During placement phase, hide placement colors so only threat is visible
             placementManager.HideAllPlacementColors();
@@ -273,7 +273,6 @@ public class BoardManager : MonoBehaviour
     public void ClearEnemyThreatRange()
     {
         var placementManager = CharacterPlacementManager.Instance;
-        bool inPlacementPhase = placementManager != null && placementManager.IsPlacementPhase;
 
         foreach (var tile in _threatRangeTiles)
         {
@@ -283,15 +282,13 @@ public class BoardManager : MonoBehaviour
         }
         _threatRangeTiles.Clear();
 
-        if (inPlacementPhase)
+        if (UnitData.CurrentAction == CurrentActionKind.CharacterPlacement)
         {
             placementManager.RestoreAllPlacementColors();
         }
         else
         {
-            bool playerIsCastingSkillshot = UnitData.CurrentAction == CurrentActionKind.CastingSkillshot
-                                            && UnitData.ActiveUnit != null && UnitData.ActiveUnit.Friendly;
-            if (!playerIsCastingSkillshot)
+            if (UnitData.CurrentAction == CurrentActionKind.Basic)
             {
                 // Restore movement range colors for all movement tiles
                 if (BoardData.BoardTiles != null)
@@ -560,13 +557,4 @@ public class BoardManager : MonoBehaviour
 
         yield return StartCoroutine(UnitData.ActiveUnit.Move(Path));
     }
-   
-
-    public IEnumerator DeselectCurrentMouseTile(BoardTile tile)
-	{
-        yield return new WaitForSeconds(0.1f);
-
-        if (BoardData.CurrentMouseTile == tile)
-            BoardData.CurrentMouseTile = null;
-	}
 }

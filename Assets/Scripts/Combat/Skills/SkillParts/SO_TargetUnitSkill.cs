@@ -21,7 +21,7 @@ public class SO_TargetUnitSkill : SO_Skillpart
         TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
         targetSkillsManager.GetAOE(this);
 
-		var target = PartData.TargetsHit.Find(x => x.IsTargeted);
+		var target = PartData.TargetsHit.Find(x => x.IsTargetForSkill);
 
 		if (HasDuplicateTarget(target))
 			target = null;

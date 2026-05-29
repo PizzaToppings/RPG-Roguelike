@@ -63,20 +63,17 @@ public class BoardTile : MonoBehaviour
 
     public void Target()
     {
+        BoardData.CurrentMouseTile = this;
+
+        if (currentUnit != null)
+        {
+            currentUnit.Target();
+        }
+
         if (!CombatData.IsReady || UnitData.ActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
             return;
 
-        if (currentUnit != null && SkillData.CastOnTarget && UnitData.CurrentAction == CurrentActionKind.Basic)
-		{
-            currentUnit.IsTargeted = true;
-
-            if (currentUnit is Enemy)
-			{
-				(currentUnit as Enemy).TargetEnemy();
-			}
-			return;
-		}
-
+        // show movement line if we are in movement mode and have movement left
         if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
         {
             boardManager.Path = new List<BoardTile>();
@@ -89,7 +86,7 @@ public class BoardTile : MonoBehaviour
             if (currentUnit == null)
                 return;
 
-            currentUnit.IsTargeted = true;
+            currentUnit.IsTargetForSkill = true;
             UnitData.ActiveUnit.PreviewSkills(this);
         }
 
@@ -100,31 +97,7 @@ public class BoardTile : MonoBehaviour
             var attackRange = skillsManager.GetSkillAttackRange();
             if (attackRange == 0)
                 return;
-
-
-            //var tilesInAttackRange = boardManager.GetTilesInAttackRange(this, attackRange, true);
-            //if (tilesInAttackRange != null)
-            //    TargetSkill(tilesInAttackRange, attackRange);
         }
-    }
-
-    void TargetSkill(List<BoardTile> tilesInAttackRange)
-    {
-        var closestTile = this;
-        var skill = SkillData.CurrentActiveSkill;
-
-        if (tilesInAttackRange.Any(x => x.currentUnit == UnitData.ActiveUnit) == false)
-        {
-            closestTile = tilesInAttackRange.FirstOrDefault();
-
-            boardManager.VisualClear();
-			SkillData.CurrentActiveSkill.Preview(this, UnitData.ActiveUnit, closestTile);
-            closestTile.PreviewAttackWithinRange();
-		}
-
-        skill.SetTargetAndTile(currentUnit, this);
-
-        ui_Singletons.SetCursor(SkillData.CurrentActiveSkill.mainSkillSO.Cursor);
     }
 
     public void PreviewAttackWithinRange()
@@ -160,11 +133,14 @@ public class BoardTile : MonoBehaviour
 
     public void UnTarget()
     {
-         StartCoroutine(boardManager.DeselectCurrentMouseTile(this));
+        if (currentUnit != null)
+        {
+            currentUnit.Untarget();
+        }
 
 		if (currentUnit != null)
 		{
-            currentUnit.IsTargeted = false;
+            currentUnit.IsTargetForSkill = false;
 
             if (currentUnit is Enemy)
             {

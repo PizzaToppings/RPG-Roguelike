@@ -6,9 +6,12 @@ using UnityEngine;
 /// forwards Unity mouse events to the parent Unit component so existing
 /// OnMouseXXX handlers continue to work.
 /// </summary>
+/// 
 [RequireComponent(typeof(PolygonCollider2D))]
 public class UnitMouseProxy : MonoBehaviour
 {
+    public static Unit IsMouseOverUnit = null;
+
     Unit cachedUnit;
 
     Unit GetUnit()
@@ -21,22 +24,27 @@ public class UnitMouseProxy : MonoBehaviour
     void OnMouseEnter()
     {
         var unit = GetUnit();
+        IsMouseOverUnit = unit;
         if (unit != null)
-            unit.OnMouseEnter();
+            unit.MouseEnter();
     }
 
     void OnMouseExit()
     {
         var unit = GetUnit();
+        if (unit == IsMouseOverUnit)
+        {
+            IsMouseOverUnit = null;
+        }
         if (unit != null)
-            unit.OnMouseExit();
+            unit.MouseExit();
     }
 
     void OnMouseDown()
     {
         var unit = GetUnit();
         if (unit != null)
-            unit.OnMouseDown();
+            unit.MouseDown();
     }
 
     void OnMouseUp()

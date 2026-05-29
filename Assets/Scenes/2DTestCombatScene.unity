@@ -4782,7 +4782,6 @@ MonoBehaviour:
     FillCenter: 1
     Kind: 2
     Priority: 5
-  IsPlacementPhase: 0
   AvailablePlacementTiles: []
   OnPlacementConfirmed:
     m_PersistentCalls:

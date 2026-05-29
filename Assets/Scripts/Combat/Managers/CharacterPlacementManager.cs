@@ -16,7 +16,7 @@ public class CharacterPlacementManager : MonoBehaviour
 
     BoardManager boardManager;
 
-    [HideInInspector] public bool IsPlacementPhase = false;
+    //[HideInInspector] public bool IsPlacementPhase = false;
     [HideInInspector] public List<Vector2Int> AvailablePlacementTiles = new List<Vector2Int>();
     [HideInInspector] public UnityEvent OnPlacementConfirmed = new UnityEvent();
 
@@ -38,7 +38,7 @@ public class CharacterPlacementManager : MonoBehaviour
     /// </summary>
     public void StartPlacementPhase(List<Character> characters, List<Vector2Int> availableTiles)
     {
-        IsPlacementPhase = true;
+        //IsPlacementPhase = true;
         charactersToPlace = new List<Character>(characters);
         AvailablePlacementTiles = new List<Vector2Int>(availableTiles);
         characterPlacements.Clear();
@@ -140,30 +140,11 @@ public class CharacterPlacementManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the colors of placement tiles based on occupancy.
-    /// </summary>
-    void UpdatePlacementTileColors()
-    {
-        if (placementAvailableColor == null)
-            return;
-            
-        foreach (var tilePos in AvailablePlacementTiles)
-        {
-            var tile = boardManager.GetBoardTile(tilePos);
-            if (tile != null)
-            {
-                if (IsTilePlaceable(tilePos))
-                    tile.SetColor(placementAvailableColor);
-            }
-        }
-    }
-
-    /// <summary>
     /// Checks if the tile at the given position is a valid placement tile.
     /// </summary>
     public bool IsTilePlaceable(Vector2Int tilePos)
     {
-        return IsPlacementPhase && AvailablePlacementTiles.Contains(tilePos);
+        return UnitData.CurrentAction == CurrentActionKind.CharacterPlacement && AvailablePlacementTiles.Contains(tilePos);
     }
 
     /// <summary>
@@ -196,7 +177,7 @@ public class CharacterPlacementManager : MonoBehaviour
         if (placementConfirmButton != null)
             placementConfirmButton.SetActive(false);
 
-        IsPlacementPhase = false;
+        //UnitData.CurrentAction = CurrentActionKind.Basic;
 
         // Invoke the event to signal that placement is complete
         OnPlacementConfirmed.Invoke();
@@ -233,7 +214,7 @@ public class CharacterPlacementManager : MonoBehaviour
     void Update()
     {
         // Allow spacebar to confirm placement (like ending a turn)
-        if (IsPlacementPhase && Input.GetKeyDown(UnityEngine.KeyCode.Space))
+        if (UnitData.CurrentAction == CurrentActionKind.CharacterPlacement && Input.GetKeyDown(UnityEngine.KeyCode.Space))
         {
             if (AllCharactersPlaced())
             {
@@ -262,50 +243,12 @@ public class CharacterPlacementManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets the currently dragged character (if any).
-    /// </summary>
-    public Character GetCharacterAtTile(BoardTile tile)
-    {
-        if (tile == null || tile.currentUnit == null)
-            return null;
-
-        return tile.currentUnit as Character;
-    }
-
-    /// <summary>
-    /// Restores the placement color for a specific tile if it's a placement tile.
-    /// Used when clearing overlays like enemy threat ranges during placement phase.
-    /// </summary>
-    public void RestorePlacementColor(BoardTile tile)
-    {
-        if (!IsPlacementPhase || tile == null)
-            return;
-
-        if (!AvailablePlacementTiles.Contains(tile.Coordinates))
-            return;
-
-        // Check if tile is occupied by a character
-        if (tile.currentUnit != null && tile.currentUnit is Character)
-        {
-            if (placementOccupiedColor != null)
-                tile.OverrideColor(placementOccupiedColor);
-            else if (placementAvailableColor != null)
-                tile.OverrideColor(placementAvailableColor);
-        }
-        else
-        {
-            if (placementAvailableColor != null)
-                tile.OverrideColor(placementAvailableColor);
-        }
-    }
-
-    /// <summary>
     /// Hides all placement tile colors (sets them to transparent/original).
     /// Used when showing enemy intent to ensure only the intent is visible.
     /// </summary>
     public void HideAllPlacementColors()
     {
-        if (!IsPlacementPhase)
+        if (UnitData.CurrentAction != CurrentActionKind.CharacterPlacement)
             return;
 
         foreach (var tilePos in AvailablePlacementTiles)
@@ -324,7 +267,7 @@ public class CharacterPlacementManager : MonoBehaviour
     /// </summary>
     public void RestoreAllPlacementColors()
     {
-        if (!IsPlacementPhase)
+        if (UnitData.CurrentAction != CurrentActionKind.CharacterPlacement)
             return;
 
         HighlightPlacementTiles();

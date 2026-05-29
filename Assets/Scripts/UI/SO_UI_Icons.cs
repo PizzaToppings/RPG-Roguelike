@@ -72,7 +72,7 @@ public class SO_UI_Icons : ScriptableObject
 
     public void InitDefaultCursor()
     {
-        Cursor.SetCursor(DefaultCursorTexture, Vector2.zero, cursorMode);
+        //Cursor.SetCursor(DefaultCursorTexture, Vector2.zero, cursorMode);
     }
 
     public void SetCursor(CursorType cursorType)
@@ -95,7 +95,7 @@ public class SO_UI_Icons : ScriptableObject
                 break;
         }
 
-        Cursor.SetCursor(texture, Vector2.zero, cursorMode);
+        //Cursor.SetCursor(texture, Vector2.zero, cursorMode);
     }
 
     public Color GetHitTypeColor(HitTypeEnum hitType)

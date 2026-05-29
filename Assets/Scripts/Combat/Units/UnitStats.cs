@@ -16,7 +16,7 @@ public class UnitStats : MonoBehaviour
     public float MoveSpeedLeft;
     public int Initiative;
 
-    public bool IsTargeted;
+    public bool IsTargetForSkill;
 
     public int PhysicalPower;
     public int MagicalPower;
