@@ -92,11 +92,13 @@ public class Unit : UnitStats
     public virtual void Target()
     {
         highlighter.SetHighlight(true);
+        IsTargeted = true;
     }
 
     public virtual void Untarget()
     {
         highlighter.SetHighlight(false);
+        IsTargeted = false;
     }
 
     public virtual void SetStats()
@@ -224,11 +226,6 @@ public class Unit : UnitStats
     {
         MoveSpeedLeft = MoveSpeed;
     }
-
-    public virtual void PreviewSkills(BoardTile mouseOverTile)
-    {
-		boardManager.VisualClear();
-	}
 
     public virtual DamagaDataResolved TakeDamage(DamageDataCalculated damageDataCalculated)
 	{

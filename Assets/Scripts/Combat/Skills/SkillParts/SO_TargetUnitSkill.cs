@@ -21,7 +21,7 @@ public class SO_TargetUnitSkill : SO_Skillpart
         TargetSkillsManager targetSkillsManager = TargetSkillsManager.Instance;
         targetSkillsManager.GetAOE(this);
 
-		var target = PartData.TargetsHit.Find(x => x.IsTargetForSkill);
+		var target = PartData.TargetsHit.Find(x => x.IsTargeted);
 
 		if (HasDuplicateTarget(target))
 			target = null;
@@ -47,12 +47,13 @@ public class SO_TargetUnitSkill : SO_Skillpart
 
     public void TargetUnit(Unit target)
 	{
-        target.Tile.SetColor(SelectedTargetTileColor);
-
         PartData.TargetsHit.Clear();
         PartData.TilesHit.Clear();
+
         PartData.TargetsHit.Add(target);
         PartData.TilesHit.Add(target.Tile);
+        
+        target.Tile.SetColor(SelectedTargetTileColor);
 
         if (AddProjectileLine)
             ShowProjectileLine(SkillData.Caster.position, PartData.TargetsHit[0].position);

@@ -54,7 +54,7 @@ public class SkillsManager : MonoBehaviour
 
         if (SkillData.CastOnTile == false && SkillData.CastOnTarget == false)
         {
-            UnitData.ActiveUnit.PreviewSkills(BoardData.CurrentMouseTile);
+            ((Character)UnitData.ActiveUnit).PreviewSkills(BoardData.CurrentMouseTile);
         }
     }
 

@@ -299,9 +299,9 @@ public class Character : Unit
         }
     }
 
-    public override void PreviewSkills(BoardTile mouseOverTile)
+    public void PreviewSkills(BoardTile mouseOverTile)
     {
-        base.PreviewSkills(mouseOverTile);
+        boardManager.VisualClear();
 
         SkillData.CurrentActiveSkill.Preview(mouseOverTile, this);
 

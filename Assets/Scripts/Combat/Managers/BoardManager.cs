@@ -319,7 +319,7 @@ public class BoardManager : MonoBehaviour
             if (tile.hasTileEffect)
                 tile.SetColor(tile.tileEffectColor);
         }
-        StopShowingMovement();
+        StopShowingMovementLine();
     }
 
     public void VisualClear()
@@ -328,6 +328,7 @@ public class BoardManager : MonoBehaviour
         foreach (var tile in BoardData.BoardTiles)
         {
             if (tile == null) continue;
+            
 			tile.skillshotsRangeLeft = new List<float>();
 
             tile.OverrideColor(originalColor);
@@ -335,7 +336,7 @@ public class BoardManager : MonoBehaviour
             if (tile.hasTileEffect)
                 tile.SetColor(tile.tileEffectColor);
         }
-        StopShowingMovement();
+        StopShowingMovementLine();
     }
 
     public void SetAOE(float movementLeft, List<BoardTile> startingTiles, SO_Skillpart data)
@@ -515,7 +516,7 @@ public class BoardManager : MonoBehaviour
         movementLR.SetPosition(Path.Count, UnitData.ActiveUnit.Tile.position + MovementLineOffset);
     }
 
-    public void StopShowingMovement()
+    public void StopShowingMovementLine()
     {
         movementLR.positionCount = 0;
     }

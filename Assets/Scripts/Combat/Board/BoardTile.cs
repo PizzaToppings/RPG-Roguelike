@@ -66,14 +66,12 @@ public class BoardTile : MonoBehaviour
         BoardData.CurrentMouseTile = this;
 
         if (currentUnit != null)
-        {
             currentUnit.Target();
-        }
 
-        if (!CombatData.IsReady || UnitData.ActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating || currentUnit != null)
+        if (!CombatData.IsReady || UnitData.ActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
             return;
 
-        if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
+        if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1  && currentUnit == null)
         {
             boardManager.Path = new List<BoardTile>();
             SetColor(boardManager.MouseOverColor);
@@ -85,13 +83,12 @@ public class BoardTile : MonoBehaviour
             if (currentUnit == null)
                 return;
 
-            currentUnit.IsTargetForSkill = true;
-            UnitData.ActiveUnit.PreviewSkills(this);
+            ((Character)UnitData.ActiveUnit).PreviewSkills(this);
         }
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTile)
 		{
-            UnitData.ActiveUnit.PreviewSkills(this);
+            ((Character)UnitData.ActiveUnit).PreviewSkills(this);
 
             var attackRange = skillsManager.GetSkillAttackRange();
             if (attackRange == 0)
@@ -122,19 +119,15 @@ public class BoardTile : MonoBehaviour
 
     public void UnTarget()
     {
-        if (currentUnit != null)
-        {
-            currentUnit.Untarget();
-        }
+        boardManager.StopShowingMovementLine();
 
-        boardManager.StopShowingMovement();
+        if (currentUnit != null)
+            currentUnit.Untarget();
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
 		{
             if (currentUnit == null)
                 OverrideColor(boardManager.MovementColor);
-            else
-                boardManager.StopShowingMovement();
             
             if (hasTileEffect)
                 SetColor(tileEffectColor);
