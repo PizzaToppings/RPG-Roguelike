@@ -49,11 +49,8 @@ public class TilemapInputHandler : MonoBehaviour
         if (Input.GetMouseButton(1))
             return;
 
-        if (UnitMouseProxy.IsMouseOverUnit != null)
-        {
-            //ClearHover();
+        if (UnitMouseProxy.MouseOverUnit != null)
             return;
-        }
 
         HandleHover();
 
@@ -69,12 +66,6 @@ public class TilemapInputHandler : MonoBehaviour
             return;
         }
 
-        if (tilemap == null)
-        {
-            Debug.LogWarning("[TilemapInputHandler] Tilemap is not assigned in the Inspector!");
-            return;
-        }
-
         var tile = FindTile();
 
         if (tile == currentHoveredTile)
@@ -82,9 +73,7 @@ public class TilemapInputHandler : MonoBehaviour
 
         // Un-hover the previous tile
         if (currentHoveredTile != null)
-        {
             currentHoveredTile.UnTarget();
-        }
 
         currentHoveredTile = tile;
 

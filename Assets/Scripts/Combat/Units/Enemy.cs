@@ -80,17 +80,16 @@ public class Enemy : Unit
         EnemyInfoPanelManager.Instance?.ShowPanel(this);
 
         ShowEnemyThreat();
-
-        // Show damage prediction if player is actively aiming a skillshot at this enemy
-        if (ThisHealthbar is FloatingHealthbar floatingHealthbar && UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-        {
-            floatingHealthbar.ShowDamagePreview(SkillData.CurrentActiveSkill);
-        }
     }
 
     public override void Untarget()
     {
         base.Untarget();
+
+        EnemyInfoPanelManager.Instance?.HidePanel();
+        boardManager.ClearEnemyThreatRange();
+
+        HideEnemyThreat();
     }
 
     public override void OnClick()
@@ -101,61 +100,8 @@ public class Enemy : Unit
     public override void MouseExit()
     {
         Tile.UnTarget();
-        EnemyInfoPanelManager.Instance?.HidePanel();
-        boardManager.ClearEnemyThreatRange();
 
-        // Hide damage prediction on this enemy (from player targeting)
-        if (ThisHealthbar is FloatingHealthbar floatingHealthbar)
-        {
-            floatingHealthbar.HideDamagePreview();
-        }
-
-        // Clear enemy intent visualization
-        if (highlightedTargetTile != null)
-        {
-            // Reset the target tile color
-            var originalColor = boardManager.GetTileColor(TileColorKind.Original);
-            highlightedTargetTile.OverrideColor(originalColor);
-            
-            // Reapply tile effect color if present
-            if (highlightedTargetTile.hasTileEffect && highlightedTargetTile.tileEffectColor != null)
-                highlightedTargetTile.SetColor(highlightedTargetTile.tileEffectColor);
-        }
-
-        // Hide damage preview on any character healthbars
-        if (this is EnemyBaseAI && UnitData.Characters != null)
-        {
-            foreach (var character in UnitData.Characters)
-            {
-                if (character?.ThisHealthbar is FloatingHealthbar targetHealthbar)
-                {
-                    targetHealthbar.HideDamagePreview();
-                }
-            }
-        }
         
-        highlightedTargetTile = null;
-    }
-
-    public void UnTargetEnemy()
-	{
-        //ui_Singletons.SetCursor(CursorType.Normal);
-
-        // Hide damage prediction
-        if (ThisHealthbar is FloatingHealthbar floatingHealthbar)
-        {
-            floatingHealthbar.HideDamagePreview();
-        }
-
-        if (closestTile != null && 
-            (UnitData.CurrentAction == CurrentActionKind.Basic || UnitData.CurrentAction == CurrentActionKind.CastingSkillshot))
-        {
-            var tile = closestTile;
-            closestTile = null;
-            tile.UnTarget();
-            SkillData.Reset();
-            skillVFXManager.EndProjectileLine();
-        }
     }
 
     void ShowEnemyThreat()
@@ -200,6 +146,46 @@ public class Enemy : Unit
                     }
                 }
             }
+        }
+
+        // Show damage prediction if player is actively aiming a skillshot at this enemy
+        if (ThisHealthbar is FloatingHealthbar floatingHealthbar && UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
+        {
+            floatingHealthbar.ShowDamagePreview(SkillData.CurrentActiveSkill);
+        }
+    }
+
+    void HideEnemyThreat()
+    {
+        if (highlightedTargetTile != null)
+        {
+            // Reset the target tile color
+            var originalColor = boardManager.GetTileColor(TileColorKind.Original);
+            highlightedTargetTile.OverrideColor(originalColor);
+            
+            // Reapply tile effect color if present
+            if (highlightedTargetTile.hasTileEffect && highlightedTargetTile.tileEffectColor != null)
+                highlightedTargetTile.SetColor(highlightedTargetTile.tileEffectColor);
+        }
+
+        // Hide damage preview on any character healthbars
+        if (this is EnemyBaseAI && UnitData.Characters != null)
+        {
+            foreach (var character in UnitData.Characters)
+            {
+                if (character?.ThisHealthbar is FloatingHealthbar targetHealthbar)
+                {
+                    targetHealthbar.HideDamagePreview();
+                }
+            }
+        }
+        
+        highlightedTargetTile = null;
+
+        // Hide damage prediction on this enemy (from player targeting)
+        if (ThisHealthbar is FloatingHealthbar floatingHealthbar)
+        {
+            floatingHealthbar.HideDamagePreview();
         }
     }
 

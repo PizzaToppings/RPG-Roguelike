@@ -351,9 +351,6 @@ public class BoardManager : MonoBehaviour
         if (data == null)
         {
             SetMovementAOE(movementLeft, startingTile);
-
-            if (UnitData.ActiveUnit.Friendly && BoardData.CurrentMouseTile != null)
-                BoardData.CurrentMouseTile.Target();
         }
         else
 		{
@@ -384,7 +381,7 @@ public class BoardManager : MonoBehaviour
             if (tile == null || tile.IsBlocked)
                 continue;
 
-            if (tile.currentUnit != null && tile.currentUnit != UnitData.ActiveUnit)
+            if (tile.currentUnit != null)
                 continue;
 
 			var nextMovementLeft = movementLeft;
@@ -472,7 +469,7 @@ public class BoardManager : MonoBehaviour
         if (data.TargetKind == TargetKindEnum.All)
             return true;
 
-        return (target.Friendly != friendly);
+        return target.Friendly != friendly;
     }
 
     public void PreviewMovementLine(BoardTile finaltile)

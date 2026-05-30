@@ -114,14 +114,26 @@ public class Character : Unit
     public override void MouseEnter()
     {
         base.MouseEnter();
-        CharacterInfoPanelManager.Instance?.ShowPanel(this);
     }
 
     public override void MouseExit()
     {
         base.MouseExit();
+    }
+
+    public override void Target()
+    {
+        base.Target();
+
+        CharacterInfoPanelManager.Instance?.ShowPanel(this);
+    }
+
+    public override void Untarget()
+    {
+        base.Untarget();
         CharacterInfoPanelManager.Instance?.HidePanel();
     }
+
 
 	public override void SetStats()
 	{
@@ -303,15 +315,12 @@ public class Character : Unit
 
     void UpdateAllDamagePredictions()
     {
-        // First hide all predictions
         HideAllEnemyDamagePredictions();
 
         if (SkillData.CurrentActiveSkill == null || UnitData.ActiveUnit != this)
             return;
 
         // Get all enemies that will be hit by the current skill
-        // IMPORTANT: Use the runtime Skill.SkillPartGroups, not mainSkillSO.SkillPartGroups
-        // because Skill creates instantiated copies with PartData set
         var currentSpg = SkillData.CurrentActiveSkill.SkillPartGroups[SkillData.SkillPartGroupIndex];
         
         foreach (var skillPart in currentSpg.skillParts)
@@ -353,15 +362,10 @@ public class Character : Unit
         skillsManager.SetSkills(this);
         consumableManager.SetConsumables(this);
 
-        // Refresh icons now that energy has been restored and charges have been reset.
         uiManager.SetSkillIcons(this);
         uiManager.SetConsumableIcons(this);
 
         UnitData.CurrentAction = CurrentActionKind.Basic;
-
-        // if movement is available, trigger current tile
-        if (UnitData.ActiveUnit.Friendly && BoardData.CurrentMouseTile != null)
-            BoardData.CurrentMouseTile.Target();
     }
 
     public override void SetStartOfTurnStats()

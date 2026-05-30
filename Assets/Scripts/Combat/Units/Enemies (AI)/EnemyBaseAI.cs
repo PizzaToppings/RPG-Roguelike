@@ -219,7 +219,7 @@ public class EnemyBaseAI : Enemy
         if (OptimalTile == Tile)
             yield break;
 
-        boardManager.PreviewMovementLine(OptimalTile);
+        // boardManager.PreviewMovementLine(OptimalTile);
         boardManager.StopShowingMovement();
         yield return StartCoroutine(boardManager.MoveToTile());
     }

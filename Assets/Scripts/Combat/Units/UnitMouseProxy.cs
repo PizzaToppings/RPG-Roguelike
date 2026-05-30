@@ -10,7 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class UnitMouseProxy : MonoBehaviour
 {
-    public static Unit IsMouseOverUnit = null;
+    public static Unit MouseOverUnit = null;
 
     Unit cachedUnit;
 
@@ -24,7 +24,7 @@ public class UnitMouseProxy : MonoBehaviour
     void OnMouseEnter()
     {
         var unit = GetUnit();
-        IsMouseOverUnit = unit;
+        MouseOverUnit = unit;
         if (unit != null)
             unit.MouseEnter();
     }
@@ -32,12 +32,14 @@ public class UnitMouseProxy : MonoBehaviour
     void OnMouseExit()
     {
         var unit = GetUnit();
-        if (unit == IsMouseOverUnit)
+        if (unit == MouseOverUnit)
         {
-            IsMouseOverUnit = null;
+            MouseOverUnit = null;
         }
         if (unit != null)
             unit.MouseExit();
+
+        TilemapInputHandler.Instance.ClearHover();
     }
 
     void OnMouseDown()

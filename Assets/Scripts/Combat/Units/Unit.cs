@@ -69,6 +69,7 @@ public class Unit : UnitStats
 
     public virtual void MouseEnter()
     {
+        BoardData.CurrentMouseTile.UnTarget();
         Tile.Target();
     }
 

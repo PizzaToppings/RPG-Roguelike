@@ -70,10 +70,9 @@ public class BoardTile : MonoBehaviour
             currentUnit.Target();
         }
 
-        if (!CombatData.IsReady || UnitData.ActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating)
+        if (!CombatData.IsReady || UnitData.ActiveUnit.Friendly == false || UnitData.CurrentAction == CurrentActionKind.Animating || currentUnit != null)
             return;
 
-        // show movement line if we are in movement mode and have movement left
         if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
         {
             boardManager.Path = new List<BoardTile>();
@@ -99,16 +98,6 @@ public class BoardTile : MonoBehaviour
                 return;
         }
     }
-
-    public void PreviewAttackWithinRange()
-    {
-        boardManager.Path = new List<BoardTile>();
-        OverrideColor(boardManager.MouseOverColor);
-        boardManager.PreviewMovementLine(this);
-
-        // TODO set hologram from attacker
-    }
-
 
     public void OnClick()
 	{
@@ -138,23 +127,14 @@ public class BoardTile : MonoBehaviour
             currentUnit.Untarget();
         }
 
-		if (currentUnit != null)
-		{
-            currentUnit.IsTargetForSkill = false;
-
-            if (currentUnit is Enemy)
-            {
-                (currentUnit as Enemy).UnTargetEnemy();
-            }
-
-            
-            //return;
-		}
         boardManager.StopShowingMovement();
 
         if (UnitData.CurrentAction == CurrentActionKind.Basic && movementLeft > -1)
 		{
-            OverrideColor(boardManager.MovementColor);
+            if (currentUnit == null)
+                OverrideColor(boardManager.MovementColor);
+            else
+                boardManager.StopShowingMovement();
             
             if (hasTileEffect)
                 SetColor(tileEffectColor);
