@@ -75,7 +75,7 @@ public class BoardTile : MonoBehaviour
         {
             boardManager.Path = new List<BoardTile>();
             SetColor(boardManager.MouseOverColor);
-            boardManager.PreviewMovementLine(this);
+            boardManager.SetMovementLine(this, true);
         }
 
         if (UnitData.CurrentAction == CurrentActionKind.CastingSkillshot && SkillData.CastOnTarget)

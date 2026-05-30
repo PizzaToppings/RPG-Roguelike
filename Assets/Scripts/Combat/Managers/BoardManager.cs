@@ -473,7 +473,7 @@ public class BoardManager : MonoBehaviour
         return target.Friendly != friendly;
     }
 
-    public void PreviewMovementLine(BoardTile finaltile)
+    public void SetMovementLine(BoardTile finaltile, bool showLine)
     {
         movementLR.positionCount = 0;
         movementLR.positionCount++;
@@ -512,6 +512,9 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+        if (showLine == false)
+            return;
+
         movementLR.positionCount++;
         movementLR.SetPosition(Path.Count, UnitData.ActiveUnit.Tile.position + MovementLineOffset);
     }
