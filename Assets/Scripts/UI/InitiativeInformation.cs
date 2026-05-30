@@ -23,9 +23,10 @@ public class InitiativeInformation : MonoBehaviour, IPointerEnterHandler, IPoint
     public RectTransform ContentRoot;
     public float ActiveTurnOffset = -10f;
 
-    public void Init(Unit unit, int index)
+    public void Init(Unit unit)
     {
         thisUnit = unit;
+        thisUnit.initiativeInformation = this;
         if (unit.Friendly)
         {
             Background.color = FriendlyBackground;
@@ -69,13 +70,11 @@ public class InitiativeInformation : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ToggleHover(true);
-        InitiativeTracker.Instance?.OnInitiativeHoverEnter(thisUnit);
+        thisUnit.Tile.Target();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        ToggleHover(false);
-        InitiativeTracker.Instance?.OnInitiativeHoverExit(thisUnit);
+        thisUnit.Tile.UnTarget();
     }
 }

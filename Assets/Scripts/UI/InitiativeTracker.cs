@@ -41,7 +41,7 @@ public class InitiativeTracker : MonoBehaviour
 	{
         var image = Instantiate(InitiativeImagePrefab, transform);
         var init = image.GetComponent<InitiativeInformation>();
-        init.Init(unit, initiativeList.Count);
+        init.Init(unit);
 
         initiativeList.Add(init);
         SortAndRefresh();
@@ -73,26 +73,6 @@ public class InitiativeTracker : MonoBehaviour
             initiative.SetActiveTurn(false);
 
         initiativeList[CombatData.CurrentUnitTurn].SetActiveTurn(true);
-    }
-
-    public void HighlightUnit(Unit unit)
-    {
-        ClearHighlight();
-        var init = initiativeList.Find(x => x.thisUnit == unit);
-        if (init != null)
-        {
-            init.ToggleHover(true);
-            currentHoveredInit = init;
-        }
-    }
-
-    public void ClearHighlight()
-    {
-        if (currentHoveredInit != null)
-        {
-            currentHoveredInit.ToggleHover(false);
-            currentHoveredInit = null;
-        }
     }
 
     public void OnInitiativeHoverEnter(Unit unit)

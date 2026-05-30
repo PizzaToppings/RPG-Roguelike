@@ -17,6 +17,7 @@ public class Unit : UnitStats
     [HideInInspector] public UIManager uiManager;
     [HideInInspector] public UI_Singletons ui_Singletons;
     [HideInInspector] public DisplacementPreviewManager displacementPreviewManager;
+    [HideInInspector] public InitiativeInformation initiativeInformation;
     UnitHighlighter highlighter;
 
 
@@ -91,14 +92,16 @@ public class Unit : UnitStats
     // MouseEnter will call Target through the tile MouseEnter
     public virtual void Target()
     {
-        highlighter.SetHighlight(true);
         IsTargeted = true;
+        highlighter.SetHighlight(true);
+        initiativeInformation.ToggleHover(true);
     }
 
     public virtual void Untarget()
     {
-        highlighter.SetHighlight(false);
         IsTargeted = false;
+        highlighter.SetHighlight(false);
+        initiativeInformation.ToggleHover(false);
     }
 
     public virtual void SetStats()
