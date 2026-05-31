@@ -32,7 +32,7 @@ public static class StatusEffectDescriptions
                     : "Deals fire damage at the end of each turn, spreading to nearby units.";
             case StatusEffectEnum.Fatique:
                 return power > 0
-                    ? $"Reduces the unit's combat effectiveness by {power}."
+                    ? $"The unit starts the next turn with {power} less Energy."
                     : "Reduces the unit's combat effectiveness.";
             case StatusEffectEnum.Thorns:
                 return power > 0
@@ -50,10 +50,10 @@ public static class StatusEffectDescriptions
                     ? $"{direction} {statName} by {amount}."
                     : $"Modifies {statName}.";
             case StatusEffectEnum.Hidden:         return "The unit is concealed and cannot be targeted.";
-            case StatusEffectEnum.Blinded:        return "The unit's vision is impaired, reducing accuracy.";
-            case StatusEffectEnum.Silenced:       return "The unit cannot cast spells or use abilities.";
-            case StatusEffectEnum.Frightened:     return "Fear reduces the unit's combat effectiveness.";
-            case StatusEffectEnum.Incapacitated:  return "The unit cannot take any actions.";
+            case StatusEffectEnum.Blinded:        return "Cannot use Physical skills.";
+            case StatusEffectEnum.Silenced:       return "Cannot use Magical skills.";
+            case StatusEffectEnum.Frightened:     return "The unit is less likely to target the caster with skills.";
+            case StatusEffectEnum.Incapacitated:  return "The unit cannot take any actions. Any damage done breaks the effect.";
             case StatusEffectEnum.Stunned:        return "The unit loses its next turn.";
             case StatusEffectEnum.Rooted:         return "The unit cannot move.";
             case StatusEffectEnum.Taunt:          return "Forced to target the unit that applied this effect.";
