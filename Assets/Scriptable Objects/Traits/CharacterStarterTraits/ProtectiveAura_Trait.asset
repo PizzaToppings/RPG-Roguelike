@@ -9,12 +9,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2bd68caff89d6243a147f7947e1ef38, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a77b3c0f07e2d94888bae7c760eb9be, type: 3}
   m_Name: ProtectiveAura_Trait
   m_EditorClassIdentifier: 
-  TraitName: 
+  TraitName: Protective Aura
   Image: {fileID: 0}
   classes: 
-  Rarity: 1
-  Description: 
-  Traits: []
+  Rarity: 0
+  Description: At the end of your turn, give Allies within 3 range +1 Physical Defense
+    for one turn.
+  TriggerMoment: 3
+  TriggerEffect: 1
+  ChargesToTrigger: 1
+  TriggerOnce: 0
+  Value: 1
+  HitType: 0
+  IsMagical: 0
+  TargetFaction: 0
+  TargetSelection: 3
+  Range: 3
+  StatusEffects:
+  - {fileID: 11400000, guid: 031f8103d8bf01843ab496c5e3a181c6, type: 2}
+  Stat: 
+  RequiredSkillStyle: 0
