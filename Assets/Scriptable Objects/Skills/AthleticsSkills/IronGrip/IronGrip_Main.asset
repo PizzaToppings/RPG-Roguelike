@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Iron Grip
   Image: {fileID: 21300000, guid: bc60983560259e247b15d7ebf000827a, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: 3474c8c944693064884ebcc9ce71fff8, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
+  SkillCombatStyle: 5
   Classes: 0000000004000000
   Description: Grapple an enemy, stunning them for one turn, and reduce their Physical
     Power by 2 for 3 turns.
@@ -28,10 +28,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 39487c1ded958b94ca93bfb331b84cdd, type: 2}
   EnergyCost: 6
   DefaultCharges: 1
-  Charges: 0
   Cursor: 0
   castLockColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10
-  Caster: {fileID: 0}

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Gouging Cleave
   Image: {fileID: 21300000, guid: 55abb6ba45b77544ea5d1ba2ba662166, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: 2c257e5a905937640acb3b74f55e3d56, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
+  SkillCombatStyle: 1
   Classes: 00000000
   Description: Deal <damage0-0-0> to all enemies in a 3-tile cone and give them <bleed0-0-0>.
   SkillPartGroups:
@@ -30,5 +30,5 @@ MonoBehaviour:
   Cursor: 0
   castLockColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10

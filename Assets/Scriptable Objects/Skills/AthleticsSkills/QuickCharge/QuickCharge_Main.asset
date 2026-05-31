@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Quick Charge
   Image: {fileID: 21300000, guid: 5084f513239ac3b4eb07155364ebf052, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: 7e875855d28743741880a515ac17495d, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
+  SkillCombatStyle: 4
   Classes: 000000000100000004000000
   Description: 'Charge in a straight line, stopping at the first enemy hit, dealing
     <damage0-1-0> damage and slowing them by 2 for 1 turn. '
@@ -29,10 +29,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d0c7e5a253412c94b9fab832ad7aecb0, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
-  Charges: 0
   Cursor: 1
   castLockColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10
-  Caster: {fileID: 0}

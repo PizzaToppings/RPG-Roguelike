@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Flex
   Image: {fileID: 21300000, guid: 795ffab1c858e5744a9c47ee110f4b1b, type: 3}
-  Image_Inactive: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
+  SkillCombatStyle: 1
   Classes: 00000000
   Description: 'Gain 1 Martial Power for 1 turn. '
   SkillPartGroups:
@@ -30,5 +30,5 @@ MonoBehaviour:
   Cursor: 0
   castLockColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Leaping Strike
   Image: {fileID: 21300000, guid: e4e36cd9e7c375743923d8f7e9abbcdf, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: 6c0aeba1cb6c1db418a702c5ed108188, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
+  SkillCombatStyle: 4
   Classes: 0000000001000000
   Description: Jump to a tile and deal <damage0-2-0> to all tiles around you.
   SkillPartGroups:
@@ -32,5 +32,5 @@ MonoBehaviour:
   Cursor: 0
   castLockColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10

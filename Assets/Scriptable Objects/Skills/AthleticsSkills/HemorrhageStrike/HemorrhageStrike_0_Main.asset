@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Hemorrhage Strike
   Image: {fileID: 21300000, guid: 7e013bb77493f4544ba03068ea16e205, type: 3}
-  Image_Inactive: {fileID: 21300000, guid: e71c84c61b2d0684e93dd3f8fcc7645e, type: 3}
   IsBasic: 0
   IsConsumable: 0
   IsMagical: 0
+  SkillCombatStyle: 1
   Classes: 00000000
   Description: Deal <damage0-0-0> to an enemy. Increase the duration of all bleed
     effects on the target by 1.
@@ -28,10 +28,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 48eee7dead3cf9949855878cf5e36657, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
-  Charges: 0
   Cursor: 0
   castLockColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10
-  Caster: {fileID: 0}
