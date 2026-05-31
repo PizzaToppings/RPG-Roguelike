@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad7ca051d6bbdcc47b663f45fad4bb1d, type: 3}
-  m_Name: Templar_Character
+  m_Name: Oracle_Character
   m_EditorClassIdentifier: 
-  Name: Templar
+  Name: Oracle
   Image: {fileID: 21300000, guid: 6eb1801ba410a664b87794efd02a10ad, type: 3}
-  Classes: 0400000008000000
-  MaxHealth: 35
+  Classes: 0500000008000000
+  MaxHealth: 27
   MaxEnergy: 3
-  MoveSpeed: 3
-  PhysicalPower: 1
-  MagicalPower: 2
-  PhysicalDefense: 3
+  MoveSpeed: 4
+  PhysicalPower: 0
+  MagicalPower: 3
+  PhysicalDefense: 1
   MagicalDefense: 3
-  basicAttack: {fileID: 11400000, guid: 9c101cec80b2c634ab72a2550d2c5662, type: 2}
-  basicSkill: {fileID: 11400000, guid: 2a8ed4849451d3d4d823caa282f1b5d4, type: 2}
-  BasicTrait: {fileID: 11400000, guid: d0d8c1e818802194d8629275436f55b4, type: 2}
+  basicAttack: {fileID: 0}
+  basicSkill: {fileID: 0}
+  BasicTrait: {fileID: 0}
