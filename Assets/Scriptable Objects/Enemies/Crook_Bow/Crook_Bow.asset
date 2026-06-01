@@ -24,7 +24,8 @@ MonoBehaviour:
   AlwaysStartWithFirstSkill: 0
   Skills:
   - SkillName: Shoot
-    Skill: {fileID: 11400000, guid: 52aecc7cf03b8cd4abcb1546161461a4, type: 2}
+    Skill:
+    - {fileID: 11400000, guid: 52aecc7cf03b8cd4abcb1546161461a4, type: 2}
     IntentAction: 2
     CombatStyle: 1
     TargetPreference: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60e2950789797441ad882480a694034, type: 3}
   m_Name: Rat_AI
   m_EditorClassIdentifier: 
-  Name: Enemy 1
+  Name: Rat
   Image: {fileID: 21300000, guid: 1454ed7b971385c4ea4f1ac8f495ac37, type: 3}
   MaxHealth: 7
   MoveSpeed: 7
@@ -24,7 +24,8 @@ MonoBehaviour:
   AlwaysStartWithFirstSkill: 0
   Skills:
   - SkillName: Bite
-    Skill: {fileID: 11400000, guid: 2a6cc0dc471b54a4ba2e5804291d0a56, type: 2}
+    Skill:
+    - {fileID: 11400000, guid: 2a6cc0dc471b54a4ba2e5804291d0a56, type: 2}
     IntentAction: 1
     CombatStyle: 1
     TargetPreference: 1
@@ -33,7 +34,8 @@ MonoBehaviour:
     MaxConsecutiveUses: 2
     ForcedNextSkillIndex: 0
   - SkillName: Power Up
-    Skill: {fileID: 11400000, guid: b35738fa9af468c4e9f17a3a12a5de39, type: 2}
+    Skill:
+    - {fileID: 11400000, guid: b35738fa9af468c4e9f17a3a12a5de39, type: 2}
     IntentAction: 6
     CombatStyle: 1
     TargetPreference: 0

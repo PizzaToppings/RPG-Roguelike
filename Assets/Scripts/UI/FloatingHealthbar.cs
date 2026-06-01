@@ -152,6 +152,12 @@ public class FloatingHealthbar : Healthbar
             return;
         }
 
+        // Temporarily apply the skill's combat style so the style multiplier matches what CastSkill will use
+        var caster = SkillData.Caster;
+        var originalCasterStyle = caster.CurrentCombatStyle;
+        if (activeSkill.mainSkillSO.SkillCombatStyle != CombatStyle.None)
+            caster.CurrentCombatStyle = activeSkill.mainSkillSO.SkillCombatStyle;
+
         // Calculate predicted damage from all damage effects in the active skill
         int totalPredictedDamage = 0;
         bool hasDamageEffects = false;
@@ -197,10 +203,17 @@ public class FloatingHealthbar : Healthbar
             }
         }
 
+        // Restore the caster's original combat style after preview calculation
+        caster.CurrentCombatStyle = originalCasterStyle;
+
         // Only show damage preview if the skill actually has damaging effects
         // (Show 0 if defense negates all damage, but don't show for healing/support skills)
         if (hasDamageEffects)
         {
+            // Apply the caster's OutgoingDamageMultiplier, matching DealDamageWithDelay
+            if (caster != null && caster.OutgoingDamageMultiplier != 1f)
+                totalPredictedDamage = Mathf.CeilToInt(totalPredictedDamage * caster.OutgoingDamageMultiplier);
+
             damagePreviewParent.SetActive(true);
             damagePreviewText.text = Mathf.Max(0, totalPredictedDamage).ToString();
         }
