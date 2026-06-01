@@ -262,8 +262,9 @@ public class BoardManager : MonoBehaviour
         }
 
         var aiEnemy = enemy as EnemyBaseAI;
-        float attackRange = aiEnemy?.CurrentSkill?.OptimalRange ?? 0f;
-        float totalRange = enemy.MoveSpeed + attackRange;
+        float attackRange = aiEnemy?.CurrentSkill?.Skill?.MaxRange ?? aiEnemy?.CurrentSkill?.OptimalRange ?? 0f;
+        bool isRooted = StatusEffectManager.Instance.UnitHasStatusEffect(enemy, StatusEffectEnum.Rooted);
+        float totalRange = (isRooted ? 0f : enemy.MoveSpeed) + attackRange;
 
         var tileColor = GetTileColor(TileColorKind.EnemyIntent);
         _threatRangeTiles = GetTilesWithinDirectRange(enemy.Tile, totalRange, false);

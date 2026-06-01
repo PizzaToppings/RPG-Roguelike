@@ -228,6 +228,9 @@ public class Unit : UnitStats
     public virtual void SetStartOfTurnStats()
     {
         MoveSpeedLeft = MoveSpeed;
+
+        if (statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Rooted))
+            MoveSpeedLeft = 0;
     }
 
     public virtual DamagaDataResolved TakeDamage(DamageDataCalculated damageDataCalculated)

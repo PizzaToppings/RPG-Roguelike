@@ -35,6 +35,9 @@ public class StatusEffectManager : MonoBehaviour
                 case StatusEffectEnum.StatChange:
                     ApplyStatChangeEffect(statusEffectSO, target, powerOverride);
                     break;
+                case StatusEffectEnum.Rooted:
+                    ApplyRootedEffect(statusEffectSO, target);
+                    break;
                 case StatusEffectEnum.Unique:
                     
                     return;
@@ -183,6 +186,33 @@ public class StatusEffectManager : MonoBehaviour
         };
 
         statChangeEffect.Apply();
+    }
+
+    public void ApplyRootedEffect(SO_StatusEffect statusEffectSO, Unit target)
+    {
+        if (UnitHasStatusEffect(target, statusEffectSO.StatusEffectType))
+        {
+            var existingStatusEffect = GetUnitStatusEffect(target, statusEffectSO.StatusEffectType);
+
+            if (existingStatusEffect.Duration < statusEffectSO.Duration)
+                existingStatusEffect.Duration = statusEffectSO.Duration;
+
+            return;
+        }
+
+        var rootedStatusEffect = new RootedStatusEffect
+        {
+            IsBuff = false,
+            statusEfectType = statusEffectSO.StatusEffectType,
+            Duration = statusEffectSO.Duration,
+            IsPermanent = statusEffectSO.Permanent,
+            DurationTrigger = statusEffectSO.DurationTrigger,
+            Description = StatusEffectDescriptions.Resolve(statusEffectSO),
+            Caster = UnitData.ActiveUnit,
+            Target = target
+        };
+
+        rootedStatusEffect.Apply();
     }
 
     public void ApplyUniqueEffect(SO_StatusEffect statusEffectSO, Unit target)

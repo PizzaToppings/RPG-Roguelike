@@ -273,7 +273,8 @@ public class Character : Unit
         UnitData.CurrentAction = CurrentActionKind.Basic;
 
         SkillData.Reset();
-        boardManager.SetAOE(MoveSpeedLeft, Tile, null);
+        if (!statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Rooted))
+            boardManager.SetAOE(MoveSpeedLeft, Tile, null);
         skillVFXManager.EndProjectileLine();
         SetSkillData(basicAttack);
 

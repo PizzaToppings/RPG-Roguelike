@@ -116,7 +116,9 @@ public class Enemy : Unit
                 if (UnitData.Characters != null && UnitData.Characters.Count > 0)
                 {
                     // Filter characters that are within the enemy's threat range
-                    var maxRange = aiEnemy.CurrentSkill.OptimalRange + MoveSpeed;
+                    bool isRooted = statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Rooted);
+                    float attackRange = aiEnemy.CurrentSkill?.Skill?.MaxRange ?? aiEnemy.CurrentSkill.OptimalRange;
+                    var maxRange = attackRange + (isRooted ? 0f : MoveSpeed);
                     var targetCandidates = UnitData.Characters
                         .Where(c => c != null && c.Tile != null &&
                                boardManager.GetRangeBetweenTiles(Tile, c.Tile) <= maxRange)
