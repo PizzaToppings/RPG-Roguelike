@@ -16,6 +16,8 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
     [SerializeField] private TextMeshProUGUI intentDescriptionText;
     [SerializeField] private TextMeshProUGUI intentTargetDescriptionText;
 
+
+
     protected override GameObject PanelRoot => enemyInfoPanel;
 
     protected override void Awake()

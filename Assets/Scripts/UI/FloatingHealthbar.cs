@@ -15,6 +15,7 @@ public class FloatingHealthbar : Healthbar
     [SerializeField] GameObject intentParent;
     [SerializeField] Image intentActionImage;
     [SerializeField] Image intentTargetImage;
+    [SerializeField] Image intentStyleColorImage;
     [SerializeField] TextMeshProUGUI intentDamageText;
     [SerializeField] TextMeshProUGUI attackRangeText;
     [SerializeField] TextMeshProUGUI orderText;
@@ -57,6 +58,19 @@ public class FloatingHealthbar : Healthbar
             intentParent.SetActive(true);
 
         UpdateIntent(skill);
+        RefreshStyleColor();
+    }
+
+    public void RefreshStyleColor()
+    {
+        if (intentStyleColorImage == null) return;
+        if (thisUnit == null || thisUnit.CurrentCombatStyle == CombatStyle.None)
+        {
+            intentStyleColorImage.gameObject.SetActive(false);
+            return;
+        }
+        intentStyleColorImage.gameObject.SetActive(true);
+        intentStyleColorImage.color = CombatStyleUtility.GetStyleColor(thisUnit.CurrentCombatStyle);
     }
 
     public void UpdateIntent(SO_EnemySkill skill)

@@ -18,6 +18,9 @@ public class SO_Character : ScriptableObject
     public int MagicalDefense;
 
     [Space]
+    public CombatStyle StartingCombatStyle = CombatStyle.None;
+
+    [Space]
     public SO_MainSkill basicAttack;
     public SO_MainSkill basicSkill;
     public SO_Trait BasicTrait;

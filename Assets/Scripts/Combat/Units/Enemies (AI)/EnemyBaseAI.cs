@@ -16,6 +16,15 @@ public class EnemyBaseAI : Enemy
         base.Init();
         // Pick the initial skill so intent can be displayed from the start
         CurrentSkill = sequencer.Pick(enemySO?.Skills, enemySO != null && enemySO.AlwaysStartWithFirstSkill);
+        ApplySkillCombatStyle(CurrentSkill);
+    }
+
+    void ApplySkillCombatStyle(SO_EnemySkill skill)
+    {
+        if (skill == null || skill.CombatStyle == CombatStyle.None) return;
+        CurrentCombatStyle = skill.CombatStyle;
+        RefreshCombatStyleVisuals();
+        (ThisHealthbar as FloatingHealthbar)?.RefreshStyleColor();
     }
 
     public override List<SO_SKillVFX> GetSkillVFXList()
@@ -96,6 +105,7 @@ public class EnemyBaseAI : Enemy
             yield return new WaitForSeconds(2);
 
             CurrentSkill = sequencer.Pick(enemySO?.Skills, false);
+            ApplySkillCombatStyle(CurrentSkill);
             (ThisHealthbar as FloatingHealthbar)?.UpdateIntent(CurrentSkill);
             yield break;
         }
@@ -140,6 +150,7 @@ public class EnemyBaseAI : Enemy
 
         // Pick next skill and update intent for next turn
         CurrentSkill = sequencer.Pick(enemySO?.Skills, false);
+        ApplySkillCombatStyle(CurrentSkill);
         (ThisHealthbar as FloatingHealthbar)?.UpdateIntent(CurrentSkill);
     }
 

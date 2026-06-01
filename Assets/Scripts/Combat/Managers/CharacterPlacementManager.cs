@@ -79,6 +79,10 @@ public class CharacterPlacementManager : MonoBehaviour
                 if (IsTilePlaceable(tilePos))
                     tile.SetColor(placementAvailableColor);
             }
+            else if (tile != null && tile.currentUnit != null)
+            {
+                tile.RefreshUnitStyleColor();
+            }
         }
     }
 
@@ -237,7 +241,7 @@ public class CharacterPlacementManager : MonoBehaviour
             var tile = boardManager.GetBoardTile(tilePos);
             if (tile != null)
             {
-                tile.SetColor(boardManager.originalColor);
+                tile.OverrideColor(boardManager.originalColor);
             }
         }
     }

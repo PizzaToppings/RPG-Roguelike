@@ -108,6 +108,15 @@ public class Unit : UnitStats
     {
     }
 
+    /// <summary>
+    /// Call whenever CurrentCombatStyle changes to refresh the tile highlight and initiative UI.
+    /// </summary>
+    public void RefreshCombatStyleVisuals()
+    {
+        Tile?.RefreshUnitStyleColor();
+        initiativeInformation?.RefreshStyleColor();
+    }
+
     public IEnumerator Move(List<BoardTile> path)
     {
         if (modelAnimator != null) modelAnimator.SetBool("Run", true);
@@ -116,6 +125,7 @@ public class Unit : UnitStats
         Vector3 endPosition;
 
         Tile.OnExitTile();
+        Tile.OverrideColor(boardManager.originalColor); // clear style tint while unit is in transit
 
         BoardTile previousTile = Tile;
 

@@ -16,6 +16,9 @@ public class SO_Enemy : ScriptableObject
     public int MagicalDefense;
 
     [Space]
+    public CombatStyle StartingCombatStyle = CombatStyle.None;
+
+    [Space]
     [Tooltip("If true, the first skill in the Skills list is always used on the first turn.")]
     public bool AlwaysStartWithFirstSkill = false;
     public List<SO_EnemySkill> Skills = new List<SO_EnemySkill>();

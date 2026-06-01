@@ -9,6 +9,9 @@ public class InitiativeInformation : MonoBehaviour, IPointerEnterHandler, IPoint
     public Image Border;
     public Image portrait;
 
+    [Tooltip("Optional image tinted with the unit's current combat style color.")]
+    public Image styleColorImage;
+
     public Color FriendlyBackground;
     public Color FriendlyNumber;
 
@@ -40,6 +43,7 @@ public class InitiativeInformation : MonoBehaviour, IPointerEnterHandler, IPoint
             portrait.sprite = unit.modelSprite.sprite;
 
         Initiative = unit.Initiative;
+        RefreshStyleColor();
     }
 
     public void RefreshColor()
@@ -52,6 +56,18 @@ public class InitiativeInformation : MonoBehaviour, IPointerEnterHandler, IPoint
         {
             Background.color = EnemyBackground;
         }
+    }
+
+    public void RefreshStyleColor()
+    {
+        if (styleColorImage == null) return;
+        if (thisUnit == null || thisUnit.CurrentCombatStyle == CombatStyle.None)
+        {
+            styleColorImage.gameObject.SetActive(false);
+            return;
+        }
+        styleColorImage.gameObject.SetActive(true);
+        styleColorImage.color = CombatStyleUtility.GetStyleColor(thisUnit.CurrentCombatStyle);
     }
 
     public void ToggleHover(bool hovered)

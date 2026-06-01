@@ -154,6 +154,12 @@ public class Character : Unit
             // Apply permanent bonuses from Instant traits accumulated during this run
             MaxHitpoints += partyMember.BonusMaxHitpoints;
             MaxEnergy    += partyMember.BonusMaxEnergy;
+
+            CurrentCombatStyle = soc.StartingCombatStyle;
+        }
+        else if (characterSO != null)
+        {
+            CurrentCombatStyle = characterSO.StartingCombatStyle;
         }
     }
 
