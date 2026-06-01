@@ -110,7 +110,7 @@ public class SkillsManager : MonoBehaviour
         {
             foreach (var sp in spg.skillParts)
             {
-                yield return StartCoroutine(CastSkillsPart(sp, caster));
+                yield return StartCoroutine(CastSkillsPart(sp, caster, skill.mainSkillSO.IsMagical));
             }
         }
 
@@ -120,11 +120,11 @@ public class SkillsManager : MonoBehaviour
         OnSkillCastComplete.Invoke();
     }
 
-    public IEnumerator CastSkillsPart(SO_Skillpart skillPart, Unit caster)
+    public IEnumerator CastSkillsPart(SO_Skillpart skillPart, Unit caster, bool isMagical = false)
     {
         var skillVFX = skillPart.SkillVFX;
         var skillPartData = skillPart.PartData;
-        skillPart.DamageEffects.ForEach(x => x.Caster = UnitData.ActiveUnit);
+        skillPart.DamageEffects.ForEach(x => { x.Caster = UnitData.ActiveUnit; x.IsMagical = isMagical; });
 
         if (skillPart.displacementEffect != null && skillPart.displacementEffect.UseDisplacement)
 		{

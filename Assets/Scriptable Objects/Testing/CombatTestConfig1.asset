@@ -17,7 +17,7 @@ MonoBehaviour:
   RandomizeEncounter: 1
   EncounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
   PresetCharacters:
-  - {fileID: 11400000, guid: daf11fb52392e604ca5aaae9a8012d5c, type: 2}
+  - {fileID: 11400000, guid: 0e935fa5540743c458f6b6aac0159ef0, type: 2}
   RandomizeCharacters: 0
   MinCharacterCount: 1
   MaxCharacterCount: 4

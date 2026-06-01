@@ -20,7 +20,9 @@ MonoBehaviour:
   SkillCombatStyle: 5
   Classes: 
   Description: <Root> an enemy for one turn.
-  SkillPartGroups: []
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 8ff211059c4d642458eaf82d5af9c777, type: 2}
   EnergyCost: 2
   DefaultCharges: 1
   Cursor: 0

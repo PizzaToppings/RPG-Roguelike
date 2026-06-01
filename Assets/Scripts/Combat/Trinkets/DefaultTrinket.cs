@@ -174,7 +174,7 @@ public class DefaultTrait : SO_Trait
             // Apply status effects to the damaged target
             foreach (var statusEffect in StatusEffects)
             {
-                StatusEffectManager.Instance.ApplyStatusEffect(statusEffect, new List<Unit> { data.Target }, Value);
+                StatusEffectManager.Instance.ApplyStatusEffect(statusEffect, new List<Unit> { data.Target });
             }
 
             trait.hasTriggered = true;
@@ -207,7 +207,7 @@ public class DefaultTrait : SO_Trait
 
             case TriggerEffectEnum.AddStatusEffect:
                 foreach (var statusEffect in StatusEffects)
-                    StatusEffectManager.Instance.ApplyStatusEffect(statusEffect, GetTargets(character), Value);
+                    StatusEffectManager.Instance.ApplyStatusEffect(statusEffect, GetTargets(character));
                 break;
 
             case TriggerEffectEnum.AddEnergy:

@@ -163,7 +163,7 @@ public class FloatingHealthbar : Healthbar
                         {
                             Power = damageData.Power,
                             HitType = damageData.HitType,
-                            IsMagical = damageData.IsMagical,
+                            IsMagical = activeSkill.mainSkillSO.IsMagical,
                             Caster = SkillData.Caster,
                             Modifiers = damageData.Modifiers,
                             Prerequisites = damageData.Prerequisites

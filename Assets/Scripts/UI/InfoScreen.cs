@@ -129,7 +129,7 @@ public class InfoScreen : MonoBehaviour
                     if (description.Contains(damagePlaceholder))
                     {
                         var skillDamage = damageEffect.Power;
-                        var bonusDamage = skillPart.MagicalDamage ? caster.MagicalPower : caster.PhysicalPower;
+                        var bonusDamage = skill.mainSkillSO.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
                         var totalDamage = (skillDamage + bonusDamage).ToString();
                         var damageText = $"{totalDamage} damage";
                         description = description.Replace(damagePlaceholder, damageText);
