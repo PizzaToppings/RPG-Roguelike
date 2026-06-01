@@ -93,7 +93,7 @@ public class FloatingHealthbar : Healthbar
 
     void UpdateIntentDamageAndRange(SO_EnemySkill skill)
     {
-        if (skill?.Skill == null)
+        if (skill?.Skill == null || skill.Skill.Count == 0)
         {
             if (intentDamageText != null)
                 intentDamageText.text = "";
@@ -102,18 +102,20 @@ public class FloatingHealthbar : Healthbar
             return;
         }
 
-        // Calculate total damage from all damage effects
+        // Calculate damage per part (all parts are identical), show as NxM if multiple parts
         if (intentDamageText != null)
         {
-            int totalDamage = 0;
-            if (skill.Skill.DamageEffects != null && skill.Skill.DamageEffects.Count > 0)
+            var firstPart = skill.FirstPart;
+            bool hasAnyDamage = firstPart?.DamageEffects?.Count > 0;
+            if (hasAnyDamage)
             {
-                foreach (var damageData in skill.Skill.DamageEffects)
-                {
+                int perPartDamage = 0;
+                foreach (var damageData in firstPart.DamageEffects)
                     if (damageData != null)
-                        totalDamage += damageData.Power;
-                }
-                intentDamageText.text = totalDamage.ToString();
+                        perPartDamage += damageData.Power;
+
+                int count = skill.Skill.Count;
+                intentDamageText.text = count > 1 ? $"{count}x{perPartDamage}" : perPartDamage.ToString();
             }
             else
             {
@@ -121,11 +123,15 @@ public class FloatingHealthbar : Healthbar
             }
         }
 
-        // Display range
+        // Display range from first part
         if (attackRangeText != null)
         {
-            var totalThreat = skill.Skill.MaxRange + thisUnit.MoveSpeed;
-            attackRangeText.text = totalThreat.ToString(); 
+            var firstPart = skill.FirstPart;
+            if (firstPart != null)
+            {
+                var totalThreat = firstPart.MaxRange + thisUnit.MoveSpeed;
+                attackRangeText.text = totalThreat.ToString();
+            }
         }
     }
 
@@ -218,54 +224,50 @@ public class FloatingHealthbar : Healthbar
         if (damagePreviewParent == null || damagePreviewText == null || thisUnit == null || enemy == null)
             return;
 
-        if (enemy.CurrentSkill?.Skill == null)
+        if (enemy.CurrentSkill?.Skill == null || enemy.CurrentSkill.Skill.Count == 0)
         {
             HideDamagePreview();
             return;
         }
 
-        // Calculate predicted damage from the enemy's skill
-        int totalPredictedDamage = 0;
-        var skillPart = enemy.CurrentSkill.Skill;
+        // All skill parts deal the same damage; calculate for the first part and multiply by count
+        var firstPart = enemy.CurrentSkill.FirstPart;
+        int perPartDamage = 0;
         bool hasDamageEffects = false;
 
-        if (skillPart.DamageEffects != null)
+        if (firstPart?.DamageEffects != null)
         {
-            foreach (var damageData in skillPart.DamageEffects)
+            foreach (var damageData in firstPart.DamageEffects)
             {
-                if (damageData != null)
+                if (damageData == null) continue;
+                if (damageData.HitType == HitTypeEnum.Healing ||
+                    damageData.HitType == HitTypeEnum.Shield)
+                    continue;
+
+                hasDamageEffects = true;
+
+                var damageDataCopy = new DamageData
                 {
-                    // Skip healing and shield effects
-                    if (damageData.HitType == HitTypeEnum.Healing || 
-                        damageData.HitType == HitTypeEnum.Shield)
-                        continue;
+                    Power = damageData.Power,
+                    HitType = damageData.HitType,
+                    IsMagical = damageData.IsMagical,
+                    Caster = enemy,
+                    Modifiers = damageData.Modifiers,
+                    Prerequisites = damageData.Prerequisites
+                };
 
-                    hasDamageEffects = true;
-
-                    // Create a copy of the damage data with the enemy as caster
-                    var damageDataCopy = new DamageData
-                    {
-                        Power = damageData.Power,
-                        HitType = damageData.HitType,
-                        IsMagical = damageData.IsMagical,
-                        Caster = enemy,
-                        Modifiers = damageData.Modifiers,
-                        Prerequisites = damageData.Prerequisites
-                    };
-
-                    // Calculate the damage using the DamageManager
-                    var calculatedDamage = damageManager.CalculateDamageData(damageDataCopy, thisUnit);
-                    totalPredictedDamage += calculatedDamage.Damage;
-                }
+                var calculatedDamage = damageManager.CalculateDamageData(damageDataCopy, thisUnit);
+                perPartDamage += calculatedDamage.Damage;
             }
         }
 
-        // Only show damage preview if the enemy actually has damaging effects
-        // (Show 0 if defense negates all damage, but don't show for healing/support skills)
         if (hasDamageEffects)
         {
+            int count = enemy.CurrentSkill.Skill.Count;
             damagePreviewParent.SetActive(true);
-            damagePreviewText.text = Mathf.Max(0, totalPredictedDamage).ToString();
+            damagePreviewText.text = count > 1
+                ? $"{count}x{Mathf.Max(0, perPartDamage)}"
+                : Mathf.Max(0, perPartDamage).ToString();
         }
         else
         {

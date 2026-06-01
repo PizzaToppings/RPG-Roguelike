@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +10,10 @@ using UnityEngine;
 public class SO_EnemySkill
 {
     public string SkillName;
-    public SO_Skillpart Skill;
+    public List<SO_Skillpart> Skill;
+
+    /// <summary>Returns the first skill part, or null if the list is empty. Used for range calculations shared across all parts.</summary>
+    public SO_Skillpart FirstPart => Skill != null && Skill.Count > 0 ? Skill[0] : null;
 
     [Header("Intent (UI display)")]
     public IntentActionEnum IntentAction;

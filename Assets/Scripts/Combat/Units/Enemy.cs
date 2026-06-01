@@ -118,7 +118,7 @@ public class Enemy : Unit
                 {
                     // Filter characters that are within the enemy's threat range
                     bool isRooted = statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Rooted);
-                    float attackRange = aiEnemy.CurrentSkill?.Skill?.MaxRange ?? aiEnemy.CurrentSkill.OptimalRange;
+                    float attackRange = aiEnemy.CurrentSkill?.FirstPart?.MaxRange ?? aiEnemy.CurrentSkill.OptimalRange;
                     var maxRange = attackRange + (isRooted ? 0f : MoveSpeed);
                     var targetCandidates = UnitData.Characters
                         .Where(c => c != null && c.Tile != null &&

@@ -262,7 +262,7 @@ public class BoardManager : MonoBehaviour
         }
 
         var aiEnemy = enemy as EnemyBaseAI;
-        float attackRange = aiEnemy?.CurrentSkill?.Skill?.MaxRange ?? aiEnemy?.CurrentSkill?.OptimalRange ?? 0f;
+        float attackRange = aiEnemy?.CurrentSkill?.FirstPart?.MaxRange ?? aiEnemy?.CurrentSkill?.OptimalRange ?? 0f;
         bool isRooted = StatusEffectManager.Instance.UnitHasStatusEffect(enemy, StatusEffectEnum.Rooted);
         float totalRange = (isRooted ? 0f : enemy.MoveSpeed) + attackRange;
 

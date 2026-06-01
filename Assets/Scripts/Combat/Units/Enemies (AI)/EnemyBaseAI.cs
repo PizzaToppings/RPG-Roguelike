@@ -32,8 +32,10 @@ public class EnemyBaseAI : Enemy
         var result = new List<SO_SKillVFX>();
         if (enemySO != null)
             foreach (var s in enemySO.Skills)
-                if (s?.Skill?.SkillVFX != null)
-                    result.AddRange(s.Skill.SkillVFX);
+                if (s?.Skill != null)
+                    foreach (var part in s.Skill)
+                        if (part?.SkillVFX != null)
+                            result.AddRange(part.SkillVFX);
         return result;
     }
 
@@ -91,16 +93,23 @@ public class EnemyBaseAI : Enemy
     // Executes the current skill without ending the turn. Called by StartTurn (Phase 2) and Attack().
     protected virtual IEnumerator ExecuteSkill()
     {
-        var skill = CurrentSkill.Skill;
+        var skillParts = CurrentSkill.Skill;
+        var firstPart  = CurrentSkill.FirstPart;
 
         if (CurrentSkill.TargetPreference == TargetEnum.Self)
         {
             StartCoroutine(uiManager.ShowActivityText(CurrentSkill.SkillName));
             yield return new WaitForSeconds(0.3f);
 
-            skill.PartData = new SkillPartData();
-            skill.PartData.TargetsHit.Add(this);
-            StartCoroutine(skillsManager.CastSkillsPart(skill, this));
+            for (int i = 0; i < skillParts.Count; i++)
+            {
+                var part = skillParts[i];
+                part.PartData = new SkillPartData();
+                part.PartData.TargetsHit.Add(this);
+                StartCoroutine(skillsManager.CastSkillsPart(part, this));
+                if (i < skillParts.Count - 1)
+                    yield return new WaitForSeconds(0.2f);
+            }
 
             yield return new WaitForSeconds(2);
 
@@ -120,7 +129,7 @@ public class EnemyBaseAI : Enemy
                 continue;
 
             var range = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
-            if (range < skill.MinRange || range > skill.MaxRange)
+            if (range < firstPart.MinRange || range > firstPart.MaxRange)
                 continue;
 
             if (target == null)
@@ -142,9 +151,15 @@ public class EnemyBaseAI : Enemy
         yield return new WaitForSeconds(0.3f);
 
         Rotate(target.transform.position);
-        skill.PartData = new SkillPartData();
-        skill.PartData.TargetsHit.Add(target);
-        StartCoroutine(skillsManager.CastSkillsPart(skill, this));
+        for (int i = 0; i < skillParts.Count; i++)
+        {
+            var part = skillParts[i];
+            part.PartData = new SkillPartData();
+            part.PartData.TargetsHit.Add(target);
+            StartCoroutine(skillsManager.CastSkillsPart(part, this));
+            if (i < skillParts.Count - 1)
+                yield return new WaitForSeconds(0.2f);
+        }
 
         yield return new WaitForSeconds(2);
 
@@ -178,7 +193,7 @@ public class EnemyBaseAI : Enemy
 
                 var rangeToCharacter = boardManager.GetRangeBetweenTiles(tile, character.Tile);
 
-                float skillMinRange = CurrentSkill.Skill != null ? CurrentSkill.Skill.MinRange : 0f;
+                float skillMinRange = CurrentSkill.FirstPart?.MinRange ?? 0f;
                 if (rangeToCharacter >= skillMinRange && rangeToCharacter <= CurrentSkill.OptimalRange)
                     tile.EnemyPreferenceRating += 200 + preferedBonus;
                 else if (rangeToCharacter < skillMinRange)
@@ -205,7 +220,7 @@ public class EnemyBaseAI : Enemy
 
         // Fallback: if the best tile is where we already stand AND we are not already
         // in a valid attack position, approach the preferred target to close the distance.
-        float fallbackMinRange = CurrentSkill.Skill != null ? CurrentSkill.Skill.MinRange : 0f;
+        float fallbackMinRange = CurrentSkill.FirstPart?.MinRange ?? 0f;
         bool alreadyInRange = UnitData.Characters.Any(c =>
         {
             var r = boardManager.GetRangeBetweenTiles(Tile, c.Tile);
@@ -300,8 +315,8 @@ public class EnemyBaseAI : Enemy
         var engageTarget = preferredTarget ?? (UnitData.Characters.Count > 0 ? UnitData.Characters[0] : null);
         if (engageTarget == null) return null;
 
-        float minRange    = CurrentSkill.Skill != null ? CurrentSkill.Skill.MinRange : 0f;
-        float maxRange    = CurrentSkill.Skill != null ? CurrentSkill.Skill.MaxRange : CurrentSkill.OptimalRange;
+        float minRange    = CurrentSkill.FirstPart?.MinRange ?? 0f;
+        float maxRange    = CurrentSkill.FirstPart?.MaxRange ?? CurrentSkill.OptimalRange;
         float optimalRange = CurrentSkill.OptimalRange;
 
         var validTiles = PossibleMovementTiles
@@ -327,9 +342,9 @@ public class EnemyBaseAI : Enemy
     // Returns true if any player character can be targeted with the current skill from the current tile.
     private bool IsInSkillRange()
     {
-        var skill     = CurrentSkill.Skill;
-        float minRange = skill != null ? skill.MinRange : 0f;
-        float maxRange = skill != null ? skill.MaxRange : CurrentSkill.OptimalRange;
+        var firstPart = CurrentSkill.FirstPart;
+        float minRange = firstPart?.MinRange ?? 0f;
+        float maxRange = firstPart?.MaxRange ?? CurrentSkill.OptimalRange;
 
         return UnitData.Characters.Any(c =>
         {

@@ -90,11 +90,12 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
         bool isMagical = action == IntentActionEnum.MagicalMeleeAttack || action == IntentActionEnum.MagicalRangedAttack;
         int totalDamage = 0, totalHealing = 0, totalShielding = 0;
 
-        if (skill?.Skill != null && aiEnemy != null)
+        if (skill?.Skill != null && skill.Skill.Count > 0 && aiEnemy != null)
         {
-            if (skill.Skill.DamageEffects != null)
+            foreach (var part in skill.Skill)
             {
-                foreach (var effect in skill.Skill.DamageEffects)
+                if (part?.DamageEffects == null) continue;
+                foreach (var effect in part.DamageEffects)
                 {
                     if (effect == null) continue;
                     switch (effect.HitType)
@@ -144,7 +145,7 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
 
     private static string GetDefaultIntentTargetDescription(IntentTargetEnum target, SO_EnemySkill skill, EnemyBaseAI aiEnemy)
     {
-            float maxRange = skill.Skill.MaxRange > 0 ? skill.Skill.MaxRange : skill.OptimalRange;
+            float maxRange = skill.FirstPart?.MaxRange > 0 ? skill.FirstPart.MaxRange : skill.OptimalRange;
             var threatRange = maxRange + aiEnemy.MoveSpeed;
 
         switch (target)
