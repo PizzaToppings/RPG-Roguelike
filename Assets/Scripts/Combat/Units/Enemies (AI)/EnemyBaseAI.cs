@@ -39,16 +39,66 @@ public class EnemyBaseAI : Enemy
 
         yield return StartCoroutine(base.StartTurn());
 
-        FindOptimalTile();
-        yield return StartCoroutine(MoveToTile());
+        bool isSelfTargeting = CurrentSkill.TargetPreference == TargetEnum.Self;
+
+        // Phase 1: Move to the closest tile within skill range (skip for self-targeting skills).
+        // Ties are broken by proximity to OptimalRange to minimise Phase 3 repositioning.
+        if (!isSelfTargeting)
+        {
+            BoardTile engageTile = FindEngageTile();
+            if (engageTile != null && engageTile != Tile)
+            {
+                boardManager.SetMovementLine(engageTile, false);
+                yield return StartCoroutine(boardManager.MoveToTile());
+            }
+        }
 
         yield return new WaitForSeconds(0.3f);
-        yield return StartCoroutine(Attack());
+
+        // Phase 2: Use skill if now in range (or targeting self).
+        if (isSelfTargeting || IsInSkillRange())
+            yield return StartCoroutine(ExecuteSkill());
+
+        // Phase 3: Use remaining movement to reposition at OptimalRange.
+        if (MoveSpeedLeft > 0 && UnitData.Characters.Count > 0)
+        {
+            PossibleMovementTiles.Clear();
+            boardManager.Clear();
+            boardManager.SetAOE(MoveSpeedLeft, Tile, null);
+            if (!PossibleMovementTiles.Contains(Tile))
+                PossibleMovementTiles.Add(Tile);
+
+            BoardTile repositionTile = FindOptimalRepositionTile();
+            if (repositionTile != null && repositionTile != Tile)
+            {
+                boardManager.SetMovementLine(repositionTile, false);
+                yield return StartCoroutine(boardManager.MoveToTile());
+            }
+        }
+
+        EndTurn();
     }
 
-    public virtual IEnumerator Attack()
+    // Executes the current skill without ending the turn. Called by StartTurn (Phase 2) and Attack().
+    protected virtual IEnumerator ExecuteSkill()
     {
         var skill = CurrentSkill.Skill;
+
+        if (CurrentSkill.TargetPreference == TargetEnum.Self)
+        {
+            StartCoroutine(uiManager.ShowActivityText(CurrentSkill.SkillName));
+            yield return new WaitForSeconds(0.3f);
+
+            skill.PartData = new SkillPartData();
+            skill.PartData.TargetsHit.Add(this);
+            StartCoroutine(skillsManager.CastSkillsPart(skill, this));
+
+            yield return new WaitForSeconds(2);
+
+            CurrentSkill = sequencer.Pick(enemySO?.Skills, false);
+            (ThisHealthbar as FloatingHealthbar)?.UpdateIntent(CurrentSkill);
+            yield break;
+        }
 
         Unit target = null;
         float closestTargetRange = 0;
@@ -68,21 +118,15 @@ public class EnemyBaseAI : Enemy
                 target = character;
                 closestTargetRange = range;
             }
-            else
+            else if (range < closestTargetRange)
             {
-                if (range < closestTargetRange)
-                {
-                    target = character;
-                    closestTargetRange = range;
-                }
+                target = character;
+                closestTargetRange = range;
             }
         }
 
         if (target == null)
-        {
-            EndTurn();
             yield break;
-        }
 
         StartCoroutine(uiManager.ShowActivityText(CurrentSkill.SkillName));
         yield return new WaitForSeconds(0.3f);
@@ -97,7 +141,11 @@ public class EnemyBaseAI : Enemy
         // Pick next skill and update intent for next turn
         CurrentSkill = sequencer.Pick(enemySO?.Skills, false);
         (ThisHealthbar as FloatingHealthbar)?.UpdateIntent(CurrentSkill);
+    }
 
+    public virtual IEnumerator Attack()
+    {
+        yield return StartCoroutine(ExecuteSkill());
         EndTurn();
     }
 
@@ -221,5 +269,79 @@ public class EnemyBaseAI : Enemy
 
         boardManager.SetMovementLine(OptimalTile, false);
         yield return StartCoroutine(boardManager.MoveToTile());
+    }
+
+    // Returns the closest reachable tile within skill range of the preferred target.
+    // When multiple tiles share the same move cost, prefers the one already at OptimalRange
+    // so Phase 3 repositioning needs less (or no) movement.
+    // Returns the current Tile if already in range, or null if skill range is unreachable.
+    public BoardTile FindEngageTile()
+    {
+        boardManager.SetAOE(MoveSpeedLeft, Tile, null);
+        if (!PossibleMovementTiles.Contains(Tile))
+            PossibleMovementTiles.Add(Tile);
+
+        // Already in range — no Phase 1 movement needed.
+        if (IsInSkillRange())
+            return Tile;
+
+        var preferredTarget = GetTargetPreference(CurrentSkill.TargetPreference, UnitData.Characters);
+        var engageTarget = preferredTarget ?? (UnitData.Characters.Count > 0 ? UnitData.Characters[0] : null);
+        if (engageTarget == null) return null;
+
+        float minRange    = CurrentSkill.Skill != null ? CurrentSkill.Skill.MinRange : 0f;
+        float maxRange    = CurrentSkill.Skill != null ? CurrentSkill.Skill.MaxRange : CurrentSkill.OptimalRange;
+        float optimalRange = CurrentSkill.OptimalRange;
+
+        var validTiles = PossibleMovementTiles
+            .Where(t => t != Tile)
+            .Where(t =>
+            {
+                var r = boardManager.GetRangeBetweenTiles(t, engageTarget.Tile);
+                return r >= minRange && r <= maxRange;
+            })
+            .ToList();
+
+        if (validTiles.Count == 0)
+            return null;
+
+        // Least movement first (highest movementLeft = fewest steps taken),
+        // then closest to OptimalRange for best Phase 3 setup.
+        return validTiles
+            .OrderByDescending(t => t.movementLeft)
+            .ThenBy(t => Mathf.Abs(boardManager.GetRangeBetweenTiles(t, engageTarget.Tile) - optimalRange))
+            .First();
+    }
+
+    // Returns true if any player character can be targeted with the current skill from the current tile.
+    private bool IsInSkillRange()
+    {
+        var skill     = CurrentSkill.Skill;
+        float minRange = skill != null ? skill.MinRange : 0f;
+        float maxRange = skill != null ? skill.MaxRange : CurrentSkill.OptimalRange;
+
+        return UnitData.Characters.Any(c =>
+        {
+            if (boardManager.TileIsBehindClosedTile(Tile, c.Tile)) return false;
+            var r = boardManager.GetRangeBetweenTiles(Tile, c.Tile);
+            return r >= minRange && r <= maxRange;
+        });
+    }
+
+    // Finds the best reachable tile (within remaining MoveSpeedLeft) to stand at OptimalRange
+    // from the preferred target. Used in Phase 3 repositioning.
+    public BoardTile FindOptimalRepositionTile()
+    {
+        if (PossibleMovementTiles.Count == 0) return null;
+
+        var preferredTarget  = GetTargetPreference(CurrentSkill.TargetPreference, UnitData.Characters);
+        var repositionTarget = preferredTarget ?? (UnitData.Characters.Count > 0 ? UnitData.Characters[0] : null);
+        if (repositionTarget == null) return null;
+
+        float optimalRange = CurrentSkill.OptimalRange;
+
+        return PossibleMovementTiles
+            .OrderBy(t => Mathf.Abs(boardManager.GetRangeBetweenTiles(t, repositionTarget.Tile) - optimalRange))
+            .First();
     }
 }

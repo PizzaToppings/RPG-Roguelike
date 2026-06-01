@@ -29,7 +29,7 @@ MonoBehaviour:
     Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  DashOnDamageOrEffect: 0
+  DashOnDamageOrEffect: 1
   SkillVFX: []
   DamageEffects: []
   MinRange: 0
