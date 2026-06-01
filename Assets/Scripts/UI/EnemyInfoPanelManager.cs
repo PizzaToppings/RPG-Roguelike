@@ -70,44 +70,88 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
 
         if (intentDescriptionText != null)
         {
-            string desc = GetDefaultIntentDescription(skill.IntentAction);
+            string desc = GetDefaultIntentDescription(skill.IntentAction, skill, aiEnemy);
             intentDescriptionText.gameObject.SetActive(!string.IsNullOrEmpty(desc));
             intentDescriptionText.text = desc;
         }
 
         if (intentTargetDescriptionText != null)
         {
-            string targetDesc = GetDefaultIntentTargetDescription(skill.GetIntentTarget());
+            string targetDesc = GetDefaultIntentTargetDescription(skill.GetIntentTarget(), skill, aiEnemy);
             intentTargetDescriptionText.gameObject.SetActive(!string.IsNullOrEmpty(targetDesc));
             intentTargetDescriptionText.text = targetDesc;
         }
     }
 
-    private static string GetDefaultIntentDescription(IntentActionEnum action)
+    private static string GetDefaultIntentDescription(IntentActionEnum action, SO_EnemySkill skill, EnemyBaseAI aiEnemy)
     {
+        bool isMagical = action == IntentActionEnum.MagicalMeleeAttack || action == IntentActionEnum.MagicalRangedAttack;
+        int totalDamage = 0, totalHealing = 0, totalShielding = 0;
+
+        if (skill?.Skill != null && aiEnemy != null)
+        {
+            if (skill.Skill.DamageEffects != null)
+            {
+                foreach (var effect in skill.Skill.DamageEffects)
+                {
+                    if (effect == null) continue;
+                    switch (effect.HitType)
+                    {
+                        case HitTypeEnum.Healing: totalHealing  += effect.Power; break;
+                        case HitTypeEnum.Shield:  totalShielding += effect.Power; break;
+                        default:
+                            int casterPower = isMagical ? aiEnemy.MagicalPower : aiEnemy.PhysicalPower;
+                            totalDamage += Mathf.Max(0, effect.Power + casterPower);
+                            break;
+                    }
+                }
+            }
+        }
+
         switch (action)
         {
-            case IntentActionEnum.PhysicalMeleeAttack:  return "The enemy will deal physical melee damage.";
-            case IntentActionEnum.PhysicalRangedAttack: return "The enemy will deal physical ranged damage.";
-            case IntentActionEnum.MagicalMeleeAttack:   return "The enemy will deal magical melee damage.";
-            case IntentActionEnum.MagicalRangedAttack:  return "The enemy will deal magical ranged damage.";
-            case IntentActionEnum.Debuff:               return "The enemy will apply a debuff.";
-            case IntentActionEnum.Buff:                 return "The enemy will buff itself or an ally.";
-            case IntentActionEnum.Heal:                 return "The enemy will restore health.";
-            case IntentActionEnum.AOE:                  return "The enemy will unleash an area of effect attack.";
-            default:                                    return string.Empty;
+            case IntentActionEnum.PhysicalMeleeAttack:
+                return totalDamage > 0
+                    ? $"Deals {totalDamage} physical melee damage."
+                    : $"Deals physical melee damage.";
+            case IntentActionEnum.PhysicalRangedAttack:
+                return totalDamage > 0
+                    ? $"Deals {totalDamage} physical ranged damage."
+                    : $"Deals physical ranged damage.";
+            case IntentActionEnum.MagicalMeleeAttack:
+                return totalDamage > 0
+                    ? $"Deals {totalDamage} magical melee damage."
+                    : $"Deals magical melee damage.";
+            case IntentActionEnum.MagicalRangedAttack:
+                return totalDamage > 0
+                    ? $"Deals {totalDamage} magical ranged damage."
+                    : $"Deals magical ranged damage.";
+            case IntentActionEnum.Debuff:   return "Applies a debuff.";
+            case IntentActionEnum.Buff:     return "Buffs itself or an ally.";
+            case IntentActionEnum.Heal:
+                return totalHealing > 0
+                    ? $"Restores {totalHealing} health."
+                    : "Restores health.";
+            case IntentActionEnum.AOE:
+                return totalDamage > 0
+                    ? $"Unleashes an area of effect attack dealing {totalDamage} damage."
+                    : $"Unleashes an area of effect attack.";
+            default: return string.Empty;
         }
     }
 
-    private static string GetDefaultIntentTargetDescription(IntentTargetEnum target)
+    private static string GetDefaultIntentTargetDescription(IntentTargetEnum target, SO_EnemySkill skill, EnemyBaseAI aiEnemy)
     {
+            float maxRange = skill.Skill.MaxRange > 0 ? skill.Skill.MaxRange : skill.OptimalRange;
+            var threatRange = maxRange + aiEnemy.MoveSpeed;
+
         switch (target)
         {
-            case IntentTargetEnum.Nearest:      return "Targets the nearest unit.";
-            case IntentTargetEnum.LowestHealth: return "Targets the unit with the lowest health.";
-            case IntentTargetEnum.Area:         return "Targets an area.";
+            case IntentTargetEnum.Nearest:      return $"Targets the nearest unit within {threatRange} range.";
+            case IntentTargetEnum.LowestHealth: return $"Targets the unit with the lowest health within {threatRange} range.";
+            case IntentTargetEnum.Area:         return $"Targets an area within {threatRange} range.";
             case IntentTargetEnum.Self:         return "Targets itself.";
-            case IntentTargetEnum.Random:       return "Targets a random unit.";
+            case IntentTargetEnum.Random:       return $"Targets a random unit within {threatRange}.";
             default:                            return string.Empty;
         }
     }
