@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 3068000666528724634}
   - component: {fileID: 8446354176667331401}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Target Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 8755340241558267059}
   - component: {fileID: 5874569563436698266}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Damage Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1938,7 +1938,7 @@ GameObject:
   - component: {fileID: 8985417432273958781}
   - component: {fileID: 6808094113091863322}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Intent Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

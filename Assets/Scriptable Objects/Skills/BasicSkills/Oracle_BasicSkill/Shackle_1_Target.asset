@@ -96,7 +96,7 @@ MonoBehaviour:
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
-    FillCenter: 0
+    FillCenter: 1
     Kind: 8
     Priority: 4
   CanTargetSelf: 0

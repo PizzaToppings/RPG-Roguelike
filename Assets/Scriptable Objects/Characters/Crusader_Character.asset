@@ -18,11 +18,11 @@ MonoBehaviour:
   MaxHealth: 34
   MaxEnergy: 3
   MoveSpeed: 4
-  Initiative: 0
   PhysicalPower: 2
   MagicalPower: 1
   PhysicalDefense: 2
   MagicalDefense: 2
+  StartingCombatStyle: 5
   basicAttack: {fileID: 11400000, guid: c55d1b69833c5ed4589439208929fa01, type: 2}
   basicSkill: {fileID: 11400000, guid: 0ae9aaedd2739cb46bd94d0dbdf26c1f, type: 2}
   BasicTrait: {fileID: 11400000, guid: 765fd2f631e1e464fab8654190727854, type: 2}
