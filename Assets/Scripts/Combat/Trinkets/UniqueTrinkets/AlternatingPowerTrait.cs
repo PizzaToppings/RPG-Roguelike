@@ -7,32 +7,19 @@ public class Duality_Trait : SO_Trait
 
     public override void Init(Character character, Trait trait)
     {
-        bool isPhysicalTurn = true; // First turn grants Physical Power
-        int lastApplied = 0;        // 0 = none, 1 = physical, -1 = magical
+        int lastApplied = 0; // 0 = none, 1 = applied
 
         character.OnUnitTurnStartEvent.AddListener(OnTurnStart);
 
         void OnTurnStart()
         {
             // Remove the previous bonus before applying the new one
-            if (lastApplied == 1)
-                character.PhysicalPower -= PowerBonus;
-            else if (lastApplied == -1)
-                character.MagicalPower -= PowerBonus;
+            if (lastApplied != 0)
+                character.Power -= PowerBonus;
 
-            // Apply the new bonus
-            if (isPhysicalTurn)
-            {
-                character.PhysicalPower += PowerBonus;
-                lastApplied = 1;
-            }
-            else
-            {
-                character.MagicalPower += PowerBonus;
-                lastApplied = -1;
-            }
-
-            isPhysicalTurn = !isPhysicalTurn;
+            // Apply Power bonus each turn
+            character.Power += PowerBonus;
+            lastApplied = 1;
         }
     }
 }

@@ -103,7 +103,7 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
                         case HitTypeEnum.Healing: totalHealing  += effect.Power; break;
                         case HitTypeEnum.Shield:  totalShielding += effect.Power; break;
                         default:
-                            int casterPower = isMagical ? aiEnemy.MagicalPower : aiEnemy.PhysicalPower;
+                            int casterPower = aiEnemy.Power;
                             totalDamage += Mathf.Max(0, effect.Power + casterPower);
                             break;
                     }

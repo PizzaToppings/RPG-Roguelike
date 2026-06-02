@@ -18,15 +18,12 @@ public class Enemy : Unit
     {
         if (enemySO != null)
         {
-            UnitName             = enemySO.Name;
-            MaxHitpoints         = enemySO.MaxHealth;
-            Hitpoints            = enemySO.MaxHealth;
-            MoveSpeed            = enemySO.MoveSpeed;
-            PhysicalPower        = enemySO.PhysicalPower;
-            MagicalPower         = enemySO.MagicalPower;
-            PhysicalDefense      = enemySO.PhysicalDefense;
-            MagicalDefense       = enemySO.MagicalDefense;
-            CurrentCombatStyle   = enemySO.StartingCombatStyle;
+            UnitName         = enemySO.Name;
+            MaxHitpoints     = enemySO.MaxHealth;
+            Hitpoints        = enemySO.MaxHealth;
+            MoveSpeed        = enemySO.MoveSpeed;
+            Power            = enemySO.Power;
+            Defense          = enemySO.Defense;
         }
     }
 

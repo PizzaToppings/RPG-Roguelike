@@ -31,7 +31,7 @@ public class DefaultSkillAugment : SO_SkillAugment
 
     public override void Init(Skill skill, SkillAugment augment, Character character)
     {
-        Debug.Log($"[SkillAugment] '{AugmentName}' Init on skill '{skill.mainSkillSO.SkillName}' — Trigger: {TriggerMoment}, Effect: {TriggerEffect}");
+        Debug.Log($"[SkillAugment] '{AugmentName}' Init on skill '{skill.mainSkillSO.SkillName}' ï¿½ Trigger: {TriggerMoment}, Effect: {TriggerEffect}");
 
         switch (TriggerMoment)
         {
@@ -102,11 +102,11 @@ public class DefaultSkillAugment : SO_SkillAugment
             }
 
             case SkillAugmentEffectEnum.AddEnergy:
-                character.SetEnergy(character.Energy + Value);
+                //character.SetEnergy(character.Energy + Value);
                 break;
 
             case SkillAugmentEffectEnum.ModifyEnergyCost:
-                skill.EnergyCost = Mathf.Max(0, skill.EnergyCost + Value);
+                //skill.EnergyCost = Mathf.Max(0, skill.EnergyCost + Value);
                 break;
 
             case SkillAugmentEffectEnum.ModifyRange:

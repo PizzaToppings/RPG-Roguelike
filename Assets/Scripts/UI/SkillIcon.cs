@@ -81,13 +81,14 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
         if (EnergycostText == null)
             return;
 
-        energyCostImage.SetActive(true);
-        EnergycostText.text = skill.EnergyCost.ToString();
-
-        if (character.Energy >= skill.EnergyCost)
-            EnergycostText.color = uiManager.energyTextAvailable;
-        else
-            EnergycostText.color = uiManager.energyTextUnavailable;
+        // Energy system is disabled; hide energy cost display
+        energyCostImage.SetActive(false);
+        //energyCostImage.SetActive(true);
+        //EnergycostText.text = skill.EnergyCost.ToString();
+        //if (character.Energy >= skill.EnergyCost)
+        //    EnergycostText.color = uiManager.energyTextAvailable;
+        //else
+        //    EnergycostText.color = uiManager.energyTextUnavailable;
     }
 
     public void UpdateActiveBorder(Skill activeSkill)

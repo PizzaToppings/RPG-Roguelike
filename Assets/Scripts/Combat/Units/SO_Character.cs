@@ -10,15 +10,10 @@ public class SO_Character : ScriptableObject
 
     [Space]
     public int MaxHealth;
-    public int MaxEnergy;
+    //public int MaxEnergy;
     public int MoveSpeed;
-    public int PhysicalPower;
-    public int MagicalPower;
-    public int PhysicalDefense;
-    public int MagicalDefense;
-
-    [Space]
-    public CombatStyle StartingCombatStyle = CombatStyle.None;
+    public int Power;
+    public int Defense;
 
     [Space]
     public SO_MainSkill basicAttack;

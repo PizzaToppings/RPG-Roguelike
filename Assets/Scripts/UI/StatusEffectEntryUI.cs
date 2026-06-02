@@ -22,4 +22,16 @@ public class StatusEffectEntryUI : MonoBehaviour
         if (durationText != null)
             durationText.text = $"{effect.Duration} turns";
     }
+
+    public void Populate(string name, string description, string duration)
+    {
+        if (nameText != null)
+            nameText.text = name;
+
+        if (descriptionText != null)
+            descriptionText.text = description;
+
+        if (durationText != null)
+            durationText.text = duration;
+    }
 }

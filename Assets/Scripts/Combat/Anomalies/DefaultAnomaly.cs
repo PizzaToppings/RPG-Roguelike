@@ -38,7 +38,7 @@ public class DefaultAnomaly : SO_Anomaly
 
     public override void Init(Anomaly anomaly)
     {
-        Debug.Log($"[Anomaly] '{AnomalyName}' Init — Trigger: {TriggerMoment}, Target: {Target}, Effect: {TriggerEffect}");
+        Debug.Log($"[Anomaly] '{AnomalyName}' Init ï¿½ Trigger: {TriggerMoment}, Target: {Target}, Effect: {TriggerEffect}");
 
         switch (TriggerMoment)
         {
@@ -133,16 +133,16 @@ public class DefaultAnomaly : SO_Anomaly
     {
         switch (stat)
         {
-            case StatsEnum.PhysicalPower:   target.PhysicalPower   += value; break;
-            case StatsEnum.MagicalPower:    target.MagicalPower    += value; break;
-            case StatsEnum.PhysicalDefense: target.PhysicalDefense += value; break;
-            case StatsEnum.MagicalDefense:  target.MagicalDefense  += value; break;
-            case StatsEnum.MoveSpeed:       target.MoveSpeed       += value; break;
-            case StatsEnum.MaxHitpoints:    target.MaxHitpoints    += value; break;
-            case StatsEnum.MaxEnergy:
-                var character = target as Character;
-                if (character != null) character.MaxEnergy += value;
-                break;
+            case StatsEnum.Power:        target.Power        += value; break;
+            case StatsEnum.Defense:      target.Defense      += value; break;
+            case StatsEnum.Shield:       target.ShieldPoints += value; break;
+            case StatsEnum.Range:        target.Range        += value; break;
+            case StatsEnum.MoveSpeed:    target.MoveSpeed    += value; break;
+            case StatsEnum.MaxHitpoints: target.MaxHitpoints += value; break;
+            //case StatsEnum.MaxEnergy:
+            //    var character = target as Character;
+            //    if (character != null) character.MaxEnergy += value;
+            //    break;
         }
     }
 }

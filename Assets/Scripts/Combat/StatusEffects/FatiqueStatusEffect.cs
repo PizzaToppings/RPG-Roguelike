@@ -15,9 +15,10 @@ public class FatiqueStatusEffect : StatusEffect
 
     public void BurnMana()
     {
-        var character = Target as Character;
-        character.Energy -= Power;
-        character.ThisHealthbar.UpdateHealthbar();
+        // Energy system disabled
+        //var character = Target as Character;
+        //character.Energy -= Power;
+        //character.ThisHealthbar.UpdateHealthbar();
     }
 
     public override void EndEffect()

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum CombatStyle
@@ -5,81 +6,110 @@ public enum CombatStyle
     None,
     Aggression,
     Defense,
-    Precision,
+    Focus,
     Mobility,
-    Control
+    Control,
+    Support
 }
 
 public static class CombatStyleUtility
 {
     /// <summary>
-    /// Gets the damage multiplier based on attacker's style vs defender's style.
-    /// Returns 1.5 for strong matchup, 0.67 for weak matchup, 1.0 for neutral.
+    /// Applies stance stat buffs/debuffs when the caster ends their turn.
+    /// Self-targeting stances (Aggression, Defense, Mobility, Focus) affect the caster.
+    /// Aura stances (Control, Support) affect all living enemies or allies respectively.
+    /// All effects use Duration = 1 (EndOfTurn trigger) so they expire at the end of the unit's next turn.
     /// </summary>
-    public static float GetStyleMultiplier(CombatStyle attackerStyle, CombatStyle defenderStyle)
+    public static void ApplyStanceEffects(CombatStyle stance, Unit caster)
     {
-        // No style means no modifier
-        if (attackerStyle == CombatStyle.None || defenderStyle == CombatStyle.None)
-            return 1f;
+        if (stance == CombatStyle.None) return;
 
-        // Same style is neutral
-        if (attackerStyle == defenderStyle)
-            return 1f;
-
-        // Check if attacker has advantage
-        if (IsStrongAgainst(attackerStyle, defenderStyle))
-            return 1.5f;
-
-        // Check if attacker has disadvantage
-        if (IsWeakAgainst(attackerStyle, defenderStyle))
-            return 0.67f;
-
-        // Neutral matchup
-        return 1f;
-    }
-
-    /// <summary>
-    /// Returns true if attackerStyle is strong against defenderStyle.
-    /// </summary>
-    public static bool IsStrongAgainst(CombatStyle attackerStyle, CombatStyle defenderStyle)
-    {
-        switch (attackerStyle)
+        switch (stance)
         {
             case CombatStyle.Aggression:
-                return defenderStyle == CombatStyle.Control;
+                // +2 Power, -2 Defense
+                ApplyStatChange(caster, caster, StatsEnum.Power,   +2, isBuff: true);
+                ApplyStatChange(caster, caster, StatsEnum.Defense, -2, isBuff: false);
+                break;
+
             case CombatStyle.Defense:
-                return defenderStyle == CombatStyle.Precision;
-            case CombatStyle.Precision:
-                return defenderStyle == CombatStyle.Aggression;
+                // -2 Power, +4 Shield
+                ApplyStatChange(caster, caster, StatsEnum.Power,  -2, isBuff: false);
+                ApplyStatChange(caster, caster, StatsEnum.Shield, +4, isBuff: true);
+                break;
+
             case CombatStyle.Mobility:
-                return defenderStyle == CombatStyle.Defense;
+                // +2 Speed, -2 Defense
+                ApplyStatChange(caster, caster, StatsEnum.MoveSpeed, +2, isBuff: true);
+                ApplyStatChange(caster, caster, StatsEnum.Defense,   -2, isBuff: false);
+                break;
+
+            case CombatStyle.Focus:
+                // +2 Range, -1 Speed
+                ApplyStatChange(caster, caster, StatsEnum.Range,    +2, isBuff: true);
+                ApplyStatChange(caster, caster, StatsEnum.MoveSpeed, -1, isBuff: false);
+                break;
+
             case CombatStyle.Control:
-                return defenderStyle == CombatStyle.Mobility;
-            default:
-                return false;
+                // All living enemies get -1 Power and -1 Speed
+                var enemies = caster.Friendly ? (System.Collections.IEnumerable)UnitData.Enemies : UnitData.Characters;
+                foreach (Unit enemy in enemies)
+                {
+                    ApplyStatChange(caster, enemy, StatsEnum.Power,    -1, isBuff: false);
+                    ApplyStatChange(caster, enemy, StatsEnum.MoveSpeed, -1, isBuff: false);
+                }
+                break;
+
+            case CombatStyle.Support:
+                // All living allies get +1 Defense; caster gets -1 Power
+                var allies = caster.Friendly ? (System.Collections.IEnumerable)UnitData.Characters : UnitData.Enemies;
+                foreach (Unit ally in allies)
+                    ApplyStatChange(caster, ally, StatsEnum.Defense, +1, isBuff: true);
+                ApplyStatChange(caster, caster, StatsEnum.Power, -1, isBuff: false);
+                break;
         }
     }
 
     /// <summary>
-    /// Returns true if attackerStyle is weak against defenderStyle.
+    /// Creates and applies a StatChangeEffect with Duration = 1 (expires at end of target's next turn).
     /// </summary>
-    public static bool IsWeakAgainst(CombatStyle attackerStyle, CombatStyle defenderStyle)
+    private static void ApplyStatChange(Unit caster, Unit target, StatsEnum stat, int power, bool isBuff)
     {
-        switch (attackerStyle)
+        string sign  = power >= 0 ? "+" : "";
+        string label = $"{StatusEffectDescriptions.GetStatDisplayName(stat)} {sign}{power}";
+
+        var effect = new StatChangeEffect
         {
-            case CombatStyle.Aggression:
-                return defenderStyle == CombatStyle.Defense;
-            case CombatStyle.Defense:
-                return defenderStyle == CombatStyle.Aggression;
-            case CombatStyle.Precision:
-                return defenderStyle == CombatStyle.Mobility;
-            case CombatStyle.Mobility:
-                return defenderStyle == CombatStyle.Control;
-            case CombatStyle.Control:
-                return defenderStyle == CombatStyle.Precision;
-            default:
-                return false;
-        }
+            IsBuff          = isBuff,
+            statusEfectType = StatusEffectEnum.StatChange,
+            Duration        = 1,
+            IsPermanent     = false,
+            DurationTrigger = TriggerMomentEnum.EndOfTurn,
+            Description     = label,
+            Caster          = caster,
+            Target          = target,
+            Stat            = stat,
+            Power           = power,
+        };
+
+        effect.Apply();
+    }
+
+    /// <summary>
+    /// Returns a short human-readable description of the stat changes a stance applies.
+    /// </summary>
+    public static string GetStanceDescription(CombatStyle stance)
+    {
+        return stance switch
+        {
+            CombatStyle.Aggression => "+2 Power, -2 Defense",
+            CombatStyle.Defense    => "-2 Power, +4 Shield",
+            CombatStyle.Mobility   => "+2 Speed, -2 Defense",
+            CombatStyle.Focus      => "+2 Range, -1 Speed",
+            CombatStyle.Control    => "Enemies: -1 Power, -1 Speed",
+            CombatStyle.Support    => "Allies: +1 Defense. Self: -1 Power",
+            _                      => string.Empty,
+        };
     }
 
     /// <summary>
@@ -89,18 +119,13 @@ public static class CombatStyleUtility
     {
         switch (style)
         {
-            case CombatStyle.Aggression:
-                return new Color(1f, 0.2f, 0.2f); // Red
-            case CombatStyle.Defense:
-                return new Color(0.2f, 0.5f, 1f); // Blue
-            case CombatStyle.Precision:
-                return new Color(1f, 1f, 0.2f); // Yellow
-            case CombatStyle.Mobility:
-                return new Color(0.2f, 1f, 0.2f); // Green
-            case CombatStyle.Control:
-                return new Color(0.8f, 0.2f, 1f); // Purple
-            default:
-                return Color.white;
+            case CombatStyle.Aggression: return new Color(1f, 0.2f, 0.2f);  // Red
+            case CombatStyle.Defense:    return new Color(0.2f, 0.5f, 1f);  // Blue
+            case CombatStyle.Focus:      return new Color(1f, 1f, 0.2f);    // Yellow
+            case CombatStyle.Mobility:   return new Color(0.2f, 1f, 0.2f);  // Green
+            case CombatStyle.Control:    return new Color(0.8f, 0.2f, 1f);  // Purple
+            case CombatStyle.Support:    return new Color(0.2f, 1f, 0.8f);  // Cyan
+            default:                     return Color.white;
         }
     }
 }

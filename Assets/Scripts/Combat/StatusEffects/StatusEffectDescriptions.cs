@@ -14,7 +14,7 @@ public static class StatusEffectDescriptions
         return GetDefault(so.StatusEffectType, so.Stat, power);
     }
 
-    public static string GetDefault(StatusEffectEnum type, StatsEnum stat = StatsEnum.PhysicalPower, int power = 0)
+    public static string GetDefault(StatusEffectEnum type, StatsEnum stat = StatsEnum.Power, int power = 0)
     {
         switch (type)
         {
@@ -78,14 +78,14 @@ public static class StatusEffectDescriptions
     {
         switch (stat)
         {
-            case StatsEnum.PhysicalPower:   return "Physical Power";
-            case StatsEnum.MagicalPower:    return "Magical Power";
-            case StatsEnum.PhysicalDefense: return "Physical Defense";
-            case StatsEnum.MagicalDefense:  return "Magical Defense";
-            case StatsEnum.MaxHitpoints:    return "Max Hitpoints";
-            case StatsEnum.MaxEnergy:       return "Max Energy";
-            case StatsEnum.MoveSpeed:       return "Move Speed";
-            default:                        return stat.ToString();
+            case StatsEnum.Power:        return "Power";
+            case StatsEnum.Defense:      return "Defense";
+            case StatsEnum.Shield:       return "Shield";
+            case StatsEnum.Range:        return "Range";
+            case StatsEnum.MaxHitpoints: return "Max Hitpoints";
+            //case StatsEnum.MaxEnergy:  return "Max Energy";
+            case StatsEnum.MoveSpeed:    return "Move Speed";
+            default:                     return stat.ToString();
         }
     }
 }

@@ -8,8 +8,9 @@ public class Character : Unit
 {
     [HideInInspector] public int partyMemberIndex = 0;
 
-    [HideInInspector] public int MaxEnergy = 10;
-    [HideInInspector] public int Energy;
+    //[HideInInspector] public int MaxEnergy = 10;
+    //[HideInInspector] public int Energy;
+    [HideInInspector] public bool HasUsedSkillThisTurn = false;
 
     public SO_Character characterSO;
 
@@ -49,7 +50,7 @@ public class Character : Unit
         Friendly = true;
         base.Init(); // calls SetStats() then RollInitiative()
 
-        SetEnergy(MaxEnergy);
+        //SetEnergy(MaxEnergy);
         SetSkillData(basicAttack);
 
         skillsManager.OnSkillCastComplete.AddListener(StopCasting);
@@ -144,22 +145,14 @@ public class Character : Unit
             UnitName        = soc.Name;
             MaxHitpoints    = soc.MaxHealth;
             Hitpoints       = partyMember.CurrentHitpoints > 0 ? partyMember.CurrentHitpoints : soc.MaxHealth;
-            MaxEnergy       = soc.MaxEnergy;
+            //MaxEnergy       = soc.MaxEnergy;
             MoveSpeed       = soc.MoveSpeed;
-            PhysicalPower   = soc.PhysicalPower;
-            MagicalPower    = soc.MagicalPower;
-            PhysicalDefense = soc.PhysicalDefense;
-            MagicalDefense  = soc.MagicalDefense;
+            Power           = soc.Power;
+            Defense         = soc.Defense;
 
             // Apply permanent bonuses from Instant traits accumulated during this run
             MaxHitpoints += partyMember.BonusMaxHitpoints;
-            MaxEnergy    += partyMember.BonusMaxEnergy;
-
-            CurrentCombatStyle = soc.StartingCombatStyle;
-        }
-        else if (characterSO != null)
-        {
-            CurrentCombatStyle = characterSO.StartingCombatStyle;
+            //MaxEnergy    += partyMember.BonusMaxEnergy;
         }
     }
 
@@ -378,7 +371,9 @@ public class Character : Unit
     public override void SetStartOfTurnStats()
     {
         base.SetStartOfTurnStats();
-        SetEnergy(MaxEnergy);
+        //SetEnergy(MaxEnergy);
+        HasUsedSkillThisTurn = false;
+        CurrentCombatStyle = CombatStyle.None;
         ThisHealthbar.UpdateHealthbar();
     }
 
@@ -403,17 +398,17 @@ public class Character : Unit
         }
     }
 
-    public void SetEnergy(int amount)
-    {
-        Energy = amount;
-        uiManager.SetEnergy(Energy, MaxEnergy);
-    }
+    //public void SetEnergy(int amount)
+    //{
+    //    Energy = amount;
+    //    uiManager.SetEnergy(Energy, MaxEnergy);
+    //}
 
-    public void ConsumeEnergy(int amount)
-    {
-        Energy -= amount;
-        SetEnergy(Energy);
-    }
+    //public void ConsumeEnergy(int amount)
+    //{
+    //    Energy -= amount;
+    //    SetEnergy(Energy);
+    //}
 
     public override void Die()
     {

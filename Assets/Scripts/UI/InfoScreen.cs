@@ -35,7 +35,7 @@ public class InfoScreen : MonoBehaviour
 
         // basic
         skillName.text = skill.mainSkillSO.SkillName;
-        energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
+        //energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
         chargeAmount.text = "Charges: " + skill.DefaultCharges.ToString();
         skillRange.text = "Range: " + GetBaseRange(skill);
         isMagicalText.text = skill.mainSkillSO.IsMagical ? "magical" : "physical";
@@ -111,6 +111,13 @@ public class InfoScreen : MonoBehaviour
         description = ReplaceEffectText(description, skill);
         description += CannotCastText(skill);
 
+        var caster = UnitData.ActiveUnit;
+        if (caster != null && caster.CurrentCombatStyle != CombatStyle.None)
+        {
+            var stanceDesc = CombatStyleUtility.GetStanceDescription(caster.CurrentCombatStyle);
+            description += $"\n\n<color=#ffcc44>Stance: {caster.CurrentCombatStyle} — {stanceDesc}</color>";
+        }
+
         return description;
     }
 
@@ -129,7 +136,7 @@ public class InfoScreen : MonoBehaviour
                     if (description.Contains(damagePlaceholder))
                     {
                         var skillDamage = damageEffect.Power;
-                        var bonusDamage = skill.mainSkillSO.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
+                        var bonusDamage = caster.Power;
                         var totalDamage = (skillDamage + bonusDamage).ToString();
                         var damageText = $"{totalDamage} damage";
                         description = description.Replace(damagePlaceholder, damageText);
@@ -170,7 +177,7 @@ public class InfoScreen : MonoBehaviour
     string CalculateTotalPower(SO_StatusEffect statusEffect, Unit caster)
     {
         var power = statusEffect.Power;
-        var bonusDamage = statusEffect.IsMagical ? caster.MagicalPower : caster.PhysicalPower;
+        var bonusDamage = caster.Power;
 
         switch (statusEffect.StatusEffectType)
         {
@@ -209,8 +216,11 @@ public class InfoScreen : MonoBehaviour
         if (skill.Charges == 0)
             text += "<br>   No charges left.";
 
-        if (caster.Energy < skill.EnergyCost)
-            text += "<br>   Not enough Energy.";
+        //if (caster.Energy < skill.EnergyCost)
+        //    text += "<br>   Not enough Energy.";
+
+        if (caster != null && caster.HasUsedSkillThisTurn)
+            text += "<br>   Already used a skill this turn.";
 
         if (text == string.Empty)
             return text;

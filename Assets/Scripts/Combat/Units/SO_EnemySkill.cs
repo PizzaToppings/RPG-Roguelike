@@ -18,10 +18,6 @@ public class SO_EnemySkill
     [Header("Intent (UI display)")]
     public IntentActionEnum IntentAction;
 
-    [Header("Combat Style")]
-    [Tooltip("The combat style this skill represents. Overwrites the enemy's style when selected. Use None to keep the enemy's current style.")]
-    public CombatStyle CombatStyle = CombatStyle.None;
-
     [Header("Targeting")]
     public TargetEnum    TargetPreference;
     public float         OptimalRange = 1f;

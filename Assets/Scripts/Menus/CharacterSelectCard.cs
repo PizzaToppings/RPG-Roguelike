@@ -9,10 +9,8 @@ public class CharacterSelectCard : MonoBehaviour
     [SerializeField] Image classIconTwo;
     [SerializeField] TextMeshProUGUI SpeedText;
     [SerializeField] TextMeshProUGUI InitiativeText;
-    [SerializeField] TextMeshProUGUI PhysicalPowerText;
-    [SerializeField] TextMeshProUGUI PhysicalDefenseText;
-    [SerializeField] TextMeshProUGUI MagicalPowerText;
-    [SerializeField] TextMeshProUGUI MagicalDefenseText;
+    [SerializeField] TextMeshProUGUI PowerText;
+    [SerializeField] TextMeshProUGUI DefenseText;
     [SerializeField] Image           portrait;
 
     [Space]
@@ -38,10 +36,8 @@ public class CharacterSelectCard : MonoBehaviour
         classIconTwo.sprite = CharacterSelectUI.Instance.GetClassIcon(character.Classes[1]);
 
         SpeedText.text = character.MoveSpeed.ToString();
-        PhysicalPowerText.text = character.PhysicalPower.ToString();
-        PhysicalDefenseText.text = character.PhysicalDefense.ToString();
-        MagicalPowerText.text = character.MagicalPower.ToString();
-        MagicalDefenseText.text = character.MagicalDefense.ToString();
+        PowerText.text = character.Power.ToString();
+        DefenseText.text = character.Defense.ToString();
 
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(OnSelect);

@@ -84,7 +84,8 @@ public class SkillsManager : MonoBehaviour
 
         SkillData.SetCharges(skill, SkillData.GetCharges(skill) - 1);
         var character = UnitData.ActiveUnit as Character;
-        character.ConsumeEnergy(skill.EnergyCost);
+        //character.ConsumeEnergy(skill.EnergyCost);
+        if (character != null) character.HasUsedSkillThisTurn = true;
 
         StartCoroutine(CastSkill(skill, character));
 
@@ -382,8 +383,14 @@ public class SkillsManager : MonoBehaviour
         if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
             return false;
 
-        return SkillData.GetCharges(skill) != 0 &&
-            (UnitData.ActiveUnit as Character).Energy >= skill.EnergyCost;
+        // one skill per turn
+        var character = caster as Character;
+        if (character != null && character.HasUsedSkillThisTurn)
+            return false;
+
+        return SkillData.GetCharges(skill) != 0;
+        //return SkillData.GetCharges(skill) != 0 &&
+        //    (UnitData.ActiveUnit as Character).Energy >= skill.EnergyCost;
     }
 
     public bool NoTargetsInRange(Skill skill)

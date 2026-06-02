@@ -22,17 +22,17 @@ public class StatChangeEffect : StatusEffect
     {
         switch (Stat)
         {
-            case StatsEnum.PhysicalPower:
-                Target.PhysicalPower += Power;
+            case StatsEnum.Power:
+                Target.Power += Power;
                 break;
-            case StatsEnum.PhysicalDefense:
-                Target.PhysicalDefense += Power;
+            case StatsEnum.Defense:
+                Target.Defense += Power;
                 break;
-            case StatsEnum.MagicalPower:
-                Target.MagicalPower += Power;
+            case StatsEnum.Shield:
+                Target.ShieldPoints += Power;
                 break;
-            case StatsEnum.MagicalDefense:
-                Target.MagicalDefense += Power;
+            case StatsEnum.Range:
+                Target.Range += Power;
                 break;
             case StatsEnum.MoveSpeed:
                 Target.MoveSpeed += Power;
@@ -40,10 +40,10 @@ public class StatChangeEffect : StatusEffect
             case StatsEnum.MaxHitpoints:
                 Target.MaxHitpoints += Power;
                 break;
-            case StatsEnum.MaxEnergy:
-                var character = Target as Character;
-                character.MaxEnergy += Power;
-                break;
+            //case StatsEnum.MaxEnergy:
+            //    var character = Target as Character;
+            //    character.MaxEnergy += Power;
+            //    break;
         }
     }
 
@@ -51,17 +51,18 @@ public class StatChangeEffect : StatusEffect
     {
         switch (Stat)
         {
-            case StatsEnum.PhysicalPower:
-                Target.PhysicalPower -= Power;
+            case StatsEnum.Power:
+                Target.Power -= Power;
                 break;
-            case StatsEnum.PhysicalDefense:
-                Target.PhysicalDefense -= Power;
+            case StatsEnum.Defense:
+                Target.Defense -= Power;
                 break;
-            case StatsEnum.MagicalPower:
-                Target.MagicalPower -= Power;
+            case StatsEnum.Shield:
+                Target.ShieldPoints -= Power;
+                if (Target.ShieldPoints < 0) Target.ShieldPoints = 0;
                 break;
-            case StatsEnum.MagicalDefense:
-                Target.MagicalDefense -= Power;
+            case StatsEnum.Range:
+                Target.Range -= Power;
                 break;
             case StatsEnum.MoveSpeed:
                 Target.MoveSpeed -= Power;
@@ -69,10 +70,10 @@ public class StatChangeEffect : StatusEffect
             case StatsEnum.MaxHitpoints:
                 Target.MaxHitpoints -= Power;
                 break;
-            case StatsEnum.MaxEnergy:
-                var character = Target as Character;
-                character.MaxEnergy -= Power;
-                break;
+            //case StatsEnum.MaxEnergy:
+            //    var character = Target as Character;
+            //    character.MaxEnergy -= Power;
+            //    break;
         }
     }
 

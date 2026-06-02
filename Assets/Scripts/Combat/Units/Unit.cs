@@ -379,6 +379,9 @@ public class Unit : UnitStats
         // RemoveUnit already handles the turn transition.
         if (!gameObject.activeInHierarchy) return;
 
+        // Apply stance buff/debuff effects for the stance used this turn
+        CombatStyleUtility.ApplyStanceEffects(CurrentCombatStyle, this);
+
         StartCoroutine(combatManager.EndTurn());
     }
 

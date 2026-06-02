@@ -21,10 +21,7 @@ public class EnemyBaseAI : Enemy
 
     void ApplySkillCombatStyle(SO_EnemySkill skill)
     {
-        if (skill == null || skill.CombatStyle == CombatStyle.None) return;
-        CurrentCombatStyle = skill.CombatStyle;
-        RefreshCombatStyleVisuals();
-        (ThisHealthbar as FloatingHealthbar)?.RefreshStyleColor();
+        // Enemy skills no longer carry a CombatStyle field; stance is set via SO_MainSkill.SkillCombatStyle
     }
 
     public override List<SO_SKillVFX> GetSkillVFXList()

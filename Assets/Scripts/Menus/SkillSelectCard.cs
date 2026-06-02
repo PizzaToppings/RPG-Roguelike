@@ -45,8 +45,8 @@ public class SkillSelectCard : MonoBehaviour
         if (rangeText != null)
             rangeText.text = $"Range: {skill.GetAttackRange()}";
 
-        if (energyCostText != null)
-            energyCostText.text = $"Cost: {skill.EnergyCost}";
+        //if (energyCostText != null)
+        //    energyCostText.text = $"Cost: {skill.EnergyCost}";
 
         if (skillIcon != null && skill.Image != null)
         {

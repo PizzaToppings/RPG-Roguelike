@@ -10,13 +10,8 @@ public class SO_Enemy : ScriptableObject
     [Space]
     public int MaxHealth;
     public int MoveSpeed;
-    public int PhysicalPower;
-    public int MagicalPower;
-    public int PhysicalDefense;
-    public int MagicalDefense;
-
-    [Space]
-    public CombatStyle StartingCombatStyle = CombatStyle.None;
+    public int Power;
+    public int Defense;
 
     [Space]
     [Tooltip("If true, the first skill in the Skills list is always used on the first turn.")]

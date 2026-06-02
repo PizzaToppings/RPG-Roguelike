@@ -9,10 +9,8 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
 {
     [Header("Basic Info")]
     [SerializeField] protected TextMeshProUGUI unitNameText;
-    [SerializeField] protected TextMeshProUGUI physicalPowerText;
-    [SerializeField] protected TextMeshProUGUI magicalPowerText;
-    [SerializeField] protected TextMeshProUGUI physicalDefenseText;
-    [SerializeField] protected TextMeshProUGUI magicalDefenseText;
+    [SerializeField] protected TextMeshProUGUI powerText;
+    [SerializeField] protected TextMeshProUGUI defenseText;
 
     [Header("Status Effects")]
     [SerializeField] protected Transform statusEffectsContainer;
@@ -36,14 +34,10 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
         if (unitNameText != null)
             unitNameText.text = unit.UnitName;
 
-        if (physicalPowerText != null)
-            physicalPowerText.text = unit.PhysicalPower.ToString();
-        if (magicalPowerText != null)
-            magicalPowerText.text = unit.MagicalPower.ToString();
-        if (physicalDefenseText != null)
-            physicalDefenseText.text = unit.PhysicalDefense.ToString();
-        if (magicalDefenseText != null)
-            magicalDefenseText.text = unit.MagicalDefense.ToString();
+        if (powerText != null)
+            powerText.text = unit.Power.ToString();
+        if (defenseText != null)
+            defenseText.text = unit.Defense.ToString();
     }
 
     protected void PopulateStatusEffects(Unit unit)
@@ -56,6 +50,18 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
             var child = statusEffectsContainer.GetChild(i);
             if (child.GetComponent<StatusEffectEntryUI>() != null)
                 Destroy(child.gameObject);
+        }
+
+        // Show the current stance as the first entry
+        if (unit.CurrentCombatStyle != CombatStyle.None)
+        {
+            var stanceEntry = Instantiate(statusEffectEntryPrefab, statusEffectsContainer);
+            var stanceUI = stanceEntry.GetComponent<StatusEffectEntryUI>();
+            if (stanceUI != null)
+                stanceUI.Populate(
+                    unit.CurrentCombatStyle.ToString(),
+                    CombatStyleUtility.GetStanceDescription(unit.CurrentCombatStyle),
+                    "Active");
         }
 
         foreach (var effect in unit.statusEffects)

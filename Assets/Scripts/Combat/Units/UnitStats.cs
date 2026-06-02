@@ -18,10 +18,9 @@ public class UnitStats : MonoBehaviour
 
     public bool IsTargeted;
 
-    public int PhysicalPower;
-    public int MagicalPower;
-	public int PhysicalDefense;
-	public int MagicalDefense;
+    public int Power;
+	public int Defense;
+	public int Range;
 
 	public CombatStyle CurrentCombatStyle = CombatStyle.None;
 

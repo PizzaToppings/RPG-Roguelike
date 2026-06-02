@@ -12,7 +12,7 @@ public enum GameState { StartOfGame, StartOfRound, StartOfTurn, EndOfTurn, EndOf
 
 // Characters and skills
 public enum ClassEnum { Athletics, Acrobatics, Marksmanship, Subtlety, Protection, Sorcery, Elementalism, Nature, Holy, Unholy }
-public enum StatsEnum { MaxHitpoints, MaxEnergy, MoveSpeed, PhysicalPower, MagicalPower, PhysicalDefense, MagicalDefense }
+public enum StatsEnum { MaxHitpoints, /*MaxEnergy,*/ MoveSpeed, Power, Defense, Shield, Range }
 
 // Damage etc
 public enum HitTypeEnum { Damage, Healing, Shield }

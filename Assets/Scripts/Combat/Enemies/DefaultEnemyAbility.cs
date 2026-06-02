@@ -179,12 +179,12 @@ public class DefaultEnemyAbility : SO_EnemyAbility
     {
         switch (stat)
         {
-            case StatsEnum.PhysicalPower:   target.PhysicalPower   += value; break;
-            case StatsEnum.MagicalPower:    target.MagicalPower    += value; break;
-            case StatsEnum.PhysicalDefense: target.PhysicalDefense += value; break;
-            case StatsEnum.MagicalDefense:  target.MagicalDefense  += value; break;
-            case StatsEnum.MoveSpeed:       target.MoveSpeed       += value; break;
-            case StatsEnum.MaxHitpoints:    target.MaxHitpoints    += value; break;
+            case StatsEnum.Power:        target.Power        += value; break;
+            case StatsEnum.Defense:      target.Defense      += value; break;
+            case StatsEnum.Shield:       target.ShieldPoints += value; break;
+            case StatsEnum.Range:        target.Range        += value; break;
+            case StatsEnum.MoveSpeed:    target.MoveSpeed    += value; break;
+            case StatsEnum.MaxHitpoints: target.MaxHitpoints += value; break;
         }
     }
 }

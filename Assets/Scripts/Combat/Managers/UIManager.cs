@@ -176,8 +176,8 @@ public class UIManager : MonoBehaviour
             skillIcon.Clear();
     }
 
-    public void SetEnergy(int amount, int maxEnergy)
-    {
-        EnergyText.text = amount.ToString() + "/" + maxEnergy.ToString();
-    }
+    //public void SetEnergy(int amount, int maxEnergy)
+    //{
+    //    EnergyText.text = amount.ToString() + "/" + maxEnergy.ToString();
+    //}
 }
