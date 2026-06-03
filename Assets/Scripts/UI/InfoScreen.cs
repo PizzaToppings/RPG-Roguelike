@@ -110,6 +110,7 @@ public class SkillInfoScreen : MonoBehaviour
     string ReplaceEffectText(string description, Skill skill)
     {
         var caster = UnitData.ActiveUnit;
+        var foundEffects = new System.Collections.Generic.Dictionary<string, string>();
 
         foreach (var spg in skill.SkillPartGroups)
         {
@@ -152,8 +153,27 @@ public class SkillInfoScreen : MonoBehaviour
                         var durationText = GetDurationText(statusEffect);
                         var statusText = $"{totalPower} <link={effectName}><u><color={colorCode}>{effectName}</color></u></link>{durationText}.";
                         description = description.Remove(statusIdx, statusPlaceholder.Length).Insert(statusIdx, statusText);
+
+                        // Collect a readable description for this status effect to append below the skill description
+                        var displayName = effectName;
+                        if (!foundEffects.ContainsKey(displayName))
+                        {
+                            // Use the StatusEffectDescriptions helper to resolve a description. Pass the base power from the SO.
+                            var resolved = StatusEffectDescriptions.Resolve(statusEffect);
+                            foundEffects.Add(displayName, resolved);
+                        }
                     }
                 }
+            }
+        }
+
+        // If we discovered any status effects, append their descriptions below the main description.
+        if (foundEffects.Count > 0)
+        {
+            description += "\n\n<b>Status effects:</b>\n";
+            foreach (var kv in foundEffects)
+            {
+                description += $"<b>{kv.Key}:</b> {kv.Value}\n";
             }
         }
 
