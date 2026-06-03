@@ -10,12 +10,14 @@ public class SkillSelectCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] TextMeshProUGUI energyCostText;
     [SerializeField] TextMeshProUGUI rangeText;
+    [SerializeField] TextMeshProUGUI stanceText;
     [SerializeField] TextMeshProUGUI ChargesText;
     [SerializeField] Image           skillIcon;
     [Tooltip("One assign button per party slot (max 4). Wire up in the inspector.")]
     [SerializeField] SkillSelectAssignButton[] assignButtons;
 
     SO_MainSkill skillData;
+    string stanceColorCode;
 
     public void Setup(SO_MainSkill skill)
     {
@@ -28,13 +30,18 @@ public class SkillSelectCard : MonoBehaviour
             classIcons[i].gameObject.SetActive(true);
             classIcons[i].sprite = SkillSelectUI.Instance.GetClassIcon(skillData.Classes[i]);
         }
-        descriptionText.text = ReplaceEffectText(skill.Description, skill);
+
+        stanceColorCode = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(skill.SkillCombatStyle));
+        if (stanceText != null)
+            stanceText.text = $"Stance: \n<color=#{stanceColorCode}>{skill.SkillCombatStyle}</color>";
+
+        descriptionText.text = GetDescription(skill);
 
         if (ChargesText != null)
             ChargesText.text = $"Charges: {skill.DefaultCharges}";
 
         if (rangeText != null)
-            rangeText.text = $"Range: {skill.GetAttackRange()}";
+            rangeText.text = $"Range: {GetBaseRange(skill)}";
 
         //if (energyCostText != null)
         //    energyCostText.text = $"Cost: {skill.EnergyCost}";
@@ -63,8 +70,31 @@ public class SkillSelectCard : MonoBehaviour
         }
     }
 
-    string ReplaceEffectText(string description, SO_MainSkill skill)
+    string GetDescription(SO_MainSkill skill)
     {
+        var description = skill.Description;
+        var foundEffects = new Dictionary<string, string>();
+        (description, foundEffects) = ReplaceEffectText(description, skill);
+
+        var stanceDesc = CombatStyleUtility.GetStanceDescription(skill.SkillCombatStyle);
+        var stanceName = $@"<b><color=#{stanceColorCode}>{skill.SkillCombatStyle}</color></b>";
+        description += $"\n\n<size=16>Enter {stanceName} Stance at end of turn: \n {stanceDesc}</size>";
+
+        if (foundEffects.Count > 0)
+        {
+            foreach (var kvp in foundEffects)
+            {
+                description += $"\n\n<size=15><b>({kvp.Key}:</b> \n<i>{kvp.Value})</i></size>";
+            }
+        }
+
+        return description;
+    }
+
+    (string, Dictionary<string, string>) ReplaceEffectText(string description, SO_MainSkill skill)
+    {
+        var foundEffects = new Dictionary<string, string>();
+
         foreach (var spg in skill.SkillPartGroups)
         {
             foreach (var skillPart in spg.skillParts)
@@ -104,12 +134,19 @@ public class SkillSelectCard : MonoBehaviour
                         var durationText = GetDurationText(statusEffect);
                         var statusText = $"{statusEffect.Power} <link={effectName}><u><color={colorCode}>{effectName}</color></u></link>{durationText}.";
                         description = description.Remove(statusIdx, statusPlaceholder.Length).Insert(statusIdx, statusText);
+
+                        var displayName = $"<u><color={colorCode}>{effectName}</color></u>";
+                        if (!foundEffects.ContainsKey(displayName))
+                        {
+                            var resolved = StatusEffectDescriptions.Resolve(statusEffect);
+                            foundEffects.Add(displayName, resolved);
+                        }
                     }
                 }
             }
         }
 
-        return description;
+        return (description, foundEffects);
     }
 
     string GetDurationText(SO_StatusEffect statusEffect)
@@ -121,5 +158,38 @@ public class SkillSelectCard : MonoBehaviour
                 return $" for {statusEffect.Duration} turn(s)";
         }
         return string.Empty;
+    }
+
+    string GetBaseRange(SO_MainSkill skill)
+    {
+        string range = string.Empty;
+
+        foreach (var spg in skill.SkillPartGroups)
+        {
+            if (range != string.Empty)
+                break;
+
+            foreach (var sp in spg.skillParts)
+            {
+                if (sp is SO_TargetSelfSkill ||
+                    sp is SO_LineSkill ||
+                    sp is SO_ConeSkill || 
+                    sp is SO_AOE_Skill ||
+                    sp is SO_HalfCircleSkill)
+                {
+                    range = "Self";
+                }
+                else
+                {
+                    if (sp.MaxRange == 1.5f)
+                        range = "Melee";
+                    else
+                        range = sp.MaxRange.ToString();
+                    
+                    break;
+                }
+            }
+        }
+        return range;
     }
 }
