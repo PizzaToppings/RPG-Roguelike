@@ -19,11 +19,18 @@ public class FloatingStatusEffectText : MonoBehaviour
 
     public void Init(string displayText, Unit target, bool isBuff)
     {
+        Init(displayText, target, isBuff ? Color.white : Color.white);
+    }
+
+    // New init overload to show a colored stance or custom color.
+    public void Init(string displayText, Unit target, Color textColor)
+    {
         gameObject.SetActive(true);
-        text.color = Color.white; // change?
+        text.color = textColor;
         text.text = displayText;
 
-        this.isBuff = isBuff;
+        // For colored stance display we don't want shake behaviour or buff flag
+        this.isBuff = true;
 
         this.target = target;
 

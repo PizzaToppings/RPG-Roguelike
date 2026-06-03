@@ -3,6 +3,11 @@ public class StatusEffect
     public DamageManager damageManager = DamageManager.Instance;
     public HealthCanvas healthCanvas = HealthCanvas.Instance;
 
+    // When true, this effect will not spawn floating status text notifications.
+    public bool SuppressFloating = false;
+    // When true, this effect will be omitted from the character/enemy info panel list.
+    public bool HideInInfoPanel = false;
+
     public bool IsBuff;
     public bool IsPermanent;
     public TriggerMomentEnum DurationTrigger = TriggerMomentEnum.EndOfTurn;
@@ -17,7 +22,8 @@ public class StatusEffect
     public virtual void Apply()
 	{
         Target.statusEffects.Add(this);
-        healthCanvas.ShowStatusEffect(statusEfectType.ToString(), Target, IsBuff);
+        if (!SuppressFloating)
+            healthCanvas.ShowStatusEffect(statusEfectType.ToString(), Target, IsBuff);
     }
 
     public void SubscribeDurationTrigger()
@@ -71,7 +77,8 @@ public class StatusEffect
     public virtual void EndEffect()
     {
         Target.statusEffects.Remove(this);
-        healthCanvas.ShowStatusEffect(statusEfectType.ToString() + " faded", Target, IsBuff);
+        if (!SuppressFloating)
+            healthCanvas.ShowStatusEffect(statusEfectType.ToString() + " faded", Target, IsBuff);
     }
 }
 

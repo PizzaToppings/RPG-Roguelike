@@ -373,7 +373,6 @@ public class Character : Unit
         base.SetStartOfTurnStats();
         //SetEnergy(MaxEnergy);
         HasUsedSkillThisTurn = false;
-        CurrentCombatStyle = CombatStyle.None;
         ThisHealthbar.UpdateHealthbar();
     }
 

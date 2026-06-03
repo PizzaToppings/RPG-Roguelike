@@ -52,20 +52,43 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
                 Destroy(child.gameObject);
         }
 
-        // Show the current stance as the first entry
+        // Show the current stance as the first entry (colored style name)
         if (unit.CurrentCombatStyle != CombatStyle.None)
         {
+            var styleColor = CombatStyleUtility.GetStyleColor(unit.CurrentCombatStyle);
+            var hex = ColorUtility.ToHtmlStringRGB(styleColor);
+            var name = $"Stance: <color=#{hex}>{unit.CurrentCombatStyle}</color>";
+
             var stanceEntry = Instantiate(statusEffectEntryPrefab, statusEffectsContainer);
             var stanceUI = stanceEntry.GetComponent<StatusEffectEntryUI>();
             if (stanceUI != null)
                 stanceUI.Populate(
-                    unit.CurrentCombatStyle.ToString(),
+                    name,
                     CombatStyleUtility.GetStanceDescription(unit.CurrentCombatStyle),
                     "Active");
         }
 
+        // Show pending stance if present and different from current
+        if (unit.PendingCombatStyle != CombatStyle.None && unit.PendingCombatStyle != unit.CurrentCombatStyle)
+        {
+            var pColor = CombatStyleUtility.GetStyleColor(unit.PendingCombatStyle);
+            var pHex = ColorUtility.ToHtmlStringRGB(pColor);
+            var pName = $"Pending: <color=#{pHex}>{unit.PendingCombatStyle}</color>";
+
+            var pendingEntry = Instantiate(statusEffectEntryPrefab, statusEffectsContainer);
+            var pendingUI = pendingEntry.GetComponent<StatusEffectEntryUI>();
+            if (pendingUI != null)
+                pendingUI.Populate(
+                    pName,
+                    CombatStyleUtility.GetStanceDescription(unit.PendingCombatStyle),
+                    "Pending");
+        }
+
         foreach (var effect in unit.statusEffects)
         {
+            if (effect.HideInInfoPanel)
+                continue;
+
             var entry = Instantiate(statusEffectEntryPrefab, statusEffectsContainer);
             var entryUI = entry.GetComponent<StatusEffectEntryUI>();
             if (entryUI != null)

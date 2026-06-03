@@ -9,9 +9,13 @@ public class StatChangeEffect : StatusEffect
     {
         Target.statusEffects.Add(this);
 
-        string sign  = Power >= 0 ? "+" : "";
-        string label = $"{StatusEffectDescriptions.GetStatDisplayName(Stat)} {sign}{Power}";
-        healthCanvas.ShowStatusEffect(label, Target, IsBuff);
+        // Show a floating status change unless suppressed (e.g. when part of a stance application)
+        if (!SuppressFloating)
+        {
+            string sign  = Power >= 0 ? "+" : "";
+            string label = $"{StatusEffectDescriptions.GetStatDisplayName(Stat)} {sign}{Power}";
+            healthCanvas.ShowStatusEffect(label, Target, IsBuff);
+        }
 
         ChangeStat();
         SubscribeDurationTrigger();

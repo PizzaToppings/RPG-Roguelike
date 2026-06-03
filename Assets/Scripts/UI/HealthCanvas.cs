@@ -87,6 +87,12 @@ public class HealthCanvas : MonoBehaviour
         statusText.Init(displayText, target, isBuff);
     }
 
+    public void ShowStance(string displayText, Unit target, Color styleColor)
+    {
+        var statusText = GetOrCreateFloatingNumber<FloatingStatusEffectText>(StatusEfectText);
+        statusText.Init(displayText, target, styleColor);
+    }
+
     private T GetOrCreateFloatingNumber<T>(GameObject prefab) where T : Component
     {
         if (DamageNumbersCanvas == null)

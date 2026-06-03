@@ -104,7 +104,8 @@ public class SkillsManager : MonoBehaviour
         // Set the caster's combat style to match the skill
         if (skill.mainSkillSO.SkillCombatStyle != CombatStyle.None)
         {
-            caster.CurrentCombatStyle = skill.mainSkillSO.SkillCombatStyle;
+            // Do not immediately change CurrentCombatStyle (info panel should update at end of turn).
+            caster.PendingCombatStyle = skill.mainSkillSO.SkillCombatStyle;
         }
 
         foreach (var spg in skill.SkillPartGroups)

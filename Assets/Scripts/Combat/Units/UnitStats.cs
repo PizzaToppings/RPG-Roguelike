@@ -23,6 +23,8 @@ public class UnitStats : MonoBehaviour
 	public int Range;
 
 	public CombatStyle CurrentCombatStyle = CombatStyle.None;
+    // The combat style selected by using a skill this turn. Applied at end of turn.
+    public CombatStyle PendingCombatStyle = CombatStyle.None;
 
     public List<StatusEffect> statusEffects = new List<StatusEffect>();
 

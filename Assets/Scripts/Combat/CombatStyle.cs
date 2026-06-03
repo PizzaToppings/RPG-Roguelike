@@ -24,30 +24,37 @@ public static class CombatStyleUtility
     {
         if (stance == CombatStyle.None) return;
 
+        // When applying stance effects, suppress the per-stat floating texts
+        // and instead show a single floating text with the stance name in style color.
+        Color styleColor = CombatStyleUtility.GetStyleColor(stance);
+        string stanceLabel = $"{stance.ToString()}";
+
+        // Apply effects while suppressing float texts
+
         switch (stance)
         {
             case CombatStyle.Aggression:
                 // +2 Power, -2 Defense
-                ApplyStatChange(caster, caster, StatsEnum.Power,   +2, isBuff: true);
-                ApplyStatChange(caster, caster, StatsEnum.Defense, -2, isBuff: false);
+                ApplyStatChange(caster, caster, StatsEnum.Power,   +2, isBuff: true, suppressFloating: true);
+                ApplyStatChange(caster, caster, StatsEnum.Defense, -2, isBuff: false, suppressFloating: true);
                 break;
 
             case CombatStyle.Defense:
                 // -2 Power, +4 Shield
-                ApplyStatChange(caster, caster, StatsEnum.Power,  -2, isBuff: false);
-                ApplyStatChange(caster, caster, StatsEnum.Shield, +4, isBuff: true);
+                ApplyStatChange(caster, caster, StatsEnum.Power,  -2, isBuff: false, suppressFloating: true);
+                ApplyStatChange(caster, caster, StatsEnum.Shield, +4, isBuff: true, suppressFloating: true);
                 break;
 
             case CombatStyle.Mobility:
                 // +2 Speed, -2 Defense
-                ApplyStatChange(caster, caster, StatsEnum.MoveSpeed, +2, isBuff: true);
-                ApplyStatChange(caster, caster, StatsEnum.Defense,   -2, isBuff: false);
+                ApplyStatChange(caster, caster, StatsEnum.MoveSpeed, +2, isBuff: true, suppressFloating: true);
+                ApplyStatChange(caster, caster, StatsEnum.Defense,   -2, isBuff: false, suppressFloating: true);
                 break;
 
             case CombatStyle.Focus:
                 // +2 Range, -1 Speed
-                ApplyStatChange(caster, caster, StatsEnum.Range,    +2, isBuff: true);
-                ApplyStatChange(caster, caster, StatsEnum.MoveSpeed, -1, isBuff: false);
+                ApplyStatChange(caster, caster, StatsEnum.Range,    +2, isBuff: true, suppressFloating: true);
+                ApplyStatChange(caster, caster, StatsEnum.MoveSpeed, -1, isBuff: false, suppressFloating: true);
                 break;
 
             case CombatStyle.Control:
@@ -55,8 +62,8 @@ public static class CombatStyleUtility
                 var enemies = caster.Friendly ? (System.Collections.IEnumerable)UnitData.Enemies : UnitData.Characters;
                 foreach (Unit enemy in enemies)
                 {
-                    ApplyStatChange(caster, enemy, StatsEnum.Power,    -1, isBuff: false);
-                    ApplyStatChange(caster, enemy, StatsEnum.MoveSpeed, -1, isBuff: false);
+                    ApplyStatChange(caster, enemy, StatsEnum.Power,    -1, isBuff: false, suppressFloating: true);
+                    ApplyStatChange(caster, enemy, StatsEnum.MoveSpeed, -1, isBuff: false, suppressFloating: true);
                 }
                 break;
 
@@ -64,16 +71,20 @@ public static class CombatStyleUtility
                 // All living allies get +1 Defense; caster gets -1 Power
                 var allies = caster.Friendly ? (System.Collections.IEnumerable)UnitData.Characters : UnitData.Enemies;
                 foreach (Unit ally in allies)
-                    ApplyStatChange(caster, ally, StatsEnum.Defense, +1, isBuff: true);
-                ApplyStatChange(caster, caster, StatsEnum.Power, -1, isBuff: false);
+                    ApplyStatChange(caster, ally, StatsEnum.Defense, +1, isBuff: true, suppressFloating: true);
+                ApplyStatChange(caster, caster, StatsEnum.Power, -1, isBuff: false, suppressFloating: true);
                 break;
         }
+
+        // Show single stance floating text using the style color
+        if (HealthCanvas.Instance != null)
+            HealthCanvas.Instance.ShowStance(stanceLabel, caster, styleColor);
     }
 
     /// <summary>
     /// Creates and applies a StatChangeEffect with Duration = 1 (expires at end of target's next turn).
     /// </summary>
-    private static void ApplyStatChange(Unit caster, Unit target, StatsEnum stat, int power, bool isBuff)
+    private static void ApplyStatChange(Unit caster, Unit target, StatsEnum stat, int power, bool isBuff, bool suppressFloating = false)
     {
         string sign  = power >= 0 ? "+" : "";
         string label = $"{StatusEffectDescriptions.GetStatDisplayName(stat)} {sign}{power}";
@@ -90,6 +101,8 @@ public static class CombatStyleUtility
             Target          = target,
             Stat            = stat,
             Power           = power,
+            SuppressFloating = suppressFloating,
+            HideInInfoPanel  = suppressFloating,
         };
 
         effect.Apply();
