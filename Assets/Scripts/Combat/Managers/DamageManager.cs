@@ -34,7 +34,6 @@ public class DamageManager : MonoBehaviour
         {
             HitType = damageData.HitType,
             Caster = caster,
-            IsMagical = damageData.IsMagical,
             Target = target,
             Damage = damage,
         };

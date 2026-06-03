@@ -17,7 +17,6 @@ public class DefaultTrait : SO_Trait
     
     [Space]
     public HitTypeEnum HitType;
-    public bool IsMagical;
 
     [Space]
     [Tooltip("DEPRECATED: Use TargetFaction and TargetSelection instead")]
@@ -191,7 +190,7 @@ public class DefaultTrait : SO_Trait
         switch (TriggerEffect)
         {
             case TriggerEffectEnum.DealDamage:
-                var damageData = new DamageData { Caster = character, HitType = HitType, Power = Value, IsMagical = IsMagical };
+                var damageData = new DamageData { Caster = character, HitType = HitType, Power = Value };
                 var damageManager = DamageManager.Instance;
                 foreach (var target in GetTargets(character))
                 {

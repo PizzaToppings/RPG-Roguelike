@@ -85,7 +85,6 @@ public class StatusEffectManager : MonoBehaviour
             IsPermanent = statusEffectSO.Permanent,
             DurationTrigger = statusEffectSO.DurationTrigger,
             Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
-            IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
             Target = target,
             Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
@@ -104,7 +103,6 @@ public class StatusEffectManager : MonoBehaviour
             IsPermanent = statusEffectSO.Permanent,
             DurationTrigger = statusEffectSO.DurationTrigger,
             Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
-            IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
             Target = target,
             Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
@@ -123,7 +121,6 @@ public class StatusEffectManager : MonoBehaviour
             IsPermanent = statusEffectSO.Permanent,
             DurationTrigger = statusEffectSO.DurationTrigger,
             Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
-            IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
             Target = target,
             Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
@@ -142,7 +139,6 @@ public class StatusEffectManager : MonoBehaviour
             IsPermanent = statusEffectSO.Permanent,
             DurationTrigger = statusEffectSO.DurationTrigger,
             Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
-            IsMagical = statusEffectSO.IsMagical,
             Caster = UnitData.ActiveUnit,
             Target = target,
             Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power

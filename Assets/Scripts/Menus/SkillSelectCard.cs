@@ -10,7 +10,6 @@ public class SkillSelectCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] TextMeshProUGUI energyCostText;
     [SerializeField] TextMeshProUGUI rangeText;
-    [SerializeField] TextMeshProUGUI DamageTypeText;
     [SerializeField] TextMeshProUGUI ChargesText;
     [SerializeField] Image           skillIcon;
     [Tooltip("One assign button per party slot (max 4). Wire up in the inspector.")]
@@ -30,14 +29,6 @@ public class SkillSelectCard : MonoBehaviour
             classIcons[i].sprite = SkillSelectUI.Instance.GetClassIcon(skillData.Classes[i]);
         }
         descriptionText.text = ReplaceEffectText(skill.Description, skill);
-
-        if (DamageTypeText != null)
-        {
-            if (skill.IsMagical)
-                DamageTypeText.text = "Damage Type: Magical";
-            else
-                DamageTypeText.text = "Damage Type: Physical";
-        }
 
         if (ChargesText != null)
             ChargesText.text = $"Charges: {skill.DefaultCharges}";

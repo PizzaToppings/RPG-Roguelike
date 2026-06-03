@@ -3,7 +3,6 @@ using UnityEngine;
 public class ThornsStatusEffect : StatusEffect
 {
     public int Power;
-    public bool IsMagical;
 
     public override void Apply()
     {
@@ -23,8 +22,7 @@ public class ThornsStatusEffect : StatusEffect
         {
             Caster = Target,
             HitType = HitTypeEnum.Damage,
-            Power = Power,
-            IsMagical = IsMagical
+            Power = Power
         };
 
         var damageData = damageManager.CalculateDamageData(damageEffect, damagaDataResolved.Attacker);

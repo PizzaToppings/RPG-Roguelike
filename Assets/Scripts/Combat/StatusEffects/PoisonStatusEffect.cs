@@ -3,7 +3,6 @@ using UnityEngine;
 public class PoisonStatusEffect : StatusEffect
 {
 	public int Power;
-	public bool IsMagical;
 
 	public override void Apply()
 	{
@@ -20,8 +19,7 @@ public class PoisonStatusEffect : StatusEffect
 		{
 			Caster = Caster,
 			HitType = HitTypeEnum.Damage,
-			Power = Power,
-			IsMagical = IsMagical
+			Power = Power
 		};
 
 		var damageData = damageManager.CalculateDamageData(damageEffect, Target);

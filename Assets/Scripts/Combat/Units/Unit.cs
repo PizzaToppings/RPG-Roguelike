@@ -265,8 +265,7 @@ public class Unit : UnitStats
             HitType = damageDataCalculated.HitType,
             DamageDone = damage,
             ShieldDamage = shieldDamage,
-            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
-            IsMagical = damageDataCalculated.IsMagical
+            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile)
         };
 
         if (OnUnitTakeDamageEvent != null)
@@ -302,8 +301,7 @@ public class Unit : UnitStats
             HitType = damageDataCalculated.HitType,
             DamageDone = correctedHealing,
             ShieldDamage = 0,
-            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
-            IsMagical = damageDataCalculated.IsMagical
+            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile)
         };
 
         ThisHealthbar.UpdateHealthbar();
@@ -322,8 +320,7 @@ public class Unit : UnitStats
             HitType = damageDataCalculated.HitType,
             DamageDone = 0,
             ShieldDamage = -damageDataCalculated.Damage,
-            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile),
-            IsMagical = damageDataCalculated.IsMagical
+            AttackRange = boardManager.GetRangeBetweenTiles(damageDataCalculated.Caster.Tile, Tile)
         };
 
         ThisHealthbar.UpdateHealthbar();

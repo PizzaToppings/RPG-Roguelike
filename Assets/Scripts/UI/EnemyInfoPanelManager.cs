@@ -87,7 +87,6 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
 
     private static string GetDefaultIntentDescription(IntentActionEnum action, SO_EnemySkill skill, EnemyBaseAI aiEnemy)
     {
-        bool isMagical = action == IntentActionEnum.MagicalMeleeAttack || action == IntentActionEnum.MagicalRangedAttack;
         int totalDamage = 0, totalHealing = 0, totalShielding = 0;
 
         if (skill?.Skill != null && skill.Skill.Count > 0 && aiEnemy != null)

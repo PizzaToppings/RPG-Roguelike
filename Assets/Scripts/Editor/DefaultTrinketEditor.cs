@@ -18,7 +18,6 @@ public class DefaultTraitEditor : Editor
     SerializedProperty triggerOnce;
     SerializedProperty value;
     SerializedProperty damageType;
-    SerializedProperty isMagical;
     SerializedProperty target;
     SerializedProperty targetFaction;
     SerializedProperty targetSelection;
@@ -41,7 +40,6 @@ public class DefaultTraitEditor : Editor
         triggerOnce      = serializedObject.FindProperty("TriggerOnce");
         value            = serializedObject.FindProperty("Value");
         damageType       = serializedObject.FindProperty("HitType");
-        isMagical        = serializedObject.FindProperty("IsMagical");
         targetFaction    = serializedObject.FindProperty("TargetFaction");
         targetSelection  = serializedObject.FindProperty("TargetSelection");
         range            = serializedObject.FindProperty("Range");
@@ -63,7 +61,6 @@ public class DefaultTraitEditor : Editor
         bool showValue         = effect != TriggerEffectEnum.AddStatusEffect;
         bool showDamageType    = effect == TriggerEffectEnum.DealDamage;
         var  selectedDamageType = (HitTypeEnum)damageType.enumValueIndex;
-        bool showIsMagical     = showDamageType && selectedDamageType != HitTypeEnum.Healing && selectedDamageType != HitTypeEnum.Shield;
         // Hide Target for OnDealDamage + AddStatusEffect (applies to damaged unit automatically)
         bool showTarget        = (effect == TriggerEffectEnum.DealDamage || effect == TriggerEffectEnum.ModifyStat) || 
                                  (effect == TriggerEffectEnum.AddStatusEffect && moment != TriggerMomentEnum.OnDealDamage);
@@ -107,8 +104,6 @@ public class DefaultTraitEditor : Editor
         {
             EditorGUILayout.Space();
             EditorGUILayout.PropertyField(damageType);
-            if (showIsMagical)
-                EditorGUILayout.PropertyField(isMagical);
         }
 
         // Target and range

@@ -9,7 +9,6 @@ public class SO_MainSkill : ScriptableObject
     [Space]
     public bool IsBasic;
     public bool IsConsumable;
-    public bool IsMagical;
 
     [Space]
     public CombatStyle SkillCombatStyle = CombatStyle.None;

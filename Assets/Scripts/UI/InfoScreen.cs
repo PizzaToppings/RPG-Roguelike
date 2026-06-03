@@ -11,10 +11,12 @@ public class SkillInfoScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI energyAmount;
     [SerializeField] TextMeshProUGUI chargeAmount;
     [SerializeField] TextMeshProUGUI skillRange;
-    [SerializeField] TextMeshProUGUI isMagicalText;
+    [SerializeField] TextMeshProUGUI stanceText;
     [SerializeField] TextMeshProUGUI skillType;
     [SerializeField] List<Image> classIcons;
     [SerializeField] TextMeshProUGUI skillDescription;
+
+    string stanceColorCode = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(CombatStyle.None));
 
     public void Activate(Skill skill, bool lockScreen)
     {
@@ -26,8 +28,8 @@ public class SkillInfoScreen : MonoBehaviour
         //energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
         chargeAmount.text = "Charges: " + skill.DefaultCharges.ToString();
         skillRange.text = "Range: " + GetBaseRange(skill);
-        isMagicalText.text = skill.mainSkillSO.IsMagical ? "magical" : "physical";
-        isMagicalText.gameObject.SetActive(false);
+        stanceColorCode = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(skill.mainSkillSO.SkillCombatStyle));
+        stanceText.text = $"<color=#{stanceColorCode}>{skill.mainSkillSO.SkillCombatStyle} Stance</color>";
 
         // skillIcons
         foreach (var skillIcon in classIcons)
@@ -45,7 +47,6 @@ public class SkillInfoScreen : MonoBehaviour
         else
 		{
             skillType.text = string.Empty;
-            isMagicalText.gameObject.SetActive(true);
 
             for (var i = 0; i < skill.mainSkillSO.Classes.Count; i++)
 			{
@@ -101,8 +102,7 @@ public class SkillInfoScreen : MonoBehaviour
         // description += CannotCastText(skill);
 
         var stanceDesc = CombatStyleUtility.GetStanceDescription(skill.mainSkillSO.SkillCombatStyle);
-        var stanceColor = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(skill.mainSkillSO.SkillCombatStyle));
-        var stanceName = $@"<b><color=#{stanceColor}>{skill.mainSkillSO.SkillCombatStyle}</color></b>";
+        var stanceName = $@"<b><color=#{stanceColorCode}>{skill.mainSkillSO.SkillCombatStyle}</color></b>";
         description += $"\n\n<size=16>Enter {stanceName} Stance at end of turn: \n {stanceDesc}</size>";
 
         if (foundEffects.Count > 0)
@@ -211,12 +211,6 @@ public class SkillInfoScreen : MonoBehaviour
         var statusEffectManager = StatusEffectManager.Instance;
         var caster = UnitData.ActiveUnit as Character;
         var text = string.Empty;
-
-        if (skill.mainSkillSO.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Silenced))
-            text += "<br>   Silenced.";
-
-        if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
-            text += "<br>   Blinded.";
 
         //if (caster.Energy < skill.EnergyCost)
         //    text += "<br>   Not enough Energy.";

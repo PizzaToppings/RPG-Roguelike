@@ -10,7 +10,6 @@ public class SO_StatusEffect : ScriptableObject
     public StatsEnum Stat;
     public int Power;
     public int Duration;
-    public bool IsMagical;
     public bool Permanent;
     public TriggerMomentEnum DurationTrigger = TriggerMomentEnum.EndOfTurn;
 

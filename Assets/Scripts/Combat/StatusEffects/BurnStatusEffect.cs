@@ -5,7 +5,6 @@ using UnityEngine;
 public class BurnStatusEffect : StatusEffect
 {
 	public int Power;
-	public bool IsMagical;
 
 	public override void Apply()
 	{
@@ -24,8 +23,7 @@ public class BurnStatusEffect : StatusEffect
 		{
 			Caster = Caster,
 			HitType = HitTypeEnum.Damage,
-			Power = Power,
-			IsMagical = IsMagical
+			Power = Power
 		};
 
 		var boardManager = BoardManager.Instance;

@@ -9,7 +9,6 @@ public class SO_StatusEffectEditor : Editor
     SerializedProperty stat;
     SerializedProperty power;
     SerializedProperty duration;
-    SerializedProperty isMagical;
     SerializedProperty permanent;
     SerializedProperty durationTrigger;
     SerializedProperty description;
@@ -21,7 +20,6 @@ public class SO_StatusEffectEditor : Editor
         stat             = serializedObject.FindProperty("Stat");
         power            = serializedObject.FindProperty("Power");
         duration         = serializedObject.FindProperty("Duration");
-        isMagical        = serializedObject.FindProperty("IsMagical");
         permanent        = serializedObject.FindProperty("Permanent");
         durationTrigger  = serializedObject.FindProperty("DurationTrigger");
         description      = serializedObject.FindProperty("Description");
@@ -37,7 +35,6 @@ public class SO_StatusEffectEditor : Editor
         if (stat             == null) stat             = serializedObject.FindProperty("Stat");
         if (power            == null) power            = serializedObject.FindProperty("Power");
         if (duration         == null) duration         = serializedObject.FindProperty("Duration");
-        if (isMagical        == null) isMagical        = serializedObject.FindProperty("IsMagical");
         if (permanent        == null) permanent        = serializedObject.FindProperty("Permanent");
         if (durationTrigger  == null) durationTrigger  = serializedObject.FindProperty("DurationTrigger");
         if (description      == null) description      = serializedObject.FindProperty("Description");
@@ -51,16 +48,12 @@ public class SO_StatusEffectEditor : Editor
                              type == StatusEffectEnum.Fatique    || type == StatusEffectEnum.StatChange ||
                              type == StatusEffectEnum.Lifedrain;
         bool hasDamageType = type == StatusEffectEnum.Bleed     || type == StatusEffectEnum.Burn;
-        bool hasIsMagical  = type == StatusEffectEnum.Bleed     || type == StatusEffectEnum.Poison  ||
-                             type == StatusEffectEnum.Burn       || type == StatusEffectEnum.Thorns  ||
-                             type == StatusEffectEnum.Fatique;
         bool hasStat       = type == StatusEffectEnum.StatChange;
 
         EditorGUILayout.PropertyField(statusEffectType);
 
         if (hasPower      && power      != null) EditorGUILayout.PropertyField(power);
         if (hasDamageType && damageType != null) EditorGUILayout.PropertyField(damageType);
-        if (hasIsMagical  && isMagical  != null) EditorGUILayout.PropertyField(isMagical);
         if (hasStat       && stat       != null) EditorGUILayout.PropertyField(stat);
 
         EditorGUILayout.Space();

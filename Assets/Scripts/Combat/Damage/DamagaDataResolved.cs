@@ -8,5 +8,4 @@ public class DamagaDataResolved
     public int DamageDone;
     public int ShieldDamage;
     public float AttackRange;
-    public bool IsMagical;
 }

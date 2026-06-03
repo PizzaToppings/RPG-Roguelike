@@ -112,7 +112,7 @@ public class SkillsManager : MonoBehaviour
         {
             foreach (var sp in spg.skillParts)
             {
-                yield return StartCoroutine(CastSkillsPart(sp, caster, skill.mainSkillSO.IsMagical));
+                yield return StartCoroutine(CastSkillsPart(sp, caster));
             }
         }
 
@@ -122,11 +122,11 @@ public class SkillsManager : MonoBehaviour
         OnSkillCastComplete.Invoke();
     }
 
-    public IEnumerator CastSkillsPart(SO_Skillpart skillPart, Unit caster, bool isMagical = false)
+    public IEnumerator CastSkillsPart(SO_Skillpart skillPart, Unit caster)
     {
         var skillVFX = skillPart.SkillVFX;
         var skillPartData = skillPart.PartData;
-        skillPart.DamageEffects.ForEach(x => { x.Caster = UnitData.ActiveUnit; x.IsMagical = isMagical; });
+        skillPart.DamageEffects.ForEach(x => { x.Caster = UnitData.ActiveUnit; });
 
         if (skillPart.displacementEffect != null && skillPart.displacementEffect.UseDisplacement)
 		{
@@ -376,14 +376,6 @@ public class SkillsManager : MonoBehaviour
 
     public bool CanCastSkill(Skill skill, Unit caster)
     {
-        // silenced
-        if (skill.mainSkillSO.IsMagical && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Silenced))
-            return false;
-
-        // blinded
-        if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
-            return false;
-
         // one skill per turn
         var character = caster as Character;
         if (character != null && character.HasUsedSkillThisTurn)
