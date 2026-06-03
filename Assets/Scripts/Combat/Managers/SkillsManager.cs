@@ -202,8 +202,7 @@ public class SkillsManager : MonoBehaviour
 
         if (displacement.Unit.PartData == null || displacement.Unit.PartData.TargetsHit == null || displacement.Unit.PartData.TargetsHit.Count == 0)
         {
-            Debug.LogError($"DisplacementEffect on {skillPart.name}: Unit field '{displacement.Unit.name}' has no valid targets! " +
-                          $"Make sure this skill part executes BEFORE the displacement and actually hits units.");
+            // No targets were hit (e.g. skill missed) — skip displacement silently.
             yield break;
         }
 
@@ -252,10 +251,12 @@ public class SkillsManager : MonoBehaviour
 
         unit.Tile = targetPosition;
         
-        // Only update tile references if moving to a different tile
+        // Only update tile references if moving to a different tile.
+        // Guard against clearing a currentUnit that was already replaced by a prior displacement.
         if (originalPosition != targetPosition)
         {
-            originalPosition.currentUnit = null;
+            if (originalPosition.currentUnit == unit)
+                originalPosition.currentUnit = null;
             targetPosition.currentUnit = unit;
         }
         
@@ -280,10 +281,11 @@ public class SkillsManager : MonoBehaviour
         var originalPositions = originalTiles.Select(x => x.position).ToList();
         var targetPositions = targetTiles.Select(x => x.position).ToList();
         
-        // Clear original tiles, but skip tiles that are also target tiles
+        // Clear original tiles, but skip tiles that are also target tiles,
+        // and skip tiles whose currentUnit was already replaced by a prior displacement.
         for (int i = 0; i < originalTiles.Count; i++)
         {
-            if (!targetTiles.Contains(originalTiles[i]))
+            if (!targetTiles.Contains(originalTiles[i]) && originalTiles[i].currentUnit == units[i])
             {
                 originalTiles[i].currentUnit = null;
             }
