@@ -16,13 +16,9 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 69276c7f59ff3bd43b13d00abba90b7a, type: 3}
   Classes: 0500000004000000
   MaxHealth: 32
-  MaxEnergy: 3
   MoveSpeed: 3
-  PhysicalPower: 1
-  MagicalPower: 2
-  PhysicalDefense: 2
-  MagicalDefense: 3
-  StartingCombatStyle: 2
+  Power: 0
+  Defense: 3
   basicAttack: {fileID: 11400000, guid: 2d37b36a932ea5642bb5ec5669845e4d, type: 2}
   basicSkill: {fileID: 11400000, guid: 1590bbbafbe7b8f49a532ef89d2c61ea, type: 2}
   BasicTrait: {fileID: 11400000, guid: 204f8769c30ec7041ad086848b59a84f, type: 2}

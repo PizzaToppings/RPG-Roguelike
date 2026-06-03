@@ -22,11 +22,13 @@ MonoBehaviour:
   MinCharacterCount: 1
   MaxCharacterCount: 4
   CharacterRoster: {fileID: 11400000, guid: adaa1ff5e701ef64dac0234ebc525100, type: 2}
-  RandomizeSkills: 1
+  RandomizeSkills: 0
   MinSkillsPerCharacter: 1
   MaxSkillsPerCharacter: 2
   SkillPool: {fileID: 11400000, guid: 03a3ab7d4cf6fe24198b8489cdd69a25, type: 2}
-  PresetSkills: []
+  PresetSkills:
+  - Skills:
+    - {fileID: 11400000, guid: ef5eac478b5ca4f48afbe4667711da13, type: 2}
   RandomizeTraits: 0
   MinTraitsPerCharacter: 0
   MaxTraitsPerCharacter: 2

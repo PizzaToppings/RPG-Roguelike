@@ -96,18 +96,27 @@ public class SkillInfoScreen : MonoBehaviour
     string GetDescription(Skill skill)
     {
         var description = skill.mainSkillSO.Description;
-        description = ReplaceEffectText(description, skill);
-        description += CannotCastText(skill);
+        var foundEffects = new Dictionary<string, string>();
+        (description, foundEffects) = ReplaceEffectText(description, skill);
+        // description += CannotCastText(skill);
 
         var stanceDesc = CombatStyleUtility.GetStanceDescription(skill.mainSkillSO.SkillCombatStyle);
         var stanceColor = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(skill.mainSkillSO.SkillCombatStyle));
         var stanceName = $@"<b><color=#{stanceColor}>{skill.mainSkillSO.SkillCombatStyle}</color></b>";
-        description += $"\n\n<size=16><i>Enter {stanceName} Stance at end of turn: \n {stanceDesc}</i></size>";
+        description += $"\n\n<size=16>Enter {stanceName} Stance at end of turn: \n {stanceDesc}</size>";
+
+        if (foundEffects.Count > 0)
+        {
+            foreach (var kvp in foundEffects)
+            {
+                description += $"\n\n<size=15><b>{kvp.Key}:</b> \n<i>{kvp.Value}</i></size>";
+            }
+        }
 
         return description;
     }
 
-    string ReplaceEffectText(string description, Skill skill)
+    (string, Dictionary<string, string>) ReplaceEffectText(string description, Skill skill)
     {
         var caster = UnitData.ActiveUnit;
         var foundEffects = new System.Collections.Generic.Dictionary<string, string>();
@@ -155,7 +164,7 @@ public class SkillInfoScreen : MonoBehaviour
                         description = description.Remove(statusIdx, statusPlaceholder.Length).Insert(statusIdx, statusText);
 
                         // Collect a readable description for this status effect to append below the skill description
-                        var displayName = effectName;
+                        var displayName = $"<u><color={colorCode}>{effectName}</color></u>";
                         if (!foundEffects.ContainsKey(displayName))
                         {
                             // Use the StatusEffectDescriptions helper to resolve a description. Pass the base power from the SO.
@@ -167,17 +176,7 @@ public class SkillInfoScreen : MonoBehaviour
             }
         }
 
-        // If we discovered any status effects, append their descriptions below the main description.
-        if (foundEffects.Count > 0)
-        {
-            description += "\n\n<b>Status effects:</b>\n";
-            foreach (var kv in foundEffects)
-            {
-                description += $"<b>{kv.Key}:</b> {kv.Value}\n";
-            }
-        }
-
-        return description;
+        return (description, foundEffects);
     }
 
     string CalculateTotalPower(SO_StatusEffect statusEffect, Unit caster)

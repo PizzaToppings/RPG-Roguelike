@@ -19,11 +19,9 @@ MonoBehaviour:
   IsMagical: 0
   SkillCombatStyle: 1
   Classes: 00000000
-  Description: Deal <damage0-0-0> to an Enemy and give it 7 <bleed0-0-0> for 3 turns.
+  Description: Deal <damage0-0-0> to an Enemy and give it <bleed0-0-0> for 3 turns.
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 1
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: e5fc3771e4eed3c4681de2587dfe5c14, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
