@@ -9,7 +9,6 @@ public class SkillInfoScreen : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI skillName;
     [SerializeField] TextMeshProUGUI energyAmount;
-    [SerializeField] TextMeshProUGUI chargeAmount;
     [SerializeField] TextMeshProUGUI skillRange;
     [SerializeField] TextMeshProUGUI stanceText;
     [SerializeField] TextMeshProUGUI skillType;
@@ -26,10 +25,9 @@ public class SkillInfoScreen : MonoBehaviour
         // basic
         skillName.text = skill.mainSkillSO.SkillName;
         //energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
-        chargeAmount.text = "Charges: " + skill.DefaultCharges.ToString();
         skillRange.text = "Range: " + GetBaseRange(skill);
         stanceColorCode = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(skill.mainSkillSO.SkillCombatStyle));
-        stanceText.text = $"<color=#{stanceColorCode}>{skill.mainSkillSO.SkillCombatStyle} Stance</color>";
+        stanceText.text = $"<color=#{stanceColorCode}>{skill.mainSkillSO.SkillCombatStyle}</color>";
 
         // skillIcons
         foreach (var skillIcon in classIcons)
@@ -109,7 +107,7 @@ public class SkillInfoScreen : MonoBehaviour
         {
             foreach (var kvp in foundEffects)
             {
-                description += $"\n\n<size=15><b>{kvp.Key}:</b> \n<i>{kvp.Value}</i></size>";
+                description += $"\n\n<size=15><b>({kvp.Key}:</b> \n<i>{kvp.Value})</i></size>";
             }
         }
 

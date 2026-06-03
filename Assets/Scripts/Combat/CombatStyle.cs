@@ -5,7 +5,7 @@ public enum CombatStyle
 {
     None,
     Aggression,
-    Defense,
+    Defensive,
     Focus,
     Mobility,
     Control,
@@ -39,7 +39,7 @@ public static class CombatStyleUtility
                 ApplyStatChange(caster, caster, StatsEnum.Defense, -2, isBuff: false, suppressFloating: true);
                 break;
 
-            case CombatStyle.Defense:
+            case CombatStyle.Defensive:
                 // -2 Power, +4 Shield
                 ApplyStatChange(caster, caster, StatsEnum.Power,  -2, isBuff: false, suppressFloating: true);
                 ApplyStatChange(caster, caster, StatsEnum.Shield, +4, isBuff: true, suppressFloating: true);
@@ -116,7 +116,7 @@ public static class CombatStyleUtility
         return stance switch
         {
             CombatStyle.Aggression => "+2 Power, -2 Defense",
-            CombatStyle.Defense    => "-2 Power, +4 Shield",
+            CombatStyle.Defensive    => "-2 Power, +4 Shield",
             CombatStyle.Mobility   => "+2 Speed, -2 Defense",
             CombatStyle.Focus      => "+2 Range, -1 Speed",
             CombatStyle.Control    => "Enemies: -1 Power, -1 Speed",
@@ -133,7 +133,7 @@ public static class CombatStyleUtility
         switch (style)
         {
             case CombatStyle.Aggression: return new Color(1f, 0.2f, 0.2f);  // Red
-            case CombatStyle.Defense:    return new Color(0.2f, 0.5f, 1f);  // Blue
+            case CombatStyle.Defensive:    return new Color(0.2f, 0.5f, 1f);  // Blue
             case CombatStyle.Focus:      return new Color(1f, 1f, 0.2f);    // Yellow
             case CombatStyle.Mobility:   return new Color(0.2f, 1f, 0.2f);  // Green
             case CombatStyle.Control:    return new Color(0.8f, 0.2f, 1f);  // Purple

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -84,16 +85,69 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
                     "Pending");
         }
 
+        var visibleEffects = new List<StatusEffect>();
         foreach (var effect in unit.statusEffects)
         {
-            if (effect.HideInInfoPanel)
-                continue;
+            if (!effect.HideInInfoPanel)
+                visibleEffects.Add(effect);
+        }
+
+        var processed = new HashSet<StatusEffect>();
+
+        foreach (var effect in visibleEffects)
+        {
+            if (processed.Contains(effect)) continue;
+
+            var stackGroup = new List<StatusEffect> { effect };
+            foreach (var other in visibleEffects)
+            {
+                if (other == effect || processed.Contains(other)) continue;
+                if (CanStack(effect, other))
+                    stackGroup.Add(other);
+            }
+
+            foreach (var e in stackGroup)
+                processed.Add(e);
 
             var entry = Instantiate(statusEffectEntryPrefab, statusEffectsContainer);
             var entryUI = entry.GetComponent<StatusEffectEntryUI>();
-            if (entryUI != null)
+            if (entryUI == null) continue;
+
+            if (stackGroup.Count == 1)
+            {
                 entryUI.Populate(effect);
+            }
+            else if (effect is StatChangeEffect sce)
+            {
+                int totalPower = 0;
+                foreach (var e in stackGroup)
+                    totalPower += ((StatChangeEffect)e).Power;
+
+                string statName  = StatusEffectDescriptions.GetStatDisplayName(sce.Stat);
+                string direction = totalPower >= 0 ? "Up" : "Down";
+                string name      = $"{statName} {direction}";
+                string desc      = StatusEffectDescriptions.GetDefault(StatusEffectEnum.StatChange, sce.Stat, totalPower);
+                entryUI.Populate(name, desc, $"{effect.Duration} turns");
+            }
+            else
+            {
+                string name = $"{StatusEffectDescriptions.GetDisplayName(effect)} x{stackGroup.Count}";
+                entryUI.Populate(name, effect.Description, $"{effect.Duration} turns");
+            }
         }
+    }
+
+    private static bool CanStack(StatusEffect a, StatusEffect b)
+    {
+        if (a.statusEfectType != b.statusEfectType) return false;
+        if (a.Duration       != b.Duration)         return false;
+        if (a.DurationTrigger != b.DurationTrigger) return false;
+
+        if (a is StatChangeEffect sa && b is StatChangeEffect sb)
+            return sa.Stat == sb.Stat;
+
+        // Non-StatChange effects of the same type stack freely
+        return !(a is StatChangeEffect);
     }
 
     public virtual void HidePanel()

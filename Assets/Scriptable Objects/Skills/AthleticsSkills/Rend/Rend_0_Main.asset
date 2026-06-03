@@ -16,10 +16,9 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 3b5f58da069c77b489a2ef96a4e45e55, type: 3}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
   SkillCombatStyle: 1
   Classes: 00000000
-  Description: Deal <damage0-0-0> to an Enemy and give it <bleed0-0-0> for 3 turns.
+  Description: Deal <damage0-0-0> to an Enemy and give it <bleed0-0-0>.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: e5fc3771e4eed3c4681de2587dfe5c14, type: 2}
