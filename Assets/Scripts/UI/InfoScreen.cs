@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class InfoScreen : MonoBehaviour
+public class SkillInfoScreen : MonoBehaviour
 {
     UI_Singletons ui_Singletons;
 
@@ -15,23 +15,11 @@ public class InfoScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI skillType;
     [SerializeField] List<Image> classIcons;
     [SerializeField] TextMeshProUGUI skillDescription;
-    [SerializeField] TextMeshProUGUI clickToLockText;
-
-    const string ClickTolock = "Rightclick to lock this panel.";
-    const string ClickToUnlock = "Click to remove this panel.";
-
-    public bool IsLocked;
 
     public void Activate(Skill skill, bool lockScreen)
     {
         if (ui_Singletons == null)
             ui_Singletons = UI_Singletons.Instance;
-
-        if (lockScreen)
-        {
-            IsLocked = lockScreen;
-            // clickToLockText.text = ClickToUnlock;
-        }
 
         // basic
         skillName.text = skill.mainSkillSO.SkillName;
@@ -111,12 +99,10 @@ public class InfoScreen : MonoBehaviour
         description = ReplaceEffectText(description, skill);
         description += CannotCastText(skill);
 
-        var caster = UnitData.ActiveUnit;
-        if (caster != null && caster.CurrentCombatStyle != CombatStyle.None)
-        {
-            var stanceDesc = CombatStyleUtility.GetStanceDescription(caster.CurrentCombatStyle);
-            description += $"\n\n<color=#ffcc44>Stance: {caster.CurrentCombatStyle} — {stanceDesc}</color>";
-        }
+        var stanceDesc = CombatStyleUtility.GetStanceDescription(skill.mainSkillSO.SkillCombatStyle);
+        var stanceColor = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(skill.mainSkillSO.SkillCombatStyle));
+        var stanceName = $@"<b><color=#{stanceColor}>{skill.mainSkillSO.SkillCombatStyle}</color></b>";
+        description += $"\n\n<size=16><i>Enter {stanceName} Stance at end of turn: \n {stanceDesc}</i></size>";
 
         return description;
     }
@@ -213,9 +199,6 @@ public class InfoScreen : MonoBehaviour
         if (skill.mainSkillSO.IsMagical == false && statusEffectManager.UnitHasStatusEffect(caster, StatusEffectEnum.Blinded))
             text += "<br>   Blinded.";
 
-        if (skill.Charges == 0)
-            text += "<br>   No charges left.";
-
         //if (caster.Energy < skill.EnergyCost)
         //    text += "<br>   Not enough Energy.";
 
@@ -228,16 +211,8 @@ public class InfoScreen : MonoBehaviour
         return $"<br> <i> <color=#ff0000ff>{text}</color></i>";
     }
 
-    public void Unlock()
-    {
-        IsLocked = false;
-        gameObject.SetActive(false);
-        clickToLockText.text = ClickTolock;
-    }
-
     public void Deactivate()
 	{
-        if (IsLocked == false)
-            gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

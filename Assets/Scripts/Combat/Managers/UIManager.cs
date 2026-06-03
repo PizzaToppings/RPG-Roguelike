@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [SerializeField] InfoScreen infoScreen;
+    [SerializeField] SkillInfoScreen infoScreen;
     [SerializeField] GameObject ActivityBar;
 
     [Space]
@@ -136,8 +136,7 @@ public class UIManager : MonoBehaviour
 
     public void StartShowSkillInformation(Skill skill)
 	{
-        if (infoScreen.IsLocked == false)
-            showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
+        showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
 	}
 
     public void LockSkillInformation(Skill skill)

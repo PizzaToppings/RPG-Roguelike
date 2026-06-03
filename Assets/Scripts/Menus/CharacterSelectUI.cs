@@ -10,7 +10,7 @@ public class CharacterSelectUI : MonoBehaviour
 
     Coroutine showSkillCoroutine;
 
-    [SerializeField] InfoScreen infoScreen;
+    [SerializeField] SkillInfoScreen infoScreen;
     [SerializeField] SO_UI_Icons icons;
 
     void Start()
