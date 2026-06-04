@@ -11,7 +11,7 @@ public class SO_Enemy : ScriptableObject
     public int MaxHealth;
     public int MoveSpeed;
     public int Power;
-    public int Defense;
+    public int Armor;
 
     [Space]
     [Tooltip("If true, the first skill in the Skills list is always used on the first turn.")]

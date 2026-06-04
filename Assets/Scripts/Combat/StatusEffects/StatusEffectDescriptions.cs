@@ -79,7 +79,7 @@ public static class StatusEffectDescriptions
         switch (stat)
         {
             case StatsEnum.Power:        return "Power";
-            case StatsEnum.Defense:      return "Defense";
+            case StatsEnum.Armor:        return "Armor";
             case StatsEnum.Shield:       return "Shield";
             case StatsEnum.Range:        return "Range";
             case StatsEnum.MaxHitpoints: return "Max Hitpoints";

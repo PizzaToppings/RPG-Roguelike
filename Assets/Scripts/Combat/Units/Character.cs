@@ -148,7 +148,7 @@ public class Character : Unit
             //MaxEnergy       = soc.MaxEnergy;
             MoveSpeed       = soc.MoveSpeed;
             Power           = soc.Power;
-            Defense         = soc.Defense;
+            Armor           = soc.Armor;
 
             // Apply permanent bonuses from Instant traits accumulated during this run
             MaxHitpoints += partyMember.BonusMaxHitpoints;

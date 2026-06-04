@@ -2403,7 +2403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitNameText: {fileID: 1916687528}
   powerText: {fileID: 1426239346}
-  defenseText: {fileID: 1450460605}
+  ArmorText: {fileID: 1450460605}
   statusEffectsContainer: {fileID: 1479765940}
   statusEffectEntryPrefab: {fileID: 6838405043429011054, guid: 561b3e1707e2229449ca997a893c1446,
     type: 3}
@@ -3459,7 +3459,7 @@ GameObject:
   - component: {fileID: 291151923}
   - component: {fileID: 291151922}
   m_Layer: 5
-  m_Name: 'Defense stats '
+  m_Name: 'Armor stats '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4875,7 +4875,7 @@ MonoBehaviour:
   skillName: {fileID: 1009786993}
   energyAmount: {fileID: 0}
   skillRange: {fileID: 2068943800}
-  stanceText: {fileID: 478984983}
+  stanceText: {fileID: 0}
   skillType: {fileID: 842293136}
   classIcons:
   - {fileID: 1844341461}
@@ -17895,7 +17895,7 @@ GameObject:
   - component: {fileID: 982558483}
   - component: {fileID: 982558482}
   m_Layer: 5
-  m_Name: Defense Text
+  m_Name: Armor Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17940,7 +17940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Defense
+  m_text: Armor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -19406,7 +19406,7 @@ GameObject:
   - component: {fileID: 1112845578}
   - component: {fileID: 1112845577}
   m_Layer: 5
-  m_Name: Defense Text
+  m_Name: Armor Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19451,7 +19451,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Defense
+  m_text: Armor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -21087,7 +21087,7 @@ GameObject:
   - component: {fileID: 1236094410}
   - component: {fileID: 1236094409}
   m_Layer: 5
-  m_Name: Defense Value
+  m_Name: Armor Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23379,7 +23379,7 @@ GameObject:
   - component: {fileID: 1450460606}
   - component: {fileID: 1450460605}
   m_Layer: 5
-  m_Name: Defense Value
+  m_Name: Armor Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27466,7 +27466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitNameText: {fileID: 1849864988}
   powerText: {fileID: 805427609}
-  defenseText: {fileID: 1236094409}
+  ArmorText: {fileID: 1236094409}
   statusEffectsContainer: {fileID: 723968933}
   statusEffectEntryPrefab: {fileID: 6838405043429011054, guid: 561b3e1707e2229449ca997a893c1446,
     type: 3}
@@ -31047,7 +31047,7 @@ GameObject:
   - component: {fileID: 2060184114}
   - component: {fileID: 2060184113}
   m_Layer: 5
-  m_Name: 'Defense stats '
+  m_Name: 'Armor stats '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

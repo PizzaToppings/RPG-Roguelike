@@ -133,7 +133,7 @@ public class DefaultAnomaly : SO_Anomaly
         switch (stat)
         {
             case StatsEnum.Power:        target.Power        += value; break;
-            case StatsEnum.Defense:      target.Defense      += value; break;
+            case StatsEnum.Armor:        target.Armor      += value; break;
             case StatsEnum.Shield:       target.ShieldPoints += value; break;
             case StatsEnum.Range:        target.Range        += value; break;
             case StatsEnum.MoveSpeed:    target.MoveSpeed    += value; break;

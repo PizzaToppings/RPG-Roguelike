@@ -23,7 +23,7 @@ public class Enemy : Unit
             Hitpoints        = enemySO.MaxHealth;
             MoveSpeed        = enemySO.MoveSpeed;
             Power            = enemySO.Power;
-            Defense          = enemySO.Defense;
+            Armor            = enemySO.Armor;
         }
     }
 

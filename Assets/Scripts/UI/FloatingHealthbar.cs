@@ -206,7 +206,7 @@ public class FloatingHealthbar : Healthbar
         caster.CurrentCombatStyle = originalCasterStyle;
 
         // Only show damage preview if the skill actually has damaging effects
-        // (Show 0 if defense negates all damage, but don't show for healing/support skills)
+        // (Show 0 if armor negates all damage, but don't show for healing/support skills)
         if (hasDamageEffects)
         {
             // Apply the caster's OutgoingDamageMultiplier, matching DealDamageWithDelay

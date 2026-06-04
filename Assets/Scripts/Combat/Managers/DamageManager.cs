@@ -54,8 +54,8 @@ public class DamageManager : MonoBehaviour
             return beneficial < 0 ? 0 : beneficial;
         }
 
-        var targetDefense = target.Defense;
-        var damage = Mathf.CeilToInt(skillPower + bleedDamage + casterPower - targetDefense);
+        var targetArmor = target.Armor;
+        var damage = Mathf.CeilToInt(skillPower + bleedDamage + casterPower - targetArmor);
         if (damage < 0)
             damage = 0;
 

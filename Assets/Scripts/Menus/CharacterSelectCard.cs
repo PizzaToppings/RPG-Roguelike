@@ -10,7 +10,7 @@ public class CharacterSelectCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI SpeedText;
     [SerializeField] TextMeshProUGUI InitiativeText;
     [SerializeField] TextMeshProUGUI PowerText;
-    [SerializeField] TextMeshProUGUI DefenseText;
+    [SerializeField] TextMeshProUGUI ArmorText;
     [SerializeField] Image           portrait;
 
     [Space]
@@ -37,7 +37,7 @@ public class CharacterSelectCard : MonoBehaviour
 
         SpeedText.text = character.MoveSpeed.ToString();
         PowerText.text = character.Power.ToString();
-        DefenseText.text = character.Defense.ToString();
+        ArmorText.text = character.Armor.ToString();
 
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(OnSelect);

@@ -13,7 +13,7 @@ public class SO_Character : ScriptableObject
     //public int MaxEnergy;
     public int MoveSpeed;
     public int Power;
-    public int Defense;
+    public int Armor;
 
     [Space]
     public SO_MainSkill basicAttack;

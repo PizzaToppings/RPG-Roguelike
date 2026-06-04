@@ -19,7 +19,7 @@ public class UnitStats : MonoBehaviour
     public bool IsTargeted;
 
     public int Power;
-	public int Defense;
+	public int Armor;
 	public int Range;
 
 	public CombatStyle CurrentCombatStyle = CombatStyle.None;

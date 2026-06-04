@@ -11,7 +11,7 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
     [Header("Basic Info")]
     [SerializeField] protected TextMeshProUGUI unitNameText;
     [SerializeField] protected TextMeshProUGUI powerText;
-    [SerializeField] protected TextMeshProUGUI defenseText;
+    [SerializeField] protected TextMeshProUGUI ArmorText;
 
     [Header("Status Effects")]
     [SerializeField] protected Transform statusEffectsContainer;
@@ -37,8 +37,8 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
 
         if (powerText != null)
             powerText.text = unit.Power.ToString();
-        if (defenseText != null)
-            defenseText.text = unit.Defense.ToString();
+        if (ArmorText != null)
+            ArmorText.text = unit.Armor.ToString();
     }
 
     protected void PopulateStatusEffects(Unit unit)

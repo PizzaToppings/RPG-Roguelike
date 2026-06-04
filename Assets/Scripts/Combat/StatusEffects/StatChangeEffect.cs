@@ -29,8 +29,8 @@ public class StatChangeEffect : StatusEffect
             case StatsEnum.Power:
                 Target.Power += Power;
                 break;
-            case StatsEnum.Defense:
-                Target.Defense += Power;
+            case StatsEnum.Armor:
+                Target.Armor += Power;
                 break;
             case StatsEnum.Shield:
                 Target.ShieldPoints += Power;
@@ -58,8 +58,8 @@ public class StatChangeEffect : StatusEffect
             case StatsEnum.Power:
                 Target.Power -= Power;
                 break;
-            case StatsEnum.Defense:
-                Target.Defense -= Power;
+            case StatsEnum.Armor:
+                Target.Armor -= Power;
                 break;
             case StatsEnum.Shield:
                 Target.ShieldPoints -= Power;

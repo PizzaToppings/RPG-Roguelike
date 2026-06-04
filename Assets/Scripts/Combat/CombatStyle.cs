@@ -16,7 +16,7 @@ public static class CombatStyleUtility
 {
     /// <summary>
     /// Applies stance stat buffs/debuffs when the caster ends their turn.
-    /// Self-targeting stances (Aggression, Defense, Mobility, Focus) affect the caster.
+    /// Self-targeting stances (Aggression, Armor, Mobility, Focus) affect the caster.
     /// Aura stances (Control, Support) affect all living enemies or allies respectively.
     /// All effects use Duration = 1 (EndOfTurn trigger) so they expire at the end of the unit's next turn.
     /// </summary>
@@ -34,31 +34,26 @@ public static class CombatStyleUtility
         switch (stance)
         {
             case CombatStyle.Aggression:
-                // +2 Power, -2 Defense
                 ApplyStatChange(caster, caster, StatsEnum.Power,   +2, isBuff: true, suppressFloating: true);
-                ApplyStatChange(caster, caster, StatsEnum.Defense, -2, isBuff: false, suppressFloating: true);
+                ApplyStatChange(caster, caster, StatsEnum.Armor, -2, isBuff: false, suppressFloating: true);
                 break;
 
             case CombatStyle.Defensive:
-                // -2 Power, +4 Shield
                 ApplyStatChange(caster, caster, StatsEnum.Power,  -2, isBuff: false, suppressFloating: true);
                 ApplyStatChange(caster, caster, StatsEnum.Shield, +4, isBuff: true, suppressFloating: true);
                 break;
 
             case CombatStyle.Mobility:
-                // +2 Speed, -2 Defense
                 ApplyStatChange(caster, caster, StatsEnum.MoveSpeed, +2, isBuff: true, suppressFloating: true);
-                ApplyStatChange(caster, caster, StatsEnum.Defense,   -2, isBuff: false, suppressFloating: true);
+                ApplyStatChange(caster, caster, StatsEnum.Armor,   -2, isBuff: false, suppressFloating: true);
                 break;
 
             case CombatStyle.Focus:
-                // +2 Range, -1 Speed
                 ApplyStatChange(caster, caster, StatsEnum.Range,    +2, isBuff: true, suppressFloating: true);
                 ApplyStatChange(caster, caster, StatsEnum.MoveSpeed, -1, isBuff: false, suppressFloating: true);
                 break;
 
             case CombatStyle.Control:
-                // All living enemies get -1 Power and -1 Speed
                 var enemies = caster.Friendly ? (System.Collections.IEnumerable)UnitData.Enemies : UnitData.Characters;
                 foreach (Unit enemy in enemies)
                 {
@@ -68,10 +63,9 @@ public static class CombatStyleUtility
                 break;
 
             case CombatStyle.Support:
-                // All living allies get +1 Defense; caster gets -1 Power
                 var allies = caster.Friendly ? (System.Collections.IEnumerable)UnitData.Characters : UnitData.Enemies;
                 foreach (Unit ally in allies)
-                    ApplyStatChange(caster, ally, StatsEnum.Defense, +1, isBuff: true, suppressFloating: true);
+                    ApplyStatChange(caster, ally, StatsEnum.Armor, +1, isBuff: true, suppressFloating: true);
                 ApplyStatChange(caster, caster, StatsEnum.Power, -1, isBuff: false, suppressFloating: true);
                 break;
         }
@@ -115,12 +109,12 @@ public static class CombatStyleUtility
     {
         return stance switch
         {
-            CombatStyle.Aggression => "+2 Power, -2 Defense",
+            CombatStyle.Aggression => "+2 Power, -2 Armor",
             CombatStyle.Defensive    => "-2 Power, +4 Shield",
-            CombatStyle.Mobility   => "+2 Speed, -2 Defense",
+            CombatStyle.Mobility   => "+2 Speed, -2 Armor",
             CombatStyle.Focus      => "+2 Range, -1 Speed",
             CombatStyle.Control    => "Enemies: -1 Power, -1 Speed",
-            CombatStyle.Support    => "Allies: +1 Defense. Self: -1 Power",
+            CombatStyle.Support    => "Allies: +1 Armor. Self: -1 Power",
             _                      => string.Empty,
         };
     }
