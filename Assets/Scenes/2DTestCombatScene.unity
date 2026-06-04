@@ -4875,7 +4875,7 @@ MonoBehaviour:
   skillName: {fileID: 1009786993}
   energyAmount: {fileID: 0}
   skillRange: {fileID: 2068943800}
-  stanceText: {fileID: 0}
+  stanceText: {fileID: 478984983}
   skillType: {fileID: 842293136}
   classIcons:
   - {fileID: 1844341461}

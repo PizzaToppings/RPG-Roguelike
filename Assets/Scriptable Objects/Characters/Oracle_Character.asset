@@ -18,7 +18,7 @@ MonoBehaviour:
   MaxHealth: 27
   MoveSpeed: 4
   Power: 2
-  Defense: 1
+  Armor: 1
   basicAttack: {fileID: 11400000, guid: fee16b25fc010d64b967501a568d562f, type: 2}
   basicSkill: {fileID: 11400000, guid: 35592c2b1efa02644814baa5ce1e1bec, type: 2}
   BasicTrait: {fileID: 11400000, guid: 01dc2f6e25611ed43ae916b8a6b42df0, type: 2}

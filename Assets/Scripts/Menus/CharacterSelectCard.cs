@@ -8,7 +8,7 @@ public class CharacterSelectCard : MonoBehaviour
     [SerializeField] Image classIconOne;
     [SerializeField] Image classIconTwo;
     [SerializeField] TextMeshProUGUI SpeedText;
-    [SerializeField] TextMeshProUGUI InitiativeText;
+    [SerializeField] TextMeshProUGUI HitpointsText;
     [SerializeField] TextMeshProUGUI PowerText;
     [SerializeField] TextMeshProUGUI ArmorText;
     [SerializeField] Image           portrait;
@@ -35,6 +35,7 @@ public class CharacterSelectCard : MonoBehaviour
         classIconOne.sprite = CharacterSelectUI.Instance.GetClassIcon(character.Classes[0]);
         classIconTwo.sprite = CharacterSelectUI.Instance.GetClassIcon(character.Classes[1]);
 
+        HitpointsText.text = character.MaxHealth.ToString();
         SpeedText.text = character.MoveSpeed.ToString();
         PowerText.text = character.Power.ToString();
         ArmorText.text = character.Armor.ToString();
