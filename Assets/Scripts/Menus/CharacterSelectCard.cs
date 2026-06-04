@@ -46,8 +46,9 @@ public class CharacterSelectCard : MonoBehaviour
         basicAttack.Init(characterData.basicAttack);
         basicSkill.Init(characterData.basicSkill);
 
-        basicAttackIcon.Set(basicAttack);
-        basicSkillIcon.Set(basicSkill);
+        // Pass the character's power so the info screen can show correct damage in character select
+        basicAttackIcon.Set(basicAttack, character.Power);
+        basicSkillIcon.Set(basicSkill, character.Power);
     }
 
     void OnSelect()

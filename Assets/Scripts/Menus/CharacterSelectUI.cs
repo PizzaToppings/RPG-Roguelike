@@ -39,6 +39,13 @@ public class CharacterSelectUI : MonoBehaviour
         showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
     }
 
+    // Overload that accepts an anchor RectTransform to position the info panel
+    public void StartShowSkillInformation(Skill skill, RectTransform anchor, int? displayPower = null)
+    {
+        // Start coroutine that positions using anchor when activating
+        showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill, displayPower, anchor));
+    }
+
     public void EndShowSkillInformation(Skill skill)
     {
         StopCoroutine(showSkillCoroutine);
@@ -48,8 +55,14 @@ public class CharacterSelectUI : MonoBehaviour
 
     public IEnumerator ShowSkillInformation(Skill skill)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.3f);
         infoScreen.Activate(skill, false);
+    }
+
+    public IEnumerator ShowSkillInformation(Skill skill, int? displayPower, RectTransform anchor = null)
+    {
+        yield return new WaitForSeconds(0.3f);
+        infoScreen.Activate(skill, false, displayPower, anchor);
     }
     public Sprite GetClassIcon(ClassEnum thisClass) => icons.GetClassIcon(thisClass);
 

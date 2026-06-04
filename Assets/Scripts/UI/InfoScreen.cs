@@ -17,7 +17,8 @@ public class SkillInfoScreen : MonoBehaviour
 
     string stanceColorCode = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(CombatStyle.None));
 
-    public void Activate(Skill skill, bool lockScreen)
+    // Activate with optional displayPower (for char select) and optional anchor to position next to
+    public void Activate(Skill skill, bool lockScreen, int? displayPower = null, RectTransform anchor = null)
     {
         if (ui_Singletons == null)
             ui_Singletons = UI_Singletons.Instance;
@@ -35,28 +36,79 @@ public class SkillInfoScreen : MonoBehaviour
 
         // basic skills or consumables
         if (skill.mainSkillSO.IsBasic)
-		{
+        {
             skillType.text = "Basic skill";
-		}
+        }
         else if (skill.mainSkillSO.IsConsumable)
         {
             skillType.text = "Consumable";
         }
         else
-		{
+        {
             skillType.text = string.Empty;
 
             for (var i = 0; i < skill.mainSkillSO.Classes.Count; i++)
-			{
+            {
                 classIcons[i].gameObject.SetActive(true);
                 classIcons[i].sprite = ui_Singletons.GetClassIcon(skill.mainSkillSO.Classes[i]);
             }
         }
 
-        skillDescription.text = GetDescription(skill);
+        skillDescription.text = GetDescription(skill, displayPower);
 
         gameObject.SetActive(true);
-        skillDescription.ForceMeshUpdate();
+
+        // Ensure layout updated so rect sizes are correct before positioning
+        Canvas.ForceUpdateCanvases();
+        var thisRT = GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(thisRT);
+
+        if (anchor != null)
+            PositionAt(anchor);
+    }
+
+    // Position the panel so its bottom edge sits above the anchor's top edge (with padding), and clamp inside parent.
+    public void PositionAt(RectTransform anchor)
+    {
+        if (anchor == null)
+            return;
+
+        var thisRT = GetComponent<RectTransform>();
+        if (thisRT == null)
+            return;
+
+        var parentRT = thisRT.parent as RectTransform;
+        if (parentRT == null)
+            return;
+
+        // Camera to use for conversions (null for ScreenSpaceOverlay)
+        var canvas = thisRT.GetComponentInParent<Canvas>();
+        var cam = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+
+        // anchor top-center in world space
+        Vector3[] corners = new Vector3[4];
+        anchor.GetWorldCorners(corners); // 0=bl,1=tl,2=tr,3=br
+        Vector3 anchorTopCenterWorld = (corners[1] + corners[2]) * 0.5f;
+
+        // convert to parent local coordinates
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(cam, anchorTopCenterWorld);
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRT, screenPoint, cam, out localPoint);
+
+        // Only compute and set X; keep current Y
+        float w = thisRT.rect.width;
+        float pX = thisRT.pivot.x;
+
+        float anchoredX = localPoint.x + w * (0.5f - pX);
+
+        // clamp horizontally
+        float pw = parentRT.rect.width * 0.5f;
+        float minAnchoredX = -pw + w * pX;
+        float maxAnchoredX = pw - w * (1f - pX);
+        if (minAnchoredX > maxAnchoredX) anchoredX = 0f; else anchoredX = Mathf.Clamp(anchoredX, minAnchoredX, maxAnchoredX);
+
+        float anchoredY = thisRT.anchoredPosition.y;
+        thisRT.anchoredPosition = new Vector2(anchoredX, anchoredY);
     }
 
     string GetBaseRange(Skill skill)
@@ -92,11 +144,11 @@ public class SkillInfoScreen : MonoBehaviour
         return range;
     }
 
-    string GetDescription(Skill skill)
+    string GetDescription(Skill skill, int? displayPower = null)
     {
         var description = skill.mainSkillSO.Description;
         var foundEffects = new Dictionary<string, string>();
-        (description, foundEffects) = ReplaceEffectText(description, skill);
+        (description, foundEffects) = ReplaceEffectText(description, skill, displayPower);
         // description += CannotCastText(skill);
 
         var stanceDesc = CombatStyleUtility.GetStanceDescription(skill.mainSkillSO.SkillCombatStyle);
@@ -114,7 +166,7 @@ public class SkillInfoScreen : MonoBehaviour
         return description;
     }
 
-    (string, Dictionary<string, string>) ReplaceEffectText(string description, Skill skill)
+    (string, Dictionary<string, string>) ReplaceEffectText(string description, Skill skill, int? displayPower = null)
     {
         var caster = UnitData.ActiveUnit;
         var foundEffects = new System.Collections.Generic.Dictionary<string, string>();
@@ -130,7 +182,7 @@ public class SkillInfoScreen : MonoBehaviour
                     if (description.Contains(damagePlaceholder))
                     {
                         var skillDamage = damageEffect.Power;
-                        var bonusDamage = caster.Power;
+                        var bonusDamage = displayPower ?? (caster != null ? caster.Power : 0);
                         var totalDamage = (skillDamage + bonusDamage).ToString();
                         var damageText = $"{totalDamage} damage";
                         description = description.Replace(damagePlaceholder, damageText);
@@ -156,7 +208,7 @@ public class SkillInfoScreen : MonoBehaviour
                     if (statusIdx >= 0)
                     {
                         var damage = statusEffect.Power;
-                        var totalPower = CalculateTotalPower(statusEffect, caster);
+                        var totalPower = CalculateTotalPower(statusEffect, caster, displayPower);
                         var durationText = GetDurationText(statusEffect);
                         var statusText = $"{totalPower} <link={effectName}><u><color={colorCode}>{effectName}</color></u></link>{durationText}.";
                         description = description.Remove(statusIdx, statusPlaceholder.Length).Insert(statusIdx, statusText);
@@ -177,10 +229,10 @@ public class SkillInfoScreen : MonoBehaviour
         return (description, foundEffects);
     }
 
-    string CalculateTotalPower(SO_StatusEffect statusEffect, Unit caster)
+    string CalculateTotalPower(SO_StatusEffect statusEffect, Unit caster, int? displayPower = null)
     {
         var power = statusEffect.Power;
-        var bonusDamage = caster.Power;
+        var bonusDamage = displayPower ?? (caster != null ? caster.Power : 0);
 
         switch (statusEffect.StatusEffectType)
         {
@@ -223,7 +275,7 @@ public class SkillInfoScreen : MonoBehaviour
     }
 
     public void Deactivate()
-	{
+    {
         gameObject.SetActive(false);
     }
 }
