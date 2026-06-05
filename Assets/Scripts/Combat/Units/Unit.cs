@@ -345,8 +345,6 @@ public class Unit : UnitStats
         if (isIncapactated)
             turnStartText += " - incapacitated";
 
-        uiManager.TriggerActivityText(turnStartText);
-
         boardManager.Clear();
         SetStartOfTurnStats();
 

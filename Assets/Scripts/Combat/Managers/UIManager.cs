@@ -217,7 +217,7 @@ public class UIManager : MonoBehaviour
         text.text = activityName;
 
         float alpha = 0;
-        float fadespeed = 3;
+        float fadespeed = 5;
 
         while (alpha < 1)
 		{
@@ -227,7 +227,7 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1.2f);
 
         while (alpha > 0)
         {

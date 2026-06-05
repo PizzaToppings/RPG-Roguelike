@@ -29,10 +29,10 @@ MonoBehaviour:
   PresetSkills:
   - Skills:
     - {fileID: 11400000, guid: 7757013e94ff22e4fa3c21a25991831d, type: 2}
-  RandomizeTraits: 0
-  MinTraitsPerCharacter: 0
+  RandomizeTraits: 1
+  MinTraitsPerCharacter: 1
   MaxTraitsPerCharacter: 2
-  TraitPool: {fileID: 0}
+  TraitPool: {fileID: 11400000, guid: 5db280366ae30434b8ffebb527c2a93d, type: 2}
   PresetTraits: []
   StartingHPPercentage: 100
   StartingGold: 0
