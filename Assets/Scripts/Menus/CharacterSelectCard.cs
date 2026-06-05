@@ -12,11 +12,11 @@ public class CharacterSelectCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI PowerText;
     [SerializeField] TextMeshProUGUI ArmorText;
     [SerializeField] Image           portrait;
+    [SerializeField] Image           traitIcon;
 
     [Space]
     [SerializeField] CharacterSelectSkillIcon basicAttackIcon;
     [SerializeField] CharacterSelectSkillIcon basicSkillIcon;
-    //[SerializeField] CharacterSelectSkillIcon SkillIconThree;
 
     [Space]
     [SerializeField] Button          selectButton;
@@ -49,6 +49,19 @@ public class CharacterSelectCard : MonoBehaviour
         // Pass the character's power so the info screen can show correct damage in character select
         basicAttackIcon.Set(basicAttack, character.Power);
         basicSkillIcon.Set(basicSkill, character.Power);
+
+        // Trait icon (basic trait)
+        if (character.BasicTrait != null && traitIcon != null)
+        {
+            traitIcon.gameObject.SetActive(true);
+            if (character.BasicTrait.Image != null)
+                traitIcon.sprite = character.BasicTrait.Image;
+
+            // Attach or get helper to forward hover events to CharacterSelectUI
+            var hover = traitIcon.GetComponent<CharacterSelectTraitIcon>();
+            if (hover == null) hover = traitIcon.gameObject.AddComponent<CharacterSelectTraitIcon>();
+            hover.Set(character.BasicTrait);
+        }
     }
 
     void OnSelect()

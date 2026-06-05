@@ -11,6 +11,7 @@ public class CharacterSelectUI : MonoBehaviour
     Coroutine showSkillCoroutine;
 
     [SerializeField] SkillInfoScreen infoScreen;
+    [SerializeField] TraitInfoScreen traitInfoScreen;
     [SerializeField] SO_UI_Icons icons;
 
     void Start()
@@ -44,6 +45,26 @@ public class CharacterSelectUI : MonoBehaviour
     {
         // Start coroutine that positions using anchor when activating
         showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill, displayPower, anchor));
+    }
+
+    // Trait hover methods for character select
+    Coroutine showTraitCoroutine;
+
+    public void StartShowTraitInformation(SO_Trait trait, RectTransform anchor)
+    {
+        showTraitCoroutine = StartCoroutine(ShowTraitInformation(trait, anchor));
+    }
+
+    public void EndShowTraitInformation(SO_Trait trait)
+    {
+        if (showTraitCoroutine != null) StopCoroutine(showTraitCoroutine);
+        if (traitInfoScreen != null) traitInfoScreen.Deactivate();
+    }
+
+    public IEnumerator ShowTraitInformation(SO_Trait trait, RectTransform anchor)
+    {
+        yield return new WaitForSeconds(0.3f);
+        if (traitInfoScreen != null) traitInfoScreen.Activate(trait, anchor);
     }
 
     public void EndShowSkillInformation(Skill skill)

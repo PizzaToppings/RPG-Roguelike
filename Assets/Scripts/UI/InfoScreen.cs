@@ -278,4 +278,42 @@ public class SkillInfoScreen : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    // Activate overload for traits (SO_Trait) used on character select
+    public void Activate(SO_Trait trait, RectTransform anchor = null)
+    {
+        if (ui_Singletons == null)
+            ui_Singletons = UI_Singletons.Instance;
+
+        if (trait == null)
+            return;
+
+        // basic
+        skillName.text = trait.TraitName;
+        skillRange.text = string.Empty;
+        stanceText.text = string.Empty;
+        skillType.text = "Trait";
+
+        // class icons
+        foreach (var skillIcon in classIcons)
+            skillIcon.gameObject.SetActive(false);
+
+        for (var i = 0; i < trait.classes.Count && i < classIcons.Count; i++)
+        {
+            classIcons[i].gameObject.SetActive(true);
+            classIcons[i].sprite = ui_Singletons.GetClassIcon(trait.classes[i]);
+        }
+
+        skillDescription.text = trait.Description;
+
+        gameObject.SetActive(true);
+
+        // Ensure layout updated so rect sizes are correct before positioning
+        Canvas.ForceUpdateCanvases();
+        var thisRT = GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(thisRT);
+
+        if (anchor != null)
+            PositionAt(anchor);
+    }
 }

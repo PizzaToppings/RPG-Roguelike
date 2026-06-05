@@ -20,9 +20,6 @@ public class CameraController : MonoBehaviour
     bool receivingMovementInput = false;
     bool isRightMouseDragging = false;
 
-    CursorLockMode previousCursorLockState = CursorLockMode.None;
-    bool previousCursorVisible = true;
-
     Camera cam;
 
     void Start()
