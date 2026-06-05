@@ -85,6 +85,7 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
                     "Pending");
         }
 
+        // Collect visible effects (excluding ones explicitly hidden)
         var visibleEffects = new List<StatusEffect>();
         foreach (var effect in unit.statusEffects)
         {
@@ -92,14 +93,72 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
                 visibleEffects.Add(effect);
         }
 
-        var processed = new HashSet<StatusEffect>();
+        // Group stat-change effects that originated from a CombatStyle so we can
+        // display a single compact entry per style (e.g. "Control: -1 Power").
+        var styleGroups = new Dictionary<CombatStyle, List<StatChangeEffect>>();
+        var nonStyleEffects = new List<StatusEffect>();
 
         foreach (var effect in visibleEffects)
+        {
+            if (effect is StatChangeEffect sce && sce.SourceCombatStyle != CombatStyle.None)
+            {
+                if (!styleGroups.ContainsKey(sce.SourceCombatStyle))
+                    styleGroups[sce.SourceCombatStyle] = new List<StatChangeEffect>();
+                styleGroups[sce.SourceCombatStyle].Add(sce);
+            }
+            else
+            {
+                nonStyleEffects.Add(effect);
+            }
+        }
+
+        // First emit entries for each style group
+        foreach (var kv in styleGroups)
+        {
+            var style = kv.Key;
+            var list = kv.Value;
+            if (list == null || list.Count == 0) continue;
+
+            // Aggregate by stat
+            var statTotals = new Dictionary<StatsEnum, int>();
+            int duration = list[0].Duration;
+            foreach (var s in list)
+            {
+                if (!statTotals.ContainsKey(s.Stat)) statTotals[s.Stat] = 0;
+                statTotals[s.Stat] += s.Power;
+            }
+
+            // Build description text (join multiple stat lines with a space)
+            var descParts = new List<string>();
+            foreach (var st in statTotals)
+            {
+                var d = StatusEffectDescriptions.GetDefault(StatusEffectEnum.StatChange, st.Key, st.Value);
+                descParts.Add(d);
+            }
+
+            var styleColor = CombatStyleUtility.GetStyleColor(style);
+            var hex = ColorUtility.ToHtmlStringRGB(styleColor);
+            string name = style.ToString();
+            string desc = string.Join(" ", descParts);
+
+            var entry = Instantiate(statusEffectEntryPrefab, statusEffectsContainer);
+            var entryUI = entry.GetComponent<StatusEffectEntryUI>();
+            if (entryUI != null)
+            {
+                var coloredName = $"Stance: <color=#{hex}>{style}</color>";
+                entryUI.Populate(coloredName, desc, $"{duration} turns");
+            }
+        }
+
+        // Then emit the remaining non-style effects using existing stacking logic
+        var processed = new HashSet<StatusEffect>();
+
+        foreach (var effect in nonStyleEffects)
         {
             if (processed.Contains(effect)) continue;
 
             var stackGroup = new List<StatusEffect> { effect };
-            foreach (var other in visibleEffects)
+            foreach (var other in nonStyleEffects)
             {
                 if (other == effect || processed.Contains(other)) continue;
                 if (CanStack(effect, other))
@@ -125,14 +184,14 @@ public abstract class BaseInfoPanelManager : MonoBehaviour
 
                 string statName  = StatusEffectDescriptions.GetStatDisplayName(sce.Stat);
                 string direction = totalPower >= 0 ? "Up" : "Down";
-                string name      = $"{statName} {direction}";
+                string name2     = $"{statName} {direction}";
                 string desc      = StatusEffectDescriptions.GetDefault(StatusEffectEnum.StatChange, sce.Stat, totalPower);
-                entryUI.Populate(name, desc, $"{effect.Duration} turns");
+                entryUI.Populate(name2, desc, $"{effect.Duration} turns");
             }
             else
             {
-                string name = $"{StatusEffectDescriptions.GetDisplayName(effect)} x{stackGroup.Count}";
-                entryUI.Populate(name, effect.Description, $"{effect.Duration} turns");
+                string name2 = $"{StatusEffectDescriptions.GetDisplayName(effect)} x{stackGroup.Count}";
+                entryUI.Populate(name2, effect.Description, $"{effect.Duration} turns");
             }
         }
     }

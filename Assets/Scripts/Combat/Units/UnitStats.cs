@@ -29,5 +29,9 @@ public class UnitStats : MonoBehaviour
     public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     public BoardTile Tile = null;
+    
+    // Targets hit by the unit's most recently cast skill. Populated at cast time and
+    // consumed by systems such as CombatStyle effects at end of turn.
+    public List<Unit> LastSkillTargets = new List<Unit>();
 
 }

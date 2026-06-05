@@ -4,22 +4,16 @@ public class StatChangeEffect : StatusEffect
 {
     public StatsEnum Stat;
     public int Power;
+    // Origin style for grouping in info panels
+    public CombatStyle SourceCombatStyle = CombatStyle.None;
 
     public override void Apply()
     {
-        Target.statusEffects.Add(this);
+        // Let the base handle registration and duration subscription
+        base.Apply();
 
-        // Show a floating status change unless suppressed (e.g. when part of a stance application)
-        if (!SuppressFloating)
-        {
-            string sign  = Power >= 0 ? "+" : "";
-            string label = $"{StatusEffectDescriptions.GetStatDisplayName(Stat)} {sign}{Power}";
-            healthCanvas.ShowStatusEffect(label, Target, IsBuff);
-        }
-
+        // Apply the stat change immediately
         ChangeStat();
-        SubscribeDurationTrigger();
-        //Target.ThisHealthbar.AddStatusEffect(StatusEfectEnum.Thorns);
     }
 
     public void ChangeStat()

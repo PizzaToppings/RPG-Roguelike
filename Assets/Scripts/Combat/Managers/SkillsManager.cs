@@ -119,6 +119,33 @@ public class SkillsManager : MonoBehaviour
         var character = caster as Character;
         character?.OnSkillCastEvent.Invoke(skill);
 
+        // Record the list of targets hit by this skill on the caster for later systems
+        // (e.g. CombatStyle effects) to reference at end of turn.
+        try
+        {
+            caster.LastSkillTargets.Clear();
+            if (SkillData.SkillPartGroupDatas != null)
+            {
+                foreach (var spg in SkillData.SkillPartGroupDatas)
+                {
+                    if (spg == null || spg.SkillPartDatas == null) continue;
+                    foreach (var spd in spg.SkillPartDatas)
+                    {
+                        if (spd?.TargetsHit == null) continue;
+                        foreach (var u in spd.TargetsHit)
+                        {
+                            if (u == null) continue;
+                            if (!caster.LastSkillTargets.Contains(u))
+                                caster.LastSkillTargets.Add(u);
+                        }
+                    }
+                }
+            }
+        }
+        catch {
+            // Protect against unexpected null refs; not critical.
+        }
+
         OnSkillCastComplete.Invoke();
     }
 
