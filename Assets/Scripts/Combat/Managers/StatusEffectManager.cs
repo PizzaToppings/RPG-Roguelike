@@ -69,7 +69,9 @@ public class StatusEffectManager : MonoBehaviour
             DurationTrigger = statusEffectSO.DurationTrigger,
             Description = StatusEffectDescriptions.Resolve(statusEffectSO),
             Caster = UnitData.ActiveUnit,
-            Target = target
+            Target = target,
+            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+            DurationOwner = statusEffectSO.DurationOwner
         };
 
         statusEffect.Apply();
@@ -105,7 +107,9 @@ public class StatusEffectManager : MonoBehaviour
             Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power,
+            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+            DurationOwner = statusEffectSO.DurationOwner
         };
 
         poisonStatusEffect.Apply();
@@ -123,7 +127,9 @@ public class StatusEffectManager : MonoBehaviour
             Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power,
+            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+            DurationOwner = statusEffectSO.DurationOwner
         };
 
         burnStatusEffect.Apply();
@@ -159,7 +165,9 @@ public class StatusEffectManager : MonoBehaviour
             Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
             Caster = UnitData.ActiveUnit,
             Target = target,
-            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power,
+            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+            DurationOwner = statusEffectSO.DurationOwner
         };
 
         fatiqueStatusEffect.Apply();
@@ -178,7 +186,9 @@ public class StatusEffectManager : MonoBehaviour
             Caster = UnitData.ActiveUnit,
             Target = target,
             Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power,
-            Stat = statusEffectSO.Stat
+            Stat = statusEffectSO.Stat,
+            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+            DurationOwner = statusEffectSO.DurationOwner
         };
 
         statChangeEffect.Apply();

@@ -18,6 +18,7 @@ public class StatusEffect
     public bool IsBuff;
     public bool IsPermanent;
     public TriggerMomentEnum DurationTrigger = TriggerMomentEnum.EndOfTurn;
+    public DurationOwnerEnum DurationOwner = DurationOwnerEnum.Target;
 
     public StatusEffectEnum statusEfectType;
     public int Duration;
@@ -35,7 +36,8 @@ public class StatusEffect
             healthCanvas.ShowStatusEffect(statusEfectType.ToString(), Target, IsBuff);
 
         // Subscribe duration reduction on either the caster or the target as configured
-        if (UseCasterTurnForDuration && Caster != null)
+        var useCaster = UseCasterTurnForDuration || DurationOwner == DurationOwnerEnum.Caster;
+        if (useCaster && Caster != null)
         {
             if (DurationTrigger == TriggerMomentEnum.EndOfTurn)
                 Caster.OnUnitTurnEndEvent.AddListener(ReduceDuration);

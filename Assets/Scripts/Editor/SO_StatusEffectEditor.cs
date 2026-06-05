@@ -11,6 +11,7 @@ public class SO_StatusEffectEditor : Editor
     SerializedProperty duration;
     SerializedProperty permanent;
     SerializedProperty durationTrigger;
+    SerializedProperty durationOwner;
     SerializedProperty description;
 
     void OnEnable()
@@ -22,6 +23,7 @@ public class SO_StatusEffectEditor : Editor
         duration         = serializedObject.FindProperty("Duration");
         permanent        = serializedObject.FindProperty("Permanent");
         durationTrigger  = serializedObject.FindProperty("DurationTrigger");
+        durationOwner    = serializedObject.FindProperty("DurationOwner");
         description      = serializedObject.FindProperty("Description");
     }
 
@@ -62,6 +64,17 @@ public class SO_StatusEffectEditor : Editor
         {
             if (duration != null) EditorGUILayout.PropertyField(duration);
             if (durationTrigger != null) EditorGUILayout.PropertyField(durationTrigger);
+
+            // Show which unit's turn the duration should tick on for turn-based triggers
+            if (durationTrigger != null && durationOwner != null)
+            {
+                // TriggerMomentEnum: Instant, StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, ...
+                int idx = durationTrigger.enumValueIndex;
+                if (idx == (int)TriggerMomentEnum.StartOfTurn || idx == (int)TriggerMomentEnum.EndOfTurn)
+                {
+                    EditorGUILayout.PropertyField(durationOwner);
+                }
+            }
         }
 
         EditorGUILayout.Space();

@@ -47,6 +47,8 @@ public enum SkillFxTargetEnum { None, Caster, Target, Tiles, SkillObject }
 // Triggers
 public enum TriggerMomentEnum { Instant, StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnHeal, OnUseAbility, EndOfCombat, OnKillEnemy }
 public enum TriggerEffectEnum { DealDamage, AddStatusEffect, AddEnergy, ModifyStat }
+// Which unit's turn should be used for duration ticks
+public enum DurationOwnerEnum { Target, Caster }
 
 // Skill Augments
 public enum SkillAugmentTriggerEnum { OnInit, OnCast, OnCastPerTarget }

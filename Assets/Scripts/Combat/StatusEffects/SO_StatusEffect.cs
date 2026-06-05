@@ -12,6 +12,7 @@ public class SO_StatusEffect : ScriptableObject
     public int Duration;
     public bool Permanent;
     public TriggerMomentEnum DurationTrigger = TriggerMomentEnum.EndOfTurn;
+    public DurationOwnerEnum DurationOwner = DurationOwnerEnum.Target;
 
     [TextArea(2, 5)]
     public string Description;

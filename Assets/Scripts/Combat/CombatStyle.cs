@@ -176,6 +176,7 @@ public static class CombatStyleUtility
             HideInInfoPanel  = hideInInfoPanel,
             SourceCombatStyle = sourceStyle,
             UseCasterTurnForDuration = sourceStyle != CombatStyle.None,
+            DurationOwner = sourceStyle != CombatStyle.None ? DurationOwnerEnum.Caster : DurationOwnerEnum.Target,
         };
 
         effect.Apply();
