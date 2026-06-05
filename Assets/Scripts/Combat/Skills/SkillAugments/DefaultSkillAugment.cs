@@ -13,6 +13,8 @@ public class DefaultSkillAugment : SO_SkillAugment
     public SkillAugmentTriggerEnum TriggerMoment;
     public bool TriggerOnce;
     public int ChargesToTrigger = 1;
+    [Header("Optional filter (for OnStanceChange)")]
+    public CombatStyle RequiredSkillStyle = CombatStyle.None;
 
     [Header("Effect")]
     public SkillAugmentEffectEnum TriggerEffect;
@@ -54,6 +56,13 @@ public class DefaultSkillAugment : SO_SkillAugment
                     var targets = GetAllSkillTargets(skill);
                     foreach (var target in targets)
                         OnTrigger(skill, target, character, augment);
+                });
+                break;
+            case SkillAugmentTriggerEnum.OnStanceChange:
+                character.OnStanceChangeEvent.AddListener((oldStyle, newStyle) =>
+                {
+                    if (RequiredSkillStyle != CombatStyle.None && newStyle != RequiredSkillStyle) return;
+                    OnTrigger(skill, null, character, augment);
                 });
                 break;
         }

@@ -15,9 +15,10 @@ MonoBehaviour:
   statusEffectManager: {fileID: 0}
   Buff: 0
   StatusEffectType: 15
-  Stat: 6
+  Stat: 3
   Power: 1
   Duration: 1
-  IsMagical: 0
   Permanent: 0
+  DurationTrigger: 3
+  DurationOwner: 1
   Description: 

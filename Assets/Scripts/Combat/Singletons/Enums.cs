@@ -45,17 +45,17 @@ public enum SkillFxTargetEnum { None, Caster, Target, Tiles, SkillObject }
 
 
 // Triggers
-public enum TriggerMomentEnum { Instant, StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnHeal, OnUseAbility, EndOfCombat, OnKillEnemy }
+public enum TriggerMomentEnum { Instant, StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnHeal, OnUseAbility, OnStanceChange, EndOfCombat, OnKillEnemy }
 public enum TriggerEffectEnum { DealDamage, AddStatusEffect, AddEnergy, ModifyStat }
 // Which unit's turn should be used for duration ticks
 public enum DurationOwnerEnum { Target, Caster }
 
 // Skill Augments
-public enum SkillAugmentTriggerEnum { OnInit, OnCast, OnCastPerTarget }
+public enum SkillAugmentTriggerEnum { OnInit, OnCast, OnCastPerTarget, OnStanceChange }
 public enum SkillAugmentEffectEnum { AddStatusEffectToTargets, AddStatusEffectToCaster, AddEnergy, ModifyEnergyCost, ModifyRange, ModifyDamage, ResetSkill }
 
 // Anomalies
-public enum AnomalyTriggerEnum { OnCombatStart, StartOfRound, EndOfRound, OnCombatEnd }
+public enum AnomalyTriggerEnum { OnCombatStart, StartOfRound, EndOfRound, OnStanceChange, OnCombatEnd }
 public enum AnomalyTargetEnum { AllCharacters, AllEnemies, AllUnits, BoardState }
 public enum AnomalyEffectEnum { AddStatusEffect, ModifyStat, DealDamage }
 public enum EnemyTriggerMomentEnum { StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, OnDealDamage, OnTakeDamage, OnDeath }

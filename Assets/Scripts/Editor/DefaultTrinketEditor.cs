@@ -67,7 +67,7 @@ public class DefaultTraitEditor : Editor
         bool showRange         = showTarget && selection != TraitTargetSelectionEnum.Self;
         bool showStatusEffects = effect == TriggerEffectEnum.AddStatusEffect;
         bool showStat          = effect == TriggerEffectEnum.ModifyStat;
-        bool showSkillStyle    = moment == TriggerMomentEnum.OnUseAbility || moment == TriggerMomentEnum.OnDealDamage;
+        bool showSkillStyle    = moment == TriggerMomentEnum.OnUseAbility || moment == TriggerMomentEnum.OnDealDamage || moment == TriggerMomentEnum.OnStanceChange;
 
         // SO_Trinket base fields
         EditorGUILayout.PropertyField(trinketName);
@@ -84,10 +84,15 @@ public class DefaultTraitEditor : Editor
         EditorGUILayout.PropertyField(triggerEffect);
         if (showSkillStyle)
         {
-            string tooltip = moment == TriggerMomentEnum.OnUseAbility 
-                ? "Filter by skill combat style. Set to None to trigger on any skill."
-                : "Filter by the last skill's combat style. Set to None to trigger on damage from any skill.";
-            EditorGUILayout.PropertyField(requiredSkillStyle, new GUIContent("Required Skill Style", tooltip));
+            string tooltip;
+            if (moment == TriggerMomentEnum.OnUseAbility)
+                tooltip = "Filter by skill combat style. Set to None to trigger on any skill.";
+            else if (moment == TriggerMomentEnum.OnDealDamage)
+                tooltip = "Filter by the last skill's combat style. Set to None to trigger on damage from any skill.";
+            else
+                tooltip = "Filter by the new stance when a character switches stance. Set to None to trigger on any stance change.";
+
+            EditorGUILayout.PropertyField(requiredSkillStyle, new GUIContent("Required Skill Stance", tooltip));
         }
         if (!implicitlyOnce)
         {

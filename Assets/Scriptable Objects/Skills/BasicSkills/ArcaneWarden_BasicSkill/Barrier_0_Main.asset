@@ -16,10 +16,9 @@ MonoBehaviour:
   Image: {fileID: 0}
   IsBasic: 1
   IsConsumable: 0
-  IsMagical: 1
   SkillCombatStyle: 2
   Classes: 
-  Description: Give yourself or an Ally 2 Shield and +1 Magical Defense for 1 turn.
+  Description: Give yourself or an Ally 2 Shield and +1 Armor until you next turn.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 879a28c32f9049e499e8511b96e66319, type: 2}

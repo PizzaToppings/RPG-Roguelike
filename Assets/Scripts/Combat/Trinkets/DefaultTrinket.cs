@@ -29,7 +29,7 @@ public class DefaultTrait : SO_Trait
     public List<StatsEnum> Stat;
 
     [Space]
-    public CombatStyle RequiredSkillStyle = CombatStyle.None;
+    public CombatStyle RequiredSkillStyle = CombatStyle.None; // optional: filter by required stance when triggering
 
     public override void Init(Character character, Trait trait)
     {
@@ -116,6 +116,10 @@ public class DefaultTrait : SO_Trait
             case TriggerMomentEnum.OnUseAbility:
                 character.OnSkillCastEvent.AddListener(skill => OnSkillUseTrigger(character, trait, skill));
                 break;
+            case TriggerMomentEnum.OnStanceChange:
+                // Listen for stance changes on this character
+                character.OnStanceChangeEvent.AddListener((oldStyle, newStyle) => OnStanceChangeTrigger(character, trait, oldStyle, newStyle));
+                break;
         }
     }
 
@@ -144,6 +148,15 @@ public class DefaultTrait : SO_Trait
         {
             return;
         }
+
+        OnTrigger(character, trait);
+    }
+
+    private void OnStanceChangeTrigger(Character character, Trait trait, CombatStyle oldStyle, CombatStyle newStyle)
+    {
+        // If RequiredSkillStyle specified, only trigger when new style matches
+        if (RequiredSkillStyle != CombatStyle.None && newStyle != RequiredSkillStyle)
+            return;
 
         OnTrigger(character, trait);
     }

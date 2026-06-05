@@ -34,6 +34,8 @@ public class DefaultAnomaly : SO_Anomaly
 
     [Header("Stat (for ModifyStat effect)")]
     public List<StatsEnum> Stat;
+    [Header("Optional filter (for OnStanceChange)")]
+    public CombatStyle RequiredSkillStyle = CombatStyle.None;
 
     public override void Init(Anomaly anomaly)
     {
@@ -56,7 +58,32 @@ public class DefaultAnomaly : SO_Anomaly
             case AnomalyTriggerEnum.OnCombatEnd:
                 CombatData.onCombatEnd.AddListener(() => OnTrigger(anomaly));
                 break;
+            case AnomalyTriggerEnum.OnStanceChange:
+                // subscribe to all characters' stance change events
+                foreach (var c in UnitData.Characters)
+                {
+                    c.OnStanceChangeEvent.AddListener((oldS, newS) => OnStanceChangeListener(anomaly, c, oldS, newS));
+                }
+                break;
         }
+    }
+
+    void OnStanceChangeListener(Anomaly anomaly, Character character, CombatStyle oldStyle, CombatStyle newStyle)
+    {
+        if (TriggerOnce && anomaly.hasTriggered) return;
+
+        if (ChargesToTrigger > 1)
+        {
+            anomaly.chargeCount++;
+            if (anomaly.chargeCount < ChargesToTrigger) return;
+            anomaly.chargeCount = 0;
+        }
+
+        // If a RequiredSkillStyle is set, only trigger when newStyle matches
+        if (RequiredSkillStyle != CombatStyle.None && newStyle != RequiredSkillStyle) return;
+
+        ApplyEffect(anomaly);
+        anomaly.hasTriggered = true;
     }
 
     void OnTrigger(Anomaly anomaly)

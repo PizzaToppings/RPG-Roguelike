@@ -33,11 +33,10 @@ MonoBehaviour:
   SkillVFX: []
   DamageEffects:
   - Caster: {fileID: 0}
-    IsMagical: 0
     Modifiers: []
     Prerequisites: []
     HitType: 0
-    Power: 2
+    Power: 4
   MinRange: 1
   MaxRange: 1.5
   IncludeInAutoMove: 0

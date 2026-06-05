@@ -29,6 +29,7 @@ public class Unit : UnitStats
 
     [HideInInspector] public UnityEvent<DamageDataCalculated> OnDealDamage;
     [HideInInspector] public UnityEvent<DamageDataCalculated> OnTakeDamage;
+    [HideInInspector] public UnityEvent<CombatStyle, CombatStyle> OnStanceChangeEvent = new UnityEvent<CombatStyle, CombatStyle>();
     [HideInInspector] public Animator modelAnimator;
     [HideInInspector] public SpriteRenderer modelSprite;
 
@@ -377,9 +378,13 @@ public class Unit : UnitStats
         // Apply the pending stance selected this turn at end of turn.
         if (PendingCombatStyle != CombatStyle.None)
         {
+            var oldStyle = CurrentCombatStyle;
             CurrentCombatStyle = PendingCombatStyle;
             PendingCombatStyle = CombatStyle.None;
             RefreshCombatStyleVisuals();
+
+            // Notify listeners about stance change (old, new)
+            try { OnStanceChangeEvent?.Invoke(oldStyle, CurrentCombatStyle); } catch {}
 
             CombatStyleUtility.ApplyStanceEffects(CurrentCombatStyle, this);
         }
