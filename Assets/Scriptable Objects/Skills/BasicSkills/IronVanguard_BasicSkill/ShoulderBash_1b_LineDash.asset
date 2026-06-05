@@ -29,10 +29,10 @@ MonoBehaviour:
     Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX: []
   DamageEffects:
   - Caster: {fileID: 0}
-    IsMagical: 0
     Modifiers: []
     Prerequisites: []
     HitType: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    Speed: 2
+    Speed: 4
     Offset: 0
     HeightCurve:
       serializedVersion: 2
@@ -93,7 +93,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    Height: 1
+    Height: 0
     Duration: 0
     UseDuration: 0
     StartVFX: {fileID: 0}

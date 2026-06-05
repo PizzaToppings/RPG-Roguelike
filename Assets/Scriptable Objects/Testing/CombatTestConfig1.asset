@@ -28,7 +28,7 @@ MonoBehaviour:
   SkillPool: {fileID: 11400000, guid: 03a3ab7d4cf6fe24198b8489cdd69a25, type: 2}
   PresetSkills:
   - Skills:
-    - {fileID: 11400000, guid: ef5eac478b5ca4f48afbe4667711da13, type: 2}
+    - {fileID: 11400000, guid: 7757013e94ff22e4fa3c21a25991831d, type: 2}
   RandomizeTraits: 0
   MinTraitsPerCharacter: 0
   MaxTraitsPerCharacter: 2

@@ -29,6 +29,7 @@ MonoBehaviour:
     Priority: 10
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX: []
   DamageEffects: []
   MinRange: 0
@@ -45,7 +46,7 @@ MonoBehaviour:
     DisplacementType: 1
     Unit: {fileID: 11400000, guid: ebc5c94e57522814d8a67cba3524e603, type: 2}
     TargetPosition: {fileID: 11400000}
-    Delay: 0
+    Delay: 0.1
     SpeedCurve:
       serializedVersion: 2
       m_Curve:
@@ -70,7 +71,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    Speed: 2
+    Speed: 4
     Offset: 0
     HeightCurve:
       serializedVersion: 2
@@ -87,7 +88,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    Height: 1
+    Height: 0
     Duration: 0
     UseDuration: 0
     StartVFX: {fileID: 0}

@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [SerializeField] SkillInfoScreen infoScreen;
+    [SerializeField] TraitInfoScreen traitInfoScreen;
     [SerializeField] GameObject ActivityBar;
 
     [Space]
@@ -17,16 +18,28 @@ public class UIManager : MonoBehaviour
     [SerializeField] SkillIcon basicSkillIcon;
     [SerializeField] SkillIcon[] skillIcons;
     [SerializeField] SkillIcon[] consumableIcons;
-
     [Space]
-    [SerializeField] TextMeshProUGUI EnergyText;
-    public Color energyTextAvailable;
-    public Color energyTextUnavailable;
+    [SerializeField] TraitIcon[] traitIcons;
+    [Header("Trait Panel")]
+    [Tooltip("Parent transform where runtime trait icon prefabs will be instantiated")]
+    [SerializeField] Transform traitParent;
+    [Tooltip("Prefab containing a TraitIcon component and an Image. Instantiated per trait at turn start.")]
+    [SerializeField] GameObject traitIconPrefab;
+
+    // Instances created at runtime for the active unit's traits (object pool)
+    List<GameObject> spawnedTraitIcons = new List<GameObject>();
+    Stack<GameObject> traitIconPool = new Stack<GameObject>();
+
+    //[Space]
+    //[SerializeField] TextMeshProUGUI EnergyText;
+    //public Color energyTextAvailable;
+    //public Color energyTextUnavailable;
 
     [Space]
     public Sprite disabledSkillSprite;
 
     Coroutine showSkillCoroutine;
+    Coroutine showTraitCoroutine;
 
     public void CreateInstance()
     {
@@ -52,10 +65,15 @@ public class UIManager : MonoBehaviour
             var character = CurrentActiveUnit as Character;
             SetSkillIcons(character);
             SetConsumableIcons(character);
+            // Spawn runtime trait icons under the configured parent
+            ShowTraitPanel(character);
         }
         else
         {
             SetDisabledSkillIcons();
+            // Hide any runtime trait icons
+            HideTraitPanel();
+            ClearTraitIcons();
         }
     }
 
@@ -66,6 +84,94 @@ public class UIManager : MonoBehaviour
 
         foreach (var skillIcon in skillIcons)
             skillIcon.SetDisabled();
+    }
+
+    public void SetTraitIcons(Character CurrentActiveUnit)
+    {
+        if (traitIcons == null) return;
+
+        // Character.traits contains runtime Trait instances which reference SO_Trait in traitSO
+        for (int i = 0; i < traitIcons.Length; i++)
+        {
+            if (i < CurrentActiveUnit.traits.Count && CurrentActiveUnit.traits[i]?.traitSO != null)
+            {
+                traitIcons[i].Set(CurrentActiveUnit.traits[i].traitSO);
+            }
+            else
+            {
+                traitIcons[i].Clear();
+            }
+        }
+    }
+
+    public void ClearTraitIcons()
+    {
+        if (traitIcons == null) return;
+        foreach (var t in traitIcons)
+            t.Clear();
+    }
+
+    // Instantiate prefab instances for the active character's traits.
+    // Each prefab should contain a TraitIcon component (and an Image).
+    public void ShowTraitPanel(Character character)
+    {
+        // Clear any existing spawned icons first
+        HideTraitPanel();
+
+        if (traitParent == null || traitIconPrefab == null || character == null)
+            return;
+
+        // Character.traits contains runtime Trait instances which reference SO_Trait in traitSO
+        float baseDelay = 0f;
+        float stepDelay = 0.06f; // quick succession
+        for (int i = 0; i < character.traits.Count; i++)
+        {
+            var t = character.traits[i];
+            if (t?.traitSO == null)
+                continue;
+
+            GameObject go = null;
+            if (traitIconPool.Count > 0)
+            {
+                go = traitIconPool.Pop();
+                go.transform.SetParent(traitParent, false);
+                go.SetActive(true);
+            }
+            else
+            {
+                go = Instantiate(traitIconPrefab, traitParent);
+            }
+
+            spawnedTraitIcons.Add(go);
+
+            var icon = go.GetComponent<TraitIcon>();
+            if (icon != null)
+            {
+                // The prefab's Image is already on the same GameObject; Set will assign sprite if available
+                icon.Set(t.traitSO);
+                // Animate in with staggered delay
+                icon.AnimateIn(baseDelay + i * stepDelay);
+            }
+        }
+    }
+
+    // Destroy spawned runtime trait icons
+    public void HideTraitPanel()
+    {
+        if (spawnedTraitIcons == null || spawnedTraitIcons.Count == 0)
+            return;
+
+        for (int i = spawnedTraitIcons.Count - 1; i >= 0; i--)
+        {
+            var go = spawnedTraitIcons[i];
+            if (go == null) continue;
+
+            // Return to pool rather than destroy
+            go.SetActive(false);
+            go.transform.SetParent(this.transform, false);
+            traitIconPool.Push(go);
+        }
+        spawnedTraitIcons.Clear();
     }
 
     public void SetSkillIcons(Character CurrentActiveUnit)
@@ -138,6 +244,23 @@ public class UIManager : MonoBehaviour
 	{
         showSkillCoroutine = StartCoroutine(ShowSkillInformation(skill));
 	}
+
+    public void StartShowTraitInformation(SO_Trait trait, RectTransform anchor = null)
+    {
+        showTraitCoroutine = StartCoroutine(ShowTraitInformation(trait, anchor));
+    }
+
+    public void EndShowTraitInformation(SO_Trait trait)
+    {
+        if (showTraitCoroutine != null) StopCoroutine(showTraitCoroutine);
+        if (traitInfoScreen != null) traitInfoScreen.Deactivate();
+    }
+
+    public IEnumerator ShowTraitInformation(SO_Trait trait, RectTransform anchor = null)
+    {
+        yield return new WaitForSeconds(0.2f);
+        traitInfoScreen?.Activate(trait, anchor);
+    }
 
     public void LockSkillInformation(Skill skill)
     {
