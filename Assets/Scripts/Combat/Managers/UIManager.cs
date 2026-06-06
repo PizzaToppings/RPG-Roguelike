@@ -36,6 +36,10 @@ public class UIManager : MonoBehaviour
     //public Color energyTextUnavailable;
 
     [Space]
+    [SerializeField] GameObject endTurnButton;
+    Button endTurnButtonComponent;
+
+    [Space]
     public Sprite disabledSkillSprite;
 
     Coroutine showSkillCoroutine;
@@ -56,6 +60,14 @@ public class UIManager : MonoBehaviour
 
         foreach (var consumableIcon in consumableIcons)
             consumableIcon.Init();
+
+        if (endTurnButton != null)
+        {
+            endTurnButtonComponent = endTurnButton.GetComponent<Button>();
+            if (endTurnButtonComponent != null)
+                endTurnButtonComponent.onClick.AddListener(OnEndTurnButtonClicked);
+            endTurnButton.SetActive(false);
+        }
     }
 
     public void StartTurn(Unit CurrentActiveUnit)
@@ -67,6 +79,7 @@ public class UIManager : MonoBehaviour
             SetConsumableIcons(character);
             // Spawn runtime trait icons under the configured parent
             ShowTraitPanel(character);
+            ShowEndTurnButton(character);
         }
         else
         {
@@ -74,7 +87,25 @@ public class UIManager : MonoBehaviour
             // Hide any runtime trait icons
             HideTraitPanel();
             ClearTraitIcons();
+            HideEndTurnButton();
         }
+    }
+
+    public void ShowEndTurnButton(Character character)
+    {
+        if (endTurnButton != null)
+            endTurnButton.SetActive(true);
+    }
+
+    public void HideEndTurnButton()
+    {
+        if (endTurnButton != null)
+            endTurnButton.SetActive(false);
+    }
+
+    void OnEndTurnButtonClicked()
+    {
+        (UnitData.ActiveUnit as Character)?.EndTurn();
     }
 
     public void SetDisabledSkillIcons()

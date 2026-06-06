@@ -409,6 +409,12 @@ public class Character : Unit
     //    SetEnergy(Energy);
     //}
 
+    public override void EndTurn()
+    {
+        uiManager.HideEndTurnButton();
+        base.EndTurn();
+    }
+
     public override void Die()
     {
         skillsManager.OnSkillCastComplete.RemoveListener(StopCasting);
