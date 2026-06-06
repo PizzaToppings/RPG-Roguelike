@@ -38,6 +38,9 @@ public class StatusEffectManager : MonoBehaviour
                 case StatusEffectEnum.Rooted:
                     ApplyRootedEffect(statusEffectSO, target);
                     break;
+                case StatusEffectEnum.Taunt:
+                    ApplyTauntEffect(statusEffectSO, target);
+                    break;
                 case StatusEffectEnum.Unique:
                     
                     return;
@@ -219,6 +222,33 @@ public class StatusEffectManager : MonoBehaviour
         };
 
         rootedStatusEffect.Apply();
+    }
+
+    public void ApplyTauntEffect(SO_StatusEffect statusEffectSO, Unit target)
+    {
+        if (UnitHasStatusEffect(target, statusEffectSO.StatusEffectType))
+        {
+            var existingStatusEffect = GetUnitStatusEffect(target, statusEffectSO.StatusEffectType);
+
+            if (existingStatusEffect.Duration < statusEffectSO.Duration)
+                existingStatusEffect.Duration = statusEffectSO.Duration;
+
+            return;
+        }
+
+        var tauntStatusEffect = new TauntStatusEffect
+        {
+            IsBuff = false,
+            statusEfectType = statusEffectSO.StatusEffectType,
+            Duration = statusEffectSO.Duration,
+            IsPermanent = statusEffectSO.Permanent,
+            DurationTrigger = statusEffectSO.DurationTrigger,
+            Description = StatusEffectDescriptions.Resolve(statusEffectSO),
+            Caster = UnitData.ActiveUnit,
+            Target = target
+        };
+
+        tauntStatusEffect.Apply();
     }
 
     public void ApplyUniqueEffect(SO_StatusEffect statusEffectSO, Unit target)

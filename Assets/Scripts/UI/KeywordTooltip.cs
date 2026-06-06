@@ -84,7 +84,7 @@ public class KeywordTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 return;
 
             case "Taunt":
-                tooltiptext = "The unit is more likely to target the caster with skills.";
+                tooltiptext = "Forces the unit to target the caster with offensive skills.";
                 tooltipManager.ShowTooltip(keyword, tooltiptext, Input.mousePosition);
                 return;
 
