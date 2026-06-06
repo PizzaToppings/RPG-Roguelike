@@ -181,29 +181,13 @@ public class BoardTile : MonoBehaviour
     {
         currentTileColor = color;
         ApplyHighlightColor(color);
-
-        // When resetting to original, show the unit's combat style as a subtle base tint
-        if (color.Kind == TileColorKind.Original && currentUnit != null && currentUnit.CurrentCombatStyle != CombatStyle.None)
-            ApplyUnitStyleHighlight(currentUnit.CurrentCombatStyle);
     }
 
-    /// <summary>Re-applies (or clears) the combat-style tint for the unit currently on this tile.</summary>
+    /// <summary>Clears the highlight on this tile if it is currently showing the original color.</summary>
     public void RefreshUnitStyleColor()
     {
         if (currentTileColor != null && currentTileColor.Kind == TileColorKind.Original)
-        {
-            if (currentUnit != null && currentUnit.CurrentCombatStyle != CombatStyle.None)
-                ApplyUnitStyleHighlight(currentUnit.CurrentCombatStyle);
-            else
-                boardManager.SetHighlightColor(CellPosition, Color.clear);
-        }
-    }
-
-    void ApplyUnitStyleHighlight(CombatStyle style)
-    {
-        Color c = CombatStyleUtility.GetStyleColor(style);
-        c.a = 0.25f;
-        boardManager.SetHighlightColor(CellPosition, c);
+            boardManager.SetHighlightColor(CellPosition, Color.clear);
     }
 
     void ApplyHighlightColor(TileColor color)

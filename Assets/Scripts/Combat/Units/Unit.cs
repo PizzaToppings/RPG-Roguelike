@@ -116,7 +116,6 @@ public class Unit : UnitStats
     /// </summary>
     public void RefreshCombatStyleVisuals()
     {
-        Tile?.RefreshUnitStyleColor();
         initiativeInformation?.RefreshStyleColor();
     }
 
