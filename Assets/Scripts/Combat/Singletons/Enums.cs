@@ -25,7 +25,7 @@ public enum TraitTargetFactionEnum { Friendly, Enemy, All }
 public enum TraitTargetSelectionEnum { Self, Closest, LowestHealth, Area }
 
 // Enemy Intent (displayed above healthbar)
-public enum IntentActionEnum { Unknown, PhysicalMeleeAttack, PhysicalRangedAttack, MagicalMeleeAttack, MagicalRangedAttack, Debuff, Buff, Heal, AOE }
+public enum IntentActionEnum { Unknown, MeleeAttack, RangedAttack, Debuff, Buff, Heal, AOE }
 public enum IntentTargetEnum { Unknown, Nearest, LowestHealth, Area, Self, Random }
 
 

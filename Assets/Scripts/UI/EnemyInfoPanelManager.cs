@@ -112,22 +112,14 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
 
         switch (action)
         {
-            case IntentActionEnum.PhysicalMeleeAttack:
+            case IntentActionEnum.MeleeAttack:
                 return totalDamage > 0
-                    ? $"Deals {totalDamage} physical melee damage."
-                    : $"Deals physical melee damage.";
-            case IntentActionEnum.PhysicalRangedAttack:
+                    ? $"Deals {totalDamage} melee damage."
+                    : $"Deals melee damage.";
+            case IntentActionEnum.RangedAttack:
                 return totalDamage > 0
-                    ? $"Deals {totalDamage} physical ranged damage."
-                    : $"Deals physical ranged damage.";
-            case IntentActionEnum.MagicalMeleeAttack:
-                return totalDamage > 0
-                    ? $"Deals {totalDamage} magical melee damage."
-                    : $"Deals magical melee damage.";
-            case IntentActionEnum.MagicalRangedAttack:
-                return totalDamage > 0
-                    ? $"Deals {totalDamage} magical ranged damage."
-                    : $"Deals magical ranged damage.";
+                    ? $"Deals {totalDamage} ranged damage."
+                    : $"Deals ranged damage.";
             case IntentActionEnum.Debuff:   return "Applies a debuff.";
             case IntentActionEnum.Buff:     return "Buffs itself or an ally.";
             case IntentActionEnum.Heal:
