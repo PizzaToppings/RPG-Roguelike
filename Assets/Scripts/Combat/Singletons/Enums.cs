@@ -16,7 +16,7 @@ public enum StatsEnum { MaxHitpoints, /*MaxEnergy,*/ MoveSpeed, Power, Armor, Sh
 
 // Damage etc
 public enum HitTypeEnum { Damage, Healing, Shield }
-public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Fatique, Rooted, Taunt, Thorns, Dodge, StatChange, Unique }
+public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Regen, Rooted, Taunt, Thorns, Dodge, StatChange, Unique }
 public enum DisplacementEnum { Teleport, Move, Lift }
 
 // Enemy AI

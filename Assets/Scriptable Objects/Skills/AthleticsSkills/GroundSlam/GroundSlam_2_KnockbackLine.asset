@@ -12,14 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
   m_Name: GroundSlam_2_KnockbackLine
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
-  - {fileID: 0}
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 6
-  MagicalDamage: 0
-  SkillPartIndex: 1
   OriginTileKind: 2
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -34,16 +26,13 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 1, g: 0, b: 0, a: 1}
+    Kind: 0
     Priority: 4
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX: []
-  DamageEffect:
-    Caster: {fileID: 0}
-    DamageType: 0
-    Power: 0
-    IsMagical: 0
+  DamageEffects: []
   MinRange: 0
   MaxRange: 2.5
   IncludeInAutoMove: 0
@@ -51,15 +40,65 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects: []
+  StatusEffects: []
   tileEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect:
+    UseDisplacement: 0
+    DisplacementType: 0
+    Unit: {fileID: 0}
+    TargetPosition: {fileID: 0}
+    Delay: 0
+    SpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Speed: 1
+    Offset: 0
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Height: 1
+    Duration: 0
+    UseDuration: 0
+    StartVFX: {fileID: 0}
+    EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}
   Angles: 00000000
   PierceAmount: -1
   GetLastTileOnly: 1
   endColor:
     FillCenter: 1
-    Color: {r: 1, g: 0, b: 0, a: 0.9137255}
+    Kind: 0
     Priority: 3

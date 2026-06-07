@@ -47,7 +47,7 @@ public class SO_StatusEffectEditor : Editor
 
         bool hasPower      = type == StatusEffectEnum.Bleed     || type == StatusEffectEnum.Poison  ||
                              type == StatusEffectEnum.Burn       || type == StatusEffectEnum.Thorns  ||
-                             type == StatusEffectEnum.Fatique    || type == StatusEffectEnum.StatChange ||
+                             type == StatusEffectEnum.Regen    || type == StatusEffectEnum.StatChange ||
                              type == StatusEffectEnum.Lifedrain;
         bool hasDamageType = type == StatusEffectEnum.Bleed     || type == StatusEffectEnum.Burn;
         bool hasStat       = type == StatusEffectEnum.StatChange;

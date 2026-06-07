@@ -25,11 +25,11 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Kind: 0
+    Kind: 4
     Priority: 8
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  DashOnDamageOrEffect: 0
+  DashOnDamageOrEffect: 1
   SkillVFX:
   - {fileID: 11400000, guid: 04d7c4b4ecf893f45b14db72f5f0fcd8, type: 2}
   DamageEffects:
@@ -37,7 +37,7 @@ MonoBehaviour:
     Modifiers: []
     Prerequisites: []
     HitType: 0
-    Power: 1
+    Power: 3
   MinRange: 0
   MaxRange: 1.5
   IncludeInAutoMove: 0
@@ -120,6 +120,6 @@ MonoBehaviour:
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 0
-    Kind: 0
+    Kind: 4
     Priority: 5
   CanTargetSelf: 0

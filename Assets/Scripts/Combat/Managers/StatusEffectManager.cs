@@ -26,8 +26,8 @@ public class StatusEffectManager : MonoBehaviour
                 case StatusEffectEnum.Burn:
                     ApplyBurnEffect(statusEffectSO, target, powerOverride);
                     break;
-                case StatusEffectEnum.Fatique:
-                    ApplyFatiqueEffect(statusEffectSO, target, powerOverride);
+                case StatusEffectEnum.Regen:
+                    ApplyRegenEffect(statusEffectSO, target, powerOverride);
                     break;
                 case StatusEffectEnum.Thorns:
                     ApplyThornsEffect(statusEffectSO, target, powerOverride);
@@ -136,6 +136,24 @@ public class StatusEffectManager : MonoBehaviour
         };
 
         burnStatusEffect.Apply();
+    }
+
+    public void ApplyRegenEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
+    {
+        var regenStatusEffect = new RegenStatusEffect
+        {
+            IsBuff = true,
+            statusEfectType = statusEffectSO.StatusEffectType,
+            Duration = statusEffectSO.Duration,
+            IsPermanent = statusEffectSO.Permanent,
+            DurationTrigger = statusEffectSO.DurationTrigger,
+            Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
+            Caster = UnitData.ActiveUnit,
+            Target = target,
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
+        };
+
+        regenStatusEffect.Apply();
     }
 
     public void ApplyThornsEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)

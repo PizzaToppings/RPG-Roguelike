@@ -12,13 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbbc954076eb9c44bd1cbae407eb541, type: 3}
   m_Name: SweepingStrike_1_HalfCircle
   m_EditorClassIdentifier: 
-  OriginTiles:
-  - {fileID: 0}
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 6
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -31,18 +24,20 @@ MonoBehaviour:
   DirectionInputSkillPart: {fileID: 0}
   TargetKind: 0
   tileColor:
-    FillCenter: 0
-    Color: {r: 0.8018868, g: 0.056737266, b: 0.056737266, a: 1}
+    FillCenter: 1
+    Kind: 4
     Priority: 6
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX:
   - {fileID: 11400000, guid: d6c01947e52ef3846ad173621b989765, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
-    DamageType: 0
-    Power: 8
-    IsMagical: 0
+    Modifiers: []
+    Prerequisites: []
+    HitType: 0
+    Power: 3
   MinRange: 0
   MaxRange: 3.5
   IncludeInAutoMove: 0
@@ -50,8 +45,58 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEfects: []
+  StatusEffects: []
   tileEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect:
+    UseDisplacement: 0
+    DisplacementType: 0
+    Unit: {fileID: 0}
+    TargetPosition: {fileID: 0}
+    Delay: 0
+    SpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Speed: 1
+    Offset: 0
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Height: 1
+    Duration: 0
+    UseDuration: 0
+    StartVFX: {fileID: 0}
+    EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}

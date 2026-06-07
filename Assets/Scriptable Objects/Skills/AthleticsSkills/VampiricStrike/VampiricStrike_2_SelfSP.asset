@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ea86c1f688f1743be5ed65f3919415, type: 3}
   m_Name: VampiricStrike_2_SelfSP
   m_EditorClassIdentifier: 
-  OriginTiles: []
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 0
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 0
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -31,26 +25,25 @@ MonoBehaviour:
   TargetKind: 1
   tileColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX:
   - {fileID: 11400000, guid: 59998ab352da6924ba4cd4a83b05c757, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
-    IsMagical: 0
     Modifiers: []
     Prerequisites:
     - {fileID: 11400000, guid: 3f9a1ba0a041c0e4ebd9471203a2f0a6, type: 2}
-    DamageType: 9
-    Power: 5
+    HitType: 1
+    Power: 2
   - Caster: {fileID: 0}
-    IsMagical: 0
     Modifiers: []
     Prerequisites:
     - {fileID: 11400000, guid: b9eb0a145b9f7e84c97fed3bae12134d, type: 2}
-    DamageType: 9
+    HitType: 0
     Power: 10
   MinRange: 0
   MaxRange: 0
@@ -61,6 +54,56 @@ MonoBehaviour:
   PreventDuplicateTargets: []
   StatusEffects: []
   tileEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect:
+    UseDisplacement: 0
+    DisplacementType: 0
+    Unit: {fileID: 0}
+    TargetPosition: {fileID: 0}
+    Delay: 0
+    SpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Speed: 1
+    Offset: 0
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Height: 1
+    Duration: 0
+    UseDuration: 0
+    StartVFX: {fileID: 0}
+    EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}

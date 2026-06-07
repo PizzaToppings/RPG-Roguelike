@@ -16,15 +16,11 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: fc407fe7bddd6fb4997de40eedb3c2e6, type: 3}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
-  SkillCombatStyle: 5
+  SkillCombatStyle: 2
   Classes: 0000000004000000
-  Description: 'Reduce the Martial Defense of all enemies within 3 Range by 2 for
-    2 turns. '
+  Description: 'Reduce the Armor of all enemies within 3 Range by 2 for 2 turns. '
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 0
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: 9374cc5e83620c1439b6d62cfa73039b, type: 2}
   EnergyCost: 4
   DefaultCharges: 1

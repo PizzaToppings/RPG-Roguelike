@@ -29,12 +29,12 @@ MonoBehaviour:
     Priority: 6
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 1
   SkillVFX:
   - {fileID: 11400000, guid: 55e43410161052b45b46e229171dee41, type: 2}
   - {fileID: 11400000, guid: 5a8496fcb477f664ab65a706d74927c7, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
-    IsMagical: 0
     Modifiers: []
     Prerequisites: []
     HitType: 0
@@ -46,7 +46,8 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 11400000, guid: 29df9ea2699f90843b1909efde7e4ac6, type: 2}
   tileEffects: []
   displacementEffect:
     UseDisplacement: 0

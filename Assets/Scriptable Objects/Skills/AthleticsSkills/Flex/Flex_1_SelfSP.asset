@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ea86c1f688f1743be5ed65f3919415, type: 3}
   m_Name: Flex_1_SelfSP
   m_EditorClassIdentifier: 
-  OriginTiles: []
-  OriginTargets: []
-  TargetTile: {fileID: 0}
-  FinalDirection: 0
-  MagicalDamage: 0
-  SkillPartIndex: 0
   OriginTileKind: 0
   OriginTileSkillParts: []
   OriginTargetKind: 0
@@ -31,10 +25,11 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 1
-    Color: {r: 0.90943396, g: 0, b: 0, a: 1}
+    Kind: 3
     Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX:
   - {fileID: 11400000, guid: 9a5724694bfa3264c88386c408fb8e6c, type: 2}
   DamageEffects: []
@@ -48,6 +43,56 @@ MonoBehaviour:
   StatusEffects:
   - {fileID: 11400000, guid: 50f272c981dd9b14283aa8f195b9b6e7, type: 2}
   tileEffects: []
-  displacementEffect: {fileID: 0}
+  displacementEffect:
+    UseDisplacement: 0
+    DisplacementType: 0
+    Unit: {fileID: 0}
+    TargetPosition: {fileID: 0}
+    Delay: 0
+    SpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Speed: 1
+    Offset: 0
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Height: 1
+    Duration: 0
+    UseDuration: 0
+    StartVFX: {fileID: 0}
+    EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Caster: {fileID: 0}

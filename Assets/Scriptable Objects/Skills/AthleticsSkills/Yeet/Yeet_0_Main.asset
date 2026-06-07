@@ -16,24 +16,19 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 4ca1690ecdf50834baf1c0d649b81036, type: 3}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
   SkillCombatStyle: 5
   Classes: 0000000004000000
   Description: 'Throw an enemy unit to a tile within 5 range and deal <damage0-0-0>
     to it. '
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 1
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: 7bb6dc5cf478e2b478c2b84042de4cef, type: 2}
-  - CastOnTile: 1
-    CastOnTarget: 0
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: 49d9d732c312e8543b683f9bc36b1174, type: 2}
   EnergyCost: 3
   DefaultCharges: 1
   Cursor: 0
   castLockColor:
-    FillCenter: 0
-    Kind: 0
-    Priority: 9
+    FillCenter: 1
+    Kind: 3
+    Priority: 2

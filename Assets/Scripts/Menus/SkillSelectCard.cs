@@ -123,6 +123,7 @@ public class SkillSelectCard : MonoBehaviour
                         "burn" => "#ff0000ff",
                         "poison" => "#00BE01",
                         "taunt" => "#FF8C00",
+                        "regen" => "#00FF7F",
                         _ => "#FFFFFF"
                     };
 
@@ -157,6 +158,7 @@ public class SkillSelectCard : MonoBehaviour
             case StatusEffectEnum.Bleed:
             case StatusEffectEnum.Thorns:
             case StatusEffectEnum.Taunt:
+            case StatusEffectEnum.Regen:
                 return $" for {statusEffect.Duration} turn(s)";
         }
         return string.Empty;

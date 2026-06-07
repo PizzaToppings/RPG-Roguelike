@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: Taunt_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
+  SkillName: Taunt
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  SkillCombatStyle: 0
-  Classes: 
-  Description: 
-  SkillPartGroups: []
+  SkillCombatStyle: 5
+  Classes: 04000000
+  Description: <Taunt> an enemy.
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 1b834364f4852d5469e15660830a3779, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

@@ -30,10 +30,10 @@ public static class StatusEffectDescriptions
                 return power > 0
                     ? $"Deals {power} damage at the end of each turn, spreading to nearby units."
                     : "Deals damage at the end of each turn, spreading to nearby units.";
-            case StatusEffectEnum.Fatique:
+            case StatusEffectEnum.Regen:
                 return power > 0
-                    ? $"The unit starts the next turn with {power} less Energy."
-                    : "Reduces the unit's combat effectiveness.";
+                    ? $"Heals the unit for {power} health at the end of each turn."
+                    : "Heals the unit at the end of each turn.";
             case StatusEffectEnum.Thorns:
                 return power > 0
                     ? $"Reflects {power} damage back to attackers."

@@ -25,10 +25,11 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 0.8207547, g: 0.4917361, b: 0, a: 1}
+    Kind: 8
     Priority: 6
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX: []
   DamageEffects: []
   MinRange: 0
@@ -38,10 +39,11 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 11400000, guid: b334b70b30bedeb44a515d7c85058d5b, type: 2}
   tileEffects: []
   displacementEffect:
-    UseDisplacement: 1
+    UseDisplacement: 0
     DisplacementType: 2
     Unit: {fileID: 11400000}
     TargetPosition: {fileID: 11400000}
@@ -149,6 +151,6 @@ MonoBehaviour:
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
-    Color: {r: 0.8196079, g: 0.4901961, b: 0, a: 1}
+    Kind: 8
     Priority: 5
   CanTargetSelf: 0

@@ -33,7 +33,6 @@ MonoBehaviour:
   SkillVFX: []
   DamageEffects:
   - Caster: {fileID: 0}
-    IsMagical: 0
     Modifiers: []
     Prerequisites: []
     HitType: 0
@@ -46,7 +45,7 @@ MonoBehaviour:
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
   StatusEffects:
-  - {fileID: 11400000, guid: 5c417f9e0223042459f776b31ff1e384, type: 2}
+  - {fileID: 11400000, guid: 7d4feff18b7be9940a9197adeca3f729, type: 2}
   tileEffects: []
   displacementEffect:
     UseDisplacement: 0

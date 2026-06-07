@@ -25,10 +25,11 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Color: {r: 0.8862745, g: 0.5095284, b: 0.011764685, a: 1}
+    Kind: 0
     Priority: 7
   AddProjectileLine: 1
   ProjectileLineOffset: 1.5
+  DashOnDamageOrEffect: 0
   SkillVFX: []
   DamageEffects: []
   MinRange: 0
@@ -113,5 +114,5 @@ MonoBehaviour:
   SummonObject: {fileID: 0}
   SelectedTileColor:
     FillCenter: 1
-    Color: {r: 0.8862746, g: 0.011764707, b: 0.011764707, a: 1}
+    Kind: 4
     Priority: 3

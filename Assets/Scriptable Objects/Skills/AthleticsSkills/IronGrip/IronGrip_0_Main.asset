@@ -16,15 +16,11 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: bc60983560259e247b15d7ebf000827a, type: 3}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
   SkillCombatStyle: 5
   Classes: 0000000004000000
-  Description: Grapple an enemy, stunning them for one turn, and reduce their Physical
-    Power by 2 for 3 turns.
+  Description: Stun an enemy for one turn.
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 1
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: 39487c1ded958b94ca93bfb331b84cdd, type: 2}
   EnergyCost: 6
   DefaultCharges: 1
