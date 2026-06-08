@@ -25,14 +25,14 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Kind: 3
+    Kind: 4
     Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX: []
   DamageEffects:
   - Caster: {fileID: 0}
-    IsMagical: 0
     Modifiers: []
     Prerequisites: []
     HitType: 0
@@ -101,6 +101,6 @@ MonoBehaviour:
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
     FillCenter: 1
-    Kind: 0
+    Kind: 4
     Priority: 4
   CanTargetSelf: 0

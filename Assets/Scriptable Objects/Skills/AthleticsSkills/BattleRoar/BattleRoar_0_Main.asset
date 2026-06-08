@@ -18,7 +18,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 1
   Classes: 00000000
-  Description: Give all allies within 6.5 Range +1 power for 2 turns.
+  Description: Give all allies within 4 Range +1 power for 2 turns.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: dbb305ad24b5d0a4c8195bd21b2426cf, type: 2}

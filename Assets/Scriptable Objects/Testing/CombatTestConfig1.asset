@@ -13,24 +13,21 @@ MonoBehaviour:
   m_Name: CombatTestConfig1
   m_EditorClassIdentifier: 
   EnableTestMode: 1
-  PresetEncounter: {fileID: 0}
+  PresetEncounter: {fileID: 11400000, guid: 74c97cee2fe8e2e42881d4aa26a58e66, type: 2}
   RandomizeEncounter: 1
   EncounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
-  PresetCharacters:
-  - {fileID: 11400000, guid: b8ec11f2054f9aa4a97ab8529f36739a, type: 2}
-  RandomizeCharacters: 0
-  MinCharacterCount: 1
+  PresetCharacters: []
+  RandomizeCharacters: 1
+  MinCharacterCount: 4
   MaxCharacterCount: 4
   CharacterRoster: {fileID: 11400000, guid: adaa1ff5e701ef64dac0234ebc525100, type: 2}
-  RandomizeSkills: 0
-  MinSkillsPerCharacter: 1
-  MaxSkillsPerCharacter: 2
+  RandomizeSkills: 1
+  MinSkillsPerCharacter: 2
+  MaxSkillsPerCharacter: 3
   SkillPool: {fileID: 11400000, guid: 03a3ab7d4cf6fe24198b8489cdd69a25, type: 2}
-  PresetSkills:
-  - Skills:
-    - {fileID: 11400000, guid: 7757013e94ff22e4fa3c21a25991831d, type: 2}
+  PresetSkills: []
   RandomizeTraits: 1
-  MinTraitsPerCharacter: 1
+  MinTraitsPerCharacter: 2
   MaxTraitsPerCharacter: 2
   TraitPool: {fileID: 11400000, guid: 5db280366ae30434b8ffebb527c2a93d, type: 2}
   PresetTraits: []

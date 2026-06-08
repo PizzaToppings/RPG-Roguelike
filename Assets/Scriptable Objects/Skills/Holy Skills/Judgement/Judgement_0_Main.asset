@@ -18,7 +18,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 1
   Classes: 0400000008000000
-  Description: Deal <damage> to an enemy. Gain 3 Shield.
+  Description: Deal <damage0-0-0> to an enemy. Gain 3 Shield.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 539d50fdaeab19d4cb5260040126a3a6, type: 2}

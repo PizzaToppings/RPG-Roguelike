@@ -16,7 +16,7 @@ MonoBehaviour:
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  SkillCombatStyle: 6
+  SkillCombatStyle: 1
   Classes: 08000000
   Description: Deal <damage0-0-0> to an enemy.
   SkillPartGroups:

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: ScorchingRay_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
+  SkillName: Scorching Ray
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0

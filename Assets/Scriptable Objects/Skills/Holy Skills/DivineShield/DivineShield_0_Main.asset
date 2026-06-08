@@ -18,7 +18,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 0800000004000000
-  Description: An Ally 1 or yourself <dodge> until your next turn.
+  Description: Give an Ally 1 or yourself <dodge> until your next turn.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: b542cc4570bb4124196aa3cdac335428, type: 2}

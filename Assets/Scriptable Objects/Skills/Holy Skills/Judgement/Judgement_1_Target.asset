@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: Judgement_1_Target
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
