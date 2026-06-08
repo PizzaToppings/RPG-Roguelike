@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
   m_Name: ArcaneBurst_1_AoE
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
@@ -24,16 +24,21 @@ MonoBehaviour:
   DirectionInputSkillPart: {fileID: 0}
   TargetKind: 0
   tileColor:
-    FillCenter: 0
-    Kind: 0
-    Priority: 10
+    FillCenter: 1
+    Kind: 4
+    Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   DashOnDamageOrEffect: 0
   SkillVFX: []
-  DamageEffects: []
+  DamageEffects:
+  - Caster: {fileID: 0}
+    Modifiers: []
+    Prerequisites: []
+    HitType: 0
+    Power: 4
   MinRange: 0
-  MaxRange: 0
+  MaxRange: 3
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0

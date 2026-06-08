@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: FrostBolt_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
+  SkillName: Frostbolt
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  SkillCombatStyle: 0
-  Classes: 
-  Description: 
-  SkillPartGroups: []
+  SkillCombatStyle: 5
+  Classes: 0500000006000000
+  Description: Deal <damage0-0-0> to an enemy and reduce it's speed by 3.
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: b6506d127c2544d479a50f2ff311b0e4, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

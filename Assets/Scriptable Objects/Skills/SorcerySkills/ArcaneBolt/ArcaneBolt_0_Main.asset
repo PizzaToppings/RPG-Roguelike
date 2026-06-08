@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: ArcaneBolt_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
+  SkillName: Arcane Bolt
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  SkillCombatStyle: 0
-  Classes: 
+  SkillCombatStyle: 3
+  Classes: 05000000
   Description: 
-  SkillPartGroups: []
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: c4a123135f1e0e5479917ec61e8de4ff, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

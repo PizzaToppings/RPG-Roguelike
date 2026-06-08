@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: ArcaneBurst_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
+  SkillName: Arcane Burst
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  SkillCombatStyle: 0
-  Classes: 
-  Description: 
-  SkillPartGroups: []
+  SkillCombatStyle: 1
+  Classes: 05000000
+  Description: Deal <damage0-0-0> in a circle around you.
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 71451e4e245e10a4eb436bfa55789f99, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

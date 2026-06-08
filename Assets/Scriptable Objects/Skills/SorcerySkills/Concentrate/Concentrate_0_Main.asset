@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: Concentrate_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
+  SkillName: Concentrate
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  SkillCombatStyle: 0
-  Classes: 
-  Description: 
-  SkillPartGroups: []
+  SkillCombatStyle: 3
+  Classes: 020000000500000003000000
+  Description: Gain +5 Power until the end of your next turn.
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 97ad837bb62ed4340ae057185d0351d9, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

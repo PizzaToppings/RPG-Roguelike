@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: FrostBolt_1_Target
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
@@ -25,21 +25,27 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Kind: 0
-    Priority: 10
+    Kind: 4
+    Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   DashOnDamageOrEffect: 0
   SkillVFX: []
-  DamageEffects: []
+  DamageEffects:
+  - Caster: {fileID: 0}
+    Modifiers: []
+    Prerequisites: []
+    HitType: 0
+    Power: 3
   MinRange: 0
-  MaxRange: 0
+  MaxRange: 3
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 11400000, guid: 35c59b1b2164a1c44b6ce08183c85213, type: 2}
   tileEffects: []
   displacementEffect:
     UseDisplacement: 0
@@ -95,7 +101,7 @@ MonoBehaviour:
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
-    FillCenter: 0
-    Kind: 0
-    Priority: 10
+    FillCenter: 1
+    Kind: 4
+    Priority: 4
   CanTargetSelf: 0

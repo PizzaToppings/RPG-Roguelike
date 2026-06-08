@@ -24456,6 +24456,7 @@ MonoBehaviour:
   enemyParent: {fileID: 492562960}
   enemyPrefab: {fileID: 6609752126696691879, guid: 5ecdd490e165273468e3b1b557867738,
     type: 3}
+  boardParent: {fileID: 1850154507}
 --- !u!1 &1450460603
 GameObject:
   m_ObjectHideFlags: 0
@@ -29893,7 +29894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561ef95c8121420499e9ca28d061424d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 2487700488314653198}
+  tilemap: {fileID: 0}
   tilePrefab: {fileID: 2103108891}
   Directions:
   - {x: 0, y: 1}
@@ -33659,12 +33660,6 @@ CanvasRenderer:
 --- !u!4 &1566965589933188298 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2309673057598665495, guid: f6b87f74f78c67d4d9ea24f0e417a71d,
-    type: 3}
-  m_PrefabInstance: {fileID: 5892819781665840635}
-  m_PrefabAsset: {fileID: 0}
---- !u!1839735485 &2487700488314653198 stripped
-Tilemap:
-  m_CorrespondingSourceObject: {fileID: 9094257406449156262, guid: f6b87f74f78c67d4d9ea24f0e417a71d,
     type: 3}
   m_PrefabInstance: {fileID: 5892819781665840635}
   m_PrefabAsset: {fileID: 0}
