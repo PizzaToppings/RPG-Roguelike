@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: ProtectionAura_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
+  SkillName: Protection Aura
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  SkillCombatStyle: 0
-  Classes: 
-  Description: 
-  SkillPartGroups: []
+  SkillCombatStyle: 6
+  Classes: 0800000004000000
+  Description: Give youself and all allies within 3 range 3 Shield.
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 76889be4a0511ed40b123903debfcf5d, type: 2}
+    - {fileID: 11400000, guid: e05a7ff3e52830d48a89bf57bd506fcb, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

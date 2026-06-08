@@ -10,25 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: Smite_0_Main
+  m_Name: Haste_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Smite
-  Image: {fileID: 21300000, guid: 6bd510db0cd004f41b9e04236a4175c7, type: 3}
+  SkillName: Haste
+  Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
-  SkillCombatStyle: 1
-  Classes: 
-  Description: Deal <damage0-0-0> to an enemy in melee range.
+  SkillCombatStyle: 6
+  Classes: 0800000005000000
+  Description: Give an Ally +4 Speed on their next 2 turn.
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 1
-    skillParts:
-    - {fileID: 11400000, guid: 70dd2b859c26a07438f00d70c6bf479e, type: 2}
-  EnergyCost: 1
+  - skillParts:
+    - {fileID: 11400000, guid: f85754e67f8d1ea41a8b5d754ce6d2dd, type: 2}
+  EnergyCost: 10
   DefaultCharges: 1
-  Cursor: 1
+  Cursor: 0
   castLockColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10

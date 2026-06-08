@@ -22,7 +22,7 @@ MonoBehaviour:
   DirectionAnchorSkillPart: {fileID: 0}
   DirectionInput: 0
   DirectionInputSkillPart: {fileID: 0}
-  TargetKind: 1
+  TargetKind: 0
   tileColor:
     FillCenter: 1
     Kind: 3
@@ -31,12 +31,7 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   DashOnDamageOrEffect: 0
   SkillVFX: []
-  DamageEffects:
-  - Caster: {fileID: 0}
-    Modifiers: []
-    Prerequisites: []
-    HitType: 2
-    Power: 2
+  DamageEffects: []
   MinRange: 0
   MaxRange: 2
   IncludeInAutoMove: 0
@@ -44,7 +39,8 @@ MonoBehaviour:
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 11400000, guid: 3741756b6e1eed24cb6b51d01847b77c, type: 2}
   tileEffects: []
   displacementEffect:
     UseDisplacement: 0

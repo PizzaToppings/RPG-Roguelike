@@ -17,7 +17,7 @@ MonoBehaviour:
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 1
-  Classes: 00000000
+  Classes: 04000000
   Description: Deal <damage0-0-0> to all enemies in a 4-tile cone and give them <bleed0-0-0>.
   SkillPartGroups:
   - skillParts:

@@ -22,11 +22,11 @@ MonoBehaviour:
   DirectionAnchorSkillPart: {fileID: 0}
   DirectionInput: 0
   DirectionInputSkillPart: {fileID: 0}
-  TargetKind: 1
+  TargetKind: 0
   tileColor:
     FillCenter: 0
-    Kind: 0
-    Priority: 10
+    Kind: 4
+    Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   DashOnDamageOrEffect: 0
@@ -35,8 +35,8 @@ MonoBehaviour:
   - Caster: {fileID: 0}
     Modifiers: []
     Prerequisites: []
-    HitType: 1
-    Power: 1
+    HitType: 0
+    Power: 2
   MinRange: 0
   MaxRange: 4
   IncludeInAutoMove: 0

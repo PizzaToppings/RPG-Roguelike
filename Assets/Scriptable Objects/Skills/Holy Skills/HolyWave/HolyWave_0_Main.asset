@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: HolyWave_0_Main
   m_EditorClassIdentifier: 
-  SkillName: 
+  SkillName: Holy Wave
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
-  SkillCombatStyle: 0
-  Classes: 
-  Description: 'Heal all allies for 1 and deal <damage0-0-0> to all enemies in a
+  SkillCombatStyle: 6
+  Classes: 08000000
+  Description: 'Heal all allies for 2 and deal <damage0-0-0> to all enemies in a
     4-tile cone. '
   SkillPartGroups: []
   EnergyCost: 10

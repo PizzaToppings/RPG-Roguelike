@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
-  m_Name: Smite_1_Attack
+  m_Name: FrostBolt_1_Target
   m_EditorClassIdentifier: 
-  OriginTileKind: 1
+  OriginTileKind: 0
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
@@ -25,20 +25,15 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Kind: 4
-    Priority: 5
+    Kind: 0
+    Priority: 10
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 0
   SkillVFX: []
-  DamageEffects:
-  - Caster: {fileID: 0}
-    IsMagical: 0
-    Modifiers: []
-    Prerequisites: []
-    HitType: 0
-    Power: 4
+  DamageEffects: []
   MinRange: 0
-  MaxRange: 1.5
+  MaxRange: 0
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
@@ -100,7 +95,7 @@ MonoBehaviour:
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
-    FillCenter: 1
-    Kind: 4
-    Priority: 4
+    FillCenter: 0
+    Kind: 0
+    Priority: 10
   CanTargetSelf: 0

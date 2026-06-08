@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: Weaken_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Weake
+  SkillName: Weaken
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 5
   Classes: 0800000009000000
-  Description: Reduce an enemies power by 3 on their next turn.
+  Description: Give an enemy -3 Power on their next turn.
   SkillPartGroups: []
   EnergyCost: 10
   DefaultCharges: 1

@@ -17,11 +17,13 @@ MonoBehaviour:
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2
-  Classes: 0400000008000000
-  Description: Shield yourself and all allies within 2 range for 3.
+  Classes: 04000000
+  Description: Shield yourself for 2 and reduce the speed of enemies in range by
+    2.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 12cbbfeb770a4c741bd520433325d215, type: 2}
+    - {fileID: 11400000, guid: dc90faa98f073e842a1df07c905d69fa, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0
