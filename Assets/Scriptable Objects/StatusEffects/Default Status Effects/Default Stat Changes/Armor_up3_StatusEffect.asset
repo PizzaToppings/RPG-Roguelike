@@ -18,7 +18,7 @@ MonoBehaviour:
   Stat: 3
   Power: 3
   Duration: 1
-  IsMagical: 0
   Permanent: 0
-  DurationTrigger: 3
+  DurationTrigger: 5
+  DurationOwner: 0
   Description: 

@@ -42,7 +42,7 @@ MonoBehaviour:
   StatusEffects: []
   tileEffects: []
   displacementEffect:
-    UseDisplacement: 1
+    UseDisplacement: 0
     DisplacementType: 0
     Unit: {fileID: 11400000}
     TargetPosition: {fileID: 11400000, guid: 5ac0b9054d0ae7045bb34472238cc860, type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3adff297292ea0649a08e2261abca101, type: 3}
   m_Name: Blink_3_destination
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []

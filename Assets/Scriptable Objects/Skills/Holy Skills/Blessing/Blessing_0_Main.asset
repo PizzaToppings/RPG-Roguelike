@@ -18,8 +18,10 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 08000000
-  Description: Give an ally +3 Armor on their next turn.
-  SkillPartGroups: []
+  Description: Give an ally +3 Armor until the start of your turn.
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: c237e5eb260930e48b70e60c26cafee6, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

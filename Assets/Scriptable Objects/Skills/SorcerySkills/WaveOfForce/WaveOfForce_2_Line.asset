@@ -44,7 +44,7 @@ MonoBehaviour:
   displacementEffect:
     UseDisplacement: 1
     DisplacementType: 0
-    Unit: {fileID: 0}
+    Unit: {fileID: 11400000, guid: 239f3de27444f8b40b0abab046a5fd95, type: 2}
     TargetPosition: {fileID: 11400000}
     Delay: 0
     SpeedCurve:

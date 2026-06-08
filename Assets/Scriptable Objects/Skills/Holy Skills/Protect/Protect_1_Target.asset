@@ -25,8 +25,8 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Kind: 0
-    Priority: 10
+    Kind: 3
+    Priority: 5
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   DashOnDamageOrEffect: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
   SelectedTargetTileColor:
-    FillCenter: 0
-    Kind: 0
-    Priority: 10
+    FillCenter: 1
+    Kind: 3
+    Priority: 4
   CanTargetSelf: 0

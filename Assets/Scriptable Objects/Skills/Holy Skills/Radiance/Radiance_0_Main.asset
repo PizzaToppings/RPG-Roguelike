@@ -19,7 +19,10 @@ MonoBehaviour:
   SkillCombatStyle: 6
   Classes: 08000000
   Description: Heal all allies in a small radius for 3.
-  SkillPartGroups: []
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 5ff75435e08fb1e4d91a19d4d7d2ea49, type: 2}
+    - {fileID: 11400000, guid: fe3e69725e86b2f438ebde18da48a4a6, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

@@ -90,6 +90,9 @@ public class TilemapInputHandler : MonoBehaviour
 
     BoardTile FindTile()
     {
+        if (tilemap == null || boardManager == null || Camera.main == null)
+            return null;
+
         // Convert screen position → world position → tilemap cell → BoardTile array index
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldPos.z = 0f;

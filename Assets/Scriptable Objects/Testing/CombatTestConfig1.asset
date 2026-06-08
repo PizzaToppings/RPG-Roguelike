@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CombatTestConfig1
   m_EditorClassIdentifier: 
   EnableTestMode: 1
-  PresetEncounter: {fileID: 11400000, guid: 74c97cee2fe8e2e42881d4aa26a58e66, type: 2}
+  PresetEncounter: {fileID: 11400000, guid: dfbb38541f0b0914ba6b90580eb75c45, type: 2}
   RandomizeEncounter: 1
   EncounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
   PresetCharacters: []

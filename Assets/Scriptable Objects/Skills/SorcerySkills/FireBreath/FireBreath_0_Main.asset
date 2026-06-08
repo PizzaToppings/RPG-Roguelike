@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: FireBreath_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Fire Wave
+  SkillName: Fire Breath
   Image: {fileID: 0}
   IsBasic: 0
   IsConsumable: 0
@@ -20,7 +20,8 @@ MonoBehaviour:
   Classes: 0500000006000000
   Description: Deal <damage0-0-0> in a 4-tile cone.
   SkillPartGroups:
-  - skillParts: []
+  - skillParts:
+    - {fileID: 11400000, guid: e924adb4caa85484c82695a765c30f41, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

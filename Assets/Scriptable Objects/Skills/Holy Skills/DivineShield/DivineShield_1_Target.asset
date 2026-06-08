@@ -22,7 +22,7 @@ MonoBehaviour:
   DirectionAnchorSkillPart: {fileID: 0}
   DirectionInput: 0
   DirectionInputSkillPart: {fileID: 0}
-  TargetKind: 0
+  TargetKind: 1
   tileColor:
     FillCenter: 0
     Kind: 3

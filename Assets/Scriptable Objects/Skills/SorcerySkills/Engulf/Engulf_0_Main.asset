@@ -18,7 +18,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 1
   Classes: 0500000006000000
-  Description: <Burn0-1-0> all enemies in a 3 radius circle.
+  Description: GIve <Burn0-1-0> to all enemies in a 3 radius circle.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 11764cac17ab06c4aa4371c36bc6b7d1, type: 2}

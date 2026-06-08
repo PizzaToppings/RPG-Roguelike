@@ -18,7 +18,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 3
   Classes: 05000000
-  Description: 
+  Description: Deal <damage0-0-0> to an enemy.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: c4a123135f1e0e5479917ec61e8de4ff, type: 2}

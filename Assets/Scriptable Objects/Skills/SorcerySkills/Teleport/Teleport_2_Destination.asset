@@ -25,7 +25,7 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Kind: 0
+    Kind: 8
     Priority: 3
   AddProjectileLine: 0
   ProjectileLineOffset: 1
@@ -43,10 +43,10 @@ MonoBehaviour:
   StatusEffects: []
   tileEffects: []
   displacementEffect:
-    UseDisplacement: 0
+    UseDisplacement: 1
     DisplacementType: 0
-    Unit: {fileID: 0}
-    TargetPosition: {fileID: 0}
+    Unit: {fileID: 11400000, guid: 2fc6b93bd586b924ea87fd4923db1095, type: 2}
+    TargetPosition: {fileID: 11400000}
     Delay: 0
     SpeedCurve:
       serializedVersion: 2
@@ -96,6 +96,6 @@ MonoBehaviour:
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
   SelectedTileColor:
-    FillCenter: 0
-    Kind: 0
+    FillCenter: 1
+    Kind: 8
     Priority: 2

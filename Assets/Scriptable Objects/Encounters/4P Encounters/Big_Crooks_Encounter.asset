@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EncounterName: Crooks
   Tier: 0
-  MapPrefab: {fileID: 4780996589762455522, guid: f6b87f74f78c67d4d9ea24f0e417a71d,
+  MapPrefab: {fileID: 1319811632838081138, guid: 2cc2f244f4c6b644aae4cb39180a3d49,
     type: 3}
   PlayerPlacementTiles:
   - {x: 2, y: 5}

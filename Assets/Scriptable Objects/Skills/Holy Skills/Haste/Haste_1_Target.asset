@@ -24,7 +24,7 @@ MonoBehaviour:
   DirectionInputSkillPart: {fileID: 0}
   TargetKind: 1
   tileColor:
-    FillCenter: 0
+    FillCenter: 1
     Kind: 3
     Priority: 5
   AddProjectileLine: 0

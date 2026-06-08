@@ -20,7 +20,10 @@ MonoBehaviour:
   Classes: 0500000006000000
   Description: Deal <damage0-1-0> to all Enemies in a small Radius and make them
     <rooted>.
-  SkillPartGroups: []
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: a7b1c71867a26cc45a32d4044ebf8c37, type: 2}
+    - {fileID: 11400000, guid: 31d69735f6f88ab4dbb9cc9841151fed, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   Cursor: 0

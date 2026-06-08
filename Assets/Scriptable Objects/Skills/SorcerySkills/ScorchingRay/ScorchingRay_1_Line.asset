@@ -26,7 +26,7 @@ MonoBehaviour:
   tileColor:
     FillCenter: 1
     Kind: 4
-    Priority: 6
+    Priority: 3
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   DashOnDamageOrEffect: 0
@@ -99,10 +99,10 @@ MonoBehaviour:
     StartVFX: {fileID: 0}
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  Angles: 
+  Angles: 00000000
   PierceAmount: -1
   GetLastTileOnly: 0
   endColor:
     FillCenter: 0
-    Kind: 0
-    Priority: 10
+    Kind: 4
+    Priority: 4

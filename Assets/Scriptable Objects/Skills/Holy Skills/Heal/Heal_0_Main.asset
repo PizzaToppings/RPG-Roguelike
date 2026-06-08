@@ -18,7 +18,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 0800000007000000
-  Description: '<heal-0-0-0> an ally. '
+  Description: '<heal0-0-0> an ally. '
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 22049349d567c4044b60bb3b5c856d98, type: 2}
