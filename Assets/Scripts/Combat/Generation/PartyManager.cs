@@ -19,13 +19,7 @@ public class PartyManager : MonoBehaviour
 {
     [SerializeField] Transform  characterParent;
     [SerializeField] GameObject characterPrefab;
-    [SerializeField] Vector2Int[] partyStartPositions =
-    {
-        new Vector2Int(0, 7),
-        new Vector2Int(0, 8),
-        new Vector2Int(0, 9),
-        new Vector2Int(0, 10)
-    };
+    
 
     void Awake()
     {
@@ -72,7 +66,7 @@ public class PartyManager : MonoBehaviour
             {
                 character.partyMemberIndex = i;
 
-                var pos = i < partyStartPositions.Length
+                var pos = i < RunData.CurrentEncounter.PartyStartPositions.Length
                     ? partyStartPositions[i]
                     : new Vector2Int(0, i);
 

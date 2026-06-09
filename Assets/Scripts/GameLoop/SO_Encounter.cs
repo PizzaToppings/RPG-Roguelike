@@ -17,6 +17,16 @@ public class SO_Encounter : ScriptableObject
     [Tooltip("Grid positions (X, Y) where player characters can be placed before combat. Leave empty to use default positions.")]
     public List<Vector2Int> PlayerPlacementTiles = new List<Vector2Int>();
 
+    [Tooltip("Starting positions for the characters.")]
+    [SerializeField]
+    public Vector2Int[] PartyStartPositions =
+    {
+        new Vector2Int(0, 7),
+        new Vector2Int(0, 8),
+        new Vector2Int(0, 9),
+        new Vector2Int(0, 10)
+    };
+
     [Header("Enemy Configuration")]
     [Tooltip("Each entry is an enemy prefab paired with its starting board position (X, Y).")]
     public List<EncounterEnemy> Enemies = new List<EncounterEnemy>();
