@@ -46,7 +46,7 @@ public class DamageManager : MonoBehaviour
 	{
         var skillPower = damageEffect.Power;
         var casterPower = damageEffect.IsMagical ? caster.MagicalPowerBonus + caster.Power : caster.PhysicalPowerBonus + caster.Power;
-        var bleedDamage = GetBleedBonusDamage(target);
+        var bleedDamage = GetBleedBonusDamage(target, damageEffect.IsMagical);
 
         if (damageEffect.HitType == HitTypeEnum.Healing || damageEffect.HitType == HitTypeEnum.Shield)
         {
@@ -62,9 +62,9 @@ public class DamageManager : MonoBehaviour
         return damage;
     }
 
-    int GetBleedBonusDamage(Unit target)
+    int GetBleedBonusDamage(Unit target, bool isPhysical)
     {
-        if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Bleed))
+        if (statusEffectManager.UnitHasStatusEffect(target, StatusEffectEnum.Bleed) && isPhysical)
             return 2;
 
         return 0;

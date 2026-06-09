@@ -25,7 +25,7 @@ public class BurnStatusEffect : StatusEffect
 		};
 
 		var boardManager = BoardManager.Instance;
-		var damageTiles = boardManager.GetTilesWithinDirectRange(Target.Tile, 2.5f, false);
+		var damageTiles = boardManager.GetTilesWithinDirectRange(Target.Tile, 2f, false);
 
         var tileColor = BoardManager.Instance.GetTileColor(TileColorKind.EnemyIntent);
 
