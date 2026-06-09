@@ -42,7 +42,9 @@ public class InitiativeInformation : MonoBehaviour, IPointerEnterHandler, IPoint
         if (portrait != null && unit.modelSprite != null)
             portrait.sprite = unit.modelSprite.sprite;
 
-        Initiative = unit.Initiative;
+        // Keep any pre-assigned Initiative value (slot index) if set by the tracker.
+        if (Initiative == 0)
+            Initiative = unit.Initiative;
         RefreshStyleColor();
     }
 

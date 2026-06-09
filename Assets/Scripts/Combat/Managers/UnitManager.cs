@@ -107,6 +107,7 @@ public class UnitManager : MonoBehaviour
 
         unit.Init();
 
+        // Insert into UnitData.Units for bookkeeping
         int insertIndex = UnitData.Units.Count - 1; 
         UnitData.Units.RemoveAt(UnitData.Units.Count - 1);
         insertIndex = 0;
@@ -117,7 +118,10 @@ public class UnitManager : MonoBehaviour
         if (insertIndex <= CombatData.CurrentUnitTurn)
             CombatData.CurrentUnitTurn++;
 
-        initiativeTracker.AddToInitiative(unit);
+        // Insert this unit into the current turn sequence at the appropriate position
+        // For simplicity, append at the end of the sequence
+        CombatData.TurnSequence.Add(unit);
+        initiativeTracker.SetInitiative();
     }
 
     public IEnumerator RemoveUnit(Unit unit)
@@ -129,7 +133,7 @@ public class UnitManager : MonoBehaviour
         initiativeTracker.RemoveFromInitiative(unit);
 
         int deadCharacterIndex = UnitData.Units.IndexOf(unit);
-       
+
         UnitData.Units.Remove(unit);
 
         // remove unit from sub-lists before any turn logic runs
@@ -139,21 +143,31 @@ public class UnitManager : MonoBehaviour
         if (unit is Enemy)
             UnitData.Enemies.Remove(unit as Enemy);
 
+        // Remove all entries of this unit from the turn sequence
+        bool contained = CombatData.TurnSequence.Contains(unit);
+        if (contained)
+        {
+            int removedBeforeCurrent = 0;
+            for (int i = 0; i < CombatData.CurrentUnitTurn && i < CombatData.TurnSequence.Count; i++)
+            {
+                if (CombatData.TurnSequence[i] == unit) removedBeforeCurrent++;
+            }
+
+            CombatData.TurnSequence.RemoveAll(u => u == unit);
+            // Adjust current turn pointer
+            CombatData.CurrentUnitTurn -= removedBeforeCurrent;
+            if (CombatData.CurrentUnitTurn < 0) CombatData.CurrentUnitTurn = 0;
+
+            initiativeTracker.SetInitiative();
+        }
+
         if (UnitData.Characters.Count == 0)
             combatManager.Lose();
 
         if (UnitData.Enemies.Count == 0)
             combatManager.Win();
 
-        if (deadCharacterIndex < CombatData.CurrentUnitTurn)
-        {
-            CombatData.CurrentUnitTurn--;
-        }
-        else if (deadCharacterIndex == CombatData.CurrentUnitTurn)
-        {
-            CombatData.CurrentUnitTurn--;
-            yield return StartCoroutine(combatManager.EndTurn());
-        }
+        // Note: turn pointer adjustments for the per-round TurnSequence were handled above
 
         yield return new WaitForSeconds(1);
         Destroy(unit.gameObject);

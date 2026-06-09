@@ -19,41 +19,46 @@ public class InitiativeTracker : MonoBehaviour
 
     public void SetInitiative()
     {
+        // Build initiative UI from the current turn sequence
+        // Clear existing
+        foreach (var init in initiativeList)
+            Destroy(init.gameObject);
         initiativeList.Clear();
 
-        for (int i = 0; i < UnitData.Characters.Count; i++)
+        for (int i = 0; i < CombatData.TurnSequence.Count; i++)
         {
-            var character = UnitData.Characters[i];
-            AddToInitiative(character);
-        }
-        for (int i = 0; i < UnitData.Enemies.Count; i++)
-        {
-            var enemy = UnitData.Enemies[i];
-            AddToInitiative(enemy);
+            var unit = CombatData.TurnSequence[i];
+            if (unit == null) continue;
+            var image = Instantiate(InitiativeImagePrefab, transform);
+            var init = image.GetComponent<InitiativeInformation>();
+            init.Init(unit);
+            init.Initiative = i;
+            initiativeList.Add(init);
         }
 
         SortAndRefresh();
 
-        NextTurn();
+        if (initiativeList.Count > 0)
+            NextTurn();
     }
 
     public void AddToInitiative(Unit unit)
 	{
-        var image = Instantiate(InitiativeImagePrefab, transform);
-        var init = image.GetComponent<InitiativeInformation>();
-        init.Init(unit);
-
-        initiativeList.Add(init);
-        SortAndRefresh();
+        // Not used in the new slot-based system. Rebuild full UI instead.
+        SetInitiative();
     }
 
     public void RemoveFromInitiative(Unit unit)
 	{
-        var init = initiativeList.First(x => x.thisUnit == unit);
-
-        initiativeList.Remove(init);
-        Destroy(init.gameObject);
-        SortAndRefresh();
+        // Remove all slots referencing this unit from the turn sequence and rebuild UI
+        if (CombatData.TurnSequence.Contains(unit))
+        {
+            CombatData.TurnSequence.RemoveAll(u => u == unit);
+            // Ensure CurrentUnitTurn stays in bounds
+            if (CombatData.CurrentUnitTurn >= CombatData.TurnSequence.Count)
+                CombatData.CurrentUnitTurn = Mathf.Max(0, CombatData.TurnSequence.Count - 1);
+            SetInitiative();
+        }
     }
 
     void SortAndRefresh()
@@ -72,7 +77,9 @@ public class InitiativeTracker : MonoBehaviour
         foreach (var initiative in initiativeList)
             initiative.SetActiveTurn(false);
 
-        initiativeList[CombatData.CurrentUnitTurn].SetActiveTurn(true);
+        if (initiativeList.Count == 0) return;
+        int idx = Mathf.Clamp(CombatData.CurrentUnitTurn, 0, initiativeList.Count - 1);
+        initiativeList[idx].SetActiveTurn(true);
     }
 
     public void OnInitiativeHoverEnter(Unit unit)

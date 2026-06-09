@@ -123,30 +123,8 @@ public class EncounterManager : MonoBehaviour
     {
         var encounterData = RunData.CurrentEncounter;
         
-        // Build the turn order for enemies
-        // If EnemyTurnOrder is configured, use it; otherwise use default list order
-        var turnOrder = new int[encounterData.Enemies.Count];
-        
-        if (encounterData.EnemyTurnOrder != null && encounterData.EnemyTurnOrder.Count > 0)
-        {
-            // Use configured turn order
-            for (int i = 0; i < encounterData.EnemyTurnOrder.Count && i < turnOrder.Length; i++)
-            {
-                int enemyIndex = encounterData.EnemyTurnOrder[i];
-                if (enemyIndex >= 0 && enemyIndex < encounterData.Enemies.Count)
-                {
-                    turnOrder[enemyIndex] = i;
-                }
-            }
-        }
-        else
-        {
-            // Default: enemies act in list order
-            for (int i = 0; i < turnOrder.Length; i++)
-            {
-                turnOrder[i] = i;
-            }
-        }
+        // encounterTurnOrder is set to the enemy's index by default.
+        // The full encounter-level TurnOrder sequence is interpreted later by CombatManager when building initiative.
 
         // Spawn each enemy
         for (int i = 0; i < encounterData.Enemies.Count; i++)
@@ -177,7 +155,8 @@ public class EncounterManager : MonoBehaviour
                 enemy.enemySO        = entry.EnemySO;
                 enemy.startXPosition = entry.StartX;
                 enemy.startYPosition = entry.StartY;
-                enemy.encounterTurnOrder = turnOrder[i]; // Set the turn order for this enemy
+                // Default encounterTurnOrder is the enemy's index. CombatManager will build final initiative from SO_Encounter.TurnOrder.
+                enemy.encounterTurnOrder = i;
             }
             else
             {

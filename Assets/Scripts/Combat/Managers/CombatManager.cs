@@ -114,27 +114,55 @@ public class CombatManager : MonoBehaviour
 
     public void SetInitiative()
     {
-        // New turn order system: Characters go first, then enemies in configured order
-        int characterCount = UnitData.Characters.Count;
-        
-        // Assign initiative to characters (they go first)
-        for (int i = 0; i < UnitData.Characters.Count; i++)
+        // Build the per-round turn sequence from the encounter TurnOrder (if configured)
+        CombatData.TurnSequence.Clear();
+
+        var encounter = RunData.CurrentEncounter;
+        if (encounter != null && encounter.TurnOrder != null && encounter.TurnOrder.Count > 0)
         {
-            UnitData.Characters[i].Initiative = i;
+            // Interpret each TurnOrder entry as a turn slot and map to a Unit instance.
+            foreach (var slot in encounter.TurnOrder)
+            {
+                if (slot == null) continue;
+                if (slot.UnitType == UnitTurnEnum.Character)
+                {
+                    if (slot.UnitIndex >= 0 && slot.UnitIndex < UnitData.Characters.Count)
+                        CombatData.TurnSequence.Add(UnitData.Characters[slot.UnitIndex]);
+                }
+                else // Enemy
+                {
+                    if (slot.UnitIndex >= 0 && slot.UnitIndex < UnitData.Enemies.Count)
+                        CombatData.TurnSequence.Add(UnitData.Enemies[slot.UnitIndex]);
+                }
+            }
         }
-        
-        // Assign initiative to enemies (they go after all characters)
-        for (int i = 0; i < UnitData.Enemies.Count; i++)
+        else
         {
-            var enemy = UnitData.Enemies[i];
-            // Characters get 0 to (characterCount-1), so enemies start at characterCount
-            enemy.Initiative = characterCount + enemy.encounterTurnOrder;
+            // Default: all characters first (in list order), then enemies in list order
+            foreach (var c in UnitData.Characters)
+                CombatData.TurnSequence.Add(c);
+            foreach (var e in UnitData.Enemies)
+                CombatData.TurnSequence.Add(e);
         }
 
-        // Sort all units by initiative
-        UnitData.Units.Sort((x1, x2) =>
-            x1.Initiative.CompareTo(x2.Initiative));
+        // As a convenience for other UI, set each Unit.Initiative to the first slot index where it appears
+        for (int i = 0; i < CombatData.TurnSequence.Count; i++)
+        {
+            var u = CombatData.TurnSequence[i];
+            if (u != null)
+            {
+                // only set if not already assigned to an earlier slot
+                if (u.Initiative == 0 && !UnitData.Units.Contains(u))
+                    u.Initiative = i;
+                else
+                    u.Initiative = Mathf.Min(u.Initiative, i);
+            }
+        }
 
+        // Ensure CurrentUnitTurn reset to 0 for new round setup
+        CombatData.CurrentUnitTurn = 0;
+
+        // Refresh UI
         initiativeTracker.SetInitiative();
     }
 
@@ -152,7 +180,7 @@ public class CombatManager : MonoBehaviour
     {
         CombatData.IsReady = true;
 
-        if (CombatData.CurrentUnitTurn == UnitData.Units.Count)
+        if (CombatData.CurrentUnitTurn >= CombatData.TurnSequence.Count)
         {
             CombatData.CurrentUnitTurn = 0;
             if (CombatData.onRoundEnd != null)
@@ -160,7 +188,9 @@ public class CombatManager : MonoBehaviour
             RoundStart();
         }
 
-        var CurrentActiveUnit = UnitData.Units[CombatData.CurrentUnitTurn];
+        Unit CurrentActiveUnit = null;
+        if (CombatData.CurrentUnitTurn < CombatData.TurnSequence.Count)
+            CurrentActiveUnit = CombatData.TurnSequence[CombatData.CurrentUnitTurn];
 
         initiativeTracker.NextTurn();
 

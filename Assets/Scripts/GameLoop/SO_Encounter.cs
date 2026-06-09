@@ -2,6 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UnitTurnEnum
+{
+    Character,
+    Enemy
+}
+
 [CreateAssetMenu(fileName = "Encounter", menuName = "ScriptableObjects/GameLoop/Encounter")]
 public class SO_Encounter : ScriptableObject
 {
@@ -32,8 +38,17 @@ public class SO_Encounter : ScriptableObject
     public List<EncounterEnemy> Enemies = new List<EncounterEnemy>();
 
     [Header("Turn Order Configuration")]
-    [Tooltip("Define the turn order for enemies. Each number represents the index of an enemy in the Enemies list. Leave empty for default order (enemies act in list order).")]
-    public List<int> EnemyTurnOrder = new List<int>();
+    [Tooltip("Define the turn-by-turn sequence for the round. Each entry selects a Character or Enemy and the index of that type in the encounter lists. Leave empty to use default ordering (all characters, then enemies in list order). The array index is the turn slot (0 = first).")]
+    public List<TurnOrderIndex> TurnOrder = new List<TurnOrderIndex>();
+}
+
+[Serializable]
+public class TurnOrderIndex
+{
+    [Tooltip("Whether this turn is for a player or an enemy.")]
+    public UnitTurnEnum UnitType;
+    [Tooltip("Select the character or enemy based on the index of that type.")]
+    public int UnitIndex; 
 }
 
 [Serializable]
