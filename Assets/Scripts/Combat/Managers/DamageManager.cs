@@ -89,8 +89,23 @@ public class DamageManager : MonoBehaviour
 
         foreach (var target in skillPart.PartData.TargetsHit)
         {
+            // If the target was destroyed or is already dead by the time this damage part resolves,
+            // skip this target but continue applying the same skill part to other targets.
+            if (target == null)
+                continue;
+
+            if (target.Hitpoints <= 0)
+                continue;
+
             foreach (var damageEffect in damageEffects)
             {
+                // Before applying each effect, ensure the target still exists and is alive.
+                if (target == null)
+                    break;
+
+                if (target.Hitpoints <= 0)
+                    break;
+
                 var canCast = true;
                 foreach (var prerequisite in damageEffect.Prerequisites)
                 {
@@ -98,8 +113,9 @@ public class DamageManager : MonoBehaviour
                     if (canCast == false)
                         break;
                 }
+                // If prerequisites are not met for this damageEffect, skip it and continue with other effects.
                 if (canCast == false)
-                    break;
+                    continue;
 
                 var data = CalculateDamageData(damageEffect, target);
                 data.Damage = Mathf.CeilToInt(data.Damage * damageMultiplier);
@@ -119,7 +135,13 @@ public class DamageManager : MonoBehaviour
         var caster = data.Caster;
         var target = data.Target;
 
+        if (data == null || target == null)
+            return;
+
         if (data.Damage == 0)
+            return;
+
+        if (target.Hitpoints <= 0)
             return;
 
         var damageDataResolved = target.TakeDamage(data);
@@ -141,18 +163,31 @@ public class DamageManager : MonoBehaviour
 
     public void HealUnit(DamageDataCalculated data)
     {
+        if (data == null || data.Target == null)
+            return;
+
         var target = data.Target;
 
+        // Do not heal dead targets
+        if (target.Hitpoints <= 0)
+            return;
+
         var correctedHeal = target.Heal(data);
-        
         healthCanvas.ShowHealNumber(correctedHeal);
     }
 
     public void ShieldUnit(DamageDataCalculated data)
     {
-        var target = data.Target;
-        var shieldsCalculated = target.Shield(data);
+        if (data == null || data.Target == null)
+            return;
 
+        var target = data.Target;
+
+        // Do not shield dead targets
+        if (target.Hitpoints <= 0)
+            return;
+
+        var shieldsCalculated = target.Shield(data);
         healthCanvas.ShowHealNumber(shieldsCalculated);
     }
 }

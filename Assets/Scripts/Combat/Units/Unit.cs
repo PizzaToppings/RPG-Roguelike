@@ -393,9 +393,22 @@ public class Unit : UnitStats
 
     public virtual void Die()
 	{
+        // Ensure any targeting visuals / panels are cleared when a unit dies.
+        // Calling Tile.UnTarget will route through the tile to the unit's Untarget
+        // implementation (which hides enemy panels for enemies), but also call
+        // Untarget() directly as a fallback if Tile is null.
+        try
+        {
+            if (Tile != null)
+                Tile.UnTarget();
+            else
+                Untarget();
+        }
+        catch { }
+
         ThisHealthbar.RemoveHealthbar();
         StartCoroutine(unitManager.RemoveUnit(this));
-        
+
         // Refresh enemy order numbers if an enemy died
         if (this is Enemy)
             HealthCanvas.Instance?.RefreshEnemyOrderNumbers();
