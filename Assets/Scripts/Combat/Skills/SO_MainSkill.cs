@@ -7,6 +7,7 @@ public class SO_MainSkill : ScriptableObject
     public Sprite Image;
 
     [Space]
+    public bool IsMagical;
     public bool IsBasic;
     public bool IsConsumable;
 

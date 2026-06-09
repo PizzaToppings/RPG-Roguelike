@@ -12,6 +12,8 @@ public class Skill
     [Space]
     public int EnergyCost = 10;
     public int DefaultCharges = 1;
+
+    public bool IsMagical => mainSkillSO.IsMagical;
     public int Charges => SkillData.GetCharges(this);
 
     public List<SkillAugment> Augments = new List<SkillAugment>();

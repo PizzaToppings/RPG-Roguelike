@@ -10,4 +10,6 @@ public class DamageData
     public List<SO_Prerequisite> Prerequisites = new List<SO_Prerequisite>();
     public HitTypeEnum HitType;
     public int Power;
+    // When true this damage should be treated as magical instead of physical.
+    public bool IsMagical = false;
 }

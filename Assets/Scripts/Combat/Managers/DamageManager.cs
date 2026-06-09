@@ -45,7 +45,7 @@ public class DamageManager : MonoBehaviour
     int CalculateDamage(DamageData damageEffect, Unit caster, Unit target)
 	{
         var skillPower = damageEffect.Power;
-        var casterPower = caster.Power;
+        var casterPower = damageEffect.IsMagical ? caster.MagicalPowerBonus + caster.Power : caster.PhysicalPowerBonus + caster.Power;
         var bleedDamage = GetBleedBonusDamage(target);
 
         if (damageEffect.HitType == HitTypeEnum.Healing || damageEffect.HitType == HitTypeEnum.Shield)

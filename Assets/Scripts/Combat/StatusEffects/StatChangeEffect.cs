@@ -6,6 +6,10 @@ public class StatChangeEffect : StatusEffect
     public int Power;
     // Origin style for grouping in info panels
     public CombatStyle SourceCombatStyle = CombatStyle.None;
+    // When true and Stat == Power, apply to the typed power bonus instead of the generic Power value.
+    public bool ApplyToPowerType = false;
+    // When ApplyToPowerType == true, this selects magical (true) or physical (false) bonus.
+    public bool IsMagicalPower = false;
 
     public override void Apply()
     {
@@ -21,7 +25,17 @@ public class StatChangeEffect : StatusEffect
         switch (Stat)
         {
             case StatsEnum.Power:
-                Target.Power += Power;
+                if (ApplyToPowerType)
+                {
+                    if (IsMagicalPower)
+                        Target.MagicalPowerBonus += Power;
+                    else
+                        Target.PhysicalPowerBonus += Power;
+                }
+                else
+                {
+                    Target.Power += Power;
+                }
                 break;
             case StatsEnum.Armor:
                 Target.Armor += Power;
@@ -50,7 +64,17 @@ public class StatChangeEffect : StatusEffect
         switch (Stat)
         {
             case StatsEnum.Power:
-                Target.Power -= Power;
+                if (ApplyToPowerType)
+                {
+                    if (IsMagicalPower)
+                        Target.MagicalPowerBonus -= Power;
+                    else
+                        Target.PhysicalPowerBonus -= Power;
+                }
+                else
+                {
+                    Target.Power -= Power;
+                }
                 break;
             case StatsEnum.Armor:
                 Target.Armor -= Power;

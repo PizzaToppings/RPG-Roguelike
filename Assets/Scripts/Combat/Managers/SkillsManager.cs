@@ -112,6 +112,12 @@ public class SkillsManager : MonoBehaviour
         {
             foreach (var sp in spg.skillParts)
             {
+                // Ensure each damage effect records whether it is magical based on the skill
+                foreach (var de in sp.DamageEffects)
+                {
+                    de.IsMagical = skill.mainSkillSO.IsMagical;
+                }
+
                 yield return StartCoroutine(CastSkillsPart(sp, caster));
             }
         }
