@@ -6513,6 +6513,7 @@ MonoBehaviour:
   energyAmount: {fileID: 0}
   skillRange: {fileID: 2068943800}
   stanceText: {fileID: 478984983}
+  isMagicalText: {fileID: 0}
   skillType: {fileID: 842293136}
   classIcons:
   - {fileID: 1844341461}
@@ -6593,11 +6594,6 @@ MonoBehaviour:
   characterParent: {fileID: 523840572}
   characterPrefab: {fileID: 1623717467118256991, guid: 10b2f86aa19e3af469339d6bf46dd62b,
     type: 3}
-  partyStartPositions:
-  - {x: 6, y: 7}
-  - {x: 6, y: 8}
-  - {x: 6, y: 9}
-  - {x: 6, y: 10}
 --- !u!1 &403972408
 GameObject:
   m_ObjectHideFlags: 0
@@ -34738,6 +34734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1850154507}
   - component: {fileID: 1850154508}
+  - component: {fileID: 1850154509}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -34986,6 +34983,19 @@ MonoBehaviour:
   - {x: -1, y: -1}
   - {x: -1, y: 0}
   - {x: -1, y: 1}
+--- !u!114 &1850154509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850154506}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b4fdc796593d243864ec4760de1081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showCoordinates: 0
 --- !u!1 &1853669707
 GameObject:
   m_ObjectHideFlags: 0

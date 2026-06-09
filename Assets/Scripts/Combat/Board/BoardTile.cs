@@ -1,5 +1,6 @@
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -203,4 +204,23 @@ public class BoardTile : MonoBehaviour
         Color c = new Color(color.Color.r, color.Color.g, color.Color.b, alpha);
         boardManager.SetHighlightColor(CellPosition, c);
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (!BoardCoordinatesVisualiser.ShowCoordinates)
+            return;
+
+        var labelStyle = new GUIStyle();
+        labelStyle.normal.textColor = Color.black;
+        labelStyle.fontStyle = FontStyle.Bold;
+
+
+        Handles.Label(
+            transform.position - transform.right * 0.2f + transform.up * 0.15f,
+            $"({xPosition}, {yPosition})",
+            labelStyle
+        );
+    }
+#endif
 }
