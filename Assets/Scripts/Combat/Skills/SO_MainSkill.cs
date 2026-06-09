@@ -29,6 +29,11 @@ public class SO_MainSkill : ScriptableObject
     public int DefaultCharges = 1;
 
     [Space]
+    [Header(" - Skill Augments")]
+    [Tooltip("Only augments in this list are eligible to roll for this skill.")]
+    public List<SO_SkillAugment> AvailableAugments = new List<SO_SkillAugment>();
+
+    [Space]
     public CursorType Cursor;
     public TileColor castLockColor;
 

@@ -32,6 +32,18 @@ public class RunDataPartyMember
     }
 }
 
+public class ShopSkillAugmentOffer
+{
+    public SO_MainSkill Skill;
+    public SO_SkillAugment Augment;
+
+    public ShopSkillAugmentOffer(SO_MainSkill skill, SO_SkillAugment augment)
+    {
+        Skill = skill;
+        Augment = augment;
+    }
+}
+
 /// <summary>
 /// Static store for the current run's state. Persists between scene loads.
 /// Reset at the start of each new run.
@@ -71,6 +83,9 @@ public static class RunData
     /// <summary>The skill augments randomly selected for the current Shop.</summary>
     public static List<SO_SkillAugment> CurrentShopSkillAugments = new List<SO_SkillAugment>();
 
+    /// <summary>The skill-specific augment offers for the current Shop.</summary>
+    public static List<ShopSkillAugmentOffer> CurrentShopSkillAugmentOffers = new List<ShopSkillAugmentOffer>();
+
     /// <summary>Anomalies that are active for the current run and will be applied at the start of each combat.</summary>
     public static List<SO_Anomaly> ActiveAnomalies = new List<SO_Anomaly>();
 
@@ -93,6 +108,7 @@ public static class RunData
         CurrentShopSkills.Clear();
         CurrentShopTraits.Clear();
         CurrentShopSkillAugments.Clear();
+        CurrentShopSkillAugmentOffers.Clear();
         ActiveAnomalies.Clear();
         Gold = 0;
     }

@@ -56,6 +56,7 @@ public class RunManager : MonoBehaviour
     [Header("Shop")]
     [SerializeField] int shopSkillCount = 2;
     [SerializeField] int shopTraitCount = 2;
+    [SerializeField] int shopSkillAugmentCount = 2;
 
     [Header("Treasure Room")]
     [SerializeField] int treasureOptionCount = 3;
@@ -262,6 +263,8 @@ public class RunManager : MonoBehaviour
     {
         RunData.CurrentShopSkills.Clear();
         RunData.CurrentShopTraits.Clear();
+        RunData.CurrentShopSkillAugments.Clear();
+        RunData.CurrentShopSkillAugmentOffers.Clear();
 
         if (skillPool != null && skillPool.Skills.Count > 0)
         {
@@ -290,6 +293,67 @@ public class RunManager : MonoBehaviour
 
             RunData.CurrentShopTraits.AddRange(traitPicks);
         }
+
+        PrepShopSkillAugments();
+    }
+
+    void PrepShopSkillAugments()
+    {
+        var ownedSkills = GetAllOwnedSkillSOs();
+        if (ownedSkills.Count == 0 || shopSkillAugmentCount <= 0)
+            return;
+
+        var candidateOffers = new List<ShopSkillAugmentOffer>();
+
+        foreach (var skillSO in ownedSkills)
+        {
+            if (skillSO == null || skillSO.AvailableAugments == null || skillSO.AvailableAugments.Count == 0)
+                continue;
+
+            var alreadyOwnedAugments = new HashSet<SO_SkillAugment>(
+                RunData.Party
+                    .Where(m => m.SkillAugments.TryGetValue(skillSO, out _))
+                    .SelectMany(m => m.SkillAugments[skillSO])
+                    .Where(a => a != null));
+
+            foreach (var augmentSO in skillSO.AvailableAugments)
+            {
+                if (augmentSO == null || alreadyOwnedAugments.Contains(augmentSO))
+                    continue;
+
+                candidateOffers.Add(new ShopSkillAugmentOffer(skillSO, augmentSO));
+            }
+        }
+
+        var picks = candidateOffers
+            .OrderBy(_ => Random.value)
+            .Take(shopSkillAugmentCount)
+            .ToList();
+
+        RunData.CurrentShopSkillAugmentOffers.AddRange(picks);
+        RunData.CurrentShopSkillAugments.AddRange(picks.Select(x => x.Augment));
+    }
+
+    HashSet<SO_MainSkill> GetAllOwnedSkillSOs()
+    {
+        var owned = new HashSet<SO_MainSkill>();
+
+        foreach (var member in RunData.Party)
+        {
+            if (member?.Character?.basicAttack != null)
+                owned.Add(member.Character.basicAttack);
+
+            if (member?.Character?.basicSkill != null)
+                owned.Add(member.Character.basicSkill);
+
+            foreach (var skill in member.Skills)
+            {
+                if (skill?.mainSkillSO != null)
+                    owned.Add(skill.mainSkillSO);
+            }
+        }
+
+        return owned;
     }
 
     /// <summary>
