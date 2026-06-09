@@ -67,7 +67,7 @@ public class PartyManager : MonoBehaviour
                 character.partyMemberIndex = i;
 
                 var pos = i < RunData.CurrentEncounter.PartyStartPositions.Length
-                    ? partyStartPositions[i]
+                    ? RunData.CurrentEncounter.PartyStartPositions[i]
                     : new Vector2Int(0, i);
 
                 character.startXPosition = pos.x;
