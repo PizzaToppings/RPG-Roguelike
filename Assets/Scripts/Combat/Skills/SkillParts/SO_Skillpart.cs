@@ -9,7 +9,6 @@ public class SO_Skillpart : ScriptableObject
     [System.NonSerialized] public BoardTile TargetTile;
     [System.NonSerialized] public SkillPartData PartData;
     [System.NonSerialized] public int FinalDirection;
-    [System.NonSerialized] public bool MagicalDamage;
     [System.NonSerialized] public int SkillPartIndex = 0;
 
     [Header(" - Targeting")]

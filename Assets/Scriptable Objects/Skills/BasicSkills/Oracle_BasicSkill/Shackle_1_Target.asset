@@ -31,7 +31,12 @@ MonoBehaviour:
   ProjectileLineOffset: 1
   DashOnDamageOrEffect: 1
   SkillVFX: []
-  DamageEffects: []
+  DamageEffects:
+  - Caster: {fileID: 0}
+    Modifiers: []
+    Prerequisites: []
+    HitType: 0
+    Power: 2
   MinRange: 0
   MaxRange: 3
   IncludeInAutoMove: 0

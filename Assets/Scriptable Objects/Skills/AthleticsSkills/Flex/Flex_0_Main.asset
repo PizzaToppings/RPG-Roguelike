@@ -16,14 +16,11 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 795ffab1c858e5744a9c47ee110f4b1b, type: 3}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
   SkillCombatStyle: 1
   Classes: 00000000
-  Description: 'Gain 1 Martial Power for 1 turn. '
+  Description: 'Gain 1 Power for the rest of combat. '
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 0
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: 21d1b9b1e43afd94899d96220f86e24f, type: 2}
   EnergyCost: 2
   DefaultCharges: 3

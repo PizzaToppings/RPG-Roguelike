@@ -33,7 +33,7 @@ public class StatusEffect
 
         // Show floating text unless suppressed
         if (!SuppressFloating)
-            healthCanvas.ShowStatusEffect(statusEfectType.ToString(), Target, IsBuff);
+            healthCanvas.ShowStatusEffect(StatusEffectDescriptions.GetDisplayName(this), Target, IsBuff);
 
         // Subscribe duration reduction on either the caster or the target as configured
         var useCaster = UseCasterTurnForDuration || DurationOwner == DurationOwnerEnum.Caster;
@@ -144,7 +144,7 @@ public class StatusEffect
     {
         Target.statusEffects.Remove(this);
         if (!SuppressFloating)
-            healthCanvas.ShowStatusEffect(statusEfectType.ToString() + " faded", Target, IsBuff);
+            healthCanvas.ShowStatusEffect(StatusEffectDescriptions.GetDisplayName(this) + " faded", Target, IsBuff);
     }
 }
 

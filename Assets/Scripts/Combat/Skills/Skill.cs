@@ -28,11 +28,34 @@ public class Skill
         // MaxRange / DamageEffects on runtime instances without mutating the shared SO asset.
         var originalToInstantiated = new System.Collections.Generic.Dictionary<SO_Skillpart, SO_Skillpart>();
         SkillPartGroups = new List<SkillPartGroup>(skillSO.SkillPartGroups.Count);
+        if (skillSO.SkillPartGroups.Count == 0)
+        {
+            Debug.LogWarning($"Skill {skillSO.name} has no SkillPartGroups configured.");
+        }   
+
         foreach (var spg in skillSO.SkillPartGroups)
         {
+            if (spg == null)
+            {
+                Debug.LogWarning($"Skill {skillSO.name} has a null SkillPartGroup in its configuration.");
+                continue;
+            }
+
             var runtimeGroup = new SkillPartGroup();
+            if (spg.skillParts == null || spg.skillParts.Count == 0)
+            {
+                Debug.LogWarning($"Skill {skillSO.name} has a SkillPartGroup with no skill parts configured.");
+                continue;
+            }
+
             foreach (var sp in spg.skillParts)
             {
+                if (sp == null)
+                {
+                    Debug.LogWarning($"Skill {skillSO.name} has a null SkillPart in its SkillPartGroup.");
+                    continue;
+                }
+
                 var instance = UnityEngine.Object.Instantiate(sp);
                 originalToInstantiated[sp] = instance;
                 runtimeGroup.skillParts.Add(instance);

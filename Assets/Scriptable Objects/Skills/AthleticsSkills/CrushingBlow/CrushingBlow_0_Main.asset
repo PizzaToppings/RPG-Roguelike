@@ -16,15 +16,11 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: a834bf958ef46f44d8b9bf98479af769, type: 3}
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
-  SkillCombatStyle: 1
+  SkillCombatStyle: 2
   Classes: 0000000004000000
-  Description: Deal <damage0-0-0> to an enemy and reduce it's Martial Defense by
-    1 for 2 turns.
+  Description: Deal <damage0-0-0> to an enemy and reduce it's Armor by 1 for 2 turns.
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 1
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: 50e59b2ee68690c47a46b4994fb244cc, type: 2}
   EnergyCost: 3
   DefaultCharges: 1

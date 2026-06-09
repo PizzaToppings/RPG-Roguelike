@@ -32,16 +32,10 @@ MonoBehaviour:
   UnholyIcon: {fileID: 21300000, guid: 85cead675376a8148970433b01d7fe59, type: 3}
   PhysicalDamageColor: {r: 1, g: 1, b: 1, a: 1}
   HealingColor: {r: 0.9974991, g: 1, b: 0, a: 1}
-  ShieldColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
+  ShieldColor: {r: 0.3820755, g: 0.8605436, b: 1, a: 1}
   IntentUnknownIcon: {fileID: 21300000, guid: 8e0799899922cc941bcbbdd181687033, type: 3}
-  IntentMeleePhysicalIcon: {fileID: 21300000, guid: 9d23e9bcdc9bb0348b3989434ea49d92,
-    type: 3}
-  IntentRangedPhysicalIcon: {fileID: 21300000, guid: 2b8a782a1be947d40b62a11620314d39,
-    type: 3}
-  IntentMeleeMagicalIcon: {fileID: 21300000, guid: dd4bd759d49d5c04ab3bd29dacdc1440,
-    type: 3}
-  IntentRangedMagicalIcon: {fileID: 21300000, guid: f684e459d5b97ea4f9ecc3c0d5c29657,
-    type: 3}
+  IntentMeleeIcon: {fileID: 21300000, guid: 9d23e9bcdc9bb0348b3989434ea49d92, type: 3}
+  IntentRangedIcon: {fileID: 21300000, guid: 2b8a782a1be947d40b62a11620314d39, type: 3}
   IntentDebuffIcon: {fileID: 21300000, guid: a4262d358c70a454e83ff82eb70498e1, type: 3}
   IntentBuffIcon: {fileID: 21300000, guid: d13f323ae9da68f4889d8f4131f1a768, type: 3}
   IntentHealIcon: {fileID: 21300000, guid: 356ddde08405f8045b3a23113f2b5c4f, type: 3}

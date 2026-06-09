@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
+  m_Name: Teleport_0_Main
+  m_EditorClassIdentifier: 
+  SkillName: Teleport
+  Image: {fileID: 0}
+  IsBasic: 0
+  IsConsumable: 0
+  SkillCombatStyle: 5
+  Classes: 05000000
+  Description: 'Teleport any target to a tile within range. '
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 2fc6b93bd586b924ea87fd4923db1095, type: 2}
+  - skillParts:
+    - {fileID: 11400000, guid: 5ac0b9054d0ae7045bb34472238cc860, type: 2}
+  EnergyCost: 10
+  DefaultCharges: 1
+  Cursor: 0
+  castLockColor:
+    FillCenter: 1
+    Kind: 8
+    Priority: 1

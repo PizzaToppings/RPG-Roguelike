@@ -16,15 +16,12 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 5b136c2b7323fbe478b82ca3ac1c82b8, type: 3}
   IsBasic: 1
   IsConsumable: 0
-  IsMagical: 0
   SkillCombatStyle: 1
   Classes: 
-  Description: Charge 1 tiles forward. If you hit an enemy, deal <damage0-1-0> and
+  Description: Charge 2 tiles forward. If you hit an enemy, deal <damage0-1-0> and
     push the enemy 1 tile forward.
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 0
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: 1cfea1a68bffcba4f81d766613dd5ea7, type: 2}
     - {fileID: 11400000, guid: ebc5c94e57522814d8a67cba3524e603, type: 2}
     - {fileID: 11400000, guid: a9b9d0d239143a243ab5fd9d912cecf3, type: 2}
@@ -33,5 +30,5 @@ MonoBehaviour:
   Cursor: 1
   castLockColor:
     FillCenter: 0
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Kind: 0
     Priority: 10

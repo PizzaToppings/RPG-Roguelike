@@ -17,8 +17,6 @@ public class BurnStatusEffect : StatusEffect
 
 	void Burn()
 	{
-		Debug.Log("Burning " + Target.UnitName);
-
 		var damageEffect = new DamageData
 		{
 			Caster = Caster,

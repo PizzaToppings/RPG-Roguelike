@@ -20,20 +20,20 @@ public static class StatusEffectDescriptions
         {
             case StatusEffectEnum.Bleed:
                 return power > 0
-                    ? $"Deals {power} physical damage at the end of each turn."
-                    : "Deals physical damage at the end of each turn.";
+                    ? $"Deals {power} damage at the end of each turn."
+                    : "Deals damage at the end of each turn.";
             case StatusEffectEnum.Poison:
                 return power > 0
-                    ? $"Deals {power} magical damage at the end of each turn."
-                    : "Deals magical damage at the end of each turn.";
+                    ? $"Deals {power} damage at the end of each turn."
+                    : "Deals damage at the end of each turn.";
             case StatusEffectEnum.Burn:
                 return power > 0
-                    ? $"Deals {power} fire damage at the end of each turn, spreading to nearby units."
-                    : "Deals fire damage at the end of each turn, spreading to nearby units.";
-            case StatusEffectEnum.Fatique:
+                    ? $"Deals {power} damage at the end of each turn, spreading to nearby units."
+                    : "Deals damage at the end of each turn, spreading to nearby units.";
+            case StatusEffectEnum.Regen:
                 return power > 0
-                    ? $"The unit starts the next turn with {power} less Energy."
-                    : "Reduces the unit's combat effectiveness.";
+                    ? $"Heals the unit for {power} health at the end of each turn."
+                    : "Heals the unit at the end of each turn.";
             case StatusEffectEnum.Thorns:
                 return power > 0
                     ? $"Reflects {power} damage back to attackers."
@@ -67,9 +67,9 @@ public static class StatusEffectDescriptions
     {
         if (effect is StatChangeEffect sce)
         {
-            string statName  = GetStatDisplayName(sce.Stat);
-            string direction = sce.Power >= 0 ? "Up" : "Down";
-            return $"{statName} {direction}";
+            string statName = GetStatDisplayName(sce.Stat);
+            string sign     = sce.Power >= 0 ? "+" : "";
+            return $"{statName} {sign}{sce.Power}";
         }
         return effect.statusEfectType.ToString();
     }

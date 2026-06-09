@@ -16,10 +16,9 @@ MonoBehaviour:
   Image: {fileID: 0}
   IsBasic: 1
   IsConsumable: 0
-  IsMagical: 1
   SkillCombatStyle: 5
   Classes: 
-  Description: <Root> an enemy for one turn.
+  Description: <Root> an enemy for one turn and deal <damage0-0-0>.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 8ff211059c4d642458eaf82d5af9c777, type: 2}

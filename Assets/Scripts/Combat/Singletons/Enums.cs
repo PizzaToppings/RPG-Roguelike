@@ -16,7 +16,7 @@ public enum StatsEnum { MaxHitpoints, /*MaxEnergy,*/ MoveSpeed, Power, Armor, Sh
 
 // Damage etc
 public enum HitTypeEnum { Damage, Healing, Shield }
-public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Fatique, Rooted, Taunt, Thorns, Dodge, StatChange, Unique }
+public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Regen, Rooted, Taunt, Thorns, Dodge, StatChange, Unique }
 public enum DisplacementEnum { Teleport, Move, Lift }
 
 // Enemy AI
@@ -25,7 +25,7 @@ public enum TraitTargetFactionEnum { Friendly, Enemy, All }
 public enum TraitTargetSelectionEnum { Self, Closest, LowestHealth, Area }
 
 // Enemy Intent (displayed above healthbar)
-public enum IntentActionEnum { Unknown, PhysicalMeleeAttack, PhysicalRangedAttack, MagicalMeleeAttack, MagicalRangedAttack, Debuff, Buff, Heal, AOE }
+public enum IntentActionEnum { Unknown, MeleeAttack, RangedAttack, Debuff, Buff, Heal, AOE }
 public enum IntentTargetEnum { Unknown, Nearest, LowestHealth, Area, Self, Random }
 
 

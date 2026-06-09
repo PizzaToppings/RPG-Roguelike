@@ -29,13 +29,13 @@ MonoBehaviour:
     Priority: 7
   AddProjectileLine: 0
   ProjectileLineOffset: 1
+  DashOnDamageOrEffect: 1
   SkillVFX:
   - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
   - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
   - {fileID: 11400000, guid: de82813b9046da249a227314954e79d8, type: 2}
   DamageEffects:
   - Caster: {fileID: 0}
-    IsMagical: 0
     Modifiers: []
     Prerequisites: []
     HitType: 0

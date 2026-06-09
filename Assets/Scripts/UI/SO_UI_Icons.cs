@@ -34,10 +34,8 @@ public class SO_UI_Icons : ScriptableObject
     [Space]
     [Header(" - Intent Action Icons")]
     [SerializeField] Sprite IntentUnknownIcon;
-    [SerializeField] Sprite IntentMeleePhysicalIcon;
-    [SerializeField] Sprite IntentRangedPhysicalIcon;
-    [SerializeField] Sprite IntentMeleeMagicalIcon;
-    [SerializeField] Sprite IntentRangedMagicalIcon;
+    [SerializeField] Sprite IntentMeleeIcon;
+    [SerializeField] Sprite IntentRangedIcon;
     [SerializeField] Sprite IntentDebuffIcon;
     [SerializeField] Sprite IntentBuffIcon;
     [SerializeField] Sprite IntentHealIcon;
@@ -173,14 +171,10 @@ public class SO_UI_Icons : ScriptableObject
     {
         switch (action)
         {
-            case IntentActionEnum.PhysicalMeleeAttack:
-                return IntentMeleePhysicalIcon;
-            case IntentActionEnum.PhysicalRangedAttack:
-                return IntentRangedPhysicalIcon;
-            case IntentActionEnum.MagicalMeleeAttack:
-                return IntentMeleeMagicalIcon;
-            case IntentActionEnum.MagicalRangedAttack:
-                return IntentRangedMagicalIcon;
+            case IntentActionEnum.MeleeAttack:
+                return IntentMeleeIcon;
+            case IntentActionEnum.RangedAttack:
+                return IntentRangedIcon;
             case IntentActionEnum.Debuff:
                 return IntentDebuffIcon;
             case IntentActionEnum.Buff:

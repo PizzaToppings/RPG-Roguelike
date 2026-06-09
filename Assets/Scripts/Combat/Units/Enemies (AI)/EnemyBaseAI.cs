@@ -119,25 +119,40 @@ public class EnemyBaseAI : Enemy
         Unit target = null;
         float closestTargetRange = 0;
 
-        foreach (var character in UnitData.Characters)
+        // Taunt: force targeting the taunting character if they are in range
+        var tauntOverride = GetTauntTarget();
+        if (tauntOverride != null)
         {
-            var blocked = boardManager.TileIsBehindClosedTile(Tile, character.Tile);
-            if (blocked)
-                continue;
-
-            var range = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
-            if (range < firstPart.MinRange || range > firstPart.MaxRange)
-                continue;
-
-            if (target == null)
+            var tauntRange = boardManager.GetRangeBetweenTiles(Tile, tauntOverride.Tile);
+            if (!boardManager.TileIsBehindClosedTile(Tile, tauntOverride.Tile) &&
+                tauntRange >= firstPart.MinRange && tauntRange <= firstPart.MaxRange)
             {
-                target = character;
-                closestTargetRange = range;
+                target = tauntOverride;
             }
-            else if (range < closestTargetRange)
+        }
+
+        if (target == null)
+        {
+            foreach (var character in UnitData.Characters)
             {
-                target = character;
-                closestTargetRange = range;
+                var blocked = boardManager.TileIsBehindClosedTile(Tile, character.Tile);
+                if (blocked)
+                    continue;
+
+                var range = boardManager.GetRangeBetweenTiles(Tile, character.Tile);
+                if (range < firstPart.MinRange || range > firstPart.MaxRange)
+                    continue;
+
+                if (target == null)
+                {
+                    target = character;
+                    closestTargetRange = range;
+                }
+                else if (range < closestTargetRange)
+                {
+                    target = character;
+                    closestTargetRange = range;
+                }
             }
         }
 
@@ -257,8 +272,31 @@ public class EnemyBaseAI : Enemy
             return targetsInRange.FirstOrDefault();
     }
 
+    // Returns the taunting character if this enemy is taunted and the current skill
+    // is a single-target offensive skill; null otherwise.
+    private Character GetTauntTarget()
+    {
+        if (CurrentSkill == null) return null;
+
+        // Only override targeting for single-target offensive skills
+        if (CurrentSkill.TargetPreference != TargetEnum.closestTarget &&
+            CurrentSkill.TargetPreference != TargetEnum.LowestHealthTarget)
+            return null;
+
+        var taunt = statusEffects.Find(e => e.statusEfectType == StatusEffectEnum.Taunt);
+        if (taunt?.Caster is Character tauntCaster && UnitData.Characters.Contains(tauntCaster))
+            return tauntCaster;
+
+        return null;
+    }
+
     public Unit GetTargetPreference(TargetEnum targetPreference, List<Character> targetList)
     {
+        // Taunt overrides single-target offensive skill targeting
+        var tauntTarget = GetTauntTarget();
+        if (tauntTarget != null && targetList.Contains(tauntTarget))
+            return tauntTarget;
+
         switch (targetPreference)
         {
             case TargetEnum.closestTarget:

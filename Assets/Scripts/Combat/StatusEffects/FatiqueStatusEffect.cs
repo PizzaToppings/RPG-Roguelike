@@ -10,7 +10,7 @@ public class FatiqueStatusEffect : StatusEffect
 
         Target.OnUnitTurnStartEvent.AddListener(BurnMana);
         SubscribeDurationTrigger();
-        Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Fatique);
+        Target.ThisHealthbar.AddStatusEffect(StatusEffectEnum.Regen);
     }
 
     public void BurnMana()
@@ -25,7 +25,7 @@ public class FatiqueStatusEffect : StatusEffect
     {
         base.EndEffect();
 
-        Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Fatique);
+        Target.ThisHealthbar.RemoveStatusEffect(StatusEffectEnum.Regen);
         Target.OnUnitTurnStartEvent.RemoveListener(BurnMana);
         UnsubscribeDurationTrigger();
     }

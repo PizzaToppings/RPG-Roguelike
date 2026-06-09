@@ -116,7 +116,6 @@ public class Unit : UnitStats
     /// </summary>
     public void RefreshCombatStyleVisuals()
     {
-        Tile?.RefreshUnitStyleColor();
         initiativeInformation?.RefreshStyleColor();
     }
 
@@ -385,7 +384,7 @@ public class Unit : UnitStats
 
             // Notify listeners about stance change (old, new)
             try { OnStanceChangeEvent?.Invoke(oldStyle, CurrentCombatStyle); } catch {}
-
+ 
             CombatStyleUtility.ApplyStanceEffects(CurrentCombatStyle, this);
         }
 

@@ -26,8 +26,8 @@ public class StatusEffectManager : MonoBehaviour
                 case StatusEffectEnum.Burn:
                     ApplyBurnEffect(statusEffectSO, target, powerOverride);
                     break;
-                case StatusEffectEnum.Fatique:
-                    ApplyFatiqueEffect(statusEffectSO, target, powerOverride);
+                case StatusEffectEnum.Regen:
+                    ApplyRegenEffect(statusEffectSO, target, powerOverride);
                     break;
                 case StatusEffectEnum.Thorns:
                     ApplyThornsEffect(statusEffectSO, target, powerOverride);
@@ -37,6 +37,9 @@ public class StatusEffectManager : MonoBehaviour
                     break;
                 case StatusEffectEnum.Rooted:
                     ApplyRootedEffect(statusEffectSO, target);
+                    break;
+                case StatusEffectEnum.Taunt:
+                    ApplyTauntEffect(statusEffectSO, target);
                     break;
                 case StatusEffectEnum.Unique:
                     
@@ -135,6 +138,24 @@ public class StatusEffectManager : MonoBehaviour
         burnStatusEffect.Apply();
     }
 
+    public void ApplyRegenEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
+    {
+        var regenStatusEffect = new RegenStatusEffect
+        {
+            IsBuff = true,
+            statusEfectType = statusEffectSO.StatusEffectType,
+            Duration = statusEffectSO.Duration,
+            IsPermanent = statusEffectSO.Permanent,
+            DurationTrigger = statusEffectSO.DurationTrigger,
+            Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
+            Caster = UnitData.ActiveUnit,
+            Target = target,
+            Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power
+        };
+
+        regenStatusEffect.Apply();
+    }
+
     public void ApplyThornsEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
     {
         var thornsStatusEffect = new ThornsStatusEffect
@@ -219,6 +240,33 @@ public class StatusEffectManager : MonoBehaviour
         };
 
         rootedStatusEffect.Apply();
+    }
+
+    public void ApplyTauntEffect(SO_StatusEffect statusEffectSO, Unit target)
+    {
+        if (UnitHasStatusEffect(target, statusEffectSO.StatusEffectType))
+        {
+            var existingStatusEffect = GetUnitStatusEffect(target, statusEffectSO.StatusEffectType);
+
+            if (existingStatusEffect.Duration < statusEffectSO.Duration)
+                existingStatusEffect.Duration = statusEffectSO.Duration;
+
+            return;
+        }
+
+        var tauntStatusEffect = new TauntStatusEffect
+        {
+            IsBuff = false,
+            statusEfectType = statusEffectSO.StatusEffectType,
+            Duration = statusEffectSO.Duration,
+            IsPermanent = statusEffectSO.Permanent,
+            DurationTrigger = statusEffectSO.DurationTrigger,
+            Description = StatusEffectDescriptions.Resolve(statusEffectSO),
+            Caster = UnitData.ActiveUnit,
+            Target = target
+        };
+
+        tauntStatusEffect.Apply();
     }
 
     public void ApplyUniqueEffect(SO_StatusEffect statusEffectSO, Unit target)
