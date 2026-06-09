@@ -108,16 +108,20 @@ public class CombatTestManager : MonoBehaviour
         }
 
         // Create party members
+        // Track already assigned skills and traits to avoid duplicates across the whole party
+        var alreadyAssignedSkills = new HashSet<SO_MainSkill>();
+        var alreadyAssignedTraits = new HashSet<SO_Trait>();
+
         for (int i = 0; i < charactersToUse.Count; i++)
         {
             var character = charactersToUse[i];
             var member = new RunDataPartyMember(character);
 
             // Setup skills
-            SetupSkillsForCharacter(member, i);
+            SetupSkillsForCharacter(member, i, alreadyAssignedSkills);
 
             // Setup traits
-            SetupTraitsForCharacter(member, i);
+            SetupTraitsForCharacter(member, i, alreadyAssignedTraits);
 
             // Setup starting HP
             if (testConfig.StartingHPPercentage > 0 && testConfig.StartingHPPercentage < 100)
@@ -129,7 +133,7 @@ public class CombatTestManager : MonoBehaviour
         }
     }
 
-    void SetupSkillsForCharacter(RunDataPartyMember member, int characterIndex)
+    void SetupSkillsForCharacter(RunDataPartyMember member, int characterIndex, HashSet<SO_MainSkill> alreadyAssignedSkills)
     {
         List<SO_MainSkill> skillsToAssign = new List<SO_MainSkill>();
 
@@ -148,6 +152,12 @@ public class CombatTestManager : MonoBehaviour
                     .ToList();
             }
 
+            // Exclude skills already assigned to other party members
+            if (alreadyAssignedSkills != null && alreadyAssignedSkills.Count > 0)
+            {
+                availableSkills = availableSkills.Where(s => !alreadyAssignedSkills.Contains(s)).ToList();
+            }
+
             skillsToAssign = availableSkills
                 .OrderBy(_ => Random.value)
                 .Take(skillCount)
@@ -161,7 +171,12 @@ public class CombatTestManager : MonoBehaviour
             var preset = testConfig.PresetSkills[characterIndex];
             if (preset != null && preset.Skills != null)
             {
-                skillsToAssign = preset.Skills.Where(s => s != null).ToList();
+                // Respect class eligibility and avoid duplicates across party
+                skillsToAssign = preset.Skills
+                    .Where(s => s != null)
+                    .Where(s => (s.Classes == null || s.Classes.Count == 0 || member.Character.Classes == null || member.Character.Classes.Count == 0 || s.Classes.Any(c => member.Character.Classes.Contains(c))))
+                    .Where(s => alreadyAssignedSkills == null || !alreadyAssignedSkills.Contains(s))
+                    .ToList();
                 Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Using {skillsToAssign.Count} preset skill(s).");
             }
         }
@@ -178,10 +193,12 @@ public class CombatTestManager : MonoBehaviour
             var skill = new Skill();
             skill.Init(skillSO);
             member.Skills.Add(skill);
+            if (alreadyAssignedSkills != null && skillSO != null)
+                alreadyAssignedSkills.Add(skillSO);
         }
     }
 
-    void SetupTraitsForCharacter(RunDataPartyMember member, int characterIndex)
+    void SetupTraitsForCharacter(RunDataPartyMember member, int characterIndex, HashSet<SO_Trait> alreadyAssignedTraits)
     {
         List<SO_Trait> traitsToAssign = new List<SO_Trait>();
 
@@ -200,6 +217,12 @@ public class CombatTestManager : MonoBehaviour
                     .ToList();
             }
 
+            // Exclude traits already assigned to other party members
+            if (alreadyAssignedTraits != null && alreadyAssignedTraits.Count > 0)
+            {
+                availableTraits = availableTraits.Where(t => !alreadyAssignedTraits.Contains(t)).ToList();
+            }
+
             traitsToAssign = availableTraits
                 .OrderBy(_ => Random.value)
                 .Take(traitCount)
@@ -213,12 +236,23 @@ public class CombatTestManager : MonoBehaviour
             var preset = testConfig.PresetTraits[characterIndex];
             if (preset != null && preset.Traits != null)
             {
-                traitsToAssign = preset.Traits.Where(t => t != null).ToList();
+                // Respect class restrictions and avoid duplicates across party
+                traitsToAssign = preset.Traits
+                    .Where(t => t != null)
+                    .Where(t => t.classes == null || t.classes.Count == 0 || member.Character.Classes == null || member.Character.Classes.Count == 0 || t.classes.Any(c => member.Character.Classes.Contains(c)))
+                    .Where(t => alreadyAssignedTraits == null || !alreadyAssignedTraits.Contains(t))
+                    .ToList();
                 Debug.Log($"[CombatTest] Character {characterIndex} ({member.Character.Name}): Using {traitsToAssign.Count} preset trait(s).");
             }
         }
 
         // Add traits to member
         member.Traits.AddRange(traitsToAssign);
+        if (alreadyAssignedTraits != null)
+        {
+            foreach (var t in traitsToAssign)
+                if (t != null)
+                    alreadyAssignedTraits.Add(t);
+        }
     }
 }
