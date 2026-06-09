@@ -11,6 +11,7 @@ public class SkillInfoScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI energyAmount;
     [SerializeField] TextMeshProUGUI skillRange;
     [SerializeField] TextMeshProUGUI stanceText;
+    [SerializeField] TextMeshProUGUI isMagicalText;
     [SerializeField] TextMeshProUGUI skillType;
     [SerializeField] List<Image> classIcons;
     [SerializeField] TextMeshProUGUI skillDescription;
@@ -27,6 +28,8 @@ public class SkillInfoScreen : MonoBehaviour
         skillName.text = skill.mainSkillSO.SkillName;
         //energyAmount.text = "Energy: " + skill.EnergyCost.ToString();
         skillRange.text = "Range: " + GetBaseRange(skill);
+        isMagicalText.text = skill.mainSkillSO.IsMagical ? "Magical" : "Physical";
+
         stanceColorCode = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(skill.mainSkillSO.SkillCombatStyle));
         stanceText.text = $"<color=#{stanceColorCode}>{skill.mainSkillSO.SkillCombatStyle}</color>";
 

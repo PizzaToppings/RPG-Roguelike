@@ -11,6 +11,7 @@ public class SkillSelectCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI energyCostText;
     [SerializeField] TextMeshProUGUI rangeText;
     [SerializeField] TextMeshProUGUI stanceText;
+    [SerializeField] TextMeshProUGUI isMagicalText;
     [SerializeField] TextMeshProUGUI ChargesText;
     [SerializeField] Image           skillIcon;
     [Tooltip("One assign button per party slot (max 4). Wire up in the inspector.")]
@@ -32,16 +33,13 @@ public class SkillSelectCard : MonoBehaviour
         }
 
         stanceColorCode = ColorUtility.ToHtmlStringRGB(CombatStyleUtility.GetStyleColor(skill.SkillCombatStyle));
-        if (stanceText != null)
-            stanceText.text = $"Stance: \n<color=#{stanceColorCode}>{skill.SkillCombatStyle}</color>";
+        stanceText.text = $"Stance: \n<color=#{stanceColorCode}>{skill.SkillCombatStyle}</color>";
+
+        isMagicalText.text = skill.IsMagical ? "Magical" : "Physical";
+        rangeText.text = $"Range: {GetBaseRange(skill)}";
+        ChargesText.text = $"Charges: {skill.DefaultCharges}";
 
         descriptionText.text = GetDescription(skill);
-
-        if (ChargesText != null)
-            ChargesText.text = $"Charges: {skill.DefaultCharges}";
-
-        if (rangeText != null)
-            rangeText.text = $"Range: {GetBaseRange(skill)}";
 
         //if (energyCostText != null)
         //    energyCostText.text = $"Cost: {skill.EnergyCost}";
