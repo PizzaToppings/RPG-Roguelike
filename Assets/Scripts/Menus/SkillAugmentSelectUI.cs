@@ -10,9 +10,11 @@ public class SkillAugmentSelectUI : MonoBehaviour
     {
         Instance = this;
 
+        HideAllCards();
+
         if (RunData.CurrentShopSkillAugmentOffers == null || RunData.CurrentShopSkillAugmentOffers.Count == 0)
         {
-            Debug.LogWarning("SkillAugmentSelectUI: No augment offers available.");
+            Debug.LogWarning("SkillAugmentSelectUI: No augment offers available. Make sure owned skills have AvailableAugments configured.");
             return;
         }
 
@@ -28,6 +30,18 @@ public class SkillAugmentSelectUI : MonoBehaviour
             {
                 cards[i].gameObject.SetActive(false);
             }
+        }
+    }
+
+    void HideAllCards()
+    {
+        if (cards == null)
+            return;
+
+        for (int i = 0; i < cards.Length; i++)
+        {
+            if (cards[i] != null)
+                cards[i].gameObject.SetActive(false);
         }
     }
 }

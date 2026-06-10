@@ -15,7 +15,6 @@ MonoBehaviour:
   Traits:
   - {fileID: 11400000, guid: abb8f06581031fb47b1b4353be7c8929, type: 2}
   - {fileID: 11400000, guid: 9e983dedfa2d9a741891898958af733c, type: 2}
-  - {fileID: 11400000, guid: a1df098d26d1c21429df082ac8123ce8, type: 2}
   - {fileID: 11400000, guid: 991ae53643948c64bac52a3e1edff1d1, type: 2}
   - {fileID: 11400000, guid: 8a167188bdc44274a9bd58e321ec20b6, type: 2}
   - {fileID: 11400000, guid: 7198cc6aa9ce5964ba4d4b71ce8e33b5, type: 2}

@@ -3,7 +3,7 @@ public enum NodeTypeEnum { Combat, EliteCombat, Boss, RestZone, Shop, Event, Tre
 public enum EncounterTierEnum { Normal, Elite, Boss }
 
 // Run progression steps
-public enum ProgressionStep { SelectCharacter, SelectSkill, SelectTrait, Combat, EliteCombat, Boss, RestZone, Shop, Event, TreasureRoom }
+public enum ProgressionStep { SelectCharacter, SelectSkill, SelectTrait, SelectAugment, Combat, EliteCombat, Boss, RestZone, Shop, Event, TreasureRoom }
 
 // States
 public enum CurrentActionKind { None, Basic, CastingSkillshot, Animating, EnemyTurn, CharacterPlacement };

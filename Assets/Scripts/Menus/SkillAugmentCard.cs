@@ -19,6 +19,19 @@ public class SkillAugmentCard : MonoBehaviour
     {
         offerIndex = index;
 
+        if (characterNameText != null)
+            characterNameText.text = "Unknown";
+        if (skillNameText != null)
+            skillNameText.text = "Unknown Skill";
+        if (augmentNameText != null)
+            augmentNameText.text = "Unknown Augment";
+        if (augmentDescriptionText != null)
+            augmentDescriptionText.text = "No description.";
+        if (characterImage != null)
+            characterImage.sprite = null;
+        if (skillImage != null)
+            skillImage.sprite = null;
+
         // Find owner character for display
         var ownerIdx = RunManager.Instance.FindPartyMemberIndexForSkill_Public(skill);
         if (ownerIdx >= 0 && ownerIdx < RunData.Party.Count)
@@ -41,8 +54,8 @@ public class SkillAugmentCard : MonoBehaviour
 
         if (augment != null)
         {
-            augmentNameText.text = augment.AugmentName;
-            augmentDescriptionText.text = augment.Description;
+            augmentNameText.text = string.IsNullOrWhiteSpace(augment.AugmentName) ? augment.name : augment.AugmentName;
+            augmentDescriptionText.text = string.IsNullOrWhiteSpace(augment.Description) ? "No description." : augment.Description;
         }
     }
 

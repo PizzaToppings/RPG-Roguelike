@@ -37,7 +37,7 @@ public class SkillSelectCard : MonoBehaviour
 
         isMagicalText.text = skill.IsMagical ? "Magical" : "Physical";
         rangeText.text = $"Range: {GetBaseRange(skill)}";
-        ChargesText.text = $"Charges: {skill.DefaultCharges}";
+        // ChargesText.text = $"Charges: {skill.DefaultCharges}";
 
         descriptionText.text = GetDescription(skill);
 

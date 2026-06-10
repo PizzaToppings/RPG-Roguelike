@@ -11552,16 +11552,17 @@ MonoBehaviour:
   encounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
   eliteEncounterPool: {fileID: 0}
   bossEncounterPool: {fileID: 0}
-  trinketPool: {fileID: 11400000, guid: 5db280366ae30434b8ffebb527c2a93d, type: 2}
-  progression: 000000000100000003000000010000000200000003000000000000000100000003000000010000000200000003000000010000000600000005000000
+  traitPool: {fileID: 11400000, guid: 5db280366ae30434b8ffebb527c2a93d, type: 2}
+  runProgression: {fileID: 11400000, guid: e964b930aec6dd94c8099d002aa32843, type: 2}
   restHealAmount: 20
   restHealIsPercentage: 1
   shopSkillCount: 2
-  shopTrinketCount: 2
+  shopTraitCount: 2
+  shopSkillAugmentCount: 2
   treasureOptionCount: 2
   characterSelectScene: CharacterSelectScene
   skillSelectScene: SkillSelectScene
-  trinketSelectScene: TrinketSelectScene
+  traitSelectScene: TraitSelectScene
   combatScene: 2DTestCombatScene
   restZoneScene: RestZoneScene
   shopScene: ShopScene
@@ -11570,7 +11571,7 @@ MonoBehaviour:
   mainMenuScene: MainMenuScene
   characterOptionCount: 3
   skillOptionCount: 3
-  trinketOptionCount: 2
+  traitOptionCount: 2
 --- !u!4 &1986509511
 Transform:
   m_ObjectHideFlags: 0

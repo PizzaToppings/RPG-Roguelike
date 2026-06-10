@@ -38,24 +38,26 @@ public class RunManager : MonoBehaviour
     [SerializeField] SO_TraitPool traitPool;
 
     [Header("Progression")]
-    [SerializeField] ProgressionStep[] progression = new ProgressionStep[]
-    {
-        ProgressionStep.SelectCharacter,
-        ProgressionStep.SelectSkill,
-        ProgressionStep.Combat,
-        ProgressionStep.SelectSkill,
-        ProgressionStep.SelectTrait,
-        ProgressionStep.Combat,
-        ProgressionStep.SelectCharacter,
-        ProgressionStep.SelectSkill,
-        ProgressionStep.Combat,
-        ProgressionStep.SelectSkill,
-        ProgressionStep.SelectTrait,
-        ProgressionStep.Combat,
-        ProgressionStep.SelectSkill,
-        ProgressionStep.RestZone,
-        ProgressionStep.Boss,
-    };
+    [SerializeField] SO_RunProgression runProgression;
+
+    // [SerializeField] ProgressionStep[] progression = new ProgressionStep[]
+    // {
+    //     ProgressionStep.SelectCharacter,
+    //     ProgressionStep.SelectSkill,
+    //     ProgressionStep.Combat,
+    //     ProgressionStep.SelectSkill,
+    //     ProgressionStep.SelectTrait,
+    //     ProgressionStep.Combat,
+    //     ProgressionStep.SelectCharacter,
+    //     ProgressionStep.SelectSkill,
+    //     ProgressionStep.Combat,
+    //     ProgressionStep.SelectSkill,
+    //     ProgressionStep.SelectTrait,
+    //     ProgressionStep.Combat,
+    //     ProgressionStep.SelectSkill,
+    //     ProgressionStep.RestZone,
+    //     ProgressionStep.Boss,
+    // };
 
     [Header("Rest Zone")]
     [SerializeField] int restHealAmount = 20;
@@ -73,6 +75,7 @@ public class RunManager : MonoBehaviour
     [SerializeField] string characterSelectScene = "CharacterSelectScene";
     [SerializeField] string skillSelectScene     = "SkillSelectScene";
     [SerializeField] string traitSelectScene    = "TraitSelectScene";
+    [SerializeField] string augmentSelectScene  = "AugmentSelectScene";
     [SerializeField] string combatScene          = "2DTestCombatScene";
     [SerializeField] string restZoneScene        = "RestZoneScene";
     [SerializeField] string shopScene            = "ShopScene";
@@ -139,6 +142,69 @@ public class RunManager : MonoBehaviour
         AdvanceStep();
     }
 
+    /// <summary>Called by augment selection UI when a specific augment is assigned to a skill.</summary>
+    public void SelectAugment(SO_MainSkill skill, SO_SkillAugment augment, int partyMemberIndex)
+    {
+        if (!TryAssignAugmentToMember(skill, augment, partyMemberIndex))
+            return;
+
+        AdvanceStep();
+    }
+
+    /// <summary>Called by augment selection UI when choosing an augment offer by index.</summary>
+    public void SelectAugment(int offerIndex)
+    {
+        if (!TryGetOffer(offerIndex, out var offer))
+            return;
+
+        int ownerIndex = FindPartyMemberIndexForSkill(offer.Skill);
+        if (ownerIndex < 0)
+            return;
+
+        RemoveOfferFromCurrentList(offerIndex);
+
+        SelectAugment(offer.Skill, offer.Augment, ownerIndex);
+    }
+
+    bool TryAssignAugmentToMember(SO_MainSkill skill, SO_SkillAugment augment, int partyMemberIndex)
+    {
+        if (skill == null || augment == null)
+            return false;
+
+        if (partyMemberIndex < 0 || partyMemberIndex >= RunData.Party.Count)
+            return false;
+
+        var member = RunData.Party[partyMemberIndex];
+        if (!member.SkillAugments.TryGetValue(skill, out var augmentList))
+        {
+            augmentList = new List<SO_SkillAugment>();
+            member.SkillAugments[skill] = augmentList;
+        }
+
+        if (!augmentList.Contains(augment))
+            augmentList.Add(augment);
+
+        return true;
+    }
+
+    bool TryGetOffer(int offerIndex, out ShopSkillAugmentOffer offer)
+    {
+        offer = null;
+
+        if (offerIndex < 0 || offerIndex >= RunData.CurrentShopSkillAugmentOffers.Count)
+            return false;
+
+        offer = RunData.CurrentShopSkillAugmentOffers[offerIndex];
+        return offer != null && offer.Skill != null && offer.Augment != null;
+    }
+
+    void RemoveOfferFromCurrentList(int offerIndex)
+    {
+        RunData.CurrentShopSkillAugmentOffers.RemoveAt(offerIndex);
+        if (offerIndex < RunData.CurrentShopSkillAugments.Count)
+            RunData.CurrentShopSkillAugments.RemoveAt(offerIndex);
+    }
+
     /// <summary>Called by CombatManager when the player wins a combat.</summary>
     public void OnCombatWon()
     {
@@ -169,7 +235,7 @@ public class RunManager : MonoBehaviour
     /// <summary>Reads the current step from the progression and loads the appropriate scene.</summary>
     void LoadCurrentStep()
     {
-        if (RunData.StepIndex >= progression.Length)
+        if (RunData.StepIndex >= runProgression.progressionSteps.Length)
         {
             Debug.Log("RunManager: Progression complete.");
             RunData.Reset();
@@ -177,7 +243,7 @@ public class RunManager : MonoBehaviour
             return;
         }
 
-        var step = progression[RunData.StepIndex];
+        var step = runProgression.progressionSteps[RunData.StepIndex];
         switch (step)
         {
             case ProgressionStep.SelectCharacter:
@@ -190,6 +256,11 @@ public class RunManager : MonoBehaviour
 
             case ProgressionStep.SelectTrait:
                 SceneManager.LoadScene(traitSelectScene);
+                break;
+
+            case ProgressionStep.SelectAugment:
+                PrepAugmentSelection();
+                SceneManager.LoadScene(augmentSelectScene);
                 break;
 
             case ProgressionStep.Combat:
@@ -309,6 +380,13 @@ public class RunManager : MonoBehaviour
         PrepShopSkillAugments();
     }
 
+    void PrepAugmentSelection()
+    {
+        RunData.CurrentShopSkillAugments.Clear();
+        RunData.CurrentShopSkillAugmentOffers.Clear();
+        PrepShopSkillAugments();
+    }
+
     void PrepShopSkillAugments()
     {
         var ownedSkills = GetAllOwnedSkillSOs();
@@ -353,33 +431,7 @@ public class RunManager : MonoBehaviour
     /// </summary>
     public void AssignShopSkillAugmentOffer(int offerIndex)
     {
-        if (offerIndex < 0 || offerIndex >= RunData.CurrentShopSkillAugmentOffers.Count)
-            return;
-
-        var offer = RunData.CurrentShopSkillAugmentOffers[offerIndex];
-        if (offer == null || offer.Skill == null || offer.Augment == null)
-            return;
-
-        // Find party member that owns this skill SO. Prefer a member whose
-        // assigned skills include the SO; fallback to character basic skills.
-        int ownerIndex = FindPartyMemberIndexForSkill(offer.Skill);
-        if (ownerIndex >= 0 && ownerIndex < RunData.Party.Count)
-        {
-            var member = RunData.Party[ownerIndex];
-            if (!member.SkillAugments.TryGetValue(offer.Skill, out var list))
-            {
-                list = new List<SO_SkillAugment>();
-                member.SkillAugments[offer.Skill] = list;
-            }
-            list.Add(offer.Augment);
-        }
-
-        // Remove the selected offer from the shop lists so it cannot be picked again
-        RunData.CurrentShopSkillAugmentOffers.RemoveAt(offerIndex);
-        if (offerIndex < RunData.CurrentShopSkillAugments.Count)
-            RunData.CurrentShopSkillAugments.RemoveAt(offerIndex);
-
-        AdvanceStep();
+        SelectAugment(offerIndex);
     }
 
     int FindPartyMemberIndexForSkill(SO_MainSkill skillSO)
