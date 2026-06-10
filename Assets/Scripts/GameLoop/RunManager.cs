@@ -21,6 +21,14 @@ public class RunManager : MonoBehaviour
 {
     public static RunManager Instance { get; private set; }
 
+    /// <summary>
+    /// When the progression requests a SelectSkill step, this index determines
+    /// which party member the available skills will be for and where they will be
+    /// assigned. Set when a character is selected and left until changed by the
+    /// next SelectCharacter call.
+    /// </summary>
+    public int CurrentSkillAssignPartyIndex { get; private set; } = 0;
+
     [Header("Data")]
     [SerializeField] SO_CharacterRoster characterRoster;
     [SerializeField] SO_SkillPool skillPool;
@@ -101,6 +109,8 @@ public class RunManager : MonoBehaviour
     public void StartNewRun()
     {
         RunData.Reset();
+        // Ensure predetermined skill-assign index is reset for a new run
+        CurrentSkillAssignPartyIndex = 0;
         LoadCurrentStep();
     }
 
@@ -108,6 +118,8 @@ public class RunManager : MonoBehaviour
     public void SelectCharacter(SO_Character character)
     {
         RunData.Party.Add(new RunDataPartyMember(character));
+        // New character becomes the current target for subsequent SelectSkill steps
+        CurrentSkillAssignPartyIndex = RunData.Party.Count - 1;
         AdvanceStep();
     }
 
@@ -333,6 +345,67 @@ public class RunManager : MonoBehaviour
         RunData.CurrentShopSkillAugmentOffers.AddRange(picks);
         RunData.CurrentShopSkillAugments.AddRange(picks.Select(x => x.Augment));
     }
+
+    /// <summary>
+    /// Assigns the chosen shop augment offer to the party member that owns the
+    /// associated skill SO. Removes the chosen offer from the current shop lists
+    /// and advances progression.
+    /// </summary>
+    public void AssignShopSkillAugmentOffer(int offerIndex)
+    {
+        if (offerIndex < 0 || offerIndex >= RunData.CurrentShopSkillAugmentOffers.Count)
+            return;
+
+        var offer = RunData.CurrentShopSkillAugmentOffers[offerIndex];
+        if (offer == null || offer.Skill == null || offer.Augment == null)
+            return;
+
+        // Find party member that owns this skill SO. Prefer a member whose
+        // assigned skills include the SO; fallback to character basic skills.
+        int ownerIndex = FindPartyMemberIndexForSkill(offer.Skill);
+        if (ownerIndex >= 0 && ownerIndex < RunData.Party.Count)
+        {
+            var member = RunData.Party[ownerIndex];
+            if (!member.SkillAugments.TryGetValue(offer.Skill, out var list))
+            {
+                list = new List<SO_SkillAugment>();
+                member.SkillAugments[offer.Skill] = list;
+            }
+            list.Add(offer.Augment);
+        }
+
+        // Remove the selected offer from the shop lists so it cannot be picked again
+        RunData.CurrentShopSkillAugmentOffers.RemoveAt(offerIndex);
+        if (offerIndex < RunData.CurrentShopSkillAugments.Count)
+            RunData.CurrentShopSkillAugments.RemoveAt(offerIndex);
+
+        AdvanceStep();
+    }
+
+    int FindPartyMemberIndexForSkill(SO_MainSkill skillSO)
+    {
+        for (int i = 0; i < RunData.Party.Count; i++)
+        {
+            var member = RunData.Party[i];
+            // Check assigned skills
+            foreach (var s in member.Skills)
+            {
+                if (s?.mainSkillSO == skillSO)
+                    return i;
+            }
+
+            // Check character base skills
+            if (member.Character != null)
+            {
+                if (member.Character.basicAttack == skillSO || member.Character.basicSkill == skillSO)
+                    return i;
+            }
+        }
+        return -1;
+    }
+
+    // Public wrapper for UI code to query ownership of a skill SO
+    public int FindPartyMemberIndexForSkill_Public(SO_MainSkill skillSO) => FindPartyMemberIndexForSkill(skillSO);
 
     HashSet<SO_MainSkill> GetAllOwnedSkillSOs()
     {

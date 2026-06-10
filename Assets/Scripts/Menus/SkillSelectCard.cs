@@ -20,7 +20,7 @@ public class SkillSelectCard : MonoBehaviour
     SO_MainSkill skillData;
     string stanceColorCode;
 
-    public void Setup(SO_MainSkill skill)
+    public void Setup(SO_MainSkill skill, int predeterminedPartyIndex = -1)
     {
         skillData = skill;
 
@@ -50,19 +50,40 @@ public class SkillSelectCard : MonoBehaviour
             skillIcon.sprite = skill.Image;
         }
 
-        // Set up one assign button per party member.
+        // If a predetermined party index is provided, only show a single assign
+        // button for that party slot and wire it to assign directly to that
+        // character. Otherwise fall back to the original behaviour of showing
+        // one button per party slot.
         if (assignButtons != null)
         {
-            for (int i = 0; i < assignButtons.Length; i++)
+            if (predeterminedPartyIndex >= 0 && predeterminedPartyIndex < RunData.Party.Count)
             {
-                if (i < RunData.Party.Count)
+                for (int i = 0; i < assignButtons.Length; i++)
                 {
-                    assignButtons[i].gameObject.SetActive(true);
-                    assignButtons[i].Setup(RunData.Party[i].Character, i, skill);
+                    if (i == 0)
+                    {
+                        assignButtons[i].gameObject.SetActive(true);
+                        assignButtons[i].Setup(RunData.Party[predeterminedPartyIndex].Character, predeterminedPartyIndex, skill);
+                    }
+                    else
+                    {
+                        assignButtons[i].gameObject.SetActive(false);
+                    }
                 }
-                else
+            }
+            else
+            {
+                for (int i = 0; i < assignButtons.Length; i++)
                 {
-                    assignButtons[i].gameObject.SetActive(false);
+                    if (i < RunData.Party.Count)
+                    {
+                        assignButtons[i].gameObject.SetActive(true);
+                        assignButtons[i].Setup(RunData.Party[i].Character, i, skill);
+                    }
+                    else
+                    {
+                        assignButtons[i].gameObject.SetActive(false);
+                    }
                 }
             }
         }

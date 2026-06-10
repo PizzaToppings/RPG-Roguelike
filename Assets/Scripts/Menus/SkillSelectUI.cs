@@ -17,7 +17,10 @@ public class SkillSelectUI : MonoBehaviour
             return;
         }
 
-        var options = RunManager.Instance.GetSkillOptionsForParty();
+        // Ask RunManager which party member these skills should be for. This makes
+        // the skill selection screen present options predetermined for one character.
+        int partyIndex = RunManager.Instance.CurrentSkillAssignPartyIndex;
+        var options = RunManager.Instance.GetSkillOptions(partyIndex);
 
         if (options.Length == 0)
             Debug.LogWarning("SkillSelectUI: No eligible skills available. Make sure SO_SkillPool has skills matching the party's classes.");
@@ -30,7 +33,7 @@ public class SkillSelectUI : MonoBehaviour
                     ? $"Setting up card {i} with skill: {options[i].SkillName}"
                     : $"Warning: Skill option {i} is null.");
                 cards[i].gameObject.SetActive(true);
-                cards[i].Setup(options[i]);
+                cards[i].Setup(options[i], partyIndex);
             }
             else
             {
