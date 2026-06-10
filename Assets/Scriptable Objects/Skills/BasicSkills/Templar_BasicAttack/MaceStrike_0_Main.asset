@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MaceStrike_0_Main
   m_EditorClassIdentifier: 
   SkillName: Mace Strike
-  Image: {fileID: 0}
+  Image: {fileID: 21300000, guid: c6cd6f7e83453244ba6be9b74c10e58f, type: 3}
+  IsMagical: 0
   IsBasic: 1
   IsConsumable: 0
-  IsMagical: 0
   SkillCombatStyle: 2
   Classes: 
   Description: Strike an enemy for <damage0-0-0> and reduce their Physical Power

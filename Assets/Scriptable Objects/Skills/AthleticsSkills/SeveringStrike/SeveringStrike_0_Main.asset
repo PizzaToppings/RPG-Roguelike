@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
   m_Name: SeveringStrike_0_Main
   m_EditorClassIdentifier: 
-  SkillName: Hemorrhage Strike
-  Image: {fileID: 21300000, guid: 7e013bb77493f4544ba03068ea16e205, type: 3}
+  SkillName: Severing Strike
+  Image: {fileID: 21300000, guid: 2c22f6f8850f11942a79895ce498987e, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 1

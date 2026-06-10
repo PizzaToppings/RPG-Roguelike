@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: VampiricStrike_0_Main
   m_EditorClassIdentifier: 
   SkillName: Vampiric Strike
-  Image: {fileID: 21300000, guid: e1fe5b47c2731104f897c7d181263e97, type: 3}
+  Image: {fileID: 21300000, guid: 613dd836d63c9a849b666b8e0ac8959f, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2

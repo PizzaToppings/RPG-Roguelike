@@ -13,17 +13,15 @@ MonoBehaviour:
   m_Name: Whirlwind_0_Main
   m_EditorClassIdentifier: 
   SkillName: Whirlwind
-  Image: {fileID: 21300000, guid: 6ae427f33bf02b44b8f72a39f967c321, type: 3}
+  Image: {fileID: 21300000, guid: fd47af068411d8c4abffacdb071a97c6, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
   SkillCombatStyle: 1
   Classes: 0000000001000000
   Description: Deal <damage0-0-0> to all enemies around you.
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 0
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: 0131905a01b7e5648a5288bdab5c0ff7, type: 2}
   EnergyCost: 3
   DefaultCharges: 1

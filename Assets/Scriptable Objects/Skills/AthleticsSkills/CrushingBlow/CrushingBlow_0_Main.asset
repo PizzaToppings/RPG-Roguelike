@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CrushingBlow_0_Main
   m_EditorClassIdentifier: 
   SkillName: Crushing Blow
-  Image: {fileID: 21300000, guid: a834bf958ef46f44d8b9bf98479af769, type: 3}
+  Image: {fileID: 21300000, guid: cbee589d731958544a8821cee22a76b6, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2

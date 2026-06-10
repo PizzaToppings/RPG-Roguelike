@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Carve_0_Main
   m_EditorClassIdentifier: 
   SkillName: Carve
-  Image: {fileID: 21300000, guid: b0fb6997c7a0f70489030ec1bfee27f9, type: 3}
+  Image: {fileID: 21300000, guid: 88d1e69074edd474e961a425019ba366, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 1

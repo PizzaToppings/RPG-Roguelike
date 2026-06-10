@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RadiantBolt_0_Main
   m_EditorClassIdentifier: 
   SkillName: Radiant Bolt
-  Image: {fileID: 0}
+  Image: {fileID: 21300000, guid: beb0bb89518dd76438e31aa6505b5477, type: 3}
+  IsMagical: 1
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 1
   SkillCombatStyle: 3
   Classes: 
   Description: Deal <damage0-0-0>.

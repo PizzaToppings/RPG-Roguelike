@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Shackle_0_Main
   m_EditorClassIdentifier: 
   SkillName: Shackle
-  Image: {fileID: 0}
+  Image: {fileID: 21300000, guid: 06313ecf0700f964eaf5df7b0c671fb1, type: 3}
+  IsMagical: 0
   IsBasic: 1
   IsConsumable: 0
   SkillCombatStyle: 5

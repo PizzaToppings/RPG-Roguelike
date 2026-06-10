@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Holy Radiance
   Image: {fileID: 0}
+  IsMagical: 1
   IsBasic: 1
   IsConsumable: 0
-  IsMagical: 1
-  SkillCombatStyle: 2
+  SkillCombatStyle: 6
   Classes: 
   Description: Heal all allies within 3 range for 1 and deal <damage0-0-0> to all
     enemies.

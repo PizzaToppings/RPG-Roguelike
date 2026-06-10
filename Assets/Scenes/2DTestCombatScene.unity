@@ -16899,6 +16899,7 @@ MonoBehaviour:
   cameraController: {fileID: 1143730583}
   combatStartDelay: 1
   combatEndDelay: 2
+  cya: {r: 0.2, g: 1, b: 0.8, a: 1}
 --- !u!114 &708867991
 MonoBehaviour:
   m_ObjectHideFlags: 0

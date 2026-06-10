@@ -28,6 +28,8 @@ public class CombatManager : MonoBehaviour
     [SerializeField] float combatStartDelay = 1f;
     [SerializeField] float combatEndDelay = 2f;
 
+    [SerializeField] Color cya = new Color(0.2f, 1f, 0.8f);
+
     bool placementPhaseEnabled = false;
 
     void Start()

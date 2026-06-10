@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Yeet_0_Main
   m_EditorClassIdentifier: 
   SkillName: Yeet!
-  Image: {fileID: 21300000, guid: 4ca1690ecdf50834baf1c0d649b81036, type: 3}
+  Image: {fileID: 21300000, guid: 6b01f8485e09fac46b4769d6191042c2, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 5

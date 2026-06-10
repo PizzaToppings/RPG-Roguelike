@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Flex_0_Main
   m_EditorClassIdentifier: 
   SkillName: Flex
-  Image: {fileID: 21300000, guid: 795ffab1c858e5744a9c47ee110f4b1b, type: 3}
+  Image: {fileID: 21300000, guid: 9a8127a402bbb9148b3d22539f40df7a, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 1
