@@ -19,12 +19,17 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 1
   Classes: 00000000
-  Description: Give all allies within 4 Range +1 power for 2 turns.
+  Description: Give all allies within 4 Range +2 power for 2 turns.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: dbb305ad24b5d0a4c8195bd21b2426cf, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
+  AvailableAugments:
+  - {fileID: 11400000, guid: 17f515ead163c984ab0a772864880694, type: 2}
+  - {fileID: 11400000, guid: 5dd0d59cff36f8143822aa26cd5253fb, type: 2}
+  - {fileID: 11400000, guid: 1ceecf90b2bd51146a40effb9b859192, type: 2}
+  - {fileID: 11400000, guid: 4120a9bc1d3acb840a4ac186aa92c69f, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0

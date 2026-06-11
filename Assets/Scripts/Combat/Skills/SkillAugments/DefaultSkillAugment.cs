@@ -98,7 +98,41 @@ public class DefaultSkillAugment : SO_SkillAugment
                     : GetAllSkillTargets(skill);
 
                 foreach (var se in StatusEffects)
-                    StatusEffectManager.Instance.ApplyStatusEffect(se, targets);
+                {
+                    if (se == null) continue;
+
+                    // Check for any ImproveStatusEffectAugment instances applied to this skill
+                    int totalPowerDelta = 0;
+                    int totalDurationDelta = 0;
+                    bool anyModifier = false;
+
+                    foreach (var sa in skill.Augments)
+                    {
+                        if (sa?.augmentSO is ImproveStatusEffectAugment imp)
+                        {
+                            if (imp.StatusEffectType == se.StatusEffectType)
+                            {
+                                totalPowerDelta += imp.PowerDelta;
+                                totalDurationDelta += imp.DurationDelta;
+                                anyModifier = true;
+                                if (!imp.AffectAllMatches)
+                                    break;
+                            }
+                        }
+                    }
+
+                    if (!anyModifier)
+                    {
+                        StatusEffectManager.Instance.ApplyStatusEffect(se, targets);
+                    }
+                    else
+                    {
+                        var clone = Object.Instantiate(se);
+                        clone.Power = Mathf.Max(0, clone.Power + totalPowerDelta);
+                        clone.Duration = Mathf.Max(0, clone.Duration + totalDurationDelta);
+                        StatusEffectManager.Instance.ApplyStatusEffect(clone, targets);
+                    }
+                }
                 break;
             }
 
@@ -106,7 +140,40 @@ public class DefaultSkillAugment : SO_SkillAugment
             {
                 var casterList = new List<Unit> { character };
                 foreach (var se in StatusEffects)
-                    StatusEffectManager.Instance.ApplyStatusEffect(se, casterList);
+                {
+                    if (se == null) continue;
+
+                    int totalPowerDelta = 0;
+                    int totalDurationDelta = 0;
+                    bool anyModifier = false;
+
+                    foreach (var sa in skill.Augments)
+                    {
+                        if (sa?.augmentSO is ImproveStatusEffectAugment imp)
+                        {
+                            if (imp.StatusEffectType == se.StatusEffectType)
+                            {
+                                totalPowerDelta += imp.PowerDelta;
+                                totalDurationDelta += imp.DurationDelta;
+                                anyModifier = true;
+                                if (!imp.AffectAllMatches)
+                                    break;
+                            }
+                        }
+                    }
+
+                    if (!anyModifier)
+                    {
+                        StatusEffectManager.Instance.ApplyStatusEffect(se, casterList);
+                    }
+                    else
+                    {
+                        var clone = Object.Instantiate(se);
+                        clone.Power = Mathf.Max(0, clone.Power + totalPowerDelta);
+                        clone.Duration = Mathf.Max(0, clone.Duration + totalDurationDelta);
+                        StatusEffectManager.Instance.ApplyStatusEffect(clone, casterList);
+                    }
+                }
                 break;
             }
 
