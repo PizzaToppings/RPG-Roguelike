@@ -90,6 +90,11 @@ public class Skill
             augment.Init(so, this, character);
             Augments.Add(augment);
         }
+
+        // Process any deferred AddSkillPartAugment insertions that were registered
+        // during augment initialization. This ensures out-of-range-targeted
+        // additions are inserted in order of their configured indices.
+        AddSkillPartAugment.ProcessDeferredForSkill(this);
     }
 
     public void Init()
