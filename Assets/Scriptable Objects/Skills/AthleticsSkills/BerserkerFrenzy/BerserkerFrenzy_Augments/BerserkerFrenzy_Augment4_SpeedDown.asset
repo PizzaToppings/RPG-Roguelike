@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1883b77c06c02b644b79617800a5203e, type: 3}
   m_Name: BerserkerFrenzy_Augment4_SpeedDown
   m_EditorClassIdentifier: 
-  AugmentName: 
+  AugmentName: Intimidating Frenzy
   Prerequisite: {fileID: 0}
-  Description: 
-  SkillPartGroupIndex: -1
-  SkillPartIndex: -1
-  StatusEffectsToAdd: []
+  Description: Reduce the speed of the target hit by 2.
+  SkillPartGroupIndex: 0
+  SkillPartIndex: 0
+  StatusEffectsToAdd:
+  - {fileID: 11400000, guid: 3741756b6e1eed24cb6b51d01847b77c, type: 2}

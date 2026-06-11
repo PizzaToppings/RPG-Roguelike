@@ -15,7 +15,7 @@ MonoBehaviour:
   AugmentName: Berserker Push
   Prerequisite: {fileID: 0}
   Description: Knock the tagret back two tiles.
-  TargetSkillPartGroupIndex: 1
-  TargetSkillPartIndex: -1
+  TargetSkillPartGroupIndex: 0
+  TargetSkillPartIndex: 3
   SkillPartToAdd: {fileID: 11400000, guid: b08ef6f696339a545a2499866f2a97c3, type: 2}
   Copies: 1

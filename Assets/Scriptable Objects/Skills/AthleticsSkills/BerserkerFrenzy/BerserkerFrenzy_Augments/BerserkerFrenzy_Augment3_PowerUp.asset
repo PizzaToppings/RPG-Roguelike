@@ -17,5 +17,5 @@ MonoBehaviour:
   Description: 'Gain 2 Power until the end of your next turn after using this skill. '
   TargetSkillPartGroupIndex: 0
   TargetSkillPartIndex: 4
-  SkillPartToAdd: {fileID: 11400000, guid: b08ef6f696339a545a2499866f2a97c3, type: 2}
+  SkillPartToAdd: {fileID: 11400000, guid: f9d6e66d9fd3ed748a7a0d76190f19f3, type: 2}
   Copies: 1

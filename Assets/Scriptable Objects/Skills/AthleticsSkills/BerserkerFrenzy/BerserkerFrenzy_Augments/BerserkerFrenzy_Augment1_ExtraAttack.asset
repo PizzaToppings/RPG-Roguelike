@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: BerserkerFrenzy_Augment1_ExtraAttack
   m_EditorClassIdentifier: 
   AugmentName: Triple Strike
+  Prerequisite: {fileID: 0}
   Description: 'Attack an additional time. '
-  TargetSkillPartGroupIndex: 1
+  TargetSkillPartGroupIndex: 0
+  TargetSkillPartIndex: 2
   SkillPartToAdd: {fileID: 11400000, guid: 21db1047ed4326c4e9fdbd89e2c67182, type: 2}
   Copies: 1
