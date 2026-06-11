@@ -24,6 +24,9 @@ public class AddOrModifyDamageAugment : SO_SkillAugment
     [Tooltip("Base power for a newly added DamageData when missing.")]
     public int BasePower = 1;
 
+    [Tooltip("Optional prerequisite to attach to newly added DamageData entries.")]
+    public SO_Prerequisite AddedDamagePrerequisite;
+
     public override void Init(Skill skill, SkillAugment augment, Character character)
     {
         foreach (var part in GetSkillParts(skill, SkillPartGroupIndex, SkillPartIndex))
@@ -58,6 +61,9 @@ public class AddOrModifyDamageAugment : SO_SkillAugment
                     Power = Mathf.Max(0, BasePower),
                     IsMagical = false
                 };
+
+                if (AddedDamagePrerequisite != null)
+                    newDamage.Prerequisites.Add(AddedDamagePrerequisite);
 
                 part.DamageEffects.Add(newDamage);
             }

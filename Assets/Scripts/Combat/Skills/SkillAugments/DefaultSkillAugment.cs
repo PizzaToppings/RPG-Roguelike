@@ -72,6 +72,16 @@ public class DefaultSkillAugment : SO_SkillAugment
 
     void OnTrigger(Skill skill, Unit target, Character character, SkillAugment augment)
     {
+        // If a prerequisite SO is configured on the augment, evaluate it first.
+        if (augment?.augmentSO != null && augment.augmentSO.Prerequisite != null)
+        {
+            // For per-target triggers, pass the specific target; otherwise pass null target and let prerequisite handle caster-only checks.
+            var prereqTarget = target;
+            var has = augment.augmentSO.Prerequisite.HasPrerequisite(character, prereqTarget);
+            if (!has)
+                return;
+        }
+
         if (TriggerOnce && augment.hasTriggered) return;
 
         if (ChargesToTrigger > 1)
