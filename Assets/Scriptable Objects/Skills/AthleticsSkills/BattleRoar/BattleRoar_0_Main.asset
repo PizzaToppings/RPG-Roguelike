@@ -25,6 +25,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: dbb305ad24b5d0a4c8195bd21b2426cf, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
+  DefaultCooldown: 1
   AvailableAugments:
   - {fileID: 11400000, guid: 17f515ead163c984ab0a772864880694, type: 2}
   - {fileID: 11400000, guid: 5dd0d59cff36f8143822aa26cd5253fb, type: 2}
