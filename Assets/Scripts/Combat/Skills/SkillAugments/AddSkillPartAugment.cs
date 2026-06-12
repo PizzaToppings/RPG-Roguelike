@@ -78,6 +78,13 @@ public class AddSkillPartAugment : SO_SkillAugment
         deferredAdds.Add(new DeferredAdd { Skill = skill, GroupIndex = groupIndex, TargetIndex = targetIndex, Clone = clone, Id = nextDeferredId++ });
     }
 
+    // Public API so other augment types can register deferred insertions that
+    // will be processed together with AddSkillPartAugment.ProcessDeferredForSkill.
+    public static void RegisterDeferredAdd(Skill skill, int groupIndex, int targetIndex, SO_Skillpart clone)
+    {
+        DeferredAddRegister(skill, groupIndex, targetIndex, clone);
+    }
+
     public static void ProcessDeferredForSkill(Skill skill)
     {
         if (skill == null) return;
