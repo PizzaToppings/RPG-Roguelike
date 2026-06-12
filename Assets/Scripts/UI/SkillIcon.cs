@@ -65,8 +65,18 @@ public class SkillIcon : MonoBehaviour, IPointerClickHandler
 
         if (skill.DefaultCharges == 1)
         {
-            chargesImage.SetActive(false);
-            chargesText.gameObject.SetActive(false);
+            // Show cooldown as a small number when single-charge skills are on cooldown
+            if (SkillData.GetCooldown(skill) > 0)
+            {
+                chargesImage.SetActive(true);
+                chargesText.gameObject.SetActive(true);
+                chargesText.text = SkillData.GetCooldown(skill).ToString();
+            }
+            else
+            {
+                chargesImage.SetActive(false);
+                chargesText.gameObject.SetActive(false);
+            }
         }
         else
         {

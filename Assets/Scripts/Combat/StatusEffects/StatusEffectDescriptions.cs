@@ -85,6 +85,7 @@ public static class StatusEffectDescriptions
             case StatsEnum.MaxHitpoints: return "Max Hitpoints";
             //case StatsEnum.MaxEnergy:  return "Max Energy";
             case StatsEnum.MoveSpeed:    return "Move Speed";
+            case StatsEnum.Cooldown:     return "Cooldown";
             default:                     return stat.ToString();
         }
     }

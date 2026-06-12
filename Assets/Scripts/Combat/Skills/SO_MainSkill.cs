@@ -27,6 +27,9 @@ public class SO_MainSkill : ScriptableObject
     [Space]
     public int EnergyCost = 10;
     public int DefaultCharges = 1;
+    [Space]
+    [Tooltip("Number of turns cooldown applied after casting. 0 = usable every turn.")]
+    public int DefaultCooldown = 0;
 
     [Space]
     [Header(" - Skill Augments")]

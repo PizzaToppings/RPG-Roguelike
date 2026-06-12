@@ -346,6 +346,8 @@ public class Unit : UnitStats
             turnStartText += " - incapacitated";
 
         boardManager.Clear();
+        // Tick cooldowns for this unit at the start of its turn
+        SkillData.TickCooldownsForUnit(this);
         SetStartOfTurnStats();
 
         yield return new WaitForSeconds(0.5f);

@@ -195,6 +195,13 @@ public class DefaultSkillAugment : SO_SkillAugment
                 //skill.EnergyCost = Mathf.Max(0, skill.EnergyCost + Value);
                 break;
 
+            case SkillAugmentEffectEnum.ModifyCooldown:
+                // Modify the default cooldown of the skill and adjust current cooldown value
+                skill.DefaultCooldown = Mathf.Max(0, skill.DefaultCooldown + Value);
+                var current = SkillData.GetCooldown(skill);
+                SkillData.SetCooldown(skill, Mathf.Max(0, current + Value));
+                break;
+
             case SkillAugmentEffectEnum.ModifyRange:
                 foreach (var spg in skill.SkillPartGroups)
                     foreach (var sp in spg.skillParts)

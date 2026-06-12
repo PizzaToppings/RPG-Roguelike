@@ -212,6 +212,9 @@ public class StatusEffectManager : MonoBehaviour
             DurationOwner = statusEffectSO.DurationOwner
         };
 
+        // Pass cooldown target preference from the SO to the runtime effect
+        statChangeEffect.CooldownTarget = statusEffectSO.CooldownTarget;
+
         statChangeEffect.Apply();
     }
 

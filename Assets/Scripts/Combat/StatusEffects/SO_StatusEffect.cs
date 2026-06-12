@@ -13,6 +13,7 @@ public class SO_StatusEffect : ScriptableObject
     public bool Permanent;
     public TriggerMomentEnum DurationTrigger = TriggerMomentEnum.EndOfTurn;
     public DurationOwnerEnum DurationOwner = DurationOwnerEnum.Target;
+    public CooldownVariant CooldownTarget = CooldownVariant.Active;
 
     [TextArea(2, 5)]
     public string Description;

@@ -83,6 +83,9 @@ public class SkillsManager : MonoBehaviour
         skillVFXManager.EndProjectileLine();
 
         SkillData.SetCharges(skill, SkillData.GetCharges(skill) - 1);
+        // Apply cooldown on cast
+        if (skill.DefaultCooldown > 0)
+            SkillData.SetCooldown(skill, skill.DefaultCooldown);
         var character = UnitData.ActiveUnit as Character;
         //character.ConsumeEnergy(skill.EnergyCost);
         if (character != null) character.HasUsedSkillThisTurn = true;
@@ -415,6 +418,9 @@ public class SkillsManager : MonoBehaviour
         var character = caster as Character;
         if (character != null && character.HasUsedSkillThisTurn)
             return false;
+
+        // Can't cast if skill is on cooldown
+        if (SkillData.GetCooldown(skill) > 0) return false;
 
         return SkillData.GetCharges(skill) != 0;
         //return SkillData.GetCharges(skill) != 0 &&

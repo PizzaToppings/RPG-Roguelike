@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using UnityEngine;
 
 public class SkillData
 {
@@ -15,6 +16,7 @@ public class SkillData
     public static SkillPartGroupData CurrentSkillPartGroupData => SkillPartGroupDatas[SkillPartGroupIndex];
 
     static Dictionary<Skill, int> SkillCharges = new Dictionary<Skill, int>();
+    static Dictionary<Skill, int> SkillCooldowns = new Dictionary<Skill, int>();
 
     public static int GetCharges(Skill skill)
     {
@@ -94,5 +96,44 @@ public class SkillData
     {
         SkillPartGroupDatas.ForEach(x => x.Reset());
         SkillPartGroupIndex = 0;
+    }
+
+    public static int GetCooldown(Skill skill)
+    {
+        return SkillCooldowns.TryGetValue(skill, out int cd) ? cd : 0;
+    }
+
+    public static void SetCooldown(Skill skill, int value)
+    {
+        SkillCooldowns[skill] = Mathf.Max(0, value);
+    }
+
+    public static void TickCooldownsForUnit(Unit unit)
+    {
+        // Reduce cooldowns on all skills that belong to the given unit (basic + basicSkill + specials + consumables)
+        if (unit == null) return;
+
+        var skills = new System.Collections.Generic.List<Skill>();
+        if (unit is Character c)
+        {
+            if (c.basicAttack != null) skills.Add(c.basicAttack);
+            if (c.basicSkill != null) skills.Add(c.basicSkill);
+            if (c.skills != null) skills.AddRange(c.skills);
+            if (c.consumables != null) skills.AddRange(c.consumables);
+        }
+        else if (unit is Enemy)
+        {
+            // enemies may have abilities represented differently; skip
+        }
+
+        foreach (var s in skills)
+        {
+            if (s == null) continue;
+            if (SkillCooldowns.TryGetValue(s, out int cd) && cd > 0)
+            {
+                cd--;
+                SkillCooldowns[s] = Mathf.Max(0, cd);
+            }
+        }
     }
 }

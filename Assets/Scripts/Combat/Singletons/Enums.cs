@@ -12,7 +12,11 @@ public enum GameState { StartOfGame, StartOfRound, StartOfTurn, EndOfTurn, EndOf
 
 // Characters and skills
 public enum ClassEnum { Athletics, Acrobatics, Marksmanship, Subtlety, Protection, Sorcery, Elementalism, Nature, Holy, Unholy }
-public enum StatsEnum { MaxHitpoints, /*MaxEnergy,*/ MoveSpeed, Power, Armor, Shield, Range }
+public enum StatsEnum { MaxHitpoints, /*MaxEnergy,*/ MoveSpeed, Power, Armor, Shield, Range, Cooldown }
+public enum SkillSelectionMode { All, Random, LongestCooldown, ShortestCooldown, ByStance, SpecificSkill }
+
+// Which cooldown variant to affect
+public enum CooldownVariant { Active, Default, Both }
 
 // Damage etc
 public enum HitTypeEnum { Damage, Healing, Shield }
@@ -52,7 +56,7 @@ public enum DurationOwnerEnum { Target, Caster }
 
 // Skill Augments
 public enum SkillAugmentTriggerEnum { OnInit, OnCast, OnCastPerTarget, OnStanceChange }
-public enum SkillAugmentEffectEnum { AddStatusEffectToTargets, AddStatusEffectToCaster, AddEnergy, ModifyEnergyCost, ModifyRange, ModifyDamage, ResetSkill }
+public enum SkillAugmentEffectEnum { AddStatusEffectToTargets, AddStatusEffectToCaster, AddEnergy, ModifyEnergyCost, ModifyRange, ModifyDamage, ModifyCooldown, ResetSkill }
 
 // Anomalies
 public enum AnomalyTriggerEnum { OnCombatStart, StartOfRound, EndOfRound, OnStanceChange, OnCombatEnd }

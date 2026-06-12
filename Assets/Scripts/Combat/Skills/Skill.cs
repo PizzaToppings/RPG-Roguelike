@@ -12,6 +12,9 @@ public class Skill
     [Space]
     public int EnergyCost = 10;
     public int DefaultCharges = 1;
+    public int DefaultCooldown = 0;
+
+    public int Cooldown => SkillData.GetCooldown(this);
 
     public bool IsMagical => mainSkillSO.IsMagical;
     public int Charges => SkillData.GetCharges(this);
@@ -23,6 +26,7 @@ public class Skill
         mainSkillSO = skillSO;
         EnergyCost = skillSO.EnergyCost;
         DefaultCharges = skillSO.DefaultCharges;
+        DefaultCooldown = skillSO.DefaultCooldown;
 
         // Deep-copy skill part groups so augments can safely modify
         // MaxRange / DamageEffects on runtime instances without mutating the shared SO asset.
@@ -100,6 +104,9 @@ public class Skill
     public void Init()
     {
         SkillData.SetCharges(this, DefaultCharges);
+        // Ensure cooldown entry exists (do not override existing runtime cooldown if present)
+        if (SkillData.GetCooldown(this) < 0)
+            SkillData.SetCooldown(this, 0);
     }
 
     public void Preview(BoardTile mouseOverTile, Unit caster, BoardTile overwriteOriginTile = null, BoardTile overwriteTargetTile = null, Unit target = null)
