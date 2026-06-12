@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1883b77c06c02b644b79617800a5203e, type: 3}
-  m_Name: GroundSlam_Augment2_SpeedDown
+  m_Script: {fileID: 11500000, guid: cd1f1716e9bcf49429f3d7d849ba511d, type: 3}
+  m_Name: GroundSlam_Augment3_Prerequisite
   m_EditorClassIdentifier: 
-  AugmentName: 
-  Prerequisite: {fileID: 0}
-  Description: 
-  SkillPartGroupIndex: -1
-  SkillPartIndex: -1
-  StatusEffectsToAdd: []
+  Unit: 1
+  Condition: 4
+  StatusEffect: 0
+  Operator: 0
+  Value: 1
+  SkillPartIndex: 0
+  AdjacentFaction: 0
+  RequiredCombatStyle: 0

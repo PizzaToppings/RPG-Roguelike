@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd1f1716e9bcf49429f3d7d849ba511d, type: 3}
-  m_Name: Prerequisite
+  m_Script: {fileID: 11500000, guid: 1883b77c06c02b644b79617800a5203e, type: 3}
+  m_Name: IntimidatingShout_Augment4_PowerDown
   m_EditorClassIdentifier: 
-  Unit: 0
-  Condition: 0
-  StatusEffect: 0
-  Operator: 0
-  Value: 0
-  AdjacentFaction: 0
-  RequiredCombatStyle: 0
+  AugmentName: 
+  Prerequisite: {fileID: 0}
+  Description: 
+  SkillPartGroupIndex: -1
+  SkillPartIndex: -1
+  StatusEffectsToAdd: []

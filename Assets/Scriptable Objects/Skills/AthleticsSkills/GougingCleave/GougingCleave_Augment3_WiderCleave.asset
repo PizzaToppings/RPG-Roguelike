@@ -17,6 +17,6 @@ MonoBehaviour:
   Description: Increase the width of the area
   SourceSkillPartGroupIndex: 0
   SourceSkillPartIndex: 0
-  TargetSkillPartIndex: -1
+  TargetSkillPartIndex: 0
   TargetSkillPartGroupIndex: 0
-  ReplacementPart: {fileID: 0}
+  ReplacementPart: {fileID: 11400000, guid: 15712e68af91cbc4484df54ae0cbc780, type: 2}

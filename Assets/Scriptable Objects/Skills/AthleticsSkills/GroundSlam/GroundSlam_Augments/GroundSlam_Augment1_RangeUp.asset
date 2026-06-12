@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d201bb564588c304483cd78b737a2c66, type: 3}
   m_Name: GroundSlam_Augment1_RangeUp
   m_EditorClassIdentifier: 
-  AugmentName: 
+  AugmentName: Shockwave
   Prerequisite: {fileID: 0}
-  Description: 
-  SkillPartGroupIndex: -1
-  SkillPartIndex: -1
+  Description: Increase the knockback Range by 2.
+  SkillPartGroupIndex: 0
+  SkillPartIndex: 1
   MinRangeDelta: 0
-  MaxRangeDelta: 1
+  MaxRangeDelta: 2
