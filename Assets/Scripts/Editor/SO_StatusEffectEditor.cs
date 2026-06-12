@@ -12,6 +12,7 @@ public class SO_StatusEffectEditor : Editor
     SerializedProperty permanent;
     SerializedProperty durationTrigger;
     SerializedProperty durationOwner;
+    SerializedProperty cooldownTarget;
     SerializedProperty description;
 
     void OnEnable()
@@ -24,6 +25,7 @@ public class SO_StatusEffectEditor : Editor
         permanent        = serializedObject.FindProperty("Permanent");
         durationTrigger  = serializedObject.FindProperty("DurationTrigger");
         durationOwner    = serializedObject.FindProperty("DurationOwner");
+        cooldownTarget   = serializedObject.FindProperty("CooldownTarget");
         description      = serializedObject.FindProperty("Description");
     }
 
@@ -39,6 +41,7 @@ public class SO_StatusEffectEditor : Editor
         if (duration         == null) duration         = serializedObject.FindProperty("Duration");
         if (permanent        == null) permanent        = serializedObject.FindProperty("Permanent");
         if (durationTrigger  == null) durationTrigger  = serializedObject.FindProperty("DurationTrigger");
+        if (cooldownTarget   == null) cooldownTarget   = serializedObject.FindProperty("CooldownTarget");
         if (description      == null) description      = serializedObject.FindProperty("Description");
 
         if (statusEffectType == null || permanent == null) return;
@@ -57,6 +60,20 @@ public class SO_StatusEffectEditor : Editor
         if (hasPower      && power      != null) EditorGUILayout.PropertyField(power);
         if (hasDamageType && damageType != null) EditorGUILayout.PropertyField(damageType);
         if (hasStat       && stat       != null) EditorGUILayout.PropertyField(stat);
+
+        // If the configured stat is Cooldown, expose which cooldown variant this SO should affect.
+        if (hasStat && stat != null && cooldownTarget != null)
+        {
+            int statIdx = stat.enumValueIndex;
+            if (statIdx == (int)StatsEnum.Cooldown)
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.PropertyField(cooldownTarget, new GUIContent("Cooldown Target", "Choose which cooldown variant the status effect affects: Active = current active cooldown (applies immediately), Default = skill's default cooldown (can be reverted when effect ends), Both = both variants."));
+
+                // Helpful note about semantics
+                EditorGUILayout.HelpBox("Note: Active cooldown changes apply immediately to the skill's current cooldown value and are effectively instant.\nDefault cooldown changes modify the skill's DefaultCooldown; if the status effect has a duration (and is not permanent), the modification will be removed when the effect ends.", MessageType.Info);
+            }
+        }
 
         EditorGUILayout.Space();
         EditorGUILayout.PropertyField(permanent);
