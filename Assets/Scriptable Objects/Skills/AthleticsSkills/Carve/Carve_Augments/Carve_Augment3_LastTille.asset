@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
-  m_Name: Carve_1_LineSP
+  m_Name: Carve_Augment3_LastTille
   m_EditorClassIdentifier: 
   OriginTileKind: 1
   OriginTileSkillParts: []
@@ -25,20 +25,14 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 1
-    Kind: 4
-    Priority: 7
+    Kind: 8
+    Priority: 3
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  DashOnDamageOrEffect: 1
+  DashOnDamageOrEffect: 0
   SkillVFX:
   - {fileID: 11400000, guid: f4fbfa07c74cdef44b0864b505572cc1, type: 2}
-  DamageEffects:
-  - Caster: {fileID: 0}
-    Modifiers: []
-    Prerequisites: []
-    HitType: 0
-    Power: 3
-    IsMagical: 0
+  DamageEffects: []
   MinRange: 0
   MaxRange: 4
   IncludeInAutoMove: 0
@@ -47,7 +41,7 @@ MonoBehaviour:
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
   StatusEffects:
-  - {fileID: 11400000, guid: a4e8002003181f745ac196ffa99651e4, type: 2}
+  - {fileID: 11400000, guid: bff46dd8a6112bf4082b983156fe0e5a, type: 2}
   tileEffects: []
   displacementEffect:
     UseDisplacement: 0
@@ -104,7 +98,7 @@ MonoBehaviour:
   SummonObject: {fileID: 0}
   Angles: 00000000
   PierceAmount: -1
-  GetLastTileOnly: 0
+  GetLastTileOnly: 1
   endColor:
     FillCenter: 0
     Kind: 0
