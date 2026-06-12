@@ -11,6 +11,7 @@ public class DefaultPrerequisiteEditor : Editor
     SerializedProperty value;
     SerializedProperty adjacentFaction;
     SerializedProperty requiredCombatStyle;
+    SerializedProperty skillPartIndex;
 
     void OnEnable()
     {
@@ -21,6 +22,7 @@ public class DefaultPrerequisiteEditor : Editor
         value               = serializedObject.FindProperty("Value");
         adjacentFaction     = serializedObject.FindProperty("AdjacentFaction");
         requiredCombatStyle = serializedObject.FindProperty("RequiredCombatStyle");
+        skillPartIndex      = serializedObject.FindProperty("SkillPartIndex");
     }
 
     public override void OnInspectorGUI()
@@ -35,7 +37,8 @@ public class DefaultPrerequisiteEditor : Editor
                                    conditionValue != PrerequisiteConditionEnum.CombatStyle;
         bool showValue           = conditionValue == PrerequisiteConditionEnum.Damage ||
                                    conditionValue == PrerequisiteConditionEnum.DamagePercentage ||
-                                   conditionValue == PrerequisiteConditionEnum.AdjacentUnits;
+                                   conditionValue == PrerequisiteConditionEnum.AdjacentUnits ||
+                                   conditionValue == PrerequisiteConditionEnum.TargetsHit;
         bool showAdjacentFaction = conditionValue == PrerequisiteConditionEnum.AdjacentUnits;
         bool showCombatStyle     = conditionValue == PrerequisiteConditionEnum.CombatStyle;
 
@@ -52,6 +55,11 @@ public class DefaultPrerequisiteEditor : Editor
 
         if (showValue)
             EditorGUILayout.PropertyField(value);
+
+        if (conditionValue == PrerequisiteConditionEnum.TargetsHit)
+        {
+            EditorGUILayout.PropertyField(skillPartIndex, new GUIContent("Skill Part Index"));
+        }
 
         if (showAdjacentFaction)
             EditorGUILayout.PropertyField(adjacentFaction, new GUIContent("Adjacent Faction"));

@@ -14,6 +14,9 @@ public class DefaultPrerequisite : SO_Prerequisite
     // Damage / DamagePercentage / AdjacentUnits conditions
     public float Value;
 
+    // TargetsHit condition
+    public int SkillPartIndex = 0;
+
     // AdjacentUnits condition
     public PrerequisiteAdjacentFactionEnum AdjacentFaction;
 
@@ -43,6 +46,27 @@ public class DefaultPrerequisite : SO_Prerequisite
             case PrerequisiteConditionEnum.DamagePercentage:
                 var damagePercentage = unit.Hitpoints / (float)unit.MaxHitpoints * 100f;
                 return CheckWithOperators(damagePercentage, Value);
+
+            case PrerequisiteConditionEnum.TargetsHit:
+                // Count targets hit for the configured skill part index. If SkillData not set, return false.
+                if (SkillData.CurrentActiveSkill == null)
+                    return false;
+
+                var spIndex = Mathf.Clamp(SkillPartIndex, 0, int.MaxValue);
+                var targets = new System.Collections.Generic.List<Unit>();
+                // If the SkillPartGroupData is not initialized or index out of range, count as 0
+                try
+                {
+                    var currentTargets = SkillData.GetCurrentTargetsHit(spIndex);
+                    if (currentTargets != null)
+                        targets.AddRange(currentTargets);
+                }
+                catch
+                {
+                    // ignore and treat as zero targets
+                }
+
+                return CheckWithOperators(targets.Count, Value);
 
             case PrerequisiteConditionEnum.AdjacentUnits:
                 var adjacentCount = GetAdjacentUnitCount(unit);
