@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Iron Grip
   Image: {fileID: 21300000, guid: bc60983560259e247b15d7ebf000827a, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 5
@@ -24,6 +25,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 39487c1ded958b94ca93bfb331b84cdd, type: 2}
   EnergyCost: 6
   DefaultCharges: 1
+  DefaultCooldown: 3
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

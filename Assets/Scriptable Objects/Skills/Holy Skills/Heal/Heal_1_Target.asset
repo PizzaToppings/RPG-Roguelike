@@ -37,9 +37,10 @@ MonoBehaviour:
     Modifiers: []
     Prerequisites: []
     HitType: 1
-    Power: 4
+    Power: 5
+    IsMagical: 0
   MinRange: 0
-  MaxRange: 8
+  MaxRange: 4
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0

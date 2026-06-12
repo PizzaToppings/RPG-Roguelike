@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Severing Blow
   Image: {fileID: 21300000, guid: 7004f6d2989195a4e97589fc15f99d50, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
-  IsMagical: 0
   SkillCombatStyle: 5
   Classes: 00000000
-  Description: Deals <damage0-0-0> to an enemy and slow it by 2 for 2 turns.
+  Description: Deals <damage0-0-0> to an enemy and slow it by 3 for 2 turns.
   SkillPartGroups:
-  - CastOnTile: 0
-    CastOnTarget: 1
-    skillParts:
+  - skillParts:
     - {fileID: 11400000, guid: aa249e1c369ab0f4eb9c906f583f0e23, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
+  DefaultCooldown: 2
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

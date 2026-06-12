@@ -16,9 +16,10 @@ MonoBehaviour:
   Buff: 0
   StatusEffectType: 15
   Stat: 3
-  Power: 3
+  Power: 4
   Duration: 1
   Permanent: 0
   DurationTrigger: 5
   DurationOwner: 0
+  CooldownTarget: 0
   Description: 

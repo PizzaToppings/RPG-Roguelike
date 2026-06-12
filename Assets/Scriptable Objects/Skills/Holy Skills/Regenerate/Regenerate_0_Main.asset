@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Regenerate
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 0800000007000000
-  Description: <renew> an Ally for 2 turns.
+  Description: 'Give an ally <regen0-0-0> for 3 turns. '
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 60cfba09ee9d1c54dbe987b07e65905c, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 1
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

@@ -17,8 +17,9 @@ MonoBehaviour:
   StatusEffectType: 15
   Stat: 3
   Power: 2
-  Duration: 2
+  Duration: 3
   Permanent: 0
   DurationTrigger: 3
   DurationOwner: 0
+  CooldownTarget: 0
   Description: 

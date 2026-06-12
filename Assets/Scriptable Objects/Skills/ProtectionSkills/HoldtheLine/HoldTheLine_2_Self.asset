@@ -36,7 +36,8 @@ MonoBehaviour:
     Modifiers: []
     Prerequisites: []
     HitType: 2
-    Power: 2
+    Power: 3
+    IsMagical: 0
   MinRange: 0
   MaxRange: 0
   IncludeInAutoMove: 0

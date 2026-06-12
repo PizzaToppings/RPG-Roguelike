@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Second Wind
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 04000000
-  Description: Heal yourself for 4.
+  Description: Heal yourself for 5.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: ed24b44e0abb4b54fafd61fdd1a863df, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 1
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

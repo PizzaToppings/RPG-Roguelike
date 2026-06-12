@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Protect
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 0800000004000000
-  Description: Give an ally 6 Shield.
+  Description: Give an ally 7 Shield.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 06cb15132aefa0842b21813b6b6ae82b, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 1
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

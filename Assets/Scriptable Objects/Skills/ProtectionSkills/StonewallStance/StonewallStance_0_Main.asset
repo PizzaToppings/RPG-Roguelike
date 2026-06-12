@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Stonewall Stance
   Image: {fileID: 21300000, guid: d19c075582cec8a4d8bb6023836d351c, type: 3}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 0400000007000000
-  Description: "Increase your Armor by 2 for 1 turn. \nReduce your Speed by 2 for
-    1 turn."
+  Description: "Increase your Armor by 2 for 2 turn. \nReduce your Speed by 1 for
+    2 turn."
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: d56f8ae5a9cfa734b8f63d27463389e1, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
+  DefaultCooldown: 2
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

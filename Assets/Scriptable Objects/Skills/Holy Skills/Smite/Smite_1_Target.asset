@@ -37,8 +37,9 @@ MonoBehaviour:
     Prerequisites: []
     HitType: 0
     Power: 5
+    IsMagical: 0
   MinRange: 0
-  MaxRange: 5
+  MaxRange: 3
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0

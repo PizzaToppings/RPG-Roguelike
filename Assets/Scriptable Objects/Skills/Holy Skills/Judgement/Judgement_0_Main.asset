@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Judgement
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 1
   Classes: 0400000008000000
-  Description: Deal <damage0-0-0> to an enemy. Gain 3 Shield.
+  Description: Deal <damage0-0-0> to an enemy. Gain 4 Shield.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 539d50fdaeab19d4cb5260040126a3a6, type: 2}
     - {fileID: 11400000, guid: 60946a6c42605ed43a1bafe78aa0c006, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 1
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

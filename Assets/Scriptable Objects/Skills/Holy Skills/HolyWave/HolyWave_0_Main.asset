@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Holy Wave
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 6
@@ -23,6 +24,8 @@ MonoBehaviour:
   SkillPartGroups: []
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 2
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

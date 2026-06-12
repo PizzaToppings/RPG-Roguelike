@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Taunt
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 5
@@ -24,6 +25,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1b834364f4852d5469e15660830a3779, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 1
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

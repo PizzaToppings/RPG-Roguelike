@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Teleport
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 5
@@ -26,6 +27,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5ac0b9054d0ae7045bb34472238cc860, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 2
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 1

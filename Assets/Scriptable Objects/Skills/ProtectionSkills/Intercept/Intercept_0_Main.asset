@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Intercept
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 04000000
-  Description: Move towards and ally, give them 3 shield and yourself 1 Shield.
+  Description: Move towards and ally, give them 3 shield and yourself 2 Shield.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: fb55dc8869b7282429d49ba78e135d29, type: 2}
@@ -26,6 +27,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ad7de9b8f91fd0c4f88f7512fcaae784, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 1
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

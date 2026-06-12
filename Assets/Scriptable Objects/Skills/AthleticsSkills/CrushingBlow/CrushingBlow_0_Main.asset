@@ -25,6 +25,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 50e59b2ee68690c47a46b4994fb244cc, type: 2}
   EnergyCost: 3
   DefaultCharges: 1
+  DefaultCooldown: 0
+  AvailableAugments:
+  - {fileID: 11400000, guid: c54880296e0f1824f87e1ebc0ad04013, type: 2}
+  - {fileID: 11400000, guid: ca6e861df6d037c4daf6eb89f7412779, type: 2}
+  - {fileID: 11400000, guid: 97cf529ddb411f74b8268f1af7480114, type: 2}
+  - {fileID: 11400000, guid: 27cd01a50816df2498484a0a89bb2460, type: 2}
   Cursor: 1
   castLockColor:
     FillCenter: 0

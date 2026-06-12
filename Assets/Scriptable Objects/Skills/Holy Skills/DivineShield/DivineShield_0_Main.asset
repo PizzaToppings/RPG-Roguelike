@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Divine Shield
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 0800000004000000
-  Description: Give an Ally 1 or yourself <dodge> until your next turn.
+  Description: Give an Ally 1 or yourself 1 <dodge>.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: b542cc4570bb4124196aa3cdac335428, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 2
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

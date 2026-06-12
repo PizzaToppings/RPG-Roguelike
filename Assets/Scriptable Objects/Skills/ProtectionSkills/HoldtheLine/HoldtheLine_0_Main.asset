@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Hold the Line
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 04000000
-  Description: Shield yourself for 2 and reduce the speed of enemies in range by
+  Description: Shield yourself for 3 and reduce the speed of enemies in range by
     2.
   SkillPartGroups:
   - skillParts:
@@ -26,6 +27,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: dc90faa98f073e842a1df07c905d69fa, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 2
+  AvailableAugments: []
   Cursor: 0
   castLockColor:
     FillCenter: 0

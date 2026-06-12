@@ -40,7 +40,7 @@ MonoBehaviour:
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
   StatusEffects:
-  - {fileID: 11400000, guid: 36aecff461173e94cb882eb22255a6f6, type: 2}
+  - {fileID: 11400000, guid: e7bcf19ee9c91a94f923b91932119ad8, type: 2}
   tileEffects: []
   displacementEffect:
     UseDisplacement: 0
