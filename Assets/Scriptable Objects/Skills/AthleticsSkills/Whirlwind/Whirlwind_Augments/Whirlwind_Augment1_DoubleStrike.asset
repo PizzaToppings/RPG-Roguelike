@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833a8feefc46e4943b29a34402f34670, type: 3}
+  m_Name: Whirlwind_Augment1_DoubleStrike
+  m_EditorClassIdentifier: 
+  AugmentName: Doublestrike
+  Prerequisite: {fileID: 0}
+  Description: 'Attack twice, but reduces damage dealt by 1. '
+  Augments:
+  - {fileID: 11400000, guid: 6e37e98b18e60424b87a908a9316e693, type: 2}
+  - {fileID: 11400000, guid: f5faff7bbe1cfe949a5f8fa2d9cf67c1, type: 2}
