@@ -19,8 +19,8 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 4
   Classes: 000000000100000004000000
-  Description: 'Charge in a straight line, stopping at the first enemy hit, dealing
-    <damage0-1-0> damage and slowing them by 2 for 1 turn. '
+  Description: 'Charge in a 4-tile straight line, stopping at the first enemy hit,
+    dealing <damage0-1-0> damage and slowing them by 2 for 1 turn. '
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: f957f4b88930e6c4fb75e6a0dfa272cd, type: 2}
@@ -28,7 +28,10 @@ MonoBehaviour:
   EnergyCost: 4
   DefaultCharges: 1
   DefaultCooldown: 1
-  AvailableAugments: []
+  AvailableAugments:
+  - {fileID: 11400000, guid: 1d6a6a34a0c8a754495f212bf965d0c3, type: 2}
+  - {fileID: 11400000, guid: 6852840b212f15e499d957b45c89d66c, type: 2}
+  - {fileID: 11400000, guid: 1216b9f3f9b0e9f45ad3c60c014482c5, type: 2}
   Cursor: 1
   castLockColor:
     FillCenter: 0

@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1883b77c06c02b644b79617800a5203e, type: 3}
-  m_Name: IntimidatingShout_Augment4_PowerDown
+  m_Script: {fileID: 11500000, guid: d201bb564588c304483cd78b737a2c66, type: 3}
+  m_Name: QuickCharge_Augment1_RangeUp
   m_EditorClassIdentifier: 
-  AugmentName: 
+  AugmentName: Big Charge
   Prerequisite: {fileID: 0}
-  Description: 
-  SkillPartGroupIndex: -1
-  SkillPartIndex: -1
-  StatusEffectsToAdd: []
+  Description: 'Increase charge range by 2. '
+  SkillPartGroupIndex: 0
+  SkillPartIndex: 1
+  MinRangeDelta: 0
+  MaxRangeDelta: 2

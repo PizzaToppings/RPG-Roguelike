@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58d64f8e86fc1384f8b180763c189813, type: 3}
-  m_Name: IntimidatingShout_Augment2_ArmorDown
+  m_Script: {fileID: 11500000, guid: d201bb564588c304483cd78b737a2c66, type: 3}
+  m_Name: KnockbackPunch_Augment1_RangeUp
   m_EditorClassIdentifier: 
-  AugmentName: Intimidating Presence
+  AugmentName: Steady Fist
   Prerequisite: {fileID: 0}
-  Description: 'Reduce armor by 1 more. '
+  Description: Increase the knockback Range by 2.
   SkillPartGroupIndex: 0
-  SkillPartIndex: 0
-  StatusEffectType: 15
-  PowerDelta: 1
-  DurationDelta: 0
-  AffectAllMatches: 1
+  SkillPartIndex: 1
+  MinRangeDelta: 0
+  MaxRangeDelta: 2
