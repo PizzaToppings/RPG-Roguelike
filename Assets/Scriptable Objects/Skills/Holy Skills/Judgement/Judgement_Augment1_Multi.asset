@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833a8feefc46e4943b29a34402f34670, type: 3}
+  m_Name: Judgement_Augment1_Multi
+  m_EditorClassIdentifier: 
+  AugmentName: Harsh Judgement
+  Prerequisite: {fileID: 0}
+  Description: Also stun the target for one turn. Cooldown increased by 1.
+  Augments:
+  - {fileID: 11400000, guid: 9ac46ae43dee56344b3c11c388b15ab5, type: 2}
+  - {fileID: 11400000, guid: 9b81ac18894f1b043a6c5d25928f7892, type: 2}

@@ -21,11 +21,18 @@ MonoBehaviour:
   Classes: 08000000
   Description: 'Heal all allies for 2 and deal <damage0-0-0> to all enemies in a
     4-tile cone. '
-  SkillPartGroups: []
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: 6e46d0dcaaee6194a9dc38eedf8504c5, type: 2}
+    - {fileID: 11400000, guid: 12b2cd83879c25a42bd5df76b864b5a4, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   DefaultCooldown: 2
-  AvailableAugments: []
+  AvailableAugments:
+  - {fileID: 11400000, guid: b2a24d5300859b34db0fd3b59b450008, type: 2}
+  - {fileID: 11400000, guid: 9ea2955443b629747b6c7d488b5c2001, type: 2}
+  - {fileID: 11400000, guid: 2a41c12837e29a542bda1dc1cfd7d686, type: 2}
+  - {fileID: 11400000, guid: 334eb84010f215843b97c7c4f0e11abe, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0
