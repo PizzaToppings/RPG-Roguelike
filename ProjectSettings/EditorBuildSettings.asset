@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SkillSelectScene.unity
     guid: dcb035cff2be73844a250a425e6d6ca8
   - enabled: 1
-    path: Assets/Scenes/TrinketSelectScene.unity
+    path: Assets/Scenes/TraitSelectScene.unity
     guid: 97a1d36dcd9b0c04ea577725a3d3dc8c
   - enabled: 1
     path: Assets/Scenes/2DTestCombatScene.unity

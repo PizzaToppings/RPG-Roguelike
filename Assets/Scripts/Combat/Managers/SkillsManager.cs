@@ -111,6 +111,13 @@ public class SkillsManager : MonoBehaviour
             caster.PendingCombatStyle = skill.mainSkillSO.SkillCombatStyle;
         }
 
+        // Consume any Empowered/Weakened effect on the caster: snapshot a flat bonus for this cast
+        if (caster != null)
+        {
+            int flat = StatusEffectManager.Instance.ConsumeOutgoingDamageBonus(caster);
+            caster.OutgoingFlatDamageBonus = flat;
+        }
+
         foreach (var spg in skill.SkillPartGroups)
         {
             foreach (var sp in spg.skillParts)
@@ -156,6 +163,10 @@ public class SkillsManager : MonoBehaviour
         }
 
         OnSkillCastComplete.Invoke();
+
+        // Clear snapshot after the cast completes so it only applied to this skill
+        if (caster != null)
+            caster.OutgoingFlatDamageBonus = 0;
     }
 
     public IEnumerator CastSkillsPart(SO_Skillpart skillPart, Unit caster)

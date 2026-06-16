@@ -32,6 +32,14 @@ public class StatusEffectManager : MonoBehaviour
                 case StatusEffectEnum.Thorns:
                     ApplyThornsEffect(statusEffectSO, target, powerOverride);
                     break;
+                case StatusEffectEnum.Exposed:
+                case StatusEffectEnum.Guarded:
+                    ApplyExposeGuardEffect(statusEffectSO, target, powerOverride);
+                    break;
+                case StatusEffectEnum.Empowered:
+                case StatusEffectEnum.Weakened:
+                    ApplyEmpowerWeakenEffect(statusEffectSO, target, powerOverride);
+                    break;
                 case StatusEffectEnum.StatChange:
                     ApplyStatChangeEffect(statusEffectSO, target, powerOverride);
                     break;
@@ -275,6 +283,105 @@ public class StatusEffectManager : MonoBehaviour
     public void ApplyUniqueEffect(SO_StatusEffect statusEffectSO, Unit target)
     {
 
+    }
+
+    public void ApplyExposeGuardEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
+    {
+        var eg = new ExposeGuardStatusEffect
+        {
+            IsBuff = false,
+            statusEfectType = statusEffectSO.StatusEffectType,
+            Duration = statusEffectSO.Duration,
+            IsPermanent = statusEffectSO.Permanent,
+            DurationTrigger = statusEffectSO.DurationTrigger,
+            Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
+            Caster = UnitData.ActiveUnit,
+            Target = target,
+            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+            DurationOwner = statusEffectSO.DurationOwner,
+            // Power stored in the runtime effect instance if present
+        };
+
+        // Set Power if available on the SO
+        try { (eg as ExposeGuardStatusEffect).Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power; } catch {}
+
+        eg.Apply();
+    }
+
+    public void ApplyEmpowerWeakenEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
+    {
+        var ew = new EmpowerWeakenStatusEffect
+        {
+            IsBuff = true,
+            statusEfectType = statusEffectSO.StatusEffectType,
+            Duration = statusEffectSO.Duration,
+            IsPermanent = statusEffectSO.Permanent,
+            DurationTrigger = statusEffectSO.DurationTrigger,
+            Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
+            Caster = UnitData.ActiveUnit,
+            Target = target,
+            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+            DurationOwner = statusEffectSO.DurationOwner,
+        };
+
+        try { (ew as EmpowerWeakenStatusEffect).Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power; } catch {}
+
+        ew.Apply();
+    }
+
+    /// <summary>
+    /// Consume a single Empowered/Weakened stack from the caster and return its flat power.
+    /// Prefers Empowered over Weakened if both are present.
+    /// </summary>
+    public int ConsumeOutgoingDamageBonus(Unit caster)
+    {
+        if (caster == null) return 0;
+
+        // Prefer Empowered
+        var emp = caster.statusEffects.FirstOrDefault(x => x.statusEfectType == StatusEffectEnum.Empowered) as EmpowerWeakenStatusEffect;
+        if (emp != null)
+        {
+            int p = emp.Power;
+            emp.EndEffect();
+            return p;
+        }
+
+        var weak = caster.statusEffects.FirstOrDefault(x => x.statusEfectType == StatusEffectEnum.Weakened) as EmpowerWeakenStatusEffect;
+        if (weak != null)
+        {
+            int p = weak.Power;
+            weak.EndEffect();
+            return p;
+        }
+
+        return 0;
+    }
+
+    /// <summary>
+    /// Consume a single Exposed/Guarded stack from the target and return its flat modifier.
+    /// Prefers Exposed over Guarded if both are present.
+    /// </summary>
+    public int ConsumeIncomingDamageModifier(Unit target)
+    {
+        if (target == null) return 0;
+
+        var exp = target.statusEffects.FirstOrDefault(x => x.statusEfectType == StatusEffectEnum.Exposed) as ExposeGuardStatusEffect;
+        if (exp != null)
+        {
+            int p = exp.Power;
+            exp.EndEffect();
+            return p;
+        }
+
+        var grd = target.statusEffects.FirstOrDefault(x => x.statusEfectType == StatusEffectEnum.Guarded) as ExposeGuardStatusEffect;
+        if (grd != null)
+        {
+            int p = grd.Power;
+            grd.EndEffect();
+            return p;
+        }
+
+        return 0;
     }
 
     public bool UnitHasStatusEffect(Unit unit, StatusEffectEnum statusEfect)

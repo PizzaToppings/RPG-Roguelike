@@ -34,6 +34,7 @@ public class Unit : UnitStats
     [HideInInspector] public SpriteRenderer modelSprite;
 
     [HideInInspector] public float OutgoingDamageMultiplier = 1f;
+    [HideInInspector] public int OutgoingFlatDamageBonus = 0;
 
     [HideInInspector] public Healthbar ThisHealthbar;
 

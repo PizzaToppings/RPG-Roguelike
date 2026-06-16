@@ -20,7 +20,7 @@ public enum CooldownVariant { Active, Default, Both }
 
 // Damage etc
 public enum HitTypeEnum { Damage, Healing, Shield }
-public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Regen, Rooted, Taunt, Thorns, Dodge, StatChange, Unique }
+public enum StatusEffectEnum { Hidden, Lifedrain, Blinded, Silenced, Frightened, Incapacitated, Stunned, Poison, Burn, Bleed, Regen, Rooted, Taunt, Thorns, Dodge, StatChange, Exposed, Guarded, Empowered, Weakened, Unique }
 public enum DisplacementEnum { Teleport, Move, Lift }
 
 // Enemy AI

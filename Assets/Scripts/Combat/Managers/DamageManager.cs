@@ -28,7 +28,14 @@ public class DamageManager : MonoBehaviour
             damageData = modifier.Apply(damageData);
         }
         
-        var damage = CalculateDamage(damageData, caster, target);
+        // Apply any outgoing flat bonus from caster (e.g. Empowered/Weakened consumed at cast time)
+        int outgoingFlat = 0;
+        if (caster != null)
+        {
+            outgoingFlat = caster.OutgoingFlatDamageBonus;
+        }
+
+        var damage = CalculateDamage(damageData, caster, target) + outgoingFlat;
 
         DamageDataCalculated data = new DamageDataCalculated
         {
@@ -143,6 +150,14 @@ public class DamageManager : MonoBehaviour
 
         if (target.Hitpoints <= 0)
             return;
+
+        // Before applying damage, check for Exposed/Guarded on the target and consume one stack
+        if (statusEffectManager != null)
+        {
+            int incoming = statusEffectManager.ConsumeIncomingDamageModifier(target);
+            if (incoming != 0)
+                data.Damage = Mathf.Max(0, data.Damage + incoming);
+        }
 
         var damageDataResolved = target.TakeDamage(data);
         

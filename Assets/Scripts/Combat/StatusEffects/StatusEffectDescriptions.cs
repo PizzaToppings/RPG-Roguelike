@@ -58,6 +58,10 @@ public static class StatusEffectDescriptions
             case StatusEffectEnum.Rooted:         return "The unit cannot move.";
             case StatusEffectEnum.Taunt:          return "Forced to target the unit that applied this effect.";
             case StatusEffectEnum.Dodge:          return "Automatically dodges the next incoming attack.";
+            case StatusEffectEnum.Exposed:      return "Next skill hitting this unit deals +3 damage. Stacks.";
+            case StatusEffectEnum.Guarded:      return "Next skill hitting this unit deals -2 damage. Stacks.";
+            case StatusEffectEnum.Empowered:    return "The next skill this unit uses deals +3 damage. Stacks.";
+            case StatusEffectEnum.Weakened:     return "The next skill this unit uses deals -2 damage. Stacks.";
             default:
                 return string.Empty;
         }

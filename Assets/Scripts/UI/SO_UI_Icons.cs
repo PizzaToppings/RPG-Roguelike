@@ -58,6 +58,10 @@ public class SO_UI_Icons : ScriptableObject
     [SerializeField] Sprite BleedIcon;
     [SerializeField] Sprite PoisonIcon;
     [SerializeField] Sprite BurnedIcon;
+    [SerializeField] Sprite ExposedIcon;
+    [SerializeField] Sprite GuardedIcon;
+    [SerializeField] Sprite EmpoweredIcon;
+    [SerializeField] Sprite WeakenedIcon;
     [SerializeField] Sprite HiddenIcon;
     [SerializeField] Sprite BlindedIcon;
     [SerializeField] Sprite SilencedIcon;
@@ -145,6 +149,14 @@ public class SO_UI_Icons : ScriptableObject
                 return PoisonIcon;
             case StatusEffectEnum.Burn:
                 return BurnedIcon;
+            case StatusEffectEnum.Exposed:
+                return ExposedIcon;
+            case StatusEffectEnum.Guarded:
+                return GuardedIcon;
+            case StatusEffectEnum.Empowered:
+                return EmpoweredIcon;
+            case StatusEffectEnum.Weakened:
+                return WeakenedIcon;
             case StatusEffectEnum.Hidden:
                 return HiddenIcon;
             case StatusEffectEnum.Blinded:
