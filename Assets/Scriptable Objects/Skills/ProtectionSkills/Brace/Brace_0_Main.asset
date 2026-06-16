@@ -14,16 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Brace
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 0400000007000000
-  Description: Increase your Armor by 1 and gain <Thorns> for 1 turn.
+  Description: Gain 1 <Guarded> and gain 3 <Thorns> for 1 turn.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: c604a1a3f8fb522448c706af00007592, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
+  DefaultCooldown: 0
+  AvailableAugments:
+  - {fileID: 11400000, guid: 5d91b1786da76e243b7e04f6d5745ce8, type: 2}
+  - {fileID: 11400000, guid: 0505e1ab9adc0e84bb6c8427bea2c2f8, type: 2}
+  - {fileID: 11400000, guid: 2f025d1aaa55460408688aa5340f3864, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0
