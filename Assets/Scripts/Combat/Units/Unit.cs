@@ -244,6 +244,9 @@ public class Unit : UnitStats
 
         if (statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Rooted))
             MoveSpeedLeft = 0;
+
+        // Shields expire at the start of the unit's turn
+        ShieldPoints = 0;
     }
 
     public virtual DamagaDataResolved TakeDamage(DamageDataCalculated damageDataCalculated)
