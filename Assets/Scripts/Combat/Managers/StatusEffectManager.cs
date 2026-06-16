@@ -287,46 +287,62 @@ public class StatusEffectManager : MonoBehaviour
 
     public void ApplyExposeGuardEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
     {
-        var eg = new ExposeGuardStatusEffect
+        // For Exposed/Guarded we treat the SO.Power (or powerOverride if provided) as the number of stacks to add.
+        int stacksToAdd = powerOverride > 0 ? powerOverride : statusEffectSO.Power;
+        if (stacksToAdd <= 0) stacksToAdd = 1;
+
+        // Per-stack effect values are fixed: Exposed = +3 incoming, Guarded = -2 incoming
+        int perStackValue = statusEffectSO.StatusEffectType == StatusEffectEnum.Exposed ? 3 : -2;
+
+        for (int i = 0; i < stacksToAdd; i++)
         {
-            IsBuff = false,
-            statusEfectType = statusEffectSO.StatusEffectType,
-            Duration = statusEffectSO.Duration,
-            IsPermanent = statusEffectSO.Permanent,
-            DurationTrigger = statusEffectSO.DurationTrigger,
-            Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
-            Caster = UnitData.ActiveUnit,
-            Target = target,
-            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
-            DurationOwner = statusEffectSO.DurationOwner,
-            // Power stored in the runtime effect instance if present
-        };
+            var eg = new ExposeGuardStatusEffect
+            {
+                IsBuff = false,
+                statusEfectType = statusEffectSO.StatusEffectType,
+                Duration = 0,
+                IsPermanent = true,
+                DurationTrigger = statusEffectSO.DurationTrigger,
+                Description = StatusEffectDescriptions.Resolve(statusEffectSO),
+                Caster = UnitData.ActiveUnit,
+                Target = target,
+                UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+                DurationOwner = statusEffectSO.DurationOwner,
+            };
 
-        // Set Power if available on the SO
-        try { (eg as ExposeGuardStatusEffect).Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power; } catch {}
-
-        eg.Apply();
+            (eg as ExposeGuardStatusEffect).Power = perStackValue;
+            eg.Apply();
+        }
     }
 
     public void ApplyEmpowerWeakenEffect(SO_StatusEffect statusEffectSO, Unit target, int powerOverride = 0)
     {
-        var ew = new EmpowerWeakenStatusEffect
+        // For Empowered/Weakened the SO.Power (or powerOverride if provided) indicates number of stacks to add.
+        int stacksToAdd = powerOverride > 0 ? powerOverride : statusEffectSO.Power;
+        if (stacksToAdd <= 0) stacksToAdd = 1;
+
+        // Per-stack values: Empowered = +3 outgoing, Weakened = -2 outgoing
+        int perStackValue = statusEffectSO.StatusEffectType == StatusEffectEnum.Empowered ? 3 : -2;
+
+        for (int i = 0; i < stacksToAdd; i++)
         {
-            IsBuff = true,
-            statusEfectType = statusEffectSO.StatusEffectType,
-            Duration = statusEffectSO.Duration,
-            IsPermanent = statusEffectSO.Permanent,
-            DurationTrigger = statusEffectSO.DurationTrigger,
-            Description = StatusEffectDescriptions.Resolve(statusEffectSO, powerOverride),
-            Caster = UnitData.ActiveUnit,
-            Target = target,
-            UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
-            DurationOwner = statusEffectSO.DurationOwner,
-        };
+            var ew = new EmpowerWeakenStatusEffect
+            {
+                IsBuff = true,
+                statusEfectType = statusEffectSO.StatusEffectType,
+                Duration = 0,
+                IsPermanent = true,
+                DurationTrigger = statusEffectSO.DurationTrigger,
+                Description = StatusEffectDescriptions.Resolve(statusEffectSO),
+                Caster = UnitData.ActiveUnit,
+                Target = target,
+                UseCasterTurnForDuration = statusEffectSO.DurationOwner == DurationOwnerEnum.Caster,
+                DurationOwner = statusEffectSO.DurationOwner,
+            };
 
-        try { (ew as EmpowerWeakenStatusEffect).Power = powerOverride > 0 ? powerOverride : statusEffectSO.Power; } catch {}
-
-        ew.Apply();
+            (ew as EmpowerWeakenStatusEffect).Power = perStackValue;
+            ew.Apply();
+        }
     }
 
     /// <summary>

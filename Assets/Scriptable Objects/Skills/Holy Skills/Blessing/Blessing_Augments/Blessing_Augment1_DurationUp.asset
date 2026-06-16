@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Holy Armor
   Prerequisite: {fileID: 0}
-  Description: Armor increase lasts another turn.
+  Description: Give another <Guarded>.
   SkillPartGroupIndex: 0
   SkillPartIndex: 0
-  StatusEffectType: 15
-  PowerDelta: 0
-  DurationDelta: 1
+  StatusEffectType: 17
+  PowerDelta: 1
+  DurationDelta: 0
   AffectAllMatches: 1

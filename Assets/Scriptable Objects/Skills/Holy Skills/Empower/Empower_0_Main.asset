@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 08000000
-  Description: Give an ally +4 Power on their next turn.
+  Description: Give an ally 2 <Empowered>.
   SkillPartGroups: []
   EnergyCost: 10
   DefaultCharges: 1

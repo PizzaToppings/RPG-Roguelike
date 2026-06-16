@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Power Yoga
   Prerequisite: {fileID: 0}
-  Description: Also ain 2 Shield.
+  Description: Also gain 2 Shield.
   SkillPartGroupIndex: 0
   SkillPartIndex: 0
   HitType: 2

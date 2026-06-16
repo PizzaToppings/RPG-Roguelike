@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Training Regime
   Prerequisite: {fileID: 0}
-  Description: 'Increases Power increase by 2. '
+  Description: 'Increases Power increase to 2. '
   SkillPartGroupIndex: 0
   SkillPartIndex: 0
   StatusEffectType: 15

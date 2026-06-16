@@ -19,14 +19,16 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 5
   Classes: 0800000009000000
-  Description: Give an enemy -3 Power on their next turn.
-  SkillPartGroups: []
+  Description: Give an enemy 2 <Weakened>..
+  SkillPartGroups:
+  - skillParts:
+    - {fileID: 11400000, guid: d5657db501c857e4ea5cb40e96a1cd17, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
   DefaultCooldown: 1
   AvailableAugments:
   - {fileID: 11400000, guid: f3e189fafcbd78546811c2ab5aee0301, type: 2}
-  - {fileID: 11400000, guid: ec4722ee843007b479f45d7e2be3e0d4, type: 2}
+  - {fileID: 11400000, guid: bdec21e0c24b6a4428803f14f0af83df, type: 2}
   - {fileID: 11400000, guid: 26e335c8062cf7746bc6657c50b715b4, type: 2}
   Cursor: 0
   castLockColor:

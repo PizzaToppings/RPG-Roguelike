@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Shrink
   Prerequisite: {fileID: 0}
-  Description: Power reduction increased by 2.
+  Description: Give another <Weakened>.
   SkillPartGroupIndex: 0
   SkillPartIndex: 0
-  StatusEffectType: 15
-  PowerDelta: 2
+  StatusEffectType: 19
+  PowerDelta: 1
   DurationDelta: 0
   AffectAllMatches: 1

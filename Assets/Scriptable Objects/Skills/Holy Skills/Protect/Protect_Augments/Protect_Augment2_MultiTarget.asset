@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833a8feefc46e4943b29a34402f34670, type: 3}
+  m_Name: Protect_Augment2_MultiTarget
+  m_EditorClassIdentifier: 
+  AugmentName: Wide Shield
+  Prerequisite: {fileID: 0}
+  Description: Target another Ally. Increases the Cooldown by 1.
+  Augments:
+  - {fileID: 11400000, guid: 5bba4e1267020dc458d7953f6b3e9c1e, type: 2}
+  - {fileID: 11400000, guid: 7a649315274f6a44592eacf9a186c2b4, type: 2}

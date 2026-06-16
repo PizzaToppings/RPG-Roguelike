@@ -19,14 +19,17 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 1
   Classes: 0000000004000000
-  Description: 'Reduce the Armor of all enemies within 3 Range by 2 for 2 turns. '
+  Description: 'Give all enemies within 3 Range 2 <Exposed>. '
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 9374cc5e83620c1439b6d62cfa73039b, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
   DefaultCooldown: 2
-  AvailableAugments: []
+  AvailableAugments:
+  - {fileID: 11400000, guid: 1ff4a835108a38a4296248a8b0c21df7, type: 2}
+  - {fileID: 11400000, guid: 09302533862cba44ea12b5acb8a0d402, type: 2}
+  - {fileID: 11400000, guid: 56a6dab7c33203740ae0082b89040e29, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0

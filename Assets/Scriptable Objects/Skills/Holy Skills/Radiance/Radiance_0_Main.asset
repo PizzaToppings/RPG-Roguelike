@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 08000000
-  Description: Heal all allies in a small radius for 4.
+  Description: Heal all allies in a 2-tile radius for 4.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 5ff75435e08fb1e4d91a19d4d7d2ea49, type: 2}
@@ -27,7 +27,11 @@ MonoBehaviour:
   EnergyCost: 10
   DefaultCharges: 1
   DefaultCooldown: 2
-  AvailableAugments: []
+  AvailableAugments:
+  - {fileID: 11400000, guid: dce09a890d98f7d4d9e112fd3ac34152, type: 2}
+  - {fileID: 11400000, guid: abbe8d494c11b7841ab9f2f84bacb5fa, type: 2}
+  - {fileID: 11400000, guid: 9598115ead38ab1409967dab062bd99d, type: 2}
+  - {fileID: 11400000, guid: c5e7fa6ff80fae8488c400e4807cddd6, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0

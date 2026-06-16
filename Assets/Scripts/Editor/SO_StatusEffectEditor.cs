@@ -51,7 +51,9 @@ public class SO_StatusEffectEditor : Editor
         bool hasPower      = type == StatusEffectEnum.Bleed     || type == StatusEffectEnum.Poison  ||
                              type == StatusEffectEnum.Burn       || type == StatusEffectEnum.Thorns  ||
                              type == StatusEffectEnum.Regen    || type == StatusEffectEnum.StatChange ||
-                             type == StatusEffectEnum.Lifedrain;
+                             type == StatusEffectEnum.Lifedrain || type == StatusEffectEnum.Exposed ||
+                             type == StatusEffectEnum.Guarded   || type == StatusEffectEnum.Empowered ||
+                             type == StatusEffectEnum.Weakened;
         bool hasDamageType = type == StatusEffectEnum.Bleed     || type == StatusEffectEnum.Burn;
         bool hasStat       = type == StatusEffectEnum.StatChange;
 
@@ -76,20 +78,37 @@ public class SO_StatusEffectEditor : Editor
         }
 
         EditorGUILayout.Space();
-        EditorGUILayout.PropertyField(permanent);
-        if (!permanent.boolValue)
-        {
-            if (duration != null) EditorGUILayout.PropertyField(duration);
-            if (durationTrigger != null) EditorGUILayout.PropertyField(durationTrigger);
+        // For effects that are consumed when triggered (Exposed, Guarded, Empowered, Weakened)
+        // enforce permanent = true and hide duration fields. Use Power as stack count.
+        bool isConsumable = type == StatusEffectEnum.Exposed || type == StatusEffectEnum.Guarded ||
+                            type == StatusEffectEnum.Empowered || type == StatusEffectEnum.Weakened;
 
-            // Show which unit's turn the duration should tick on for turn-based triggers
-            if (durationTrigger != null && durationOwner != null)
+        if (isConsumable)
+        {
+            EditorGUI.BeginDisabledGroup(true);
+            if (permanent != null) permanent.boolValue = true;
+            if (permanent != null) EditorGUILayout.PropertyField(permanent);
+            EditorGUI.EndDisabledGroup();
+
+            EditorGUILayout.HelpBox("This status effect is consumed when triggered and does not expire by duration.\nUse 'Power' to set how many stacks are applied.", MessageType.Info);
+        }
+        else
+        {
+            EditorGUILayout.PropertyField(permanent);
+            if (!permanent.boolValue)
             {
-                // TriggerMomentEnum: Instant, StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, ...
-                int idx = durationTrigger.enumValueIndex;
-                if (idx == (int)TriggerMomentEnum.StartOfTurn || idx == (int)TriggerMomentEnum.EndOfTurn)
+                if (duration != null) EditorGUILayout.PropertyField(duration);
+                if (durationTrigger != null) EditorGUILayout.PropertyField(durationTrigger);
+
+                // Show which unit's turn the duration should tick on for turn-based triggers
+                if (durationTrigger != null && durationOwner != null)
                 {
-                    EditorGUILayout.PropertyField(durationOwner);
+                    // TriggerMomentEnum: Instant, StartOfCombat, StartOfTurn, EndOfTurn, StartOfRound, EndOfRound, ...
+                    int idx = durationTrigger.enumValueIndex;
+                    if (idx == (int)TriggerMomentEnum.StartOfTurn || idx == (int)TriggerMomentEnum.EndOfTurn)
+                    {
+                        EditorGUILayout.PropertyField(durationOwner);
+                    }
                 }
             }
         }

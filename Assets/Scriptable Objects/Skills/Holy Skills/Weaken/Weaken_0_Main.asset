@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 5
   Classes: 0800000009000000
-  Description: Give an enemy -3 Power on their next turn.
+  Description: Give an enemy 2 <Weakened>.
   SkillPartGroups: []
   EnergyCost: 10
   DefaultCharges: 1

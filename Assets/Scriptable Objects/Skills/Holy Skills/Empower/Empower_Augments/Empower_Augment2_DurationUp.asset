@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Lasting Power
   Prerequisite: {fileID: 0}
-  Description: Power increase lasts another turn.
+  Description: Give another <Empowered>.
   SkillPartGroupIndex: 0
   SkillPartIndex: 0
-  StatusEffectType: 15
-  PowerDelta: 0
-  DurationDelta: 1
+  StatusEffectType: 18
+  PowerDelta: 1
+  DurationDelta: 0
   AffectAllMatches: 1

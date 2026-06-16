@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: BattleRoar_Augment1_PowerIncrease
   m_EditorClassIdentifier: 
   AugmentName: Mighty Roar
-  Description: 'Power is now increased by 3. '
+  Prerequisite: {fileID: 0}
+  Description: Give an additional <Empower>.
   SkillPartGroupIndex: 0
   SkillPartIndex: 0
-  StatusEffectType: 15
+  StatusEffectType: 18
   PowerDelta: 1
   DurationDelta: 0
   AffectAllMatches: 1

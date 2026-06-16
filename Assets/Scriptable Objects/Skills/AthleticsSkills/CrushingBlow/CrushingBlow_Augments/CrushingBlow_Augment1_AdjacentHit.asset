@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Crowd Control
   Prerequisite: {fileID: 0}
-  Description: Also hit adjacent enemies
+  Description: Also hit adjacent enemies.
   TargetSkillPartGroupIndex: 0
   TargetSkillPartIndex: -1
   SkillPartToAdd: {fileID: 11400000, guid: bca7592972a897f4c9120a81e7bb0000, type: 2}

@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 6
   Classes: 08000000
-  Description: Give an ally +4 Armor until the start of your turn.
+  Description: Give an ally 2 <Guarded>.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: c237e5eb260930e48b70e60c26cafee6, type: 2}

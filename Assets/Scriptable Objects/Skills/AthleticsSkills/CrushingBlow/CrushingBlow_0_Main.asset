@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 0000000004000000
-  Description: Deal <damage0-0-0> to an enemy and reduce it's Armor by 1 for 2 turns.
+  Description: Deal <damage0-0-0> to an enemy and give it 1 <Exposed>.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 50e59b2ee68690c47a46b4994fb244cc, type: 2}

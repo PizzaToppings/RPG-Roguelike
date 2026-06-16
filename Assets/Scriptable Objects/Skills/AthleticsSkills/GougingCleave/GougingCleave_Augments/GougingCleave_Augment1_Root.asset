@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833a8feefc46e4943b29a34402f34670, type: 3}
+  m_Name: GougingCleave_Augment1_Root
+  m_EditorClassIdentifier: 
+  AugmentName: Sticky Cleave
+  Prerequisite: {fileID: 0}
+  Description: Target also gain <root>. Increased the Cooldown by 1 turn.
+  Augments:
+  - {fileID: 11400000, guid: 83f30a2f8866a9347884f74bc04ee8d0, type: 2}
+  - {fileID: 11400000, guid: 68351144373cb7f48b88c2b1148027d2, type: 2}

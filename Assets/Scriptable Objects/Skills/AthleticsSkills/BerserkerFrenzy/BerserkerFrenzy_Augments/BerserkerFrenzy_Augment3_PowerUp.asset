@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Berserker Rage
   Prerequisite: {fileID: 0}
-  Description: 'Gain 2 Power until the end of your next turn after using this skill. '
+  Description: Aslo gain 1 Empowered.
   TargetSkillPartGroupIndex: 0
   TargetSkillPartIndex: 4
   SkillPartToAdd: {fileID: 11400000, guid: f9d6e66d9fd3ed748a7a0d76190f19f3, type: 2}

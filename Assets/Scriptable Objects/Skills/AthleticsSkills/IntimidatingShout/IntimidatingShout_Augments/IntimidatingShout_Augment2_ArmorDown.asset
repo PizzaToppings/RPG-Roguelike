@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Resonating Shout
   Prerequisite: {fileID: 0}
-  Description: 'Reduce armor by 1 more. '
+  Description: Give another <Exposed>.
   SkillPartGroupIndex: 0
   SkillPartIndex: 0
-  StatusEffectType: 15
+  StatusEffectType: 16
   PowerDelta: 1
   DurationDelta: 0
   AffectAllMatches: 1

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Power Training
   Prerequisite: {fileID: 0}
-  Description: Also gain +4 Power on the next turn.
+  Description: Also gain 1 <Empowered>.
   SkillPartGroupIndex: 0
   SkillPartIndex: 0
   StatusEffectsToAdd:
-  - {fileID: 11400000, guid: d9dea4512c1381a46aaf17e86420badb, type: 2}
+  - {fileID: 11400000, guid: 8f08a5ca94736724c8afb3ae8cd937ae, type: 2}

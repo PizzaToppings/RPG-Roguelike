@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AugmentName: Fracture
   Prerequisite: {fileID: 0}
-  Description: Srmor reduction last another turn.
+  Description: Give another <Exposed>.
   SkillPartGroupIndex: 0
   SkillPartIndex: -1
-  StatusEffectType: 15
-  PowerDelta: 0
-  DurationDelta: 1
+  StatusEffectType: 16
+  PowerDelta: 1
+  DurationDelta: 0
   AffectAllMatches: 1

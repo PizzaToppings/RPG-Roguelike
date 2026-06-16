@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1883b77c06c02b644b79617800a5203e, type: 3}
+  m_Name: ProtectionAura_Augment1_Guarded
+  m_EditorClassIdentifier: 
+  AugmentName: Better Protection
+  Prerequisite: {fileID: 0}
+  Description: Targets also gain 1 <Guarded>.
+  SkillPartGroupIndex: 0
+  SkillPartIndex: -1
+  StatusEffectsToAdd:
+  - {fileID: 11400000, guid: c0f2d0c218dc5b64b987ab8c4a7a7850, type: 2}
