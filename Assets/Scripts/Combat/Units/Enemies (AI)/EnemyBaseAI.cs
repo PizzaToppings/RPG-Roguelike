@@ -116,7 +116,7 @@ public class EnemyBaseAI : Enemy
             yield break;
         }
 
-        Unit target = null;
+        Unit singleTarget = null;
         float closestTargetRange = 0;
 
         // Taunt: force targeting the taunting character if they are in range
@@ -127,11 +127,11 @@ public class EnemyBaseAI : Enemy
             if (!boardManager.TileIsBehindClosedTile(Tile, tauntOverride.Tile) &&
                 tauntRange >= firstPart.MinRange && tauntRange <= firstPart.MaxRange)
             {
-                target = tauntOverride;
+                singleTarget = tauntOverride;
             }
         }
 
-        if (target == null)
+        if (singleTarget == null)
         {
             foreach (var character in UnitData.Characters)
             {
@@ -143,37 +143,290 @@ public class EnemyBaseAI : Enemy
                 if (range < firstPart.MinRange || range > firstPart.MaxRange)
                     continue;
 
-                if (target == null)
+                if (singleTarget == null)
                 {
-                    target = character;
+                    singleTarget = character;
                     closestTargetRange = range;
                 }
                 else if (range < closestTargetRange)
                 {
-                    target = character;
+                    singleTarget = character;
                     closestTargetRange = range;
                 }
             }
         }
 
-        if (target == null)
-            yield break;
+        // Determine whether any skill parts actually have effects we care about for multi-target optimization
+        bool hasRelevantParts = skillParts.Any(p => (p.DamageEffects != null && p.DamageEffects.Count > 0)
+                                                   || (p.StatusEffects != null && p.StatusEffects.Count > 0)
+                                                   || (p.displacementEffect != null && p.displacementEffect.UseDisplacement));
 
-        StartCoroutine(uiManager.ShowActivityText(CurrentSkill.SkillName));
-        yield return new WaitForSeconds(0.3f);
-
-        Rotate(target.transform.position);
-        for (int i = 0; i < skillParts.Count; i++)
+        // If no relevant multi-target parts, fall back to single-target behaviour (fast path)
+        if (!hasRelevantParts)
         {
-            var part = skillParts[i];
-            part.PartData = new SkillPartData();
-            part.PartData.TargetsHit.Add(target);
-            StartCoroutine(skillsManager.CastSkillsPart(part, this));
-            if (i < skillParts.Count - 1)
-                yield return new WaitForSeconds(0.2f);
-        }
+            if (singleTarget == null)
+                yield break;
 
-        yield return new WaitForSeconds(2);
+            StartCoroutine(uiManager.ShowActivityText(CurrentSkill.SkillName));
+            yield return new WaitForSeconds(0.3f);
+
+            Rotate(singleTarget.transform.position);
+            for (int i = 0; i < skillParts.Count; i++)
+            {
+                var part = skillParts[i];
+                part.PartData = new SkillPartData();
+                part.PartData.TargetsHit.Add(singleTarget);
+                StartCoroutine(skillsManager.CastSkillsPart(part, this));
+                if (i < skillParts.Count - 1)
+                    yield return new WaitForSeconds(0.2f);
+            }
+
+            yield return new WaitForSeconds(2);
+        }
+        else
+        {
+            // Multi-target-aware selection: simulate previews from each reachable movement tile
+            // Prepare candidate movement tiles
+            var candidateMovementTiles = new List<BoardTile>(PossibleMovementTiles);
+            if (!candidateMovementTiles.Contains(Tile)) candidateMovementTiles.Add(Tile);
+
+            // Helper to create fresh SkillPartData list for simulation
+            System.Func<List<SO_Skillpart>, List<SkillPartData>> CreateFreshPartDatas = (parts) =>
+            {
+                var list = new List<SkillPartData>();
+                for (int i = 0; i < parts.Count; i++)
+                {
+                    var spd = new SkillPartData { PartIndex = i, GroupIndex = 0 };
+                    list.Add(spd);
+                }
+                return list;
+            };
+
+            int bestHits = 0;
+            BoardTile bestMoveTile = Tile;
+            BoardTile bestTargetTile = null;
+            Unit bestTargetUnit = null;
+            List<SkillPartData> bestSimulatedPartDatas = null;
+
+            // Iterate movement options
+            foreach (var moveTile in candidateMovementTiles)
+            {
+                // Build candidate target tiles/units based on firstPart targeting
+                var candidateTargetTiles = new List<BoardTile>();
+                var candidateTargetUnits = new List<Unit>();
+
+                // If the first part expects a tile target (AOE / line / cone / board-tile), iterate tiles
+                if (firstPart is SO_TargetBoardtileSkill || firstPart.TargetTileKind != TargetTileEnum.None)
+                {
+                    // tiles within max range from moveTile
+                    var tiles = boardManager.GetTilesWithinDirectRange(moveTile, firstPart.MaxRange, true);
+                    if (tiles != null)
+                    {
+                        candidateTargetTiles.AddRange(tiles.Where(t => boardManager.GetRangeBetweenTiles(moveTile, t) >= firstPart.MinRange));
+                    }
+                }
+                else
+                {
+                    // unit targets: characters
+                    candidateTargetUnits.AddRange(UnitData.Characters);
+                }
+
+                // Ensure at least one candidate to evaluate
+                if (candidateTargetTiles.Count == 0 && candidateTargetUnits.Count == 0)
+                {
+                    // still consider casting with no explicit target (e.g. targeted at caster)
+                    candidateTargetTiles.Add(null);
+                }
+
+                // Evaluate candidates
+                foreach (var candTile in candidateTargetTiles)
+                {
+                    // Reset SkillData context
+                    SkillData.Reset();
+                    SkillData.Caster = this;
+                    SkillData.SkillPartGroupDatas = new List<SkillPartGroupData> { new SkillPartGroupData() };
+                    SkillData.SkillPartGroupDatas[0].SkillPartDatas = CreateFreshPartDatas(skillParts);
+
+                    // Assign fresh PartData instances to skill parts
+                    for (int i = 0; i < skillParts.Count; i++)
+                    {
+                        var part = skillParts[i];
+                        part.SkillPartIndex = i;
+                        part.PartData = SkillData.GetCurrentSkillPartData(i);
+                    }
+
+                    // Preview each part with overwrite origin/target
+                    for (int i = 0; i < skillParts.Count; i++)
+                    {
+                        var part = skillParts[i];
+                        part.Preview(candTile, skillParts, this, moveTile, candTile, null);
+                    }
+
+                    // Score: unique characters hit by relevant parts
+                    var hits = new HashSet<Unit>();
+                    for (int i = 0; i < skillParts.Count; i++)
+                    {
+                        var part = skillParts[i];
+                        bool relevant = (part.DamageEffects != null && part.DamageEffects.Count > 0)
+                                        || (part.StatusEffects != null && part.StatusEffects.Count > 0)
+                                        || (part.displacementEffect != null && part.displacementEffect.UseDisplacement);
+                        if (!relevant) continue;
+
+                        if (part.PartData?.TargetsHit != null)
+                            foreach (var u in part.PartData.TargetsHit)
+                                if (u != null && u is Character)
+                                    hits.Add(u);
+                    }
+
+                    int score = hits.Count;
+                    if (score > bestHits)
+                    {
+                        bestHits = score;
+                        bestMoveTile = moveTile;
+                        bestTargetTile = candTile;
+                        bestTargetUnit = null;
+
+                        // clone part data for execution later
+                        bestSimulatedPartDatas = new List<SkillPartData>();
+                        foreach (var p in skillParts)
+                        {
+                            var src = p.PartData;
+                            var clone = new SkillPartData { PartIndex = src.PartIndex, GroupIndex = src.GroupIndex };
+                            if (src.TilesHit != null) clone.TilesHit = new List<BoardTile>(src.TilesHit);
+                            if (src.TargetsHit != null) clone.TargetsHit = new List<Unit>(src.TargetsHit);
+                            bestSimulatedPartDatas.Add(clone);
+                        }
+                    }
+                }
+
+                foreach (var candUnit in candidateTargetUnits)
+                {
+                    // Skip invalid units too far from the candidate move tile
+                    if (candUnit == null) continue;
+                    if (boardManager.TileIsBehindClosedTile(moveTile, candUnit.Tile)) continue;
+                    var range = boardManager.GetRangeBetweenTiles(moveTile, candUnit.Tile);
+                    if (range < firstPart.MinRange || range > firstPart.MaxRange) continue;
+
+                    // Reset SkillData context
+                    SkillData.Reset();
+                    SkillData.Caster = this;
+                    SkillData.SkillPartGroupDatas = new List<SkillPartGroupData> { new SkillPartGroupData() };
+                    SkillData.SkillPartGroupDatas[0].SkillPartDatas = CreateFreshPartDatas(skillParts);
+
+                    for (int i = 0; i < skillParts.Count; i++)
+                    {
+                        var part = skillParts[i];
+                        part.SkillPartIndex = i;
+                        part.PartData = SkillData.GetCurrentSkillPartData(i);
+                    }
+
+                    // Preview using overwrite target unit for unit-target parts
+                    for (int i = 0; i < skillParts.Count; i++)
+                    {
+                        var part = skillParts[i];
+                        part.Preview(null, skillParts, this, moveTile, null, candUnit);
+                    }
+
+                    // Score unique character hits for relevant parts
+                    var hits = new HashSet<Unit>();
+                    for (int i = 0; i < skillParts.Count; i++)
+                    {
+                        var part = skillParts[i];
+                        bool relevant = (part.DamageEffects != null && part.DamageEffects.Count > 0)
+                                        || (part.StatusEffects != null && part.StatusEffects.Count > 0)
+                                        || (part.displacementEffect != null && part.displacementEffect.UseDisplacement);
+                        if (!relevant) continue;
+
+                        if (part.PartData?.TargetsHit != null)
+                            foreach (var u in part.PartData.TargetsHit)
+                                if (u != null && u is Character)
+                                    hits.Add(u);
+                    }
+
+                    int score = hits.Count;
+                    if (score > bestHits)
+                    {
+                        bestHits = score;
+                        bestMoveTile = moveTile;
+                        bestTargetTile = null;
+                        bestTargetUnit = candUnit;
+
+                        bestSimulatedPartDatas = new List<SkillPartData>();
+                        foreach (var p in skillParts)
+                        {
+                            var src = p.PartData;
+                            var clone = new SkillPartData { PartIndex = src.PartIndex, GroupIndex = src.GroupIndex };
+                            if (src.TilesHit != null) clone.TilesHit = new List<BoardTile>(src.TilesHit);
+                            if (src.TargetsHit != null) clone.TargetsHit = new List<Unit>(src.TargetsHit);
+                            bestSimulatedPartDatas.Add(clone);
+                        }
+                    }
+                }
+            }
+
+            // If we found no advantageous multi-target cast, fallback to single target
+            if (bestHits == 0)
+            {
+                if (singleTarget == null)
+                    yield break;
+
+                StartCoroutine(uiManager.ShowActivityText(CurrentSkill.SkillName));
+                yield return new WaitForSeconds(0.3f);
+
+                Rotate(singleTarget.transform.position);
+                for (int i = 0; i < skillParts.Count; i++)
+                {
+                    var part = skillParts[i];
+                    part.PartData = new SkillPartData();
+                    part.PartData.TargetsHit.Add(singleTarget);
+                    StartCoroutine(skillsManager.CastSkillsPart(part, this));
+                    if (i < skillParts.Count - 1)
+                        yield return new WaitForSeconds(0.2f);
+                }
+
+                yield return new WaitForSeconds(2);
+            }
+            else
+            {
+                // Execute the best simulated cast
+                StartCoroutine(uiManager.ShowActivityText(CurrentSkill.SkillName));
+                yield return new WaitForSeconds(0.3f);
+
+                // Move to best movement tile if needed
+                if (bestMoveTile != null && bestMoveTile != Tile)
+                {
+                    boardManager.SetMovementLine(bestMoveTile, false);
+                    yield return StartCoroutine(boardManager.MoveToTile());
+                }
+
+                // Apply simulated PartData to real parts and cast
+                // If we have a preferred unit target, rotate towards it; otherwise rotate towards first hit tile/unit
+                if (bestTargetUnit != null)
+                    Rotate(bestTargetUnit.transform.position);
+                else if (bestSimulatedPartDatas != null)
+                {
+                    var firstTargets = bestSimulatedPartDatas.SelectMany(x => x.TargetsHit).FirstOrDefault();
+                    if (firstTargets != null)
+                        Rotate(firstTargets.transform.position);
+                }
+
+                for (int i = 0; i < skillParts.Count; i++)
+                {
+                    var part = skillParts[i];
+                    // assign the simulated partdata (or empty if missing)
+                    if (bestSimulatedPartDatas != null && i < bestSimulatedPartDatas.Count)
+                        part.PartData = bestSimulatedPartDatas[i];
+                    else
+                        part.PartData = new SkillPartData();
+
+                    StartCoroutine(skillsManager.CastSkillsPart(part, this));
+                    if (i < skillParts.Count - 1)
+                        yield return new WaitForSeconds(0.2f);
+                }
+
+                yield return new WaitForSeconds(2);
+            }
+        }
 
         // Pick next skill and update intent for next turn
         CurrentSkill = sequencer.Pick(enemySO?.Skills, false);
