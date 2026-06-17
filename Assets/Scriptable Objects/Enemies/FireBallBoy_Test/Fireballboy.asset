@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60e2950789797441ad882480a694034, type: 3}
+  m_Name: Fireballboy
+  m_EditorClassIdentifier: 
+  Name: Fireboy
+  Image: {fileID: 21300000, guid: f8d287bb8dd5c474ea5ee3ea8e76239b, type: 3}
+  MaxHealth: 8
+  MoveSpeed: 5
+  Power: 0
+  Armor: 0
+  AlwaysStartWithFirstSkill: 0
+  Skills:
+  - SkillName: Fireball
+    Skill:
+    - {fileID: 11400000, guid: cfed7e4fc7dc3564382e8f04cf6b5e54, type: 2}
+    - {fileID: 11400000, guid: 3d9b45842d69b3443bfd4c1721be1ebd, type: 2}
+    IntentAction: 6
+    TargetPreference: 1
+    OptimalRange: 1
+    Chance: 66
+    MaxConsecutiveUses: 0
+    ForcedNextSkillIndex: 0
+  Abilities: []

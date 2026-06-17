@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63af66061a6275d4ba26e73663e1536a, type: 3}
+  m_Name: AoETestConfig
+  m_EditorClassIdentifier: 
+  EnableTestMode: 1
+  PresetEncounter: {fileID: 11400000, guid: 61be385d303997b45832556c4effbe69, type: 2}
+  RandomizeEncounter: 0
+  EncounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
+  PresetCharacters: []
+  RandomizeCharacters: 1
+  MinCharacterCount: 3
+  MaxCharacterCount: 3
+  CharacterRoster: {fileID: 11400000, guid: adaa1ff5e701ef64dac0234ebc525100, type: 2}
+  RandomizeSkills: 1
+  MinSkillsPerCharacter: 1
+  MaxSkillsPerCharacter: 1
+  SkillPool: {fileID: 11400000, guid: 03a3ab7d4cf6fe24198b8489cdd69a25, type: 2}
+  PresetSkills: []
+  RandomizeTraits: 1
+  MinTraitsPerCharacter: 0
+  MaxTraitsPerCharacter: 0
+  TraitPool: {fileID: 11400000, guid: 5db280366ae30434b8ffebb527c2a93d, type: 2}
+  PresetTraits: []
+  StartingHPPercentage: 100
+  StartingGold: 0

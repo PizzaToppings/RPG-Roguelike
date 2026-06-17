@@ -17,13 +17,18 @@ MonoBehaviour:
   MapPrefab: {fileID: 4780996589762455522, guid: f6b87f74f78c67d4d9ea24f0e417a71d,
     type: 3}
   PlayerPlacementTiles: []
+  PartyStartPositions:
+  - {x: 0, y: 7}
+  - {x: 0, y: 8}
+  - {x: 0, y: 9}
+  - {x: 0, y: 10}
   Enemies:
-  - EnemySO: {fileID: 11400000, guid: 484b0b09736adcc4e9e2fe66eed9cebc, type: 2}
+  - EnemySO: {fileID: 11400000, guid: cb3136844e864d24184ffb1040f58723, type: 2}
     StartX: 3
     StartY: 3
     TurnOrderIndex: 0
-  - EnemySO: {fileID: 11400000, guid: 484b0b09736adcc4e9e2fe66eed9cebc, type: 2}
+  - EnemySO: {fileID: 11400000, guid: cb3136844e864d24184ffb1040f58723, type: 2}
     StartX: 5
     StartY: 3
     TurnOrderIndex: 0
-  EnemyTurnOrder: 
+  TurnOrder: []

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4de32f407155c147ae37b3945989340, type: 3}
+  m_Name: AoE_Test_Encounter
+  m_EditorClassIdentifier: 
+  EncounterName: AoE Test
+  Tier: 0
+  MapPrefab: {fileID: 1319811632838081138, guid: 2cc2f244f4c6b644aae4cb39180a3d49,
+    type: 3}
+  PlayerPlacementTiles: []
+  PartyStartPositions:
+  - {x: 4, y: 9}
+  - {x: 4, y: 8}
+  - {x: 4, y: 7}
+  - {x: 4, y: 6}
+  Enemies:
+  - EnemySO: {fileID: 11400000, guid: 484b0b09736adcc4e9e2fe66eed9cebc, type: 2}
+    StartX: 4
+    StartY: 12
+    TurnOrderIndex: 0
+  - EnemySO: {fileID: 11400000, guid: 23f2c71a3ae67d34995347b1eb4a796c, type: 2}
+    StartX: 4
+    StartY: 3
+    TurnOrderIndex: 0
+  TurnOrder:
+  - UnitType: 0
+    UnitIndex: 0
+  - UnitType: 0
+    UnitIndex: 1
+  - UnitType: 0
+    UnitIndex: 2
+  - UnitType: 1
+    UnitIndex: 0
+  - UnitType: 1
+    UnitIndex: 1
