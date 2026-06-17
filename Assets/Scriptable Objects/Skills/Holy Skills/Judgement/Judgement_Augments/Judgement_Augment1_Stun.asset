@@ -17,4 +17,5 @@ MonoBehaviour:
   Description: 
   SkillPartGroupIndex: -1
   SkillPartIndex: -1
-  StatusEffectsToAdd: []
+  StatusEffectsToAdd:
+  - {fileID: 11400000, guid: 6f02e029046b740468d74e05cc2e4a1b, type: 2}
