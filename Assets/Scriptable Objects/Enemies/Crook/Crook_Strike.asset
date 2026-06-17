@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
   m_Name: Crook_Strike
   m_EditorClassIdentifier: 
-  OriginTileKind: 0
+  OriginTileKind: 1
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
@@ -37,6 +37,7 @@ MonoBehaviour:
     Prerequisites: []
     HitType: 0
     Power: 6
+    IsMagical: 0
   MinRange: 1
   MaxRange: 1.5
   IncludeInAutoMove: 0
