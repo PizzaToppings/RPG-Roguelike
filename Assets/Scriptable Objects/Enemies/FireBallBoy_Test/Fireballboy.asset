@@ -21,13 +21,16 @@ MonoBehaviour:
   AlwaysStartWithFirstSkill: 0
   Skills:
   - SkillName: Fireball
-    Skill:
-    - {fileID: 11400000, guid: cfed7e4fc7dc3564382e8f04cf6b5e54, type: 2}
-    - {fileID: 11400000, guid: 3d9b45842d69b3443bfd4c1721be1ebd, type: 2}
+    Skill: {fileID: 11400000, guid: 9a489d4047cdc224aad045d5ef0d92b3, type: 2}
     IntentAction: 6
     TargetPreference: 1
-    OptimalRange: 1
-    Chance: 66
-    MaxConsecutiveUses: 0
-    ForcedNextSkillIndex: 0
+    TargetPriority: {fileID: 11400000, guid: 83d8f2c6d61033946b5ffc40d22ab0bd, type: 2}
+    Weight: 1
+    Conditions: []
+    MaxTargetCount: 1
+    MinTargetCount: 0
+  SkillSelectionStrategy: {fileID: 11400000, guid: c9546e7f6dba5144db5b65b9c76ad538,
+    type: 2}
+  AIProfile: {fileID: 11400000, guid: 635be2406e5642a4894e78f3157b945d, type: 2}
+  EffectWeights: {fileID: 11400000, guid: 4574335f80ea3644aae7d63fcf31a26b, type: 2}
   Abilities: []

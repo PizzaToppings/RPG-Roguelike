@@ -14,6 +14,7 @@ public enum TileColorKind
     FireTerrain    = 9,
     IceTerrain     = 10,
     PoisonTerrain  = 11,
+    EnemySkillPreview = 12,
 }
 
 [System.Serializable]

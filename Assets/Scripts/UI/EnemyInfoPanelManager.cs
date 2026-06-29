@@ -68,7 +68,7 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
             intentActionImage.sprite = ui.GetIntentActionIcon(skill.IntentAction);
 
         if (intentTargetImage != null && ui != null)
-            intentTargetImage.sprite = ui.GetIntentTargetIcon(skill.GetIntentTarget());
+            // intentTargetImage.sprite = ui.GetIntentTargetIcon(skill.GetIntentTarget());
 
         if (intentDescriptionText != null)
         {
@@ -79,64 +79,71 @@ public class EnemyInfoPanelManager : BaseInfoPanelManager
 
         if (intentTargetDescriptionText != null)
         {
-            string targetDesc = GetDefaultIntentTargetDescription(skill.GetIntentTarget(), skill, aiEnemy);
-            intentTargetDescriptionText.gameObject.SetActive(!string.IsNullOrEmpty(targetDesc));
-            intentTargetDescriptionText.text = targetDesc;
+        // TODO AI: Fix code below based on new skill system. The old code was commented out because it referenced properties that no longer exist in the new skill system.
+
+            // string targetDesc = GetDefaultIntentTargetDescription(skill.GetIntentTarget(), skill, aiEnemy);
+            // intentTargetDescriptionText.gameObject.SetActive(!string.IsNullOrEmpty(targetDesc));
+            // intentTargetDescriptionText.text = targetDesc;
         }
     }
 
     private static string GetDefaultIntentDescription(IntentActionEnum action, SO_EnemySkill skill, EnemyBaseAI aiEnemy)
     {
-        int totalDamage = 0, totalHealing = 0, totalShielding = 0;
+        // TODO AI: Fix code below based on new skill system. The old code was commented out because it referenced properties that no longer exist in the new skill system.
 
-        if (skill?.Skill != null && skill.Skill.Count > 0 && aiEnemy != null)
-        {
-            foreach (var part in skill.Skill)
-            {
-                if (part?.DamageEffects == null) continue;
-                foreach (var effect in part.DamageEffects)
-                {
-                    if (effect == null) continue;
-                    switch (effect.HitType)
-                    {
-                        case HitTypeEnum.Healing: totalHealing  += effect.Power; break;
-                        case HitTypeEnum.Shield:  totalShielding += effect.Power; break;
-                        default:
-                            int casterPower = aiEnemy.Power;
-                            totalDamage += Mathf.Max(0, effect.Power + casterPower);
-                            break;
-                    }
-                }
-            }
-        }
+        // int totalDamage = 0, totalHealing = 0, totalShielding = 0;
 
-        switch (action)
-        {
-            case IntentActionEnum.MeleeAttack:
-                return totalDamage > 0
-                    ? $"Deals {totalDamage} melee damage."
-                    : $"Deals melee damage.";
-            case IntentActionEnum.RangedAttack:
-                return totalDamage > 0
-                    ? $"Deals {totalDamage} ranged damage."
-                    : $"Deals ranged damage.";
-            case IntentActionEnum.Debuff:   return "Applies a debuff.";
-            case IntentActionEnum.Buff:     return "Buffs itself or an ally.";
-            case IntentActionEnum.Heal:
-                return totalHealing > 0
-                    ? $"Restores {totalHealing} health."
-                    : "Restores health.";
-            case IntentActionEnum.AOE:
-                return totalDamage > 0
-                    ? $"Unleashes an area of effect attack dealing {totalDamage} damage."
-                    : $"Unleashes an area of effect attack.";
-            default: return string.Empty;
-        }
+        // if (skill?.Skill != null && skill.Skill.Count > 0 && aiEnemy != null)
+        // {
+        //     foreach (var part in skill.Skill)
+        //     {
+        //         if (part?.DamageEffects == null) continue;
+        //         foreach (var effect in part.DamageEffects)
+        //         {
+        //             if (effect == null) continue;
+        //             switch (effect.HitType)
+        //             {
+        //                 case HitTypeEnum.Healing: totalHealing  += effect.Power; break;
+        //                 case HitTypeEnum.Shield:  totalShielding += effect.Power; break;
+        //                 default:
+        //                     int casterPower = aiEnemy.Power;
+        //                     totalDamage += Mathf.Max(0, effect.Power + casterPower);
+        //                     break;
+        //             }
+        //         }
+        //     }
+        // }
+
+        // switch (action)
+        // {
+        //     case IntentActionEnum.MeleeAttack:
+        //         return totalDamage > 0
+        //             ? $"Deals {totalDamage} melee damage."
+        //             : $"Deals melee damage.";
+        //     case IntentActionEnum.RangedAttack:
+        //         return totalDamage > 0
+        //             ? $"Deals {totalDamage} ranged damage."
+        //             : $"Deals ranged damage.";
+        //     case IntentActionEnum.Debuff:   return "Applies a debuff.";
+        //     case IntentActionEnum.Buff:     return "Buffs itself or an ally.";
+        //     case IntentActionEnum.Heal:
+        //         return totalHealing > 0
+        //             ? $"Restores {totalHealing} health."
+        //             : "Restores health.";
+        //     case IntentActionEnum.AOE:
+        //         return totalDamage > 0
+        //             ? $"Unleashes an area of effect attack dealing {totalDamage} damage."
+        //             : $"Unleashes an area of effect attack.";
+        //     default: return string.Empty;
+        // }
+
+        return string.Empty;
     }
 
     private static string GetDefaultIntentTargetDescription(IntentTargetEnum target, SO_EnemySkill skill, EnemyBaseAI aiEnemy)
     {
-            float maxRange = skill.FirstPart?.MaxRange > 0 ? skill.FirstPart.MaxRange : skill.OptimalRange;
+            //TODO AI: check and fix: float maxRange = skill.FirstPart?.MaxRange > 0 ? skill.FirstPart.MaxRange : skill.OptimalRange;
+            float maxRange = 0;
             var threatRange = maxRange + aiEnemy.MoveSpeed;
 
         switch (target)

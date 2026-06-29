@@ -11,9 +11,6 @@ public class Enemy : Unit
     [HideInInspector] public List<BoardTile> PossibleMovementTiles;
     [HideInInspector] public int encounterTurnOrder = 0; // Turn order index set by EncounterManager
 
-    BoardTile closestTile;
-    BoardTile highlightedTargetTile; // Tile highlighted when showing enemy intent target
-
     public override void SetStats()
     {
         if (enemySO != null)
@@ -104,89 +101,16 @@ public class Enemy : Unit
 
     void ShowEnemyThreat()
     {
-        if (UnitData.CurrentAction == CurrentActionKind.CharacterPlacement || UnitData.CurrentAction == CurrentActionKind.Basic)
-        {
-            boardManager.ShowEnemyThreatRange(this);
-            if (this is EnemyBaseAI aiEnemy && aiEnemy.CurrentSkill != null)
-            {
-                // Determine the target based on the enemy's targeting preference
-                Unit predictedTarget = null;
-                if (UnitData.Characters != null && UnitData.Characters.Count > 0)
-                {
-                    // Filter characters that are within the enemy's threat range
-                    bool isRooted = statusEffectManager.UnitHasStatusEffect(this, StatusEffectEnum.Rooted);
-                    float attackRange = aiEnemy.CurrentSkill?.FirstPart?.MaxRange ?? aiEnemy.CurrentSkill.OptimalRange;
-                    var maxRange = attackRange + (isRooted ? 0f : MoveSpeed);
-                    var targetCandidates = UnitData.Characters
-                        .Where(c => c != null && c.Tile != null &&
-                               boardManager.GetRangeBetweenTiles(Tile, c.Tile) <= maxRange)
-                        .ToList();
+        boardManager.ShowEnemyThreatRange(this);
 
-                    if (targetCandidates.Count > 0)
-                    {
-                        predictedTarget = aiEnemy.GetTargetPreference(aiEnemy.CurrentSkill.TargetPreference, targetCandidates);
-                    }
-                }
-
-                if (predictedTarget != null)
-                {
-                    // Highlight the target's tile
-                    highlightedTargetTile = predictedTarget.Tile;
-                    if (highlightedTargetTile != null)
-                    {
-                        var targetColor = boardManager.GetTileColor(TileColorKind.EnemyIntent);
-                        targetColor.FillCenter = true; // Make it more visible
-                        highlightedTargetTile.SetColor(targetColor);
-                    }
-
-                    // Show damage preview on target's healthbar
-                    if (predictedTarget.ThisHealthbar is FloatingHealthbar targetHealthbar)
-                    {
-                        targetHealthbar.ShowDamagePreviewFromEnemy(aiEnemy);
-                    }
-                }
-            }
-        }
-
-        // Show damage prediction if player is actively aiming a skillshot at this enemy
-        if (ThisHealthbar is FloatingHealthbar floatingHealthbar && UnitData.CurrentAction == CurrentActionKind.CastingSkillshot)
-        {
-            floatingHealthbar.ShowDamagePreview(SkillData.CurrentActiveSkill);
-        }
+        var aiEnemy = this as EnemyBaseAI;
+        if (aiEnemy != null && aiEnemy.NextSkillPreviewTiles != null && aiEnemy.NextSkillPreviewTiles.Count > 0)
+            boardManager.ShowEnemySkillPreview(aiEnemy.NextSkillPreviewTiles);
     }
 
     void HideEnemyThreat()
     {
-        if (highlightedTargetTile != null)
-        {
-            // Reset the target tile color
-            var originalColor = boardManager.GetTileColor(TileColorKind.Original);
-            highlightedTargetTile.OverrideColor(originalColor);
-            
-            // Reapply tile effect color if present
-            if (highlightedTargetTile.hasTileEffect && highlightedTargetTile.tileEffectColor != null)
-                highlightedTargetTile.SetColor(highlightedTargetTile.tileEffectColor);
-        }
-
-        // Hide damage preview on any character healthbars
-        if (this is EnemyBaseAI && UnitData.Characters != null)
-        {
-            foreach (var character in UnitData.Characters)
-            {
-                if (character?.ThisHealthbar is FloatingHealthbar targetHealthbar)
-                {
-                    targetHealthbar.HideDamagePreview();
-                }
-            }
-        }
-        
-        highlightedTargetTile = null;
-
-        // Hide damage prediction on this enemy (from player targeting)
-        if (ThisHealthbar is FloatingHealthbar floatingHealthbar)
-        {
-            floatingHealthbar.HideDamagePreview();
-        }
+        boardManager.ClearEnemySkillPreview();
     }
 
 	public override void EndTurn()

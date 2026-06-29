@@ -21,12 +21,16 @@ MonoBehaviour:
   AlwaysStartWithFirstSkill: 0
   Skills:
   - SkillName: Groundslam
-    Skill:
-    - {fileID: 11400000, guid: d3184927ea457b14d94b282797000709, type: 2}
+    Skill: {fileID: 11400000, guid: a02a0c949bb219e449441a0595efab8c, type: 2}
     IntentAction: 6
-    TargetPreference: 1
-    OptimalRange: 1
-    Chance: 66
-    MaxConsecutiveUses: 2
-    ForcedNextSkillIndex: 0
+    TargetPreference: 3
+    TargetPriority: {fileID: 11400000, guid: 2455cf614455b5248947333fe342d075, type: 2}
+    Weight: 1
+    Conditions: []
+    MaxTargetCount: 1
+    MinTargetCount: 0
+  SkillSelectionStrategy: {fileID: 11400000, guid: ac5956f88083e56429540b744bff97de,
+    type: 2}
+  AIProfile: {fileID: 11400000, guid: e3d5a93c47dde37469f704891224a6e3, type: 2}
+  EffectWeights: {fileID: 0}
   Abilities: []

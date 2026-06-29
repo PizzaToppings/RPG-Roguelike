@@ -3,51 +3,61 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// One slot in an enemy's skill list. Holds the skill itself, how it picks a target,
-/// and the rules that control when it can be selected.
+/// One slot in an enemy's skill list. Holds the skill reference, targeting config,
+/// selection weight, availability conditions, and optional forced follow-up.
 /// </summary>
 [Serializable]
 public class SO_EnemySkill
 {
     public string SkillName;
-    public List<SO_Skillpart> Skill;
 
-    /// <summary>Returns the first skill part, or null if the list is empty. Used for range calculations shared across all parts.</summary>
-    public SO_Skillpart FirstPart => Skill != null && Skill.Count > 0 ? Skill[0] : null;
+    [Tooltip("The actual skill (with SkillPartGroups) this entry executes.")]
+    public SO_MainSkill Skill;
 
-    [Header("Intent (UI display)")]
+    // Intent display
     public IntentActionEnum IntentAction;
 
     [Header("Targeting")]
-    public TargetEnum    TargetPreference;
-    public float         OptimalRange = 1f;
+    [Tooltip("Legacy field kept for compatibility. Use TargetPriority instead.")]
+    public TargetEnum TargetPreference;
+    [Tooltip("Data-driven target selection config. Overrides TargetPreference when assigned.")]
+    public SO_TargetPriority TargetPriority;
 
-    /// <summary>Derives the intent target icon from the targeting rule, so both don't need to be set manually.</summary>
-    public IntentTargetEnum GetIntentTarget()
+    [Header("Skill Selection")]
+    [Tooltip("Relative weight for weighted-random strategy. Higher = more likely.")]
+    public int Weight = 1;
+
+    [Tooltip("All conditions must pass (AND logic) for this skill to be eligible. Empty = always eligible.")]
+    public List<SO_AICondition> Conditions = new List<SO_AICondition>();
+
+    [Tooltip("When set, the enemy is forced to use this skill on the next turn regardless of strategy or conditions.")]
+    public SO_EnemySkill ForcedNextSkill;
+
+    [Header("Multi-Target")]
+    [Tooltip("Maximum number of separate targets this skill can hit. Use > 1 for multi-hit TargetUnit chains.")]
+    public int MaxTargetCount = 1;
+    [Tooltip("Minimum number of valid targets required. Skill still executes with fewer when 0.")]
+    public int MinTargetCount = 0;
+
+    /// <summary>Returns true when all configured conditions pass for this skill.</summary>
+    public bool AreConditionsMet(EnemyAIContext ctx)
     {
-        switch (TargetPreference)
-        {
-            case TargetEnum.Self:               return IntentTargetEnum.Self;
-            case TargetEnum.closestTarget:      return IntentTargetEnum.Nearest;
-            case TargetEnum.LowestHealthTarget: return IntentTargetEnum.LowestHealth;
-            case TargetEnum.AllAllies:
-            case TargetEnum.AllEnemies:
-            case TargetEnum.AllUnits:           return IntentTargetEnum.Area;
-            default:                            return IntentTargetEnum.Unknown;
-        }
+        if (Conditions == null || Conditions.Count == 0) return true;
+        foreach (var condition in Conditions)
+            if (condition != null && !condition.Evaluate(ctx)) return false;
+        return true;
     }
 
-    [Header("Selection")]
-    [Range(0, 100)]
-    public float Chance = 100f;
-
-    /// <summary>How many times in a row this skill may be selected. 0 = unlimited.</summary>
-    public int MaxConsecutiveUses = 0;
-
-    /// <summary>
-    /// Index into SO_Enemy.Skills. When >= 0, the sequencer will always pick that
-    /// skill next turn after this one (e.g. charge-up → heavy attack).
-    /// -1 means no forced follow-up.
-    /// </summary>
-    public int ForcedNextSkillIndex = -1;
+    /// <summary>Derives an IntentTargetEnum from the configured TargetPriority for intent display.</summary>
+    public IntentTargetEnum GetIntentTarget()
+    {
+        if (TargetPriority == null) return IntentTargetEnum.Nearest;
+        switch (TargetPriority.Priority)
+        {
+            case TargetPriorityKindEnum.Closest:      return IntentTargetEnum.Nearest;
+            case TargetPriorityKindEnum.LowestHealth: return IntentTargetEnum.LowestHealth;
+            case TargetPriorityKindEnum.Random:       return IntentTargetEnum.Random;
+            default:                                  return IntentTargetEnum.Nearest;
+        }
+    }
 }

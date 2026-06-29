@@ -262,13 +262,44 @@ public class BoardManager : MonoBehaviour
         }
 
         var aiEnemy = enemy as EnemyBaseAI;
-        float attackRange = aiEnemy?.CurrentSkill?.FirstPart?.MaxRange ?? aiEnemy?.CurrentSkill?.OptimalRange ?? 0f;
+        float attackRange = aiEnemy?.CurrentSkill?.Skill?.GetAttackRange() ?? 0f;
         bool isRooted = StatusEffectManager.Instance.UnitHasStatusEffect(enemy, StatusEffectEnum.Rooted);
         float totalRange = (isRooted ? 0f : enemy.MoveSpeed) + attackRange;
 
         var tileColor = GetTileColor(TileColorKind.EnemyIntent);
         _threatRangeTiles = GetTilesWithinDirectRange(enemy.Tile, totalRange, false);
         _threatRangeTiles.ForEach(t => t.SetColor(tileColor));
+    }
+
+    private List<BoardTile> _skillPreviewTiles = new List<BoardTile>();
+
+    /// <summary>
+    /// Highlights tiles that would be affected by the enemy's next skill (intent area preview).
+    /// Shown when the player hovers over an enemy in addition to the threat range circle.
+    /// </summary>
+    public void ShowEnemySkillPreview(List<BoardTile> tiles)
+    {
+        ClearEnemySkillPreview();
+        if (tiles == null) return;
+        var color = GetTileColor(TileColorKind.EnemySkillPreview);
+        foreach (var tile in tiles)
+        {
+            if (tile == null) continue;
+            _skillPreviewTiles.Add(tile);
+            tile.SetColor(color);
+        }
+    }
+
+    /// <summary>Removes the skill preview highlight added by ShowEnemySkillPreview.</summary>
+    public void ClearEnemySkillPreview()
+    {
+        foreach (var tile in _skillPreviewTiles)
+        {
+            if (tile == null) continue;
+            tile.OverrideColor(originalColor);
+            if (tile.hasTileEffect) tile.SetColor(tile.tileEffectColor);
+        }
+        _skillPreviewTiles.Clear();
     }
 
     public void ClearEnemyThreatRange()

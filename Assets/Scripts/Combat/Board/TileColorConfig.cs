@@ -17,6 +17,7 @@ public class TileColorConfig : ScriptableObject
         new TileColorPreset { Kind = TileColorKind.FireTerrain,   Color = new Color(230/255f, 120/255f,  40/255f)   },
         new TileColorPreset { Kind = TileColorKind.IceTerrain,    Color = new Color(120/255f, 210/255f, 255/255f)   },
         new TileColorPreset { Kind = TileColorKind.PoisonTerrain, Color = new Color(140/255f, 190/255f,  80/255f)   },
+        new TileColorPreset { Kind = TileColorKind.EnemySkillPreview, Color = new Color(255/255f, 120/255f,  40/255f) },
     };
 
     public Color GetColor(TileColorKind kind)

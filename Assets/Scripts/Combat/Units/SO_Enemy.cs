@@ -19,5 +19,16 @@ public class SO_Enemy : ScriptableObject
     public List<SO_EnemySkill> Skills = new List<SO_EnemySkill>();
 
     [Space]
+    [Header("AI Configuration")]
+    [Tooltip("Determines which eligible skill is chosen each turn. Assign a strategy asset.")]
+    public SO_SkillSelectionStrategy SkillSelectionStrategy;
+
+    [Tooltip("Movement and positioning profile (Melee / Ranged / Support).")]
+    public SO_AIProfile AIProfile;
+
+    [Tooltip("Per-effect value weights used when evaluating skill targets. Leave null for defaults.")]
+    public SO_EffectWeightConfig EffectWeights;
+
+    [Space]
     public List<SO_EnemyAbility> Abilities = new List<SO_EnemyAbility>();
 }

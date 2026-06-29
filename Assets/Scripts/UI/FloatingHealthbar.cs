@@ -93,45 +93,41 @@ public class FloatingHealthbar : Healthbar
 
     void UpdateIntentDamageAndRange(SO_EnemySkill skill)
     {
-        if (skill?.Skill == null || skill.Skill.Count == 0)
+        if (skill?.Skill == null)
         {
-            if (intentDamageText != null)
-                intentDamageText.text = "";
-            if (attackRangeText != null)
-                attackRangeText.text = "";
+            if (intentDamageText != null) intentDamageText.text = "";
+            if (attackRangeText  != null) attackRangeText.text  = "";
             return;
         }
 
-        // Calculate damage per part (all parts are identical), show as NxM if multiple parts
+        // Sum damage power across all parts in the first SkillPartGroup
         if (intentDamageText != null)
         {
-            var firstPart = skill.FirstPart;
-            bool hasAnyDamage = firstPart?.DamageEffects?.Count > 0;
-            if (hasAnyDamage)
+            int totalDamage = 0;
+            bool hasDamage = false;
+            if (skill.Skill.SkillPartGroups.Count > 0)
             {
-                int perPartDamage = 0;
-                foreach (var damageData in firstPart.DamageEffects)
-                    if (damageData != null)
-                        perPartDamage += damageData.Power;
-
-                int count = skill.Skill.Count;
-                intentDamageText.text = count > 1 ? $"{count}x{perPartDamage}" : perPartDamage.ToString();
+                foreach (var sp in skill.Skill.SkillPartGroups[0].skillParts)
+                {
+                    if (sp?.DamageEffects == null) continue;
+                    foreach (var dmg in sp.DamageEffects)
+                    {
+                        if (dmg != null && dmg.HitType == HitTypeEnum.Damage)
+                        {
+                            totalDamage += dmg.Power;
+                            hasDamage = true;
+                        }
+                    }
+                }
             }
-            else
-            {
-                intentDamageText.text = "";
-            }
+            intentDamageText.text = hasDamage ? totalDamage.ToString() : "";
         }
 
-        // Display range from first part
+        // Display attack range
         if (attackRangeText != null)
         {
-            var firstPart = skill.FirstPart;
-            if (firstPart != null)
-            {
-                var totalThreat = firstPart.MaxRange + thisUnit.MoveSpeed;
-                attackRangeText.text = totalThreat.ToString();
-            }
+            float range = skill.Skill.GetAttackRange();
+            attackRangeText.text = range > 0f ? range.ToString("0.#") : "";
         }
     }
 
@@ -233,57 +229,59 @@ public class FloatingHealthbar : Healthbar
     /// </summary>
     public void ShowDamagePreviewFromEnemy(EnemyBaseAI enemy)
     {
-        if (damagePreviewParent == null || damagePreviewText == null || thisUnit == null || enemy == null)
-            return;
+        // TODO AI: Check and fix code below based on new skill system. The old code was commented out because it referenced properties that no longer exist in the new skill system.
 
-        if (enemy.CurrentSkill?.Skill == null || enemy.CurrentSkill.Skill.Count == 0)
-        {
-            HideDamagePreview();
-            return;
-        }
+        // if (damagePreviewParent == null || damagePreviewText == null || thisUnit == null || enemy == null)
+        //     return;
 
-        // All skill parts deal the same damage; calculate for the first part and multiply by count
-        var firstPart = enemy.CurrentSkill.FirstPart;
-        int perPartDamage = 0;
-        bool hasDamageEffects = false;
+        // if (enemy.CurrentSkill?.Skill == null || enemy.CurrentSkill.Skill.Count == 0)
+        // {
+        //     HideDamagePreview();
+        //     return;
+        // }
 
-        if (firstPart?.DamageEffects != null)
-        {
-            foreach (var damageData in firstPart.DamageEffects)
-            {
-                if (damageData == null) continue;
-                if (damageData.HitType == HitTypeEnum.Healing ||
-                    damageData.HitType == HitTypeEnum.Shield)
-                    continue;
+        // // All skill parts deal the same damage; calculate for the first part and multiply by count
+        // var firstPart = enemy.CurrentSkill.FirstPart;
+        // int perPartDamage = 0;
+        // bool hasDamageEffects = false;
 
-                hasDamageEffects = true;
+        // if (firstPart?.DamageEffects != null)
+        // {
+        //     foreach (var damageData in firstPart.DamageEffects)
+        //     {
+        //         if (damageData == null) continue;
+        //         if (damageData.HitType == HitTypeEnum.Healing ||
+        //             damageData.HitType == HitTypeEnum.Shield)
+        //             continue;
 
-                var damageDataCopy = new DamageData
-                {
-                    Power = damageData.Power,
-                    HitType = damageData.HitType,
-                    Caster = enemy,
-                    Modifiers = damageData.Modifiers,
-                    Prerequisites = damageData.Prerequisites
-                };
+        //         hasDamageEffects = true;
 
-                var calculatedDamage = damageManager.CalculateDamageData(damageDataCopy, thisUnit);
-                perPartDamage += calculatedDamage.Damage;
-            }
-        }
+        //         var damageDataCopy = new DamageData
+        //         {
+        //             Power = damageData.Power,
+        //             HitType = damageData.HitType,
+        //             Caster = enemy,
+        //             Modifiers = damageData.Modifiers,
+        //             Prerequisites = damageData.Prerequisites
+        //         };
 
-        if (hasDamageEffects)
-        {
-            int count = enemy.CurrentSkill.Skill.Count;
-            damagePreviewParent.SetActive(true);
-            damagePreviewText.text = count > 1
-                ? $"{count}x{Mathf.Max(0, perPartDamage)}"
-                : Mathf.Max(0, perPartDamage).ToString();
-        }
-        else
-        {
-            HideDamagePreview();
-        }
+        //         var calculatedDamage = damageManager.CalculateDamageData(damageDataCopy, thisUnit);
+        //         perPartDamage += calculatedDamage.Damage;
+        //     }
+        // }
+
+        // if (hasDamageEffects)
+        // {
+        //     int count = enemy.CurrentSkill.Skill.Count;
+        //     damagePreviewParent.SetActive(true);
+        //     damagePreviewText.text = count > 1
+        //         ? $"{count}x{Mathf.Max(0, perPartDamage)}"
+        //         : Mathf.Max(0, perPartDamage).ToString();
+        // }
+        // else
+        // {
+        //     HideDamagePreview();
+        // }
     }
 
     void Update()
