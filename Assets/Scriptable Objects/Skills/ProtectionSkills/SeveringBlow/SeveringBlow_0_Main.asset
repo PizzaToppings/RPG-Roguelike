@@ -18,7 +18,7 @@ MonoBehaviour:
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 5
-  Classes: 00000000
+  Classes: 04000000
   Description: Deals <damage0-0-0> to an enemy and slow it by 3 for 2 turns.
   SkillPartGroups:
   - skillParts:
@@ -26,7 +26,10 @@ MonoBehaviour:
   EnergyCost: 4
   DefaultCharges: 1
   DefaultCooldown: 2
-  AvailableAugments: []
+  AvailableAugments:
+  - {fileID: 11400000, guid: fc1bcf6cf3b75e04a97713d571fbc0a9, type: 2}
+  - {fileID: 11400000, guid: 31c7fb889a36dde41b4d3a8d82ffd920, type: 2}
+  - {fileID: 11400000, guid: ad2842067b4f00545a934ae522ceb4ab, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0

@@ -19,10 +19,11 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 04000000
-  Description: 'Deal damage equal to your Shield. '
+  Description: Deal <damage0-0-0> and gain 3 Shields.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: 8a5265e1d7f629a4ab0c13dcdd869df5, type: 2}
+    - {fileID: 11400000, guid: 648e95a3835002644b4e57bc8a8ec2fd, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
   DefaultCooldown: 1

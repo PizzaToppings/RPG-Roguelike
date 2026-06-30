@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d64f8e86fc1384f8b180763c189813, type: 3}
   m_Name: CrushingBlow_Augment3_ArmorDuration
   m_EditorClassIdentifier: 
-  AugmentName: Fracture
+  AugmentName: Split Armor
   Prerequisite: {fileID: 0}
   Description: Give another <Exposed>.
   SkillPartGroupIndex: 0
