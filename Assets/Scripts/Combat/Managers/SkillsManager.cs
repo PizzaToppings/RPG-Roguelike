@@ -183,7 +183,8 @@ public class SkillsManager : MonoBehaviour
                 StartCoroutine(DisplaceUnit(skillPart.displacementEffect, skillPart, caster));
         }
 
-        bool hasVFX = skillVFX != null && skillVFX.Length > 0;
+        // bool hasVFX = skillVFX != null && skillVFX.Length > 0;
+        bool hasVFX = false;
         if (hasVFX)
         {
 			foreach (var VFX in skillVFX)

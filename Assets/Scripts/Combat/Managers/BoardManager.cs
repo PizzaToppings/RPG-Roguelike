@@ -261,13 +261,29 @@ public class BoardManager : MonoBehaviour
                         tile.OverrideColor(originalColor);
         }
 
-        var aiEnemy = enemy as EnemyBaseAI;
-        float attackRange = aiEnemy?.CurrentSkill?.Skill?.GetAttackRange() ?? 0f;
+        var aiEnemy  = enemy as EnemyBaseAI;
         bool isRooted = StatusEffectManager.Instance.UnitHasStatusEffect(enemy, StatusEffectEnum.Rooted);
-        float totalRange = (isRooted ? 0f : enemy.MoveSpeed) + attackRange;
+        float moveSpeed = isRooted ? 0f : enemy.MoveSpeed;
+
+        // ── Step 1: all tiles the enemy can reach by moving ──────────────────
+        var moveTiles = new HashSet<BoardTile>(GetTilesWithinDirectRange(enemy.Tile, moveSpeed, false));
+        moveTiles.Add(enemy.Tile);
+
+        // ── Step 2: from every movement tile, project the skill in all directions ──
+        var threatSet = new HashSet<BoardTile>(moveTiles);
+        var currentSkill = aiEnemy?.CurrentSkill;
+        if (currentSkill != null)
+        {
+            foreach (var moveTile in moveTiles)
+            {
+                var footprint = EnemySkillSimulator.GetSkillFootprintFromTile(currentSkill, moveTile);
+                foreach (var t in footprint)
+                    if (t != null) threatSet.Add(t);
+            }
+        }
 
         var tileColor = GetTileColor(TileColorKind.EnemyIntent);
-        _threatRangeTiles = GetTilesWithinDirectRange(enemy.Tile, totalRange, false);
+        _threatRangeTiles = new List<BoardTile>(threatSet);
         _threatRangeTiles.ForEach(t => t.SetColor(tileColor));
     }
 

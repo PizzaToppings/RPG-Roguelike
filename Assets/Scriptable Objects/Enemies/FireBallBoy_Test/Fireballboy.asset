@@ -23,7 +23,7 @@ MonoBehaviour:
   - SkillName: Fireball
     Skill: {fileID: 11400000, guid: 9a489d4047cdc224aad045d5ef0d92b3, type: 2}
     IntentAction: 6
-    TargetPreference: 1
+    TargetPreference: 3
     TargetPriority: {fileID: 11400000, guid: 0dc78a7dbffac7948afb9811ec87e041, type: 2}
     Weight: 1
     Conditions: []

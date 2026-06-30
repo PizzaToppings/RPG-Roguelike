@@ -48,7 +48,7 @@ public static class EnemySkillSimulator
         var firstPart = firstGroup.skillParts[0];
 
         if (firstPart is SO_TargetSelfSkill)
-            return SimulateSelf(enemy, enemySkill, casterTile, weights);
+            return SimulateSelfWithFollowups(enemy, enemySkill, firstGroup, casterTile, weights);
 
         if (firstPart is SO_TargetUnitSkill)
             return SimulateTargetUnit(enemy, enemySkill, casterTile, weights);
@@ -72,8 +72,39 @@ public static class EnemySkillSimulator
     }
 
     // -----------------------------------------------------------------------
-    // Self-targeting
+    // Self-targeting — also evaluates any follow-up AoE / directional parts
     // -----------------------------------------------------------------------
+
+    /// <summary>
+    /// Handles SO_TargetSelfSkill as first part. Inspects the rest of the group for
+    /// AoE / Cone / HalfCircle / Line follow-ups and delegates to the appropriate
+    /// shape simulator so the full effect area is returned, not just the caster tile.
+    /// </summary>
+    private static SimulationResult SimulateSelfWithFollowups(
+        EnemyBaseAI enemy, SO_EnemySkill skill, SkillPartGroup group,
+        BoardTile casterTile, SO_EffectWeightConfig weights)
+    {
+        for (int p = 1; p < group.skillParts.Count; p++)
+        {
+            var part = group.skillParts[p];
+            if (part == null) continue;
+
+            if (part is SO_AOE_Skill)
+                return SimulateAoEFromCaster(enemy, skill, part, casterTile, weights);
+
+            if (part is SO_HalfCircleSkill halfPart)
+                return SimulateHalfCircle(enemy, skill, halfPart, casterTile, weights);
+
+            if (part is SO_ConeSkill conePart)
+                return SimulateDirectional(enemy, skill, conePart.MaxRange, casterTile, weights, wide: conePart.isWide);
+
+            if (part is SO_LineSkill linePart)
+                return SimulateLine(enemy, skill, linePart, casterTile, weights);
+        }
+
+        // No AoE / directional follow-up — pure self-buff/heal
+        return SimulateSelf(enemy, skill, casterTile, weights);
+    }
 
     private static SimulationResult SimulateSelf(
         EnemyBaseAI enemy, SO_EnemySkill skill, BoardTile casterTile, SO_EffectWeightConfig weights)
@@ -97,6 +128,15 @@ public static class EnemySkillSimulator
         EnemyBaseAI enemy, SO_EnemySkill skill, BoardTile casterTile, SO_EffectWeightConfig weights)
     {
         float range = skill.Skill.GetAttackRange();
+
+        // Fallback: if no part has IncludeInAutoMove set, use the first part's MaxRange directly.
+        if (range <= 0f && skill.Skill.SkillPartGroups?.Count > 0)
+        {
+            var parts = skill.Skill.SkillPartGroups[0].skillParts;
+            if (parts != null && parts.Count > 0 && parts[0] != null)
+                range = parts[0].MaxRange;
+        }
+
         var candidates = GetValidCharactersInRange(enemy, skill, casterTile, range);
 
         if (candidates.Count == 0)
@@ -278,14 +318,18 @@ public static class EnemySkillSimulator
         EnemyBaseAI enemy, SO_EnemySkill skill,
         SO_Skillpart aoePart, BoardTile casterTile, SO_EffectWeightConfig weights)
     {
+        // Include the caster's own tile — caster-origin AoE hits the caster's cell too.
         var tiles = BoardManager.Instance.GetTilesWithinDirectRange(casterTile, aoePart.MaxRange, false);
+        if (!tiles.Contains(casterTile))
+            tiles.Add(casterTile);
+
         var validTargets = new List<Unit>();
         foreach (var tile in tiles)
             if (tile.currentUnit != null && IsValidTarget(enemy, skill, tile.currentUnit))
                 validTargets.Add(tile.currentUnit);
 
-        if (validTargets.Count == 0) return new SimulationResult();
-
+        // Always return the area tiles for preview purposes — even if no valid targets are
+        // currently in range (e.g. the enemy hasn't moved to the engage tile yet).
         return new SimulationResult
         {
             BestTargetTile = casterTile,
@@ -445,5 +489,104 @@ public static class EnemySkillSimulator
         }
 
         return result;
+    }
+
+    // -----------------------------------------------------------------------
+    // Threat-range footprint — used by BoardManager for threat overlay
+    // -----------------------------------------------------------------------
+
+    /// <summary>
+    /// Returns every tile this skill could possibly hit when cast from <paramref name="fromTile"/>,
+    /// considering all 8 casting directions. Used to build the full threat-range overlay.
+    /// </summary>
+    public static List<BoardTile> GetSkillFootprintFromTile(SO_EnemySkill skill, BoardTile fromTile)
+    {
+        if (skill?.Skill?.SkillPartGroups == null || skill.Skill.SkillPartGroups.Count == 0)
+            return new List<BoardTile>();
+
+        var firstGroup = skill.Skill.SkillPartGroups[0];
+        if (firstGroup == null || firstGroup.skillParts.Count == 0)
+            return new List<BoardTile>();
+
+        var board   = BoardManager.Instance;
+        var result  = new HashSet<BoardTile>();
+        var firstPart = firstGroup.skillParts[0];
+
+        // --- local helpers ---
+
+        void AddCircle(BoardTile center, float radius)
+        {
+            if (radius <= 0f) { result.Add(center); return; }
+            foreach (var t in board.GetTilesWithinDirectRange(center, radius, false))
+                if (t != null) result.Add(t);
+            result.Add(center);
+        }
+
+        void AddLines(BoardTile origin, float maxRange, float minRange, int pierce)
+        {
+            int numDirs = origin.connectedTiles?.Length ?? 8;
+            for (int dir = 0; dir < numDirs; dir++)
+            {
+                var (tiles, _) = CastLine(origin, dir, maxRange, minRange, pierce, board);
+                foreach (var t in tiles) result.Add(t);
+            }
+        }
+
+        void AddCones(BoardTile origin, float maxRange, bool wide)
+        {
+            int numDirs = origin.connectedTiles?.Length ?? 8;
+            for (int dir = 0; dir < numDirs; dir++)
+                foreach (var t in GetConeTiles(origin, dir, maxRange, wide, board))
+                    result.Add(t);
+        }
+
+        // --- dispatch ---
+
+        if (firstPart is SO_TargetSelfSkill)
+        {
+            result.Add(fromTile);
+            // Extend to follow-up AoE / directional parts
+            for (int p = 1; p < firstGroup.skillParts.Count; p++)
+            {
+                var fp = firstGroup.skillParts[p];
+                if (fp == null) continue;
+                if (fp is SO_AOE_Skill)             { AddCircle(fromTile, fp.MaxRange); break; }
+                if (fp is SO_HalfCircleSkill)        { AddCones(fromTile, fp.MaxRange, true); break; }
+                if (fp is SO_ConeSkill cp)           { AddCones(fromTile, fp.MaxRange, cp.isWide); break; }
+                if (fp is SO_LineSkill lp)           { AddLines(fromTile, fp.MaxRange, fp.MinRange, lp.PierceAmount); break; }
+            }
+        }
+        else if (firstPart is SO_AOE_Skill)
+        {
+            AddCircle(fromTile, firstPart.MaxRange);
+        }
+        else if (firstPart is SO_TargetUnitSkill)
+        {
+            AddCircle(fromTile, firstPart.MaxRange);
+        }
+        else if (firstPart is SO_TargetBoardtileSkill)
+        {
+            // Target tile within range, then follow-ups extend from that tile.
+            // Worst-case footprint = tile range + max follow-up range (all directions).
+            float followupRange = 0f;
+            for (int p = 1; p < firstGroup.skillParts.Count; p++)
+                if (firstGroup.skillParts[p] != null)
+                    followupRange = Mathf.Max(followupRange, firstGroup.skillParts[p].MaxRange);
+            AddCircle(fromTile, firstPart.MaxRange + followupRange);
+        }
+        else if (firstPart is SO_LineSkill linePart)
+        {
+            AddLines(fromTile, linePart.MaxRange, linePart.MinRange, linePart.PierceAmount);
+        }
+        else if (firstPart is SO_ConeSkill conePart)
+        {
+            AddCones(fromTile, conePart.MaxRange, conePart.isWide);
+        }
+        else if (firstPart is SO_HalfCircleSkill halfPart)
+        {
+            AddCones(fromTile, halfPart.MaxRange, true);
+        }
+
+        return new List<BoardTile>(result);
     }
 }

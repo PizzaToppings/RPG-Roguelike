@@ -104,8 +104,13 @@ public class Enemy : Unit
         boardManager.ShowEnemyThreatRange(this);
 
         var aiEnemy = this as EnemyBaseAI;
-        if (aiEnemy != null && aiEnemy.NextSkillPreviewTiles != null && aiEnemy.NextSkillPreviewTiles.Count > 0)
-            boardManager.ShowEnemySkillPreview(aiEnemy.NextSkillPreviewTiles);
+        if (aiEnemy != null)
+        {
+            // Compute fresh — board state reflects wherever characters currently stand.
+            aiEnemy.UpdateIntentPreview();
+            if (aiEnemy.NextSkillPreviewTiles != null && aiEnemy.NextSkillPreviewTiles.Count > 0)
+                boardManager.ShowEnemySkillPreview(aiEnemy.NextSkillPreviewTiles);
+        }
     }
 
     void HideEnemyThreat()

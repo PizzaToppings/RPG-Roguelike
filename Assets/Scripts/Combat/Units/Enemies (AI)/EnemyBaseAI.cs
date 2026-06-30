@@ -102,15 +102,12 @@ public class EnemyBaseAI : Enemy
         if (chosen?.ForcedNextSkill != null)
             AIContext.ForcedNextSkill = chosen.ForcedNextSkill;
 
-        // 6. Pre-compute intent targeting preview
-        UpdateIntentPreview();
-
-        // 7. Refresh healthbar intent display
+        // 6. Refresh healthbar intent display
         if (ThisHealthbar is FloatingHealthbar fb)
             fb.InitIntent(CurrentSkill);
     }
 
-    private void UpdateIntentPreview()
+    public void UpdateIntentPreview()
     {
         NextSkillPreviewTiles.Clear();
         NextTarget = null;
@@ -118,10 +115,73 @@ public class EnemyBaseAI : Enemy
 
         if (CurrentSkill?.Skill == null || Tile == null) return;
 
-        var result = EnemySkillSimulator.SimulateSkill(this, CurrentSkill, Tile, enemySO?.EffectWeights);
+        // Simulate from where the enemy will stand after Phase 1 movement next turn,
+        // not from the current tile.
+        var castFromTile = ComputePreviewEngageTile();
+        var result = EnemySkillSimulator.SimulateSkill(this, CurrentSkill, castFromTile, enemySO?.EffectWeights);
         NextSkillPreviewTiles = result.AllTilesHit ?? new List<BoardTile>();
         NextTarget = result.BestTargetUnit;
         NextTargetTile = result.BestTargetTile;
+    }
+
+    /// <summary>
+    /// Returns the tile this enemy would move to before attacking next turn.
+    /// Simulates movement AOE without visual side effects:
+    /// enemy movement does not colour tiles, so only movementLeft is dirtied
+    /// and we reset it per-tile rather than calling boardManager.Clear()
+    /// (which would wipe the threat-range colours already showing on the board).
+    /// </summary>
+    private BoardTile ComputePreviewEngageTile()
+    {
+        if (boardManager == null || UnitData.Characters == null || UnitData.Characters.Count == 0)
+            return Tile;
+
+        // Determine prospective target from current position without writing to this.Target
+        var prospectiveTarget = GetProspectiveTarget();
+        if (prospectiveTarget == null) return Tile;
+
+        // SetAOE reads UnitData.ActiveUnit to decide whether to colour tiles and which
+        // enemy's PossibleMovementTiles list to populate — temporarily set it to this enemy.
+        var savedActiveUnit = UnitData.ActiveUnit;
+        UnitData.ActiveUnit = this;
+
+        PossibleMovementTiles.Clear();
+        boardManager.SetAOE(MoveSpeed, Tile, null);   // full speed — simulating next turn
+
+        UnitData.ActiveUnit = savedActiveUnit;
+
+        // Temporarily set Target so FindEngageTile() has a reference point
+        var savedTarget = Target;
+        Target = prospectiveTarget;
+
+        var engageTile = FindEngageTile() ?? Tile;
+
+        Target = savedTarget;
+
+        // Reset tile movement state without touching colours.
+        // SetAOE for enemies only writes tile.movementLeft / tile.PreviousTile — no colours —
+        // so we only need to undo those fields for the tiles we just dirtied.
+        foreach (var tile in PossibleMovementTiles)
+        {
+            if (tile == null) continue;
+            tile.movementLeft = -1;
+            tile.PreviousTile = null;
+            tile.skillshotsRangeLeft = new List<float>();
+        }
+        PossibleMovementTiles.Clear();
+
+        return engageTile;
+    }
+
+    /// <summary>Returns the target this enemy would select next turn without modifying this.Target.</summary>
+    private Unit GetProspectiveTarget()
+    {
+        var tauntTarget = GetTauntTarget();
+        if (tauntTarget != null) return tauntTarget;
+
+        var candidates = EnemySkillSimulator.GetValidCharactersInRange(
+            this, CurrentSkill, Tile, float.MaxValue);
+        return candidates.Count > 0 ? candidates[0] : null;
     }
 
     // -----------------------------------------------------------------------
@@ -270,9 +330,27 @@ public class EnemyBaseAI : Enemy
 
     public BoardTile FindEngageTile()
     {
-        if (Target == null || CurrentSkill?.Skill == null) return null;
+        if (CurrentSkill?.Skill == null) return null;
+
+        // Caster-origin skills (AoE / Self+AoE / Cone / Line / HalfCircle):
+        // the origin is always the caster, so we pick the movement tile that
+        // maximises skill score rather than just closing in on one target.
+        if (IsCasterOriginSkill())
+            return FindBestAoEPositionTile();
+
+        if (Target == null) return null;
 
         float attackRange  = CurrentSkill.Skill.GetAttackRange();
+
+        // Fallback for caster-origin AoE skills where no part has IncludeInAutoMove set:
+        // use the first skill part's MaxRange so the enemy still moves within AoE radius.
+        if (attackRange <= 0f && CurrentSkill.Skill.SkillPartGroups?.Count > 0)
+        {
+            var parts = CurrentSkill.Skill.SkillPartGroups[0].skillParts;
+            if (parts != null && parts.Count > 0 && parts[0] != null)
+                attackRange = parts[0].MaxRange;
+        }
+
         float optimalRange = enemySO?.AIProfile?.OptimalRange ?? 1.5f;
 
         // Already in range
@@ -306,9 +384,69 @@ public class EnemyBaseAI : Enemy
 
     private bool IsInSkillRange()
     {
-        if (Target == null || CurrentSkill?.Skill == null) return false;
+        if (CurrentSkill?.Skill == null) return false;
+
+        // Caster-origin skills are always castable from any tile
+        // (AoE/cone/line radiate from the caster, not from a chosen target).
+        if (IsCasterOriginSkill()) return true;
+
+        if (Target == null) return false;
         float attackRange = CurrentSkill.Skill.GetAttackRange();
+        if (attackRange <= 0f && CurrentSkill.Skill.SkillPartGroups?.Count > 0)
+        {
+            var parts = CurrentSkill.Skill.SkillPartGroups[0].skillParts;
+            if (parts != null && parts.Count > 0 && parts[0] != null)
+                attackRange = parts[0].MaxRange;
+        }
         return boardManager.GetRangeBetweenTiles(Tile, Target.Tile) <= attackRange;
+    }
+
+    /// <summary>
+    /// Returns true when the first skill part fires from the caster's own tile
+    /// (AoE circles, self-buff with follow-up, cone, half-circle, or line).
+    /// For these, positioning is about maximising coverage, not reaching a specific target.
+    /// </summary>
+    private bool IsCasterOriginSkill()
+    {
+        var groups = CurrentSkill?.Skill?.SkillPartGroups;
+        if (groups == null || groups.Count == 0) return false;
+        var parts = groups[0].skillParts;
+        if (parts == null || parts.Count == 0) return false;
+        var first = parts[0];
+        return first is SO_AOE_Skill
+            || first is SO_TargetSelfSkill
+            || first is SO_ConeSkill
+            || first is SO_HalfCircleSkill
+            || first is SO_LineSkill;
+    }
+
+    /// <summary>
+    /// Iterates every reachable movement tile and returns the one with the highest
+    /// skill score (most / highest-value targets hit). Used for caster-origin skills.
+    /// Returns null when the current tile is already the best position.
+    /// </summary>
+    private BoardTile FindBestAoEPositionTile()
+    {
+        BoardTile bestTile  = null;  // null = stay on current tile
+        float     bestScore = float.MinValue;
+
+        // Evaluate the current tile first
+        var currentSim = EnemySkillSimulator.SimulateSkill(this, CurrentSkill, Tile, enemySO?.EffectWeights);
+        bestScore = currentSim.Score;
+
+        foreach (var moveTile in PossibleMovementTiles)
+        {
+            if (moveTile == null || moveTile.currentUnit != null) continue;
+
+            var sim = EnemySkillSimulator.SimulateSkill(this, CurrentSkill, moveTile, enemySO?.EffectWeights);
+            if (sim.Score > bestScore)
+            {
+                bestScore = sim.Score;
+                bestTile  = moveTile;
+            }
+        }
+
+        return bestTile;  // null = don't move (current tile is optimal)
     }
 
     public void FindOptimalTile()
