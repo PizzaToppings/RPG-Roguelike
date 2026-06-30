@@ -251,18 +251,22 @@ public class EnemyBaseAI : Enemy
         if (!result.HasValidTarget && CurrentSkill.MinTargetCount > 0)
             yield break;
 
+        // Show the skill name in the activity bar and pause briefly before casting
+        string skillDisplayName = !string.IsNullOrEmpty(CurrentSkill.SkillName)
+            ? CurrentSkill.SkillName
+            : CurrentSkill.Skill?.SkillName;
+        if (!string.IsNullOrEmpty(skillDisplayName))
+            UIManager.Instance?.TriggerActivityText(skillDisplayName);
+        yield return new WaitForSeconds(0.5f);
+
         InitSkillDataForEnemy(runtimeSkill);
         SetSkillTargets(runtimeSkill, result);
 
         yield return StartCoroutine(SkillsManager.Instance.CastSkill(runtimeSkill, this));
 
-        AIContext.RecordSkillUsed(CurrentSkill, AIContext.TurnCount);
-    }
+        yield return new WaitForSeconds(1f);
 
-    public virtual IEnumerator Attack()
-    {
-        yield return StartCoroutine(ExecuteSkill());
-        EndTurn();
+        AIContext.RecordSkillUsed(CurrentSkill, AIContext.TurnCount);
     }
 
     // -----------------------------------------------------------------------
