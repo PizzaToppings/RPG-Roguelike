@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FireballBoy_AI_Profile
   m_EditorClassIdentifier: 
   Role: 1
-  OptimalRange: 1.5
+  OptimalRange: 5
   MinRange: 0
   PreferNearAllies: 1

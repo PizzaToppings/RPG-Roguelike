@@ -24,12 +24,12 @@ MonoBehaviour:
     Skill: {fileID: 11400000, guid: 9a489d4047cdc224aad045d5ef0d92b3, type: 2}
     IntentAction: 6
     TargetPreference: 1
-    TargetPriority: {fileID: 11400000, guid: 83d8f2c6d61033946b5ffc40d22ab0bd, type: 2}
+    TargetPriority: {fileID: 11400000, guid: 0dc78a7dbffac7948afb9811ec87e041, type: 2}
     Weight: 1
     Conditions: []
     MaxTargetCount: 1
     MinTargetCount: 0
-  SkillSelectionStrategy: {fileID: 11400000, guid: c9546e7f6dba5144db5b65b9c76ad538,
+  SkillSelectionStrategy: {fileID: 11400000, guid: e41cde51e3e61b84ba8f99853ca1ffaf,
     type: 2}
   AIProfile: {fileID: 11400000, guid: 635be2406e5642a4894e78f3157b945d, type: 2}
   EffectWeights: {fileID: 11400000, guid: 4574335f80ea3644aae7d63fcf31a26b, type: 2}

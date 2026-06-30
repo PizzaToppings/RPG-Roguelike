@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99a837ac1c9abd74dbbb419158983734, type: 3}
-  m_Name: FireballBoy_TargetPriority
+  m_Name: ClosestTargetPriority
   m_EditorClassIdentifier: 
   Priority: 0
   AvoidTargetsWithBuff: 0

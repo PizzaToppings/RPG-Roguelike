@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b096227c8b92124282d219a39b289e9, type: 3}
-  m_Name: FireballBoy_0_Main
+  m_Name: Crook_Bow_Shoot_Main
   m_EditorClassIdentifier: 
-  SkillName: Fireball
-  Image: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
+  SkillName: 
+  Image: {fileID: 0}
   IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 0
-  Classes: 0500000006000000
-  Description: 'Deal <damage> in a 2-tile radius circle. '
+  Classes: 
+  Description: 
   SkillPartGroups:
   - skillParts:
-    - {fileID: 11400000, guid: 54f2e36aa480c324382240d4f8577ff7, type: 2}
-    - {fileID: 11400000, guid: b4262b737100c62448f56daa61557437, type: 2}
+    - {fileID: 11400000, guid: 52aecc7cf03b8cd4abcb1546161461a4, type: 2}
   EnergyCost: 10
-  DefaultCharges: 2
-  DefaultCooldown: 1
+  DefaultCharges: 1
+  DefaultCooldown: 0
   AvailableAugments: []
-  Cursor: 3
+  Cursor: 0
   castLockColor:
     FillCenter: 0
     Kind: 0

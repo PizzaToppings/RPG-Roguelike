@@ -37,6 +37,7 @@ MonoBehaviour:
     Prerequisites: []
     HitType: 0
     Power: 3
+    IsMagical: 0
   MinRange: 1
   MaxRange: 1.5
   IncludeInAutoMove: 0
@@ -45,7 +46,7 @@ MonoBehaviour:
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
   StatusEffects:
-  - {fileID: 11400000, guid: 75d355e2f47dcad4595991ebeb54a873, type: 2}
+  - {fileID: 11400000, guid: 3741756b6e1eed24cb6b51d01847b77c, type: 2}
   tileEffects: []
   displacementEffect:
     UseDisplacement: 0

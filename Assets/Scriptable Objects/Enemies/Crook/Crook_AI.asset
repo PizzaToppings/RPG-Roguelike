@@ -10,20 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f60e2950789797441ad882480a694034, type: 3}
-  m_Name: SlamRat_AI
+  m_Name: Crook_AI
   m_EditorClassIdentifier: 
-  Name: SlamRat
-  Image: {fileID: 21300000, guid: 1454ed7b971385c4ea4f1ac8f495ac37, type: 3}
-  MaxHealth: 7
-  MoveSpeed: 7
+  Name: Crook
+  Image: {fileID: 21300000, guid: f8d287bb8dd5c474ea5ee3ea8e76239b, type: 3}
+  MaxHealth: 8
+  MoveSpeed: 5
   Power: 0
   Armor: 0
   AlwaysStartWithFirstSkill: 0
   Skills:
-  - SkillName: Groundslam
-    Skill: {fileID: 11400000, guid: a02a0c949bb219e449441a0595efab8c, type: 2}
-    IntentAction: 6
-    TargetPreference: 3
+  - SkillName: Strike
+    Skill: {fileID: 11400000, guid: c343e3ae08b33e14e9e58f890adfea36, type: 2}
+    IntentAction: 1
+    TargetPreference: 1
+    TargetPriority: {fileID: 11400000, guid: 0dc78a7dbffac7948afb9811ec87e041, type: 2}
+    Weight: 1
+    Conditions: []
+    MaxTargetCount: 1
+    MinTargetCount: 0
+  - SkillName: Kick
+    Skill: {fileID: 11400000, guid: ec7a1482f6b482f43883fe7c3f73602e, type: 2}
+    IntentAction: 1
+    TargetPreference: 1
     TargetPriority: {fileID: 11400000, guid: 0dc78a7dbffac7948afb9811ec87e041, type: 2}
     Weight: 1
     Conditions: []

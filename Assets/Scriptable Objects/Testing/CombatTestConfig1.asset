@@ -18,8 +18,8 @@ MonoBehaviour:
   EncounterPool: {fileID: 11400000, guid: 7ce1834e6ca57914dbe0625db60d5623, type: 2}
   PresetCharacters: []
   RandomizeCharacters: 1
-  MinCharacterCount: 4
-  MaxCharacterCount: 4
+  MinCharacterCount: 2
+  MaxCharacterCount: 2
   CharacterRoster: {fileID: 11400000, guid: adaa1ff5e701ef64dac0234ebc525100, type: 2}
   RandomizeSkills: 1
   MinSkillsPerCharacter: 2

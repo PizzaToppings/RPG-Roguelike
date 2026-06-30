@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a837ac1c9abd74dbbb419158983734, type: 3}
-  m_Name: Slamrat_TargetPriority
+  m_Script: {fileID: 11500000, guid: 152862d93031a604197d39e083f6b38b, type: 3}
+  m_Name: Crook_Bow_Profile
   m_EditorClassIdentifier: 
-  Priority: 0
-  AvoidTargetsWithBuff: 0
-  AvoidTargetsWithDebuff: 0
-  AllowTargetingSelf: 0
-  MinValidTargets: 0
+  Role: 1
+  OptimalRange: 5
+  MinRange: 0
+  PreferNearAllies: 0
