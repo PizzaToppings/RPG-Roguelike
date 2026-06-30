@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd6b47569479fa64bb61858a3e75059c, type: 3}
-  m_Name: Sunder_1_Target
+  m_Script: {fileID: 11500000, guid: a3ea86c1f688f1743be5ed65f3919415, type: 3}
+  m_Name: Taunt_Augment3a_Self
   m_EditorClassIdentifier: 
-  OriginTileKind: 1
+  OriginTileKind: 0
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
@@ -25,28 +25,27 @@ MonoBehaviour:
   TargetKind: 0
   tileColor:
     FillCenter: 0
-    Kind: 3
+    Kind: 0
     Priority: 10
   AddProjectileLine: 0
   ProjectileLineOffset: 1
-  DashOnDamageOrEffect: 1
+  DashOnDamageOrEffect: 0
   SkillVFX: []
   DamageEffects:
   - Caster: {fileID: 0}
     Modifiers: []
     Prerequisites: []
-    HitType: 0
-    Power: 3
+    HitType: 2
+    Power: 4
     IsMagical: 0
   MinRange: 0
-  MaxRange: 1.5
+  MaxRange: 0
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
-  StatusEffects:
-  - {fileID: 11400000, guid: 1dbc3847e33da744cb20235d37feb463, type: 2}
+  StatusEffects: []
   tileEffects: []
   displacementEffect:
     UseDisplacement: 0
@@ -101,8 +100,3 @@ MonoBehaviour:
     StartVFX: {fileID: 0}
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
-  SelectedTargetTileColor:
-    FillCenter: 1
-    Kind: 3
-    Priority: 4
-  CanTargetSelf: 0

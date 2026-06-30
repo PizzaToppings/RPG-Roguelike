@@ -19,15 +19,20 @@ MonoBehaviour:
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 0400000007000000
-  Description: "Increase your Armor by 2 for 2 turn. \nReduce your Speed by 1 for
-    2 turn."
+  Description: 'Gain 2 <Guarded> and 5 Shield.
+
+    Reduce your Speed by 1 for 2
+    turn.'
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: d56f8ae5a9cfa734b8f63d27463389e1, type: 2}
   EnergyCost: 4
   DefaultCharges: 1
   DefaultCooldown: 2
-  AvailableAugments: []
+  AvailableAugments:
+  - {fileID: 11400000, guid: 83ceea395a30635469b8ef8fe38fe459, type: 2}
+  - {fileID: 11400000, guid: 4098df2d3b873db45b0f862b408080a4, type: 2}
+  - {fileID: 11400000, guid: ba41277aba608064b88a66cc1465df85, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0

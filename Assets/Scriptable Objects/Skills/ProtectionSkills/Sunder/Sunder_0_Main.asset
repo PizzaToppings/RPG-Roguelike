@@ -14,17 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Sunder
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 2
   Classes: 04000000
-  Description: Deal <damage0-0-0> to an enemy and reduce their Armor by 2 until your
-    next turn.
+  Description: Deal <damage0-0-0> to an enemy and give them 2 <Exposed>.
   SkillPartGroups:
   - skillParts:
     - {fileID: 11400000, guid: cde9fa71b33780f4ea233661945b28a0, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 0
+  AvailableAugments:
+  - {fileID: 11400000, guid: 533e178ba39ff3747849e4938e6dd270, type: 2}
+  - {fileID: 11400000, guid: a7bfc9b334542e444b6c034819c07dd9, type: 2}
+  - {fileID: 11400000, guid: f1ce96555890f2749bcf754dc14ab430, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0

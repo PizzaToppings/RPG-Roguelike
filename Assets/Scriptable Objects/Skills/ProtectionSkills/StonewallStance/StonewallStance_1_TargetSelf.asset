@@ -32,7 +32,13 @@ MonoBehaviour:
   DashOnDamageOrEffect: 0
   SkillVFX:
   - {fileID: 11400000, guid: 85a1a3808e5c68e4086db87473a4d45a, type: 2}
-  DamageEffects: []
+  DamageEffects:
+  - Caster: {fileID: 0}
+    Modifiers: []
+    Prerequisites: []
+    HitType: 2
+    Power: 5
+    IsMagical: 0
   MinRange: 0
   MaxRange: 0
   IncludeInAutoMove: 0
@@ -41,7 +47,7 @@ MonoBehaviour:
   PreventDuplicateTiles: []
   PreventDuplicateTargets: []
   StatusEffects:
-  - {fileID: 11400000, guid: f1d09eda74caa984eaa1ae097e5addba, type: 2}
+  - {fileID: 11400000, guid: 2a7da4329cb6d8b42aa06741ebee40d6, type: 2}
   - {fileID: 11400000, guid: 69f9026c801cf0f4da23f33a088c6685, type: 2}
   tileEffects: []
   displacementEffect:
