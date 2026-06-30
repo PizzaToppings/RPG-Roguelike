@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8849508eff5e90a45b0deb3585d5e3cc, type: 3}
+  m_Name: SeveringBlow_Augment3_DamageUp
+  m_EditorClassIdentifier: 
+  AugmentName: Bigger Hit
+  Prerequisite: {fileID: 0}
+  Description: Deal an additional 5 damage.
+  SkillPartGroupIndex: 0
+  SkillPartIndex: -1
+  HitType: 0
+  AffectAllMatches: 1
+  PowerDelta: 5
+  AddIfMissing: 0
+  BasePower: 1
+  AddedDamagePrerequisite: {fileID: 0}
