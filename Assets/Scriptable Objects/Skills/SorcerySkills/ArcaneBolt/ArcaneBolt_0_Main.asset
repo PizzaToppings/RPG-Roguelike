@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillName: Arcane Bolt
   Image: {fileID: 0}
+  IsMagical: 0
   IsBasic: 0
   IsConsumable: 0
   SkillCombatStyle: 3
@@ -24,6 +25,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c4a123135f1e0e5479917ec61e8de4ff, type: 2}
   EnergyCost: 10
   DefaultCharges: 1
+  DefaultCooldown: 1
+  AvailableAugments:
+  - {fileID: 11400000, guid: 737c2224662ec1a4293017f0e0bf95fd, type: 2}
+  - {fileID: 11400000, guid: 232ce2f4a1878bb4fb0877772a10b260, type: 2}
+  - {fileID: 11400000, guid: f72b45a7d7765c44a8bff5edf4a3bc65, type: 2}
   Cursor: 0
   castLockColor:
     FillCenter: 0

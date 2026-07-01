@@ -9,37 +9,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b50f259d217c54541888070e554f49aa, type: 3}
-  m_Name: ArcaneBurst_1_AoE
+  m_Script: {fileID: 11500000, guid: 34aef6474eda451408f659343bc3841d, type: 3}
+  m_Name: ArcaneBurst_Augment1a_Line
   m_EditorClassIdentifier: 
-  OriginTileKind: 1
+  OriginTileKind: 2
   OriginTileSkillParts: []
   OriginTargetKind: 0
   OriginTargetSkillParts: []
   TargetTileKind: 0
   TargetTileSkillParts: []
-  DirectionAnchor: 0
+  DirectionAnchor: 1
   DirectionAnchorSkillPart: {fileID: 0}
-  DirectionInput: 0
+  DirectionInput: 2
   DirectionInputSkillPart: {fileID: 0}
   TargetKind: 0
   tileColor:
-    FillCenter: 1
-    Kind: 4
-    Priority: 5
+    FillCenter: 0
+    Kind: 0
+    Priority: 10
   AddProjectileLine: 0
   ProjectileLineOffset: 1
   DashOnDamageOrEffect: 0
   SkillVFX: []
-  DamageEffects:
-  - Caster: {fileID: 0}
-    Modifiers: []
-    Prerequisites: []
-    HitType: 0
-    Power: 3
-    IsMagical: 0
+  DamageEffects: []
   MinRange: 0
-  MaxRange: 3
+  MaxRange: 2
   IncludeInAutoMove: 0
   AffectedByBlockedTiles: 0
   FreeSpacesOnly: 0
@@ -48,10 +42,10 @@ MonoBehaviour:
   StatusEffects: []
   tileEffects: []
   displacementEffect:
-    UseDisplacement: 0
-    DisplacementType: 0
-    Unit: {fileID: 0}
-    TargetPosition: {fileID: 0}
+    UseDisplacement: 1
+    DisplacementType: 2
+    Unit: {fileID: 11400000, guid: 71451e4e245e10a4eb436bfa55789f99, type: 2}
+    TargetPosition: {fileID: 11400000}
     Delay: 0
     SpeedCurve:
       serializedVersion: 2
@@ -77,7 +71,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    Speed: 1
+    Speed: 2
     Offset: 0
     HeightCurve:
       serializedVersion: 2
@@ -94,9 +88,16 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    Height: 1
+    Height: 0
     Duration: 0
     UseDuration: 0
     StartVFX: {fileID: 0}
     EndVFX: {fileID: 0}
   SummonObject: {fileID: 0}
+  Angles: 
+  PierceAmount: -1
+  GetLastTileOnly: 0
+  endColor:
+    FillCenter: 0
+    Kind: 0
+    Priority: 10
